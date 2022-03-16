@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+<div id="jedi-container"></div>
+
+<script src="./assets/js/jedi.js"></script>
+<script>
+  var jediContainer = document.querySelector('#jedi-container')
+  var schema = {
+    "type": "string",
+    "title": "string"
+  }
+
+  // var schema = {
+  //   "string": {
+  //     "type": "string",
+  //     "title": "string"
+  //   },
+  //   "number": {
+  //     "type": "number",
+  //     "title": "number"
+  //   },
+  //   "integer": {
+  //     "type": "integer",
+  //     "title": "integer"
+  //   },
+  //   "object": {
+  //     "type": "object",
+  //     "title": "object"
+  //   },
+  //   "array": {
+  //     "type": "array",
+  //     "title": "array"
+  //   },
+  //   "boolean": {
+  //     "type": "boolean",
+  //     "title": "boolean"
+  //   },
+  //   "null": {
+  //     "type": "null",
+  //     "title": "null"
+  //   }
+  // }
+
+  var jedi = new Jedi(jediContainer, schema)
+  console.log(jedi)
+</script>
+</body>
+</html>
