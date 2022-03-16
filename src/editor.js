@@ -3,6 +3,7 @@ import Theme from './theme'
 class Editor {
   constructor () {
     this.theme = new Theme()
+    this.html = null
     this.init()
   }
 

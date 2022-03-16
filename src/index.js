@@ -14,7 +14,7 @@ class Jedi {
   loadEditors () {
     const editor = this.createEditor(this.schema)
     console.log(editor)
-    this.container.appendChild(editor.container)
+    this.container.appendChild(editor.html)
     this.container.classList.add('jedi-loaded')
   }
 
