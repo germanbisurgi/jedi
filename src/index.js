@@ -1,7 +1,10 @@
+import Theme from './theme'
 import StringEditor from './editors/string'
+import ObjectEditor from './editors/object'
 
 class Jedi {
   constructor (container, schema) {
+    this.theme = new Theme()
     this.container = container
     this.schema = schema
     this.init()
@@ -19,11 +22,19 @@ class Jedi {
   }
 
   createEditor (schema) {
-    let editor = null
-    if (schema.type === 'string') {
-      editor = new StringEditor()
+    return new (this.getEditorClass(schema))({
+      schema: schema,
+      theme: this.theme
+    })
+  }
+
+  getEditorClass (schema) {
+    const classes = {
+      string: StringEditor,
+      object: ObjectEditor
     }
-    return editor
+
+    return classes[schema.type]
   }
 }
 

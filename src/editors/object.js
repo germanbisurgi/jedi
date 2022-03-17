@@ -1,13 +1,13 @@
 import Editor from '../editor'
 
-class StringEditor extends Editor {
+class ObjectEditor extends Editor {
   build () {
     this.html = this.theme.getContainer()
-    const label = this.theme.getLabel('string')
+    const label = this.theme.getLabel('object')
     const input = this.theme.getInput('text')
     this.html.appendChild(label)
     this.html.appendChild(input)
   }
 }
 
-export default StringEditor
+export default ObjectEditor

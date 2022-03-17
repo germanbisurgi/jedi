@@ -1,21 +1,21 @@
-import Theme from './theme'
-
 class Editor {
-  constructor () {
-    this.theme = new Theme()
+  constructor (config) {
+    this.theme = config.theme
+    this.schema = config.schema
     this.html = null
     this.init()
   }
 
   init () {
-    this.preBuild()
+    console.log(this.schema)
     this.build()
-    this.postBuild()
   }
 
-  preBuild () {}
   build () {}
-  postBuild () {}
+
+  addEventListeners () {
+
+  }
 }
 
 export default Editor
