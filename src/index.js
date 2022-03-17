@@ -1,12 +1,13 @@
 import Theme from './theme'
-import StringEditor from './editors/string'
-import ObjectEditor from './editors/object'
+import Resolver from './resolver'
 
 class Jedi {
   constructor (container, schema) {
     this.theme = new Theme()
+    this.resolver = new Resolver()
     this.container = container
     this.schema = schema
+    this.root = null
     this.init()
   }
 
@@ -15,26 +16,12 @@ class Jedi {
   }
 
   loadEditors () {
-    const editor = this.createEditor(this.schema)
-    console.log(editor)
-    this.container.appendChild(editor.html)
-    this.container.classList.add('jedi-loaded')
-  }
-
-  createEditor (schema) {
-    return new (this.getEditorClass(schema))({
-      schema: schema,
+    this.root = new (this.resolver.resolve(this.schema))({
+      schema: this.schema,
       theme: this.theme
     })
-  }
-
-  getEditorClass (schema) {
-    const classes = {
-      string: StringEditor,
-      object: ObjectEditor
-    }
-
-    return classes[schema.type]
+    this.container.appendChild(this.root.html)
+    this.container.classList.add('jedi-loaded')
   }
 }
 

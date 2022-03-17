@@ -7,7 +7,6 @@ class Editor {
   }
 
   init () {
-    console.log(this.schema)
     this.build()
   }
 
