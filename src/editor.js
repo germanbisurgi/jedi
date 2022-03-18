@@ -2,7 +2,6 @@ class Editor {
   constructor (config) {
     this.jedi = config.jedi
     this.schema = config.schema
-    this.input = null
     this.value = undefined
     this.path = config.path || 'root'
     this.container = null
@@ -85,9 +84,7 @@ class Editor {
    * Refresh the UI of the editor to reflect it's value. This is necessary when
    * using setValue to set the value programmatically.
    */
-  refreshUI () {
-    this.input.value = this.getValue()
-  }
+  refreshUI () {}
 
   /**
    * Fires when the value of the editor changes.
