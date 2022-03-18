@@ -1,4 +1,7 @@
 object default value
 array default value
-initial values in general
 child editors as array?
+null editor
+number editor
+integer editor
+multiple editor

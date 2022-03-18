@@ -64,6 +64,13 @@ class Editor {
   }
 
   /**
+   * Validates value against it's schema
+   */
+  validate () {
+    return this.jedi.validator.validate(this.schema, this.getValue(), this.path)
+  }
+
+  /**
    * Sets the editor value and calls refreshUI right after. The onChange method
    * will be called if the new value is not an initial or default value and the
    * new value is different than the current value.
@@ -77,6 +84,7 @@ class Editor {
     }
 
     this.value = newValue
+    this.validate()
     this.refreshUI()
   }
 

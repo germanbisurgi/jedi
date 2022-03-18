@@ -1,10 +1,12 @@
 import Theme from './theme'
 import Resolver from './resolver'
+import Validator from './validator'
 
 class Jedi {
   constructor (config) {
     this.theme = new Theme()
     this.resolver = new Resolver()
+    this.validator = new Validator()
     this.container = config.container
     this.schema = config.schema
     this.root = null
