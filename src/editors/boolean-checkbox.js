@@ -1,6 +1,6 @@
-import Editor from '../editor'
+import BooleanEditor from './boolean'
 
-class BooleanCheckbox extends Editor {
+class BooleanCheckbox extends BooleanEditor {
   build () {
     const label = this.jedi.theme.getLabel(this.schema.title)
     this.container.appendChild(label)
@@ -8,12 +8,8 @@ class BooleanCheckbox extends Editor {
     this.container.appendChild(this.input)
 
     this.input.addEventListener('change', () => {
-      this.value = this.input.value
+      this.setValue(this.input.checked)
     })
-  }
-
-  sanitize (value) {
-    return !!value
   }
 
   refreshUI () {

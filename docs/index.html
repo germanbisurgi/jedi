@@ -5,9 +5,7 @@
     <title>Index</title>
 </head>
 <body>
-
 <div id="jedi-container"></div>
-
 <script src="./assets/js/jedi.js"></script>
 <script>
   var jedi = new Jedi({
@@ -16,37 +14,31 @@
       "type": "object",
       "title": "object",
       "properties": {
-        "string": {
-          "type": "string",
-          "title": "string"
-        },
         "boolean_default": {
           "type": "boolean",
-          "title": "boolean-default",
+          "title": "boolean default",
           "default": true
         },
         "boolean_checkbox": {
           "type": "boolean",
-          "title": "boolean-checkbox",
+          "title": "boolean checkbox",
           "format": "checkbox",
           "default": true
         },
         "boolean_select": {
           "type": "boolean",
-          "title": "boolean-select",
+          "title": "boolean select",
           "format": "select",
           "default": true
         },
         "string_default": {
           "type": "string",
-          "title": "string-default",
+          "title": "string default",
           "default": "default value"
         }
       }
     }
   })
-
-    console.log('jedi', jedi)
 </script>
 </body>
 </html>

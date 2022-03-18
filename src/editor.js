@@ -62,6 +62,7 @@ class Editor {
    * Sanitize value
    */
   sanitize (value) {
+    console.log('editor sanitize', value)
     return value
   }
 

@@ -2,7 +2,7 @@ import Editor from '../editor'
 
 class BooleanEditor extends Editor {
   sanitize (value) {
-    return !!value
+    return Boolean(value)
   }
 }
 
