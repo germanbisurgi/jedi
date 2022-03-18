@@ -14,6 +14,17 @@ class Theme {
     input.setAttribute('type', type)
     return input
   }
+
+  getSelect (optionValues, optionsLabels) {
+    const select = document.createElement('select')
+    optionValues.forEach((value, index) => {
+      const option = document.createElement('option')
+      option.setAttribute('value', value)
+      option.textContent = optionsLabels[index]
+      select.appendChild(option)
+    })
+    return select
+  }
 }
 
 export default Theme

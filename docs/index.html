@@ -10,11 +10,19 @@
 
 <script src="./assets/js/jedi.js"></script>
 <script>
-  var jediContainer = document.querySelector('#jedi-container')
+  var container = document.querySelector('#jedi-container')
   var schema = {
-    "type": "string",
-    "title": "string"
+    "type": "boolean",
+    "title": "boolean",
+    "format": "checkbox",
+    "default": true
   }
+
+  // var schema = {
+  //   "type": "string",
+  //   "title": "string",
+  //   "default": "string"
+  // }
 
   // var schema = {
   //   "type": "object",
@@ -58,8 +66,12 @@
   //   }
   // }
 
-  var jedi = new Jedi(jediContainer, schema)
+  var jedi = new Jedi({
+    container,
+    schema
+  })
   console.log(jedi)
+  console.log('jedi.getValue()', jedi.getValue())
 </script>
 </body>
 </html>
