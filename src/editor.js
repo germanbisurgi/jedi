@@ -5,7 +5,6 @@ class Editor {
     this.input = null
     this.value = undefined
     this.path = config.path || 'root'
-    this.parent = config.parent || null
     this.container = null
     this.childEditors = {}
     this.init()
@@ -62,7 +61,6 @@ class Editor {
    * Sanitize value
    */
   sanitize (value) {
-    console.log('editor sanitize', value)
     return value
   }
 

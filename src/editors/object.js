@@ -22,11 +22,15 @@ class ObjectEditor extends Editor {
   }
 
   getValue () {
+    this.value = {}
     Object.keys(this.childEditors).forEach(prop => {
-      console.log(prop, this.childEditors[prop].getValue())
       this.value[prop] = this.childEditors[prop].getValue()
     })
     return this.value
+  }
+
+  refreshUI () {
+
   }
 }
 

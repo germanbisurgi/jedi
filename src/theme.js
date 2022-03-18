@@ -1,4 +1,10 @@
 class Theme {
+  getButton (text) {
+    const button = document.createElement('button')
+    button.textContent = text
+    return button
+  }
+
   getContainer () {
     return document.createElement('div')
   }

@@ -1,3 +1,4 @@
+import ArrayEditor from './editors/array'
 import BooleanCheckbox from './editors/boolean-checkbox'
 import BooleanSelect from './editors/boolean-select'
 import ObjectEditor from './editors/object'
@@ -27,6 +28,11 @@ class Resolver {
       (schema) => {
         if (schema.type === 'object') {
           return ObjectEditor
+        }
+      },
+      (schema) => {
+        if (schema.type === 'array') {
+          return ArrayEditor
         }
       },
       (schema) => {

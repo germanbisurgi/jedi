@@ -14,9 +14,9 @@
       "type": "object",
       "title": "object",
       "properties": {
-        "boolean_default": {
+        "boolean": {
           "type": "boolean",
-          "title": "boolean default",
+          "title": "boolean",
           "default": true
         },
         "boolean_checkbox": {
@@ -31,14 +31,24 @@
           "format": "select",
           "default": true
         },
-        "string_default": {
+        "string": {
           "type": "string",
-          "title": "string default",
+          "title": "string",
           "default": "default value"
+        },
+        "array": {
+          "type": "array",
+          "title": "array",
+          "items": {
+            "type": "string",
+            "title": "string",
+            "default": "default value"
+          }
         }
       }
     }
   })
+    console.log(jedi)
 </script>
 </body>
 </html>

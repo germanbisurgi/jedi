@@ -13,7 +13,7 @@ class StringEditor extends Editor {
     this.container.appendChild(this.input)
 
     this.input.addEventListener('change', () => {
-      this.value = this.input.value
+      this.setValue(this.input.value)
     })
   }
 
