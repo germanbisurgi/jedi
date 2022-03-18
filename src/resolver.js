@@ -5,40 +5,33 @@ import StringEditor from './editors/string'
 
 class Resolver {
   constructor () {
-    this.classes = {
-      booleanCheckbox: BooleanCheckbox,
-      booleanSelect: BooleanSelect,
-      object: ObjectEditor,
-      string: StringEditor
-    }
-
     /**
      * Functions that return an editor class if the condition pass
      */
     this.resolvers = [
       (schema) => {
         if (schema.type === 'boolean' && schema.format === 'checkbox') {
-          return this.classes.booleanCheckbox
+          return BooleanCheckbox
         }
       },
       (schema) => {
         if (schema.type === 'boolean' && schema.format === 'select') {
-          return this.classes.booleanSelect
+          return BooleanSelect
         }
       },
       (schema) => {
         if (schema.type === 'boolean') {
-          return this.classes.booleanCheckbox
+          return BooleanCheckbox
         }
       },
       (schema) => {
-        if (!schema.type && schema.properties) {
-          return this.classes.object
+        if (schema.type === 'object') {
+          return ObjectEditor
         }
       },
       (schema) => {
         if (schema.type === 'string') {
-          return this.classes.string
+          return StringEditor
         }
       }
     ]
@@ -56,9 +49,9 @@ class Resolver {
    */
   resolve (schema) {
     for (const resolver of this.resolvers) {
-      const className = resolver(schema)
-      if (typeof className !== 'undefined') {
-        return className
+      const editorClass = resolver(schema)
+      if (typeof editorClass !== 'undefined') {
+        return editorClass
       }
     }
   }

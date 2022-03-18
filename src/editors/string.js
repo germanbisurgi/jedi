@@ -1,18 +1,24 @@
 import Editor from '../editor'
 
 class StringEditor extends Editor {
+  constructor (config) {
+    super(config)
+    this.value = ''
+  }
+
   build () {
-    this.html = this.jedi.theme.getContainer()
-    const label = this.jedi.theme.getLabel('string')
-    const input = this.jedi.theme.getInput('text')
-    this.html.appendChild(label)
-    this.html.appendChild(input)
+    const label = this.jedi.theme.getLabel(this.schema.title)
+    this.input = this.jedi.theme.getInput('text')
+    this.container.appendChild(label)
+    this.container.appendChild(this.input)
 
-    this.input = input
-
-    input.addEventListener('change', () => {
-      this.value = input.value
+    this.input.addEventListener('change', () => {
+      this.value = this.input.value
     })
+  }
+
+  sanitize (value) {
+    return String(value)
   }
 }
 

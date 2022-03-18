@@ -2,10 +2,12 @@ class Editor {
   constructor (config) {
     this.jedi = config.jedi
     this.schema = config.schema
-    this.html = null
     this.input = null
     this.value = undefined
     this.path = config.path || 'root'
+    this.parent = config.parent || null
+    this.container = null
+    this.childEditors = {}
     this.init()
   }
 
@@ -13,9 +15,15 @@ class Editor {
    * Starts the build pipeline of the editor
    */
   init () {
+    this.setContainer()
     this.build()
     this.setDefaultValue()
     this.register()
+  }
+
+  setContainer () {
+    this.container = this.jedi.theme.getContainer()
+    this.container.setAttribute('data-path', this.path)
   }
 
   build () {}

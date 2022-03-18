@@ -32,13 +32,20 @@ class Jedi {
   }
 
   loadEditors () {
-    this.root = new (this.resolver.resolve(this.schema))({
+    this.root = this.createEditor({
       jedi: this,
-      schema: this.schema,
-      theme: this.theme
+      schema: this.schema
     })
-    this.container.appendChild(this.root.html)
+    this.container.appendChild(this.root.container)
     this.container.classList.add('jedi-loaded')
+  }
+
+  /**
+   * Creates an editor instance based on the passed schema and config
+   */
+  createEditor (config) {
+    // todo expand defs
+    return new (this.resolver.resolve(config.schema))(config)
   }
 
   getValue () {
