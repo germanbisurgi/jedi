@@ -71,7 +71,7 @@ class Editor {
    */
   setValue (newValue, initial) {
     newValue = this.sanitize(newValue)
-    const currentValue = this.value
+    const currentValue = this.getValue()
 
     if (!initial && currentValue !== newValue) {
       this.onChange()

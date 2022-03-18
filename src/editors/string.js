@@ -1,11 +1,6 @@
 import Editor from '../editor'
 
 class StringEditor extends Editor {
-  constructor (config) {
-    super(config)
-    this.value = ''
-  }
-
   build () {
     const label = this.jedi.theme.getLabel(this.schema.title)
     this.input = this.jedi.theme.getInput('text')

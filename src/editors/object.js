@@ -1,11 +1,6 @@
 import Editor from '../editor'
 
 class ObjectEditor extends Editor {
-  constructor (config) {
-    super(config)
-    this.value = {}
-  }
-
   build () {
     const label = this.jedi.theme.getLabel('object')
     this.container.appendChild(label)
@@ -26,6 +21,7 @@ class ObjectEditor extends Editor {
     Object.keys(this.childEditors).forEach(prop => {
       this.value[prop] = this.childEditors[prop].getValue()
     })
+
     return this.value
   }
 

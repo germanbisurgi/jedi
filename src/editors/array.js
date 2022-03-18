@@ -1,11 +1,6 @@
 import Editor from '../editor'
 
 class ArrayEditor extends Editor {
-  constructor (config) {
-    super(config)
-    this.value = []
-  }
-
   build () {
     const label = this.jedi.theme.getLabel('array')
     this.container.appendChild(label)
