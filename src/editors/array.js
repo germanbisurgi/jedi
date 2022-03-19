@@ -1,4 +1,5 @@
 import Editor from '../editor'
+import utils from '../utils'
 
 class ArrayEditor extends Editor {
   build () {
@@ -12,20 +13,64 @@ class ArrayEditor extends Editor {
   }
 
   createItemEditor () {
-    return this.jedi.createEditor({
+    const itemEditor = this.jedi.createEditor({
       jedi: this.jedi,
       schema: this.schema.items,
       path: this.path + '.' + this.childEditors.length
     })
+
+    const deleteBtn = this.jedi.theme.getButton('delete')
+    itemEditor.container.appendChild(deleteBtn)
+    deleteBtn.addEventListener('click', () => {
+      const itemIndex = Number(itemEditor.path.split('.').pop())
+      this.deleteItem(itemIndex)
+    })
+
+    const itemIndex = Number(itemEditor.path.split('.').pop())
+
+    if (this.childEditors.length !== 0) {
+      const moveUpBtn = this.jedi.theme.getButton('move up')
+      itemEditor.container.appendChild(moveUpBtn)
+      moveUpBtn.addEventListener('click', () => {
+        const toIndex = itemIndex - 1
+        this.move(itemIndex, toIndex)
+      })
+    }
+
+    if (this.value.length - 1 !== itemIndex) {
+      const moveDownBtn = this.jedi.theme.getButton('move down')
+      itemEditor.container.appendChild(moveDownBtn)
+      moveDownBtn.addEventListener('click', () => {
+        const toIndex = itemIndex + 1
+        this.move(itemIndex, toIndex)
+      })
+    }
+
+    return itemEditor
+  }
+
+  move (fromIndex, toIndex) {
+    const value = utils.clone(this.getValue())
+    const item = value[fromIndex]
+    value.splice(fromIndex, 1)
+    value.splice(toIndex, 0, item)
+    this.setValue(value)
   }
 
   addItem () {
     const tempEditor = this.createItemEditor()
-    const currentValue = this.getValue()
-    const tempEditorValue = tempEditor.getValue()
-    const newValue = currentValue.concat(tempEditorValue)
+    const value = utils.clone(this.getValue())
+    value.push(tempEditor.getValue())
     tempEditor.destroy()
-    this.setValue(newValue)
+    this.setValue(value)
+  }
+
+  deleteItem (itemIndex) {
+    if (window.confirm('Confirm to delete')) {
+      const currentValue = this.getValue()
+      const newValue = currentValue.filter((item, index) => index !== itemIndex)
+      this.setValue(newValue)
+    }
   }
 
   refreshUI () {
@@ -47,7 +92,8 @@ class ArrayEditor extends Editor {
     })
   }
 
-  showValidationErrors () {}
+  showValidationErrors () {
+  }
 }
 
 export default ArrayEditor

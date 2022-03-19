@@ -1,7 +1,4 @@
-object set value
-array set value
-child editors as array?
-on change bubling
+object child editors array refactoring 
 null editor
 number editor
 integer editor
