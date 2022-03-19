@@ -16,7 +16,16 @@ class ArrayEditor extends Editor {
     const itemEditor = this.jedi.createEditor({
       jedi: this.jedi,
       schema: this.schema.items,
-      path: this.path + '.' + this.childEditors.length
+      path: this.path + '.' + this.childEditors.length,
+      parent: this
+    })
+
+    const itemIndex = Number(itemEditor.path.split('.').pop())
+
+    itemEditor.input.addEventListener('change', () => {
+      const value = utils.clone(this.getValue())
+      value[itemIndex] = utils.clone(itemEditor.getValue())
+      this.setValue(value)
     })
 
     const deleteBtn = this.jedi.theme.getButton('delete')
@@ -25,8 +34,6 @@ class ArrayEditor extends Editor {
       const itemIndex = Number(itemEditor.path.split('.').pop())
       this.deleteItem(itemIndex)
     })
-
-    const itemIndex = Number(itemEditor.path.split('.').pop())
 
     if (this.childEditors.length !== 0) {
       const moveUpBtn = this.jedi.theme.getButton('move up')
@@ -67,7 +74,7 @@ class ArrayEditor extends Editor {
 
   deleteItem (itemIndex) {
     if (window.confirm('Confirm to delete')) {
-      const currentValue = this.getValue()
+      const currentValue = utils.clone(this.getValue())
       const newValue = currentValue.filter((item, index) => index !== itemIndex)
       this.setValue(newValue)
     }

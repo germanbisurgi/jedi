@@ -9,7 +9,8 @@ class ObjectEditor extends Editor {
       const editor = this.jedi.createEditor({
         jedi: this.jedi,
         schema: schema,
-        path: this.path + '.' + prop
+        path: this.path + '.' + prop,
+        parent: this
       })
       this.container.appendChild(editor.container)
       this.childEditors[prop] = editor

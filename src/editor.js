@@ -4,6 +4,7 @@ class Editor {
     this.schema = config.schema
     this.value = config.value || undefined
     this.path = config.path || 'root'
+    this.parent = config.parent || null
     this.container = null
     this.childEditors = []
     this.init()
@@ -119,7 +120,9 @@ class Editor {
    * Fires when the value of the editor changes.
    */
   onChange () {
-    console.log('onChange', this.path)
+    if (this.parent) {
+      this.parent.onChange()
+    }
     this.showValidationErrors()
   }
 

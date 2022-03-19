@@ -3,7 +3,9 @@ import Editor from '../editor'
 class StringEditor extends Editor {
   build () {
     const label = this.jedi.theme.getLabel(this.schema.title)
-    this.input = this.jedi.theme.getInput('text')
+    const inputTypes = ['color', 'text']
+    const inputType = inputTypes.includes(this.schema.format) ? this.schema.format : 'text'
+    this.input = this.jedi.theme.getInput(inputType)
     this.container.appendChild(label)
     this.container.appendChild(this.input)
 
