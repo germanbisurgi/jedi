@@ -9,7 +9,6 @@ class StringEditor extends Editor {
 
     this.input.addEventListener('change', () => {
       this.setValue(this.input.value)
-      this.onChange()
     })
   }
 

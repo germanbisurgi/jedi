@@ -21,10 +21,11 @@ class ArrayEditor extends Editor {
 
   addItem () {
     const tempEditor = this.createItemEditor()
-    const value = this.getValue()
-    value.push(tempEditor.getValue())
+    const currentValue = this.getValue()
+    const tempEditorValue = tempEditor.getValue()
+    const newValue = currentValue.concat(tempEditorValue)
     tempEditor.destroy()
-    this.setValue(value)
+    this.setValue(newValue)
   }
 
   refreshUI () {

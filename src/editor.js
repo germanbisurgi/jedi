@@ -2,7 +2,7 @@ class Editor {
   constructor (config) {
     this.jedi = config.jedi
     this.schema = config.schema
-    this.value = undefined
+    this.value = config.value || undefined
     this.path = config.path || 'root'
     this.container = null
     this.childEditors = []
@@ -26,7 +26,11 @@ class Editor {
     this.container.setAttribute('data-type', this.schema.type)
   }
 
-  build () {}
+  /**
+   * build the editor's user interface
+   */
+  build () {
+  }
 
   /**
    * Adds this editor instance in the jedi.editors object
@@ -81,7 +85,7 @@ class Editor {
    * will be called if the new value is not an initial or default value and the
    * new value is different than the current value.
    */
-  setValue (newValue, initial) {
+  setValue (newValue, initial = false) {
     newValue = this.sanitize(newValue)
     const currentValue = this.getValue()
 
@@ -97,7 +101,8 @@ class Editor {
    * Refresh the UI of the editor to reflect it's value. This is necessary when
    * using setValue to set the value programmatically.
    */
-  refreshUI () {}
+  refreshUI () {
+  }
 
   /**
    * Shows validation messages in the editor container.
@@ -114,7 +119,7 @@ class Editor {
    * Fires when the value of the editor changes.
    */
   onChange () {
-    console.log('onChange')
+    console.log('onChange', this.path)
     this.showValidationErrors()
   }
 
