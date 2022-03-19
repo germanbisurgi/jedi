@@ -28,8 +28,6 @@ class ArrayEditor extends Editor {
   }
 
   refreshUI () {
-    console.log('this.getValue()', this.getValue())
-
     this.childEditors.forEach((editor) => {
       this.container.removeChild(editor.container)
       editor.destroy()
@@ -46,8 +44,6 @@ class ArrayEditor extends Editor {
     this.childEditors.forEach((editor) => {
       this.container.appendChild(editor.container)
     })
-
-    console.log('this.childEditors', this.childEditors)
   }
 
   showValidationErrors () {}

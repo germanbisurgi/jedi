@@ -5,7 +5,8 @@ class Validator {
      */
     this.validators = [
       (schema, value, path) => {
-        if (schema.const && schema.const !== value) {
+        console.log(schema.const, schema.const)
+        if (JSON.stringify(schema.const) && JSON.stringify(schema.const !== value)) {
           return {
             message: 'error const',
             path: path
