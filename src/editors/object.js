@@ -27,8 +27,6 @@ class ObjectEditor extends Editor {
   }
 
   refreshUI () {}
-
-  showValidationErrors () {}
 }
 
 export default ObjectEditor

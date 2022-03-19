@@ -98,9 +98,6 @@ class ArrayEditor extends Editor {
       this.container.appendChild(editor.container)
     })
   }
-
-  showValidationErrors () {
-  }
 }
 
 export default ArrayEditor

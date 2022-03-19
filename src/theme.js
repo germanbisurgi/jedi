@@ -13,7 +13,9 @@ class Theme {
    * Removes any error message from the specified editor container.
    */
   removeInputError (container) {
-    const errors = container.querySelectorAll('.jedi-error-message')
+    const path = container.getAttribute('data-path')
+    const selector = '[data-path="' + path + '"] > .jedi-error-message'
+    const errors = container.querySelectorAll(selector)
     errors.forEach((error) => {
       container.removeChild(error)
     })
