@@ -3,7 +3,7 @@ class Theme {
    * Adds an error message to the specified editor container.
    */
   addInputError (container, message) {
-    const error = document.createElement('div')
+    const error = document.createElement('span')
     error.classList.add('jedi-error-message')
     error.textContent = message
     container.appendChild(error)

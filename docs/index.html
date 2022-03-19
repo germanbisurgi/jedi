@@ -35,7 +35,6 @@
         },
         "string": {
           "type": "string",
-          "format": "color",
           "title": "string",
           "const": "yesterday",
           "default": "today"
@@ -43,11 +42,15 @@
         "array": {
           "type": "array",
           "title": "array",
-          "default": ["manana", "domani", "morgen"],
+          "default": [
+            "#6d80dd",
+            "#b80f0f",
+            "#280606"
+          ],
           "items": {
             "type": "string",
+            "title": "color",
             "format": "color",
-            "const": "ando"
           }
         }
       }

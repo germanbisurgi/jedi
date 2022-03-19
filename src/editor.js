@@ -89,12 +89,12 @@ class Editor {
   setValue (newValue, initial = false) {
     newValue = this.sanitize(newValue)
     const currentValue = this.getValue()
+    this.value = newValue
 
     if (!initial && currentValue !== newValue) {
       this.onChange()
     }
 
-    this.value = newValue
     this.refreshUI()
   }
 
@@ -122,6 +122,8 @@ class Editor {
   onChange () {
     if (this.parent) {
       this.parent.onChange()
+    } else {
+      console.log(JSON.stringify(this.getValue(), null, 2))
     }
     this.showValidationErrors()
   }

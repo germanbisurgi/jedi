@@ -31,7 +31,6 @@ class Jedi {
   unregisterEditor (editor) {
     this.editors[editor.path] = null
     delete this.editors[editor.path]
-    // todo delete?
   }
 
   loadEditors () {
