@@ -5,7 +5,7 @@ class Editor {
     this.value = undefined
     this.path = config.path || 'root'
     this.container = null
-    this.childEditors = {}
+    this.childEditors = []
     this.init()
   }
 

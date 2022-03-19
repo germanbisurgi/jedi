@@ -11,26 +11,43 @@ class ArrayEditor extends Editor {
     })
   }
 
-  addItem () {
-    const editor = this.jedi.createEditor({
+  createItemEditor () {
+    return this.jedi.createEditor({
       jedi: this.jedi,
       schema: this.schema.items,
-      path: this.path + '.' + Object.keys(this.childEditors).length
+      path: this.path + '.' + this.childEditors.length
     })
-    this.container.appendChild(editor.container)
-    this.childEditors[editor.path] = editor
-    return editor
   }
 
-  deleteItem (item) {
-    this.container.removeChild(item)
+  addItem () {
+    const tempEditor = this.createItemEditor()
+    const value = this.getValue()
+    value.push(tempEditor.getValue())
+    tempEditor.destroy()
+    this.setValue(value)
   }
 
   refreshUI () {
-    this.value.forEach((value) => {
-      const editor = this.addItem()
-      editor.setValue(value, true)
+    console.log('this.getValue()', this.getValue())
+
+    this.childEditors.forEach((editor) => {
+      this.container.removeChild(editor.container)
+      editor.destroy()
     })
+
+    this.childEditors = []
+
+    this.getValue().forEach((value) => {
+      const itemEditor = this.createItemEditor()
+      itemEditor.setValue(value, true)
+      this.childEditors.push(itemEditor)
+    })
+
+    this.childEditors.forEach((editor) => {
+      this.container.appendChild(editor.container)
+    })
+
+    console.log('this.childEditors', this.childEditors)
   }
 
   showValidationErrors () {}
