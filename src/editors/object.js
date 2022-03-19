@@ -25,9 +25,9 @@ class ObjectEditor extends Editor {
     return this.value
   }
 
-  refreshUI () {
+  refreshUI () {}
 
-  }
+  showValidationErrors () {}
 }
 
 export default ObjectEditor

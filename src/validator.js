@@ -5,7 +5,6 @@ class Validator {
      */
     this.validators = [
       (schema, value, path) => {
-        console.log(path, schema.const, value)
         if (schema.const && schema.const !== value) {
           return {
             message: 'error const',
@@ -31,7 +30,6 @@ class Validator {
     const errors = []
     for (const validator of this.validators) {
       const error = validator(schema, value, path)
-      console.log(error)
       if (error) {
         errors.push(error)
       }

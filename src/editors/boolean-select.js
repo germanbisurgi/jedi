@@ -11,6 +11,7 @@ class BooleanSelect extends BooleanEditor {
 
     this.input.addEventListener('change', () => {
       this.setValue(this.input.value)
+      this.onChange()
     })
   }
 

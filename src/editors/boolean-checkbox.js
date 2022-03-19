@@ -9,6 +9,7 @@ class BooleanCheckbox extends BooleanEditor {
 
     this.input.addEventListener('change', () => {
       this.setValue(this.input.checked)
+      this.onChange()
     })
   }
 

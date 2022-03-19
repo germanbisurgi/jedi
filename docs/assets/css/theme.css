@@ -1,0 +1,18 @@
+.jedi-error-message {
+    color: red;
+}
+
+[data-path] {
+    background-color: #fff;
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px;
+}
+
+[data-type="object"] {
+    background-color: #eee;
+}
+
+[data-type="array"] {
+    background-color: #eef;
+}

@@ -16,12 +16,14 @@ class Editor {
     this.setContainer()
     this.build()
     this.setDefaultValue()
+    this.showValidationErrors()
     this.register()
   }
 
   setContainer () {
     this.container = this.jedi.theme.getContainer()
     this.container.setAttribute('data-path', this.path)
+    this.container.setAttribute('data-type', this.schema.type)
   }
 
   build () {}
@@ -44,9 +46,20 @@ class Editor {
    * Sets a default value in the property "default" is set in the schema
    */
   setDefaultValue () {
+    let value
+
+    if (this.schema.type === 'boolean') value = false
+    if (this.schema.type === 'number') value = 0.0
+    if (this.schema.type === 'integer') value = 0
+    if (this.schema.type === 'string') value = ''
+    if (this.schema.type === 'object') value = {}
+    if (this.schema.type === 'array') value = []
+
     if (typeof this.schema.default !== 'undefined') {
-      this.setValue(this.schema.default, true)
+      value = this.schema.default
     }
+
+    this.setValue(value, true)
   }
 
   /**
@@ -64,13 +77,6 @@ class Editor {
   }
 
   /**
-   * Validates value against it's schema
-   */
-  validate () {
-    return this.jedi.validator.validate(this.schema, this.getValue(), this.path)
-  }
-
-  /**
    * Sets the editor value and calls refreshUI right after. The onChange method
    * will be called if the new value is not an initial or default value and the
    * new value is different than the current value.
@@ -84,7 +90,6 @@ class Editor {
     }
 
     this.value = newValue
-    this.validate()
     this.refreshUI()
   }
 
@@ -95,10 +100,22 @@ class Editor {
   refreshUI () {}
 
   /**
+   * Shows validation messages in the editor container.
+   */
+  showValidationErrors () {
+    const errors = this.jedi.validator.validate(this.schema, this.getValue(), this.path)
+    this.jedi.theme.removeInputError(this.container)
+    errors.forEach((error) => {
+      this.jedi.theme.addInputError(this.container, error.message)
+    })
+  }
+
+  /**
    * Fires when the value of the editor changes.
    */
   onChange () {
     console.log('onChange')
+    this.showValidationErrors()
   }
 
   /**

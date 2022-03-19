@@ -1,4 +1,24 @@
 class Theme {
+  /**
+   * Adds an error message to the specified editor container.
+   */
+  addInputError (container, message) {
+    const error = document.createElement('div')
+    error.classList.add('jedi-error-message')
+    error.textContent = message
+    container.appendChild(error)
+  }
+
+  /**
+   * Removes any error message from the specified editor container.
+   */
+  removeInputError (container) {
+    const errors = container.querySelectorAll('.jedi-error-message')
+    errors.forEach((error) => {
+      container.removeChild(error)
+    })
+  }
+
   getButton (text) {
     const button = document.createElement('button')
     button.textContent = text

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
+    <link rel="stylesheet" href="./assets/css/theme.css">
 </head>
 <body>
 <div id="jedi-container"></div>
@@ -17,44 +18,40 @@
         "boolean": {
           "type": "boolean",
           "title": "boolean",
-          "default": false,
-          "const": true
+          "const": false,
+          "default": true
         },
         "boolean_checkbox": {
           "type": "boolean",
           "title": "boolean checkbox",
           "format": "checkbox",
-          "default": true
+          "const": true
         },
         "boolean_select": {
           "type": "boolean",
           "title": "boolean select",
           "format": "select",
-          "default": true
+          "const": true
         },
         "string": {
           "type": "string",
           "title": "string",
-          "default": "default value"
+          "const": "yesterday",
+          "default": "today"
         },
         "array": {
           "type": "array",
           "title": "array",
+          "default": ["manana", "domani"],
           "items": {
-            "type": "object",
-            "title": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "title": "name"
-              }
-            }
+            "type": "string",
+            "const": "ando"
           }
         }
       }
     }
   })
-    console.log(jedi)
+  // console.log(jedi.getValue())
 </script>
 </body>
 </html>
