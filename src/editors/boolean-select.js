@@ -2,11 +2,18 @@ import BooleanEditor from './boolean'
 
 class BooleanSelect extends BooleanEditor {
   build () {
-    const label = this.jedi.theme.getLabel(this.schema.title)
+    // label
+    const labelText = this.schema.title
+    const label = this.jedi.theme.getLabel(labelText, {
+      for: this.path
+    })
     this.container.appendChild(label)
+
+    // select
+    const selectId = this.path
     const optionValues = ['', '1']
     const optionsLabels = ['false', 'true']
-    this.input = this.jedi.theme.getSelect(optionValues, optionsLabels)
+    this.input = this.jedi.theme.getSelect(optionValues, optionsLabels, selectId)
     this.container.appendChild(this.input)
 
     this.input.addEventListener('change', () => {

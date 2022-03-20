@@ -3,61 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
-    <link rel="stylesheet" href="./assets/css/theme.css">
 </head>
 <body>
-<div id="jedi-container"></div>
-<script src="./assets/js/jedi.js"></script>
-<script>
-  var jedi = new Jedi({
-    container: document.querySelector('#jedi-container'),
-    schema: {
-      "type": "object",
-      "title": "object",
-      "properties": {
-        "boolean": {
-          "type": "boolean",
-          "title": "boolean",
-          "const": false,
-          "default": true
-        },
-        "boolean_checkbox": {
-          "type": "boolean",
-          "title": "boolean checkbox",
-          "format": "checkbox",
-          "const": true
-        },
-        "boolean_select": {
-          "type": "boolean",
-          "title": "boolean select",
-          "format": "select",
-          "const": true
-        },
-        "string": {
-          "type": "string",
-          "title": "string",
-          "const": "yesterday",
-          "default": "today"
-        },
-        "array": {
-          "type": "array",
-          "title": "array",
-          "default": [
-            "#6d80dd",
-            "#b80f0f",
-            "#280606"
-          ],
-          "items": {
-            "type": "string",
-            "title": "color",
-            "format": "color",
-          }
-        }
-      }
-    }
-  })
-  // console.log('editors', jedi.editors)
-  // console.log(jedi.getValue())
-</script>
+<ul>
+    <li><a href="./pages/all-editors.html">All editors</a></li>
+</ul>
 </body>
 </html>

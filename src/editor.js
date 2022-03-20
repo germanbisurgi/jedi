@@ -122,8 +122,6 @@ class Editor {
   onChange () {
     if (this.parent) {
       this.parent.onChange()
-    } else {
-      console.log(JSON.stringify(this.getValue(), null, 2))
     }
     this.showValidationErrors()
   }

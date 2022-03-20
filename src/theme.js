@@ -1,4 +1,10 @@
 class Theme {
+  setAttributes (element, attributes) {
+    Object.keys(attributes).forEach((key) => {
+      element.setAttribute(key, attributes[key])
+    })
+  }
+
   /**
    * Adds an error message to the specified editor container.
    */
@@ -31,20 +37,22 @@ class Theme {
     return document.createElement('div')
   }
 
-  getLabel (text) {
+  getLabel (labelText, attributes = {}) {
     const label = document.createElement('label')
-    label.textContent = text
+    label.textContent = labelText
+    this.setAttributes(label, attributes)
     return label
   }
 
-  getInput (type) {
+  getInput (attributes) {
     const input = document.createElement('input')
-    input.setAttribute('type', type)
+    this.setAttributes(input, attributes)
     return input
   }
 
-  getSelect (optionValues, optionsLabels) {
+  getSelect (optionValues, optionsLabels, selectId) {
     const select = document.createElement('select')
+    select.setAttribute('id', selectId)
     optionValues.forEach((value, index) => {
       const option = document.createElement('option')
       option.setAttribute('value', value)
@@ -52,6 +60,12 @@ class Theme {
       select.appendChild(option)
     })
     return select
+  }
+
+  getOutput (attributes) {
+    const output = document.createElement('output')
+    this.setAttributes(output, attributes)
+    return output
   }
 }
 

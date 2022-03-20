@@ -3,8 +3,12 @@ import utils from '../utils'
 
 class ArrayEditor extends Editor {
   build () {
-    const label = this.jedi.theme.getLabel('array')
+    // label
+    const labelText = this.schema.title
+    const label = this.jedi.theme.getLabel(labelText)
     this.container.appendChild(label)
+
+    // addBtn
     const addBtn = this.jedi.theme.getButton('add')
     this.container.appendChild(addBtn)
     addBtn.addEventListener('click', () => {
@@ -21,12 +25,13 @@ class ArrayEditor extends Editor {
     })
 
     const itemIndex = Number(itemEditor.path.split('.').pop())
-
-    itemEditor.input.addEventListener('change', () => {
-      const value = utils.clone(this.getValue())
-      value[itemIndex] = utils.clone(itemEditor.getValue())
-      this.setValue(value)
-    })
+    if (itemEditor.input) {
+      itemEditor.input.addEventListener('change', () => {
+        const value = utils.clone(this.getValue())
+        value[itemIndex] = utils.clone(itemEditor.getValue())
+        this.setValue(value)
+      })
+    }
 
     const deleteBtn = this.jedi.theme.getButton('delete')
     itemEditor.container.appendChild(deleteBtn)

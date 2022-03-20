@@ -1,6 +1,6 @@
 import Editor from '../editor'
 
-class StringEditor extends Editor {
+class NumberEditor extends Editor {
   build () {
     // label
     const labelText = this.schema.title
@@ -10,7 +10,7 @@ class StringEditor extends Editor {
     this.container.appendChild(label)
 
     // input
-    const inputTypes = ['color', 'datetime-local', 'email', 'month', 'search', 'tel', 'text', 'time', 'url', 'week']
+    const inputTypes = ['number', 'range']
     this.input = this.jedi.theme.getInput({
       type: inputTypes.includes(this.schema.format) ? this.schema.format : 'text',
       id: this.path
@@ -24,7 +24,7 @@ class StringEditor extends Editor {
   }
 
   sanitize (value) {
-    return String(value)
+    return Number(value)
   }
 
   refreshUI () {
@@ -32,4 +32,4 @@ class StringEditor extends Editor {
   }
 }
 
-export default StringEditor
+export default NumberEditor

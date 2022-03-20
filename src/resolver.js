@@ -3,6 +3,8 @@ import BooleanCheckbox from './editors/boolean-checkbox'
 import BooleanSelect from './editors/boolean-select'
 import ObjectEditor from './editors/object'
 import StringEditor from './editors/string'
+import NumberEditor from './editors/number'
+import NumberRangeEditor from './editors/number-range'
 
 class Resolver {
   constructor () {
@@ -38,6 +40,21 @@ class Resolver {
       (schema) => {
         if (schema.type === 'string') {
           return StringEditor
+        }
+      },
+      (schema) => {
+        if (schema.type === 'number' && schema.format === 'range') {
+          return NumberRangeEditor
+        }
+      },
+      (schema) => {
+        if (schema.type === 'number') {
+          return NumberEditor
+        }
+      },
+      (schema) => {
+        if (schema.type === 'integer') {
+          return NumberEditor
         }
       }
     ]

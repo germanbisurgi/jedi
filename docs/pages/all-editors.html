@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet" href="../assets/css/theme.css">
+</head>
+<body>
+<div id="jedi-container"></div>
+<script src="../assets/js/jedi.js"></script>
+<script>
+  var jedi = new Jedi({
+    container: document.querySelector('#jedi-container'),
+    schema: {
+      "type": "object",
+      "title": "all editors",
+      "properties": {
+        "booleans": {
+          "type": "object",
+          "title": "booleans",
+          "properties": {
+            "default": {
+              "type": "boolean",
+              "title": "default",
+              "const": false,
+              "default": true
+            },
+            "checkbox": {
+              "type": "boolean",
+              "title": "checkbox",
+              "format": "checkbox",
+              "const": true
+            },
+            "select": {
+              "type": "boolean",
+              "title": "select",
+              "format": "select",
+              "const": true
+            }
+          }
+        },
+        "strings": {
+          "type": "object",
+          "title": "strings",
+          "properties": {
+            "default": {
+              "type": "string",
+              "title": "default",
+              "default": "default"
+            },
+            "color": {
+              "type": "string",
+              "title": "color",
+              "format": "color",
+              "default": "#987654"
+            },
+            "datetime-local": {
+              "type": "string",
+              "title": "datetime-local",
+              "format": "datetime-local"
+            },
+            "email": {
+              "type": "string",
+              "title": "email",
+              "format": "email"
+            },
+            "month": {
+              "type": "string",
+              "title": "month",
+              "format": "month"
+            },
+            "search": {
+              "type": "string",
+              "title": "search",
+              "format": "search"
+            },
+            "tel": {
+              "type": "string",
+              "title": "tel",
+              "format": "tel"
+            },
+            "text": {
+              "type": "string",
+              "title": "text",
+              "format": "text"
+            },
+            "time": {
+              "type": "string",
+              "title": "time",
+              "format": "time"
+            },
+            "url": {
+              "type": "string",
+              "title": "url",
+              "format": "url"
+            },
+            "week": {
+              "type": "string",
+              "title": "week",
+              "format": "week"
+            }
+          }
+        },
+        "numbers": {
+          "type": "object",
+          "title": "numbers",
+          "properties": {
+            "default": {
+              "type": "number",
+              "title": "default"
+            },
+            "number": {
+              "type": "number",
+              "title": "number",
+              "format": "number"
+            },
+            "range": {
+              "type": "number",
+              "title": "range",
+              "format": "range",
+              "minimum": 1,
+              "maximum": 10,
+              "step": 0.5
+            }
+          }
+        },
+        "arrays": {
+          "type": "object",
+          "title": "arrays",
+          "properties": {
+            "string_color": {
+              "type": "array",
+              "title": "strings color",
+              "default": [ "#6d80dd", "#b80f0f", "#280606"],
+              "items": {
+                "type": "string",
+                "title": "color",
+                "format": "color",
+              }
+            }
+          }
+        }
+      }
+    }
+  })
+  // console.log('editors', jedi.editors)
+  // console.log(jedi.getValue())
+</script>
+</body>
+</html>
