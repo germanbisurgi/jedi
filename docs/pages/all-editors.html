@@ -15,33 +15,19 @@
       "type": "object",
       "title": "all editors",
       "properties": {
-        "booleans": {
+        "boolean": {
           "type": "object",
-          "title": "booleans",
+          "title": "boolean",
           "properties": {
             "default": {
               "type": "boolean",
-              "title": "default",
-              "const": false,
-              "default": true
-            },
-            "checkbox": {
-              "type": "boolean",
-              "title": "checkbox",
-              "format": "checkbox",
-              "const": true
-            },
-            "select": {
-              "type": "boolean",
-              "title": "select",
-              "format": "select",
-              "const": true
+              "title": "default"
             }
           }
         },
-        "strings": {
+        "string": {
           "type": "object",
-          "title": "strings",
+          "title": "string",
           "properties": {
             "default": {
               "type": "string",
@@ -54,20 +40,10 @@
               "format": "color",
               "default": "#987654"
             },
-            "datetime-local": {
-              "type": "string",
-              "title": "datetime-local",
-              "format": "datetime-local"
-            },
             "email": {
               "type": "string",
               "title": "email",
               "format": "email"
-            },
-            "month": {
-              "type": "string",
-              "title": "month",
-              "format": "month"
             },
             "search": {
               "type": "string",
@@ -84,42 +60,63 @@
               "title": "text",
               "format": "text"
             },
-            "time": {
-              "type": "string",
-              "title": "time",
-              "format": "time"
-            },
             "url": {
               "type": "string",
               "title": "url",
               "format": "url"
             },
+            "datetime-local": {
+              "type": "string",
+              "title": "datetime-local",
+              "format": "datetime-local"
+            },
+            "month": {
+              "type": "string",
+              "title": "month",
+              "format": "month"
+            },
             "week": {
               "type": "string",
               "title": "week",
               "format": "week"
+            },
+            "time": {
+              "type": "string",
+              "title": "time",
+              "format": "time"
             }
           }
         },
-        "numbers": {
+        "number": {
           "type": "object",
-          "title": "numbers",
+          "title": "number",
           "properties": {
             "number": {
               "type": "number",
-              "title": "number"
-            },
-            "integer": {
-              "type": "integer",
-              "title": "integer"
+              "title": "number",
+              "multipleOf": 2
             }
           }
         },
-        "arrays": {
+        "integer": {
           "type": "object",
-          "title": "arrays",
+          "title": "integer",
           "properties": {
-            "string_color": {
+            "integer": {
+              "type": "integer",
+              "title": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "exclusiveMinimum": false,
+              "exclusiveMaximum": false,
+            }
+          }
+        },
+        "array": {
+          "type": "object",
+          "title": "array",
+          "properties": {
+            "string-array": {
               "type": "array",
               "title": "strings color",
               "default": [ "#6d80dd", "#b80f0f", "#280606"],
