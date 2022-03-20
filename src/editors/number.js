@@ -10,9 +10,8 @@ class NumberEditor extends Editor {
     this.container.appendChild(label)
 
     // input
-    const inputTypes = ['number', 'range']
     this.input = this.jedi.theme.getInput({
-      type: inputTypes.includes(this.schema.format) ? this.schema.format : 'text',
+      type: 'number',
       id: this.path
     })
     this.container.appendChild(this.input)

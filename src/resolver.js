@@ -1,10 +1,10 @@
 import ArrayEditor from './editors/array'
-import BooleanCheckbox from './editors/boolean-checkbox'
-import BooleanSelect from './editors/boolean-select'
+import BooleanEditor from './editors/boolean'
 import ObjectEditor from './editors/object'
 import StringEditor from './editors/string'
 import NumberEditor from './editors/number'
-import NumberRangeEditor from './editors/number-range'
+import IntegerEditor from './editors/integer'
+import NullEditor from './editors/null'
 
 class Resolver {
   constructor () {
@@ -13,18 +13,8 @@ class Resolver {
      */
     this.resolvers = [
       (schema) => {
-        if (schema.type === 'boolean' && schema.format === 'checkbox') {
-          return BooleanCheckbox
-        }
-      },
-      (schema) => {
-        if (schema.type === 'boolean' && schema.format === 'select') {
-          return BooleanSelect
-        }
-      },
-      (schema) => {
         if (schema.type === 'boolean') {
-          return BooleanCheckbox
+          return BooleanEditor
         }
       },
       (schema) => {
@@ -43,18 +33,18 @@ class Resolver {
         }
       },
       (schema) => {
-        if (schema.type === 'number' && schema.format === 'range') {
-          return NumberRangeEditor
-        }
-      },
-      (schema) => {
         if (schema.type === 'number') {
           return NumberEditor
         }
       },
       (schema) => {
         if (schema.type === 'integer') {
-          return NumberEditor
+          return IntegerEditor
+        }
+      },
+      (schema) => {
+        if (schema.type === 'null') {
+          return NullEditor
         }
       }
     ]
