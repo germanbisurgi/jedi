@@ -17,20 +17,19 @@ class ObjectEditor extends Editor {
         parent: this
       })
       this.container.appendChild(editor.container)
-      this.childEditors[prop] = editor
+      this.childEditors.push(editor)
     })
   }
 
   getValue () {
     this.value = {}
-    Object.keys(this.childEditors).forEach(prop => {
-      this.value[prop] = this.childEditors[prop].getValue()
+
+    this.childEditors.forEach((childEditor) => {
+      this.value[childEditor.getKey()] = childEditor.getValue()
     })
 
     return this.value
   }
-
-  refreshUI () {}
 }
 
 export default ObjectEditor

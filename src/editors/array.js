@@ -24,7 +24,8 @@ class ArrayEditor extends Editor {
       parent: this
     })
 
-    const itemIndex = Number(itemEditor.path.split('.').pop())
+    const itemIndex = itemEditor.getKey()
+
     if (itemEditor.input) {
       itemEditor.input.addEventListener('change', () => {
         const value = utils.clone(this.getValue())

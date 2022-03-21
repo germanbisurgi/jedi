@@ -21,6 +21,10 @@ class Editor {
     this.register()
   }
 
+  getKey () {
+    return this.path.split('.').pop()
+  }
+
   setContainer () {
     this.container = this.jedi.theme.getContainer()
     this.container.setAttribute('data-path', this.path)

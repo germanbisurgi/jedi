@@ -14,12 +14,13 @@
 - onChange (if the value is different than the previous one)
 - validate()
 
-## Editors types and formats
+## Editors types
 
 - string
-    - text (default)
 - object
 - array
 - boolean
-    - checkbox (default)
-    - select
+- number
+- string
+- null
+
