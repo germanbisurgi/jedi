@@ -24,7 +24,7 @@ class ArrayEditor extends Editor {
       parent: this
     })
 
-    const itemIndex = itemEditor.getKey()
+    const itemIndex = Number(itemEditor.getKey())
 
     if (itemEditor.input) {
       itemEditor.input.addEventListener('change', () => {

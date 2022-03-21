@@ -14,6 +14,11 @@
 
 ### Creating Editors
 
+override methods:
+
+- build()
+- refreshUI()
+
 #### build pipeline
 
 - setContainer()
