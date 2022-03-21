@@ -100,6 +100,7 @@ class Editor {
     }
 
     this.refreshUI()
+    this.showValidationErrors()
   }
 
   /**
@@ -127,7 +128,6 @@ class Editor {
     if (this.parent) {
       this.parent.onChange()
     }
-    this.showValidationErrors()
   }
 
   /**

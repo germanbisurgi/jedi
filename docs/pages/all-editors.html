@@ -31,60 +31,8 @@
           "properties": {
             "default": {
               "type": "string",
-              "title": "default",
-              "default": "default"
-            },
-            // "color": {
-            //   "type": "string",
-            //   "title": "color",
-            //   "format": "color",
-            //   "default": "#987654"
-            // },
-            // "email": {
-            //   "type": "string",
-            //   "title": "email",
-            //   "format": "email"
-            // },
-            // "search": {
-            //   "type": "string",
-            //   "title": "search",
-            //   "format": "search"
-            // },
-            // "tel": {
-            //   "type": "string",
-            //   "title": "tel",
-            //   "format": "tel"
-            // },
-            // "text": {
-            //   "type": "string",
-            //   "title": "text",
-            //   "format": "text"
-            // },
-            // "url": {
-            //   "type": "string",
-            //   "title": "url",
-            //   "format": "url"
-            // },
-            // "datetime-local": {
-            //   "type": "string",
-            //   "title": "datetime-local",
-            //   "format": "datetime-local"
-            // },
-            // "month": {
-            //   "type": "string",
-            //   "title": "month",
-            //   "format": "month"
-            // },
-            // "week": {
-            //   "type": "string",
-            //   "title": "week",
-            //   "format": "week"
-            // },
-            // "time": {
-            //   "type": "string",
-            //   "title": "time",
-            //   "format": "time"
-            // }
+              "title": "default"
+            }
           }
         },
         "number": {
@@ -115,10 +63,11 @@
               "type": "array",
               "title": "strings color",
               "default": [ "#6d80dd", "#b80f0f", "#280606"],
+              "uniqueItems": true,
               "items": {
                 "type": "string",
                 "title": "color",
-                "format": "color",
+                "format": "color"
               }
             }
           }
@@ -126,8 +75,6 @@
       }
     }
   })
-  // console.log('editors', jedi.editors)
-  // console.log(jedi.getValue())
 </script>
 </body>
 </html>

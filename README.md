@@ -1,20 +1,8 @@
 # jedi
 
-## build pipeline
+## Editors
 
-- setContainer()
-- build()
-- setDefaultValue()
-- register()
-
-## setValue pipeline
-
-- setValue()
-- refreshUI()
-- onChange (if the value is different than the previous one)
-- validate()
-
-## Editors types
+### Supported types
 
 - string
 - object
@@ -24,3 +12,19 @@
 - string
 - null
 
+### Creating Editors
+
+#### build pipeline
+
+- setContainer()
+- build()
+- setDefaultValue()
+- register()
+
+#### setValue pipeline
+
+setValue() -> onChange() -> refreshUI() -> showValidationErrors()
+
+## Links
+
+[Understanding JSON Schema](http://json-schema.org/understanding-json-schema/index.html)

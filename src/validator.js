@@ -26,14 +26,91 @@ class Validator {
 
         return false
       },
+      uniqueItems: (schema, value, path) => {
+        const isArrayType = schema.type === 'array'
+        if (!isArrayType) return
+        const uniqueItems = schema.uniqueItems
+        const hasUniqueItems = this.isSet(uniqueItems) && this.isBoolean(uniqueItems)
+        const seen = {}
+        let hasDuplicatedItems = false
+
+        for (let i = 0; i < value.length; i++) {
+          const item = JSON.stringify(value[i])
+          if (seen[item]) {
+            hasDuplicatedItems = true
+            break
+          }
+          seen[item] = true
+        }
+
+        const invalid = (hasUniqueItems && hasDuplicatedItems)
+
+        if (invalid) {
+          return {
+            message: 'Must have unique items',
+            path: path
+          }
+        }
+
+        return false
+      },
+      minItems: (schema, value, path) => {
+        const isArrayType = schema.type === 'array'
+        if (!isArrayType) return
+        const minItems = schema.minItems
+        const hasMinItems = this.isSet(minItems) && this.isNumber(minItems)
+        const invalid = (hasMinItems && value.length < minItems)
+
+        if (invalid) {
+          return {
+            message: 'Must have at least ' + minItems + ' items',
+            path: path
+          }
+        }
+
+        return false
+      },
+      maxItems: (schema, value, path) => {
+        const isArrayType = schema.type === 'array'
+        if (!isArrayType) return
+        const maxItems = schema.maxItems
+        const hasMaxItems = this.isSet(maxItems) && this.isNumber(maxItems)
+        const invalid = (hasMaxItems && value.length > maxItems)
+
+        if (invalid) {
+          return {
+            message: 'Must have at most ' + maxItems + ' items',
+            path: path
+          }
+        }
+
+        return false
+      },
+      minLength: (schema, value, path) => {
+        const isStringType = schema.type === 'string'
+        if (!isStringType) return
+        const minLength = schema.minLength
+        const hasMinLength = this.isSet(minLength) && this.isNumber(minLength)
+        const invalid = (hasMinLength && value.length < minLength)
+
+        if (invalid) {
+          return {
+            message: 'Must be at least ' + minLength + 'characters long',
+            path: path
+          }
+        }
+
+        return false
+      },
       minimum: (schema, value, path) => {
         const isNumericType = schema.type === 'number' || schema.type === 'integer'
+        if (!isNumericType) return
         const exclusiveMinimum = schema.exclusiveMinimum
         const minimum = schema.minimum
         const hasMinimum = this.isSet(minimum) && this.isNumber(minimum)
         const hasExclusiveMinimum = this.isSet(exclusiveMinimum) && exclusiveMinimum === true
         const finalMinimum = hasExclusiveMinimum ? minimum + 1 : minimum
-        const invalid = (isNumericType && hasMinimum && value < finalMinimum)
+        const invalid = (hasMinimum && value < finalMinimum)
 
         if (invalid) {
           return {
@@ -46,12 +123,13 @@ class Validator {
       },
       maximum: (schema, value, path) => {
         const isNumericType = schema.type === 'number' || schema.type === 'integer'
+        if (!isNumericType) return
         const exclusiveMaximum = schema.exclusiveMaximum
         const maximum = schema.maximum
         const hasMaximum = this.isSet(maximum) && this.isNumber(maximum)
         const hasExclusiveMaximum = this.isSet(exclusiveMaximum) && exclusiveMaximum === true
         const finalMaximum = hasExclusiveMaximum ? maximum - 1 : maximum
-        const invalid = (isNumericType && hasMaximum && value > finalMaximum)
+        const invalid = (hasMaximum && value > finalMaximum)
 
         if (invalid) {
           return {
@@ -64,10 +142,11 @@ class Validator {
       },
       multipleOf: (schema, value, path) => {
         const isNumericType = schema.type === 'number' || schema.type === 'integer'
+        if (!isNumericType) return
         const multipleOf = schema.multipleOf
         const hasMultipleOf = this.isSet(multipleOf) && this.isNumber(multipleOf)
         const isMultipleOf = (value / multipleOf === Math.floor(value / multipleOf))
-        const invalid = (isNumericType && hasMultipleOf && !isMultipleOf)
+        const invalid = (hasMultipleOf && !isMultipleOf)
 
         if (invalid) {
           return {
