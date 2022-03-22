@@ -1,3 +1,4 @@
+import utils from './utils'
 import ArrayEditor from './editors/array'
 import BooleanEditor from './editors/boolean'
 import ObjectEditor from './editors/object'
@@ -63,7 +64,7 @@ class Resolver {
   resolve (schema) {
     for (const resolver of this.resolvers) {
       const editorClass = resolver(schema)
-      if (typeof editorClass !== 'undefined') {
+      if (utils.isSet(editorClass)) {
         return editorClass
       }
     }

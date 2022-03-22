@@ -1,3 +1,5 @@
+import utils from './utils'
+
 class Editor {
   constructor (config) {
     this.jedi = config.jedi
@@ -64,7 +66,7 @@ class Editor {
     if (this.schema.type === 'object') value = {}
     if (this.schema.type === 'array') value = []
 
-    if (typeof this.schema.default !== 'undefined') {
+    if (utils.isSet(this.schema.default)) {
       value = this.schema.default
     }
 
