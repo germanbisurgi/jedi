@@ -54,7 +54,9 @@ class Editor {
   }
 
   /**
-   * Sets a default value in the property "default" is set in the schema
+   * If schema.default is not difen, sets an initial value based on it's type.
+   * If enum is defined and schema.default is not defined set the first item of
+   * the enum als the default value.
    */
   setDefaultValue () {
     let value
@@ -66,7 +68,8 @@ class Editor {
     if (this.schema.type === 'object') value = {}
     if (this.schema.type === 'array') value = []
 
-    if (utils.isSet(this.schema.default)) {
+    const defaulIsDefined = utils.isSet(this.schema.default)
+    if (defaulIsDefined) {
       value = this.schema.default
     }
 
@@ -109,8 +112,7 @@ class Editor {
    * Refresh the UI of the editor to reflect it's value. This is necessary when
    * using setValue to set the value programmatically.
    */
-  refreshUI () {
-  }
+  refreshUI () {}
 
   /**
    * Shows validation messages in the editor container.

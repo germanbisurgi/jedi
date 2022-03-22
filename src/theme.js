@@ -1,5 +1,5 @@
 class Theme {
-  setAttributes (element, attributes) {
+  setAttributes (element, attributes = {}) {
     Object.keys(attributes).forEach((key) => {
       element.setAttribute(key, attributes[key])
     })
@@ -44,10 +44,37 @@ class Theme {
     return label
   }
 
-  getInput (attributes) {
+  getInput (attributes = {}) {
     const input = document.createElement('input')
     this.setAttributes(input, attributes)
     return input
+  }
+
+  getRadioGroup (optionValues, optionsLabels, radioGroupName) {
+    const radioGroup = this.getContainer()
+
+    optionValues.forEach((value, index) => {
+      const labelText = optionsLabels[index]
+
+      const label = this.getLabel(labelText, {
+        for: radioGroupName + '[' + value + ']'
+      })
+
+      const radio = this.getInput({
+        type: 'radio',
+        value: value,
+        id: radioGroupName + '[' + value + ']',
+        name: radioGroupName
+      })
+
+      radio.addEventListener('change', () => {
+        console.log('radio change')
+      })
+
+      radioGroup.appendChild(label)
+      radioGroup.appendChild(radio)
+    })
+    return radioGroup
   }
 
   getSelect (optionValues, optionsLabels, selectId) {
@@ -62,7 +89,7 @@ class Theme {
     return select
   }
 
-  getOutput (attributes) {
+  getOutput (attributes = {}) {
     const output = document.createElement('output')
     this.setAttributes(output, attributes)
     return output

@@ -3,8 +3,12 @@ import ArrayEditor from './editors/array'
 import BooleanEditor from './editors/boolean'
 import ObjectEditor from './editors/object'
 import StringEditor from './editors/string'
+import StringEnumEditor from './editors/string-enum'
+import StringEnumRadioEditor from './editors/string-enum-radio'
 import NumberEditor from './editors/number'
+import NumberEnumEditor from './editors/number-enum'
 import IntegerEditor from './editors/integer'
+import IntegerEnumEditor from './editors/integer-enum'
 import NullEditor from './editors/null'
 
 class Resolver {
@@ -29,13 +33,43 @@ class Resolver {
         }
       },
       (schema) => {
+        const _enum = schema.enum
+        const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
+        const format = schema.format
+        const hasFormatRadio = utils.isSet(format) && utils.isString(format) && format === 'radio'
+        if (schema.type === 'string' && hasEnumConstrain && hasFormatRadio) {
+          return StringEnumRadioEditor
+        }
+      },
+      (schema) => {
+        const _enum = schema.enum
+        const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
+        if (schema.type === 'string' && hasEnumConstrain) {
+          return StringEnumEditor
+        }
+      },
+      (schema) => {
         if (schema.type === 'string') {
           return StringEditor
         }
       },
       (schema) => {
+        const _enum = schema.enum
+        const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
+        if (schema.type === 'number' && hasEnumConstrain) {
+          return NumberEnumEditor
+        }
+      },
+      (schema) => {
         if (schema.type === 'number') {
           return NumberEditor
+        }
+      },
+      (schema) => {
+        const _enum = schema.enum
+        const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
+        if (schema.type === 'integer' && hasEnumConstrain) {
+          return IntegerEnumEditor
         }
       },
       (schema) => {

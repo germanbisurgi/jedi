@@ -16,3 +16,7 @@
 [data-type="array"] {
     background-color: #eef;
 }
+
+select {
+    min-width: 100px;
+}

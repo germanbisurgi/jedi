@@ -29,9 +29,20 @@
           "type": "object",
           "title": "string",
           "properties": {
-            "default": {
+            "string": {
               "type": "string",
               "title": "default"
+            },
+            "string-enum": {
+              "type": "string",
+              "title": "string enum",
+              "enum": ["Albert", "Betti", "Carl"]
+            },
+            "string-radio": {
+              "type": "string",
+              "title": "string radio",
+              "format": "radio",
+              "enum": ["Albert", "Betti", "Carl"]
             }
           }
         },
@@ -42,6 +53,11 @@
             "number": {
               "type": "number",
               "title": "number"
+            },
+            "number-enum": {
+              "type": "number",
+              "title": "number enum",
+              "enum": [1.5, 2.5, 3.5]
             }
           }
         },
@@ -52,6 +68,11 @@
             "integer": {
               "type": "integer",
               "title": "integer"
+            },
+            "integer-enum": {
+              "type": "integer",
+              "title": "integer enum",
+              "enum": [1, 2, 3]
             }
           }
         },
