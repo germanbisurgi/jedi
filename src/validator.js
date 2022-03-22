@@ -1,3 +1,5 @@
+import utils from './utils'
+
 class Validator {
   constructor () {
     /**
@@ -6,12 +8,12 @@ class Validator {
     this.validators = {
       type: (schema, value, path) => {
         const types = {
-          string: value => this.isString(value),
-          number: value => this.isNumber(value),
-          integer: value => this.isInteger(value),
-          boolean: value => this.isBoolean(value),
-          array: value => this.isArray(value),
-          object: value => this.isObject(value),
+          string: value => utils.isString(value),
+          number: value => utils.isNumber(value),
+          integer: value => utils.isInteger(value),
+          boolean: value => utils.isBoolean(value),
+          array: value => utils.isArray(value),
+          object: value => utils.isObject(value),
           null: value => this.isNull(value)
         }
 
@@ -30,7 +32,7 @@ class Validator {
         const isArrayType = schema.type === 'array'
         if (!isArrayType) return
         const uniqueItems = schema.uniqueItems
-        const hasUniqueItemsConstrain = this.isSet(uniqueItems) && this.isBoolean(uniqueItems)
+        const hasUniqueItemsConstrain = utils.isSet(uniqueItems) && utils.isBoolean(uniqueItems)
         if (!hasUniqueItemsConstrain) return
         const seen = {}
         let hasDuplicatedItems = false
@@ -59,7 +61,7 @@ class Validator {
         const isArrayType = schema.type === 'array'
         if (!isArrayType) return
         const minItems = schema.minItems
-        const hasMinItemsConstrain = this.isSet(minItems) && this.isNumber(minItems)
+        const hasMinItemsConstrain = utils.isSet(minItems) && utils.isNumber(minItems)
         if (!hasMinItemsConstrain) return
         const invalid = (hasMinItemsConstrain && value.length < minItems)
 
@@ -76,7 +78,7 @@ class Validator {
         const isArrayType = schema.type === 'array'
         if (!isArrayType) return
         const maxItems = schema.maxItems
-        const hasMaxItemsConstrain = this.isSet(maxItems) && this.isNumber(maxItems)
+        const hasMaxItemsConstrain = utils.isSet(maxItems) && utils.isNumber(maxItems)
         if (!hasMaxItemsConstrain) return
         const invalid = (hasMaxItemsConstrain && value.length > maxItems)
 
@@ -93,7 +95,7 @@ class Validator {
         const isStringType = schema.type === 'string'
         if (!isStringType) return
         const minLength = schema.minLength
-        const hasMinLengthConstrain = this.isSet(minLength) && this.isNumber(minLength)
+        const hasMinLengthConstrain = utils.isSet(minLength) && utils.isNumber(minLength)
         if (!hasMinLengthConstrain) return
         const invalid = (hasMinLengthConstrain && value.length < minLength)
 
@@ -110,7 +112,7 @@ class Validator {
         const isStringType = schema.type === 'string'
         if (!isStringType) return
         const maxLength = schema.maxLength
-        const hasMaxLengthConstrain = this.isSet(maxLength) && this.isNumber(maxLength)
+        const hasMaxLengthConstrain = utils.isSet(maxLength) && utils.isNumber(maxLength)
         if (!hasMaxLengthConstrain) return
         const invalid = (hasMaxLengthConstrain && value.length > maxLength)
 
@@ -127,7 +129,7 @@ class Validator {
         const isStringType = schema.type === 'string'
         if (!isStringType) return
         const pattern = schema.pattern
-        const hasPatternConstrain = this.isSet(pattern) && this.isString(pattern)
+        const hasPatternConstrain = utils.isSet(pattern) && utils.isString(pattern)
         if (!hasPatternConstrain) return
         const regexp = new RegExp(pattern)
         const matchPattern = regexp.test(value)
@@ -147,9 +149,9 @@ class Validator {
         if (!isNumericType) return
         const exclusiveMinimum = schema.exclusiveMinimum
         const minimum = schema.minimum
-        const hasMinimumConstrain = this.isSet(minimum) && this.isNumber(minimum)
+        const hasMinimumConstrain = utils.isSet(minimum) && utils.isNumber(minimum)
         if (!hasMinimumConstrain) return
-        const hasExclusiveMinimumConstrain = this.isSet(exclusiveMinimum) && exclusiveMinimum === true
+        const hasExclusiveMinimumConstrain = utils.isSet(exclusiveMinimum) && exclusiveMinimum === true
         const finalMinimum = hasExclusiveMinimumConstrain ? minimum + 1 : minimum
         const invalid = (hasMinimumConstrain && value < finalMinimum)
 
@@ -167,9 +169,9 @@ class Validator {
         if (!isNumericType) return
         const exclusiveMaximum = schema.exclusiveMaximum
         const maximum = schema.maximum
-        const hasMaximumConstrain = this.isSet(maximum) && this.isNumber(maximum)
+        const hasMaximumConstrain = utils.isSet(maximum) && utils.isNumber(maximum)
         if (!hasMaximumConstrain) return
-        const hasExclusiveMaximumConstrain = this.isSet(exclusiveMaximum) && exclusiveMaximum === true
+        const hasExclusiveMaximumConstrain = utils.isSet(exclusiveMaximum) && exclusiveMaximum === true
         const finalMaximum = hasExclusiveMaximumConstrain ? maximum - 1 : maximum
         const invalid = (hasMaximumConstrain && value > finalMaximum)
 
@@ -186,7 +188,7 @@ class Validator {
         const isNumericType = schema.type === 'number' || schema.type === 'integer'
         if (!isNumericType) return
         const multipleOf = schema.multipleOf
-        const hasMultipleOfConstrain = this.isSet(multipleOf) && this.isNumber(multipleOf)
+        const hasMultipleOfConstrain = utils.isSet(multipleOf) && utils.isNumber(multipleOf)
         if (!hasMultipleOfConstrain) return
         const isMultipleOf = (value / multipleOf === Math.floor(value / multipleOf))
         const invalid = (hasMultipleOfConstrain && !isMultipleOf)
@@ -202,7 +204,7 @@ class Validator {
       },
       const: (schema, value, path) => {
         const _const = schema.const
-        const hasConstConstrain = this.isSet(_const)
+        const hasConstConstrain = utils.isSet(_const)
         if (!hasConstConstrain) return
         const valueIsNotEqualConst = (JSON.stringify(value) !== JSON.stringify(_const))
         const invalid = (hasConstConstrain && valueIsNotEqualConst)
@@ -218,7 +220,7 @@ class Validator {
       },
       enum: (schema, value, path) => {
         const _enum = schema.enum
-        const hasEnumConstrain = this.isSet(_enum) && this.isArray(_enum)
+        const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
         if (!hasEnumConstrain) return
         const valueNotInEnum = !_enum.some(e => JSON.stringify(value) === JSON.stringify(e))
         const invalid = (hasEnumConstrain && valueNotInEnum)
@@ -255,38 +257,6 @@ class Validator {
       }
     })
     return errors
-  }
-
-  isSet (value) {
-    return typeof value !== 'undefined'
-  }
-
-  isNumber (value) {
-    return typeof value === 'number'
-  }
-
-  isInteger (value) {
-    return this.isNumber(value) && value === Math.floor(value)
-  }
-
-  isString (value) {
-    return typeof value === 'string'
-  }
-
-  isBoolean (value) {
-    return typeof value === 'boolean'
-  }
-
-  isArray (value) {
-    return Array.isArray(value)
-  }
-
-  isObject (value) {
-    return !this.isNull(value) && !this.isArray(value) && typeof value === 'object'
-  }
-
-  isNull (value) {
-    return value === null
   }
 }
 
