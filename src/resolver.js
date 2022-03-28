@@ -7,8 +7,7 @@ import StringEnumEditor from './editors/string-enum'
 import StringEnumRadioEditor from './editors/string-enum-radio'
 import NumberEditor from './editors/number'
 import NumberEnumEditor from './editors/number-enum'
-import IntegerEditor from './editors/integer'
-import IntegerEnumEditor from './editors/integer-enum'
+import NumberEnumRadioEditor from './editors/number-enum-radio'
 import NullEditor from './editors/null'
 
 class Resolver {
@@ -54,27 +53,27 @@ class Resolver {
         }
       },
       (schema) => {
+        const isNumericType = schema.type === 'number' || schema.type === 'integer'
         const _enum = schema.enum
         const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
-        if (schema.type === 'number' && hasEnumConstrain) {
+        const format = schema.format
+        const hasFormatRadio = utils.isSet(format) && utils.isString(format) && format === 'radio'
+        if (isNumericType && hasEnumConstrain && hasFormatRadio) {
+          return NumberEnumRadioEditor
+        }
+      },
+      (schema) => {
+        const isNumericType = schema.type === 'number' || schema.type === 'integer'
+        const _enum = schema.enum
+        const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
+        if (isNumericType && hasEnumConstrain) {
           return NumberEnumEditor
         }
       },
       (schema) => {
-        if (schema.type === 'number') {
+        const isNumericType = schema.type === 'number' || schema.type === 'integer'
+        if (isNumericType) {
           return NumberEditor
-        }
-      },
-      (schema) => {
-        const _enum = schema.enum
-        const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
-        if (schema.type === 'integer' && hasEnumConstrain) {
-          return IntegerEnumEditor
-        }
-      },
-      (schema) => {
-        if (schema.type === 'integer') {
-          return IntegerEditor
         }
       },
       (schema) => {
