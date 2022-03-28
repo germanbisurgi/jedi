@@ -14,7 +14,7 @@ class Validator {
           boolean: value => utils.isBoolean(value),
           array: value => utils.isArray(value),
           object: value => utils.isObject(value),
-          null: value => this.isNull(value)
+          null: value => utils.isNull(value)
         }
 
         const valid = types[schema.type](value)
