@@ -36,7 +36,8 @@
             "string-enum": {
               "type": "string",
               "title": "string enum",
-              "enum": ["Albert", "Betti", "Carl"]
+              "enum": ["albert", "betti", "carl"],
+              "enumTitles": ["Albert", "Betti", "Carl"]
             },
             "string-radio": {
               "type": "string",
@@ -58,13 +59,15 @@
             "number-enum": {
               "type": "number",
               "title": "number enum",
-              "enum": [1.5, 2.5, 3.5]
+              "enum": [1.5, 2.5, 3.5],
+              "enumTitles": ["small (1.5)", "medium (2.5)", "big (3.5)"]
             },
             "number-enum-radio": {
               "type": "number",
               "title": "number enum radio",
               "format": "radio",
-              "enum": [1.5, 2.5, 3.5]
+              "enum": [1.5, 2.5, 3.5],
+              "enumTitles": ["small (1.5)", "medium (2.5)", "big (3.5)"]
             }
           }
         },
@@ -79,7 +82,15 @@
             "integer-enum": {
               "type": "integer",
               "title": "integer enum",
-              "enum": [1, 2, 3]
+              "enum": [1, 2, 3],
+              "enumTitles": ["small (1)", "medium (2)", "big (3)"]
+            },
+            "integer-enum-radio": {
+              "type": "number",
+              "title": "integer enum radio",
+              "format": "radio",
+              "enum": [1, 2, 3],
+              "enumTitles": ["small (1.5)", "medium (2.5)", "big (3.5)"]
             }
           }
         },
