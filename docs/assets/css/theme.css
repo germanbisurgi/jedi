@@ -20,3 +20,8 @@
 select {
     min-width: 100px;
 }
+
+textarea {
+    width: 100%;
+    height: 500px;
+}

@@ -7,6 +7,8 @@
 </head>
 <body>
 <div id="jedi-container"></div>
+<button id="get-value">Get Value</button>
+<textarea id="value-container"></textarea>
 <script src="../assets/js/jedi.js"></script>
 <script>
   var jedi = new Jedi({
@@ -101,7 +103,7 @@
             "string-array": {
               "type": "array",
               "title": "strings color",
-              "default": [ "#6d80dd", "#b80f0f", "#280606"],
+              "default": ["#6d80dd", "#b80f0f", "#280606"],
               "items": {
                 "type": "string",
                 "title": "color",
@@ -112,6 +114,12 @@
         }
       }
     }
+  })
+
+  var valueContainer = document.querySelector('#value-container')
+  var getValue = document.querySelector('#get-value')
+  getValue.addEventListener('click', function () {
+    valueContainer.value = JSON.stringify(jedi.getValue(), null, 2)
   })
 </script>
 </body>
