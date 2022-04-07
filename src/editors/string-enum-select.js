@@ -11,7 +11,7 @@ class StringEnumSelectEditor extends StringEditor {
 
     // input
     const optionValues = this.schema.enum
-    const optionsLabels = this.schema.enum
+    const optionsLabels = this.schema.enumTitles || this.schema.enum
     this.input = this.jedi.theme.getSelect(optionValues, optionsLabels, this.path)
     this.container.appendChild(this.input)
 

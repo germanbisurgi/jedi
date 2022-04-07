@@ -11,7 +11,7 @@ class StringEnumRadioEditor extends StringEditor {
 
     // input
     const optionValues = this.schema.enum
-    const optionsLabels = this.schema.enum
+    const optionsLabels = this.schema.enumTitles || this.schema.enum
     const radioGroupName = this.path
     const radioGroup = this.jedi.theme.getRadioGroup(optionValues, optionsLabels, radioGroupName)
     this.container.appendChild(radioGroup)
