@@ -3,10 +3,10 @@ import ArrayEditor from './editors/array'
 import BooleanEditor from './editors/boolean'
 import ObjectEditor from './editors/object'
 import StringEditor from './editors/string'
-import StringEnumEditor from './editors/string-enum'
+import StringEnumSelectEditor from './editors/string-enum-select'
 import StringEnumRadioEditor from './editors/string-enum-radio'
 import NumberEditor from './editors/number'
-import NumberEnumEditor from './editors/number-enum'
+import NumberEnumSelectEditor from './editors/number-enum-select'
 import NumberEnumRadioEditor from './editors/number-enum-radio'
 import NullEditor from './editors/null'
 
@@ -44,7 +44,7 @@ class Resolver {
         const _enum = schema.enum
         const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
         if (schema.type === 'string' && hasEnumConstrain) {
-          return StringEnumEditor
+          return StringEnumSelectEditor
         }
       },
       (schema) => {
@@ -67,7 +67,7 @@ class Resolver {
         const _enum = schema.enum
         const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
         if (isNumericType && hasEnumConstrain) {
-          return NumberEnumEditor
+          return NumberEnumSelectEditor
         }
       },
       (schema) => {

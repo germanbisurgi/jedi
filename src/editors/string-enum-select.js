@@ -1,6 +1,6 @@
-import NumberEditor from './number'
+import StringEditor from './string'
 
-class NumberEnumEditor extends NumberEditor {
+class StringEnumSelectEditor extends StringEditor {
   build () {
     // label
     const labelText = this.schema.title
@@ -22,4 +22,4 @@ class NumberEnumEditor extends NumberEditor {
   }
 }
 
-export default NumberEnumEditor
+export default StringEnumSelectEditor
