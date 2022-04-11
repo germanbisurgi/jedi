@@ -1,6 +1,8 @@
 import utils from './utils'
 import ArrayEditor from './editors/array'
 import BooleanEditor from './editors/boolean'
+import BooleanEnumSelectEditor from './editors/boolean-enum-select'
+import BooleanEnumRadioEditor from './editors/boolean-enum-radio'
 import ObjectEditor from './editors/object'
 import StringEditor from './editors/string'
 import StringEnumSelectEditor from './editors/string-enum-select'
@@ -16,6 +18,20 @@ class Resolver {
      * Functions that return an editor class if the condition pass
      */
     this.resolvers = [
+      (schema) => {
+        const format = schema.format
+        const hasFormatRadio = utils.isSet(format) && utils.isString(format) && format === 'radio'
+        if (schema.type === 'boolean' && hasFormatRadio) {
+          return BooleanEnumRadioEditor
+        }
+      },
+      (schema) => {
+        const format = schema.format
+        const hasFormatSelect = utils.isSet(format) && utils.isString(format) && format === 'select'
+        if (schema.type === 'boolean' && hasFormatSelect) {
+          return BooleanEnumSelectEditor
+        }
+      },
       (schema) => {
         if (schema.type === 'boolean') {
           return BooleanEditor

@@ -1,6 +1,6 @@
-import StringEditor from './string'
+import BooleanEditor from './boolean'
 
-class StringEnumSelectEditor extends StringEditor {
+class BooleanEnumSelectEditor extends BooleanEditor {
   build () {
     // label
     const labelText = this.schema.title
@@ -10,16 +10,21 @@ class StringEnumSelectEditor extends StringEditor {
     this.container.appendChild(label)
 
     // input
-    const optionValues = this.schema.enum
+    const optionValues = ['false', 'true']
     const optionsLabels = this.schema.enumTitles || optionValues
     this.input = this.jedi.theme.getSelect(optionValues, optionsLabels, this.path)
     this.container.appendChild(this.input)
 
     // events
     this.input.addEventListener('change', () => {
-      this.setValue(this.input.value)
+      const value = this.input.value === 'true'
+      this.setValue(value)
     })
+  }
+
+  refreshUI () {
+    this.input.value = this.getValue() === true ? 'true' : 'false'
   }
 }
 
-export default StringEnumSelectEditor
+export default BooleanEnumSelectEditor

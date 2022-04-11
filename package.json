@@ -8,7 +8,8 @@
     "watch": "webpack --watch",
     "dist": "webpack",
     "eslint": "eslint ./src",
-    "eslint:fix": "eslint --fix ./src"
+    "eslint:fix": "eslint --fix ./src",
+    "start": "yarn watch & yarn serve"
   },
   "repository": {
     "type": "git",

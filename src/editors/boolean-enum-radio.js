@@ -1,6 +1,6 @@
-import NumberEditor from './number'
+import BooleanEditor from './boolean'
 
-class NumberEnumRadioEditor extends NumberEditor {
+class BooleanEnumRadioEditor extends BooleanEditor {
   build () {
     // label
     const labelText = this.schema.title
@@ -10,7 +10,7 @@ class NumberEnumRadioEditor extends NumberEditor {
     this.container.appendChild(label)
 
     // input
-    const optionValues = this.schema.enum
+    const optionValues = ['false', 'true']
     const optionsLabels = this.schema.enumTitles || optionValues
     const radioGroupName = this.path
     const radioGroup = this.jedi.theme.getRadioGroup(optionValues, optionsLabels, radioGroupName)
@@ -20,7 +20,8 @@ class NumberEnumRadioEditor extends NumberEditor {
     const radioInputs = this.container.querySelectorAll('[name="' + radioGroupName + '"]')
     radioInputs.forEach((radio) => {
       radio.addEventListener('change', () => {
-        this.setValue(radio.value)
+        const value = radio.value === 'true'
+        this.setValue(value)
       })
     })
   }
@@ -28,7 +29,8 @@ class NumberEnumRadioEditor extends NumberEditor {
   refreshUI () {
     const radioGroupName = this.path
     const radioInputs = this.container.querySelectorAll('[name="' + radioGroupName + '"]')
-    const radio = this.container.querySelector('[value="' + this.getValue() + '"]')
+    const value = this.getValue() === true ? 'true' : 'false'
+    const radio = this.container.querySelector('[value="' + value + '"]')
 
     radioInputs.forEach((radio) => {
       radio.removeAttribute('checked')
@@ -40,4 +42,4 @@ class NumberEnumRadioEditor extends NumberEditor {
   }
 }
 
-export default NumberEnumRadioEditor
+export default BooleanEnumRadioEditor

@@ -1,3 +1,4 @@
+debug mode: show input values in editor
 boolean enum and enum titles
 getContainer = get div
 getInput -> getControl
@@ -7,3 +8,12 @@ editors without type
 tests
 setValue all
 objects and arrays hidden inputs
+
+## tests
+
+- default value
+- getValue
+- setValue
+- format
+- enums
+- validation errors

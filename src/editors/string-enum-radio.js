@@ -11,22 +11,29 @@ class StringEnumRadioEditor extends StringEditor {
 
     // input
     const optionValues = this.schema.enum
-    const optionsLabels = this.schema.enumTitles || this.schema.enum
+    const optionsLabels = this.schema.enumTitles || optionValues
     const radioGroupName = this.path
     const radioGroup = this.jedi.theme.getRadioGroup(optionValues, optionsLabels, radioGroupName)
     this.container.appendChild(radioGroup)
 
     // events
     const radioInputs = this.container.querySelectorAll('[name="' + radioGroupName + '"]')
-    radioInputs.forEach((radioInput) => {
-      radioInput.addEventListener('change', () => {
-        this.setValue(radioInput.value)
+    radioInputs.forEach((radio) => {
+      radio.addEventListener('change', () => {
+        this.setValue(radio.value)
       })
     })
   }
 
   refreshUI () {
+    const radioGroupName = this.path
+    const radioInputs = this.container.querySelectorAll('[name="' + radioGroupName + '"]')
     const radio = this.container.querySelector('[value="' + this.getValue() + '"]')
+
+    radioInputs.forEach((radio) => {
+      radio.removeAttribute('checked')
+    })
+
     if (radio) {
       radio.setAttribute('checked', 'checked')
     }

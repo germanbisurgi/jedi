@@ -21,9 +21,21 @@
           "type": "object",
           "title": "boolean",
           "properties": {
-            "default": {
+            "boolean": {
               "type": "boolean",
               "title": "default"
+            },
+            "boolean-enum": {
+              "type": "boolean",
+              "title": "boolean enum",
+              "format": "select",
+              "enumTitles": ["No", "Yes"]
+            },
+            "boolean-enum-radio": {
+              "type": "boolean",
+              "title": "boolean enum radio",
+              "format": "radio",
+              "enumTitles": ["No", "Yes"]
             }
           }
         },
