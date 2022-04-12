@@ -1,11 +1,11 @@
 const path = require('path')
+const merge = require('deepmerge')
 
 const common = {
   entry: {
     jedi: './src/index.js'
   },
   output: {
-    path: path.resolve(__dirname, 'docs/assets/js'),
     filename: '[name].js',
     libraryExport: 'default',
     library: 'Jedi',
@@ -45,21 +45,21 @@ const common = {
   }
 }
 
-const docs = Object.assign({}, common, {
+const docs = merge(common, {
   output: {
-    path: path.resolve(__dirname, 'docs/assets/js'),
+    path: path.resolve(__dirname, 'docs/assets/js')
   }
 })
 
-const dist = Object.assign({}, common, {
+const dist = merge(common, {
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist')
   }
 })
 
-const tests = Object.assign({}, common, {
+const tests = merge(common, {
   output: {
-    path: path.resolve(__dirname, 'tests/codeceptjs/assets/js'),
+    path: path.resolve(__dirname, 'tests/codeceptjs/pages')
   }
 })
 

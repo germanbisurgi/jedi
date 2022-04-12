@@ -6,9 +6,7 @@
 </head>
 <body>
 <div id="jedi-container"></div>
-<button id="get-value">Get Value</button>
-<textarea id="value-container"></textarea>
-<script src="../assets/js/jedi.js"></script>
+<script src="./jedi.js"></script>
 <script>
   var jedi = new Jedi({
     container: document.querySelector('#jedi-container'),
@@ -125,12 +123,6 @@
         }
       }
     }
-  })
-
-  var valueContainer = document.querySelector('#value-container')
-  var getValue = document.querySelector('#get-value')
-  getValue.addEventListener('click', function () {
-    valueContainer.value = JSON.stringify(jedi.getValue(), null, 2)
   })
 </script>
 </body>
