@@ -1,6 +1,16 @@
 const path = require('path')
 
 const common = {
+  entry: {
+    jedi: './src/index.js'
+  },
+  output: {
+    path: path.resolve(__dirname, 'docs/assets/js'),
+    filename: '[name].js',
+    libraryExport: 'default',
+    library: 'Jedi',
+    libraryTarget: 'umd'
+  },
   mode: 'production',
   devtool: 'inline-source-map',
   module: {
@@ -36,32 +46,25 @@ const common = {
 }
 
 const docs = Object.assign({}, common, {
-  entry: {
-    jedi: './src/index.js'
-  },
   output: {
     path: path.resolve(__dirname, 'docs/assets/js'),
-    filename: '[name].js',
-    libraryExport: 'default',
-    library: 'Jedi',
-    libraryTarget: 'umd'
   }
 })
 
 const dist = Object.assign({}, common, {
-  entry: {
-    jedi: './src/index.js'
-  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js',
-    libraryExport: 'default',
-    library: 'Jedi',
-    libraryTarget: 'umd'
+  }
+})
+
+const tests = Object.assign({}, common, {
+  output: {
+    path: path.resolve(__dirname, 'tests/codeceptjs/assets/js'),
   }
 })
 
 module.exports = [
   docs,
-  dist
+  dist,
+  tests
 ]
