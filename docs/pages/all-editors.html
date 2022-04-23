@@ -13,13 +13,14 @@
 <script>
   var jedi = new Jedi({
     container: document.querySelector('#jedi-container'),
+    debug: true,
     schema: {
       "type": "object",
-      "title": "all editors",
+      "title": "root",
       "properties": {
-        "boolean": {
+        "booleans": {
           "type": "object",
-          "title": "boolean",
+          "title": "booleans",
           "properties": {
             "boolean": {
               "type": "boolean",
@@ -39,9 +40,9 @@
             }
           }
         },
-        "string": {
+        "strings": {
           "type": "object",
-          "title": "string",
+          "title": "strings",
           "properties": {
             "string": {
               "type": "string",
@@ -62,9 +63,9 @@
             }
           }
         },
-        "number": {
+        "numbers": {
           "type": "object",
-          "title": "number",
+          "title": "numbers",
           "properties": {
             "number": {
               "type": "number",
@@ -85,9 +86,9 @@
             }
           }
         },
-        "integer": {
+        "integers": {
           "type": "object",
-          "title": "integer",
+          "title": "integers",
           "properties": {
             "integer": {
               "type": "integer",
@@ -108,9 +109,9 @@
             }
           }
         },
-        "array": {
+        "arrays": {
           "type": "object",
-          "title": "array",
+          "title": "arrays",
           "properties": {
             "string-array": {
               "type": "array",
