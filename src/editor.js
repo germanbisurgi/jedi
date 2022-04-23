@@ -8,6 +8,7 @@ class Editor {
     this.path = config.path || 'root'
     this.parent = config.parent || null
     this.container = null
+    this.debug = null
     this.childEditors = []
     this.init()
   }
@@ -31,6 +32,11 @@ class Editor {
     this.container = this.jedi.theme.getContainer()
     this.container.setAttribute('data-path', this.path)
     this.container.setAttribute('data-type', this.schema.type)
+
+    if (this.jedi.debug) {
+      this.debug = this.jedi.theme.getDebugContainer()
+      this.container.appendChild(this.debug)
+    }
   }
 
   /**
@@ -73,7 +79,7 @@ class Editor {
       value = this.schema.default
     }
 
-    this.setValue(value, true)
+    this.setValue(value, false)
   }
 
   /**
@@ -92,19 +98,19 @@ class Editor {
 
   /**
    * Sets the editor value and calls refreshUI right after. The onChange method
-   * will be called if the new value is not an initial or default value and the
-   * new value is different than the current value.
+   * will be called unless triggersChange is explicitly set to false. This is
+   * useful for initial or default values.
    */
-  setValue (newValue, initial = false) {
+  setValue (newValue, triggersChange = true) {
     newValue = this.sanitize(newValue)
-    const currentValue = this.getValue()
     this.value = newValue
 
-    if (!initial && currentValue !== newValue) {
+    if (triggersChange) {
       this.onChange()
     }
 
     this.refreshUI()
+    this.refreshDebug()
     this.showValidationErrors()
   }
 
@@ -113,6 +119,16 @@ class Editor {
    * using setValue to set the value programmatically.
    */
   refreshUI () {}
+
+  /**
+   * Refresh the UI of the editor to reflect it's value. This is necessary when
+   * using setValue to set the value programmatically.
+   */
+  refreshDebug () {
+    if (this.jedi.debug) {
+      this.debug.textContent = JSON.stringify(this.getValue(), null, 2)
+    }
+  }
 
   /**
    * Shows validation messages in the editor container.
@@ -130,9 +146,15 @@ class Editor {
    */
   onChange () {
     if (this.parent) {
-      this.parent.onChange()
+      this.parent.onChildEditorChange()
     }
   }
+
+  /**
+   * Fires when the value of a child editor changes. This is relevant for Array
+   * and Object editors.
+   */
+  onChildEditorChange () {}
 
   /**
    * Destroys the editor, and every reference that it is attached to it.

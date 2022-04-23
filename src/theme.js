@@ -37,6 +37,10 @@ class Theme {
     return document.createElement('div')
   }
 
+  getDebugContainer () {
+    return document.createElement('pre')
+  }
+
   getLabel (labelText, attributes = {}) {
     const label = document.createElement('label')
     label.textContent = labelText

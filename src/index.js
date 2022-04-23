@@ -8,6 +8,7 @@ class Jedi {
     this.resolver = new Resolver()
     this.validator = new Validator()
     this.container = config.container
+    this.debug = config.debug || false
     this.schema = config.schema
     this.root = null
     this.editors = {}
@@ -47,7 +48,8 @@ class Jedi {
    */
   createEditor (config) {
     // todo expand defs
-    return new (this.resolver.resolve(config.schema))(config)
+    const EditorClass = this.resolver.resolve(config.schema)
+    return new (EditorClass)(config)
   }
 
   getValue () {

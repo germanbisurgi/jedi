@@ -96,7 +96,7 @@ class ArrayEditor extends Editor {
 
     this.getValue().forEach((value) => {
       const itemEditor = this.createItemEditor()
-      itemEditor.setValue(value, true)
+      itemEditor.setValue(value, false)
       this.childEditors.push(itemEditor)
     })
 

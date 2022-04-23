@@ -30,6 +30,16 @@ class ObjectEditor extends Editor {
 
     return this.value
   }
+
+  onChildEditorChange () {
+    const value = {}
+
+    this.childEditors.forEach((childEditor) => {
+      value[childEditor.getKey()] = childEditor.getValue()
+    })
+
+    this.setValue(value)
+  }
 }
 
 export default ObjectEditor
