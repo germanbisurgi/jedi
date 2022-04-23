@@ -71,10 +71,6 @@ class Theme {
         name: radioGroupName
       })
 
-      radio.addEventListener('change', () => {
-        console.log('radio change')
-      })
-
       radioGroup.appendChild(label)
       radioGroup.appendChild(radio)
     })
