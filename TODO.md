@@ -1,4 +1,5 @@
-- arrays should have onChildEditor change to set new value
+- everything not related to json-schema goes in options (eg enumTitles)
+- refactor arrays and objects: onChildEditorChange() and getValue()
 - boolean enum and enum titles
 - getContainer = get div
 - getInput -> getControl
