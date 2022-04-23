@@ -28,7 +28,7 @@ override methods:
 
 #### setValue pipeline
 
-setValue() -> onChange() -> refreshUI() -> showValidationErrors()
+setValue() -> onChange() -> (if parent) parent onChildEditorChange() -> refreshUI() -> showValidationErrors()
 
 ## Links
 
