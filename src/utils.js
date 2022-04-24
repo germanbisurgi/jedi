@@ -42,6 +42,30 @@ class Utils {
   isNull (value) {
     return value === null
   }
+
+  getSchemaEnumTitles (schema) {
+    return (schema && schema.options && schema.options.enumTitles && this.isArray(schema.options.enumTitles)) ? schema.options.enumTitles : false
+  }
+
+  getSchemaEnum (schema) {
+    return (schema && schema.enum && this.isArray(schema.enum)) ? schema.enum : false
+  }
+
+  getSchemaTitle (schema) {
+    return (schema && schema.title) ? schema.title : ''
+  }
+
+  hasNumericType (schema) {
+    return schema.type === 'number' || schema.type === 'integer'
+  }
+
+  hasFormatRadio (schema) {
+    return schema.format && schema.format === 'radio'
+  }
+
+  hasFormatSelect (schema) {
+    return schema.format && schema.format === 'select'
+  }
 }
 
 export default new Utils()

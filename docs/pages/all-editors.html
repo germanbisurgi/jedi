@@ -13,7 +13,7 @@
 <script>
   var jedi = new Jedi({
     container: document.querySelector('#jedi-container'),
-    debug: true,
+    debug: false,
     schema: {
       "type": "object",
       "title": "root",
@@ -30,13 +30,17 @@
               "type": "boolean",
               "title": "boolean enum",
               "format": "select",
-              "enumTitles": ["No", "Yes"]
+              "options": {
+                "enumTitles": ["No", "Yes"]
+              }
             },
             "boolean-enum-radio": {
               "type": "boolean",
               "title": "boolean enum radio",
               "format": "radio",
-              "enumTitles": ["No", "Yes"]
+              "options": {
+                "enumTitles": ["No", "Yes"]
+              }
             }
           }
         },
@@ -52,14 +56,18 @@
               "type": "string",
               "title": "string enum",
               "enum": ["albert", "betti", "carl"],
-              "enumTitles": ["Albert", "Betti", "Carl"]
+              "options": {
+                "enumTitles": ["Albert", "Betti", "Carl"]
+              }
             },
             "string-radio": {
               "type": "string",
               "title": "string enum radio",
               "format": "radio",
               "enum": ["albert", "betti", "carl"],
-              "enumTitles": ["Albert", "Betti", "Carl"]
+              "options": {
+                "enumTitles": ["Albert", "Betti", "Carl"]
+              }
             }
           }
         },
@@ -75,14 +83,18 @@
               "type": "number",
               "title": "number enum",
               "enum": [1.5, 2.5, 3.5],
-              "enumTitles": ["small (1.5)", "medium (2.5)", "big (3.5)"]
+              "options": {
+                "enumTitles": ["small (1.5)", "medium (2.5)", "big (3.5)"]
+              }
             },
             "number-enum-radio": {
               "type": "number",
               "title": "number enum radio",
               "format": "radio",
               "enum": [1.5, 2.5, 3.5],
-              "enumTitles": ["small (1.5)", "medium (2.5)", "big (3.5)"]
+              "options": {
+                "enumTitles": ["small (1.5)", "medium (2.5)", "big (3.5)"]
+              }
             }
           }
         },
@@ -98,14 +110,18 @@
               "type": "integer",
               "title": "integer enum",
               "enum": [1, 2, 3],
-              "enumTitles": ["small (1)", "medium (2)", "big (3)"]
+              "options": {
+                "enumTitles": ["small (1)", "medium (2)", "big (3)"]
+              }
             },
             "integer-enum-radio": {
               "type": "number",
               "title": "integer enum radio",
               "format": "radio",
               "enum": [1, 2, 3],
-              "enumTitles": ["small (1.5)", "medium (2.5)", "big (3.5)"]
+              "options": {
+                "enumTitles": ["small (1.5)", "medium (2.5)", "big (3.5)"]
+              }
             }
           }
         },

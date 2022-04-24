@@ -4,7 +4,7 @@ import utils from '../utils'
 class ArrayEditor extends Editor {
   build () {
     // label
-    const labelText = this.schema.title
+    const labelText = utils.getSchemaTitle(this.schema)
     const label = this.jedi.theme.getLabel(labelText)
     this.container.appendChild(label)
 

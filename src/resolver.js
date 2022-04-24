@@ -19,15 +19,13 @@ class Resolver {
      */
     this.resolvers = [
       (schema) => {
-        const format = schema.format
-        const hasFormatRadio = utils.isSet(format) && utils.isString(format) && format === 'radio'
+        const hasFormatRadio = utils.hasFormatRadio(schema)
         if (schema.type === 'boolean' && hasFormatRadio) {
           return BooleanEnumRadioEditor
         }
       },
       (schema) => {
-        const format = schema.format
-        const hasFormatSelect = utils.isSet(format) && utils.isString(format) && format === 'select'
+        const hasFormatSelect = utils.hasFormatSelect(schema)
         if (schema.type === 'boolean' && hasFormatSelect) {
           return BooleanEnumSelectEditor
         }
@@ -48,17 +46,14 @@ class Resolver {
         }
       },
       (schema) => {
-        const _enum = schema.enum
-        const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
-        const format = schema.format
-        const hasFormatRadio = utils.isSet(format) && utils.isString(format) && format === 'radio'
+        const hasEnumConstrain = utils.getSchemaEnum(schema)
+        const hasFormatRadio = utils.hasFormatRadio(schema)
         if (schema.type === 'string' && hasEnumConstrain && hasFormatRadio) {
           return StringEnumRadioEditor
         }
       },
       (schema) => {
-        const _enum = schema.enum
-        const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
+        const hasEnumConstrain = utils.getSchemaEnum(schema)
         if (schema.type === 'string' && hasEnumConstrain) {
           return StringEnumSelectEditor
         }
@@ -69,26 +64,23 @@ class Resolver {
         }
       },
       (schema) => {
-        const isNumericType = schema.type === 'number' || schema.type === 'integer'
-        const _enum = schema.enum
-        const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
-        const format = schema.format
-        const hasFormatRadio = utils.isSet(format) && utils.isString(format) && format === 'radio'
-        if (isNumericType && hasEnumConstrain && hasFormatRadio) {
+        const hasNumericType = utils.hasNumericType(schema)
+        const hasEnumConstrain = utils.getSchemaEnum(schema)
+        const hasFormatRadio = utils.hasFormatRadio(schema)
+        if (hasNumericType && hasEnumConstrain && hasFormatRadio) {
           return NumberEnumRadioEditor
         }
       },
       (schema) => {
-        const isNumericType = schema.type === 'number' || schema.type === 'integer'
-        const _enum = schema.enum
-        const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
-        if (isNumericType && hasEnumConstrain) {
+        const hasNumericType = utils.hasNumericType(schema)
+        const hasEnumConstrain = utils.getSchemaEnum(schema)
+        if (hasNumericType && hasEnumConstrain) {
           return NumberEnumSelectEditor
         }
       },
       (schema) => {
-        const isNumericType = schema.type === 'number' || schema.type === 'integer'
-        if (isNumericType) {
+        const hasNumericType = utils.hasNumericType(schema)
+        if (hasNumericType) {
           return NumberEditor
         }
       },

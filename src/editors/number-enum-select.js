@@ -1,17 +1,18 @@
 import NumberEditor from './number'
+import utils from '../utils'
 
 class NumberEnumSelectEditor extends NumberEditor {
   build () {
     // label
-    const labelText = this.schema.title
+    const labelText = utils.getSchemaTitle(this.schema)
     const label = this.jedi.theme.getLabel(labelText, {
       for: this.path
     })
     this.container.appendChild(label)
 
     // input
-    const optionValues = this.schema.enum
-    const optionsLabels = this.schema.enumTitles || optionValues
+    const optionValues = utils.getSchemaEnum(this.schema)
+    const optionsLabels = utils.getSchemaEnumTitles(this.schema) || optionValues
     this.input = this.jedi.theme.getSelect(optionValues, optionsLabels, this.path)
     this.container.appendChild(this.input)
 

@@ -1,9 +1,10 @@
 import Editor from '../editor'
+import utils from '../utils'
 
 class BooleanEditor extends Editor {
   build () {
     // label
-    const labelText = this.schema.title
+    const labelText = utils.getSchemaTitle(this.schema)
     const label = this.jedi.theme.getLabel(labelText, {
       for: this.path
     })
