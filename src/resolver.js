@@ -46,15 +46,15 @@ class Resolver {
         }
       },
       (schema) => {
-        const hasEnumConstrain = utils.getSchemaEnum(schema)
+        const hasEnum = utils.getSchemaEnum(schema)
         const hasFormatRadio = utils.hasFormatRadio(schema)
-        if (schema.type === 'string' && hasEnumConstrain && hasFormatRadio) {
+        if (schema.type === 'string' && hasEnum && hasFormatRadio) {
           return StringEnumRadioEditor
         }
       },
       (schema) => {
-        const hasEnumConstrain = utils.getSchemaEnum(schema)
-        if (schema.type === 'string' && hasEnumConstrain) {
+        const hasEnum = utils.getSchemaEnum(schema)
+        if (schema.type === 'string' && hasEnum) {
           return StringEnumSelectEditor
         }
       },
@@ -65,16 +65,16 @@ class Resolver {
       },
       (schema) => {
         const hasNumericType = utils.hasNumericType(schema)
-        const hasEnumConstrain = utils.getSchemaEnum(schema)
+        const hasEnum = utils.getSchemaEnum(schema)
         const hasFormatRadio = utils.hasFormatRadio(schema)
-        if (hasNumericType && hasEnumConstrain && hasFormatRadio) {
+        if (hasNumericType && hasEnum && hasFormatRadio) {
           return NumberEnumRadioEditor
         }
       },
       (schema) => {
         const hasNumericType = utils.hasNumericType(schema)
-        const hasEnumConstrain = utils.getSchemaEnum(schema)
-        if (hasNumericType && hasEnumConstrain) {
+        const hasEnum = utils.getSchemaEnum(schema)
+        if (hasNumericType && hasEnum) {
           return NumberEnumSelectEditor
         }
       },

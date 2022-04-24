@@ -8,7 +8,7 @@ class Editor {
     this.path = config.path || 'root'
     this.parent = config.parent || null
     this.container = null
-    this.debug = null
+    this.debugContainer = null
     this.childEditors = []
     this.init()
   }
@@ -34,8 +34,8 @@ class Editor {
     this.container.setAttribute('data-type', this.schema.type)
 
     if (this.jedi.debug) {
-      this.debug = this.jedi.theme.getDebugContainer()
-      this.container.appendChild(this.debug)
+      this.debugContainer = this.jedi.theme.getDebugContainer()
+      this.container.appendChild(this.debugContainer)
     }
   }
 
@@ -126,7 +126,7 @@ class Editor {
    */
   refreshDebug () {
     if (this.jedi.debug) {
-      this.debug.textContent = JSON.stringify(this.getValue(), null, 2)
+      this.debugContainer.textContent = JSON.stringify(this.getValue(), null, 2)
     }
   }
 
