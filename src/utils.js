@@ -3,6 +3,14 @@ class Utils {
     return JSON.parse(JSON.stringify(thing))
   }
 
+  equal (a, b) {
+    return JSON.stringify(a) === JSON.stringify(b)
+  }
+
+  different (a, b) {
+    return JSON.stringify(a) !== JSON.stringify(b)
+  }
+
   isSet (value) {
     return typeof value !== 'undefined'
   }
