@@ -3,125 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Editor types</title>
+    <link rel="stylesheet" href="../assets/css/theme.css">
 </head>
 <body>
 <div id="jedi-container"></div>
-<script src="./jedi.js"></script>
+<script src="../assets/js/jedi.js"></script>
 <script>
-  var jedi = new Jedi({
+  const jedi = new Jedi({
     container: document.querySelector('#jedi-container'),
+    debug: false,
     schema: {
-      "type": "object",
-      "title": "all editors",
-      "properties": {
-        "boolean": {
-          "type": "object",
-          "title": "boolean",
-          "properties": {
-            "boolean": {
-              "type": "boolean",
-              "title": "default"
-            },
-            "boolean-enum": {
-              "type": "boolean",
-              "title": "boolean enum",
-              "format": "select",
-              "enumTitles": ["No", "Yes"]
-            },
-            "boolean-enum-radio": {
-              "type": "boolean",
-              "title": "boolean enum radio",
-              "format": "radio",
-              "enumTitles": ["No", "Yes"]
-            }
-          }
-        },
-        "string": {
-          "type": "object",
-          "title": "string",
-          "properties": {
-            "string": {
-              "type": "string",
-              "title": "default"
-            },
-            "string-enum": {
-              "type": "string",
-              "title": "string enum",
-              "enum": ["albert", "betti", "carl"],
-              "enumTitles": ["Albert", "Betti", "Carl"]
-            },
-            "string-radio": {
-              "type": "string",
-              "title": "string enum radio",
-              "format": "radio",
-              "enum": ["albert", "betti", "carl"],
-              "enumTitles": ["Albert", "Betti", "Carl"]
-            }
-          }
-        },
-        "number": {
-          "type": "object",
-          "title": "number",
-          "properties": {
-            "number": {
-              "type": "number",
-              "title": "number"
-            },
-            "number-enum": {
-              "type": "number",
-              "title": "number enum",
-              "enum": [1.5, 2.5, 3.5],
-              "enumTitles": ["small (1.5)", "medium (2.5)", "big (3.5)"]
-            },
-            "number-enum-radio": {
-              "type": "number",
-              "title": "number enum radio",
-              "format": "radio",
-              "enum": [1.5, 2.5, 3.5],
-              "enumTitles": ["small (1.5)", "medium (2.5)", "big (3.5)"]
-            }
-          }
-        },
-        "integer": {
-          "type": "object",
-          "title": "integer",
-          "properties": {
-            "integer": {
-              "type": "integer",
-              "title": "integer"
-            },
-            "integer-enum": {
-              "type": "integer",
-              "title": "integer enum",
-              "enum": [1, 2, 3],
-              "enumTitles": ["small (1)", "medium (2)", "big (3)"]
-            },
-            "integer-enum-radio": {
-              "type": "number",
-              "title": "integer enum radio",
-              "format": "radio",
-              "enum": [1, 2, 3],
-              "enumTitles": ["small (1.5)", "medium (2.5)", "big (3.5)"]
-            }
-          }
-        },
-        "array": {
-          "type": "object",
-          "title": "array",
-          "properties": {
-            "string-array": {
-              "type": "array",
-              "title": "strings color",
-              "default": ["#6d80dd", "#b80f0f", "#280606"],
-              "items": {
-                "type": "string",
-                "title": "color",
-                "format": "color"
-              }
-            }
-          }
-        }
-      }
+      "$ref": "./schema.json",
     }
   })
 </script>

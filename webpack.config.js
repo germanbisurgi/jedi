@@ -45,12 +45,6 @@ const common = {
   }
 }
 
-const docs = merge(common, {
-  output: {
-    path: path.resolve(__dirname, 'docs/assets/js')
-  }
-})
-
 const dist = merge(common, {
   output: {
     path: path.resolve(__dirname, 'dist')
@@ -59,12 +53,11 @@ const dist = merge(common, {
 
 const tests = merge(common, {
   output: {
-    path: path.resolve(__dirname, 'tests/codeceptjs/pages')
+    path: path.resolve(__dirname, 'tests/codeceptjs/pages/assets/js/')
   }
 })
 
 module.exports = [
-  docs,
   dist,
   tests
 ]

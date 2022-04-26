@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "title": "root",
+  "properties": {
+    "color": {
+      "type": "string",
+      "title": "color",
+      "format": "color"
+    }
+  }
+}

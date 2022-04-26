@@ -34,11 +34,17 @@ class Jedi {
     delete this.editors[editor.path]
   }
 
-  loadEditors () {
+  async loadEditors () {
+    if (this.schema.$ref) {
+      const response = await window.fetch(this.schema.$ref)
+      this.schema = await response.json()
+    }
+
     this.root = this.createEditor({
       jedi: this,
       schema: this.schema
     })
+
     this.container.appendChild(this.root.container)
     this.container.classList.add('jedi-loaded')
   }
