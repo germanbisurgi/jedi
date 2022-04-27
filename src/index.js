@@ -12,11 +12,14 @@ class Jedi {
     this.schema = config.schema
     this.root = null
     this.editors = {}
+    this.logs = config.logs || false
     this.init()
   }
 
-  init () {
-    this.loadEditors()
+  log () {
+    if (this.logs) {
+      console.log(...arguments)
+    }
   }
 
   /**
@@ -39,7 +42,7 @@ class Jedi {
       if (!schema.$ref) {
         resolve(schema)
       } else {
-        console.log('resolving $ref', schema.$ref)
+        this.log('resolving $ref', schema.$ref)
         const response = await window.fetch(schema.$ref)
         const newSchema = await response.json()
         resolve(this.resolveRefs(newSchema))
@@ -47,13 +50,15 @@ class Jedi {
     })
   }
 
-  async loadEditors () {
+  async init () {
     this.schema = await this.resolveRefs(this.schema)
-
     this.root = this.createEditor({
       jedi: this,
       schema: this.schema
     })
+
+    this.container.appendChild(this.root.container)
+    this.container.classList.add('jedi-loaded')
   }
 
   /**
@@ -62,13 +67,7 @@ class Jedi {
   createEditor (config) {
     const EditorClass = this.resolver.resolve(config.schema)
     const editor = new (EditorClass)(config)
-    console.log('created editor', editor.path)
-
-    if (editor.path === 'root') {
-      console.log('ROOT')
-      this.container.appendChild(editor.container)
-      this.container.classList.add('jedi-loaded')
-    }
+    this.log('created editor', editor.path)
     return editor
   }
 

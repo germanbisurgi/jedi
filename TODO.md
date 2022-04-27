@@ -1,3 +1,4 @@
+- create editor on change array? maybe on move
 - schema objects
 - load json files
 - refactor arrays and objects: onChildEditorChange() and getValue()
