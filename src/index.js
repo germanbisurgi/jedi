@@ -37,6 +37,11 @@ class Jedi {
     delete this.editors[editor.path]
   }
 
+  /**
+   * Loads schemas recursively when "$ref" is set
+   * @param schema
+   * @return {Promise<unknown>}
+   */
   resolveRefs (schema) {
     return new Promise(async (resolve) => { // eslint-disable-line
       if (!schema.$ref) {
