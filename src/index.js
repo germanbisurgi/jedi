@@ -34,28 +34,42 @@ class Jedi {
     delete this.editors[editor.path]
   }
 
+  resolveRefs (schema) {
+    return new Promise(async (resolve) => { // eslint-disable-line
+      if (!schema.$ref) {
+        resolve(schema)
+      } else {
+        console.log('resolving $ref', schema.$ref)
+        const response = await window.fetch(schema.$ref)
+        const newSchema = await response.json()
+        resolve(this.resolveRefs(newSchema))
+      }
+    })
+  }
+
   async loadEditors () {
-    if (this.schema.$ref) {
-      const response = await window.fetch(this.schema.$ref)
-      this.schema = await response.json()
-    }
+    this.schema = await this.resolveRefs(this.schema)
 
     this.root = this.createEditor({
       jedi: this,
       schema: this.schema
     })
-
-    this.container.appendChild(this.root.container)
-    this.container.classList.add('jedi-loaded')
   }
 
   /**
    * Creates an editor instance based on the passed schema and config
    */
   createEditor (config) {
-    // todo expand defs
     const EditorClass = this.resolver.resolve(config.schema)
-    return new (EditorClass)(config)
+    const editor = new (EditorClass)(config)
+    console.log('created editor', editor.path)
+
+    if (editor.path === 'root') {
+      console.log('ROOT')
+      this.container.appendChild(editor.container)
+      this.container.classList.add('jedi-loaded')
+    }
+    return editor
   }
 
   getValue () {
