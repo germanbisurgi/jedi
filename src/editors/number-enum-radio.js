@@ -4,7 +4,7 @@ import utils from '../utils'
 class NumberEnumRadioEditor extends NumberEditor {
   build () {
     // label
-    const labelText = utils.getSchemaTitle(this.schema)
+    const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
     const label = this.jedi.theme.getLabel(labelText, {
       for: this.path
     })

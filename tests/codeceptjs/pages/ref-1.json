@@ -1,3 +1,22 @@
 {
-  "$ref": "./ref-2.json"
+  "type": "object",
+  "properties": {
+    "first_name": {
+      "$ref": "#/$defs/name"
+    },
+    "last_name": {
+      "$ref": "#/$defs/name"
+    }
+  },
+  "required": [
+    "first_name",
+    "last_name",
+    "shipping_address",
+    "billing_address"
+  ],
+  "$defs": {
+    "name": {
+      "type": "string"
+    }
+  }
 }

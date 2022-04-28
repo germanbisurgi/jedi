@@ -1,6 +1,7 @@
 import Theme from './theme'
 import Resolver from './resolver'
 import Validator from './validator'
+import refParser from '@apidevtools/json-schema-ref-parser'
 
 class Jedi {
   constructor (config) {
@@ -42,21 +43,23 @@ class Jedi {
    * @param schema
    * @return {Promise<unknown>}
    */
-  resolveRefs (schema) {
-    return new Promise(async (resolve) => { // eslint-disable-line
-      if (!schema.$ref) {
-        resolve(schema)
-      } else {
-        this.log('resolving $ref', schema.$ref)
-        const response = await window.fetch(schema.$ref)
-        const newSchema = await response.json()
-        resolve(this.resolveRefs(newSchema))
-      }
-    })
-  }
+  // resolveRefs (schema) {
+  //   return new Promise(async (resolve) => { // eslint-disable-line
+  //     if (!schema.$ref) {
+  //       resolve(schema)
+  //     } else {
+  //       this.log('resolving $ref', schema.$ref)
+  //       const response = await window.fetch(schema.$ref)
+  //       const newSchema = await response.json()
+  //       resolve(this.resolveRefs(newSchema))
+  //     }
+  //   })
+  // }
 
   async init () {
-    this.schema = await this.resolveRefs(this.schema)
+    this.schema = await refParser.dereference(this.schema)
+    console.log(this.schema)
+
     this.root = this.createEditor({
       jedi: this,
       schema: this.schema

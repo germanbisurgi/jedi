@@ -8,7 +8,7 @@
     "test": "yarn serve-tests & yarn webpack && yarn codeceptjs && killall node",
     "codeceptjs": "codeceptjs run --steps -c ./tests/codeceptjs/codecept.conf.js",
     "serve-tests": "live-server --no-browser ./tests/codeceptjs/pages",
-    "serve-dev":  "live-server ./tests/codeceptjs/pages",
+    "serve-dev": "live-server ./tests/codeceptjs/pages",
     "watch": "webpack --watch",
     "webpack": "webpack",
     "eslint": "eslint ./src",
@@ -45,5 +45,8 @@
     "puppeteer": "^13.5.2",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "@apidevtools/json-schema-ref-parser": "^9.0.9"
   }
 }

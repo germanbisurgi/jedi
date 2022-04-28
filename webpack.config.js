@@ -1,5 +1,5 @@
 const path = require('path')
-const merge = require('deepmerge')
+const deepmerge = require('deepmerge')
 
 const common = {
   entry: {
@@ -45,13 +45,13 @@ const common = {
   }
 }
 
-const dist = merge(common, {
+const dist = deepmerge(common, {
   output: {
     path: path.resolve(__dirname, 'dist')
   }
 })
 
-const tests = merge(common, {
+const tests = deepmerge(common, {
   output: {
     path: path.resolve(__dirname, 'tests/codeceptjs/pages/assets/js/')
   }
