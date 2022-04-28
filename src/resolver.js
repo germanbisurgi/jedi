@@ -103,6 +103,11 @@ class Resolver {
    * returns the first editor class that matches the passed schema.
    */
   resolve (schema) {
+    // todo: add resolver for schemas without type
+    if (typeof schema.type === 'undefined') {
+      schema.type = 'null'
+    }
+
     for (const resolver of this.resolvers) {
       const editorClass = resolver(schema)
       if (utils.isSet(editorClass)) {

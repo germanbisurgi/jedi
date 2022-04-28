@@ -38,27 +38,8 @@ class Jedi {
     delete this.editors[editor.path]
   }
 
-  /**
-   * Loads schemas recursively when "$ref" is set
-   * @param schema
-   * @return {Promise<unknown>}
-   */
-  // resolveRefs (schema) {
-  //   return new Promise(async (resolve) => { // eslint-disable-line
-  //     if (!schema.$ref) {
-  //       resolve(schema)
-  //     } else {
-  //       this.log('resolving $ref', schema.$ref)
-  //       const response = await window.fetch(schema.$ref)
-  //       const newSchema = await response.json()
-  //       resolve(this.resolveRefs(newSchema))
-  //     }
-  //   })
-  // }
-
   async init () {
     this.schema = await refParser.dereference(this.schema)
-    console.log(this.schema)
 
     this.root = this.createEditor({
       jedi: this,

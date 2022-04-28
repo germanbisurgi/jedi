@@ -9,17 +9,19 @@ class ObjectEditor extends Editor {
     this.container.appendChild(label)
 
     // child editors
-    Object.keys(this.schema.properties).forEach((prop) => {
-      const schema = this.schema.properties[prop]
-      const editor = this.jedi.createEditor({
-        jedi: this.jedi,
-        schema: schema,
-        path: this.path + '.' + prop,
-        parent: this
+    if (utils.isSet(this.schema.properties)) {
+      Object.keys(this.schema.properties).forEach((prop) => {
+        const schema = this.schema.properties[prop]
+        const editor = this.jedi.createEditor({
+          jedi: this.jedi,
+          schema: schema,
+          path: this.path + '.' + prop,
+          parent: this
+        })
+        this.container.appendChild(editor.container)
+        this.childEditors.push(editor)
       })
-      this.container.appendChild(editor.container)
-      this.childEditors.push(editor)
-    })
+    }
   }
 
   getValue () {
