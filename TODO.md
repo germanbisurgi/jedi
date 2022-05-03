@@ -1,5 +1,6 @@
+- hidden input json for requests
 - create editor on change array? maybe on move
-schema description
+- schema description
 - schema objects
 - load json files
 - refactor arrays and objects: onChildEditorChange() and getValue()
