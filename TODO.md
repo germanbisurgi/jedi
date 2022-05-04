@@ -10,6 +10,7 @@
 - tests
 - setValue all
 - array enums
+- array tuple
 
 ## tests
 
