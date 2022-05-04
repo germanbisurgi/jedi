@@ -1,14 +1,14 @@
-- hidden input json for requests
+- name attributes vs configurable single hidden input json for requests
+- refactor arrays and objects: onChildEditorChange() and getValue()
+- objects and arrays hidden inputs
 - create editor on change array? maybe on move
 - schema description
 - schema objects
 - load json files
-- refactor arrays and objects: onChildEditorChange() and getValue()
 - enum must have at least 1 item
 - editors without type
 - tests
 - setValue all
-- objects and arrays hidden inputs
 - array enums
 
 ## tests
