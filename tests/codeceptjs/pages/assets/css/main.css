@@ -2,25 +2,30 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: sans-serif;
 }
 /* -------------------------------------------------------------- typography  */
 * {
   font-size: 16px;
-  font-family: monospace;
 }
 h1 {
+  font-size: 40px;
   margin-bottom: calc(12px / 2);
 }
 h2 {
+  font-size: 32px;
   margin-bottom: calc(12px / 2);
 }
 h3 {
+  font-size: 28px;
   margin-bottom: calc(12px / 2);
 }
 h4 {
+  font-size: 24px;
   margin-bottom: calc(12px / 2);
 }
 h5 {
+  font-size: 20px;
   margin-bottom: calc(12px / 2);
 }
 h6 {
@@ -30,10 +35,12 @@ h6 {
 label {
   display: inline-block;
   margin-bottom: calc(12px * 0.2);
+  margin-right: 10px;
 }
 input {
-  border: 1px solid black;
-  color: black;
+  background-color: white;
+  border: 1px solid #333333;
+  border-radius: 5px;
   width: 100%;
   height: 40px;
   padding: 0 12px;
@@ -44,21 +51,26 @@ input[type="color"] {
 }
 input[type="checkbox"],
 input[type="radio"] {
+  margin-right: 5px;
   height: auto;
   width: auto;
+}
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+  cursor: pointer;
 }
 input[type="file"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-color: white;
   cursor: pointer;
+  padding: 0;
 }
-input[type="file"]::-webkit-file-upload-button,
-input[type="file"]::file-selector-button {
+input[type="file"]::-webkit-file-upload-button {
   background-color: white;
-  border: 1px solid black;
-  color: black;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  color: #333333;
   cursor: pointer;
   font-size: 16px;
   height: auto;
@@ -68,15 +80,39 @@ input[type="file"]::file-selector-button {
   text-decoration: none;
   width: auto;
   border: none;
-  border-right: 1px solid black;
+  border-right: 1px solid #333333;
+  border-radius: 5px 0 0 5px;
   display: inline-block;
   height: calc(40px - 2px);
   overflow: hidden;
 }
-input[type="file"]::-webkit-file-upload-button:hover,
+input[type="file"]::-webkit-file-upload-button:hover {
+  background-color: #333333;
+  color: #fafafa;
+}
+input[type="file"]::file-selector-button {
+  background-color: white;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  color: #333333;
+  cursor: pointer;
+  font-size: 16px;
+  height: auto;
+  margin-bottom: 12px;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  width: auto;
+  border: none;
+  border-right: 1px solid #333333;
+  border-radius: 5px 0 0 5px;
+  display: inline-block;
+  height: calc(40px - 2px);
+  overflow: hidden;
+}
 input[type="file"]::file-selector-button:hover {
-  background-color: black;
-  color: white;
+  background-color: #333333;
+  color: #fafafa;
 }
 input[type="range"] {
   -webkit-appearance: none;
@@ -93,8 +129,8 @@ input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   cursor: pointer;
   border-radius: 50%;
-  background-color: white;
-  border: 1px solid black;
+  background-color: #fafafa;
+  border: 1px solid #333333;
   height: 20px;
   width: 20px;
   margin-top: -5px;
@@ -105,20 +141,22 @@ input[type="range"]::-moz-range-thumb {
   appearance: none;
   cursor: pointer;
   border-radius: 50%;
-  background-color: white;
-  border: 1px solid black;
+  background-color: #fafafa;
+  border: 1px solid #333333;
   height: 20px;
   width: 20px;
 }
 input[type="range"]::-webkit-slider-runnable-track {
   border: none;
-  background-color: white;
+  background-color: #dee2e6;
+  border-radius: 5px;
   height: 10px;
   width: 100%;
 }
 input[type="range"]::-moz-range-track {
   border: none;
-  background-color: white;
+  background-color: #dee2e6;
+  border-radius: 5px;
   height: 10px;
   width: 100%;
 }
@@ -126,13 +164,13 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  background-color: white;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 0;
+  border: 1px solid #333333;
+  border-radius: 5px;
   width: 100%;
   height: 40px;
   margin-bottom: 12px;
@@ -141,17 +179,19 @@ select {
 }
 textarea {
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid #333333;
+  border-radius: 5px;
   width: 100%;
   height: 120px;
   margin-bottom: 12px;
-  padding: 0 12px;
+  padding: 6px 12px;
 }
 /* ----------------------------------------------------------------- buttons  */
 .button {
   background-color: white;
-  border: 1px solid black;
-  color: black;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  color: #333333;
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
@@ -163,8 +203,8 @@ textarea {
   width: auto;
 }
 .button:hover {
-  background-color: black;
-  color: white;
+  background-color: #333333;
+  color: #fafafa;
 }
 .button-block {
   display: block;
@@ -175,10 +215,14 @@ textarea {
   padding-left: 15px;
   padding-right: 15px;
 }
+body {
+  background-color: #f5f5f5;
+}
 button {
   background-color: white;
-  border: 1px solid black;
-  color: black;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  color: #333333;
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
@@ -188,26 +232,4 @@ button {
   text-align: center;
   text-decoration: none;
   width: auto;
-}
-.jedi-error-message {
-  color: red;
-}
-[data-path] {
-  background-color: #fff;
-  border: 1px solid black;
-  padding: 5px;
-  margin: 5px;
-}
-[data-type="object"] {
-  background-color: #eee;
-}
-[data-type="array"] {
-  background-color: #eef;
-}
-select {
-  min-width: 100px;
-}
-textarea {
-  width: 100%;
-  height: 500px;
 }

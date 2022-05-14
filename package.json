@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "yarn watch & yarn serve-dev",
+    "start": "yarn watch & yarn less & yarn serve-dev",
     "less": "less-watch-compiler tests/codeceptjs/pages/assets/less tests/codeceptjs/pages/assets/css main.less",
     "test": "yarn serve-tests & yarn webpack && yarn codeceptjs && killall node",
     "codeceptjs": "codeceptjs run --steps -c ./tests/codeceptjs/codecept.conf.js",
