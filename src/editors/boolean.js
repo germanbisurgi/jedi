@@ -8,14 +8,16 @@ class BooleanEditor extends Editor {
     const label = this.jedi.theme.getLabel(labelText, {
       for: this.path
     })
-    this.container.appendChild(label)
 
     // input
     this.input = this.jedi.theme.getInput({
       type: 'checkbox',
       id: this.path
     })
+
+    // appends
     this.container.appendChild(this.input)
+    this.container.appendChild(label)
 
     // events
     this.input.addEventListener('change', () => {

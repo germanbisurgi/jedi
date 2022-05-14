@@ -71,8 +71,8 @@ class Theme {
         name: radioGroupName
       })
 
-      radioGroup.appendChild(label)
       radioGroup.appendChild(radio)
+      radioGroup.appendChild(label)
     })
     return radioGroup
   }

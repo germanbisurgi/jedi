@@ -1,0 +1,177 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* -------------------------------------------------------------- typography  */
+* {
+    font-size: 16px;
+    font-family: monospace;
+}
+h1 {
+    margin-bottom: calc(12px / 2);
+}
+h2 {
+    margin-bottom: calc(12px / 2);
+}
+h3 {
+    margin-bottom: calc(12px / 2);
+}
+h4 {
+    margin-bottom: calc(12px / 2);
+}
+h5 {
+    margin-bottom: calc(12px / 2);
+}
+h6 {
+    margin-bottom: calc(12px / 2);
+}
+/* ------------------------------------------------------------------- forms  */
+label {
+    display: inline-block;
+    margin-bottom: calc(12px * 0.2);
+}
+input {
+    border: 1px solid black;
+    color: black;
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    margin-bottom: 12px;
+}
+input[type="color"] {
+    padding: 0;
+}
+input[type="checkbox"],
+input[type="radio"] {
+    height: auto;
+    width: auto;
+}
+input[type="file"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: white;
+    cursor: pointer;
+}
+input[type="file"]::-webkit-file-upload-button,
+input[type="file"]::file-selector-button {
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    cursor: pointer;
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 12px;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    width: auto;
+    border: none;
+    border-right: 1px solid black;
+    display: inline-block;
+    height: calc(40px - 2px);
+    overflow: hidden;
+}
+input[type="file"]::-webkit-file-upload-button:hover,
+input[type="file"]::file-selector-button:hover {
+    background-color: black;
+    color: white;
+}
+input[type="range"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    height: 10px;
+    background: transparent;
+    padding: 0;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid black;
+    height: 20px;
+    width: 20px;
+    margin-top: -5px;
+}
+input[type="range"]::-moz-range-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid black;
+    height: 20px;
+    width: 20px;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+    border: none;
+    background-color: white;
+    height: 10px;
+    width: 100%;
+}
+input[type="range"]::-moz-range-track {
+    border: none;
+    background-color: white;
+    height: 10px;
+    width: 100%;
+}
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 0;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 12px;
+    position: relative;
+    padding: 0 12px;
+}
+textarea {
+    background-color: white;
+    border: 1px solid black;
+    width: 100%;
+    height: 120px;
+    margin-bottom: 12px;
+    padding: 0 12px;
+}
+/* ----------------------------------------------------------------- buttons  */
+.button {
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 12px;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    width: auto;
+}
+.button:hover {
+    background-color: black;
+    color: white;
+}
+.button-block {
+    display: block;
+    width: 100%;
+}
+/* -------------------------------------------------------------------- grid  */
+.wrapper-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+}
