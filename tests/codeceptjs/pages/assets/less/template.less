@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
     font-family: sans-serif;
 }
 /* -------------------------------------------------------------- typography  */
@@ -40,9 +41,9 @@ label {
 input {
     background-color: white;
     border: 1px solid #333333;
-    border-radius: 5px;
+    border-radius: 3px;
     width: 100%;
-    height: 40px;
+    height: 35px;
     padding: 0 12px;
     margin-bottom: 12px;
 }
@@ -69,7 +70,7 @@ input[type="file"] {
 input[type="file"]::-webkit-file-upload-button {
     background-color: white;
     border: 1px solid #333333;
-    border-radius: 5px;
+    border-radius: 3px;
     color: #333333;
     cursor: pointer;
     font-size: 16px;
@@ -81,9 +82,9 @@ input[type="file"]::-webkit-file-upload-button {
     width: auto;
     border: none;
     border-right: 1px solid #333333;
-    border-radius: 5px 0 0 5px;
+    border-radius: 3px 0 0 3px;
     display: inline-block;
-    height: calc(40px - 2px);
+    height: calc(35px - 2px);
     overflow: hidden;
 }
 input[type="file"]::-webkit-file-upload-button:hover {
@@ -93,7 +94,7 @@ input[type="file"]::-webkit-file-upload-button:hover {
 input[type="file"]::file-selector-button {
     background-color: white;
     border: 1px solid #333333;
-    border-radius: 5px;
+    border-radius: 3px;
     color: #333333;
     cursor: pointer;
     font-size: 16px;
@@ -105,9 +106,9 @@ input[type="file"]::file-selector-button {
     width: auto;
     border: none;
     border-right: 1px solid #333333;
-    border-radius: 5px 0 0 5px;
+    border-radius: 3px 0 0 3px;
     display: inline-block;
-    height: calc(40px - 2px);
+    height: calc(35px - 2px);
     overflow: hidden;
 }
 input[type="file"]::file-selector-button:hover {
@@ -149,16 +150,19 @@ input[type="range"]::-moz-range-thumb {
 input[type="range"]::-webkit-slider-runnable-track {
     border: none;
     background-color: #dee2e6;
-    border-radius: 5px;
+    border-radius: 3px;
     height: 10px;
     width: 100%;
 }
 input[type="range"]::-moz-range-track {
     border: none;
     background-color: #dee2e6;
-    border-radius: 5px;
+    border-radius: 3px;
     height: 10px;
     width: 100%;
+}
+input:disabled {
+    opacity: 0.4;
 }
 select {
     -webkit-appearance: none;
@@ -170,27 +174,33 @@ select {
     background-position: right 0.75rem center;
     background-size: 16px 12px;
     border: 1px solid #333333;
-    border-radius: 5px;
+    border-radius: 3px;
     width: 100%;
-    height: 40px;
+    height: 35px;
     margin-bottom: 12px;
     position: relative;
     padding: 0 12px;
 }
+select:disabled {
+    opacity: 0.4;
+}
 textarea {
     background-color: white;
     border: 1px solid #333333;
-    border-radius: 5px;
+    border-radius: 3px;
     width: 100%;
-    height: 120px;
+    height: 105px;
     margin-bottom: 12px;
     padding: 6px 12px;
+}
+textarea:disabled {
+    opacity: 0.4;
 }
 /* ----------------------------------------------------------------- buttons  */
 .button {
     background-color: white;
     border: 1px solid #333333;
-    border-radius: 5px;
+    border-radius: 3px;
     color: #333333;
     cursor: pointer;
     display: inline-block;
@@ -206,9 +216,30 @@ textarea {
     background-color: #333333;
     color: #fafafa;
 }
-.button-block {
-    display: block;
-    width: 100%;
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+    background-color: white;
+    border: 1px solid #333333;
+    border-radius: 3px;
+    color: #333333;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 12px;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    width: auto;
+}
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+    background-color: #333333;
+    color: #fafafa;
 }
 /* -------------------------------------------------------------------- grid  */
 .wrapper-fluid {
