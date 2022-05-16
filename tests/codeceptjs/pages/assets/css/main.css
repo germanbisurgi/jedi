@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  scroll-behavior: smooth;
   font-family: sans-serif;
 }
 /* -------------------------------------------------------------- typography  */
@@ -40,8 +39,8 @@ label {
 }
 input {
   background-color: white;
-  border: 1px solid #333333;
-  border-radius: 3px;
+  border: 1px solid #000;
+  border-radius: 0;
   width: 100%;
   height: 35px;
   padding: 0 12px;
@@ -69,9 +68,9 @@ input[type="file"] {
 }
 input[type="file"]::-webkit-file-upload-button {
   background-color: white;
-  border: 1px solid #333333;
-  border-radius: 3px;
-  color: #333333;
+  border: 1px solid #000;
+  border-radius: 0;
+  color: #000;
   cursor: pointer;
   font-size: 16px;
   height: auto;
@@ -81,21 +80,21 @@ input[type="file"]::-webkit-file-upload-button {
   text-decoration: none;
   width: auto;
   border: none;
-  border-right: 1px solid #333333;
-  border-radius: 3px 0 0 3px;
+  border-right: 1px solid #000;
+  border-radius: 0 0 0 0;
   display: inline-block;
   height: calc(35px - 2px);
   overflow: hidden;
 }
 input[type="file"]::-webkit-file-upload-button:hover {
-  background-color: #333333;
-  color: #fafafa;
+  background-color: #000;
+  color: #fff;
 }
 input[type="file"]::file-selector-button {
   background-color: white;
-  border: 1px solid #333333;
-  border-radius: 3px;
-  color: #333333;
+  border: 1px solid #000;
+  border-radius: 0;
+  color: #000;
   cursor: pointer;
   font-size: 16px;
   height: auto;
@@ -105,15 +104,15 @@ input[type="file"]::file-selector-button {
   text-decoration: none;
   width: auto;
   border: none;
-  border-right: 1px solid #333333;
-  border-radius: 3px 0 0 3px;
+  border-right: 1px solid #000;
+  border-radius: 0 0 0 0;
   display: inline-block;
   height: calc(35px - 2px);
   overflow: hidden;
 }
 input[type="file"]::file-selector-button:hover {
-  background-color: #333333;
-  color: #fafafa;
+  background-color: #000;
+  color: #fff;
 }
 input[type="range"] {
   -webkit-appearance: none;
@@ -130,8 +129,8 @@ input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   cursor: pointer;
   border-radius: 50%;
-  background-color: #fafafa;
-  border: 1px solid #333333;
+  background-color: #fff;
+  border: 1px solid #000;
   height: 20px;
   width: 20px;
   margin-top: -5px;
@@ -142,22 +141,22 @@ input[type="range"]::-moz-range-thumb {
   appearance: none;
   cursor: pointer;
   border-radius: 50%;
-  background-color: #fafafa;
-  border: 1px solid #333333;
+  background-color: #fff;
+  border: 1px solid #000;
   height: 20px;
   width: 20px;
 }
 input[type="range"]::-webkit-slider-runnable-track {
   border: none;
   background-color: #dee2e6;
-  border-radius: 3px;
+  border-radius: 0;
   height: 10px;
   width: 100%;
 }
 input[type="range"]::-moz-range-track {
   border: none;
   background-color: #dee2e6;
-  border-radius: 3px;
+  border-radius: 0;
   height: 10px;
   width: 100%;
 }
@@ -173,8 +172,8 @@ select {
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
-  border: 1px solid #333333;
-  border-radius: 3px;
+  border: 1px solid #000;
+  border-radius: 0;
   width: 100%;
   height: 35px;
   margin-bottom: 12px;
@@ -186,8 +185,8 @@ select:disabled {
 }
 textarea {
   background-color: white;
-  border: 1px solid #333333;
-  border-radius: 3px;
+  border: 1px solid #000;
+  border-radius: 0;
   width: 100%;
   height: 105px;
   margin-bottom: 12px;
@@ -199,9 +198,9 @@ textarea:disabled {
 /* ----------------------------------------------------------------- buttons  */
 .button {
   background-color: white;
-  border: 1px solid #333333;
-  border-radius: 3px;
-  color: #333333;
+  border: 1px solid #000;
+  border-radius: 0;
+  color: #000;
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
@@ -213,17 +212,17 @@ textarea:disabled {
   width: auto;
 }
 .button:hover {
-  background-color: #333333;
-  color: #fafafa;
+  background-color: #000;
+  color: #fff;
 }
 button,
 input[type="button"],
 input[type="submit"],
 input[type="reset"] {
   background-color: white;
-  border: 1px solid #333333;
-  border-radius: 3px;
-  color: #333333;
+  border: 1px solid #000;
+  border-radius: 0;
+  color: #000;
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
@@ -238,29 +237,26 @@ button:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover {
-  background-color: #333333;
-  color: #fafafa;
+  background-color: #000;
+  color: #fff;
 }
 /* -------------------------------------------------------------------- grid  */
 .wrapper-fluid {
   padding-left: 15px;
   padding-right: 15px;
 }
-body {
-  background-color: #f5f5f5;
+.jedi-error-message {
+  color: red;
 }
-button {
-  background-color: white;
-  border: 1px solid #333333;
-  border-radius: 3px;
-  color: #333333;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 16px;
-  height: auto;
-  margin-bottom: 12px;
-  padding: 6px 12px;
-  text-align: center;
-  text-decoration: none;
-  width: auto;
+[data-path] {
+  background-color: #fff;
+  border: 1px solid black;
+  padding: 5px;
+  margin: 5px;
+}
+[data-type="object"] {
+  background-color: #eee;
+}
+[data-type="array"] {
+  background-color: #eef;
 }
