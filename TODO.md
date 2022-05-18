@@ -4,7 +4,6 @@
 - create editor on change array? maybe on move
 - schema description
 - schema objects
-- load json files
 - enum must have at least 1 item
 - editors without type
 - tests
