@@ -11,7 +11,8 @@ class StringEditor extends Editor {
     this.container.appendChild(label)
 
     // input
-    const inputTypes = ['color', 'datetime-local', 'email', 'month', 'search', 'tel', 'text', 'time', 'url', 'week']
+    // todo file, range should be handled differently
+    const inputTypes = ['color', 'date', 'datetime-local', 'email', 'number', 'month', 'password', 'search', 'time', 'tel', 'text', 'textarea', 'url', 'week']
     this.input = this.jedi.theme.getInput({
       type: inputTypes.includes(this.schema.format) ? this.schema.format : 'text',
       id: this.path
