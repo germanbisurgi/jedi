@@ -88,7 +88,6 @@ class ArrayEditor extends Editor {
 
   refreshUI () {
     this.childEditors.forEach((editor) => {
-      this.container.removeChild(editor.container)
       editor.destroy()
     })
 

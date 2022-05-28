@@ -160,7 +160,10 @@ class Editor {
    * Destroys the editor, and every reference that it is attached to it.
    */
   destroy () {
-    this.container.parentNode.removeChild(this.container)
+    if (this.container && this.container.parentNode) {
+      this.container.parentNode.removeChild(this.container)
+    }
+
     this.unregister()
 
     Object.keys(this).forEach((key) => {
