@@ -43,6 +43,13 @@ class ObjectEditor extends Editor {
 
     this.setValue(value)
   }
+
+  destroy () {
+    this.childEditors.forEach((childEditor) => {
+      childEditor.destroy()
+    })
+    super.destroy()
+  }
 }
 
 export default ObjectEditor

@@ -67,6 +67,13 @@ class Jedi {
   getEditor (path) {
     return this.editors[path]
   }
+
+  destroy () {
+    this.root.destroy()
+    Object.keys(this).forEach((key) => {
+      delete this[key]
+    })
+  }
 }
 
 export default Jedi

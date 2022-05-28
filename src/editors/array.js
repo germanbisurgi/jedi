@@ -104,6 +104,14 @@ class ArrayEditor extends Editor {
       this.container.appendChild(editor.container)
     })
   }
+
+  destroy () {
+    this.childEditors.forEach((childEditor) => {
+      childEditor.destroy()
+    })
+
+    this.unregister()
+  }
 }
 
 export default ArrayEditor
