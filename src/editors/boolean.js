@@ -30,7 +30,7 @@ class BooleanEditor extends Editor {
   }
 
   refreshUI () {
-    this.input.checked = this.value
+    this.input.checked = this.getValue()
   }
 }
 

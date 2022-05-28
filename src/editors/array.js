@@ -61,7 +61,7 @@ class ArrayEditor extends Editor {
       })
     }
 
-    if (this.value.length - 1 !== itemIndex) {
+    if (this.getValue().length - 1 !== itemIndex) {
       const moveDownBtn = this.jedi.theme.getButton('move down')
       itemEditor.container.appendChild(moveDownBtn)
       moveDownBtn.addEventListener('click', () => {

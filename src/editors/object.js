@@ -38,32 +38,23 @@ class ObjectEditor extends Editor {
     this.setValue(value)
   }
 
-  getValue () {
-    const value = {}
-
-    this.childEditors.forEach((childEditor) => {
-      value[childEditor.getKey()] = childEditor.getValue()
-    })
-
-    return value
-  }
-
   refreshUI () {
-    for (const key in this.value) {
-      if (!Object.prototype.hasOwnProperty.call(this.value, key)) {
+    const value = this.getValue()
+    for (const key in value) {
+      if (!Object.prototype.hasOwnProperty.call(value, key)) {
         continue
       }
 
       const childEditor = this.getChildEditor(key)
 
       if (childEditor) {
-        childEditor.setValue(this.value[childEditor.getKey()], false)
+        childEditor.setValue(value[childEditor.getKey()], false)
       } else {
-        const value = this.value[key]
+        const initialValue = value[key]
 
         const schema = {
-          type: utils.getType(value),
-          default: value
+          type: utils.getType(initialValue),
+          default: initialValue
         }
 
         this.addChildEditor(schema, key)
