@@ -43,6 +43,26 @@ class Utils {
     return value === null
   }
 
+  getType (value) {
+    let type = 'string'
+
+    if (this.isInteger(value)) {
+      type = 'integer'
+    } else if (this.isString(value)) {
+      type = 'string'
+    } else if (this.isBoolean(value)) {
+      type = 'boolean'
+    } else if (this.isArray(value)) {
+      type = 'array'
+    } else if (this.isNull(value)) {
+      type = 'null'
+    } else if (this.isObject(value)) {
+      type = 'object'
+    }
+
+    return type
+  }
+
   getSchemaEnumTitles (schema) {
     return (schema && schema.options && schema.options.enumTitles && this.isArray(schema.options.enumTitles)) ? schema.options.enumTitles : false
   }
