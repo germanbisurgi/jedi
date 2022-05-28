@@ -110,7 +110,7 @@ class ArrayEditor extends Editor {
       childEditor.destroy()
     })
 
-    this.unregister()
+    super.destroy()
   }
 }
 

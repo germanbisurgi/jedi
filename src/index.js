@@ -70,6 +70,7 @@ class Jedi {
 
   destroy () {
     this.root.destroy()
+
     Object.keys(this).forEach((key) => {
       delete this[key]
     })

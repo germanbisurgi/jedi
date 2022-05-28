@@ -48,6 +48,7 @@ class ObjectEditor extends Editor {
     this.childEditors.forEach((childEditor) => {
       childEditor.destroy()
     })
+
     super.destroy()
   }
 }
