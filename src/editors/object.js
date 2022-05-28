@@ -12,12 +12,12 @@ class ObjectEditor extends Editor {
     if (utils.isSet(this.schema.properties)) {
       Object.keys(this.schema.properties).forEach((key) => {
         const schema = this.schema.properties[key]
-        this.addProperty(schema, key)
+        this.addChildEditor(schema, key)
       })
     }
   }
 
-  addProperty (schema, key) {
+  addChildEditor (schema, key) {
     const editor = this.jedi.createEditor({
       jedi: this.jedi,
       schema: schema,
@@ -28,11 +28,7 @@ class ObjectEditor extends Editor {
     this.childEditors.push(editor)
   }
 
-  removeProperty (key) {
-    console.log('removeProperty', key)
-  }
-
-  /* onChildEditorChange () {
+  onChildEditorChange () {
     const value = {}
 
     this.childEditors.forEach((childEditor) => {
@@ -40,7 +36,7 @@ class ObjectEditor extends Editor {
     })
 
     this.setValue(value)
-  } */
+  }
 
   getValue () {
     const value = {}
@@ -61,29 +57,18 @@ class ObjectEditor extends Editor {
       const childEditor = this.getChildEditor(key)
 
       if (childEditor) {
-        childEditor.setValue(this.value[childEditor.getKey()])
+        childEditor.setValue(this.value[childEditor.getKey()], false)
       } else {
         const value = this.value[key]
-
-        console.log('utils.getType(value)', utils.getType(value))
 
         const schema = {
           type: utils.getType(value),
           default: value
         }
 
-        this.addProperty(schema, key)
+        this.addChildEditor(schema, key)
       }
     }
-
-    /* for (let i = this.childEditors.length - 1; i >= 0; i--) {
-      const childEditor = this.childEditors[i]
-      const keyExist = utils.isSet(this.value[childEditor.getKey()])
-
-      if (!keyExist) {
-        this.removeProperty(childEditor.getKey())
-      }
-    } */
   }
 
   getChildEditor (key) {
