@@ -16,10 +16,21 @@ class ArrayEditor extends Editor {
     })
   }
 
-  createItemEditor () {
+  createItemEditor (value) {
+    let schema
+
+    // When setting no schema is defined get the type from the value
+    if (utils.isSet(this.schema.items)) {
+      schema = this.schema.items
+    } else {
+      schema = {
+        type: utils.getType(value)
+      }
+    }
+
     const itemEditor = this.jedi.createEditor({
       jedi: this.jedi,
-      schema: this.schema.items,
+      schema: schema,
       path: this.path + '.' + this.childEditors.length,
       parent: this
     })
@@ -94,7 +105,7 @@ class ArrayEditor extends Editor {
     this.childEditors = []
 
     this.getValue().forEach((value) => {
-      const itemEditor = this.createItemEditor()
+      const itemEditor = this.createItemEditor(value)
       itemEditor.setValue(value, false)
       this.childEditors.push(itemEditor)
     })

@@ -180,24 +180,6 @@
             "title": "color",
             "format": "color"
           }
-        },
-        "object-array": {
-          "type": "array",
-          "title": "object",
-          "items": {
-            "type": "object",
-            "title": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "title": "type"
-              },
-              "name": {
-                "type": "string",
-                "title": "name"
-              }
-            }
-          }
         }
       }
     }
