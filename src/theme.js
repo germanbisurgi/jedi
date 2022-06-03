@@ -33,7 +33,7 @@ class Theme {
     return button
   }
 
-  getContainer () {
+  getDiv () {
     return document.createElement('div')
   }
 
@@ -48,14 +48,26 @@ class Theme {
     return label
   }
 
+  getLegend (legendText, attributes = {}) {
+    const legend = document.createElement('legend')
+    legend.textContent = legendText
+    this.setAttributes(legend, attributes)
+    return legend
+  }
+
   getInput (attributes = {}) {
     const input = document.createElement('input')
     this.setAttributes(input, attributes)
     return input
   }
 
-  getRadioGroup (optionValues, optionsLabels, radioGroupName) {
-    const radioGroup = this.getContainer()
+  getRadioGroup (optionValues, optionsLabels, radioGroupName, legendText) {
+    const radioGroup = document.createElement('fieldset')
+
+    if (legendText) {
+      const legend = this.getLegend(legendText)
+      radioGroup.appendChild(legend)
+    }
 
     optionValues.forEach((value, index) => {
       const labelText = optionsLabels[index]

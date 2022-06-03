@@ -29,7 +29,7 @@ class Editor {
   }
 
   setContainer () {
-    this.container = this.jedi.theme.getContainer()
+    this.container = this.buildContainer()
     this.container.setAttribute('data-path', this.path)
     this.container.setAttribute('data-type', this.schema.type)
 
@@ -37,6 +37,10 @@ class Editor {
       this.debugContainer = this.jedi.theme.getDebugContainer()
       this.container.appendChild(this.debugContainer)
     }
+  }
+
+  buildContainer () {
+    return this.jedi.theme.getDiv()
   }
 
   /**

@@ -252,7 +252,7 @@ input[type="reset"]:hover {
   color: #fdfdfd;
 }
 .jedi-error-message {
-  color: red;
+  color: #aa0000;
 }
 [data-path] {
   border: 1px solid #390099;

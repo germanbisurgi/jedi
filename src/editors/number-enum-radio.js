@@ -3,18 +3,12 @@ import utils from '../utils'
 
 class NumberEnumRadioEditor extends NumberEditor {
   build () {
-    // label
-    const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
-    const label = this.jedi.theme.getLabel(labelText, {
-      for: this.path
-    })
-    this.container.appendChild(label)
-
     // input
+    const legendText = utils.getSchemaTitle(this.schema) || this.getKey()
     const optionValues = utils.getSchemaEnum(this.schema)
     const optionsLabels = utils.getSchemaEnumTitles(this.schema) || optionValues
     const radioGroupName = this.path
-    const radioGroup = this.jedi.theme.getRadioGroup(optionValues, optionsLabels, radioGroupName)
+    const radioGroup = this.jedi.theme.getRadioGroup(optionValues, optionsLabels, radioGroupName, legendText)
     this.container.appendChild(radioGroup)
 
     // events
