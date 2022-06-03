@@ -56,6 +56,10 @@ label {
   margin-top: 12px;
   margin-right: 10px;
 }
+fieldset {
+  border: none;
+  margin-top: 12px;
+}
 input {
   background-color: #fdfdfd;
   border: 1px solid #390099;
