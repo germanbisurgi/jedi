@@ -1,0 +1,179 @@
+/* ------------------------------------------------------------------- forms  */
+
+@control-height: 35px;
+@form-field-bg-color: red;
+@forms-placeholder-color: lighten(@black, 25%);
+
+label {
+  display: inline-block;
+  margin-top: @spacer;
+  margin-right: 10px;
+}
+
+input {
+  background-color: @white;
+  border: 1px solid @color-primary;
+  border-radius: @border-radius;
+  width: 100%;
+  height: @control-height;
+  padding: 0 12px;
+  margin-top: @spacer;
+
+  &[type="color"] {
+    padding: 0;
+  }
+
+  &[type="checkbox"],
+  &[type="radio"] {
+    margin-right: 5px;
+    height: auto;
+    width: auto;
+
+    & + label {
+      cursor: pointer;
+    }
+  }
+
+  &[type="file"] {
+    .appearance(none);
+    cursor: pointer;
+    padding: 0;
+
+    &::-webkit-file-upload-button {
+      background-color: @color-primary;
+      border: none;
+      border-right: 1px solid @color-primary;
+      border-radius: 0 0 0 0;
+      color: @white;
+      cursor: pointer;
+      display: inline-block;
+      height: calc(@control-height - 2px);
+      overflow: hidden;
+    }
+
+    &::file-selector-button {
+      background-color: @color-primary;
+      border: none;
+      border-right: 1px solid @color-primary;
+      border-radius: 0 0 0 0;
+      color: @white;
+      cursor: pointer;
+      display: inline-block;
+      height: calc(@control-height - 2px);
+      overflow: hidden;
+    }
+  }
+
+  @form-range-track-height: 1px;
+  @form-range-thumb-height: 20px;
+  @form-range-thumb-width: 20px;
+  @form-range-thumb-margin-top: (@form-range-track-height - @form-range-thumb-height) * 0.5;
+
+  &[type="range"] {
+    .appearance(none);
+    border: none;
+    height: @form-range-track-height;
+    background: transparent;
+    padding: 0;
+
+    &::-webkit-slider-thumb {
+      .appearance(none);
+      cursor: pointer;
+      border-radius: 50%;
+      background-color: @white;
+      border: 1px solid @color-primary;
+      height: @form-range-thumb-height;
+      width: @form-range-thumb-width;
+
+      margin-top: @form-range-thumb-margin-top;
+    }
+
+    &::-moz-range-thumb {
+      .appearance(none);
+      cursor: pointer;
+      border-radius: 50%;
+      background-color: @white;
+      border: 1px solid @color-primary;
+      height: @form-range-thumb-height;
+      width: @form-range-thumb-width;
+    }
+
+    &::-webkit-slider-runnable-track {
+      border: none;
+      background-color: @color-primary;
+      border-radius: 0;
+      height: @form-range-track-height;
+      width: 100%;
+    }
+
+    &::-moz-range-track {
+      border: none;
+      background-color: @color-primary;
+      border-radius: 0;
+      height: @form-range-track-height;
+      width: 100%;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.4;
+  }
+
+  &::placeholder {
+    color: @forms-placeholder-color;
+  }
+
+  &:-ms-input-placeholder {
+    color: @forms-placeholder-color;
+  }
+
+  &::-ms-input-placeholder {
+    color: @forms-placeholder-color;
+  }
+}
+
+select {
+  .appearance(none);
+  background-color: @white;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  border: 1px solid @color-primary;
+  border-radius: @border-radius;
+  width: 100%;
+  height: @control-height;
+  margin-top: @spacer;
+  position: relative;
+  padding: 0 12px;
+
+  &:disabled {
+    opacity: 0.4;
+  }
+}
+
+textarea {
+  background-color: @white;
+  border: 1px solid @color-primary;
+  border-radius: @border-radius;
+  width: 100%;
+  height: @control-height * 3;
+  margin-top: @spacer;
+  padding: 6px 12px;
+
+  &:disabled {
+    opacity: 0.4;
+  }
+
+  &::placeholder {
+    color: @forms-placeholder-color;
+  }
+
+  &:-ms-input-placeholder {
+    color: @forms-placeholder-color;
+  }
+
+  &::-ms-input-placeholder {
+    color: @forms-placeholder-color;
+  }
+}

@@ -1,0 +1,31 @@
+@navigation-height: 50px;
+@navigation-anchor-offset: 50px;
+
+body {
+    padding-top: @navigation-height;
+}
+
+.navigation {
+    background-color: @white;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: @navigation-height;
+    box-shadow: @shadow;
+}
+
+.navigation-item {
+    display: inline-block;
+    margin: 0 @spacer;
+    text-decoration: none;
+}
+
+.navigation-anchor {
+    position: relative;
+    top: -@navigation-height - @navigation-anchor-offset;
+}
+

@@ -15,105 +15,40 @@ p {
   margin-top: 12px;
 }
 a {
-  color: #183691;
+  color: #390099;
 }
 h1 {
-  color: #183691;
+  color: #390099;
   font-size: 40px;
   margin-top: 12px;
   text-transform: uppercase;
 }
 h2 {
-  color: #183691;
+  color: #390099;
   font-size: 32px;
   margin-top: 12px;
   text-transform: uppercase;
 }
 h3 {
-  color: #183691;
+  color: #390099;
   margin-top: 12px;
 }
 h4 {
-  color: #183691;
+  color: #390099;
   margin-top: 12px;
 }
 h5 {
-  color: #183691;
+  color: #390099;
   margin-top: 12px;
 }
 h6 {
-  color: #183691;
+  color: #390099;
   margin-top: 12px;
 }
 /* -------------------------------------------------------------------- grid  */
 .wrapper-fluid {
   padding-left: 15px;
   padding-right: 15px;
-}
-body {
-  padding-top: 50px;
-}
-.navigation {
-  background-color: #fdfdfd;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 50px;
-  box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.05);
-}
-.navigation-item {
-  display: inline-block;
-  margin: 0 12px;
-  text-decoration: none;
-}
-.navigation-anchor {
-  position: relative;
-  top: -100px;
-}
-.teaser {
-  width: 100%;
-  text-align: center;
-  margin-top: 36px;
-}
-@media (min-width: 700px) {
-  .teaser {
-    width: 33.33%;
-    padding: 0 12px;
-  }
-}
-.teaser-img {
-  background-image: url("../../images/js.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  height: 200px;
-  margin-top: 12px;
-}
-.teaser-description {
-  margin-top: 12px;
-}
-.teaser-button {
-  background-color: #183691;
-  border: 1px solid #183691;
-  border-radius: 3px;
-  color: #fdfdfd;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 16px;
-  height: auto;
-  margin-top: 12px;
-  padding: 6px 12px;
-  text-align: center;
-  text-decoration: none;
-  width: auto;
-}
-.teaser-button:hover {
-  background-color: #112665;
-  color: #fdfdfd;
 }
 /* ------------------------------------------------------------------- forms  */
 label {
@@ -123,7 +58,7 @@ label {
 }
 input {
   background-color: #fdfdfd;
-  border: 1px solid #183691;
+  border: 1px solid #390099;
   border-radius: 3px;
   width: 100%;
   height: 35px;
@@ -151,9 +86,9 @@ input[type="file"] {
   padding: 0;
 }
 input[type="file"]::-webkit-file-upload-button {
-  background-color: #183691;
+  background-color: #390099;
   border: none;
-  border-right: 1px solid #183691;
+  border-right: 1px solid #390099;
   border-radius: 0 0 0 0;
   color: #fdfdfd;
   cursor: pointer;
@@ -162,9 +97,9 @@ input[type="file"]::-webkit-file-upload-button {
   overflow: hidden;
 }
 input[type="file"]::file-selector-button {
-  background-color: #183691;
+  background-color: #390099;
   border: none;
-  border-right: 1px solid #183691;
+  border-right: 1px solid #390099;
   border-radius: 0 0 0 0;
   color: #fdfdfd;
   cursor: pointer;
@@ -188,7 +123,7 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
   border-radius: 50%;
   background-color: #fdfdfd;
-  border: 1px solid #183691;
+  border: 1px solid #390099;
   height: 20px;
   width: 20px;
   margin-top: -9.5px;
@@ -200,20 +135,20 @@ input[type="range"]::-moz-range-thumb {
   cursor: pointer;
   border-radius: 50%;
   background-color: #fdfdfd;
-  border: 1px solid #183691;
+  border: 1px solid #390099;
   height: 20px;
   width: 20px;
 }
 input[type="range"]::-webkit-slider-runnable-track {
   border: none;
-  background-color: #183691;
+  background-color: #390099;
   border-radius: 0;
   height: 1px;
   width: 100%;
 }
 input[type="range"]::-moz-range-track {
   border: none;
-  background-color: #183691;
+  background-color: #390099;
   border-radius: 0;
   height: 1px;
   width: 100%;
@@ -239,7 +174,7 @@ select {
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
-  border: 1px solid #183691;
+  border: 1px solid #390099;
   border-radius: 3px;
   width: 100%;
   height: 35px;
@@ -252,7 +187,7 @@ select:disabled {
 }
 textarea {
   background-color: #fdfdfd;
-  border: 1px solid #183691;
+  border: 1px solid #390099;
   border-radius: 3px;
   width: 100%;
   height: 105px;
@@ -273,8 +208,8 @@ textarea::-ms-input-placeholder {
 }
 /* ----------------------------------------------------------------- buttons  */
 .button {
-  background-color: #183691;
-  border: 1px solid #183691;
+  background-color: #390099;
+  border: 1px solid #390099;
   border-radius: 3px;
   color: #fdfdfd;
   cursor: pointer;
@@ -288,15 +223,15 @@ textarea::-ms-input-placeholder {
   width: auto;
 }
 .button:hover {
-  background-color: #112665;
+  background-color: #260066;
   color: #fdfdfd;
 }
 button,
 input[type="button"],
 input[type="submit"],
 input[type="reset"] {
-  background-color: #183691;
-  border: 1px solid #183691;
+  background-color: #390099;
+  border: 1px solid #390099;
   border-radius: 3px;
   color: #fdfdfd;
   cursor: pointer;
@@ -313,15 +248,14 @@ button:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover,
 input[type="reset"]:hover {
-  background-color: #112665;
+  background-color: #260066;
   color: #fdfdfd;
 }
 .jedi-error-message {
-  color: #c01e1e;
+  color: red;
 }
 [data-path] {
-  background-color: #fff;
-  border: 1px solid #183691;
+  border: 1px solid #390099;
   padding: 5px;
   margin: 5px;
 }

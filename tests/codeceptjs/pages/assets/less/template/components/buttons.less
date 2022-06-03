@@ -1,0 +1,29 @@
+/* ----------------------------------------------------------------- buttons  */
+
+.button {
+  background-color: @color-primary;
+  border: 1px solid @color-primary;
+  border-radius: @border-radius;
+  color: @white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  height: auto;
+  margin-top: @spacer;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  width: auto;
+
+  &:hover {
+    background-color: darken(@color-primary, 10%);
+    color: @white;
+  }
+}
+
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  .button;
+}
