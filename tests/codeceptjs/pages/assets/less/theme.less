@@ -1,24 +1,10 @@
-@white: #fdfdfd;
-@black: #444;
-@color-primary: #390099;
-@shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.05);
-@spacer: 12px;
-@border-radius: 3px;
-
 .jedi-error-message {
   color: #aa0000;
 }
 
 [data-path] {
-  border: 1px solid @color-primary;
+  border: 1px solid var(--color-foreground);
+  border-radius: var(--border-radius);
   padding: 5px;
   margin: 5px;
-}
-
-[data-type="object"] {
-  background-color: #eee;
-}
-
-[data-type="array"] {
-  background-color: #eef;
 }

@@ -1,11 +1,11 @@
 .teaser {
   width: 100%;
   text-align: center;
-  margin-top: @spacer * 3;
+  margin-top: calc(var(--spacer) * 3);
 
   @media (min-width: 700px) {
     width: 33.33%;
-    padding: 0 @spacer;
+    padding: 0 var(--spacer);
   }
 }
 
@@ -18,11 +18,11 @@
   background-size: cover;
   background-position: center;
   height: 200px;
-  margin-top: @spacer;
+  margin-top: var(--spacer);
 }
 
 .teaser-description {
-  margin-top: @spacer;
+  margin-top: var(--spacer);
 }
 
 .teaser-button {

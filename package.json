@@ -9,7 +9,7 @@
     "test": "yarn serve-tests & yarn webpack && yarn codeceptjs && killall node",
     "codeceptjs": "codeceptjs run --steps -c ./tests/codeceptjs/codecept.conf.js",
     "serve-tests": "live-server --no-browser ./tests/codeceptjs/pages",
-    "serve-dev": "reload -b  -w ./tests/codeceptjs/pages -d ./tests/codeceptjs/pages",
+    "serve-dev": "reload -p 8282 -b  -w ./tests/codeceptjs/pages -d ./tests/codeceptjs/pages",
     "watch": "webpack --watch",
     "webpack": "webpack",
     "eslint": "eslint ./src",

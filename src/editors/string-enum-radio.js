@@ -20,10 +20,6 @@ class StringEnumRadioEditor extends StringEditor {
     })
   }
 
-  buildContainer () {
-    return this.jedi.theme.getLegend()
-  }
-
   refreshUI () {
     const radioGroupName = this.path
     const radioInputs = this.container.querySelectorAll('[name="' + radioGroupName + '"]')

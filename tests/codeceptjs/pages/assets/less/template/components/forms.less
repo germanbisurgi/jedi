@@ -1,28 +1,33 @@
 /* ------------------------------------------------------------------- forms  */
 
 @control-height: 35px;
-@form-field-bg-color: red;
-@forms-placeholder-color: lighten(@black, 25%);
+@forms-placeholder-color: var(--color-foreground);
 
 label {
+  color: var(--color-foreground);
   display: inline-block;
-  margin-top: @spacer;
+  margin-top: var(--spacer);
   margin-right: 10px;
+}
+
+legend {
+  color: var(--color-foreground);
 }
 
 fieldset {
   border: none;
-  margin-top: @spacer;
+  margin-top: var(--spacer);
 }
 
 input {
-  background-color: @white;
-  border: 1px solid @color-primary;
-  border-radius: @border-radius;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-foreground);
+  border-radius: var(--border-radius);
   width: 100%;
   height: @control-height;
   padding: 0 12px;
-  margin-top: @spacer;
+  margin-top: var(--spacer);
 
   &[type="color"] {
     padding: 0;
@@ -45,11 +50,11 @@ input {
     padding: 0;
 
     &::-webkit-file-upload-button {
-      background-color: @color-primary;
+      background-color: var(--color-background);
       border: none;
-      border-right: 1px solid @color-primary;
+      border-right: 1px solid var(--color-foreground);
       border-radius: 0 0 0 0;
-      color: @white;
+      color: var(--color-foreground);
       cursor: pointer;
       display: inline-block;
       height: calc(@control-height - 2px);
@@ -57,11 +62,11 @@ input {
     }
 
     &::file-selector-button {
-      background-color: @color-primary;
+      background-color: var(--color-background);
       border: none;
-      border-right: 1px solid @color-primary;
+      border-right: 1px solid var(--color-foreground);
       border-radius: 0 0 0 0;
-      color: @white;
+      color: var(--color-foreground);
       cursor: pointer;
       display: inline-block;
       height: calc(@control-height - 2px);
@@ -85,8 +90,8 @@ input {
       .appearance(none);
       cursor: pointer;
       border-radius: 50%;
-      background-color: @white;
-      border: 1px solid @color-primary;
+      background-color: var(--color-background);
+      border: 1px solid var(--color-foreground);
       height: @form-range-thumb-height;
       width: @form-range-thumb-width;
 
@@ -97,15 +102,15 @@ input {
       .appearance(none);
       cursor: pointer;
       border-radius: 50%;
-      background-color: @white;
-      border: 1px solid @color-primary;
+      background-color: var(--color-background);
+      border: 1px solid var(--color-foreground);
       height: @form-range-thumb-height;
       width: @form-range-thumb-width;
     }
 
     &::-webkit-slider-runnable-track {
       border: none;
-      background-color: @color-primary;
+      background-color: var(--color-foreground);
       border-radius: 0;
       height: @form-range-track-height;
       width: 100%;
@@ -113,7 +118,7 @@ input {
 
     &::-moz-range-track {
       border: none;
-      background-color: @color-primary;
+      background-color: var(--color-foreground);
       border-radius: 0;
       height: @form-range-track-height;
       width: 100%;
@@ -139,16 +144,17 @@ input {
 
 select {
   .appearance(none);
-  background-color: @white;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
-  border: 1px solid @color-primary;
-  border-radius: @border-radius;
+  border: 1px solid var(--color-foreground);
+  border-radius: var(--border-radius);
   width: 100%;
   height: @control-height;
-  margin-top: @spacer;
+  margin-top: var(--spacer);
   position: relative;
   padding: 0 12px;
 
@@ -158,12 +164,13 @@ select {
 }
 
 textarea {
-  background-color: @white;
-  border: 1px solid @color-primary;
-  border-radius: @border-radius;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-foreground);
+  border-radius: var(--border-radius);
   width: 100%;
   height: @control-height * 3;
-  margin-top: @spacer;
+  margin-top: var(--spacer);
   padding: 6px 12px;
 
   &:disabled {

@@ -1,23 +1,45 @@
 /* ----------------------------------------------------------------- buttons  */
 
 .button {
-  background-color: @color-primary;
-  border: 1px solid @color-primary;
-  border-radius: @border-radius;
-  color: @white;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-foreground);
+  border-radius: var(--border-radius);
+  color: var(--color-foreground);
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
   height: auto;
-  margin-top: @spacer;
+  margin-top: var(--spacer);
   padding: 6px 12px;
   text-align: center;
   text-decoration: none;
   width: auto;
+  white-space: nowrap;
 
   &:hover {
-    background-color: darken(@color-primary, 10%);
-    color: @white;
+    // background-color: darken(var(--color-background), 2%);
+  }
+}
+
+.button-group {
+  display: flex;
+
+  .button {
+    border-radius: 0;
+    border-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .button:first-child {
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+  }
+
+  .button:last-child {
+    border-right: 1px solid var(--color-foreground);
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
   }
 }
 

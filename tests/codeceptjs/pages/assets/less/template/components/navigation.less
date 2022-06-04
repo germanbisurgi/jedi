@@ -6,7 +6,7 @@ body {
 }
 
 .navigation {
-    background-color: @white;
+    background-color: var(--color-background);
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -15,12 +15,13 @@ body {
     left: 0;
     width: 100%;
     height: @navigation-height;
-    box-shadow: @shadow;
+    box-shadow: var(--shadow);
+    z-index: 10;
 }
 
 .navigation-item {
     display: inline-block;
-    margin: 0 @spacer;
+    margin: 0 var(--spacer);
     text-decoration: none;
 }
 

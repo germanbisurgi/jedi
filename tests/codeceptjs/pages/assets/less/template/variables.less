@@ -1,10 +1,21 @@
-@color-primary: #183691;
-@color-secondary: red;
-@white: #fdfdfd;
-@black: #444;
+:root {
+  --color-background: #fefefe;
+  --color-foreground: #38444C;
+  --shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.05);
+  --spacer: 12px;
+  --border-radius: 3px;
+}
 
-@shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.05);
+@media (min-width: 850px) {
+  :root {
+    --color-background: #38444C;
+    --color-foreground: #fefefe;
+  }
+}
 
-@spacer: 12px;
-
-@border-radius: 3px;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #38444C;
+    --color-foreground: #fefefe;
+  }
+}
