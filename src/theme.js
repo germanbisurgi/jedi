@@ -61,6 +61,12 @@ class Theme {
     return input
   }
 
+  getTextarea (attributes = {}) {
+    const textarea = document.createElement('textarea')
+    this.setAttributes(textarea, attributes)
+    return textarea
+  }
+
   getRadioGroup (optionValues, optionsLabels, radioGroupName, legendText) {
     const radioGroup = document.createElement('fieldset')
 

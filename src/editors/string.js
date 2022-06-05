@@ -13,10 +13,18 @@ class StringEditor extends Editor {
     // input
     // todo file, range should be handled differently
     const inputTypes = ['color', 'date', 'datetime-local', 'email', 'number', 'month', 'password', 'search', 'time', 'tel', 'text', 'textarea', 'url', 'week']
-    this.input = this.jedi.theme.getInput({
-      type: inputTypes.includes(this.schema.format) ? this.schema.format : 'text',
-      id: this.path
-    })
+
+    if (this.schema.format === 'textarea') {
+      this.input = this.jedi.theme.getTextarea({
+        id: this.path
+      })
+    } else {
+      this.input = this.jedi.theme.getInput({
+        type: inputTypes.includes(this.schema.format) ? this.schema.format : 'text',
+        id: this.path
+      })
+    }
+
     this.container.appendChild(this.input)
 
     // events

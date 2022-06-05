@@ -42,6 +42,11 @@
           "type": "string",
           "title": "default"
         },
+        "string-textarea": {
+          "type": "string",
+          "format": "textarea",
+          "title": "default"
+        },
         "string-enum": {
           "type": "string",
           "title": "string enum select",
