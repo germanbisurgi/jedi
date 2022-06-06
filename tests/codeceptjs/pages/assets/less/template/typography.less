@@ -1,5 +1,9 @@
+html {
+  font-size: 62.5%; // 1rem = 10px
+}
+
 * {
-  font-size: 16px;
+  font-size: 1.6rem;
 }
 
 body {
@@ -7,44 +11,51 @@ body {
 }
 
 p {
-  margin-top: var(--spacer);
+  margin: calc(var(--spacer) * 0.5) 0;
   color: var(--color-foreground);
+  line-height: calc(var(--spacer) * 2);
+  text-align: center;
 }
 
 a {
   color: var(--color-foreground);
+  line-height: calc(var(--spacer) * 2);
+  text-decoration: none;
 }
 
 h1 {
   color: var(--color-foreground);
-  font-size: 40px;
-  margin-top: var(--spacer);
+  font-size: 4rem;
+  margin-top: calc(var(--spacer) * 5);
   text-transform: uppercase;
+  text-align: center;
 }
 
 h2 {
   color: var(--color-foreground);
-  font-size: 32px;
-  margin-top: var(--spacer);
+  font-size: 3.2rem;
+  margin-top: calc(var(--spacer) * 5);
+  margin: calc(var(--spacer) * 0.5) 0;
   text-transform: uppercase;
+  text-align: center;
 }
 
 h3 {
   color: var(--color-foreground);
-  margin-top: var(--spacer);
+  margin: calc(var(--spacer) * 0.5) 0;
 }
 
 h4 {
   color: var(--color-foreground);
-  margin-top: var(--spacer);
+  margin: calc(var(--spacer) * 0.5) 0;
 }
 
 h5 {
   color: var(--color-foreground);
-  margin-top: var(--spacer);
+  margin: calc(var(--spacer) * 0.5) 0;
 }
 
 h6 {
   color: var(--color-foreground);
-  margin-top: var(--spacer);
+  margin: calc(var(--spacer) * 0.5) 0;
 }

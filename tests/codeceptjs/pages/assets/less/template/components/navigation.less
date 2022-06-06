@@ -7,22 +7,30 @@ body {
 
 .navigation {
     background-color: var(--color-background);
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: @navigation-height;
     box-shadow: var(--shadow);
     z-index: 10;
 }
 
+.navigation-items {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: @navigation-height;
+}
+
 .navigation-item {
     display: inline-block;
-    margin: 0 var(--spacer);
-    text-decoration: none;
+    margin-left: var(--spacer);
+    transition: var(--transition);
+    border-bottom: var(--border-width) solid transparent;
+
+    &.active {
+        border-bottom: var(--border-width) solid var(--color-foreground);
+    }
 }
 
 .navigation-anchor {

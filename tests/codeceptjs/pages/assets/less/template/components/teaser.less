@@ -1,16 +1,17 @@
 .teaser {
   width: 100%;
   text-align: center;
-  margin-top: calc(var(--spacer) * 3);
+  margin: calc(var(--spacer) * 0.5) 0;
+  border: var(--border-width) solid var(--color-foreground);
+  border-radius: var(--border-radius);
+  padding: var(--spacer) var(--spacer) 0 var(--spacer);
 
-  @media (min-width: 700px) {
-    width: 33.33%;
-    padding: 0 var(--spacer);
+  @media (min-width: 800px) {
+    width: calc(33.33% - var(--spacer));
   }
 }
 
-.teaser-name {
-}
+.teaser-name {}
 
 .teaser-img {
   background-image: url("../../images/js.png");
@@ -18,11 +19,11 @@
   background-size: cover;
   background-position: center;
   height: 200px;
-  margin-top: var(--spacer);
+  margin: calc(var(--spacer) * 0.5) 0;
 }
 
 .teaser-description {
-  margin-top: var(--spacer);
+  margin: calc(var(--spacer) * 0.5) 0;
 }
 
 .teaser-button {

@@ -4,9 +4,11 @@ import utils from '../utils'
 class ObjectEditor extends Editor {
   build () {
     // label
-    const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
-    const label = this.jedi.theme.getLabel(labelText)
-    this.container.appendChild(label)
+    if (!utils.getSchemaOption(this.schema, 'hideTitle')) {
+      const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
+      const label = this.jedi.theme.getLabel(labelText)
+      this.container.appendChild(label)
+    }
 
     // child editors
     if (utils.isSet(this.schema.properties)) {

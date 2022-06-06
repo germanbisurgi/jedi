@@ -63,6 +63,10 @@ class Utils {
     return type
   }
 
+  getSchemaOption (schema, option) {
+    return (schema && schema.options && schema.options[option]) ? schema.options[option] : false
+  }
+
   getSchemaEnumTitles (schema) {
     return (schema && schema.options && schema.options.enumTitles && this.isArray(schema.options.enumTitles)) ? schema.options.enumTitles : false
   }

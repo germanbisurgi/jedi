@@ -2,22 +2,24 @@
 
 .button {
   background-color: var(--color-background);
-  border: 1px solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-foreground);
   border-radius: var(--border-radius);
   color: var(--color-foreground);
   cursor: pointer;
   display: inline-block;
-  font-size: 16px;
+  font-size: 1.6rem;
   height: auto;
-  margin-top: var(--spacer);
+  margin: calc(var(--spacer) * 0.5) 0;
   padding: 6px 12px;
   text-align: center;
   text-decoration: none;
   width: auto;
   white-space: nowrap;
+  transition: var(--transition);
 
   &:hover {
-    // background-color: darken(var(--color-background), 2%);
+    background-color: var(--color-foreground);
+    color: var(--color-background);
   }
 }
 
@@ -37,7 +39,7 @@
   }
 
   .button:last-child {
-    border-right: 1px solid var(--color-foreground);
+    border-right: var(--border-width) solid var(--color-foreground);
     border-top-right-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
   }
