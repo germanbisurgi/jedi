@@ -95,9 +95,9 @@ class Theme {
     return radioGroup
   }
 
-  getSelect (optionValues, optionsLabels, selectId) {
+  getSelect (optionValues, optionsLabels, attributes = {}) {
     const select = document.createElement('select')
-    select.setAttribute('id', selectId)
+    this.setAttributes(select, attributes)
     optionValues.forEach((value, index) => {
       const option = document.createElement('option')
       option.setAttribute('value', value)

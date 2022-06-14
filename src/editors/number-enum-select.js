@@ -13,7 +13,9 @@ class NumberEnumSelectEditor extends NumberEditor {
     // input
     const optionValues = utils.getSchemaEnum(this.schema)
     const optionsLabels = utils.getSchemaEnumTitles(this.schema) || optionValues
-    this.input = this.jedi.theme.getSelect(optionValues, optionsLabels, this.path)
+    this.input = this.jedi.theme.getSelect(optionValues, optionsLabels, {
+      id: this.path
+    })
     this.container.appendChild(this.input)
 
     // events

@@ -7,6 +7,10 @@ class Validator {
      */
     this.validators = {
       type: (schema, value, path) => {
+        if (typeof schema.type === 'undefined') {
+          return false
+        }
+
         const types = {
           string: value => utils.isString(value),
           number: value => utils.isNumber(value),

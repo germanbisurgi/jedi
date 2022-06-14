@@ -87,6 +87,10 @@ class Utils {
     return schema.format && schema.format === 'radio'
   }
 
+  hasAnyOf (schema) {
+    return schema.anyOf && this.isArray(schema.anyOf)
+  }
+
   hasFormatSelect (schema) {
     return schema.format && schema.format === 'select'
   }

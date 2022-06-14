@@ -2,6 +2,18 @@
   "type": "object",
   "title": "root",
   "properties": {
+    "anyOf": {
+      "anyOf": [
+        {
+          "type": "boolean",
+          "title": "boolean"
+        },
+        {
+          "type": "string",
+          "title": "string"
+        }
+      ]
+    },
     "booleans": {
       "type": "object",
       "title": "booleans",
