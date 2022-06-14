@@ -1,35 +1,60 @@
-# jedi
+## About The Project
 
-## Editors
+A lite clone of the mighty [json-editor](https://github.com/json-editor/json-editor)
 
-### Supported types
+## Getting Started
 
-- string
-- object
-- array
-- boolean
-- number
-- string
-- null
+```html
+<form action="">
+    <div id="jedi-container"></div>
+</form>
 
-### Creating Editors
+<script src="./path/to/jedi.js"></script>
 
-override methods:
+<script>
+  const jedi = new Jedi({
+    container: document.querySelector('#jedi-container'),
+    schema: {
+      "type": "object",
+      "title": "root",
+      "properties": {
+        "boolean": {
+          "type": "boolean",
+          "title": "default"
+        },
+        "string": {
+          "type": "string",
+          "title": "default"
+        },
+        "number": {
+          "type": "number",
+          "title": "number"
+        },
+        "integer": {
+          "type": "integer",
+          "title": "integer"
+        },
+        "array": {
+          "type": "array",
+          "title": "strings color",
+          "default": [
+            "#6d80dd",
+            "#b80f0f",
+            "#280606"
+          ],
+          "items": {
+            "type": "string",
+            "title": "color",
+            "format": "color"
+          }
+        }
+      }
+    }
+  })
+</script>
+```
 
-- build()
-- refreshUI()
+## Resources
 
-#### build pipeline
-
-- setContainer()
-- build()
-- setDefaultValue()
-- register()
-
-#### setValue pipeline
-
-setValue() -> onChange() -> (if parent) parent onChildEditorChange() -> refreshUI() -> showValidationErrors()
-
-## Links
-
-[Understanding JSON Schema](http://json-schema.org/understanding-json-schema/index.html)
+* [Understanding JSON Schema](http://json-schema.org/understanding-json-schema/index.html)
+* [json-editor/json-editor](https://github.com/json-editor/json-editor)
