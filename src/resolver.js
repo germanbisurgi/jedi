@@ -27,6 +27,14 @@ class Resolver {
         }
       },
       (schema) => {
+        const hasNoType = !utils.isSet(schema.type)
+        const hasTypeAny = utils.isSet(schema.type) && schema.type === 'any'
+        const hasTypeIsArray = utils.isArray(schema.type)
+        if (hasNoType || hasTypeAny || hasTypeIsArray) {
+          return MultipleEditor
+        }
+      },
+      (schema) => {
         const hasFormatRadio = utils.hasFormatRadio(schema)
         if (schema.type === 'boolean' && hasFormatRadio) {
           return BooleanEnumRadioEditor
@@ -93,13 +101,8 @@ class Resolver {
         }
       },
       (schema) => {
-        if (utils.isNull(schema.type)) {
+        if (schema.type === 'null') {
           return NullEditor
-        }
-      },
-      (schema) => {
-        if (typeof schema.type === 'undefined') {
-          return MultipleEditor
         }
       }
     ]

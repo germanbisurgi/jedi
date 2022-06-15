@@ -34,9 +34,13 @@ class Editor {
     this.container.setAttribute('data-type', this.schema.type)
 
     if (this.jedi.debug) {
-      this.debugContainer = this.jedi.theme.getDebugContainer()
-      this.container.appendChild(this.debugContainer)
+      this.setDebugContainer()
     }
+  }
+
+  setDebugContainer () {
+    this.debugContainer = this.jedi.theme.getDebugContainer()
+    this.container.appendChild(this.debugContainer)
   }
 
   /**
@@ -125,7 +129,7 @@ class Editor {
    * using setValue to set the value programmatically.
    */
   refreshDebug () {
-    if (this.jedi.debug) {
+    if (this.jedi.debug && this.debugContainer) {
       this.debugContainer.textContent = JSON.stringify(this.getValue(), null, 2)
     }
   }

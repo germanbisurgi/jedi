@@ -1,4 +1,6 @@
 - docs/demo
+- multiple "any", type is array
+- add prop button
 - load array of schemas
 - name attributes vs configurable single hidden input json for requests
 - refactor arrays and objects: onChildEditorChange() and getValue()

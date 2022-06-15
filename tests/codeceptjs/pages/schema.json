@@ -11,6 +11,9 @@
         {
           "type": "string",
           "title": "string"
+        },
+        {
+          "minLength": 5
         }
       ]
     },
