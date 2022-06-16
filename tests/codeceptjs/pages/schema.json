@@ -1,6 +1,8 @@
 {
   "type": "object",
-  "title": "root",
+  "options": {
+    "hideTitle": true
+  },
   "properties": {
     "anyOf": {
       "anyOf": [

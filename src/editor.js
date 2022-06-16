@@ -31,7 +31,9 @@ class Editor {
   setContainer () {
     this.container = this.jedi.theme.getDiv()
     this.container.setAttribute('data-path', this.path)
-    this.container.setAttribute('data-type', this.schema.type)
+    if (utils.isSet(this.schema.type)) {
+      this.container.setAttribute('data-type', this.schema.type)
+    }
 
     if (this.jedi.debug) {
       this.setDebugContainer()
