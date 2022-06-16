@@ -1,5 +1,7 @@
+- label or legend for multiple / any of / no type
+- multiple control labels
+- accessibility states
 - docs/demo
-- multiple "any", type is array
 - add prop button
 - load array of schemas
 - name attributes vs configurable single hidden input json for requests

@@ -1,5 +1,4 @@
 import utils from './utils'
-import AnyOfEditor from './editors/any-of'
 import ArrayEditor from './editors/array'
 import BooleanEditor from './editors/boolean'
 import BooleanEnumSelectEditor from './editors/boolean-enum-select'
@@ -21,16 +20,11 @@ class Resolver {
      */
     this.resolvers = [
       (schema) => {
-        const hasAnyOf = utils.hasAnyOf(schema)
-        if (hasAnyOf) {
-          return AnyOfEditor
-        }
-      },
-      (schema) => {
         const hasNoType = !utils.isSet(schema.type)
         const hasTypeAny = utils.isSet(schema.type) && schema.type === 'any'
         const hasTypeIsArray = utils.isArray(schema.type)
-        if (hasNoType || hasTypeAny || hasTypeIsArray) {
+        const hasAnyOf = utils.hasAnyOf(schema)
+        if (hasNoType || hasTypeAny || hasTypeIsArray || hasAnyOf) {
           return MultipleEditor
         }
       },

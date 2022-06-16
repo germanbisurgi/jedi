@@ -1412,6 +1412,12 @@ input[type="reset"]:hover {
   padding: var(--spacer);
   margin-top: var(--spacer);
 }
+[data-type="multiple"] {
+  border: 1px solid var(--color-foreground);
+  border-radius: var(--border-radius);
+  padding: var(--spacer);
+  margin-top: var(--spacer);
+}
 .jedi-error-message {
   text-align: left;
   color: var(--color-danger);

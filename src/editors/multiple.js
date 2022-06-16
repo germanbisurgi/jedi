@@ -4,22 +4,67 @@ import utils from '../utils'
 class MultipleEditor extends Editor {
   build () {
     this.editors = []
-    this.switchOptionValues = []
-    this.switchOptionsLabels = []
+    this.switcherOptionValues = []
+    this.switcherOptionsLabels = []
     this.activeEditor = null
 
-    const schemas = [
-      { type: 'string' },
-      { type: 'number' },
-      { type: 'integer' },
-      { type: 'boolean' },
-      { type: 'array' },
-      { type: 'object' },
-      { type: 'null' }
-    ]
+    let schemas = []
+
+    if (utils.isArray(this.schema.type)) {
+      this.schema.type.forEach((type) => {
+        const schema = {
+          type: type
+        }
+
+        schemas.push(schema)
+      })
+
+      schemas.forEach((schema, index) => {
+        this.switcherOptionValues.push(index)
+        this.switcherOptionsLabels.push(...schemas.map((schema) => schema.type))
+      })
+    }
+
+    if (this.schema.type === 'any' || !utils.isSet(this.schema.type)) {
+      schemas = [
+        { type: 'string' },
+        { type: 'number' },
+        { type: 'integer' },
+        { type: 'boolean' },
+        { type: 'array' },
+        { type: 'object' },
+        { type: 'null' }
+      ]
+
+      schemas.forEach((schema, index) => {
+        this.switcherOptionValues.push(index)
+        this.switcherOptionsLabels.push(...schemas.map((schema) => schema.type))
+      })
+    }
+
+    if (this.schema.anyOf) {
+      schemas = this.schema.anyOf
+
+      schemas.forEach((schema, index) => {
+        this.switcherOptionValues.push(index)
+        this.switcherOptionsLabels.push(schema.title || this.schema.type || JSON.stringify(schema))
+      })
+    }
+
+    // Switcher
+    this.switcher = this.jedi.theme.getSelect(this.switcherOptionValues, this.switcherOptionsLabels, {
+      id: this.path + '.selector'
+    })
+
+    // events
+    this.switcher.addEventListener('change', () => {
+      this.switchEditor(this.switcher.value)
+    })
+
+    this.container.appendChild(this.switcher)
 
     // Editors
-    schemas.forEach((schema, index) => {
+    schemas.forEach((schema) => {
       const editor = this.jedi.createEditor({
         jedi: this.jedi,
         schema: schema,
@@ -27,45 +72,29 @@ class MultipleEditor extends Editor {
         parent: this.parent
       })
 
-      this.switchOptionValues.push(index)
-      this.switchOptionsLabels.push(schema.title || this.schema.type || JSON.stringify(editor.schema))
-      this.editors.push(editor)
       editor.unregister()
+      this.editors.push(editor)
     })
-
-    // Switch
-    this.switch = this.jedi.theme.getSelect(this.switchOptionValues, this.switchOptionsLabels, {
-      id: this.path
-    })
-
-    // events
-    this.switch.addEventListener('change', () => {
-      this.switchEditor(this.switch.value)
-    })
-
-    this.container.appendChild(this.switch)
 
     if (utils.isSet(this.editors[0])) {
       this.switchEditor(0)
     }
   }
 
-  register () {}
+  setContainer () {
+    this.container = this.jedi.theme.getDiv()
+    this.container.setAttribute('data-type', 'multiple')
+  }
 
   setDebugContainer () {}
 
   switchEditor (index) {
-    this.editors.forEach((editor) => {
-      editor.unregister()
-      if (editor.container.parentNode) {
-        editor.container.parentNode.removeChild(editor.container)
-      }
-    })
-
     if (utils.isSet(this.editors[index])) {
-      this.container.appendChild(this.editors[index].container)
-      this.editors[index].register()
+      if (this.activeEditor) {
+        this.container.removeChild(this.activeEditor.container)
+      }
       this.activeEditor = this.editors[index]
+      this.container.appendChild(this.activeEditor.container)
       this.setValue(this.activeEditor.getValue())
     }
   }

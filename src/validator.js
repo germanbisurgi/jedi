@@ -11,6 +11,14 @@ class Validator {
           return false
         }
 
+        if (schema.type === 'any') {
+          return false
+        }
+
+        if (utils.isArray(schema.type)) {
+          return false
+        }
+
         const types = {
           string: value => utils.isString(value),
           number: value => utils.isNumber(value),
