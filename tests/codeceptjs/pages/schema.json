@@ -4,17 +4,6 @@
     "hideTitle": true
   },
   "properties": {
-    "no-type": {
-      "title": "multiple (type undefined)"
-    },
-    "multiple": {
-      "type": ["string", "boolean"],
-      "title": "multiple (type array)"
-    },
-    "any": {
-      "type": "any",
-      "title": "multiple (type: any)"
-    },
     "anyOf": {
       "anyOf": [
         {
@@ -26,6 +15,17 @@
           "title": "string"
         }
       ]
+    },
+    "multiple": {
+      "type": ["string", "boolean"],
+      "title": "multiple (type array)"
+    },
+    "no-type": {
+      "title": "multiple (type undefined)"
+    },
+    "any": {
+      "type": "any",
+      "title": "multiple (type: any)"
     },
     "booleans": {
       "type": "object",

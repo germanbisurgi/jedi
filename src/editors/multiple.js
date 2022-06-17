@@ -10,7 +10,14 @@ class MultipleEditor extends Editor {
 
     let schemas = []
 
-    if (utils.isArray(this.schema.type)) {
+    if (this.schema.anyOf) {
+      schemas = this.schema.anyOf
+
+      schemas.forEach((schema, index) => {
+        this.switcherOptionValues.push(index)
+        this.switcherOptionsLabels.push(schema.title || this.schema.type || JSON.stringify(schema))
+      })
+    } else if (utils.isArray(this.schema.type)) {
       this.schema.type.forEach((type) => {
         const schema = {
           type: type
@@ -23,9 +30,7 @@ class MultipleEditor extends Editor {
         this.switcherOptionValues.push(index)
         this.switcherOptionsLabels.push(...schemas.map((schema) => schema.type))
       })
-    }
-
-    if (this.schema.type === 'any' || !utils.isSet(this.schema.type)) {
+    } else if (this.schema.type === 'any' || !utils.isSet(this.schema.type)) {
       schemas = [
         { type: 'string' },
         { type: 'number' },
@@ -42,14 +47,12 @@ class MultipleEditor extends Editor {
       })
     }
 
-    if (this.schema.anyOf) {
-      schemas = this.schema.anyOf
-
-      schemas.forEach((schema, index) => {
-        this.switcherOptionValues.push(index)
-        this.switcherOptionsLabels.push(schema.title || this.schema.type || JSON.stringify(schema))
-      })
-    }
+    // Switcher label
+    const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
+    const label = this.jedi.theme.getLabel(labelText, {
+      for: this.path + '.selector'
+    })
+    this.container.appendChild(label)
 
     // Switcher
     this.switcher = this.jedi.theme.getSelect(this.switcherOptionValues, this.switcherOptionsLabels, {
@@ -95,12 +98,27 @@ class MultipleEditor extends Editor {
       }
       this.activeEditor = this.editors[index]
       this.container.appendChild(this.activeEditor.container)
-      this.setValue(this.activeEditor.getValue())
+      this.setValue(this.activeEditor.getValue(), true)
     }
   }
 
   getValue () {
     return this.activeEditor.getValue()
+  }
+
+  setValue (value, triggersChange = true) {
+    // if value matches the editor type
+    if (utils.equal(this.activeEditor.sanitize(value), value)) {
+      this.activeEditor.setValue(value, triggersChange)
+    } else {
+      this.editors.forEach((editor, index) => {
+        if (utils.equal(editor.sanitize(value), value)) {
+          console.log('value', value, 'matches', editor)
+          this.switchEditor(index)
+          this.activeEditor.setValue(value, triggersChange)
+        }
+      })
+    }
   }
 
   destroy () {

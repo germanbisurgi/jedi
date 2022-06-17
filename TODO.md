@@ -1,4 +1,9 @@
 - label or legend for multiple / any of / no type
+- sanitize array and objects
+- sanitize check before set value
+- dry
+- refresh ui object (no default use set value false)
+- multiple setValue()
 - multiple control labels
 - accessibility states
 - docs/demo
@@ -13,6 +18,7 @@
 - tests
 - array enums
 - array tuple
+- integer editor?
 
 ## tests
 

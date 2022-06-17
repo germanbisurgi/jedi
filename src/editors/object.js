@@ -77,6 +77,14 @@ class ObjectEditor extends Editor {
     return output
   }
 
+  sanitize (value) {
+    if (utils.isObject(value)) {
+      return value
+    }
+
+    return {}
+  }
+
   destroy () {
     this.childEditors.forEach((childEditor) => {
       childEditor.destroy()

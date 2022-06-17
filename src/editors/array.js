@@ -115,6 +115,14 @@ class ArrayEditor extends Editor {
     })
   }
 
+  sanitize (value) {
+    if (utils.isArray(value)) {
+      return value
+    }
+
+    return []
+  }
+
   destroy () {
     this.childEditors.forEach((childEditor) => {
       childEditor.destroy()
