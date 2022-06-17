@@ -65,7 +65,7 @@ class Jedi {
   }
 
   setValue () {
-    return this.root.setValue()
+    return this.root.setValue(...arguments)
   }
 
   getEditor (path) {

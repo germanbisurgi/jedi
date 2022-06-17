@@ -1,10 +1,8 @@
 - label or legend for multiple / any of / no type
 - destroy object child editor on set value if not present in new value?
-- sanitize array and objects
+- errors container and position (aka object)
 - sanitize check before set value
 - dry
-- refresh ui object (no default use set value false)
-- multiple setValue()
 - multiple control labels
 - accessibility states
 - docs/demo

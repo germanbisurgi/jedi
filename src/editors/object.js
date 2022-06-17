@@ -34,14 +34,16 @@ class ObjectEditor extends Editor {
     const value = {}
 
     this.childEditors.forEach((childEditor) => {
+      // todo if required
       value[childEditor.getKey()] = childEditor.getValue()
     })
 
-    this.setValue(value)
+    this.setValue(value, true)
   }
 
   refreshUI () {
     const value = this.getValue()
+
     for (const key in value) {
       if (!Object.prototype.hasOwnProperty.call(value, key)) {
         continue
@@ -62,14 +64,6 @@ class ObjectEditor extends Editor {
         this.addChildEditor(schema, key)
       }
     }
-
-    // this.childEditors.forEach((editor) => {
-    //   console.log(value[editor.getKey()])
-    //   if (!utils.isSet(value[editor.getKey()])) {
-    //     console.log('delete me')
-    //     editor.destroy()
-    //   }
-    // })
   }
 
   getChildEditor (key) {

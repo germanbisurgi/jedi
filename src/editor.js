@@ -21,6 +21,7 @@ class Editor {
     this.setDebugContainer()
     this.build()
     this.setDefaultValue()
+    this.onChildEditorChange()
     this.showValidationErrors()
     this.register()
   }
@@ -80,6 +81,7 @@ class Editor {
     if (this.schema.type === 'array') value = []
 
     const defaulIsDefined = utils.isSet(this.schema.default)
+
     if (defaulIsDefined) {
       value = this.schema.default
     }
@@ -123,7 +125,8 @@ class Editor {
    * Refresh the UI of the editor to reflect it's value. This is necessary when
    * using setValue to set the value programmatically.
    */
-  refreshUI () {}
+  refreshUI () {
+  }
 
   /**
    * Refresh the UI of the editor to reflect it's value. This is necessary when
@@ -159,7 +162,8 @@ class Editor {
    * Fires when the value of a child editor changes. This is relevant for Array
    * and Object editors.
    */
-  onChildEditorChange () {}
+  onChildEditorChange () {
+  }
 
   /**
    * Destroys the editor, and every reference that it is attached to it.
@@ -171,9 +175,13 @@ class Editor {
 
     this.unregister()
 
-    Object.keys(this).forEach((key) => {
-      delete this[key]
-    })
+    // for (const key in this) {
+    //   if (!Object.prototype.hasOwnProperty.call(this, key)) {
+    //     continue
+    //   }
+    //
+    //   delete this[key]
+    // }
   }
 }
 
