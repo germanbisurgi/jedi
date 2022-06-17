@@ -21,7 +21,6 @@ class Editor {
     this.setDebugContainer()
     this.build()
     this.setDefaultValue()
-    this.onChildEditorChange()
     this.showValidationErrors()
     this.register()
   }
@@ -77,8 +76,8 @@ class Editor {
     if (this.schema.type === 'number') value = 0.0
     if (this.schema.type === 'integer') value = 0
     if (this.schema.type === 'string') value = ''
-    if (this.schema.type === 'object') value = {}
     if (this.schema.type === 'array') value = []
+    if (this.schema.type === 'object') value = {}
 
     const defaulIsDefined = utils.isSet(this.schema.default)
 

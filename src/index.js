@@ -48,6 +48,10 @@ class Jedi {
 
     this.container.appendChild(this.root.container)
     this.container.classList.add('jedi-loaded')
+    this.onChange()
+    this.root.onChange = () => {
+      this.onChange()
+    }
   }
 
   /**
@@ -58,6 +62,11 @@ class Jedi {
     const editor = new (EditorClass)(config)
     this.log('created editor', editor.path)
     return editor
+  }
+
+  onChange (callback) {
+    console.log('onChange')
+    callback()
   }
 
   getValue () {
