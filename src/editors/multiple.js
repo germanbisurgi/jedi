@@ -15,7 +15,7 @@ class MultipleEditor extends Editor {
 
       schemas.forEach((schema, index) => {
         this.switcherOptionValues.push(index)
-        this.switcherOptionsLabels.push(schema.title || this.schema.type || JSON.stringify(schema))
+        this.switcherOptionsLabels.push(JSON.stringify(schema))
       })
     } else if (utils.isArray(this.schema.type)) {
       this.schema.type.forEach((type) => {
@@ -99,6 +99,7 @@ class MultipleEditor extends Editor {
       this.activeEditor = this.editors[index]
       this.container.appendChild(this.activeEditor.container)
       this.setValue(this.activeEditor.getValue(), true)
+      this.switcher.value = index
     }
   }
 
@@ -107,13 +108,13 @@ class MultipleEditor extends Editor {
   }
 
   setValue (value, triggersChange = true) {
-    // if value matches the editor type
+    // if value matches the editor type set the value. Else switch to the first
+    // matching editor and set the value.
     if (utils.equal(this.activeEditor.sanitize(value), value)) {
       this.activeEditor.setValue(value, triggersChange)
     } else {
       this.editors.forEach((editor, index) => {
         if (utils.equal(editor.sanitize(value), value)) {
-          console.log('value', value, 'matches', editor)
           this.switchEditor(index)
           this.activeEditor.setValue(value, triggersChange)
         }

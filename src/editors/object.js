@@ -62,6 +62,14 @@ class ObjectEditor extends Editor {
         this.addChildEditor(schema, key)
       }
     }
+
+    // this.childEditors.forEach((editor) => {
+    //   console.log(value[editor.getKey()])
+    //   if (!utils.isSet(value[editor.getKey()])) {
+    //     console.log('delete me')
+    //     editor.destroy()
+    //   }
+    // })
   }
 
   getChildEditor (key) {

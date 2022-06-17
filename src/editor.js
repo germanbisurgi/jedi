@@ -65,7 +65,7 @@ class Editor {
   }
 
   /**
-   * If schema.default is not difen, sets an initial value based on it's type.
+   * If schema.default is not defined, sets an initial value based on it's type.
    * If enum is defined and schema.default is not defined set the first item of
    * the enum als the default value.
    */

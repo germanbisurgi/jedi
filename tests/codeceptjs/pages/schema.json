@@ -5,10 +5,10 @@
   },
   "properties": {
     "anyOf": {
+      "title": "anyOf",
       "anyOf": [
         {
-          "type": "boolean",
-          "title": "boolean"
+          "type": "boolean"
         },
         {
           "type": "string",
@@ -70,7 +70,7 @@
         "string-textarea": {
           "type": "string",
           "format": "textarea",
-          "title": "default"
+          "title": "string textarea"
         },
         "string-enum": {
           "type": "string",
@@ -200,11 +200,6 @@
         "string-array": {
           "type": "array",
           "title": "strings color",
-          "default": [
-            "#6d80dd",
-            "#b80f0f",
-            "#280606"
-          ],
           "items": {
             "type": "string",
             "title": "color",

@@ -1,4 +1,5 @@
 - label or legend for multiple / any of / no type
+- destroy object child editor on set value if not present in new value?
 - sanitize array and objects
 - sanitize check before set value
 - dry
