@@ -29,8 +29,6 @@ class ObjectEditor extends Editor {
   }
 
   addChildEditor (schema, key) {
-    console.log('addChildEditor')
-
     const editor = this.jedi.createEditor({
       jedi: this.jedi,
       schema: schema,
@@ -52,8 +50,6 @@ class ObjectEditor extends Editor {
   }
 
   removeChildEditor (key) {
-    console.log('removeChildEditor', key)
-
     for (let i = this.childEditors.length - 1; i >= 0; i--) {
       const editor = this.childEditors[i]
       if (editor.getKey() === key) {
@@ -66,8 +62,6 @@ class ObjectEditor extends Editor {
   }
 
   onChildEditorChange () {
-    console.log('onChildEditorChange')
-
     const value = {}
 
     this.childEditors.forEach((childEditor) => {
@@ -78,8 +72,6 @@ class ObjectEditor extends Editor {
   }
 
   refreshUI () {
-    console.log('refreshUI', this.getValue())
-
     const value = this.getValue()
 
     for (let i = this.childEditors.length - 1; i >= 0; i--) {
@@ -102,8 +94,6 @@ class ObjectEditor extends Editor {
       } else {
         const initialValue = value[key]
         const type = utils.getType(initialValue)
-
-        console.log('...type', type)
 
         const schema = {
           type: type,

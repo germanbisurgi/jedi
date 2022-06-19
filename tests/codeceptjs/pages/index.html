@@ -15,7 +15,10 @@
             <div id="jedi-container"></div>
         </div>
         <div class="flex-xs-12 flex-md-6">
-            <pre id="value" style="font-family: monospace; position: sticky; top: 0;"></pre>
+            <div style="position: sticky; top: 0;">
+                <textarea id="value" style="font-family: monospace; position: sticky; top: 0; height: 70vh;"></textarea>
+                <button id="set-value">Set Value</button>
+            </div>
         </div>
     </div>
 </main>
@@ -34,6 +37,10 @@
   jedi.onChange = () => {
     document.querySelector('#value').textContent = JSON.stringify(jedi.getValue(), null, 2)
   }
+
+  document.querySelector('#set-value').addEventListener('click', () => {
+    jedi.setValue(JSON.parse(document.querySelector('#value').value))
+  })
 </script>
 </body>
 </html>
