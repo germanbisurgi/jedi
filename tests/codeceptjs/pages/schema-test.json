@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "options": {
+    "hideTitle": true
+  },
+  "properties": {
+    "property": {
+      "type": "string"
+    }
+  }
+}

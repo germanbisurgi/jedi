@@ -3,6 +3,8 @@ import utils from '../utils'
 
 class ObjectEditor extends Editor {
   build () {
+    console.log('build', this.path, this.value, this.schema)
+
     // label
     if (!utils.getSchemaOption(this.schema, 'hideTitle')) {
       const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
@@ -20,6 +22,8 @@ class ObjectEditor extends Editor {
   }
 
   addChildEditor (schema, key) {
+    console.log('addChildEditor')
+
     const editor = this.jedi.createEditor({
       jedi: this.jedi,
       schema: schema,
@@ -28,9 +32,26 @@ class ObjectEditor extends Editor {
     })
     this.container.appendChild(editor.container)
     this.childEditors.push(editor)
+    this.value[key] = editor.getValue()
+  }
+
+  removeChildEditor (key) {
+    console.log('removeChildEditor', key)
+
+    for (let i = this.childEditors.length - 1; i >= 0; i--) {
+      const editor = this.childEditors[i]
+      if (editor.getKey() === key) {
+        editor.destroy()
+        this.childEditors.splice(i, 1)
+      }
+    }
+
+    delete this.value[key]
   }
 
   onChildEditorChange () {
+    console.log('onChildEditorChange')
+
     const value = {}
 
     this.childEditors.forEach((childEditor) => {
@@ -41,6 +62,8 @@ class ObjectEditor extends Editor {
   }
 
   refreshUI () {
+    console.log('refreshUI', this.getValue())
+
     const value = this.getValue()
     for (const key in value) {
       if (!Object.prototype.hasOwnProperty.call(value, key)) {
@@ -60,6 +83,14 @@ class ObjectEditor extends Editor {
         }
 
         this.addChildEditor(schema, key)
+      }
+    }
+
+    for (let i = this.childEditors.length - 1; i >= 0; i--) {
+      const editor = this.childEditors[i]
+      const key = editor.getKey()
+      if (!utils.isSet(value[key])) {
+        this.removeChildEditor(key)
       }
     }
   }

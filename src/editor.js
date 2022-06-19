@@ -19,6 +19,7 @@ class Editor {
   init () {
     this.setContainer()
     this.setDebugContainer()
+    this.setDefaultValue()
     this.build()
     this.refreshUI()
     this.showValidationErrors()
@@ -69,7 +70,7 @@ class Editor {
    * If enum is defined and schema.default is not defined set the first item of
    * the enum als the default value.
    */
-  getDefaultValue () {
+  setDefaultValue () {
     let value
 
     if (this.schema.type === 'boolean') value = false
@@ -85,14 +86,14 @@ class Editor {
       value = this.schema.default
     }
 
-    return value
+    this.value = value
   }
 
   /**
    * Returns the current value of the editor
    */
   getValue () {
-    return utils.isSet(this.value) ? this.value : this.getDefaultValue()
+    return this.value
   }
 
   /**
