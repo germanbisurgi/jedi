@@ -44,7 +44,7 @@ class Utils {
   }
 
   getType (value) {
-    let type = 'string'
+    let type = 'any'
 
     if (this.isInteger(value)) {
       type = 'integer'
