@@ -1121,48 +1121,12 @@ body {
   position: relative;
   top: -100px;
 }
-.teaser {
+.card {
   width: 100%;
-  text-align: center;
   margin: calc(var(--spacer) * 0.5) 0;
   border: var(--border-width) solid var(--color-foreground);
   border-radius: var(--border-radius);
   padding: var(--spacer) var(--spacer) 0 var(--spacer);
-}
-@media (min-width: 800px) {
-  .teaser {
-    width: calc(33.33% - var(--spacer));
-  }
-}
-.teaser-img {
-  background-image: url("../../images/js.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  height: 200px;
-  margin: calc(var(--spacer) * 0.5) 0;
-}
-.teaser-description {
-  margin: calc(var(--spacer) * 0.5) 0;
-}
-.teaser-button {
-  background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-foreground);
-  border-radius: var(--border-radius);
-  color: var(--color-foreground);
-  cursor: pointer;
-  display: inline-block;
-  font-size: 1.6rem;
-  height: auto;
-  margin: calc(var(--spacer) * 0.5) 0;
-  padding: 6px 12px;
-  text-align: center;
-  text-decoration: none;
-  width: auto;
-  white-space: nowrap;
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
 }
 form {
   border: var(--border-width) solid var(--color-foreground);
