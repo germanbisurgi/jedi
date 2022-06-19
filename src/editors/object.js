@@ -17,24 +17,9 @@ class ObjectEditor extends Editor {
         this.addChildEditor(schema, key)
       })
     }
-
-    // addBtn
-    const addBtn = this.jedi.theme.getButton('add')
-    this.container.appendChild(addBtn)
-    addBtn.addEventListener('click', () => {
-      this.addChildEditor({ title: 'test', type: 'string' }, 'test-' + Math.ceil(Math.random() * 1000))
-      this.onChildEditorChange()
-    })
   }
 
   addChildEditor (schema, key) {
-    console.log('addChildEditor', key)
-    const exist = this.getChildEditor(key)
-
-    if (exist) {
-      return
-    }
-
     const editor = this.jedi.createEditor({
       jedi: this.jedi,
       schema: schema,
@@ -43,52 +28,20 @@ class ObjectEditor extends Editor {
     })
     this.container.appendChild(editor.container)
     this.childEditors.push(editor)
-
-    // removeBtn
-    const removeBtn = this.jedi.theme.getButton('remove')
-    editor.container.appendChild(removeBtn)
-    removeBtn.addEventListener('click', () => {
-      this.removeChildEditor(key)
-    })
-  }
-
-  removeChildEditor (key) {
-    console.log('removeChildEditor', key)
-
-    for (let i = this.childEditors.length - 1; i >= 0; i--) {
-      const editor = this.childEditors[i]
-      if (editor.getKey() === key) {
-        this.childEditors.splice(i, 1)
-        editor.destroy()
-      }
-    }
-
-    const value = this.getValue()
-    delete value[key]
-    this.setValue(value, true)
   }
 
   onChildEditorChange () {
-    console.log('onChildEditorChange')
-    this.setValue(this.getValue(), true)
-  }
-
-  getValue () {
     const value = {}
 
     this.childEditors.forEach((childEditor) => {
-      // todo if required
       value[childEditor.getKey()] = childEditor.getValue()
     })
 
-    return value
+    this.setValue(value)
   }
 
   refreshUI () {
     const value = this.getValue()
-
-    console.log('refreshUI', value)
-
     for (const key in value) {
       if (!Object.prototype.hasOwnProperty.call(value, key)) {
         continue
@@ -133,8 +86,6 @@ class ObjectEditor extends Editor {
   }
 
   destroy () {
-    console.log('destroy')
-
     this.childEditors.forEach((childEditor) => {
       childEditor.destroy()
     })
