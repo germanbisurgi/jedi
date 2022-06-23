@@ -1,10 +1,6 @@
 @navigation-height: 50px;
 @navigation-anchor-offset: 50px;
 
-body {
-    padding-top: @navigation-height;
-}
-
 .navigation {
     background-color: var(--color-background);
     position: fixed;
@@ -29,7 +25,7 @@ body {
     border-bottom: var(--border-width) solid transparent;
 
     &.active {
-        border-bottom: var(--border-width) solid var(--color-foreground);
+        border-bottom: var(--border-width) solid var(--color-border);
     }
 }
 

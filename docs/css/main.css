@@ -16,18 +16,22 @@
 }
 :root {
   --color-background: #fefefe;
-  --color-foreground: #444;
-  --color-primary: #6B39BD;
-  --color-success: #27dfa5;
+  --color-text: #555;
+  --color-headlines: #000;
+  --color-border: #e6e6e6;
+  --color-primary: #41B883;
+  --color-success: #41B883;
   --color-warning: #ffbf24;
   --color-danger: #ff2f7e;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: #444;
-    --color-foreground: #fefefe;
-    --color-primary: #6B39BD;
-    --color-success: #27dfa5;
+    --color-background: #333;
+    --color-text: #eee;
+    --color-headlines: #fff;
+    --color-border: #e6e6e6;
+    --color-primary: #41B883;
+    --color-success: #41B883;
     --color-warning: #ffbf24;
     --color-danger: #ff2f7e;
   }
@@ -37,50 +41,49 @@ html {
 }
 * {
   font-size: 1.6rem;
+  color: var(--color-text);
 }
 body {
   background-color: var(--color-background);
 }
 p {
-  color: var(--color-foreground);
   line-height: 1.5;
   margin-bottom: var(--spacer);
   text-align: center;
 }
 a {
-  color: var(--color-foreground);
+  color: var(--color-text);
   line-height: calc(var(--spacer) * 2);
   text-decoration: none;
 }
 h1 {
-  color: var(--color-foreground);
+  color: var(--color-headlines);
   font-size: 4rem;
   margin-top: calc(var(--spacer) * 5);
   text-transform: uppercase;
   text-align: center;
 }
 h2 {
-  color: var(--color-foreground);
+  color: var(--color-headlines);
   font-size: 3.2rem;
-  margin-top: calc(var(--spacer) * 5);
   margin: calc(var(--spacer) * 0.5) 0;
   text-transform: uppercase;
   text-align: center;
 }
 h3 {
-  color: var(--color-foreground);
+  color: var(--color-headlines);
   margin: calc(var(--spacer) * 0.5) 0;
 }
 h4 {
-  color: var(--color-foreground);
+  color: var(--color-headlines);
   margin: calc(var(--spacer) * 0.5) 0;
 }
 h5 {
-  color: var(--color-foreground);
+  color: var(--color-headlines);
   margin: calc(var(--spacer) * 0.5) 0;
 }
 h6 {
-  color: var(--color-foreground);
+  color: var(--color-headlines);
   margin: calc(var(--spacer) * 0.5) 0;
 }
 .flex-row {
@@ -1090,9 +1093,6 @@ h6 {
   padding-left: var(--spacer);
   padding-right: var(--spacer);
 }
-body {
-  padding-top: 50px;
-}
 .navigation {
   background-color: var(--color-background);
   position: fixed;
@@ -1115,7 +1115,7 @@ body {
   border-bottom: var(--border-width) solid transparent;
 }
 .navigation-item.active {
-  border-bottom: var(--border-width) solid var(--color-foreground);
+  border-bottom: var(--border-width) solid var(--color-border);
 }
 .navigation-anchor {
   position: relative;
@@ -1124,12 +1124,12 @@ body {
 .card {
   width: 100%;
   margin: calc(var(--spacer) * 0.5) 0;
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
   padding: var(--spacer) var(--spacer) 0 var(--spacer);
 }
 form {
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
   padding: var(--spacer) var(--spacer) 0 var(--spacer);
   margin: calc(var(--spacer) * 0.5) 0;
@@ -1138,7 +1138,7 @@ form p {
   text-align: left;
 }
 label {
-  color: var(--color-foreground);
+  color: var(--color-text);
   display: inline-block;
   margin-bottom: calc(var(--spacer) * 0.5);
   margin-right: 10px;
@@ -1146,16 +1146,16 @@ label {
 }
 legend {
   margin-bottom: calc(var(--spacer) * 0.5);
-  color: var(--color-foreground);
+  color: var(--color-text);
 }
 fieldset {
   border: none;
   margin: calc(var(--spacer) * 0.5) 0;
 }
 input {
-  color: var(--color-foreground);
+  color: var(--color-text);
   background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
   width: 100%;
   height: 35px;
@@ -1185,9 +1185,9 @@ input[type="file"] {
 input[type="file"]::-webkit-file-upload-button {
   background-color: var(--color-background);
   border: none;
-  border-right: var(--border-width) solid var(--color-foreground);
+  border-right: var(--border-width) solid var(--color-border);
   border-radius: 0 0 0 0;
-  color: var(--color-foreground);
+  color: var(--color-text);
   cursor: pointer;
   display: inline-block;
   height: calc(35px - 2px);
@@ -1196,9 +1196,9 @@ input[type="file"]::-webkit-file-upload-button {
 input[type="file"]::file-selector-button {
   background-color: var(--color-background);
   border: none;
-  border-right: var(--border-width) solid var(--color-foreground);
+  border-right: var(--border-width) solid var(--color-border);
   border-radius: 0 0 0 0;
-  color: var(--color-foreground);
+  color: var(--color-text);
   cursor: pointer;
   display: inline-block;
   height: calc(35px - 2px);
@@ -1220,7 +1220,7 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
   border-radius: 50%;
   background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   height: 20px;
   width: 20px;
   margin-top: -9.5px;
@@ -1232,20 +1232,20 @@ input[type="range"]::-moz-range-thumb {
   cursor: pointer;
   border-radius: 50%;
   background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   height: 20px;
   width: 20px;
 }
 input[type="range"]::-webkit-slider-runnable-track {
   border: none;
-  background-color: var(--color-foreground);
+  background-color: var(--color-border);
   border-radius: 0;
   height: 1px;
   width: 100%;
 }
 input[type="range"]::-moz-range-track {
   border: none;
-  background-color: var(--color-foreground);
+  background-color: var(--color-border);
   border-radius: 0;
   height: 1px;
   width: 100%;
@@ -1254,25 +1254,25 @@ input:disabled {
   opacity: 0.4;
 }
 input::placeholder {
-  color: var(--color-foreground);
+  color: var(--color-text);
 }
 input:-ms-input-placeholder {
-  color: var(--color-foreground);
+  color: var(--color-text);
 }
 input::-ms-input-placeholder {
-  color: var(--color-foreground);
+  color: var(--color-text);
 }
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  color: var(--color-foreground);
+  color: var(--color-text);
   background-color: var(--color-background);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
   width: 100%;
   height: 35px;
@@ -1284,10 +1284,10 @@ select:disabled {
   opacity: 0.4;
 }
 textarea {
-  color: var(--color-foreground);
+  color: var(--color-text);
   display: block;
   background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
   width: 100%;
   height: 105px;
@@ -1298,20 +1298,20 @@ textarea:disabled {
   opacity: 0.4;
 }
 textarea::placeholder {
-  color: var(--color-foreground);
+  color: var(--color-text);
 }
 textarea:-ms-input-placeholder {
-  color: var(--color-foreground);
+  color: var(--color-text);
 }
 textarea::-ms-input-placeholder {
-  color: var(--color-foreground);
+  color: var(--color-text);
 }
 /* ----------------------------------------------------------------- buttons  */
 .button {
   background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
-  color: var(--color-foreground);
+  color: var(--color-text);
   cursor: pointer;
   display: inline-block;
   font-size: 1.6rem;
@@ -1328,9 +1328,9 @@ textarea::-ms-input-placeholder {
 }
 .button-primary {
   background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
-  color: var(--color-foreground);
+  color: var(--color-text);
   cursor: pointer;
   display: inline-block;
   font-size: 1.6rem;
@@ -1345,14 +1345,14 @@ textarea::-ms-input-placeholder {
   position: relative;
   overflow: hidden;
   background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  border-color: var(--color-background);
   color: var(--color-background);
 }
 .button-success {
   background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
-  color: var(--color-foreground);
+  color: var(--color-text);
   cursor: pointer;
   display: inline-block;
   font-size: 1.6rem;
@@ -1367,14 +1367,14 @@ textarea::-ms-input-placeholder {
   position: relative;
   overflow: hidden;
   background-color: var(--color-success);
-  border-color: var(--color-success);
+  border-color: var(--color-background);
   color: var(--color-background);
 }
 .button-warning {
   background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
-  color: var(--color-foreground);
+  color: var(--color-text);
   cursor: pointer;
   display: inline-block;
   font-size: 1.6rem;
@@ -1389,14 +1389,14 @@ textarea::-ms-input-placeholder {
   position: relative;
   overflow: hidden;
   background-color: var(--color-warning);
-  border-color: var(--color-warning);
+  border-color: var(--color-background);
   color: var(--color-background);
 }
 .button-danger {
   background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
-  color: var(--color-foreground);
+  color: var(--color-text);
   cursor: pointer;
   display: inline-block;
   font-size: 1.6rem;
@@ -1411,7 +1411,7 @@ textarea::-ms-input-placeholder {
   position: relative;
   overflow: hidden;
   background-color: var(--color-danger);
-  border-color: var(--color-danger);
+  border-color: var(--color-background);
   color: var(--color-background);
 }
 .button-group {
@@ -1428,7 +1428,7 @@ textarea::-ms-input-placeholder {
   border-bottom-left-radius: var(--border-radius);
 }
 .button-group .button:last-child {
-  border-right: var(--border-width) solid var(--color-foreground);
+  border-right: var(--border-width) solid var(--color-border);
   border-top-right-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 }
@@ -1437,9 +1437,9 @@ input[type="button"],
 input[type="submit"],
 input[type="reset"] {
   background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
-  color: var(--color-foreground);
+  color: var(--color-text);
   cursor: pointer;
   display: inline-block;
   font-size: 1.6rem;
@@ -1456,9 +1456,8 @@ input[type="reset"] {
 }
 [data-type="object"],
 [data-type="array"],
-[data-type="multiple"],
-#value {
-  border: 1px solid var(--color-foreground);
+[data-type="multiple"] {
+  border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   padding: var(--spacer);
   margin-top: var(--spacer);

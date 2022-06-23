@@ -1,8 +1,8 @@
 @control-height: 35px;
-@forms-placeholder-color: var(--color-foreground);
+@forms-placeholder-color: var(--color-text);
 
 form {
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
   padding: var(--spacer) var(--spacer) 0 var(--spacer);
   margin: calc(var(--spacer) * 0.5) 0;
@@ -13,7 +13,7 @@ form {
 }
 
 label {
-  color: var(--color-foreground);
+  color: var(--color-text);
   display: inline-block;
   margin-bottom: calc(var(--spacer) * 0.5);
   margin-right: 10px;
@@ -22,7 +22,7 @@ label {
 
 legend {
   margin-bottom: calc(var(--spacer) * 0.5);
-  color: var(--color-foreground);
+  color: var(--color-text);
 }
 
 fieldset {
@@ -31,9 +31,9 @@ fieldset {
 }
 
 input {
-  color: var(--color-foreground);
+  color: var(--color-text);
   background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
   width: 100%;
   height: @control-height;
@@ -63,9 +63,9 @@ input {
     &::-webkit-file-upload-button {
       background-color: var(--color-background);
       border: none;
-      border-right: var(--border-width) solid var(--color-foreground);
+      border-right: var(--border-width) solid var(--color-border);
       border-radius: 0 0 0 0;
-      color: var(--color-foreground);
+      color: var(--color-text);
       cursor: pointer;
       display: inline-block;
       height: calc(@control-height - 2px);
@@ -75,9 +75,9 @@ input {
     &::file-selector-button {
       background-color: var(--color-background);
       border: none;
-      border-right: var(--border-width) solid var(--color-foreground);
+      border-right: var(--border-width) solid var(--color-border);
       border-radius: 0 0 0 0;
-      color: var(--color-foreground);
+      color: var(--color-text);
       cursor: pointer;
       display: inline-block;
       height: calc(@control-height - 2px);
@@ -102,7 +102,7 @@ input {
       cursor: pointer;
       border-radius: 50%;
       background-color: var(--color-background);
-      border: var(--border-width) solid var(--color-foreground);
+      border: var(--border-width) solid var(--color-border);
       height: @form-range-thumb-height;
       width: @form-range-thumb-width;
 
@@ -114,14 +114,14 @@ input {
       cursor: pointer;
       border-radius: 50%;
       background-color: var(--color-background);
-      border: var(--border-width) solid var(--color-foreground);
+      border: var(--border-width) solid var(--color-border);
       height: @form-range-thumb-height;
       width: @form-range-thumb-width;
     }
 
     &::-webkit-slider-runnable-track {
       border: none;
-      background-color: var(--color-foreground);
+      background-color: var(--color-border);
       border-radius: 0;
       height: @form-range-track-height;
       width: 100%;
@@ -129,7 +129,7 @@ input {
 
     &::-moz-range-track {
       border: none;
-      background-color: var(--color-foreground);
+      background-color: var(--color-border);
       border-radius: 0;
       height: @form-range-track-height;
       width: 100%;
@@ -155,13 +155,13 @@ input {
 
 select {
   .appearance(none);
-  color: var(--color-foreground);
+  color: var(--color-text);
   background-color: var(--color-background);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
   width: 100%;
   height: @control-height;
@@ -175,10 +175,10 @@ select {
 }
 
 textarea {
-  color: var(--color-foreground);
+  color: var(--color-text);
   display: block;
   background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
   width: 100%;
   height: @control-height * 3;

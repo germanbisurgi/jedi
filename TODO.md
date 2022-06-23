@@ -1,10 +1,10 @@
+- required properties
 - label or legend for multiple / any of / no type
 - errors container and position (aka object)
 - sanitize check before set value
 - dry
 - multiple control labels
 - accessibility states
-- docs/demo
 - add prop button
 - load array of schemas
 - name attributes vs configurable single hidden input json for requests
@@ -16,7 +16,6 @@
 - tests
 - array enums
 - array tuple
-- integer editor?
 
 ## tests
 

@@ -2,9 +2,9 @@
 
 .button {
   background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-foreground);
+  border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
-  color: var(--color-foreground);
+  color: var(--color-text);
   cursor: pointer;
   display: inline-block;
   font-size: 1.6rem;
@@ -23,28 +23,28 @@
 .button-primary {
   .button;
   background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  border-color: var(--color-background);
   color: var(--color-background);
 }
 
 .button-success {
   .button;
   background-color: var(--color-success);
-  border-color: var(--color-success);
+  border-color: var(--color-background);
   color: var(--color-background);
 }
 
 .button-warning {
   .button;
   background-color: var(--color-warning);
-  border-color: var(--color-warning);
+  border-color: var(--color-background);
   color: var(--color-background);
 }
 
 .button-danger {
   .button;
   background-color: var(--color-danger);
-  border-color: var(--color-danger);
+  border-color: var(--color-background);
   color: var(--color-background);
 }
 
@@ -64,7 +64,7 @@
   }
 
   .button:last-child {
-    border-right: var(--border-width) solid var(--color-foreground);
+    border-right: var(--border-width) solid var(--color-border);
     border-top-right-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
   }
