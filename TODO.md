@@ -1,5 +1,4 @@
 - label or legend for multiple / any of / no type
-- destroy object child editor on set value if not present in new value?
 - errors container and position (aka object)
 - sanitize check before set value
 - dry

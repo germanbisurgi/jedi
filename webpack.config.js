@@ -51,13 +51,13 @@ const dist = deepmerge(common, {
   }
 })
 
-const tests = deepmerge(common, {
+const docs = deepmerge(common, {
   output: {
-    path: path.resolve(__dirname, 'tests/codeceptjs/pages/assets/js/')
+    path: path.resolve(__dirname, 'docs/js')
   }
 })
 
 module.exports = [
   dist,
-  tests
+  docs
 ]

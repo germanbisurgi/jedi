@@ -6,7 +6,7 @@ exports.config = {
   },
   helpers: {
     Puppeteer: {
-      url: 'http://localhost:8080/',
+      url: 'http://localhost:8282/',
       show: true
     }
   }

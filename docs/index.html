@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Test page for jedi">
     <title>Editor types</title>
-    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 <main class="wrapper-fluid">
     <h1>Editor types</h1>
     <div class="flex-row flex-between">
-        <div class="flex-xs-12 flex-md-5">
+        <div class="flex-xs-12 flex-md-6">
             <div class="card">
                 <div id="jedi-container"></div>
             </div>
         </div>
-        <div class="flex-xs-12 flex-md-5">
+        <div class="flex-xs-12 flex-md-6">
             <div class="card" style="position: sticky; top: 0;">
                 <textarea id="value" style="font-family: monospace; position: sticky; top: 0; height: 70vh;"></textarea>
                 <button id="set-value">Set Value</button>
@@ -24,7 +24,7 @@
         </div>
     </div>
 </main>
-<script src="./assets/js/jedi.js"></script>
+<script src="js/jedi.js"></script>
 <script>
 
   const jedi = new Jedi({
