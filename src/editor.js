@@ -24,7 +24,6 @@ class Editor {
     this.refreshUI()
     this.showValidationErrors()
     this.register()
-    console.log(this.path, this.isRequired())
   }
 
   getKey () {
