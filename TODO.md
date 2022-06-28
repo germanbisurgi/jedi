@@ -1,3 +1,5 @@
+- plugins
+- signals or events
 - add property
 - validators: allOf, anyOf, oneOf, not, disallow, items, maxProperties, properties, patternProperties, propertyNames, additionalProperties, dependencies 
 - optional chaining refactoring

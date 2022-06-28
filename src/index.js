@@ -48,6 +48,7 @@ class Jedi {
 
     this.container.appendChild(this.root.container)
     this.container.classList.add('jedi-loaded')
+    this.onReady()
     this.onChange()
     this.root.onChange = () => {
       this.onChange()
@@ -65,6 +66,11 @@ class Jedi {
   }
 
   onChange (callback) {
+    console.log('onChange')
+    callback()
+  }
+
+  onReady (callback) {
     console.log('onChange')
     callback()
   }
