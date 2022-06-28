@@ -1,12 +1,11 @@
 {
   "type": "object",
-  "required": ["multiple"],
+  "required": ["anyOf" ,"multiple"],
   "options": {
     "hideTitle": true
   },
   "properties": {
     "anyOf": {
-      "required": true,
       "title": "anyOf",
       "anyOf": [
         {

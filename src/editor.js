@@ -143,7 +143,7 @@ class Editor {
    * Returns true if the property is required
    */
   isRequired () {
-    if (this.parent?.schema?.required) {
+    if (utils.isArray(this.parent?.schema?.required)) {
       return this.parent.schema.required.includes(this.getKey())
     }
 

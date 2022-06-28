@@ -245,6 +245,31 @@ class Validator {
         }
 
         return false
+      },
+      required: (schema, value, path) => {
+        const hasRequiredProperties = utils.isArray(schema.required)
+        const missingProperties = []
+
+        if (hasRequiredProperties) {
+          const keys = Object.keys(value)
+
+          schema.required.forEach((key) => {
+            if (!keys.includes(key)) {
+              missingProperties.push(key)
+            }
+          })
+        }
+
+        const invalid = missingProperties.length > 0
+
+        if (invalid) {
+          return {
+            message: 'Object is missing the following required properties: ' + missingProperties.join(', '),
+            path: path
+          }
+        }
+
+        return false
       }
     }
   }
