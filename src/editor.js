@@ -24,6 +24,7 @@ class Editor {
     this.refreshUI()
     this.showValidationErrors()
     this.register()
+    console.log(this.path, this.isRequired())
   }
 
   getKey () {
@@ -136,6 +137,17 @@ class Editor {
     if (this.jedi.debug && this.debugContainer) {
       this.debugContainer.textContent = JSON.stringify(this.getValue(), null, 2)
     }
+  }
+
+  /**
+   * Returns true if the property is required
+   */
+  isRequired () {
+    // if (this.parent?.schema?.required) { // eslint-disable-line
+    //   return this.parent.schema.required.includes(this.getKey())
+    // }
+
+    return false
   }
 
   /**
