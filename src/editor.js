@@ -143,9 +143,9 @@ class Editor {
    * Returns true if the property is required
    */
   isRequired () {
-    // if (this.parent?.schema?.required) { // eslint-disable-line
-    //   return this.parent.schema.required.includes(this.getKey())
-    // }
+    if (this.parent?.schema?.required) {
+      return this.parent.schema.required.includes(this.getKey())
+    }
 
     return false
   }
