@@ -1,10 +1,12 @@
 import Theme from './theme'
 import Resolver from './resolver'
 import Validator from './validator'
+import EventEmitter from './event-emitter'
 import refParser from '@apidevtools/json-schema-ref-parser'
 
 class Jedi {
   constructor (config) {
+    this.events = new EventEmitter()
     this.theme = new Theme()
     this.resolver = new Resolver()
     this.validator = new Validator()
@@ -48,10 +50,10 @@ class Jedi {
 
     this.container.appendChild(this.root.container)
     this.container.classList.add('jedi-loaded')
-    this.onReady()
-    this.onChange()
+    this.events.emit('ready')
+    this.events.emit('change')
     this.root.onChange = () => {
-      this.onChange()
+      this.events.emit('change')
     }
   }
 
@@ -63,16 +65,6 @@ class Jedi {
     const editor = new (EditorClass)(config)
     this.log('created editor', editor.path)
     return editor
-  }
-
-  onChange (callback) {
-    console.log('onChange')
-    callback()
-  }
-
-  onReady (callback) {
-    console.log('onChange')
-    callback()
   }
 
   getValue () {

@@ -39,9 +39,13 @@
     }
   })
 
-  jedi.onChange = () => {
+  jedi.events.on('change', () => {
     document.querySelector('#value').textContent = JSON.stringify(jedi.getValue(), null, 2)
-  }
+  })
+
+  jedi.events.on('ready', () => {
+    console.log('ready')
+  })
 
   document.querySelector('#set-value').addEventListener('click', () => {
     jedi.setValue(JSON.parse(document.querySelector('#value').value))
