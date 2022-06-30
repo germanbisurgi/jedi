@@ -2,6 +2,8 @@ import utils from './utils'
 
 class Validator {
   constructor () {
+    // const self = this
+
     /**
      * Functions that return an error object if the the validation condition is not met.
      */
@@ -271,6 +273,38 @@ class Validator {
 
         return false
       }
+      // oneOf (schema, value, path) {
+      //   const hasOneOf = utils.hasOneOf(schema)
+      //
+      //   if (!hasOneOf) {
+      //     return
+      //   }
+      //
+      //   console.log('oneOf validator', path)
+      //
+      //   const validSchemas = []
+      //
+      //   schema.oneOf.forEach((oneOfSchema) => {
+      //     const errors = self.validate(oneOfSchema, value, path)
+      //
+      //     if (errors.length === 0) {
+      //       validSchemas.push(oneOfSchema)
+      //     }
+      //   })
+      //
+      //   console.log('validSchemas', validSchemas)
+      //
+      //   const invalid = validSchemas.lenght !== 1
+      //
+      //   if (invalid) {
+      //     return {
+      //       message: 'oneOf error' + JSON.stringify(validSchemas),
+      //       path: path
+      //     }
+      //   }
+      //
+      //   return false
+      // }
     }
   }
 

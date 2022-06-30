@@ -23,8 +23,9 @@ class Resolver {
         const hasNoType = !utils.isSet(schema.type)
         const hasTypeAny = utils.isSet(schema.type) && schema.type === 'any'
         const hasTypeIsArray = utils.isArray(schema.type)
+        const hasOneOf = utils.hasOneOf(schema)
         const hasAnyOf = utils.hasAnyOf(schema)
-        if (hasNoType || hasTypeAny || hasTypeIsArray || hasAnyOf) {
+        if (hasAnyOf || hasOneOf || hasTypeAny || hasTypeIsArray || hasNoType) {
           return MultipleEditor
         }
       },

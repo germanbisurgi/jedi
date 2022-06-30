@@ -15,6 +15,10 @@ class Utils {
     return typeof value !== 'undefined'
   }
 
+  isNotSet (value) {
+    return typeof value !== 'undefined'
+  }
+
   isNumber (value) {
     return typeof value === 'number'
   }
@@ -89,6 +93,10 @@ class Utils {
 
   hasAnyOf (schema) {
     return schema.anyOf && this.isArray(schema.anyOf)
+  }
+
+  hasOneOf (schema) {
+    return schema.oneOf && this.isArray(schema.oneOf)
   }
 
   hasFormatSelect (schema) {

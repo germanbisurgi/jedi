@@ -1,6 +1,7 @@
 {
   "type": "object",
   "required": [
+    "oneOf",
     "anyOf",
     "multiple",
     "booleans",
@@ -13,6 +14,22 @@
     "hideTitle": true
   },
   "properties": {
+    "oneOf": {
+      "title": "oneOf",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string",
+          "title": "string"
+        },
+        {
+          "type": "string",
+          "title": "string"
+        }
+      ]
+    },
     "anyOf": {
       "title": "anyOf",
       "anyOf": [

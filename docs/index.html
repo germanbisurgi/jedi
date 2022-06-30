@@ -32,7 +32,7 @@
 
   const jedi = new Jedi({
     container: document.querySelector('#jedi-container'),
-    debug: false,
+    debug: true,
     logs: false,
     schema: {
       "$ref": "./schema.json",
@@ -44,7 +44,7 @@
   })
 
   jedi.events.on('ready', () => {
-    console.log('ready')
+    console.log('ready', jedi.editors)
   })
 
   document.querySelector('#set-value').addEventListener('click', () => {

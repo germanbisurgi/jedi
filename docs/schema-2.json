@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "options": {
+    "hideTitle": true
+  },
+  "properties": {
+    "oneOf": {
+      "title": "oneOf",
+      "oneOf": [
+        {
+          "type": "string",
+          "title": "string"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string",
+          "title": "string"
+        }
+      ]
+    }
+  }
+}

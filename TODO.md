@@ -1,6 +1,5 @@
-- use webpack-dev-server
-
 ##json-schema
+- validation error position top
 - validators: allOf, anyOf, oneOf, not, disallow, items, maxProperties, properties, patternProperties, propertyNames, additionalProperties, dependencies 
 - add property
 - array enums
