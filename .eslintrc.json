@@ -8,6 +8,7 @@
 			"files": ["*.js"],
 			"rules": {
 				"dot-notation": "off",
+				"no-new": "off",
 				"no-var": 1
 			}
 		}

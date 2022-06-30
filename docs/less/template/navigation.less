@@ -2,35 +2,51 @@
 @navigation-anchor-offset: 50px;
 
 .navigation {
-    background-color: var(--color-background);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-shadow: var(--shadow);
-    z-index: 10;
+  background-color: var(--color-background);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: var(--shadow);
+  z-index: 10;
 }
 
 .navigation-items {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    height: @navigation-height;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: @navigation-height;
 }
 
 .navigation-item {
-    display: inline-block;
-    margin-left: var(--spacer);
-    transition: var(--transition);
-    border-bottom: var(--border-width) solid transparent;
+  display: inline-block;
+  margin-left: var(--spacer);
+  transition: var(--transition);
+  border-bottom: var(--border-width) solid transparent;
+  position: relative;
 
-    &.active {
-        border-bottom: var(--border-width) solid var(--color-border);
+  a {
+    text-decoration: none;
+  }
+
+  &.active {
+    &:after {
+      content: '';
+      position: absolute;
+      background-color: var(--color-primary);
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      bottom: -3px;
+      left: 50%;
+      transform: translate(-50%, 0%);
     }
+  }
 }
 
 .navigation-anchor {
-    position: relative;
-    top: -@navigation-height - @navigation-anchor-offset;
+  position: relative;
+  top: -@navigation-height - @navigation-anchor-offset;
 }
 

@@ -1,3 +1,5 @@
+- use webpack-dev-server
+
 ##json-schema
 - validators: allOf, anyOf, oneOf, not, disallow, items, maxProperties, properties, patternProperties, propertyNames, additionalProperties, dependencies 
 - add property
