@@ -19,13 +19,15 @@ class ObjectEditor extends Editor {
     }
 
     // addBtn
-    const addBtn = this.jedi.theme.getButton('add')
-    this.container.appendChild(addBtn)
-    addBtn.addEventListener('click', () => {
-      const randomKey = 'test-' + Math.ceil(Math.random() * 1000)
-      this.value[randomKey] = undefined
-      this.setValue(this.value)
-    })
+    if (this.jedi.options.addProperties) {
+      const addBtn = this.jedi.theme.getButton('add')
+      this.container.appendChild(addBtn)
+      addBtn.addEventListener('click', () => {
+        const randomKey = 'test-' + Math.ceil(Math.random() * 1000)
+        this.value[randomKey] = undefined
+        this.setValue(this.value)
+      })
+    }
   }
 
   addChildEditor (schema, key) {
@@ -37,12 +39,14 @@ class ObjectEditor extends Editor {
     })
 
     // removeBtn
-    const removeBtn = this.jedi.theme.getButton('remove')
-    editor.container.appendChild(removeBtn)
-    removeBtn.addEventListener('click', () => {
-      delete this.value[key]
-      this.setValue(this.value)
-    })
+    if (this.jedi.options.removeProperties) {
+      const removeBtn = this.jedi.theme.getButton('remove')
+      editor.container.appendChild(removeBtn)
+      removeBtn.addEventListener('click', () => {
+        delete this.value[key]
+        this.setValue(this.value)
+      })
+    }
 
     this.container.appendChild(editor.container)
     this.childEditors.push(editor)

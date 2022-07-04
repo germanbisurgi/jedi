@@ -5,17 +5,18 @@ import EventEmitter from './event-emitter'
 import refParser from '@apidevtools/json-schema-ref-parser'
 
 class Jedi {
-  constructor (config) {
+  constructor (options) {
+    this.options = options || {}
     this.events = new EventEmitter()
     this.theme = new Theme()
     this.resolver = new Resolver()
     this.validator = new Validator()
-    this.container = config.container
-    this.debug = config.debug || false
-    this.schema = config.schema
+    this.container = options.container
+    this.debug = options.debug || false
+    this.schema = options.schema
     this.root = null
     this.editors = {}
-    this.logs = config.logs || false
+    this.logs = options.logs || false
     this.init()
   }
 

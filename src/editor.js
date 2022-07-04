@@ -18,6 +18,7 @@ class Editor {
    */
   init () {
     this.setContainer()
+    this.setErrorsContainer()
     this.setDebugContainer()
     this.setDefaultValue()
     this.build()
@@ -36,6 +37,11 @@ class Editor {
     if (utils.isSet(this.schema.type)) {
       this.container.setAttribute('data-type', this.schema.type)
     }
+  }
+
+  setErrorsContainer () {
+    this.errorsContainer = this.jedi.theme.getDiv()
+    this.container.appendChild(this.errorsContainer)
   }
 
   setDebugContainer () {
@@ -154,9 +160,9 @@ class Editor {
    */
   showValidationErrors () {
     const errors = this.jedi.validator.validate(this.schema, this.getValue(), this.path)
-    this.jedi.theme.removeInputError(this.container)
+    this.jedi.theme.removeInputError(this.errorsContainer)
     errors.forEach((error) => {
-      this.jedi.theme.addInputError(this.container, error.message)
+      this.jedi.theme.addInputError(this.errorsContainer, error.message)
     })
   }
 
