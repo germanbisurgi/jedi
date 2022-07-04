@@ -1,51 +1,51 @@
 /* ----------------------------------------------------------------- buttons  */
 
 .button {
-  background-color: var(--color-background);
-  border: var(--border-width) solid var(--color-border);
-  border-radius: var(--border-radius);
-  color: var(--color-text);
+  background-color: @color-background;
+  border: @border-width solid @color-border;
+  border-radius: @border-radius;
+  color: @color-text;
   cursor: pointer;
   display: inline-block;
   font-size: 1.6rem;
   height: auto;
-  margin: calc(var(--spacer) * 0.5) 0;
+  margin: calc(@spacer * 0.5) 0;
   padding: 6px 12px;
   text-align: center;
   text-decoration: none;
   width: auto;
   white-space: nowrap;
-  transition: var(--transition);
+  transition: @transition;
   position: relative;
   overflow: hidden;
 }
 
 .button-primary {
   .button;
-  background-color: var(--color-primary);
-  border-color: var(--color-background);
-  color: var(--color-background);
+  background-color: @color-primary;
+  border-color: @color-background;
+  color: @color-background;
 }
 
 .button-success {
   .button;
-  background-color: var(--color-success);
-  border-color: var(--color-background);
-  color: var(--color-background);
+  background-color: @color-success;
+  border-color: @color-background;
+  color: @color-background;
 }
 
 .button-warning {
   .button;
-  background-color: var(--color-warning);
-  border-color: var(--color-background);
-  color: var(--color-background);
+  background-color: @color-warning;
+  border-color: @color-background;
+  color: @color-background;
 }
 
 .button-danger {
   .button;
-  background-color: var(--color-danger);
-  border-color: var(--color-background);
-  color: var(--color-background);
+  background-color: @color-danger;
+  border-color: @color-background;
+  color: @color-background;
 }
 
 .button-group {
@@ -59,14 +59,14 @@
   }
 
   .button:first-child {
-    border-top-left-radius: var(--border-radius);
-    border-bottom-left-radius: var(--border-radius);
+    border-top-left-radius: @border-radius;
+    border-bottom-left-radius: @border-radius;
   }
 
   .button:last-child {
-    border-right: var(--border-width) solid var(--color-border);
-    border-top-right-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
+    border-right: @border-width solid @color-border;
+    border-top-right-radius: @border-radius;
+    border-bottom-right-radius: @border-radius;
   }
 }
 

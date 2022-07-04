@@ -1,10 +1,9 @@
 ##json-schema
-- validation error position top
 - validators: allOf, anyOf, oneOf, not, disallow, items, maxProperties, properties, patternProperties, propertyNames, additionalProperties, dependencies 
-- add property
+- add property key input
 - array enums
 - load array of schemas
-- array tuple
+- array tuple (no type or arrays of types?)
 - enum must have at least 1 item
 - schema description
 - objects and arrays hidden inputs

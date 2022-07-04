@@ -1,13 +1,10 @@
-@navigation-height: 50px;
-@navigation-anchor-offset: 50px;
-
 .navigation {
-  background-color: var(--color-background);
-  position: fixed;
+  background-color: @color-background;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
-  box-shadow: var(--shadow);
+  box-shadow: @shadow;
   z-index: 10;
 }
 
@@ -20,9 +17,9 @@
 
 .navigation-item {
   display: inline-block;
-  margin-left: var(--spacer);
-  transition: var(--transition);
-  border-bottom: var(--border-width) solid transparent;
+  margin-left: @spacer;
+  transition: @transition;
+  border-bottom: @border-width solid transparent;
   position: relative;
 
   a {
@@ -33,11 +30,11 @@
     &:after {
       content: '';
       position: absolute;
-      background-color: var(--color-primary);
+      background-color: @color-primary;
       width: 4px;
       height: 4px;
       border-radius: 50%;
-      border: 1px solid var(--color-border);
+      border: 1px solid @color-border;
       bottom: -3px;
       left: 50%;
       transform: translate(-50%, 0%);
