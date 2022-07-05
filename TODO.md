@@ -10,6 +10,7 @@
 - refactor arrays and objects: onChildEditorChange() and getValue()
 
 ## custom
+- container head, body and footer
 - integration with css libs (multiple themes?)
 - plugins
 - enable / disable
