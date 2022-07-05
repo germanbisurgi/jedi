@@ -9,7 +9,6 @@
 </head>
 <body>
 <main class="container">
-    <h1>Editor types</h1>
     <div class="row row-between">
         <div class="col-12 col-md-6">
             <div class="card">
@@ -32,10 +31,10 @@
 
   const jedi = new Jedi({
     container: document.querySelector('#jedi-container'),
-    addProperty: false,
-    removeProperty: false,
-    debug: false,
-    logs: false,
+    // addProperty: true,
+    // removeProperty: true,
+    // debug: true,
+    // logs: true,
     schema: {
       "$ref": "./schema.json",
     }
@@ -46,7 +45,13 @@
   })
 
   jedi.events.on('ready', () => {
-    console.log('ready', jedi.editors)
+    console.log('jedi ready')
+    //
+    // const editors = jedi.editors
+    //
+    // Object.keys(editors).forEach((key) => {
+    //   console.log('editor', editors[key])
+    // })
   })
 
   document.querySelector('#set-value').addEventListener('click', () => {

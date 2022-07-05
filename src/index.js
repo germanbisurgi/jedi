@@ -12,16 +12,14 @@ class Jedi {
     this.resolver = new Resolver()
     this.validator = new Validator()
     this.container = options.container
-    this.debug = options.debug || false
     this.schema = options.schema
     this.root = null
     this.editors = {}
-    this.logs = options.logs || false
     this.init()
   }
 
   log () {
-    if (this.logs) {
+    if (this.options.logs) {
       console.log(...arguments)
     }
   }
@@ -56,6 +54,7 @@ class Jedi {
     this.root.onChange = () => {
       this.events.emit('change')
     }
+    this.getValue()
   }
 
   /**

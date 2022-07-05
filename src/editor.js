@@ -23,6 +23,7 @@ class Editor {
     this.setDefaultValue()
     this.build()
     this.refreshUI()
+    this.refreshDebug()
     this.showValidationErrors()
     this.register()
   }
@@ -45,7 +46,7 @@ class Editor {
   }
 
   setDebugContainer () {
-    if (this.jedi.debug && this.container) {
+    if (this.jedi.options.debug && this.container) {
       this.debugContainer = this.jedi.theme.getDebugContainer()
       this.container.appendChild(this.debugContainer)
     }
@@ -139,7 +140,7 @@ class Editor {
    * using setValue to set the value programmatically.
    */
   refreshDebug () {
-    if (this.jedi.debug && this.debugContainer) {
+    if (this.jedi.options.debug && this.debugContainer) {
       this.debugContainer.textContent = JSON.stringify(this.getValue(), null, 2)
     }
   }

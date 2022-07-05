@@ -10,6 +10,7 @@
 - refactor arrays and objects: onChildEditorChange() and getValue()
 
 ## custom
+- integration with css libs (multiple themes?)
 - plugins
 - enable / disable
 - read only
@@ -21,7 +22,6 @@
 - accessibility states
 - name attributes vs configurable single hidden input json for requests
 - tests
-
 
 ## tests
 
