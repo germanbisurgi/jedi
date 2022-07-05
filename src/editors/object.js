@@ -19,7 +19,7 @@ class ObjectEditor extends Editor {
     }
 
     // addBtn
-    if (this.jedi.options.addProperties) {
+    if (this.jedi.options.addProperty) {
       const addBtn = this.jedi.theme.getButton('add')
       this.container.appendChild(addBtn)
       addBtn.addEventListener('click', () => {
@@ -39,7 +39,9 @@ class ObjectEditor extends Editor {
     })
 
     // removeBtn
-    if (this.jedi.options.removeProperties) {
+    const propertyEditorIsNotRequired = !editor.isRequired()
+    const removePropertyOption = this.jedi.options.removeProperty
+    if (propertyEditorIsNotRequired && removePropertyOption) {
       const removeBtn = this.jedi.theme.getButton('remove')
       editor.container.appendChild(removeBtn)
       removeBtn.addEventListener('click', () => {

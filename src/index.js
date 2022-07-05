@@ -6,7 +6,12 @@ import refParser from '@apidevtools/json-schema-ref-parser'
 
 class Jedi {
   constructor (options) {
-    this.options = options || {}
+    this.options = Object.assign({
+      removeProperty: false,
+      addProperty: false,
+      debug: false,
+      logs: false
+    }, options)
     this.events = new EventEmitter()
     this.theme = new Theme()
     this.resolver = new Resolver()

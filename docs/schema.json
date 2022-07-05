@@ -1,7 +1,6 @@
 {
   "type": "object",
   "required": [
-    "oneOf",
     "anyOf",
     "multiple",
     "booleans",

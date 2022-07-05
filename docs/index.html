@@ -31,8 +31,8 @@
 
   const jedi = new Jedi({
     container: document.querySelector('#jedi-container'),
+    removeProperty: true,
     // addProperty: true,
-    // removeProperty: true,
     // debug: true,
     // logs: true,
     schema: {
@@ -46,12 +46,6 @@
 
   jedi.events.on('ready', () => {
     console.log('jedi ready')
-    //
-    // const editors = jedi.editors
-    //
-    // Object.keys(editors).forEach((key) => {
-    //   console.log('editor', editors[key])
-    // })
   })
 
   document.querySelector('#set-value').addEventListener('click', () => {

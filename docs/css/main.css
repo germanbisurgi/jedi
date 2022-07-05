@@ -1275,9 +1275,6 @@ input[type="reset"] {
   position: relative;
   overflow: hidden;
 }
-[data-path] {
-  margin-bottom: 36px;
-}
 .jedi-error-message {
   text-align: left;
   color: #ff2f7e;
