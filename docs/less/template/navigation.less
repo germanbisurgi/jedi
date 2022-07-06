@@ -1,10 +1,9 @@
 .navigation {
-  background-color: @color-background;
+  background-color: @color-white;
   position: sticky;
   top: 0;
   left: 0;
   width: 100%;
-  box-shadow: @shadow;
   z-index: 10;
 }
 
@@ -19,26 +18,18 @@
   display: inline-block;
   margin-left: @spacer;
   transition: @transition;
-  border-bottom: @border-width solid transparent;
   position: relative;
 
   a {
     text-decoration: none;
   }
 
+  &:hover {
+    text-decoration: underline;
+  }
+
   &.active {
-    &:after {
-      content: '';
-      position: absolute;
-      background-color: @color-primary;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      border: 1px solid @color-border;
-      bottom: -3px;
-      left: 50%;
-      transform: translate(-50%, 0%);
-    }
+    text-decoration: underline;
   }
 }
 

@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------- buttons  */
 
-.button {
-  background-color: @color-background;
-  border: @border-width solid @color-border;
+.btn {
+  background-color: @color-white;
+  border: @border;
   border-radius: @border-radius;
   color: @color-text;
   cursor: pointer;
@@ -18,61 +18,35 @@
   transition: @transition;
   position: relative;
   overflow: hidden;
+
+  &:hover {
+    background-color: darken(@color-white, 5%);
+  }
+
+  &.btn-block {
+    display: block;
+    width: 100%;
+  }
 }
 
-.button-primary {
-  .button;
-  background-color: @color-primary;
-  border-color: @color-background;
-  color: @color-background;
-}
-
-.button-success {
-  .button;
-  background-color: @color-success;
-  border-color: @color-background;
-  color: @color-background;
-}
-
-.button-warning {
-  .button;
-  background-color: @color-warning;
-  border-color: @color-background;
-  color: @color-background;
-}
-
-.button-danger {
-  .button;
-  background-color: @color-danger;
-  border-color: @color-background;
-  color: @color-background;
-}
-
-.button-group {
+.btn-group {
   display: flex;
 
-  .button {
+  .btn {
     border-radius: 0;
     border-right: 0;
     margin-left: 0;
     margin-right: 0;
   }
 
-  .button:first-child {
+  .btn:first-child {
     border-top-left-radius: @border-radius;
     border-bottom-left-radius: @border-radius;
   }
 
-  .button:last-child {
-    border-right: @border-width solid @color-border;
+  .btn:last-child {
+    border-right: @border;
     border-top-right-radius: @border-radius;
     border-bottom-right-radius: @border-radius;
   }
-}
-
-button,
-input[type="button"],
-input[type="submit"],
-input[type="reset"] {
-  .button;
 }

@@ -8,7 +8,7 @@ html {
 }
 
 body {
-  background-color: @color-background;
+  background-color: @color-white;
 }
 
 p {
@@ -19,55 +19,52 @@ p {
 a {
   color: @color-text;
   line-height: calc(@spacer * 2);
+  font-weight: bold;
 }
 
-a:hover, a:active {
-  color: @color-primary;
-}
+a:hover, a:active {}
 
 h1 {
   color: @color-headlines;
-  font-size: 4.8rem;
+  font-size: 6rem;
   margin-bottom: calc(@spacer * 3);
-  text-align: center;
 }
 
 h2 {
   color: @color-headlines;
   font-size: 4rem;
   margin-bottom: calc(@spacer * 2);
-  text-align: center;
 }
 
 h3 {
   color: @color-headlines;
-  font-size: 3rem;
+  font-size: 2.4rem;
   margin-bottom: calc(@spacer * 1);
 }
 
 h4 {
   color: @color-headlines;
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   margin-bottom: calc(@spacer * 1);
 }
 
 h5 {
+  font-size: 1.8rem;
   color: @color-headlines;
   margin-bottom: calc(@spacer * 1);
 }
 
 h6 {
+  font-size: 1.6rem;
   color: @color-headlines;
   margin-bottom: calc(@spacer * 1);
 }
 
 pre {
   font-family: monospace;
-  color: @color-primary;
   overflow-x: auto;
 }
 
 code {
-  color: @color-primary;
   font-family: monospace;
 }

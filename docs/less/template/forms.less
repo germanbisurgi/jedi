@@ -3,7 +3,6 @@
 
 form {
   border-radius: @border-radius;
-  padding: @spacer @spacer 0 @spacer;
   margin: calc(@spacer * 0.5) 0;
 
   p {
@@ -31,8 +30,8 @@ fieldset {
 
 input {
   color: @color-text;
-  background-color: @color-background;
-  border: @border-width solid @color-border;
+  background-color: @color-white;
+  border: @border;
   border-radius: @border-radius;
   width: 100%;
   height: @control-height;
@@ -60,9 +59,9 @@ input {
     padding: 0;
 
     &::-webkit-file-upload-button {
-      background-color: @color-background;
+      background-color: @color-white;
       border: none;
-      border-right: @border-width solid @color-border;
+      border-right: @border;
       border-radius: 0 0 0 0;
       color: @color-text;
       cursor: pointer;
@@ -72,9 +71,9 @@ input {
     }
 
     &::file-selector-button {
-      background-color: @color-background;
+      background-color: @color-white;
       border: none;
-      border-right: @border-width solid @color-border;
+      border-right: @border;
       border-radius: 0 0 0 0;
       color: @color-text;
       cursor: pointer;
@@ -100,8 +99,8 @@ input {
       .appearance(none);
       cursor: pointer;
       border-radius: 50%;
-      background-color: @color-background;
-      border: @border-width solid @color-border;
+      background-color: @color-white;
+      border: @border;
       height: @form-range-thumb-height;
       width: @form-range-thumb-width;
 
@@ -112,8 +111,8 @@ input {
       .appearance(none);
       cursor: pointer;
       border-radius: 50%;
-      background-color: @color-background;
-      border: @border-width solid @color-border;
+      background-color: @color-white;
+      border: @border;
       height: @form-range-thumb-height;
       width: @form-range-thumb-width;
     }
@@ -155,12 +154,12 @@ input {
 select {
   .appearance(none);
   color: @color-text;
-  background-color: @color-background;
+  background-color: @color-white;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
-  border: @border-width solid @color-border;
+  border: @border;
   border-radius: @border-radius;
   width: 100%;
   height: @control-height;
@@ -176,8 +175,8 @@ select {
 textarea {
   color: @color-text;
   display: block;
-  background-color: @color-background;
-  border: @border-width solid @color-border;
+  background-color: @color-white;
+  border: @border;
   border-radius: @border-radius;
   width: 100%;
   height: @control-height * 3;

@@ -1,5 +1,5 @@
 .container {
-  max-width: 1200px;
+  max-width: @container-max-with;
   margin: 0 auto;
   padding-left: @spacer;
   padding-right: @spacer;
@@ -19,7 +19,7 @@ section {
 }
 
 article {
-  margin-bottom: calc(@spacer * 3);
+  margin-bottom: calc(@spacer * 1);
 }
 
 /* --------------------------------------------------------------------- rows */
@@ -28,7 +28,13 @@ article {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: 0 calc(@grid-gutter-width-computed * -1);
+  margin-right: @grid-gap * -1;
+  margin-left: @grid-gap * -1;
+
+  &.no-gap {
+    margin-right: 0;
+    margin-left: 0;
+  }
 }
 
 .row-no-wrap {
@@ -224,7 +230,8 @@ article {
 /* ------------------------------------------------------------------ columns */
 
 [class^="col-"] {
-  padding: 0 @grid-gutter-width-computed;
+  padding-right: @grid-gap;
+  padding-left: @grid-gap;
 }
 
 .col-self-start {

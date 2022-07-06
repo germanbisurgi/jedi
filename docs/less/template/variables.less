@@ -4,20 +4,24 @@
 @screen-md-min: 992px;
 @screen-lg-min: 1200px;
 
-@spacer: 12px;
-@grid-gutter-width: @spacer;
-@grid-gutter-width-computed: calc(@grid-gutter-width * 0.5);
+@spacer: 15px;
+@grid-gap: @spacer * 0.5;
+@container-max-with: 1300px;
 
 /* ------------------------------------------------------------------- colors */
 
-@color-background: #ffffff;
-@color-text: #555;
-@color-headlines: #35495e;
-@color-border: #e6e6e6;
-@color-primary: #41b883;
-@color-success: #41B883;
-@color-warning: #ffbf24;
-@color-danger: #ff2f7e;
+@color-white: #fefefe;
+@color-black: #35495e;
+
+@color-white: #408ABF;
+@color-black: #fefefe;
+
+//@color-white: #35495e;
+//@color-black: #fefefe;
+
+@color-text: @color-black;
+@color-headlines: @color-black;
+@color-border: @color-black;
 
 /* --------------------------------------------------------------- navigation */
 
@@ -26,8 +30,7 @@
 
 /* ------------------------------------------------------------------- global */
 
-@shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05);
 @border-radius: 3px;
-@border-width: 1px;
+@border: 1px solid @color-black;
 @transition: all 0.1s ease;
 
