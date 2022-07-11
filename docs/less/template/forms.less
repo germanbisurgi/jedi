@@ -1,13 +1,6 @@
-@control-height: 35px;
-@forms-placeholder-color: @color-text;
-
 form {
   border-radius: @border-radius;
   margin: calc(@spacer * 0.5) 0;
-
-  p {
-    text-align: left;
-  }
 }
 
 label {
@@ -34,9 +27,13 @@ input {
   border: @border;
   border-radius: @border-radius;
   width: 100%;
-  height: @control-height;
+  height: @form-control-height;
   padding: 0 12px;
   margin-bottom: calc(@spacer * 0.5);
+
+  &:focus {
+    outline: @outline;
+  }
 
   &[type="color"] {
     padding: 0;
@@ -48,7 +45,7 @@ input {
     height: auto;
     width: auto;
 
-    & + label {
+    & ~ label {
       cursor: pointer;
     }
   }
@@ -66,7 +63,7 @@ input {
       color: @color-text;
       cursor: pointer;
       display: inline-block;
-      height: calc(@control-height - 2px);
+      height: calc(@form-control-height - 2px);
       overflow: hidden;
     }
 
@@ -78,15 +75,10 @@ input {
       color: @color-text;
       cursor: pointer;
       display: inline-block;
-      height: calc(@control-height - 2px);
+      height: calc(@form-control-height - 2px);
       overflow: hidden;
     }
   }
-
-  @form-range-track-height: 1px;
-  @form-range-thumb-height: 20px;
-  @form-range-thumb-width: 20px;
-  @form-range-thumb-margin-top: (@form-range-track-height - @form-range-thumb-height) * 0.5;
 
   &[type="range"] {
     .appearance(none);
@@ -162,10 +154,14 @@ select {
   border: @border;
   border-radius: @border-radius;
   width: 100%;
-  height: @control-height;
+  height: @form-control-height;
   margin-bottom: calc(@spacer * 0.5);
   position: relative;
   padding: 0 12px;
+
+  &:focus {
+    outline: @outline;
+  }
 
   &:disabled {
     opacity: 0.4;
@@ -179,9 +175,13 @@ textarea {
   border: @border;
   border-radius: @border-radius;
   width: 100%;
-  height: @control-height * 3;
+  height: @form-control-height * 3;
   margin-bottom: calc(@spacer * 0.5);
   padding: 6px 12px;
+
+  &:focus {
+    outline: @outline;
+  }
 
   &:disabled {
     opacity: 0.4;
@@ -197,5 +197,97 @@ textarea {
 
   &::-ms-input-placeholder {
     color: @forms-placeholder-color;
+  }
+}
+
+@form-indicator-size: 13px;
+
+.checkbox {
+  display: inline-block;
+
+  .indicator {
+    display: inline-block;
+    height: @form-indicator-size;
+    width: @form-indicator-size;
+    border: @border;
+    position: relative;
+    margin-right: 5px;
+  }
+
+  label {
+    cursor: pointer;
+  }
+
+  input[type="checkbox"] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  input[type="checkbox"]:checked ~ .indicator:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -60%) rotate(40deg);
+    transform-origin: center;
+    width: @form-indicator-size * 0.20;
+    height: @form-indicator-size * 0.35;
+    border: @border;
+    border-width: 0 @border-with @border-with 0;
+  }
+
+  input[type="checkbox"]:focus ~ .indicator {
+    outline: @outline;
+  }
+
+  input[type="checkbox"]:disabled ~ .indicator {
+    opacity: 0.2;
+  }
+}
+
+.radio {
+  display: inline-block;
+
+  .indicator {
+    display: inline-block;
+    height: @form-indicator-size;
+    width: @form-indicator-size;
+    border: @border;
+    border-radius: 100%;
+    position: relative;
+    margin-right: 5px;
+  }
+
+  label {
+    cursor: pointer;
+  }
+
+  input[type="radio"] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  input[type="radio"]:checked ~ .indicator:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: @form-indicator-size * 0.5;
+    height: @form-indicator-size * 0.5;
+    background-color: @color-black;
+    border-radius: 100%;
+  }
+
+  input[type="radio"]:focus ~ .indicator {
+    outline: @outline;
+  }
+
+  input[type="radio"]:disabled ~ .indicator {
+    opacity: 0.2;
   }
 }

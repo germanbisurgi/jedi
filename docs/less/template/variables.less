@@ -6,31 +6,45 @@
 
 @spacer: 15px;
 @grid-gap: @spacer * 0.5;
-@container-max-with: 1300px;
+@container-max-with: 1200px;
 
 /* ------------------------------------------------------------------- colors */
 
 @color-white: #fefefe;
 @color-black: #35495e;
-
-@color-white: #408ABF;
-@color-black: #fefefe;
-
-//@color-white: #35495e;
-//@color-black: #fefefe;
-
 @color-text: @color-black;
 @color-headlines: @color-black;
+
+/* --------------------------------------------------------------- typography */
+
+@font-size-base: 1.8rem;
+
+/* ------------------------------------------------------------------ borders */
+
+@border-radius: 3px;
+@border-with: 2px;
+@border-style: solid;
 @color-border: @color-black;
+@border: @border-with @border-style @color-black;
+
+/* ------------------------------------------------------------------ outline */
+
+@outline: @border-with @border-style #0075FF;
+
+/* -------------------------------------------------------------- transitions */
+
+@transition: all 0.1s ease;
+
+/* -------------------------------------------------------------------- forms */
+
+@form-control-height: 35px;
+@forms-placeholder-color: @color-text;
+@form-range-track-height: @border-with;
+@form-range-thumb-height: 20px;
+@form-range-thumb-width: 20px;
+@form-range-thumb-margin-top: (@form-range-track-height - @form-range-thumb-height) * 0.5;
 
 /* --------------------------------------------------------------- navigation */
 
 @navigation-height: 50px;
 @navigation-anchor-offset: 50px;
-
-/* ------------------------------------------------------------------- global */
-
-@border-radius: 3px;
-@border: 1px solid @color-black;
-@transition: all 0.1s ease;
-

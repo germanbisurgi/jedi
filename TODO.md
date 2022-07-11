@@ -1,4 +1,5 @@
 ##json-schema
+- when to show validation errors
 - validators: allOf, anyOf, oneOf, not, disallow, items, maxProperties, properties, patternProperties, propertyNames, additionalProperties, dependencies 
 - add property key input
 - array enums
