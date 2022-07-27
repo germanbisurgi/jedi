@@ -35,6 +35,7 @@ class Editor {
   setContainer () {
     this.container = this.jedi.theme.getDiv()
     this.container.setAttribute('data-path', this.path)
+    this.container.setAttribute('class', 'form-group')
     if (utils.isSet(this.schema.type)) {
       this.container.setAttribute('data-type', this.schema.type)
     }
