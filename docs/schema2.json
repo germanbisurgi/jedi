@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "required": [
+    "anyOf"
+  ],
+  "options": {
+    "hideTitle": true
+  },
+  "properties": {
+    "anyOf": {
+      "title": "anyOf",
+      "anyOf": [
+        {
+          "type": "boolean",
+          "title": "default"
+        },
+        {
+          "type": "boolean",
+          "title": "boolean enum select",
+          "format": "select",
+          "options": {
+            "enumTitles": [
+              "No",
+              "Yes"
+            ]
+          }
+        },
+        {
+          "type": "boolean",
+          "title": "boolean enum radio",
+          "format": "radio",
+          "options": {
+            "enumTitles": [
+              "No",
+              "Yes"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

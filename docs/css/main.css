@@ -921,7 +921,7 @@ article {
     order: 11;
   }
 }
-.navigation {
+.navbar {
   background-color: var(--color-primary);
   border-top: 2px solid var(--color-secondary);
   border-bottom: 2px solid var(--color-secondary);
@@ -932,24 +932,23 @@ article {
   width: 100%;
   z-index: 10;
 }
-.navigation-items {
+.nav {
   display: flex;
   align-items: stretch;
-  justify-content: flex-end;
   height: 50px;
 }
-.navigation-item {
+.nav li {
   display: flex;
   align-items: center;
   padding: 0 15px;
   transition: all 0.1s ease;
   position: relative;
 }
-.navigation-item a {
+.nav li a {
   text-decoration: none;
 }
-.navigation-item:hover,
-.navigation-item.active {
+.nav li:hover,
+.nav li.active {
   background-color: var(--color-highlight);
 }
 .navigation-anchor {
@@ -1139,7 +1138,8 @@ select {
   height: 46px;
   margin-bottom: calc(15px * 0.5);
   position: relative;
-  padding: 0 12px;
+  padding: 0 7.5px;
+  padding-right: 30px;
 }
 select:focus {
   outline: 2px solid #0075FF;
@@ -1429,11 +1429,23 @@ canvas {
   border-radius: 3px;
   width: 100%;
   margin-bottom: 15px;
-  min-height: 15px;
   overflow: hidden;
 }
 .progress .progress-bar {
   transition: all 0.1s ease;
   background-color: var(--color-secondary);
-  height: 100%;
+  min-height: 15px;
+}
+.tab-pane {
+  display: none;
+}
+.tab-pane.active {
+  display: block;
+}
+.jedi-multiple-select {
+  display: inline-block;
+  width: auto;
+}
+[data-type="object"] {
+  margin-bottom: 45px;
 }

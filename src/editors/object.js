@@ -6,7 +6,7 @@ class ObjectEditor extends Editor {
     // label
     if (!utils.getSchemaOption(this.schema, 'hideTitle')) {
       const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
-      const label = this.jedi.theme.getLabel(labelText)
+      const label = this.jedi.theme.getH3(labelText)
       this.container.appendChild(label)
     }
 

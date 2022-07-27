@@ -15,7 +15,7 @@ class MultipleEditor extends Editor {
 
       schemas.forEach((schema, index) => {
         this.switcherOptionValues.push(index)
-        this.switcherOptionsLabels.push(JSON.stringify(schema))
+        this.switcherOptionsLabels.push(...schemas.map((schema) => schema.type))
       })
     } else if (utils.isArray(this.schema.type)) {
       this.schema.type.forEach((type) => {
@@ -47,16 +47,21 @@ class MultipleEditor extends Editor {
       })
     }
 
+    // Tabs
+    this.tabs = this.jedi.theme.getTabs(this.path, this.switcherOptionValues, this.switcherOptionsLabels)
+    this.container.appendChild(this.tabs)
+
     // Switcher label
-    const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
-    const label = this.jedi.theme.getLabel(labelText, {
-      for: this.path + '.selector'
-    })
-    this.container.appendChild(label)
+    // const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
+    // const label = this.jedi.theme.getLabel(labelText, {
+    //   for: this.path + '.selector'
+    // })
+    // this.container.appendChild(label)
 
     // Switcher
     this.switcher = this.jedi.theme.getSelect(this.switcherOptionValues, this.switcherOptionsLabels, {
-      id: this.path + '.selector'
+      id: this.path + '.selector',
+      class: 'jedi-multiple-select'
     })
 
     // events

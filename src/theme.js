@@ -41,6 +41,13 @@ class Theme {
     return document.createElement('pre')
   }
 
+  getH3 (labelText, attributes = {}) {
+    const label = document.createElement('h3')
+    label.textContent = labelText
+    this.setAttributes(label, attributes)
+    return label
+  }
+
   getLabel (labelText, attributes = {}) {
     const label = document.createElement('label')
     label.textContent = labelText
@@ -93,6 +100,54 @@ class Theme {
       radioGroup.appendChild(label)
     })
     return radioGroup
+  }
+
+  getTabs (path, indexes, labels) {
+    path = path.replace('.', '-')
+
+    // container
+    const container = document.createElement('div')
+
+    // navTab
+    const navTab = document.createElement('ul')
+    navTab.classList.add('nav')
+    navTab.classList.add('nav-tabs')
+    container.appendChild(navTab)
+
+    // tabContent
+    const tabContent = document.createElement('div')
+    tabContent.classList.add('tab-content')
+
+    container.appendChild(tabContent)
+
+    indexes.forEach((index) => {
+      // li
+      const li = document.createElement('li')
+      if (index === 0) {
+        li.classList.add('active')
+      }
+      navTab.appendChild(li)
+
+      // tab
+      const tab = document.createElement('a')
+      tab.setAttribute('data-toggle', 'tab')
+      tab.setAttribute('href', '#' + path + '-' + index)
+      tab.textContent = index + '-' + labels[index]
+      li.appendChild(tab)
+
+      // tab-pane
+      const tabPane = document.createElement('div')
+      tabPane.classList.add('tab-pane')
+      tabPane.setAttribute('id', path + '-' + index)
+      tabPane.textContent = index + '-' + labels[index]
+
+      if (index === 0) {
+        tabPane.classList.add('active')
+      }
+      tabContent.appendChild(tabPane)
+    })
+
+    return container
   }
 
   getSelect (optionValues, optionsLabels, attributes = {}) {

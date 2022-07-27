@@ -34,11 +34,30 @@
       "title": "anyOf",
       "anyOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "default"
         },
         {
-          "type": "string",
-          "title": "string"
+          "type": "boolean",
+          "title": "boolean enum select",
+          "format": "select",
+          "options": {
+            "enumTitles": [
+              "No",
+              "Yes"
+            ]
+          }
+        },
+        {
+          "type": "boolean",
+          "title": "boolean enum radio",
+          "format": "radio",
+          "options": {
+            "enumTitles": [
+              "No",
+              "Yes"
+            ]
+          }
         }
       ]
     },
