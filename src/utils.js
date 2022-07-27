@@ -16,7 +16,7 @@ class Utils {
   }
 
   isNotSet (value) {
-    return typeof value !== 'undefined'
+    return typeof value === 'undefined'
   }
 
   isNumber (value) {
