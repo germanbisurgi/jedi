@@ -96,7 +96,12 @@ class ObjectEditor extends Editor {
       const childEditor = this.getChildEditor(key)
 
       if (childEditor) {
-        childEditor.setValue(value[childEditor.getKey()], false)
+        const oldValue = childEditor.getValue()
+        const newValue = value[childEditor.getKey()]
+
+        if (!utils.equal(oldValue, newValue)) {
+          childEditor.setValue(newValue, false)
+        }
       } else {
         const initialValue = value[key]
         const type = utils.getType(initialValue)

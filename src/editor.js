@@ -18,10 +18,10 @@ class Editor {
    */
   init () {
     this.setContainer()
-    this.setErrorsContainer()
     this.setDebugContainer()
     this.setDefaultValue()
     this.build()
+    this.setErrorsContainer()
     this.refreshUI()
     this.refreshDebug()
     this.showValidationErrors()
@@ -160,11 +160,13 @@ class Editor {
    * Shows validation messages in the editor container.
    */
   showValidationErrors () {
-    const errors = this.jedi.validator.validate(this.schema, this.getValue(), this.path)
-    this.jedi.theme.removeInputError(this.errorsContainer)
-    errors.forEach((error) => {
-      this.jedi.theme.addInputError(this.errorsContainer, error.message)
-    })
+    if (this.jedi.ready) {
+      const errors = this.jedi.validator.validate(this.schema, this.getValue(), this.path)
+      this.jedi.theme.removeInputError(this.errorsContainer)
+      errors.forEach((error) => {
+        this.jedi.theme.addInputError(this.errorsContainer, error.message)
+      })
+    }
   }
 
   /**

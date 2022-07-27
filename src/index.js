@@ -20,6 +20,7 @@ class Jedi {
     this.schema = options.schema
     this.root = null
     this.editors = {}
+    this.ready = false
     this.init()
   }
 
@@ -54,6 +55,7 @@ class Jedi {
 
     this.container.appendChild(this.root.container)
     this.container.classList.add('jedi-loaded')
+    this.ready = true
     this.events.emit('ready')
     this.events.emit('change')
     this.root.onChange = () => {

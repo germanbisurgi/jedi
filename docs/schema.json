@@ -1,6 +1,7 @@
 {
   "type": "object",
   "required": [
+    "oneOf",
     "anyOf",
     "multiple",
     "booleans",
@@ -109,7 +110,8 @@
         "string-textarea": {
           "type": "string",
           "format": "textarea",
-          "title": "string textarea"
+          "title": "string textarea",
+          "minLength": 3
         },
         "string-enum": {
           "type": "string",

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "yarn watch & yarn less & yarn serve",
-    "less": "less-watch-compiler ./docs/less ./docs/css main.less",
+    "less": "less-watch-compiler ./docs/less ./docs/css theme.less",
     "test": "yarn serve & yarn webpack && yarn codeceptjs && killall node",
     "codeceptjs": "codeceptjs run --steps -c ./tests/codeceptjs/codecept.conf.js",
     "serve": "reload --port 8282 --browser  --watch-dir ./docs --dir ./docs",

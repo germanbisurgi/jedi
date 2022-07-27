@@ -944,6 +944,7 @@ article {
   width: 100%;
   border-radius: 3px;
   padding: 15px;
+  margin-bottom: 15px;
 }
 form {
   border-radius: 3px;
@@ -1321,10 +1322,20 @@ table tbody + tbody {
 .table-striped tbody tr:nth-child(odd) th {
   background-color: #f1f1f1;
 }
+.alert {
+  background-color: #35495e;
+  color: #fefefe;
+  border: 2px solid #35495e;
+  width: 100%;
+  border-radius: 3px;
+  padding: 7.5px 15px;
+  margin-bottom: 15px;
+}
 .placeholder-img {
   border: 2px solid #35495e;
   position: relative;
   max-width: 100%;
+  margin-bottom: 15px;
 }
 .placeholder-img:after {
   content: "";
@@ -1337,6 +1348,7 @@ table tbody + tbody {
   border: 2px solid #35495e;
   position: relative;
   max-width: 100%;
+  margin-bottom: 15px;
 }
 .placeholder-video:after {
   content: "";
@@ -1352,4 +1364,16 @@ table tbody + tbody {
   border-style: solid;
   border-width: 25px 0 25px 40px;
   border-color: transparent transparent transparent #35495e;
+}
+.jedi-error-message {
+  background-color: #35495e;
+  color: #fefefe;
+  border: 2px solid #35495e;
+  width: 100%;
+  border-radius: 3px;
+  padding: 7.5px 15px;
+  margin-bottom: 15px;
+}
+[data-path] {
+  margin-bottom: 30px;
 }
