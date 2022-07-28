@@ -105,20 +105,10 @@ class Theme {
   getTabs (path, indexes, labels) {
     path = path.replace('.', '-')
 
-    // container
-    const container = document.createElement('div')
-
     // navTab
     const navTab = document.createElement('ul')
     navTab.classList.add('nav')
     navTab.classList.add('nav-tabs')
-    container.appendChild(navTab)
-
-    // tabContent
-    const tabContent = document.createElement('div')
-    tabContent.classList.add('tab-content')
-
-    container.appendChild(tabContent)
 
     indexes.forEach((index) => {
       // li
@@ -129,25 +119,14 @@ class Theme {
       navTab.appendChild(li)
 
       // tab
-      const tab = document.createElement('a')
+      const tab = document.createElement('p')
       tab.setAttribute('data-toggle', 'tab')
-      tab.setAttribute('href', '#' + path + '-' + index)
-      tab.textContent = index + '-' + labels[index]
+      tab.setAttribute('data-index', index)
+      tab.textContent = labels[index]
       li.appendChild(tab)
-
-      // tab-pane
-      const tabPane = document.createElement('div')
-      tabPane.classList.add('tab-pane')
-      tabPane.setAttribute('id', path + '-' + index)
-      tabPane.textContent = index + '-' + labels[index]
-
-      if (index === 0) {
-        tabPane.classList.add('active')
-      }
-      tabContent.appendChild(tabPane)
     })
 
-    return container
+    return navTab
   }
 
   getSelect (optionValues, optionsLabels, attributes = {}) {

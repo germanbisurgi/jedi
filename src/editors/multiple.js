@@ -48,25 +48,13 @@ class MultipleEditor extends Editor {
     }
 
     // Tabs
-    this.tabs = this.jedi.theme.getTabs(this.path, this.switcherOptionValues, this.switcherOptionsLabels)
-    this.container.appendChild(this.tabs)
-
-    // Switcher label
-    // const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
-    // const label = this.jedi.theme.getLabel(labelText, {
-    //   for: this.path + '.selector'
-    // })
-    // this.container.appendChild(label)
-
-    // Switcher
-    this.switcher = this.jedi.theme.getSelect(this.switcherOptionValues, this.switcherOptionsLabels, {
-      id: this.path + '.selector',
-      class: 'jedi-multiple-select'
-    })
+    this.switcher = this.jedi.theme.getTabs(this.path, this.switcherOptionValues, this.switcherOptionsLabels)
+    this.container.appendChild(this.switcher)
 
     // events
-    this.switcher.addEventListener('change', () => {
-      this.switchEditor(this.switcher.value)
+    this.switcher.addEventListener('click', (event) => {
+      const index = event.target.getAttribute('data-index')
+      this.switchEditor(index)
     })
 
     this.container.appendChild(this.switcher)

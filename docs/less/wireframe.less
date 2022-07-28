@@ -1436,6 +1436,23 @@ canvas {
   background-color: var(--color-secondary);
   min-height: 15px;
 }
+.nav-tabs {
+  border-bottom: 2px solid var(--color-secondary);
+  margin-bottom: 15px;
+}
+.nav-tabs li {
+  cursor: pointer;
+  border: 2px solid var(--color-secondary);
+  border-color: transparent;
+  position: relative;
+  top: 2px;
+  border-radius: 3px 3px 0 0;
+}
+.nav-tabs li.active {
+  border-top-color: var(--color-secondary);
+  border-right-color: var(--color-secondary);
+  border-left-color: var(--color-secondary);
+}
 .tab-pane {
   display: none;
 }
