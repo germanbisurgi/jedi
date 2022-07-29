@@ -12,9 +12,15 @@
       "items": {
         "type": "object",
         "properties": {
-          "name": {
+          "object": {
             "title": "Item Name",
-            "type": "string"
+            "type": "object",
+            "properties": {
+              "name": {
+                "title": "name",
+                "type": "string"
+              }
+            }
           }
         }
       }

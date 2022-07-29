@@ -19,7 +19,7 @@ class ArrayEditor extends Editor {
   createItemEditor (value) {
     let schema
 
-    // When setting no schema is defined get the type from the value
+    // When no schema is defined get the type from the value
     if (utils.isSet(this.schema.items)) {
       schema = this.schema.items
     } else {
@@ -36,14 +36,6 @@ class ArrayEditor extends Editor {
     })
 
     const itemIndex = Number(itemEditor.getKey())
-
-    if (itemEditor.input) {
-      itemEditor.input.addEventListener('change', () => {
-        const value = utils.clone(this.getValue())
-        value[itemIndex] = utils.clone(itemEditor.getValue())
-        this.setValue(value)
-      })
-    }
 
     const deleteBtn = this.jedi.theme.getButton('delete')
     itemEditor.container.appendChild(deleteBtn)
@@ -97,16 +89,29 @@ class ArrayEditor extends Editor {
     }
   }
 
+  onChildEditorChange () {
+    const value = []
+    console.log('onChildEditorChange', this.childEditors)
+
+    this.childEditors.forEach((childEditor) => {
+      value.push(childEditor.getValue())
+    })
+
+    this.setValue(value)
+  }
+
   refreshUI () {
+    const value = this.getValue()
+
     this.childEditors.forEach((editor) => {
       editor.destroy()
     })
 
     this.childEditors = []
 
-    this.getValue().forEach((value) => {
-      const itemEditor = this.createItemEditor(value)
-      itemEditor.setValue(value, false)
+    value.forEach((itemValue) => {
+      const itemEditor = this.createItemEditor(itemValue)
+      itemEditor.setValue(itemValue, false)
       this.childEditors.push(itemEditor)
     })
 

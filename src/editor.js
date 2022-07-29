@@ -174,7 +174,6 @@ class Editor {
    * Fires when the value of the editor changes.
    */
   onChange () {
-    console.log(this.path, 'change')
     if (this.parent) {
       this.parent.onChildEditorChange()
     }

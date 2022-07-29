@@ -1,3 +1,7 @@
+## fix
+
+- array refreshUI with anyOf
+
 ##json-schema
 - when to show validation errors
 - validators: allOf, anyOf, oneOf, not, disallow, items, maxProperties, properties, patternProperties, propertyNames, additionalProperties, dependencies 
