@@ -15,18 +15,18 @@
   },
   "properties": {
     "oneOf": {
-      "title": "oneOf",
       "oneOf": [
         {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "boolean"
         },
         {
           "type": "string",
           "title": "string"
         },
         {
-          "type": "string",
-          "title": "string"
+          "type": "integer",
+          "title": "integer"
         }
       ]
     },

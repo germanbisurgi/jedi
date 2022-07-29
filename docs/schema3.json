@@ -1,0 +1,23 @@
+{
+  "title": "TEST",
+  "type": "object",
+  "properties": {
+    "name": {
+      "title": "Item Name",
+      "type": "string"
+    },
+    "names": {
+      "title": "Names",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Item Name",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

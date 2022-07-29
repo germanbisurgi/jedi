@@ -10,8 +10,8 @@ class MultipleEditor extends Editor {
 
     let schemas = []
 
-    if (this.schema.anyOf) {
-      schemas = this.schema.anyOf
+    if (this.schema.anyOf || this.schema.oneOf) {
+      schemas = this.schema.anyOf || this.schema.oneOf
 
       schemas.forEach((schema, index) => {
         this.switcherOptionValues.push(index)

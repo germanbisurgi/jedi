@@ -10,8 +10,7 @@ class BooleanEditor extends Editor {
     })
 
     // input
-    this.input = this.jedi.theme.getInput({
-      type: 'checkbox',
+    this.input = this.jedi.theme.getCheckbox({
       id: this.path
     })
 

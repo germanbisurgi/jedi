@@ -9,20 +9,24 @@ class Theme {
    * Adds an error message to the specified editor container.
    */
   addInputError (container, message) {
-    const error = document.createElement('p')
-    error.classList.add('jedi-error-message')
-    error.textContent = message
-    container.appendChild(error)
+    if (container) {
+      const error = document.createElement('p')
+      error.classList.add('jedi-error-message')
+      error.textContent = message
+      container.appendChild(error)
+    }
   }
 
   /**
    * Removes any error message from the specified editor container.
    */
   removeInputError (container) {
-    const errors = container.querySelectorAll('*')
-    errors.forEach((error) => {
-      container.removeChild(error)
-    })
+    if (container) {
+      const errors = container.querySelectorAll('*')
+      errors.forEach((error) => {
+        container.removeChild(error)
+      })
+    }
   }
 
   getButton (text) {
@@ -65,12 +69,28 @@ class Theme {
   getInput (attributes = {}) {
     const input = document.createElement('input')
     this.setAttributes(input, attributes)
+    input.classList.add('form-control')
     return input
+  }
+
+  getCheckbox (attributes = {}) {
+    const checkbox = document.createElement('input')
+    this.setAttributes(checkbox, attributes)
+    checkbox.setAttribute('type', 'checkbox')
+    return checkbox
+  }
+
+  getRadio (attributes = {}) {
+    const checkbox = document.createElement('input')
+    this.setAttributes(checkbox, attributes)
+    checkbox.setAttribute('type', 'radio')
+    return checkbox
   }
 
   getTextarea (attributes = {}) {
     const textarea = document.createElement('textarea')
     this.setAttributes(textarea, attributes)
+    textarea.classList.add('form-control')
     return textarea
   }
 
@@ -89,7 +109,7 @@ class Theme {
         for: radioGroupName + '[' + value + ']'
       })
 
-      const radio = this.getInput({
+      const radio = this.getRadio({
         type: 'radio',
         value: value,
         id: radioGroupName + '[' + value + ']',
@@ -132,6 +152,8 @@ class Theme {
   getSelect (optionValues, optionsLabels, attributes = {}) {
     const select = document.createElement('select')
     this.setAttributes(select, attributes)
+    select.classList.add('form-control')
+
     optionValues.forEach((value, index) => {
       const option = document.createElement('option')
       option.setAttribute('value', value)
