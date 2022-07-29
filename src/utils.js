@@ -66,8 +66,6 @@ class Utils {
       type = 'object'
     }
 
-    console.log(value, type)
-
     return type
   }
 

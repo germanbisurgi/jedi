@@ -3,6 +3,7 @@ import Resolver from './resolver'
 import Validator from './validator'
 import EventEmitter from './event-emitter'
 import refParser from '@apidevtools/json-schema-ref-parser'
+import utils from './utils'
 
 class Jedi {
   constructor (options) {
@@ -47,6 +48,18 @@ class Jedi {
 
   async init () {
     this.schema = await refParser.dereference(this.schema)
+
+    if (utils.isNotSet(this.schema.type)) {
+      const schemaType = utils.getType(this.schema)
+
+      if (schemaType === 'object' || schemaType === 'array') {
+        this.schema.type = schemaType
+      } else {
+        this.schema = {
+          type: schemaType
+        }
+      }
+    }
 
     this.root = this.createEditor({
       jedi: this,

@@ -1,6 +1,7 @@
 ## fix
 
 - array refreshUI with anyOf
+- if no type is undefined guess type from value (objects?)
 
 ##json-schema
 - when to show validation errors
