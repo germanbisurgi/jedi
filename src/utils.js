@@ -50,7 +50,9 @@ class Utils {
   getType (value) {
     let type = 'any'
 
-    if (this.isInteger(value)) {
+    if (this.isNumber(value)) {
+      type = 'number'
+    } else if (this.isInteger(value)) {
       type = 'integer'
     } else if (this.isString(value)) {
       type = 'string'
@@ -63,6 +65,8 @@ class Utils {
     } else if (this.isObject(value)) {
       type = 'object'
     }
+
+    console.log(value, type)
 
     return type
   }
