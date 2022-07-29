@@ -91,7 +91,7 @@ class MultipleEditor extends Editor {
       }
       this.activeEditor = this.editors[index]
       this.container.appendChild(this.activeEditor.container)
-      this.setValue(this.activeEditor.getValue(), true)
+      this.setValue(this.activeEditor.getValue(), false)
       this.switcher.value = index
     }
   }
