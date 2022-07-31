@@ -1446,5 +1446,18 @@ canvas {
   width: auto;
 }
 [data-type="object"] {
+  border: 2px solid var(--color-secondary);
+  width: 100%;
+  border-radius: 3px;
+  padding: 15px;
+  margin-bottom: 15px;
+  margin-bottom: 45px;
+}
+[data-type="arrays"] {
+  border: 2px solid var(--color-secondary);
+  width: 100%;
+  border-radius: 3px;
+  padding: 15px;
+  margin-bottom: 15px;
   margin-bottom: 45px;
 }

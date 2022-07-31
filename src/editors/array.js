@@ -5,7 +5,7 @@ class ArrayEditor extends Editor {
   build () {
     // label
     const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
-    const label = this.jedi.theme.getLabel(labelText)
+    const label = this.jedi.theme.getH3(labelText)
     this.container.appendChild(label)
 
     // addBtn
@@ -13,6 +13,15 @@ class ArrayEditor extends Editor {
     this.container.appendChild(addBtn)
     addBtn.addEventListener('click', () => {
       this.addItem()
+    })
+
+    // deleteAll
+    const deleteAllBtn = this.jedi.theme.getButton('delete all')
+    this.container.appendChild(deleteAllBtn)
+    deleteAllBtn.addEventListener('click', () => {
+      if (window.confirm('Confirm to delete all')) {
+        this.setValue([])
+      }
     })
   }
 

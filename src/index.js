@@ -56,7 +56,8 @@ class Jedi {
         this.schema.type = schemaType
       } else {
         this.schema = {
-          type: schemaType
+          type: schemaType,
+          default: this.schema
         }
       }
     }

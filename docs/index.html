@@ -48,7 +48,6 @@
 <script src="js/jedi.js"></script>
 <script src="js/wireframe.js"></script>
 <script>
-
   const jedi = new Jedi({
     container: document.querySelector('#jedi-container'),
     // removeProperty: true,
@@ -56,16 +55,17 @@
     // debug: true,
     // logs: true,
     schema: {
-      "$ref": "./schema2.json",
+      "$ref": "./schema4.json",
     }
   })
 
   jedi.events.on('change', () => {
-    document.querySelector('#value').textContent = JSON.stringify(jedi.getValue(), null, 2)
+    document.querySelector('#value').value = JSON.stringify(jedi.getValue(), null, 2)
   })
 
   jedi.events.on('ready', () => {
     console.log('je ready')
+    //jedi.setValue({})
   })
 
   document.querySelector('#set-value').addEventListener('click', () => {
