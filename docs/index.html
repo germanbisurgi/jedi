@@ -6,10 +6,10 @@
     <meta name="description" content="Test page for jedi">
     <title>Editor types</title>
     <!--wireframe-->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="./css/main.css">
 
     <!--bootstrap3-->
-    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <!--link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>-->
 
     <!--bootstrap4-->
@@ -36,11 +36,13 @@
         </div>
         <div class="col-12 col-md-6">
             <div class="card" style="position: sticky; top: 0;">
-                <div class="form-group">
-                    <label for="value">Value</label>
-                    <textarea class="form-control" id="value" style="font-family: monospace; position: sticky; top: 0; height: 70vh;"></textarea>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="value">Value</label>
+                        <textarea class="form-control" id="value" style="font-family: monospace; position: sticky; top: 0; height: 70vh;"></textarea>
+                    </div>
+                    <button class="btn" id="set-value">Set Value</button>
                 </div>
-                <button class="btn" id="set-value">Set Value</button>
             </div>
         </div>
     </div>
@@ -65,7 +67,6 @@
 
   jedi.events.on('ready', () => {
     console.log('je ready')
-    //jedi.setValue({})
   })
 
   document.querySelector('#set-value').addEventListener('click', () => {

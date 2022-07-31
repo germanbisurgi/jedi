@@ -13,9 +13,11 @@ class MultipleEditor extends Editor {
     if (this.schema.anyOf || this.schema.oneOf) {
       schemas = this.schema.anyOf || this.schema.oneOf
 
+      const type = this.schema.anyOf ? 'ANYOF' : 'ONEOF'
+
       schemas.forEach((schema, index) => {
         this.switcherOptionValues.push(index)
-        this.switcherOptionsLabels.push(...schemas.map((schema) => schema.type))
+        this.switcherOptionsLabels.push(type + '-' + index)
       })
     } else if (utils.isArray(this.schema.type)) {
       this.schema.type.forEach((type) => {
