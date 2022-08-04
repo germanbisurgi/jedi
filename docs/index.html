@@ -39,7 +39,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="value">Value</label>
-                        <textarea class="form-control" id="value" style="font-family: monospace; position: sticky; top: 0; height: 70vh;"></textarea>
+                        <textarea readonly class="form-control" id="value" style="font-family: monospace; position: sticky; top: 0; height: 70vh;"></textarea>
                     </div>
                     <button class="btn" id="set-value">Set Value</button>
                 </div>
@@ -57,7 +57,7 @@
     // debug: true,
     // logs: true,
     schema: {
-      "$ref": "./schema4.json",
+      "$ref": "./schema2.json",
     }
   })
 
@@ -71,6 +71,10 @@
 
   document.querySelector('#set-value').addEventListener('click', () => {
     jedi.setValue(JSON.parse(document.querySelector('#value').value))
+  })
+
+  document.querySelector('#value').addEventListener('click', () => {
+    document.querySelector('#value').removeAttribute('readonly')
   })
 </script>
 </body>

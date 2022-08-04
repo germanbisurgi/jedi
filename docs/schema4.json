@@ -1,53 +1,201 @@
 {
-  "definitions": {
-    "address": {
-      "type": "object",
-      "title": "Address",
-      "properties": {
-        "street_address": {
-          "type": "string"
-        },
-        "city": {
-          "type": "string"
-        },
-        "state": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "street_address",
-        "city",
-        "state"
+  "type": "object",
+  "title": "Configurator",
+  "properties": {
+    "language": {
+      "title": "Language",
+      "type": "string",
+      "default": "de",
+      "enum": [
+        "de",
+        "en"
       ]
     },
-    "user": {
+    "readOnly": {
+      "title": "Read Only",
+      "type": "boolean",
+      "default": false
+    },
+    "boxUnit": {
+      "title": "Box Unit",
+      "type": "string",
+      "default": "mm",
+      "enum": [
+        "mm"
+      ]
+    },
+    "fontUnit": {
+      "title": "Font Unit",
+      "type": "string",
+      "default": "pt",
+      "enum": [
+        "pt"
+      ]
+    },
+    "productImage": {
+      "title": "Product Image",
+      "type": "string"
+    },
+    "width": {
+      "title": "Width",
+      "type": "number",
+      "default": 150
+    },
+    "height": {
+      "title": "Height",
+      "type": "number",
+      "default": 100
+    },
+    "printMargin": {
       "type": "object",
-      "title": "User",
       "properties": {
-        "name": {
-          "type": "string"
+        "top": {
+          "type": "number",
+          "default": 8
         },
-        "mail": {
-          "type": "string"
+        "right": {
+          "type": "number",
+          "default": 8
+        },
+        "bottom": {
+          "type": "number",
+          "default": 8
+        },
+        "left": {
+          "type": "number",
+          "default": 8
         }
       },
       "required": [
-        "name",
-        "mail"
+        "top",
+        "right",
+        "bottom",
+        "left"
       ]
+    },
+    "elements": {
+      "title": "Elements",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "Item",
+        "properties": {
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "default": "text",
+            "enum": [
+              "text",
+              "image"
+            ]
+          },
+          "text": {
+            "title": "Text",
+            "type": "string",
+            "default": "Lorem",
+            "minLength": 1,
+            "maxLength": 50
+          },
+          "color": {
+            "title": "Color",
+            "type": "string",
+            "default": "#ffffff"
+          },
+          "cmyk": {
+            "title": "CMYK",
+            "type": "string",
+            "default": "cmyk(0,0,0,0)"
+          },
+          "fontFamily": {
+            "title": "Font Family",
+            "type": "string",
+            "default": "Arial",
+            "enum": [
+              "AmaticSC",
+              "AnnieUseYourTelescope",
+              "BebasNeue",
+              "BerkshireSwash",
+              "CutiveMono",
+              "DancingScript",
+              "DeliusUnicase",
+              "JuliusSansOne",
+              "Katibeh",
+              "LilyScriptOne",
+              "LobsterTwo",
+              "Lusitana",
+              "Montserrat",
+              "NoticiaText",
+              "NotoSerifDisplay",
+              "Nunito",
+              "OoohBaby",
+              "PirataOne",
+              "Roboto",
+              "RockSalt",
+              "Sail",
+              "Tangerine"
+            ]
+          },
+          "fontSize": {
+            "title": "Font Size",
+            "type": "number",
+            "default": 12,
+            "enum": [
+              12,
+              14,
+              16,
+              18,
+              20,
+              22,
+              24,
+              26,
+              28,
+              36,
+              48,
+              72
+            ]
+          },
+          "src": {
+            "title": "src",
+            "type": "string"
+          },
+          "width": {
+            "title": "width",
+            "type": "number",
+            "default": 50
+          },
+          "offsetY": {
+            "title": "Offset Y",
+            "type": "number",
+            "default": 0
+          },
+          "offsetX": {
+            "title": "Offset X",
+            "type": "number",
+            "default": 0
+          },
+          "rotation": {
+            "title": "Rotation",
+            "type": "number",
+            "default": 0,
+            "minimum": -180,
+            "maximum": 180
+          }
+        },
+        "required": [
+          "type",
+          "offsetY",
+          "offsetX",
+          "rotation"
+        ]
+      }
     }
   },
-  "type": "object",
-  "properties": {
-    "addressOrUser": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/address"
-        },
-        {
-          "$ref": "#/definitions/user"
-        }
-      ]
-    }
-  }
+  "required": [
+    "boxUnit",
+    "fontUnit",
+    "width",
+    "height",
+    "printMargin",
+    "elements"
+  ]
 }

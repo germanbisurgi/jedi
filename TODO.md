@@ -1,7 +1,8 @@
 ## fix
 
+- getChildEditor(), removeChildEditor() [array and object]
 - array refreshUI with anyOf
-- if no type is undefined guess type from value (objects?)
+- if type is undefined guess type from value (objects?)
 
 ##json-schema
 - when to show validation errors

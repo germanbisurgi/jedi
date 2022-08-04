@@ -113,6 +113,10 @@ class ArrayEditor extends Editor {
     const value = this.getValue()
 
     this.childEditors.forEach((editor) => {
+      console.log(editor, editor.getKey())
+    })
+
+    this.childEditors.forEach((editor) => {
       editor.destroy()
     })
 

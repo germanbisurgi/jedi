@@ -80,6 +80,7 @@ class ObjectEditor extends Editor {
   refreshUI () {
     const value = this.getValue()
 
+    // remove any children that are not included in the value
     for (let i = this.childEditors.length - 1; i >= 0; i--) {
       const editor = this.childEditors[i]
       const key = editor.getKey()
@@ -95,14 +96,17 @@ class ObjectEditor extends Editor {
 
       const childEditor = this.getChildEditor(key)
 
+      // If a value has a already a child editor
       if (childEditor) {
         const oldValue = childEditor.getValue()
         const newValue = value[childEditor.getKey()]
 
+        // update child value if the old value and the new value are different
         if (!utils.equal(oldValue, newValue)) {
           childEditor.setValue(newValue, false)
         }
       } else {
+        // create new child editor for the new value entry having the value as default
         const initialValue = value[key]
         const type = utils.getType(initialValue)
 
