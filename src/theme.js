@@ -128,7 +128,7 @@ class Theme {
     // navTab
     const navTab = document.createElement('ul')
     navTab.classList.add('nav')
-    navTab.classList.add('nav-tabs')
+    navTab.classList.add('nav-pills')
 
     indexes.forEach((index) => {
       // li
@@ -139,7 +139,7 @@ class Theme {
       navTab.appendChild(li)
 
       // tab
-      const tab = document.createElement('p')
+      const tab = document.createElement('a')
       tab.setAttribute('data-toggle', 'tab')
       tab.setAttribute('data-index', index)
       tab.textContent = labels[index]

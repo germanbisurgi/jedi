@@ -1435,16 +1435,33 @@ canvas {
   border-left-color: var(--color-secondary);
   border-bottom-color: var(--color-primary);
 }
+.nav-pills {
+  margin-bottom: 15px;
+}
+.nav-pills li {
+  border-radius: 3px;
+  cursor: pointer;
+}
+.nav-pills li.active {
+  background-color: var(--color-highlight);
+}
 .tab-pane {
   display: none;
 }
 .tab-pane.active {
   display: block;
 }
+.collapse {
+  display: none;
+}
+.collapse.in {
+  display: initial;
+}
 .jedi-multiple-select {
   display: inline-block;
   width: auto;
 }
+[data-type="multiple"]:not(:last-child),
 [data-type="object"]:not(:last-child),
 [data-type="arrays"]:not(:last-child) {
   border: 2px solid var(--color-secondary);
@@ -1452,5 +1469,4 @@ canvas {
   border-radius: 3px;
   padding: 15px;
   margin-bottom: 15px;
-  margin-bottom: 45px;
 }

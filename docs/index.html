@@ -38,56 +38,60 @@
         <div class="col-12 col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <fieldset class="form-group">
-                        <legend>Checkboxes</legend>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#value-tab">Value</a></li>
+                        <li><a data-toggle="tab" href="#schema-tab">Schema</a></li>
+                        <li><a data-toggle="tab" href="#options-tab">options</a></li>
+                    </ul>
 
-                        <input type="checkbox" id="debug" v-model="options.debug" @change="initEditor()">
-                        <label for="debug">debug</label>
+                    <div class="tab-content">
+                        <div id="value-tab" class="tab-pane active">
+                            <div class="form-group">
+                                <label for="value">Value</label>
+                                <textarea readonly class="form-control" id="value" style="font-family: monospace;height: 70vh;"></textarea>
+                            </div>
+                            <button class="btn" id="set-value">Set Value</button>
+                        </div>
 
-                        <input type="checkbox" id="removeProperty" v-model="options.removeProperty" @change="initEditor()">
-                        <label for="removeProperty">removeProperty</label>
+                        <div id="schema-tab" class="tab-pane">
+                            <div class="form-group">
+                                <label for="select">Select Schema</label>
+                                <select class="form-control" id="select" name="select" @change="switchSchema($event)">
+                                    <option v-for="option in schemaSelectOptions" :value="option.value">{{ option.name }}</option>
+                                </select>
+                            </div>
 
-                        <input type="checkbox" id="addProperty" v-model="options.addProperty" @change="initEditor()">
-                        <label for="addProperty">addProperty</label>
-                    </fieldset>
-                </div>
-            </div>
+                            <div class="form-group">
+                                <label for="schema">Schema</label>
+                                <textarea class="form-control" id="schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(options.schema, null, 2) }}</textarea>
+                            </div>
 
-            <div class="card">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="value">Value</label>
-                        <textarea readonly class="form-control" id="value" style="font-family: monospace;height: 70vh;"></textarea>
-                    </div>
-                    <button class="btn" id="set-value">Set Value</button>
-                </div>
-            </div>
+                            <div class="form-group" v-if="editor">
+                                <label for="dereferenced-schema">Dereferenced Schema</label>
+                                <textarea class="form-control" id="dereferenced-schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(editor.schema, null, 2) }}</textarea>
+                            </div>
+                        </div>
 
-            <div class="card">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="select">Select Schema</label>
-                        <select class="form-control" id="select" name="select" @change="switchSchema($event)">
-                            <option v-for="option in schemaSelectOptions" :value="option.value">{{ option.name }}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+                        <div id="options-tab" class="tab-pane">
+                            <fieldset class="form-group">
+                                <legend>Options</legend>
 
-            <div class="card">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="schema">Schema</label>
-                        <textarea class="form-control" id="schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(options.schema, null, 2) }}</textarea>
-                    </div>
-                </div>
-            </div>
+                                <div class="form-group">
+                                    <input type="checkbox" id="debug" v-model="options.debug" @change="initEditor()">
+                                    <label for="debug">debug</label>
+                                </div>
 
-            <div class="card" v-if="editor">
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="dereferenced-schema">Dereferenced Schema</label>
-                        <textarea class="form-control" id="dereferenced-schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(editor.schema, null, 2) }}</textarea>
+                                <div class="form-group">
+                                    <input type="checkbox" id="removeProperty" v-model="options.removeProperty" @change="initEditor()">
+                                    <label for="removeProperty">removeProperty</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="checkbox" id="addProperty" v-model="options.addProperty" @change="initEditor()">
+                                    <label for="addProperty">addProperty</label>
+                                </div>
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -129,10 +133,9 @@
           editor: null,
           options: {
             container: '#jedi-container',
-            removeProperty: true,
-            addProperty: true,
-            // debug: true,
-            // logs: true,
+            removeProperty: false,
+            addProperty: false,
+            debug: false,
             schema: {
               "$ref": "./json/schema-all-editors.json",
             }
@@ -170,7 +173,7 @@
       },
       methods: {
         switchSchema(event) {
-          const $ref =  event.target.value
+          const $ref = event.target.value
 
           this.options.schema = {
             "$ref": $ref
