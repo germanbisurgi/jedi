@@ -23,7 +23,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>-->
 </head>
 <body>
-<main class="container-fluid">
+
+<main id="app" class="container-fluid">
     <div class="row row-between">
         <div class="col-12 col-md-6">
             <div class="card">
@@ -35,46 +36,173 @@
             </div>
         </div>
         <div class="col-12 col-md-6">
-            <div class="card" style="position: sticky; top: 0;">
+            <div class="card">
+                <div class="card-body">
+                    <fieldset class="form-group">
+                        <legend>Checkboxes</legend>
+
+                        <input type="checkbox" id="debug" v-model="options.debug" @change="initEditor()">
+                        <label for="debug">debug</label>
+
+                        <input type="checkbox" id="removeProperty" v-model="options.removeProperty" @change="initEditor()">
+                        <label for="removeProperty">removeProperty</label>
+
+                        <input type="checkbox" id="addProperty" v-model="options.addProperty" @change="initEditor()">
+                        <label for="addProperty">addProperty</label>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="card">
                 <div class="card-body">
                     <div class="form-group">
                         <label for="value">Value</label>
-                        <textarea readonly class="form-control" id="value" style="font-family: monospace; position: sticky; top: 0; height: 70vh;"></textarea>
+                        <textarea readonly class="form-control" id="value" style="font-family: monospace;height: 70vh;"></textarea>
                     </div>
                     <button class="btn" id="set-value">Set Value</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="select">Select Schema</label>
+                        <select class="form-control" id="select" name="select" @change="switchSchema($event)">
+                            <option v-for="option in schemaSelectOptions" :value="option.value">{{ option.name }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="schema">Schema</label>
+                        <textarea class="form-control" id="schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(options.schema, null, 2) }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" v-if="editor">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="dereferenced-schema">Dereferenced Schema</label>
+                        <textarea class="form-control" id="dereferenced-schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(editor.schema, null, 2) }}</textarea>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
+<script src="js/vue.js"></script>
+<script src="js/vue-i18n.js"></script>
 <script src="js/jedi.js"></script>
 <script src="js/wireframe.js"></script>
 <script>
-  const jedi = new Jedi({
-    container: document.querySelector('#jedi-container'),
-    // removeProperty: true,
-    // addProperty: true,
-    // debug: true,
-    // logs: true,
-    schema: {
-      "$ref": "./schema2.json",
+  window.addEventListener('DOMContentLoaded', () => {
+    Vue.use(VueI18n)
+
+    const messages = {
+      de: {
+        message: {
+          options: 'Options'
+        }
+      },
+      en: {
+        message: {
+          options: 'Options',
+        }
+      }
     }
-  })
 
-  jedi.events.on('change', () => {
-    document.querySelector('#value').value = JSON.stringify(jedi.getValue(), null, 2)
-  })
+    const i18n = new VueI18n({
+      locale: 'de',
+      messages
+    })
 
-  jedi.events.on('ready', () => {
-    console.log('je ready')
-  })
+    new Vue({
+      i18n,
+      el: '#app',
+      data() {
+        return {
+          editor: null,
+          options: {
+            container: '#jedi-container',
+            removeProperty: true,
+            addProperty: true,
+            // debug: true,
+            // logs: true,
+            schema: {
+              "$ref": "./json/schema-all-editors.json",
+            }
+          }
+        }
+      },
+      mounted() {
+        this.initEditor()
+      },
+      computed: {
+        schemaSelectOptions() {
+          return [
+            {
+              name: './json/schema-all-editors.json',
+              value: './json/schema-all-editors.json'
+            },
+            {
+              name: './json/schema2.json',
+              value: './json/schema2.json'
+            },
+            {
+              name: './json/schema3.json',
+              value: './json/schema3.json'
+            },
+            {
+              name: './json/schema4.json',
+              value: './json/schema4.json'
+            },
+            {
+              name: './yaml/schema.yaml',
+              value: './yaml/schema.yaml'
+            }
+          ]
+        }
+      },
+      methods: {
+        switchSchema(event) {
+          const $ref =  event.target.value
 
-  document.querySelector('#set-value').addEventListener('click', () => {
-    jedi.setValue(JSON.parse(document.querySelector('#value').value))
-  })
+          this.options.schema = {
+            "$ref": $ref
+          }
 
-  document.querySelector('#value').addEventListener('click', () => {
-    document.querySelector('#value').removeAttribute('readonly')
+          this.initEditor()
+        },
+        initEditor() {
+          if (this.editor) {
+            this.editor.destroy()
+          }
+
+          this.editor = new Jedi(this.options)
+
+          this.editor.events.on('change', () => {
+            document.querySelector('#value').value = JSON.stringify(this.editor.getValue(), null, 2)
+          })
+
+          this.editor.events.on('ready', () => {
+            console.log('je ready')
+          })
+
+          document.querySelector('#set-value').addEventListener('click', () => {
+            this.editor.setValue(JSON.parse(document.querySelector('#value').value))
+          })
+
+          document.querySelector('#value').addEventListener('click', () => {
+            document.querySelector('#value').removeAttribute('readonly')
+          })
+        }
+      }
+    })
   })
 </script>
 </body>

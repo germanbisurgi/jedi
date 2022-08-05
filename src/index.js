@@ -13,11 +13,12 @@ class Jedi {
       debug: false,
       logs: false
     }, options)
+
     this.events = new EventEmitter()
     this.theme = new Theme()
     this.resolver = new Resolver()
     this.validator = new Validator()
-    this.container = options.container
+    this.container = document.querySelector(options.container)
     this.schema = options.schema
     this.root = null
     this.editors = {}
@@ -47,6 +48,10 @@ class Jedi {
   }
 
   async init () {
+    if (utils.isNotSet(this.schema)) {
+      this.schema = {}
+    }
+
     this.schema = await refParser.dereference(this.schema)
 
     if (utils.isNotSet(this.schema.type)) {

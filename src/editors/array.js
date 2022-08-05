@@ -9,14 +9,14 @@ class ArrayEditor extends Editor {
     this.container.appendChild(label)
 
     // addBtn
-    const addBtn = this.jedi.theme.getButton('add')
+    const addBtn = this.jedi.theme.getButton('Add Item')
     this.container.appendChild(addBtn)
     addBtn.addEventListener('click', () => {
       this.addItem()
     })
 
     // deleteAll
-    const deleteAllBtn = this.jedi.theme.getButton('delete all')
+    const deleteAllBtn = this.jedi.theme.getButton('Delete Items')
     this.container.appendChild(deleteAllBtn)
     deleteAllBtn.addEventListener('click', () => {
       if (window.confirm('Confirm to delete all')) {
@@ -46,7 +46,7 @@ class ArrayEditor extends Editor {
 
     const itemIndex = Number(itemEditor.getKey())
 
-    const deleteBtn = this.jedi.theme.getButton('delete')
+    const deleteBtn = this.jedi.theme.getButton('Delete Item')
     itemEditor.container.appendChild(deleteBtn)
     deleteBtn.addEventListener('click', () => {
       const itemIndex = Number(itemEditor.path.split('.').pop())
@@ -54,7 +54,7 @@ class ArrayEditor extends Editor {
     })
 
     if (this.childEditors.length !== 0) {
-      const moveUpBtn = this.jedi.theme.getButton('move up')
+      const moveUpBtn = this.jedi.theme.getButton('Move up')
       itemEditor.container.appendChild(moveUpBtn)
       moveUpBtn.addEventListener('click', () => {
         const toIndex = itemIndex - 1
@@ -63,7 +63,7 @@ class ArrayEditor extends Editor {
     }
 
     if (this.getValue().length - 1 !== itemIndex) {
-      const moveDownBtn = this.jedi.theme.getButton('move down')
+      const moveDownBtn = this.jedi.theme.getButton('Move down')
       itemEditor.container.appendChild(moveDownBtn)
       moveDownBtn.addEventListener('click', () => {
         const toIndex = itemIndex + 1
@@ -100,7 +100,6 @@ class ArrayEditor extends Editor {
 
   onChildEditorChange () {
     const value = []
-    console.log('onChildEditorChange', this.childEditors)
 
     this.childEditors.forEach((childEditor) => {
       value.push(childEditor.getValue())
@@ -111,10 +110,6 @@ class ArrayEditor extends Editor {
 
   refreshUI () {
     const value = this.getValue()
-
-    this.childEditors.forEach((editor) => {
-      console.log(editor, editor.getKey())
-    })
 
     this.childEditors.forEach((editor) => {
       editor.destroy()
