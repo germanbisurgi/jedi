@@ -5,8 +5,13 @@
   width: auto;
 }
 
-[data-type="multiple"]:not(:last-child),
-[data-type="object"]:not(:last-child),
-[data-type="arrays"]:not(:last-child) {
+pre,
+[data-type="multiple"],
+[data-type="object"],
+[data-type="arrays"] {
   .card;
+}
+
+*:last-child {
+  margin-bottom: 0;
 }

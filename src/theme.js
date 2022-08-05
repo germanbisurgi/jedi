@@ -12,6 +12,7 @@ class Theme {
     if (container) {
       const error = document.createElement('p')
       error.classList.add('jedi-error-message')
+      error.classList.add('alert')
       error.textContent = message
       container.appendChild(error)
     }

@@ -991,7 +991,7 @@ article {
 }
 form {
   border-radius: 3px;
-  margin: calc(15px * 0.5) 0;
+  margin-bottom: calc(15px * 0.5);
 }
 label,
 legend {
@@ -1418,14 +1418,13 @@ canvas {
 }
 .nav-tabs {
   border-bottom: 2px solid var(--color-secondary);
-  margin-bottom: 15px;
 }
 .nav-tabs li {
   cursor: pointer;
   border: 2px solid var(--color-secondary);
   border-color: transparent;
   position: relative;
-  top: 2px;
+  margin-bottom: -2px;
   border-radius: 3px 3px 0 0;
 }
 .nav-tabs li.active {
@@ -1447,6 +1446,9 @@ canvas {
 }
 .tab-pane {
   display: none;
+  padding: 15px;
+  border: 2px solid var(--color-secondary);
+  border-top: none;
 }
 .tab-pane.active {
   display: block;
