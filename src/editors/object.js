@@ -105,6 +105,12 @@ class ObjectEditor extends Editor {
         if (!utils.equal(oldValue, newValue)) {
           childEditor.setValue(newValue, false)
         }
+
+        if (this.disabled) {
+          childEditor.disable()
+        } else {
+          childEditor.enable()
+        }
       } else {
         // create new child editor for the new value entry having the value as default
         const initialValue = value[key]

@@ -1,7 +1,7 @@
 {
   "type": "object",
+  "title": "Editors",
   "required": [
-    "anyOf",
     "multiple",
     "booleans",
     "strings",
@@ -9,9 +9,6 @@
     "integers",
     "arrays"
   ],
-  "options": {
-    "hideTitle": true
-  },
   "properties": {
     "booleans": {
       "type": "object",
@@ -56,8 +53,8 @@
       "required": [
         "string",
         "string-textarea",
-        "string-enum",
-        "string-radio"
+        "string-enum-select",
+        "string-enum-radio"
       ],
       "properties": {
         "string": {
@@ -70,7 +67,7 @@
           "title": "string textarea",
           "minLength": 3
         },
-        "string-enum": {
+        "string-enum-select": {
           "type": "string",
           "title": "string enum select",
           "enum": [
@@ -86,7 +83,7 @@
             ]
           }
         },
-        "string-radio": {
+        "string-enum-radio": {
           "type": "string",
           "title": "string enum radio",
           "format": "radio",
@@ -110,7 +107,7 @@
       "title": "Numbers",
       "required": [
         "number",
-        "number-enum",
+        "number-enum-select",
         "number-enum-radio"
       ],
       "properties": {
@@ -118,7 +115,7 @@
           "type": "number",
           "title": "number"
         },
-        "number-enum": {
+        "number-enum-select": {
           "type": "number",
           "title": "number enum select",
           "enum": [
@@ -158,7 +155,7 @@
       "title": "Integers",
       "required": [
         "integer",
-        "integer-enum",
+        "integer-enum-select",
         "integer-enum-radio"
       ],
       "properties": {
@@ -166,7 +163,7 @@
           "type": "integer",
           "title": "integer"
         },
-        "integer-enum": {
+        "integer-enum-select": {
           "type": "integer",
           "title": "integer enum select",
           "enum": [
@@ -215,7 +212,11 @@
             "type": "string",
             "title": "color",
             "format": "color"
-          }
+          },
+          "default": [
+            "#b02727",
+            "#226996"
+          ]
         }
       }
     },
@@ -223,7 +224,7 @@
       "type": "object",
       "title": "Multiple",
       "properties": {
-        "oneOf": {
+        "oneof": {
           "oneOf": [
             {
               "type": "boolean",
@@ -239,7 +240,7 @@
             }
           ]
         },
-        "anyOf": {
+        "anyof": {
           "title": "anyOf",
           "anyOf": [
             {
@@ -270,19 +271,19 @@
             }
           ]
         },
-        "multiple": {
+        "type-array": {
           "type": [
             "string",
             "boolean"
           ],
-          "title": "multiple (type array)"
+          "title": "type array"
         },
-        "no-type": {
-          "title": "multiple (type undefined)"
+        "type-undefined": {
+          "title": "type undefined"
         },
-        "any": {
+        "type-any": {
           "type": "any",
-          "title": "multiple (type: any)"
+          "title": "type: any"
         }
       }
     }

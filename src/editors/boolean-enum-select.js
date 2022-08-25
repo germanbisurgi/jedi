@@ -27,6 +27,12 @@ class BooleanEnumSelectEditor extends BooleanEditor {
 
   refreshUI () {
     this.input.value = this.getValue() === true ? 'true' : 'false'
+
+    if (this.disabled) {
+      this.input.setAttribute('disabled', 'disabled')
+    } else {
+      this.input.removeAttribute('disabled')
+    }
   }
 }
 

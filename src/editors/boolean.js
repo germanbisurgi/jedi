@@ -30,6 +30,12 @@ class BooleanEditor extends Editor {
 
   refreshUI () {
     this.input.checked = this.getValue()
+
+    if (this.disabled) {
+      this.input.setAttribute('disabled', 'disabled')
+    } else {
+      this.input.removeAttribute('disabled')
+    }
   }
 }
 

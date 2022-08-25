@@ -121,6 +121,25 @@ class ArrayEditor extends Editor {
       const itemEditor = this.createItemEditor(itemValue)
       itemEditor.setValue(itemValue, false)
       this.childEditors.push(itemEditor)
+
+      let buttons = Array.from(this.container.querySelectorAll('button'))
+
+      this.childEditors.forEach((childEditor) => {
+        const childButtons = Array.from(childEditor.container.querySelectorAll('button'))
+        buttons = buttons.concat(childButtons)
+      })
+
+      if (this.disabled) {
+        itemEditor.disable()
+        buttons.forEach((button) => {
+          button.setAttribute('disabled', 'disabled')
+        })
+      } else {
+        itemEditor.enable()
+        buttons.forEach((button) => {
+          button.removeAttribute('disabled')
+        })
+      }
     })
 
     this.childEditors.forEach((editor) => {

@@ -1,5 +1,7 @@
 ## fix
 
+- rethink multiple (data frist then refresh UI)
+- refresh UI reuse editors
 - getChildEditor(), removeChildEditor() [array and object]
 - array refreshUI with anyOf
 - if type is undefined guess type from value (objects?)

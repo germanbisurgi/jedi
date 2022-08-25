@@ -4,6 +4,7 @@ class Editor {
   constructor (config) {
     this.jedi = config.jedi
     this.schema = config.schema
+    this.disabled = false
     this.value = config.value || undefined
     this.path = config.path || 'root'
     this.parent = config.parent || null
@@ -134,6 +135,22 @@ class Editor {
    * using setValue to set the value programmatically.
    */
   refreshUI () {
+  }
+
+  /**
+   * Disables the editor
+   */
+  disable () {
+    this.disabled = true
+    this.refreshUI()
+  }
+
+  /**
+   * Enables the editor
+   */
+  enable () {
+    this.disabled = false
+    this.refreshUI()
   }
 
   /**

@@ -27,6 +27,12 @@ class NumberEnumRadioEditor extends NumberEditor {
 
     radioInputs.forEach((radio) => {
       radio.removeAttribute('checked')
+
+      if (this.disabled) {
+        radio.setAttribute('disabled', 'disabled')
+      } else {
+        radio.removeAttribute('disabled')
+      }
     })
 
     if (radio) {

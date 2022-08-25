@@ -73,7 +73,7 @@ class Jedi {
     })
 
     this.container.appendChild(this.root.container)
-    this.container.classList.add('jedi-loaded')
+    this.container.classList.add('jedi-ready')
     this.ready = true
     this.events.emit('ready')
     this.events.emit('change')
@@ -103,6 +103,14 @@ class Jedi {
 
   getEditor (path) {
     return this.editors[path]
+  }
+
+  disable () {
+    this.root.disable()
+  }
+
+  enable () {
+    this.root.enable()
   }
 
   destroy () {

@@ -39,6 +39,12 @@ class StringEditor extends Editor {
 
   refreshUI () {
     this.input.value = this.getValue()
+
+    if (this.disabled) {
+      this.input.setAttribute('disabled', 'disabled')
+    } else {
+      this.input.removeAttribute('disabled')
+    }
   }
 }
 
