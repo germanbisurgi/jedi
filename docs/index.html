@@ -61,8 +61,8 @@
             <div class="tab-content">
                 <div id="value-tab" class="tab-pane active">
                     <div class="form-group">
-                        <label for="value">Value</label>
-                        <textarea readonly class="form-control" id="value" style="font-family: monospace;height: 70vh;"></textarea>
+                        <label for="editor-value">Value</label>
+                        <textarea readonly class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;"></textarea>
                     </div>
                     <button class="btn" id="set-value">Set Value</button>
                 </div>
@@ -208,7 +208,7 @@
           this.editor = new Jedi(this.options)
 
           this.editor.events.on('change', () => {
-            document.querySelector('#value').value = JSON.stringify(this.editor.getValue(), null, 2)
+            document.querySelector('#editor-value').value = JSON.stringify(this.editor.getValue(), null, 2)
           })
 
           this.editor.events.on('ready', () => {
@@ -216,11 +216,11 @@
           })
 
           document.querySelector('#set-value').addEventListener('click', () => {
-            this.editor.setValue(JSON.parse(document.querySelector('#value').value))
+            this.editor.setValue(JSON.parse(document.querySelector('#editor-value').value))
           })
 
-          document.querySelector('#value').addEventListener('click', () => {
-            document.querySelector('#value').removeAttribute('readonly')
+          document.querySelector('#editor-value').addEventListener('click', () => {
+            document.querySelector('#editor-value').removeAttribute('readonly')
           })
 
           document.querySelector('#disable-editor').addEventListener('click', () => {

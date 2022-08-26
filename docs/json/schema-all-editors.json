@@ -21,7 +21,7 @@
       "properties": {
         "boolean": {
           "type": "boolean",
-          "title": "default"
+          "title": "boolean"
         },
         "boolean-enum": {
           "type": "boolean",
@@ -59,7 +59,7 @@
       "properties": {
         "string": {
           "type": "string",
-          "title": "default"
+          "title": "string"
         },
         "string-textarea": {
           "type": "string",
@@ -245,11 +245,11 @@
           "anyOf": [
             {
               "type": "boolean",
-              "title": "default"
+              "title": "anyOf boolean"
             },
             {
               "type": "boolean",
-              "title": "boolean enum select",
+              "title": "anyOf boolean enum select",
               "format": "select",
               "options": {
                 "enumTitles": [

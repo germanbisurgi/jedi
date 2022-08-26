@@ -97,6 +97,8 @@ class MultipleEditor extends Editor {
       this.setValue(this.activeEditor.getValue(), false)
       this.switcher.value = this.index
     }
+
+    this.container.querySelector('[data-index="' + this.index + '"]').click()
   }
 
   getValue () {

@@ -62,3 +62,61 @@ Scenario('Should disable and enable', ({ I }) => {
   I.dontSeeElement('.jedi-ready select[disabled]')
   I.dontSeeElement('.jedi-ready button[disabled]')
 })
+
+Scenario('should set value', async ({ I }) => {
+  I.amOnPage('index.html')
+  I.waitForElement('.jedi-ready')
+  I.click('#editor-value')
+  I.fillField('#editor-value', JSON.stringify({
+      "booleans": {
+        "boolean": true,
+        "boolean-enum": true,
+        "boolean-enum-radio": true
+      },
+      "strings": {
+        "string": "test",
+        "string-textarea": "test",
+        "string-enum-select": "carl",
+        "string-enum-radio": "carl"
+      },
+      "numbers": {
+        "number": 69,
+        "number-enum-select": 3.5,
+        "number-enum-radio": 3.5
+      },
+      "integers": {
+        "integer": 69,
+        "integer-enum-select": 3,
+        "integer-enum-radio": 3
+      },
+      "arrays": {
+        "string-array": [
+          "#226996",
+          "#b02727"
+        ]
+      },
+      "multiple": {
+        "oneof": true,
+        "anyof": true,
+        "type-array": "test",
+        "type-undefined": "test",
+        "type-any": "test"
+      }
+    }
+  ));
+  I.click('#set-value')
+  I.wait(1)
+  I.seeCheckboxIsChecked('boolean');
+  I.seeInField('boolean enum select', 'true');
+  I.seeInField('string', 'test');
+  I.seeInField('string textarea', 'test');
+  I.seeInField('string enum select', 'carl');
+  // I.seeInField('string enum radio', 'carl');
+  I.seeInField('number', 69);
+  I.seeInField('number enum select', '3.5');
+  // I.seeInField('number enum radio', '3.5');
+  I.seeInField('integer', 69);
+  I.seeInField('integer enum select', '3.5');
+  // I.seeInField('integer enum radio', '3.5');
+  pause()
+})
