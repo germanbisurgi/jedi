@@ -5,14 +5,6 @@ Scenario('should have class "jedi-ready" when ready @ready', ({ I }) => {
   I.waitForElement('.jedi-ready')
 })
 
-Scenario('should destroy', ({ I }) => {
-  I.amOnPage('index.html')
-  I.waitForElement('.jedi-ready')
-  I.seeElement('[data-schemapath="root"]')
-  I.click('destroy')
-  I.dontSeeElement('[data-schemapath="root"]')
-})
-
 Scenario('Should create all kind of editors', ({ I }) => {
   I.amOnPage('index.html')
   I.waitForElement('.jedi-ready')
@@ -43,4 +35,30 @@ Scenario('Should create all kind of editors', ({ I }) => {
   I.waitForElement('[data-path="root.multiple.type-array"]')
   I.waitForElement('[data-path="root.multiple.type-undefined"]')
   I.waitForElement('[data-path="root.multiple.type-any"]')
+})
+
+Scenario('should destroy', ({ I }) => {
+  I.amOnPage('index.html')
+  I.waitForElement('.jedi-ready')
+  I.click('[href="#actions-tab"]')
+  I.waitForElement('#destroy-editor')
+  I.click('#destroy-editor')
+  I.dontSeeElement('[data-schemapath="root"]')
+})
+
+Scenario('Should disable and enable', ({ I }) => {
+  I.amOnPage('index.html')
+  I.waitForElement('.jedi-ready')
+  I.click('[href="#actions-tab"]')
+  I.waitForElement('#disable-editor')
+  I.click('#disable-editor')
+  I.dontSeeElement('.jedi-ready input:not([disabled]')
+  I.dontSeeElement('.jedi-ready textarea:not([disabled]')
+  I.dontSeeElement('.jedi-ready select:not([disabled]')
+  I.dontSeeElement('.jedi-ready button:not([disabled]')
+  I.click('#enable-editor')
+  I.dontSeeElement('.jedi-ready input[disabled]')
+  I.dontSeeElement('.jedi-ready textarea[disabled]')
+  I.dontSeeElement('.jedi-ready select[disabled]')
+  I.dontSeeElement('.jedi-ready button[disabled]')
 })

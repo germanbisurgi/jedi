@@ -55,8 +55,8 @@ class MultipleEditor extends Editor {
 
     // events
     this.switcher.addEventListener('click', (event) => {
-      const index = event.target.getAttribute('data-index')
-      this.switchEditor(index)
+      this.index = event.target.getAttribute('data-index')
+      this.refreshUI()
     })
 
     this.container.appendChild(this.switcher)
@@ -75,7 +75,8 @@ class MultipleEditor extends Editor {
     })
 
     if (utils.isSet(this.editors[0])) {
-      this.switchEditor(0)
+      this.index = 0
+      this.refreshUI()
     }
   }
 
@@ -86,15 +87,15 @@ class MultipleEditor extends Editor {
 
   setDebugContainer () {}
 
-  switchEditor (index) {
-    if (utils.isSet(this.editors[index])) {
+  refreshUI () {
+    if (utils.isSet(this.editors[this.index])) {
       if (this.activeEditor) {
         this.container.removeChild(this.activeEditor.container)
       }
-      this.activeEditor = this.editors[index]
+      this.activeEditor = this.editors[this.index]
       this.container.appendChild(this.activeEditor.container)
       this.setValue(this.activeEditor.getValue(), false)
-      this.switcher.value = index
+      this.switcher.value = this.index
     }
   }
 
@@ -110,10 +111,17 @@ class MultipleEditor extends Editor {
     } else {
       this.editors.forEach((editor, index) => {
         if (utils.equal(editor.sanitize(value), value)) {
-          this.switchEditor(index)
+          this.index = index
           this.activeEditor.setValue(value, triggersChange)
+          this.refreshUI()
         }
       })
+    }
+
+    if (this.disabled) {
+      this.activeEditor.disable()
+    } else {
+      this.activeEditor.enable()
     }
   }
 
