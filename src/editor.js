@@ -19,6 +19,7 @@ class Editor {
    */
   init () {
     this.setContainer()
+    this.setContainerAttributes()
     this.setDebugContainer()
     this.setDefaultValue()
     this.build()
@@ -34,9 +35,12 @@ class Editor {
   }
 
   setContainer () {
-    this.container = this.jedi.theme.getDiv()
+    this.container = this.jedi.theme.getContainer()
+  }
+
+  setContainerAttributes () {
     this.container.setAttribute('data-path', this.path)
-    this.container.setAttribute('class', 'form-group')
+
     if (utils.isSet(this.schema.type)) {
       this.container.setAttribute('data-type', this.schema.type)
     }

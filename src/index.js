@@ -1,4 +1,4 @@
-import Theme from './theme'
+import Theme from './themes/bootstrap4'
 import Resolver from './resolver'
 import Validator from './validator'
 import EventEmitter from './event-emitter'

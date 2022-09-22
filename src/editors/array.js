@@ -25,6 +25,10 @@ class ArrayEditor extends Editor {
     })
   }
 
+  setContainer () {
+    this.container = this.jedi.theme.getArrayContainer()
+  }
+
   createItemEditor (value) {
     let schema
 

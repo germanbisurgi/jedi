@@ -30,6 +30,10 @@ class ObjectEditor extends Editor {
     }
   }
 
+  setContainer () {
+    this.container = this.jedi.theme.getObjectContainer()
+  }
+
   addChildEditor (schema, key) {
     const editor = this.jedi.createEditor({
       jedi: this.jedi,
