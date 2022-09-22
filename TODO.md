@@ -1,5 +1,8 @@
 ## fix
 
+- bootstrap theme
+- array tabs
+- startval
 - rethink multiple (data frist then refresh UI)
 - refresh UI reuse editors
 - getChildEditor(), removeChildEditor() [array and object]
