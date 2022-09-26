@@ -44,18 +44,11 @@ class Theme {
     return container
   }
 
-  getObjectContainer () {
-    const container = document.createElement('div')
-    container.classList.add('card')
-    container.classList.add('card-body')
-    return container
-  }
-
-  getArrayContainer () {
-    const container = document.createElement('div')
-    container.classList.add('card')
-    container.classList.add('card-body')
-    return container
+  getfieldset () {
+    const fieldset = document.createElement('fieldset')
+    fieldset.classList.add('card')
+    fieldset.classList.add('card-body')
+    return fieldset
   }
 
   getDiv () {
@@ -157,16 +150,15 @@ class Theme {
       navTab.appendChild(li)
 
       const a = document.createElement('a')
-      a.setAttribute('data-toggle', 'tab')
-      a.setAttribute('data-index', index)
-      a.textContent = labels[index]
-
       a.classList.add('nav-link')
 
       if (index === 0) {
         a.classList.add('active')
       }
 
+      a.setAttribute('data-toggle', 'tab')
+      a.setAttribute('data-index', index)
+      a.textContent = labels[index]
       li.appendChild(a)
     })
 
@@ -184,6 +176,7 @@ class Theme {
       option.textContent = optionsLabels[index]
       select.appendChild(option)
     })
+
     return select
   }
 

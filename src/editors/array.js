@@ -3,11 +3,6 @@ import utils from '../utils'
 
 class ArrayEditor extends Editor {
   build () {
-    // label
-    const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
-    const label = this.jedi.theme.getH3(labelText)
-    this.container.appendChild(label)
-
     // addBtn
     const addBtn = this.jedi.theme.getButton('Add Item')
     this.container.appendChild(addBtn)
@@ -26,7 +21,12 @@ class ArrayEditor extends Editor {
   }
 
   setContainer () {
-    this.container = this.jedi.theme.getArrayContainer()
+    this.container = this.jedi.theme.getfieldset()
+
+    // title
+    const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
+    const label = this.jedi.theme.getLegend(labelText)
+    this.container.appendChild(label)
   }
 
   createItemEditor (value) {
