@@ -30,6 +30,12 @@ class Theme {
     }
   }
 
+  getBtnGroup () {
+    const btnGroup = document.createElement('div')
+    btnGroup.classList.add('btn-group')
+    return btnGroup
+  }
+
   getButton (text) {
     const button = document.createElement('button')
     button.setAttribute('class', 'btn')

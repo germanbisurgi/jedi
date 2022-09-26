@@ -3,16 +3,20 @@ import utils from '../utils'
 
 class ArrayEditor extends Editor {
   build () {
+    // btn group
+    const btnGroup = this.jedi.theme.getBtnGroup()
+    this.container.appendChild(btnGroup)
+
     // addBtn
     const addBtn = this.jedi.theme.getButton('Add Item')
-    this.container.appendChild(addBtn)
+    btnGroup.appendChild(addBtn)
     addBtn.addEventListener('click', () => {
       this.addItem()
     })
 
     // deleteAll
     const deleteAllBtn = this.jedi.theme.getButton('Delete Items')
-    this.container.appendChild(deleteAllBtn)
+    btnGroup.appendChild(deleteAllBtn)
     deleteAllBtn.addEventListener('click', () => {
       if (window.confirm('Confirm to delete all')) {
         this.setValue([])
@@ -48,10 +52,13 @@ class ArrayEditor extends Editor {
       parent: this
     })
 
+    const btnGroup = this.jedi.theme.getBtnGroup()
+    itemEditor.container.appendChild(btnGroup)
+
     const itemIndex = Number(itemEditor.getKey())
 
     const deleteBtn = this.jedi.theme.getButton('Delete Item')
-    itemEditor.container.appendChild(deleteBtn)
+    btnGroup.appendChild(deleteBtn)
     deleteBtn.addEventListener('click', () => {
       const itemIndex = Number(itemEditor.path.split('.').pop())
       this.deleteItem(itemIndex)
@@ -59,7 +66,7 @@ class ArrayEditor extends Editor {
 
     if (this.childEditors.length !== 0) {
       const moveUpBtn = this.jedi.theme.getButton('Move up')
-      itemEditor.container.appendChild(moveUpBtn)
+      btnGroup.appendChild(moveUpBtn)
       moveUpBtn.addEventListener('click', () => {
         const toIndex = itemIndex - 1
         this.move(itemIndex, toIndex)
@@ -68,7 +75,7 @@ class ArrayEditor extends Editor {
 
     if (this.getValue().length - 1 !== itemIndex) {
       const moveDownBtn = this.jedi.theme.getButton('Move down')
-      itemEditor.container.appendChild(moveDownBtn)
+      btnGroup.appendChild(moveDownBtn)
       moveDownBtn.addEventListener('click', () => {
         const toIndex = itemIndex + 1
         this.move(itemIndex, toIndex)
