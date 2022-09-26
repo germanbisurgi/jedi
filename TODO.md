@@ -1,9 +1,10 @@
 ## fix
 
+- github actions
 - bootstrap theme
 - array tabs
 - startval
-- rethink multiple (data frist then refresh UI)
+- rethink multiple (data first then refresh UI)
 - refresh UI reuse editors
 - getChildEditor(), removeChildEditor() [array and object]
 - array refreshUI with anyOf
