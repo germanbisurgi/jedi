@@ -72,6 +72,10 @@ class Jedi {
       schema: this.schema
     })
 
+    if (this.options.startval) {
+      this.root.setValue(this.options.startval)
+    }
+
     this.container.appendChild(this.root.container)
     this.container.classList.add('jedi-ready')
     this.ready = true
