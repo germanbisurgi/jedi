@@ -24,7 +24,7 @@ class ObjectEditor extends Editor {
   }
 
   setContainer () {
-    this.container = this.jedi.theme.getfieldset()
+    this.container = this.jedi.theme.getFieldset()
 
     // title
     if (!utils.getSchemaOption(this.schema, 'hideTitle')) {

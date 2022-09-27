@@ -25,7 +25,7 @@ class ArrayEditor extends Editor {
   }
 
   setContainer () {
-    this.container = this.jedi.theme.getfieldset()
+    this.container = this.jedi.theme.getFieldset()
 
     // title
     const labelText = utils.getSchemaTitle(this.schema) || this.getKey()

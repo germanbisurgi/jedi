@@ -81,7 +81,7 @@ class MultipleEditor extends Editor {
   }
 
   setContainer () {
-    this.container = this.jedi.theme.getfieldset()
+    this.container = this.jedi.theme.getFieldset()
     this.container.setAttribute('data-type', 'multiple')
   }
 

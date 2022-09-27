@@ -3,11 +3,12 @@ import utils from '../utils'
 
 class BooleanEditor extends Editor {
   build () {
+    // checkbox container
+    const checkboxContainer = this.jedi.theme.getCheckboxContainer()
+
     // label
     const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
-    const label = this.jedi.theme.getLabel(labelText, {
-      for: this.path
-    })
+    const label = this.jedi.theme.getCheckboxLabel(labelText, this.path)
 
     // input
     this.input = this.jedi.theme.getCheckbox({
@@ -15,8 +16,9 @@ class BooleanEditor extends Editor {
     })
 
     // appends
-    this.container.appendChild(this.input)
-    this.container.appendChild(label)
+    this.container.appendChild(checkboxContainer)
+    checkboxContainer.appendChild(this.input)
+    checkboxContainer.appendChild(label)
 
     // events
     this.input.addEventListener('change', () => {

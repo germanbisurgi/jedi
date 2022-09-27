@@ -50,7 +50,7 @@ class Theme {
     return container
   }
 
-  getfieldset () {
+  getFieldset () {
     const fieldset = document.createElement('fieldset')
     fieldset.classList.add('card')
     fieldset.classList.add('card-body')
@@ -72,11 +72,37 @@ class Theme {
     return label
   }
 
+  getCheckboxLabel (labelText, attrFor) {
+    const label = document.createElement('label')
+    label.classList.add('form-check-label')
+    label.setAttribute('for', attrFor)
+    label.textContent = labelText
+    return label
+  }
+
+  getRadioLabel (labelText, attrFor) {
+    const label = document.createElement('label')
+    label.classList.add('form-check-label')
+    label.setAttribute('for', attrFor)
+    label.textContent = labelText
+    return label
+  }
+
   getLabel (labelText, attributes = {}) {
     const label = document.createElement('label')
     label.textContent = labelText
     this.setAttributes(label, attributes)
     return label
+  }
+
+  getCheckboxContainer () {
+    const checkboxContainer = document.createElement('div')
+    checkboxContainer.classList.add('form-check')
+    return checkboxContainer
+  }
+
+  getRadioContainer () {
+    return this.getCheckboxContainer()
   }
 
   getLegend (legendText, attributes = {}) {
@@ -95,16 +121,18 @@ class Theme {
 
   getCheckbox (attributes = {}) {
     const checkbox = document.createElement('input')
-    this.setAttributes(checkbox, attributes)
+    checkbox.classList.add('form-check-input')
     checkbox.setAttribute('type', 'checkbox')
+    this.setAttributes(checkbox, attributes)
     return checkbox
   }
 
   getRadio (attributes = {}) {
-    const checkbox = document.createElement('input')
-    this.setAttributes(checkbox, attributes)
-    checkbox.setAttribute('type', 'radio')
-    return checkbox
+    const radio = document.createElement('input')
+    // radio.classList.add('form-check-input')
+    this.setAttributes(radio, attributes)
+    radio.setAttribute('type', 'radio')
+    return radio
   }
 
   getTextarea (attributes = {}) {
