@@ -129,8 +129,7 @@ class Theme {
 
   getRadio (attributes = {}) {
     const radio = document.createElement('input')
-    // radio.classList.add('form-check-input')
-    this.setAttributes(radio, attributes)
+    radio.classList.add('form-check-input')
     radio.setAttribute('type', 'radio')
     return radio
   }
@@ -151,22 +150,23 @@ class Theme {
     }
 
     optionValues.forEach((value, index) => {
+      const radioContainer = this.getRadioContainer()
+
+      radioGroup.appendChild(radioContainer)
+
       const labelText = optionsLabels[index]
+      const label = this.getRadioLabel(labelText)
+      label.setAttribute('for', radioGroupName + '[' + value + ']')
 
-      const label = this.getLabel(labelText, {
-        for: radioGroupName + '[' + value + ']'
-      })
+      const radio = this.getRadio()
+      radio.setAttribute('value', value)
+      radio.setAttribute('id', radioGroupName + '[' + value + ']')
+      radio.setAttribute('name', radioGroupName)
 
-      const radio = this.getRadio({
-        type: 'radio',
-        value: value,
-        id: radioGroupName + '[' + value + ']',
-        name: radioGroupName
-      })
-
-      radioGroup.appendChild(radio)
-      radioGroup.appendChild(label)
+      radioContainer.appendChild(radio)
+      radioContainer.appendChild(label)
     })
+
     return radioGroup
   }
 
