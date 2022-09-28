@@ -38,7 +38,7 @@ class Theme {
     return button
   }
 
-  getDiv () {
+  getErrorsContainer () {
     return document.createElement('div')
   }
 

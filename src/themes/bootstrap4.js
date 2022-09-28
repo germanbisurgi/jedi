@@ -57,7 +57,7 @@ class Theme {
     return fieldset
   }
 
-  getDiv () {
+  getErrorsContainer () {
     return document.createElement('div')
   }
 

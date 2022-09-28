@@ -47,7 +47,7 @@ class Editor {
   }
 
   setErrorsContainer () {
-    this.errorsContainer = this.jedi.theme.getDiv()
+    this.errorsContainer = this.jedi.theme.getErrorsContainer()
     this.container.appendChild(this.errorsContainer)
   }
 
