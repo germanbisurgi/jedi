@@ -1,13 +1,12 @@
 ## fix
 
 - bootstrap theme
-- array tabs
 - rethink multiple (data first then refresh UI)
 - refresh UI reuse editors
 - getChildEditor(), removeChildEditor() [array and object]
 - array refreshUI with anyOf
-- if type is undefined guess type from value (objects?)
 - github actions
+- array tabs
 
 ##json-schema
 - when to show validation errors
