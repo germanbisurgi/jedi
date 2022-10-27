@@ -1,7 +1,8 @@
 ## fix
 
+- fieldset trick for radios states
+- add translations
 - bootstrap theme
-- rethink multiple (data first then refresh UI)
 - refresh UI reuse editors
 - getChildEditor(), removeChildEditor() [array and object]
 - array refreshUI with anyOf

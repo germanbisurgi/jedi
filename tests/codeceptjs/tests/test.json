@@ -1,4 +1,11 @@
 {
+  "multiple": {
+    "oneof": true,
+    "anyof": true,
+    "type-array": "test",
+    "type-undefined": "test",
+    "type-any": "test"
+  },
   "booleans": {
     "boolean": true,
     "boolean-enum": true,
@@ -25,12 +32,5 @@
       "#226996",
       "#b02727"
     ]
-  },
-  "multiple": {
-    "oneof": true,
-    "anyof": true,
-    "type-array": "test",
-    "type-undefined": "test",
-    "type-any": "test"
   }
 }

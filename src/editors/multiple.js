@@ -139,15 +139,19 @@ class MultipleEditor extends Editor {
   refreshUI () {
     const oldEditor = this.editors[this.lastIndex]
 
-    if (this.activeEditor === oldEditor && this.activeEditor.container.parentNode) {
-      return
-    }
-
     if (oldEditor.container.parentNode) {
       this.container.removeChild(oldEditor.container)
     }
 
     this.container.appendChild(this.activeEditor.container)
+
+    if (this.disabled) {
+      this.activeEditor.disable()
+      this.switcher.disabled = true
+    } else {
+      this.activeEditor.enable()
+      this.switcher.disabled = false
+    }
 
     setTimeout(() => {
       this.switcher.form.elements[this.path + '.switcher'].value = this.index
@@ -169,12 +173,6 @@ class MultipleEditor extends Editor {
           this.switchEditor(index)
         }
       })
-    }
-
-    if (this.disabled) {
-      this.activeEditor.disable()
-    } else {
-      this.activeEditor.enable()
     }
   }
 

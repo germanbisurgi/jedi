@@ -10,6 +10,73 @@
     "arrays"
   ],
   "properties": {
+    "multiple": {
+      "type": "object",
+      "title": "Multiple",
+      "properties": {
+        "oneof": {
+          "oneOf": [
+            {
+              "type": "boolean",
+              "title": "boolean"
+            },
+            {
+              "type": "string",
+              "title": "string"
+            },
+            {
+              "type": "integer",
+              "title": "integer"
+            }
+          ]
+        },
+        "anyof": {
+          "title": "anyOf",
+          "anyOf": [
+            {
+              "type": "boolean",
+              "title": "anyOf boolean"
+            },
+            {
+              "type": "boolean",
+              "title": "anyOf boolean enum select",
+              "format": "select",
+              "options": {
+                "enumTitles": [
+                  "No",
+                  "Yes"
+                ]
+              }
+            },
+            {
+              "type": "boolean",
+              "title": "boolean enum radio",
+              "format": "radio",
+              "options": {
+                "enumTitles": [
+                  "No",
+                  "Yes"
+                ]
+              }
+            }
+          ]
+        },
+        "type-array": {
+          "type": [
+            "string",
+            "boolean"
+          ],
+          "title": "type array"
+        },
+        "type-undefined": {
+          "title": "type undefined"
+        },
+        "type-any": {
+          "type": "any",
+          "title": "type: any"
+        }
+      }
+    },
     "booleans": {
       "type": "object",
       "required": [
@@ -190,9 +257,9 @@
           ],
           "options": {
             "enumTitles": [
-              "small (1.5)",
-              "medium (2.5)",
-              "big (3.5)"
+              "small (1)",
+              "medium (2)",
+              "big (3)"
             ]
           }
         }
@@ -217,73 +284,6 @@
             "#b02727",
             "#226996"
           ]
-        }
-      }
-    },
-    "multiple": {
-      "type": "object",
-      "title": "Multiple",
-      "properties": {
-        "oneof": {
-          "oneOf": [
-            {
-              "type": "boolean",
-              "title": "boolean"
-            },
-            {
-              "type": "string",
-              "title": "string"
-            },
-            {
-              "type": "integer",
-              "title": "integer"
-            }
-          ]
-        },
-        "anyof": {
-          "title": "anyOf",
-          "anyOf": [
-            {
-              "type": "boolean",
-              "title": "anyOf boolean"
-            },
-            {
-              "type": "boolean",
-              "title": "anyOf boolean enum select",
-              "format": "select",
-              "options": {
-                "enumTitles": [
-                  "No",
-                  "Yes"
-                ]
-              }
-            },
-            {
-              "type": "boolean",
-              "title": "boolean enum radio",
-              "format": "radio",
-              "options": {
-                "enumTitles": [
-                  "No",
-                  "Yes"
-                ]
-              }
-            }
-          ]
-        },
-        "type-array": {
-          "type": [
-            "string",
-            "boolean"
-          ],
-          "title": "type array"
-        },
-        "type-undefined": {
-          "title": "type undefined"
-        },
-        "type-any": {
-          "type": "any",
-          "title": "type: any"
         }
       }
     }
