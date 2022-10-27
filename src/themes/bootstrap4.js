@@ -127,7 +127,7 @@ class Theme {
     return checkbox
   }
 
-  getRadio (attributes = {}) {
+  getRadio () {
     const radio = document.createElement('input')
     radio.classList.add('form-check-input')
     radio.setAttribute('type', 'radio')
@@ -170,9 +170,27 @@ class Theme {
     return radioGroup
   }
 
-  getTabs (path, indexes, labels) {
-    path = path.replace('.', '-')
+  getMultipleSelect (indexes, labels, attributes) {
+    const select = document.createElement('select')
+    this.setAttributes(select, attributes)
+    // select.classList.add('form-control')
 
+    indexes.forEach((index) => {
+      const option = document.createElement('option')
+      option.setAttribute('value', index)
+      option.textContent = labels[index]
+
+      if (index === 0) {
+        option.setAttribute('selected', true)
+      }
+
+      select.appendChild(option)
+    })
+
+    return select
+  }
+
+  getTabs (indexes, labels) {
     // navTab
     const navTab = document.createElement('ul')
     navTab.classList.add('nav')

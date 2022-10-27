@@ -15,11 +15,9 @@ class MultipleEditor extends Editor {
     if (this.schema.anyOf || this.schema.oneOf) {
       schemas = this.schema.anyOf || this.schema.oneOf
 
-      const type = this.schema.anyOf ? 'ANYOF' : 'ONEOF'
-
       schemas.forEach((schema, index) => {
         this.switcherOptionValues.push(index)
-        this.switcherOptionsLabels.push(type + '-' + index)
+        this.switcherOptionsLabels.push('Option-' + (index + 1))
       })
     } else if (utils.isArray(this.schema.type)) {
       this.schema.type.forEach((type) => {
@@ -66,17 +64,56 @@ class MultipleEditor extends Editor {
       this.switchEditor(0)
     }
 
-    // Tabs
-    this.switcher = this.jedi.theme.getTabs(this.path, this.switcherOptionValues, this.switcherOptionsLabels)
-    this.container.appendChild(this.switcher)
+    // switcher radios
+    this.switcher = this.jedi.theme.getFieldset()
 
-    // events
-    this.switcher.addEventListener('click', (event) => {
-      const index = event.target.getAttribute('data-index')
-      this.switchEditor(index)
+    // legend
+    const legend = this.jedi.theme.getLegend('Options')
+    this.switcher.appendChild(legend)
+
+    this.switcherOptionValues.forEach((value, index) => {
+      // radio
+      const radio = this.jedi.theme.getRadio()
+      radio.setAttribute('value', value)
+      radio.setAttribute('name', this.path + '.switcher')
+      radio.setAttribute('id', this.path + '.switcher' + '.' + index)
+
+      radio.addEventListener('change', () => {
+        const index = radio.value
+        this.switchEditor(index)
+      })
+
+      this.switcher.appendChild(radio)
+
+      // label
+      const label = this.jedi.theme.getLabel(this.switcherOptionsLabels[index], {
+        for: this.path + '.switcher' + '.' + index
+      })
+
+      this.switcher.appendChild(label)
     })
 
     this.container.appendChild(this.switcher)
+
+    // switcher select
+    // const labelText = 'Types'
+    // const label = this.jedi.theme.getLabel(labelText, {
+    //   for: this.path + '.switcher'
+    // })
+    // this.container.appendChild(label)
+    //
+    // this.switcher = this.jedi.theme.getMultipleSelect(this.switcherOptionValues, this.switcherOptionsLabels, {
+    //   id: this.path + '.switcher'
+    // })
+    // this.container.appendChild(this.switcher)
+    //
+    // // switcher events
+    // this.switcher.addEventListener('change', (event) => {
+    //   const index = this.switcher.value
+    //   this.switchEditor(index)
+    // })
+    //
+    // this.container.appendChild(this.switcher)
   }
 
   switchEditor (newIndex) {
@@ -111,6 +148,10 @@ class MultipleEditor extends Editor {
     }
 
     this.container.appendChild(this.activeEditor.container)
+
+    setTimeout(() => {
+      this.switcher.form.elements[this.path + '.switcher'].value = this.index
+    })
   }
 
   getValue () {
