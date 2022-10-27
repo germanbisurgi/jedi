@@ -187,9 +187,10 @@ class Theme {
       a.classList.add('nav-link')
 
       if (index === 0) {
-        a.classList.add('active')
+        li.classList.add('active')
       }
 
+      a.setAttribute('href', '#')
       a.setAttribute('data-toggle', 'tab')
       a.setAttribute('data-index', index)
       a.textContent = labels[index]

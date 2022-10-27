@@ -7,6 +7,8 @@ class MultipleEditor extends Editor {
     this.switcherOptionValues = []
     this.switcherOptionsLabels = []
     this.activeEditor = null
+    this.lastIndex = 0
+    this.index = 0
 
     let schemas = []
 
@@ -21,11 +23,9 @@ class MultipleEditor extends Editor {
       })
     } else if (utils.isArray(this.schema.type)) {
       this.schema.type.forEach((type) => {
-        const schema = {
+        schemas.push({
           type: type
-        }
-
-        schemas.push(schema)
+        })
       })
 
       schemas.forEach((schema, index) => {
@@ -49,18 +49,6 @@ class MultipleEditor extends Editor {
       })
     }
 
-    // Tabs
-    this.switcher = this.jedi.theme.getTabs(this.path, this.switcherOptionValues, this.switcherOptionsLabels)
-    this.container.appendChild(this.switcher)
-
-    // events
-    this.switcher.addEventListener('click', (event) => {
-      this.index = event.target.getAttribute('data-index')
-      this.refreshUI()
-    })
-
-    this.container.appendChild(this.switcher)
-
     // Editors
     schemas.forEach((schema) => {
       const editor = this.jedi.createEditor({
@@ -75,30 +63,54 @@ class MultipleEditor extends Editor {
     })
 
     if (utils.isSet(this.editors[0])) {
-      this.index = 0
-      this.refreshUI()
+      this.switchEditor(0)
     }
+
+    // Tabs
+    this.switcher = this.jedi.theme.getTabs(this.path, this.switcherOptionValues, this.switcherOptionsLabels)
+    this.container.appendChild(this.switcher)
+
+    // events
+    this.switcher.addEventListener('click', (event) => {
+      const index = event.target.getAttribute('data-index')
+      this.switchEditor(index)
+    })
+
+    this.container.appendChild(this.switcher)
+  }
+
+  switchEditor (newIndex) {
+    this.lastIndex = this.index
+    this.index = newIndex
+    this.activeEditor = this.editors[this.index]
+    this.setValue(this.getValue())
   }
 
   setContainer () {
     this.container = this.jedi.theme.getFieldset()
     this.container.setAttribute('data-type', 'multiple')
+
+    // legend
+    const legendText = utils.getSchemaTitle(this.schema) || this.getKey()
+    const legend = this.jedi.theme.getLegend(legendText)
+    this.container.appendChild(legend)
   }
 
-  setDebugContainer () {}
+  setDebugContainer () {
+  }
 
   refreshUI () {
-    if (utils.isSet(this.editors[this.index])) {
-      if (this.activeEditor) {
-        this.container.removeChild(this.activeEditor.container)
-      }
-      this.activeEditor = this.editors[this.index]
-      this.container.appendChild(this.activeEditor.container)
-      this.setValue(this.activeEditor.getValue(), false)
-      this.switcher.value = this.index
+    const oldEditor = this.editors[this.lastIndex]
+
+    if (this.activeEditor === oldEditor && this.activeEditor.container.parentNode) {
+      return
     }
 
-    this.container.querySelector('[data-index="' + this.index + '"]').click()
+    if (oldEditor.container.parentNode) {
+      this.container.removeChild(oldEditor.container)
+    }
+
+    this.container.appendChild(this.activeEditor.container)
   }
 
   getValue () {
@@ -113,9 +125,7 @@ class MultipleEditor extends Editor {
     } else {
       this.editors.forEach((editor, index) => {
         if (utils.equal(editor.sanitize(value), value)) {
-          this.index = index
-          this.activeEditor.setValue(value, triggersChange)
-          this.refreshUI()
+          this.switchEditor(index)
         }
       })
     }
