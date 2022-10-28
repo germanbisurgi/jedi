@@ -76,6 +76,14 @@ class Jedi {
       this.root.setValue(this.options.startval)
     }
 
+    const hiddenInput = this.theme.getInput({
+      name: 'json',
+      type: 'hidden'
+    })
+
+    this.container.appendChild(hiddenInput)
+    hiddenInput.value = JSON.stringify(this.getValue())
+
     this.container.appendChild(this.root.container)
     this.container.classList.add('jedi-ready')
     this.ready = true
@@ -83,6 +91,7 @@ class Jedi {
     this.events.emit('change')
     this.root.onChange = () => {
       this.events.emit('change')
+      hiddenInput.value = JSON.stringify(this.getValue())
     }
     this.getValue()
   }

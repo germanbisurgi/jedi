@@ -75,11 +75,10 @@ class MultipleEditor extends Editor {
       // radio
       const radio = this.jedi.theme.getRadio()
       radio.setAttribute('value', value)
-      radio.setAttribute('name', this.path + '.switcher')
       radio.setAttribute('id', this.path + '.switcher' + '.' + index)
 
       radio.addEventListener('change', () => {
-        const index = radio.value
+        const index = Number(radio.value)
         this.switchEditor(index)
       })
 
@@ -96,7 +95,7 @@ class MultipleEditor extends Editor {
     this.container.appendChild(this.switcher)
 
     // switcher select
-    // const labelText = 'Types'
+    // const labelText = 'Options'
     // const label = this.jedi.theme.getLabel(labelText, {
     //   for: this.path + '.switcher'
     // })
@@ -153,8 +152,8 @@ class MultipleEditor extends Editor {
       this.switcher.disabled = false
     }
 
-    setTimeout(() => {
-      this.switcher.form.elements[this.path + '.switcher'].value = this.index
+    this.switcher.querySelectorAll('input').forEach((radio) => {
+      radio.checked = (Number(radio.value) === Number(this.index))
     })
   }
 
@@ -163,8 +162,8 @@ class MultipleEditor extends Editor {
   }
 
   setValue (value, triggersChange = true) {
-    // if value matches the editor type set the value. Else switch to the first
-    // matching editor and set the value.
+    // if value matches the active editor type set the value. Else switch to the first
+    // editor that match the value.
     if (utils.equal(this.activeEditor.sanitize(value), value)) {
       this.activeEditor.setValue(value, triggersChange)
     } else {
