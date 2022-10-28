@@ -7,37 +7,44 @@ class NumberEnumRadioEditor extends NumberEditor {
     const legendText = utils.getSchemaTitle(this.schema) || this.getKey()
     const optionValues = utils.getSchemaEnum(this.schema)
     const optionsLabels = utils.getSchemaEnumTitles(this.schema) || optionValues
-    const radioGroupName = this.path
-    const radioGroup = this.jedi.theme.getRadioGroup(optionValues, optionsLabels, radioGroupName, legendText)
-    this.container.appendChild(radioGroup)
 
-    // events
-    const radioInputs = this.container.querySelectorAll('[name="' + radioGroupName + '"]')
-    radioInputs.forEach((radio) => {
+    // fieldset
+    const fieldset = this.jedi.theme.getFieldset()
+    this.container.appendChild(fieldset)
+
+    // legend
+    const legend = this.jedi.theme.getLegend(legendText)
+    fieldset.appendChild(legend)
+
+    // radios
+    optionValues.forEach((value, index) => {
+      const radio = this.jedi.theme.getRadio()
+      radio.setAttribute('value', value)
+      radio.setAttribute('id', this.path + '.' + index)
+
       radio.addEventListener('change', () => {
         this.setValue(radio.value)
       })
+
+      fieldset.appendChild(radio)
+
+      const label = this.jedi.theme.getLabel(optionsLabels[index], {
+        for: this.path + '.' + index
+      })
+
+      fieldset.appendChild(label)
     })
   }
 
   refreshUI () {
-    const radioGroupName = this.path
-    const radioInputs = this.container.querySelectorAll('[name="' + radioGroupName + '"]')
-    const radio = this.container.querySelector('[value="' + this.getValue() + '"]')
+    const fieldset = this.container.querySelector('fieldset')
+    const radioInputs = fieldset.querySelectorAll('input')
 
     radioInputs.forEach((radio) => {
-      radio.removeAttribute('checked')
-
-      if (this.disabled) {
-        radio.setAttribute('disabled', 'disabled')
-      } else {
-        radio.removeAttribute('disabled')
-      }
+      radio.checked = (Number(radio.value) === Number(this.getValue()))
     })
 
-    if (radio) {
-      radio.setAttribute('checked', 'checked')
-    }
+    fieldset.disabled = this.disabled
   }
 }
 

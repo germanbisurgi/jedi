@@ -141,35 +141,6 @@ class Theme {
     return textarea
   }
 
-  getRadioGroup (optionValues, optionsLabels, radioGroupName, legendText) {
-    const radioGroup = document.createElement('fieldset')
-
-    if (legendText) {
-      const legend = this.getLegend(legendText)
-      radioGroup.appendChild(legend)
-    }
-
-    optionValues.forEach((value, index) => {
-      const radioContainer = this.getRadioContainer()
-
-      radioGroup.appendChild(radioContainer)
-
-      const labelText = optionsLabels[index]
-      const label = this.getRadioLabel(labelText)
-      label.setAttribute('for', radioGroupName + '[' + value + ']')
-
-      const radio = this.getRadio()
-      radio.setAttribute('value', value)
-      radio.setAttribute('id', radioGroupName + '[' + value + ']')
-      radio.setAttribute('name', radioGroupName)
-
-      radioContainer.appendChild(radio)
-      radioContainer.appendChild(label)
-    })
-
-    return radioGroup
-  }
-
   getMultipleSelect (indexes, labels, attributes) {
     const select = document.createElement('select')
     this.setAttributes(select, attributes)

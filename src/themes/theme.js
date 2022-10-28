@@ -95,34 +95,6 @@ class Theme {
     return textarea
   }
 
-  getRadioGroup (optionValues, optionsLabels, radioGroupName, legendText) {
-    const radioGroup = document.createElement('fieldset')
-
-    if (legendText) {
-      const legend = this.getLegend(legendText)
-      radioGroup.appendChild(legend)
-    }
-
-    optionValues.forEach((value, index) => {
-      const labelText = optionsLabels[index]
-
-      const label = this.getLabel(labelText, {
-        for: radioGroupName + '[' + value + ']'
-      })
-
-      const radio = this.getRadio({
-        type: 'radio',
-        value: value,
-        id: radioGroupName + '[' + value + ']',
-        name: radioGroupName
-      })
-
-      radioGroup.appendChild(radio)
-      radioGroup.appendChild(label)
-    })
-    return radioGroup
-  }
-
   getTabs (path, indexes, labels) {
     path = path.replace('.', '-')
 

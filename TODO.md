@@ -1,6 +1,6 @@
 ## fix
 
-- fieldset trick for radios states
+-editor containers (fieldset, divs classes)
 - add translations
 - bootstrap theme
 - refresh UI reuse editors
