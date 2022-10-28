@@ -92,6 +92,7 @@ class Editor {
     if (this.schema.type === 'string') value = ''
     if (this.schema.type === 'array') value = []
     if (this.schema.type === 'object') value = {}
+    if (this.schema.type === 'null') value = null
 
     const defaulIsDefined = utils.isSet(this.schema.default)
 
