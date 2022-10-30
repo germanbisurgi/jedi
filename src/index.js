@@ -55,7 +55,10 @@ class Jedi {
 
     this.schema = await refParser.dereference(this.schema)
 
-    if (utils.isNotSet(this.schema.type)) {
+    const hasOneOf = utils.hasOneOf(this.schema)
+    const hasAnyOf = utils.hasAnyOf(this.schema)
+
+    if (utils.isNotSet(this.schema.type) && !hasOneOf && !hasAnyOf) {
       const schemaType = utils.getType(this.schema)
 
       if (schemaType === 'object' || schemaType === 'array') {

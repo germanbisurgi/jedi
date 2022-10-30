@@ -11,21 +11,21 @@ class MultipleEditor extends Editor {
     this.index = 0
 
     let schemas = []
-    const any = this.schema.anyOf ? 'anyOf' : 'oneOf'
-    const anyValue = this.schema[any]
+    const xOf = this.schema.anyOf ? 'anyOf' : 'oneOf'
+    const xOfValue = this.schema[xOf]
 
     if (this.schema.anyOf || this.schema.oneOf) {
       schemas = this.schema.anyOf || this.schema.oneOf
 
-      delete this.schema[any]
+      delete this.schema[xOf]
 
       schemas.forEach((schema, index) => {
-        schema = Object.assign(schema, this.schema)
+        schema = { ...schema, ...this.schema }
         this.switcherOptionValues.push(index)
         this.switcherOptionsLabels.push('Option-' + (index + 1))
       })
 
-      this.schema[any] = anyValue
+      this.schema[xOf] = xOfValue
     } else if (utils.isArray(this.schema.type)) {
       this.schema.type.forEach((type) => {
         schemas.push({
@@ -64,6 +64,11 @@ class MultipleEditor extends Editor {
       })
 
       editor.unregister()
+
+      editor.onChange = () => {
+        this.onChange()
+      }
+
       this.editors.push(editor)
     })
 
@@ -72,14 +77,17 @@ class MultipleEditor extends Editor {
     this.switcher = this.jedi.theme.getFieldset()
 
     // legend
-    const legend = this.jedi.theme.getLegend('Options')
+    const legendText = 'Options'
+    const legend = this.jedi.theme.getLegend(legendText)
     this.switcher.appendChild(legend)
 
     this.switcherOptionValues.forEach((value, index) => {
+      const uuid = utils.uuid()
+
       // radio
       const radio = this.jedi.theme.getRadio()
       radio.setAttribute('value', value)
-      radio.setAttribute('id', this.path + '.switcher' + '.' + index)
+      radio.setAttribute('id', this.path + '.switcher' + '.' + index + '.' + uuid)
 
       radio.addEventListener('change', () => {
         const index = Number(radio.value)
@@ -91,7 +99,7 @@ class MultipleEditor extends Editor {
 
       // label
       const label = this.jedi.theme.getLabel(this.switcherOptionsLabels[index], {
-        for: this.path + '.switcher' + '.' + index
+        for: this.path + '.switcher' + '.' + index + '.' + uuid
       })
 
       this.switcher.appendChild(label)
@@ -102,33 +110,13 @@ class MultipleEditor extends Editor {
     if (utils.isSet(this.editors[0])) {
       this.switchEditor(0)
     }
-
-    // switcher select
-    // const labelText = 'Options'
-    // const label = this.jedi.theme.getLabel(labelText, {
-    //   for: this.path + '.switcher'
-    // })
-    // this.container.appendChild(label)
-    //
-    // this.switcher = this.jedi.theme.getMultipleSelect(this.switcherOptionValues, this.switcherOptionsLabels, {
-    //   id: this.path + '.switcher'
-    // })
-    // this.container.appendChild(this.switcher)
-    //
-    // // switcher events
-    // this.switcher.addEventListener('change', (event) => {
-    //   const index = this.switcher.value
-    //   this.switchEditor(index)
-    // })
-    //
-    // this.container.appendChild(this.switcher)
   }
 
   switchEditor (newIndex) {
     this.lastIndex = this.index
     this.index = newIndex
     this.activeEditor = this.editors[this.index]
-    this.setValue(this.getValue())
+    this.setValue(this.getValue(), true)
   }
 
   setContainer () {
@@ -170,21 +158,35 @@ class MultipleEditor extends Editor {
     return this.activeEditor.getValue()
   }
 
+  sanitize (value) {
+    return this.activeEditor.sanitize(value)
+  }
+
+  matchEditor (value, editors) {
+    let index = 0
+
+    for (const editor of editors) {
+      if (editor.editors) {
+        editor.setValue(value)
+      }
+
+      if (utils.equal(editor.sanitize(value), value)) {
+        this.switchEditor(index)
+        break
+      }
+
+      index++
+    }
+  }
+
   setValue (value, triggersChange = true) {
     // if value matches the active editor type set the value. Else switch to the first
     // editor that match the value.
-    if (utils.equal(this.activeEditor.sanitize(value), value)) {
-      this.activeEditor.setValue(value, triggersChange)
-    } else {
-      let index = 0
-      for (const editor of this.editors) {
-        if (utils.equal(editor.sanitize(value), value)) {
-          this.switchEditor(index)
-          break
-        }
-        index++
-      }
+    if (!utils.equal(this.activeEditor.sanitize(value), value)) {
+      this.matchEditor(value, this.editors)
     }
+
+    this.activeEditor.setValue(value, triggersChange)
 
     if (triggersChange) {
       this.onChange()

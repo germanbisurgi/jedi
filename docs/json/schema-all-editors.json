@@ -14,6 +14,38 @@
       "type": "object",
       "title": "Multiple",
       "properties": {
+        "nestedOf": {
+          "oneOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "boolean",
+                  "title": "boolean"
+                },
+                {
+                  "type": "string",
+                  "title": "string"
+                },
+                {
+                  "type": "integer",
+                  "title": "integer"
+                }
+              ]
+            },
+            {
+              "type": "object",
+              "title": "object"
+            },
+            {
+              "type": "array",
+              "title": "array"
+            },
+            {
+              "type": "integer",
+              "title": "integer"
+            }
+          ]
+        },
         "oneof": {
           "oneOf": [
             {

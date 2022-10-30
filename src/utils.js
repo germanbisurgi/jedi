@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid'
+
 class Utils {
   clone (thing) {
     return JSON.parse(JSON.stringify(thing))
@@ -103,6 +105,10 @@ class Utils {
 
   hasFormatSelect (schema) {
     return schema.format && schema.format === 'select'
+  }
+
+  uuid () {
+    return uuidv4()
   }
 }
 
