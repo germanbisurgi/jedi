@@ -1,5 +1,8 @@
 ## fix
 
+- radio container (theme)
+- non required properties are disabled by default. On focus or value set they become active
+- test descriptions
 - test nested multiple
 - add references to dom elements in editors to avoid using querySelectors 
 - test hidden input
