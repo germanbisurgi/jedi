@@ -1,4 +1,4 @@
-import Theme from './themes/bootstrap4'
+import Theme from './themes/theme'
 import Resolver from './resolver'
 import Validator from './validator'
 import EventEmitter from './event-emitter'
@@ -11,7 +11,8 @@ class Jedi {
       removeProperty: false,
       addProperty: false,
       debug: false,
-      logs: false
+      logs: false,
+      alwaysShowErrors: false
     }, options)
 
     this.events = new EventEmitter()
@@ -76,13 +77,13 @@ class Jedi {
       this.root.setValue(this.options.startval)
     }
 
-    const hiddenInput = this.theme.getInput({
+    this.hiddenInput = this.theme.getInput({
       name: 'json',
       type: 'hidden'
     })
 
-    this.container.appendChild(hiddenInput)
-    hiddenInput.value = JSON.stringify(this.getValue())
+    this.container.appendChild(this.hiddenInput)
+    this.hiddenInput.value = JSON.stringify(this.getValue())
 
     this.container.appendChild(this.root.container)
     this.container.classList.add('jedi-ready')
@@ -91,7 +92,7 @@ class Jedi {
     this.events.emit('change')
     this.root.onChange = () => {
       this.events.emit('change')
-      hiddenInput.value = JSON.stringify(this.getValue())
+      this.hiddenInput.value = JSON.stringify(this.getValue())
     }
     this.getValue()
   }
@@ -128,6 +129,10 @@ class Jedi {
 
   destroy () {
     this.root.destroy()
+
+    if (this.hiddenInput) {
+      this.hiddenInput.parentNode.removeChild(this.hiddenInput)
+    }
 
     Object.keys(this).forEach((key) => {
       delete this[key]
