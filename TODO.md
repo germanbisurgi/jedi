@@ -1,5 +1,7 @@
 ## fix
 
+- test nested xOf
+- add references to dom elements in editors to avoid using querySelectors 
 - test hidden input
 - nested multiple
 - editor containers (fieldset, divs classes)
