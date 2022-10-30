@@ -30,12 +30,31 @@ class Theme {
     }
   }
 
+  getBtnGroup () {
+    const btnGroup = document.createElement('div')
+    btnGroup.classList.add('btn-group')
+    return btnGroup
+  }
+
   getButton (text) {
     const button = document.createElement('button')
     button.setAttribute('class', 'btn')
     button.setAttribute('type', 'button')
     button.textContent = text
     return button
+  }
+
+  getContainer () {
+    const container = document.createElement('div')
+    container.classList.add('form-group')
+    return container
+  }
+
+  getFieldset () {
+    const fieldset = document.createElement('fieldset')
+    fieldset.classList.add('card')
+    fieldset.classList.add('card-body')
+    return fieldset
   }
 
   getErrorsContainer () {
@@ -53,11 +72,37 @@ class Theme {
     return label
   }
 
+  getCheckboxLabel (labelText, attrFor) {
+    const label = document.createElement('label')
+    label.classList.add('form-check-label')
+    label.setAttribute('for', attrFor)
+    label.textContent = labelText
+    return label
+  }
+
+  getRadioLabel (labelText, attrFor) {
+    const label = document.createElement('label')
+    label.classList.add('form-check-label')
+    label.setAttribute('for', attrFor)
+    label.textContent = labelText
+    return label
+  }
+
   getLabel (labelText, attributes = {}) {
     const label = document.createElement('label')
     label.textContent = labelText
     this.setAttributes(label, attributes)
     return label
+  }
+
+  getCheckboxContainer () {
+    const checkboxContainer = document.createElement('div')
+    checkboxContainer.classList.add('form-check')
+    return checkboxContainer
+  }
+
+  getRadioContainer () {
+    return this.getCheckboxContainer()
   }
 
   getLegend (legendText, attributes = {}) {
@@ -76,16 +121,17 @@ class Theme {
 
   getCheckbox (attributes = {}) {
     const checkbox = document.createElement('input')
-    this.setAttributes(checkbox, attributes)
+    checkbox.classList.add('form-check-input')
     checkbox.setAttribute('type', 'checkbox')
+    this.setAttributes(checkbox, attributes)
     return checkbox
   }
 
-  getRadio (attributes = {}) {
-    const checkbox = document.createElement('input')
-    this.setAttributes(checkbox, attributes)
-    checkbox.setAttribute('type', 'radio')
-    return checkbox
+  getRadio () {
+    const radio = document.createElement('input')
+    radio.classList.add('form-check-input')
+    radio.setAttribute('type', 'radio')
+    return radio
   }
 
   getTextarea (attributes = {}) {
@@ -95,28 +141,49 @@ class Theme {
     return textarea
   }
 
-  getTabs (path, indexes, labels) {
-    path = path.replace('.', '-')
+  getMultipleSelect (indexes, labels, attributes) {
+    const select = document.createElement('select')
+    this.setAttributes(select, attributes)
+    // select.classList.add('form-control')
 
+    indexes.forEach((index) => {
+      const option = document.createElement('option')
+      option.setAttribute('value', index)
+      option.textContent = labels[index]
+
+      if (index === 0) {
+        option.setAttribute('selected', true)
+      }
+
+      select.appendChild(option)
+    })
+
+    return select
+  }
+
+  getTabs (indexes, labels) {
     // navTab
     const navTab = document.createElement('ul')
     navTab.classList.add('nav')
     navTab.classList.add('nav-pills')
 
     indexes.forEach((index) => {
-      // li
       const li = document.createElement('li')
+      li.classList.add('nav-item')
+      navTab.appendChild(li)
+
+      const a = document.createElement('a')
+      a.classList.add('nav-link')
+
       if (index === 0) {
         li.classList.add('active')
       }
-      navTab.appendChild(li)
 
-      // tab
-      const tab = document.createElement('a')
-      tab.setAttribute('data-toggle', 'tab')
-      tab.setAttribute('data-index', index)
-      tab.textContent = labels[index]
-      li.appendChild(tab)
+      a.setAttribute('href', '#')
+      a.setAttribute('data-toggle', 'tab')
+      a.setAttribute('data-index', index)
+      a.textContent = labels[index]
+      li.appendChild(a)
     })
 
     return navTab
@@ -133,6 +200,7 @@ class Theme {
       option.textContent = optionsLabels[index]
       select.appendChild(option)
     })
+
     return select
   }
 
