@@ -23,6 +23,10 @@ class BooleanEnumSelectEditor extends BooleanEditor {
       const value = this.input.value === 'true'
       this.setValue(value)
     })
+
+    // description
+    const description = this.jedi.theme.getDescriptionContainer(this.schema.description)
+    this.container.appendChild(description)
   }
 
   refreshUI () {

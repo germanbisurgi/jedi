@@ -1,6 +1,7 @@
 {
   "type": "object",
   "title": "Editors",
+  "description": "An object editor description",
   "required": [
     "multiple",
     "booleans",
@@ -13,43 +14,55 @@
     "multiple": {
       "type": "object",
       "title": "Multiple",
+      "description": "An object editor description",
       "properties": {
         "nestedOf": {
           "title": "One of",
+          "description": "A multiple editor description",
           "oneOf": [
             {
               "type": "string",
-              "title": "String"
+              "title": "String",
+              "description": "A String editor description"
             },
             {
               "type": "boolean",
-              "title": "Boolean"
+              "title": "Boolean",
+              "description": "A boolean editor description"
             },
             {
               "title": "Any of",
+              "description": "A multiple editor description",
               "anyOf": [
                 {
                   "type": "integer",
-                  "title": "Integer"
+                  "title": "Integer",
+                  "description": "An integer editor description"
+
                 },
                 {
                   "type": "number",
-                  "title": "Number"
+                  "title": "Number",
+                  "description": "An number editor description"
                 },
                 {
                   "title": "One of",
+                  "description": "A multiple editor description",
                   "oneOf": [
                     {
                       "type": "object",
-                      "title": "Object"
+                      "title": "Object",
+                      "description": "An object editor description"
                     },
                     {
                       "type": "array",
-                      "title": "Array"
+                      "title": "Array",
+                      "description": "An array editor description"
                     },
                     {
                       "type": "null",
-                      "title": "Null"
+                      "title": "Null",
+                      "description": "An null editor description"
                     }
                   ]
                 }
@@ -59,31 +72,38 @@
         },
         "oneof": {
           "title": "One of",
+          "description": "A multiple editor description",
           "oneOf": [
             {
               "type": "boolean",
-              "title": "Boolean"
+              "title": "Boolean",
+              "description": "A boolean editor description"
             },
             {
               "type": "string",
-              "title": "String"
+              "title": "String",
+              "description": "A String editor description"
             },
             {
               "type": "integer",
-              "title": "Integer"
+              "title": "Integer",
+              "description": "An integer editor description"
             }
           ]
         },
         "anyof": {
           "title": "Any Of",
+          "description": "A multiple editor description",
           "anyOf": [
             {
               "type": "array",
-              "title": "Array"
+              "title": "Array",
+              "description": "An array editor description"
             },
             {
               "type": "object",
-              "title": "Object"
+              "title": "Object",
+              "description": "An object editor description"
             },
             {
               "type": "null",
@@ -96,33 +116,39 @@
             "string",
             "boolean"
           ],
-          "title": "Type string or boolean"
+          "title": "Type string or boolean",
+          "description": "A multiple editor description"
         },
         "type-undefined": {
-          "title": "Type is undefined"
+          "title": "Type is undefined",
+          "description": "A multiple editor description"
         },
         "type-any": {
           "type": "any",
-          "title": "Type: any"
+          "title": "Type: any",
+          "description": "A multiple editor description"
         }
       }
     },
     "booleans": {
       "type": "object",
+      "title": "Booleans",
+      "description": "An object editor description",
       "required": [
         "boolean",
         "boolean-enum",
         "boolean-enum-radio"
       ],
-      "title": "Booleans",
       "properties": {
         "boolean": {
           "type": "boolean",
-          "title": "boolean"
+          "title": "boolean",
+          "description": "A boolean editor description"
         },
         "boolean-enum": {
           "type": "boolean",
           "title": "boolean enum select",
+          "description": "A boolean editor description",
           "format": "select",
           "options": {
             "enumTitles": [
@@ -134,6 +160,7 @@
         "boolean-enum-radio": {
           "type": "boolean",
           "title": "boolean enum radio",
+          "description": "A boolean editor description",
           "format": "radio",
           "options": {
             "enumTitles": [
@@ -147,6 +174,7 @@
     "strings": {
       "type": "object",
       "title": "Strings",
+      "description": "An object editor description",
       "required": [
         "string",
         "string-textarea",
@@ -156,17 +184,20 @@
       "properties": {
         "string": {
           "type": "string",
-          "title": "string"
+          "title": "string",
+          "description": "A String editor description"
         },
         "string-textarea": {
           "type": "string",
-          "format": "textarea",
           "title": "string textarea",
+          "description": "A String editor description",
+          "format": "textarea",
           "minLength": 3
         },
         "string-enum-select": {
           "type": "string",
           "title": "string enum select",
+          "description": "A String editor description",
           "enum": [
             "albert",
             "betti",
@@ -183,6 +214,7 @@
         "string-enum-radio": {
           "type": "string",
           "title": "string enum radio",
+          "description": "A String editor description",
           "format": "radio",
           "enum": [
             "albert",
@@ -202,6 +234,7 @@
     "numbers": {
       "type": "object",
       "title": "Numbers",
+      "description": "An object editor description",
       "required": [
         "number",
         "number-enum-select",
@@ -210,11 +243,13 @@
       "properties": {
         "number": {
           "type": "number",
-          "title": "number"
+          "title": "number",
+          "description": "An number editor description"
         },
         "number-enum-select": {
           "type": "number",
           "title": "number enum select",
+          "description": "An number editor description",
           "enum": [
             1.5,
             2.5,
@@ -231,6 +266,7 @@
         "number-enum-radio": {
           "type": "number",
           "title": "number enum radio",
+          "description": "An number editor description",
           "format": "radio",
           "enum": [
             1.5,
@@ -250,6 +286,7 @@
     "integers": {
       "type": "object",
       "title": "Integers",
+      "description": "An object editor description",
       "required": [
         "integer",
         "integer-enum-select",
@@ -258,11 +295,13 @@
       "properties": {
         "integer": {
           "type": "integer",
-          "title": "integer"
+          "title": "integer",
+          "description": "An integer editor description"
         },
         "integer-enum-select": {
           "type": "integer",
           "title": "integer enum select",
+          "description": "An integer editor description",
           "enum": [
             1,
             2,
@@ -279,6 +318,7 @@
         "integer-enum-radio": {
           "type": "number",
           "title": "integer enum radio",
+          "description": "An number editor description",
           "format": "radio",
           "enum": [
             1,
@@ -298,6 +338,7 @@
     "arrays": {
       "type": "object",
       "title": "Arrays",
+      "description": "An object editor description",
       "required": [
         "string-array"
       ],
@@ -305,9 +346,11 @@
         "string-array": {
           "type": "array",
           "title": "strings color",
+          "description": "An array editor description",
           "items": {
             "type": "string",
             "title": "color",
+            "description": "A String editor description",
             "format": "color"
           },
           "default": [

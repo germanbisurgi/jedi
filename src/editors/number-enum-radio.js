@@ -34,6 +34,10 @@ class NumberEnumRadioEditor extends NumberEditor {
 
       fieldset.appendChild(label)
     })
+
+    // description
+    const description = this.jedi.theme.getDescriptionContainer(this.schema.description)
+    this.container.appendChild(description)
   }
 
   refreshUI () {

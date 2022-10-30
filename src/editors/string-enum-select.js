@@ -22,6 +22,10 @@ class StringEnumSelectEditor extends StringEditor {
     this.input.addEventListener('change', () => {
       this.setValue(this.input.value)
     })
+
+    // description
+    const description = this.jedi.theme.getDescriptionContainer(this.schema.description)
+    this.container.appendChild(description)
   }
 }
 

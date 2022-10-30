@@ -9,7 +9,6 @@ class Editor {
     this.path = config.path || 'root'
     this.parent = config.parent || null
     this.container = null
-    this.descriptionContainer = null
     this.debugContainer = null
     this.childEditors = []
     this.init()
@@ -25,7 +24,6 @@ class Editor {
     this.setErrorsContainer()
     this.setDefaultValue()
     this.build()
-    this.setDescriptionContainer()
     this.refreshUI()
     this.refreshDebug()
     this.showValidationErrors()
@@ -51,13 +49,6 @@ class Editor {
   setErrorsContainer () {
     this.errorsContainer = this.jedi.theme.getErrorsContainer()
     this.container.appendChild(this.errorsContainer)
-  }
-
-  setDescriptionContainer () {
-    if (utils.getSchemaDescription(this.schema)) {
-      this.descriptionContainer = this.jedi.theme.getDescriptionContainer(this.schema.description)
-      this.container.appendChild(this.descriptionContainer)
-    }
   }
 
   setDebugContainer () {

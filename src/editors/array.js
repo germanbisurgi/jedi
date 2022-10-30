@@ -28,9 +28,13 @@ class ArrayEditor extends Editor {
     this.container = this.jedi.theme.getFieldset()
 
     // title
-    const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
-    const label = this.jedi.theme.getLegend(labelText)
+    const legendText = utils.getSchemaTitle(this.schema) || this.getKey()
+    const label = this.jedi.theme.getLegend(legendText)
     this.container.appendChild(label)
+
+    // description
+    const description = this.jedi.theme.getDescriptionContainer(this.schema.description)
+    this.container.appendChild(description)
   }
 
   createItemEditor (value) {

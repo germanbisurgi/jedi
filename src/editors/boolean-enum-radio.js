@@ -35,6 +35,10 @@ class BooleanEnumRadioEditor extends BooleanEditor {
 
       fieldset.appendChild(label)
     })
+
+    // description
+    const description = this.jedi.theme.getDescriptionContainer(this.schema.description)
+    this.container.appendChild(description)
   }
 
   refreshUI () {
