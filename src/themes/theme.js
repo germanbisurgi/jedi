@@ -50,6 +50,12 @@ class Theme {
     return container
   }
 
+  getDescriptionContainer (text) {
+    const container = document.createElement('small')
+    container.textContent = text
+    return container
+  }
+
   getFieldset () {
     const fieldset = document.createElement('fieldset')
     fieldset.classList.add('card')

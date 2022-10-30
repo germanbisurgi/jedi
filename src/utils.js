@@ -87,6 +87,10 @@ class Utils {
     return (schema && schema.title) ? schema.title : ''
   }
 
+  getSchemaDescription (schema) {
+    return (schema && schema.description) ? schema.description : false
+  }
+
   hasNumericType (schema) {
     return schema.type === 'number' || schema.type === 'integer'
   }
