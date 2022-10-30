@@ -1,6 +1,8 @@
 ## fix
 
--editor containers (fieldset, divs classes)
+- test hidden input
+- nested multiple
+- editor containers (fieldset, divs classes)
 - add translations
 - bootstrap theme
 - refresh UI reuse editors
