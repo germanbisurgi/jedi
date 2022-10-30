@@ -21,9 +21,9 @@ class Editor {
     this.setContainer()
     this.setContainerAttributes()
     this.setDebugContainer()
+    this.setErrorsContainer()
     this.setDefaultValue()
     this.build()
-    this.setErrorsContainer()
     this.refreshUI()
     this.refreshDebug()
     this.showValidationErrors()
@@ -183,9 +183,10 @@ class Editor {
    * Shows validation messages in the editor container.
    */
   showValidationErrors () {
-    if (this.jedi.ready) {
+    if (this.jedi.ready || this.jedi.options.alwaysShowErrors) {
       const errors = this.jedi.validator.validate(this.schema, this.getValue(), this.path)
       this.jedi.theme.removeInputError(this.errorsContainer)
+
       errors.forEach((error) => {
         this.jedi.theme.addInputError(this.errorsContainer, error.message)
       })
