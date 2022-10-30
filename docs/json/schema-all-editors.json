@@ -15,39 +15,41 @@
       "title": "Multiple",
       "properties": {
         "nestedOf": {
+          "title": "One of",
           "oneOf": [
             {
               "type": "string",
-              "title": "string"
+              "title": "String"
             },
             {
               "type": "boolean",
-              "title": "boolean"
+              "title": "Boolean"
             },
             {
-              "title": "other",
+              "title": "Any of",
               "anyOf": [
                 {
                   "type": "integer",
-                  "title": "integer"
+                  "title": "Integer"
                 },
                 {
                   "type": "number",
-                  "title": "number"
+                  "title": "Number"
                 },
                 {
+                  "title": "One of",
                   "oneOf": [
                     {
                       "type": "object",
-                      "title": "object"
+                      "title": "Object"
                     },
                     {
                       "type": "array",
-                      "title": "array"
+                      "title": "Array"
                     },
                     {
                       "type": "null",
-                      "title": "null"
+                      "title": "Null"
                     }
                   ]
                 }
@@ -56,49 +58,36 @@
           ]
         },
         "oneof": {
+          "title": "One of",
           "oneOf": [
             {
               "type": "boolean",
-              "title": "boolean"
+              "title": "Boolean"
             },
             {
               "type": "string",
-              "title": "string"
+              "title": "String"
             },
             {
               "type": "integer",
-              "title": "integer"
+              "title": "Integer"
             }
           ]
         },
         "anyof": {
-          "title": "anyOf",
+          "title": "Any Of",
           "anyOf": [
             {
-              "type": "boolean",
-              "title": "anyOf boolean"
+              "type": "array",
+              "title": "Array"
             },
             {
-              "type": "boolean",
-              "title": "anyOf boolean enum select",
-              "format": "select",
-              "options": {
-                "enumTitles": [
-                  "No",
-                  "Yes"
-                ]
-              }
+              "type": "object",
+              "title": "Object"
             },
             {
-              "type": "boolean",
-              "title": "boolean enum radio",
-              "format": "radio",
-              "options": {
-                "enumTitles": [
-                  "No",
-                  "Yes"
-                ]
-              }
+              "type": "null",
+              "title": "Null"
             }
           ]
         },
@@ -107,14 +96,14 @@
             "string",
             "boolean"
           ],
-          "title": "type array"
+          "title": "Type string or boolean"
         },
         "type-undefined": {
-          "title": "type undefined"
+          "title": "Type is undefined"
         },
         "type-any": {
           "type": "any",
-          "title": "type: any"
+          "title": "Type: any"
         }
       }
     },

@@ -30,28 +30,29 @@ class MultipleEditor extends Editor {
     } else if (utils.isArray(this.schema.type)) {
       this.schema.type.forEach((type) => {
         schemas.push({
-          type: type
+          type: type,
+          title: type[0].toUpperCase() + type.slice(1)
         })
       })
 
       schemas.forEach((schema, index) => {
         this.switcherOptionValues.push(index)
-        this.switcherOptionsLabels.push(...schemas.map((schema) => schema.type))
+        this.switcherOptionsLabels.push(...schemas.map((schema) => schema.title))
       })
     } else if (this.schema.type === 'any' || !utils.isSet(this.schema.type)) {
       schemas = [
-        { type: 'string' },
-        { type: 'number' },
-        { type: 'integer' },
-        { type: 'boolean' },
-        { type: 'array' },
-        { type: 'object' },
-        { type: 'null' }
+        { type: 'string', title: 'String' },
+        { type: 'number', title: 'Number' },
+        { type: 'integer', title: 'Integer' },
+        { type: 'boolean', title: 'Boolean' },
+        { type: 'array', title: 'Array' },
+        { type: 'object', title: 'Object' },
+        { type: 'null', title: 'Null' }
       ]
 
       schemas.forEach((schema, index) => {
         this.switcherOptionValues.push(index)
-        this.switcherOptionsLabels.push(...schemas.map((schema) => schema.type))
+        this.switcherOptionsLabels.push(...schemas.map((schema) => schema.title))
       })
     }
 
