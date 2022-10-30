@@ -17,32 +17,41 @@
         "nestedOf": {
           "oneOf": [
             {
+              "type": "string",
+              "title": "string"
+            },
+            {
+              "type": "boolean",
+              "title": "boolean"
+            },
+            {
+              "title": "other",
               "anyOf": [
-                {
-                  "type": "boolean",
-                  "title": "boolean"
-                },
-                {
-                  "type": "string",
-                  "title": "string"
-                },
                 {
                   "type": "integer",
                   "title": "integer"
+                },
+                {
+                  "type": "number",
+                  "title": "number"
+                },
+                {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "title": "object"
+                    },
+                    {
+                      "type": "array",
+                      "title": "array"
+                    },
+                    {
+                      "type": "null",
+                      "title": "null"
+                    }
+                  ]
                 }
               ]
-            },
-            {
-              "type": "object",
-              "title": "object"
-            },
-            {
-              "type": "array",
-              "title": "array"
-            },
-            {
-              "type": "integer",
-              "title": "integer"
             }
           ]
         },

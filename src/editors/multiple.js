@@ -20,9 +20,10 @@ class MultipleEditor extends Editor {
       delete this.schema[xOf]
 
       schemas.forEach((schema, index) => {
-        schema = { ...schema, ...this.schema }
+        schema = { ...this.schema, ...schema }
         this.switcherOptionValues.push(index)
-        this.switcherOptionsLabels.push('Option-' + (index + 1))
+        const switcherOptionsLabel = utils.getSchemaTitle(schema) || 'Option-' + (index + 1)
+        this.switcherOptionsLabels.push(switcherOptionsLabel)
       })
 
       this.schema[xOf] = xOfValue

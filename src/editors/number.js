@@ -24,7 +24,11 @@ class NumberEditor extends Editor {
   }
 
   sanitize (value) {
-    return Number(value)
+    if (this.schema.type === 'integer') {
+      return Math.floor(Number(value))
+    } else {
+      return Number(value)
+    }
   }
 
   refreshUI () {
