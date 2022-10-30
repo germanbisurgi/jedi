@@ -11,14 +11,21 @@ class MultipleEditor extends Editor {
     this.index = 0
 
     let schemas = []
+    const any = this.schema.anyOf ? 'anyOf' : 'oneOf'
+    const anyValue = this.schema[any]
 
     if (this.schema.anyOf || this.schema.oneOf) {
       schemas = this.schema.anyOf || this.schema.oneOf
 
+      delete this.schema[any]
+
       schemas.forEach((schema, index) => {
+        schema = Object.assign(schema, this.schema)
         this.switcherOptionValues.push(index)
         this.switcherOptionsLabels.push('Option-' + (index + 1))
       })
+
+      this.schema[any] = anyValue
     } else if (utils.isArray(this.schema.type)) {
       this.schema.type.forEach((type) => {
         schemas.push({
@@ -60,11 +67,8 @@ class MultipleEditor extends Editor {
       this.editors.push(editor)
     })
 
-    if (utils.isSet(this.editors[0])) {
-      this.switchEditor(0)
-    }
-
     // switcher radios
+    this.switcherRadios = []
     this.switcher = this.jedi.theme.getFieldset()
 
     // legend
@@ -82,6 +86,7 @@ class MultipleEditor extends Editor {
         this.switchEditor(index)
       })
 
+      this.switcherRadios.push(radio)
       this.switcher.appendChild(radio)
 
       // label
@@ -93,6 +98,10 @@ class MultipleEditor extends Editor {
     })
 
     this.container.appendChild(this.switcher)
+
+    if (utils.isSet(this.editors[0])) {
+      this.switchEditor(0)
+    }
 
     // switcher select
     // const labelText = 'Options'
@@ -152,7 +161,7 @@ class MultipleEditor extends Editor {
       this.switcher.disabled = false
     }
 
-    this.switcher.querySelectorAll('input').forEach((radio) => {
+    this.switcherRadios.forEach((radio) => {
       radio.checked = (Number(radio.value) === Number(this.index))
     })
   }
@@ -167,12 +176,23 @@ class MultipleEditor extends Editor {
     if (utils.equal(this.activeEditor.sanitize(value), value)) {
       this.activeEditor.setValue(value, triggersChange)
     } else {
-      this.editors.forEach((editor, index) => {
+      let index = 0
+      for (const editor of this.editors) {
         if (utils.equal(editor.sanitize(value), value)) {
           this.switchEditor(index)
+          break
         }
-      })
+        index++
+      }
     }
+
+    if (triggersChange) {
+      this.onChange()
+    }
+
+    this.refreshUI()
+    this.refreshDebug()
+    this.showValidationErrors()
   }
 
   destroy () {
