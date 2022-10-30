@@ -1,13 +1,66 @@
+---
 type: object
-title: root
+title: Editors
+required:
+  - multiple
+  - booleans
+  - strings
+  - numbers
+  - integers
+  - arrays
 properties:
+  multiple:
+    type: object
+    title: Multiple
+    properties:
+      oneof:
+        oneOf:
+          - type: boolean
+            title: boolean
+          - type: string
+            title: string
+          - type: integer
+            title: integer
+      anyof:
+        title: anyOf
+        anyOf:
+          - type: boolean
+            title: anyOf boolean
+          - type: boolean
+            title: anyOf boolean enum select
+            format: select
+            options:
+              enumTitles:
+                - 'No'
+                - 'Yes'
+          - type: boolean
+            title: boolean enum radio
+            format: radio
+            options:
+              enumTitles:
+                - 'No'
+                - 'Yes'
+      type-array:
+        type:
+          - string
+          - boolean
+        title: type array
+      type-undefined:
+        title: type undefined
+      type-any:
+        type: any
+        title: 'type: any'
   booleans:
     type: object
-    title: booleans
+    required:
+      - boolean
+      - boolean-enum
+      - boolean-enum-radio
+    title: Booleans
     properties:
       boolean:
         type: boolean
-        title: default
+        title: boolean
       boolean-enum:
         type: boolean
         title: boolean enum select
@@ -26,12 +79,22 @@ properties:
             - 'Yes'
   strings:
     type: object
-    title: strings
+    title: Strings
+    required:
+      - string
+      - string-textarea
+      - string-enum-select
+      - string-enum-radio
     properties:
       string:
         type: string
-        title: default
-      string-enum:
+        title: string
+      string-textarea:
+        type: string
+        format: textarea
+        title: string textarea
+        minLength: 3
+      string-enum-select:
         type: string
         title: string enum select
         enum:
@@ -43,7 +106,7 @@ properties:
             - Albert
             - Betti
             - Carl
-      string-radio:
+      string-enum-radio:
         type: string
         title: string enum radio
         format: radio
@@ -58,12 +121,16 @@ properties:
             - Carl
   numbers:
     type: object
-    title: numbers
+    title: Numbers
+    required:
+      - number
+      - number-enum-select
+      - number-enum-radio
     properties:
       number:
         type: number
         title: number
-      number-enum:
+      number-enum-select:
         type: number
         title: number enum select
         enum:
@@ -90,12 +157,16 @@ properties:
             - big (3.5)
   integers:
     type: object
-    title: integers
+    title: Integers
+    required:
+      - integer
+      - integer-enum-select
+      - integer-enum-radio
     properties:
       integer:
         type: integer
         title: integer
-      integer-enum:
+      integer-enum-select:
         type: integer
         title: integer enum select
         enum:
@@ -117,21 +188,22 @@ properties:
           - 3
         options:
           enumTitles:
-            - small (1.5)
-            - medium (2.5)
-            - big (3.5)
+            - small (1)
+            - medium (2)
+            - big (3)
   arrays:
     type: object
-    title: arrays
+    title: Arrays
+    required:
+      - string-array
     properties:
       string-array:
         type: array
         title: strings color
-        default:
-          - '#6d80dd'
-          - '#b80f0f'
-          - '#280606'
         items:
           type: string
           title: color
           format: color
+        default:
+          - "#b02727"
+          - "#226996"
