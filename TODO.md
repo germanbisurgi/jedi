@@ -1,5 +1,7 @@
 ## fix
 
+- improve multiple xOf if
+- validators: allOf, anyOf, oneOf, not, disallow, items, maxProperties, properties, patternProperties, propertyNames, additionalProperties, dependencies 
 - radio container (theme)
 - non required properties are disabled by default. On focus or value set they become active
 - test descriptions
@@ -17,7 +19,6 @@
 
 ##json-schema
 - when to show validation errors
-- validators: allOf, anyOf, oneOf, not, disallow, items, maxProperties, properties, patternProperties, propertyNames, additionalProperties, dependencies 
 - add property key input
 - array enums
 - load array of schemas
