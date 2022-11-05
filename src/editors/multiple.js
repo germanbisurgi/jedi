@@ -15,15 +15,16 @@ class MultipleEditor extends Editor {
     const xOfValue = this.schema[xOf]
 
     if (this.schema.anyOf || this.schema.oneOf) {
-      schemas = this.schema.anyOf || this.schema.oneOf
+      const _schemas = this.schema.anyOf || this.schema.oneOf
 
       delete this.schema[xOf]
 
-      schemas.forEach((schema, index) => {
+      _schemas.forEach((schema, index) => {
         schema = { ...this.schema, ...schema }
         this.switcherOptionValues.push(index)
         const switcherOptionsLabel = utils.getSchemaTitle(schema) || 'Option-' + (index + 1)
         this.switcherOptionsLabels.push(switcherOptionsLabel)
+        schemas.push(schema)
       })
 
       this.schema[xOf] = xOfValue
