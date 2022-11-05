@@ -1,36 +1,37 @@
 {
   "multiple": {
-    "oneof": true,
-    "anyof": true,
-    "type-array": "test",
-    "type-undefined": "test",
-    "type-any": "test"
+    "nestedOf": "",
+    "oneof": false,
+    "anyof": [],
+    "type-array": "",
+    "type-undefined": "",
+    "type-any": ""
   },
   "booleans": {
-    "boolean": true,
-    "boolean-enum": true,
-    "boolean-enum-radio": true
+    "boolean": false,
+    "boolean-enum": false,
+    "boolean-enum-radio": false
   },
   "strings": {
-    "string": "test",
-    "string-textarea": "test",
-    "string-enum-select": "carl",
-    "string-enum-radio": "carl"
+    "string": "",
+    "string-textarea": "",
+    "string-enum-select": "",
+    "string-enum-radio": ""
   },
   "numbers": {
-    "number": 69,
-    "number-enum-select": 3.5,
-    "number-enum-radio": 3.5
+    "number": 0,
+    "number-enum-select": 0,
+    "number-enum-radio": 0
   },
   "integers": {
-    "integer": 69,
-    "integer-enum-select": 3,
-    "integer-enum-radio": 3
+    "integer": 0,
+    "integer-enum-select": 0,
+    "integer-enum-radio": 0
   },
   "arrays": {
     "string-array": [
-      "#226996",
-      "#b02727"
+      "#b02727",
+      "#226996"
     ]
   }
 }
