@@ -9,8 +9,10 @@ class Editor {
     this.path = config.path || 'root'
     this.parent = config.parent || null
     this.container = null
+    this.errorsContainer = null
     this.debugContainer = null
     this.childEditors = []
+    this.errors = []
     this.init()
   }
 
@@ -184,10 +186,10 @@ class Editor {
    */
   showValidationErrors () {
     if (this.jedi.ready || this.jedi.options.alwaysShowErrors) {
-      const errors = this.jedi.validator.validate(this.schema, this.getValue(), this.path)
+      this.errors = this.jedi.validator.validate(this.schema, this.getValue(), this.path)
       this.jedi.theme.removeInputError(this.errorsContainer)
 
-      errors.forEach((error) => {
+      this.errors.forEach((error) => {
         this.jedi.theme.addInputError(this.errorsContainer, error.message)
       })
     }

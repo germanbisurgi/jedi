@@ -13,6 +13,7 @@ class Theme {
       const error = document.createElement('p')
       error.classList.add('jedi-error-message')
       error.classList.add('alert')
+      error.classList.add('alert-danger')
       error.textContent = message
       container.appendChild(error)
     }
@@ -58,8 +59,7 @@ class Theme {
 
   getFieldset () {
     const fieldset = document.createElement('fieldset')
-    fieldset.classList.add('card')
-    fieldset.classList.add('card-body')
+    fieldset.classList.add('well')
     return fieldset
   }
 

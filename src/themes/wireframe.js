@@ -1,4 +1,4 @@
-class Theme {
+class Wireframe {
   setAttributes (element, attributes = {}) {
     Object.keys(attributes).forEach((key) => {
       element.setAttribute(key, attributes[key])
@@ -59,7 +59,8 @@ class Theme {
 
   getFieldset () {
     const fieldset = document.createElement('fieldset')
-    fieldset.classList.add('well')
+    fieldset.classList.add('card')
+    fieldset.classList.add('card-body')
     return fieldset
   }
 
@@ -217,4 +218,4 @@ class Theme {
   }
 }
 
-export default Theme
+export default Wireframe

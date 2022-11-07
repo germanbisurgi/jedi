@@ -1,4 +1,6 @@
-import Theme from './themes/theme'
+import ThemeWireframe from './themes/wireframe'
+import ThemeBootstrap4 from './themes/bootstrap4'
+import ThemeBootstrap5 from './themes/bootstrap5'
 import Resolver from './resolver'
 import Validator from './validator'
 import EventEmitter from './event-emitter'
@@ -12,11 +14,22 @@ class Jedi {
       addProperty: false,
       debug: false,
       logs: false,
-      alwaysShowErrors: false
+      alwaysShowErrors: false,
+      theme: 'wireframe'
     }, options)
 
+    switch (options.theme) {
+      case 'bootstrap4':
+        this.theme = new ThemeBootstrap4()
+        break
+      case 'bootstrap5':
+        this.theme = new ThemeBootstrap5()
+        break
+      case 'wireframe':
+        this.theme = new ThemeWireframe()
+        break
+    }
     this.events = new EventEmitter()
-    this.theme = new Theme()
     this.resolver = new Resolver()
     this.validator = new Validator()
     this.container = document.querySelector(options.container)
