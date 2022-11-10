@@ -136,7 +136,7 @@
       "description": "An object editor description",
       "required": [
         "boolean",
-        "boolean-enum",
+        "boolean-enum-select",
         "boolean-enum-radio"
       ],
       "properties": {
@@ -145,7 +145,7 @@
           "title": "boolean",
           "description": "A boolean editor description"
         },
-        "boolean-enum": {
+        "boolean-enum-select": {
           "type": "boolean",
           "title": "boolean enum select",
           "description": "A boolean editor description",

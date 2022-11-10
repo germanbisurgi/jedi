@@ -8,25 +8,25 @@
     "type-any": ""
   },
   "booleans": {
-    "boolean": false,
-    "boolean-enum": false,
-    "boolean-enum-radio": false
+    "boolean": true,
+    "boolean-enum-select": true,
+    "boolean-enum-radio": true
   },
   "strings": {
-    "string": "",
-    "string-textarea": "",
-    "string-enum-select": "",
-    "string-enum-radio": ""
+    "string": "carl",
+    "string-textarea": "carl",
+    "string-enum-select": "carl",
+    "string-enum-radio": "carl"
   },
   "numbers": {
-    "number": 0,
-    "number-enum-select": 0,
-    "number-enum-radio": 0
+    "number": 3.5,
+    "number-enum-select": 3.5,
+    "number-enum-radio": 3.5
   },
   "integers": {
-    "integer": 0,
-    "integer-enum-select": 0,
-    "integer-enum-radio": 0
+    "integer": 3,
+    "integer-enum-select": 3,
+    "integer-enum-radio": 3
   },
   "arrays": {
     "string-array": [

@@ -8,16 +8,16 @@ class ArrayEditor extends Editor {
     this.container.appendChild(btnGroup)
 
     // addBtn
-    const addBtn = this.jedi.theme.getButton('Add Item')
-    btnGroup.appendChild(addBtn)
-    addBtn.addEventListener('click', () => {
+    this.addBtn = this.jedi.theme.getButton('Add Item')
+    btnGroup.appendChild(this.addBtn)
+    this.addBtn.addEventListener('click', () => {
       this.addItem()
     })
 
     // deleteAll
-    const deleteAllBtn = this.jedi.theme.getButton('Delete Items')
-    btnGroup.appendChild(deleteAllBtn)
-    deleteAllBtn.addEventListener('click', () => {
+    this.deleteAllBtn = this.jedi.theme.getButton('Delete Items')
+    btnGroup.appendChild(this.deleteAllBtn)
+    this.deleteAllBtn.addEventListener('click', () => {
       if (window.confirm('Confirm to delete all')) {
         this.setValue([])
       }
@@ -160,6 +160,14 @@ class ArrayEditor extends Editor {
     this.childEditors.forEach((editor) => {
       this.container.appendChild(editor.container)
     })
+
+    if (this.disabled) {
+      this.addBtn.setAttribute('disabled', 'disabled')
+      this.deleteAllBtn.setAttribute('disabled', 'disabled')
+    } else {
+      this.addBtn.removeAttribute('disabled', 'disabled')
+      this.deleteAllBtn.removeAttribute('disabled', 'disabled')
+    }
   }
 
   sanitize (value) {
