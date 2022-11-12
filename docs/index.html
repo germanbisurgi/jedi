@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Test page for jedi">
     <title>Editor</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 </head>
 <body>
 
@@ -32,9 +31,9 @@
                 <div id="value-tab" class="tab-pane active">
                     <div class="form-group">
                         <label for="editor-value">Value</label>
-                        <textarea readonly class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;"></textarea>
+                        <textarea ref="editorValue" readonly class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" @click="removeReadOnly"></textarea>
                     </div>
-                    <button class="btn" id="set-value">Set Value</button>
+                    <button class="btn" id="set-value" @click="setEditorValue()">Set Value</button>
                 </div>
 
                 <div id="schema-tab" class="tab-pane">
@@ -90,9 +89,9 @@
                 </div>
 
                 <div id="actions-tab" class="tab-pane">
-                    <button class="btn" id="disable-editor">Disable editor</button>
-                    <button class="btn" id="enable-editor">Enable editor</button>
-                    <button class="btn" id="destroy-editor">Destroy editor</button>
+                    <button class="btn" id="disable-editor" @click="disableEditor()">Disable editor</button>
+                    <button class="btn" id="enable-editor" @click="enableEditor()">Enable editor</button>
+                    <button class="btn" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
                 </div>
             </div>
         </div>
@@ -177,6 +176,21 @@
         }
       },
       methods: {
+        destroyEditor() {
+          this.editor.destroy()
+        },
+        enableEditor() {
+          this.editor.enable()
+        },
+        disableEditor() {
+          this.editor.disable()
+        },
+        setEditorValue() {
+          this.editor.setValue(JSON.parse(this.$refs.editorValue.value))
+        },
+        removeReadOnly() {
+          this.$refs.editorValue.removeAttribute('readonly')
+        },
         changeTheme() {
           themeElements = document.head.querySelectorAll('.theme')
           themeElements.forEach((element) => {
@@ -186,22 +200,17 @@
           switch (this.options.theme) {
             case 'wireframe':
               this.stylesheets = ['./css/main.css']
-              // this.scripts = ['./js/wireframe.js']
               break
             case 'bootstrap3':
               this.stylesheets = ['https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css']
-              // this.scripts = ['https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js']
               break
             case 'bootstrap4':
               this.stylesheets = ['https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css']
               this.scripts = [
-                // 'https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js',
-                // 'https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js'
               ]
               break
             case 'bootstrap5':
               this.stylesheets = ['https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css']
-              // this.scripts = ['https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js']
               break
           }
 
@@ -245,7 +254,7 @@
           window.editor = this.editor
 
           this.editor.events.on('change', () => {
-            document.querySelector('#editor-value').value = JSON.stringify(this.editor.getValue(), null, 2)
+            this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
           })
 
           this.editor.events.on('ready', () => {
@@ -253,26 +262,6 @@
             if (value) {
               this.editor.setValue(value)
             }
-          })
-
-          document.querySelector('#set-value').addEventListener('click', () => {
-            this.editor.setValue(JSON.parse(document.querySelector('#editor-value').value))
-          })
-
-          document.querySelector('#editor-value').addEventListener('click', () => {
-            document.querySelector('#editor-value').removeAttribute('readonly')
-          })
-
-          document.querySelector('#disable-editor').addEventListener('click', () => {
-            this.editor.disable()
-          })
-
-          document.querySelector('#enable-editor').addEventListener('click', () => {
-            this.editor.enable()
-          })
-
-          document.querySelector('#destroy-editor').addEventListener('click', () => {
-            this.editor.destroy()
           })
         }
       }

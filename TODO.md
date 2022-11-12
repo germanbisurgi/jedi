@@ -1,17 +1,11 @@
 ## fix
 
-- option exclude
-- improve multiple xOf if
-- validators: allOf, anyOf, oneOf, not, disallow, items, maxProperties, properties, patternProperties, propertyNames, additionalProperties, dependencies 
 - radio container (theme)
+- option exclude
+- validators: allOf, anyOf, oneOf, not, disallow, items, maxProperties, properties, patternProperties, propertyNames, additionalProperties, dependencies 
 - non required properties are disabled by default. On focus or value set they become active
-- test descriptions
-- test nested multiple
-- add references to dom elements in editors to avoid using querySelectors 
-- test hidden input
 - editor containers (fieldset, divs classes)
 - add translations
-- bootstrap theme
 - refresh UI reuse editors
 - getChildEditor(), removeChildEditor() [array and object]
 - array refreshUI with anyOf
@@ -46,9 +40,13 @@
 
 ## tests
 
+- test descriptions
+- test nested multiple
+- test hidden input
 - default value
 - getValue
 - setValue
 - format
 - enums
 - validation errors
+- sanitize

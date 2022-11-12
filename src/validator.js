@@ -9,16 +9,18 @@ class Validator {
      */
     this.validators = {
       type: (schema, value, path) => {
+        const errors = []
+
         if (typeof schema.type === 'undefined') {
-          return false
+          return errors
         }
 
         if (schema.type === 'any') {
-          return false
+          return errors
         }
 
         if (utils.isArray(schema.type)) {
-          return false
+          return errors
         }
 
         const types = {
@@ -34,15 +36,17 @@ class Validator {
         const valid = types[schema.type](value)
 
         if (!valid) {
-          return {
+          errors.push({
             message: 'Must be of type ' + schema.type,
             path: path
-          }
+          })
         }
 
-        return false
+        return errors
       },
       uniqueItems: (schema, value, path) => {
+        const errors = []
+
         const isArrayType = schema.type === 'array'
         if (!isArrayType) return
         const uniqueItems = schema.uniqueItems
@@ -63,15 +67,17 @@ class Validator {
         const invalid = (hasUniqueItemsConstrain && hasDuplicatedItems)
 
         if (invalid) {
-          return {
+          errors.push({
             message: 'Must have unique items',
             path: path
-          }
+          })
         }
 
-        return false
+        return errors
       },
       minItems: (schema, value, path) => {
+        const errors = []
+
         const isArrayType = schema.type === 'array'
         if (!isArrayType) return
         const minItems = schema.minItems
@@ -80,15 +86,16 @@ class Validator {
         const invalid = (hasMinItemsConstrain && value.length < minItems)
 
         if (invalid) {
-          return {
+          errors.push({
             message: 'Must have at least ' + minItems + ' items',
             path: path
-          }
+          })
         }
 
-        return false
+        return errors
       },
       maxItems: (schema, value, path) => {
+        const errors = []
         const isArrayType = schema.type === 'array'
         if (!isArrayType) return
         const maxItems = schema.maxItems
@@ -97,15 +104,16 @@ class Validator {
         const invalid = (hasMaxItemsConstrain && value.length > maxItems)
 
         if (invalid) {
-          return {
+          errors.push({
             message: 'Must have at most ' + maxItems + ' items',
             path: path
-          }
+          })
         }
 
-        return false
+        return errors
       },
       minLength: (schema, value, path) => {
+        const errors = []
         const isStringType = schema.type === 'string'
         if (!isStringType) return
         const minLength = schema.minLength
@@ -114,15 +122,16 @@ class Validator {
         const invalid = (hasMinLengthConstrain && value.length < minLength)
 
         if (invalid) {
-          return {
+          errors.push({
             message: 'Must be at least ' + minLength + ' characters long',
             path: path
-          }
+          })
         }
 
-        return false
+        return errors
       },
       maxLength: (schema, value, path) => {
+        const errors = []
         const isStringType = schema.type === 'string'
         if (!isStringType) return
         const maxLength = schema.maxLength
@@ -131,15 +140,16 @@ class Validator {
         const invalid = (hasMaxLengthConstrain && value.length > maxLength)
 
         if (invalid) {
-          return {
+          errors.push({
             message: 'Must be at most ' + maxLength + ' characters long',
             path: path
-          }
+          })
         }
 
-        return false
+        return errors
       },
       pattern: (schema, value, path) => {
+        const errors = []
         const isStringType = schema.type === 'string'
         if (!isStringType) return
         const pattern = schema.pattern
@@ -150,15 +160,16 @@ class Validator {
         const invalid = (hasPatternConstrain && !matchPattern)
 
         if (invalid) {
-          return {
+          errors.push({
             message: 'Must be the pattern: ' + pattern,
             path: path
-          }
+          })
         }
 
-        return false
+        return errors
       },
       minimum: (schema, value, path) => {
+        const errors = []
         const isNumericType = schema.type === 'number' || schema.type === 'integer'
         if (!isNumericType) return
         const exclusiveMinimum = schema.exclusiveMinimum
@@ -170,15 +181,16 @@ class Validator {
         const invalid = (hasMinimumConstrain && value < finalMinimum)
 
         if (invalid) {
-          return {
+          errors.push({
             message: 'Must be at least ' + finalMinimum,
             path: path
-          }
+          })
         }
 
-        return false
+        return errors
       },
       maximum: (schema, value, path) => {
+        const errors = []
         const isNumericType = schema.type === 'number' || schema.type === 'integer'
         if (!isNumericType) return
         const exclusiveMaximum = schema.exclusiveMaximum
@@ -190,15 +202,16 @@ class Validator {
         const invalid = (hasMaximumConstrain && value > finalMaximum)
 
         if (invalid) {
-          return {
+          errors.push({
             message: 'Must be less than ' + finalMaximum,
             path: path
-          }
+          })
         }
 
-        return false
+        return errors
       },
       multipleOf: (schema, value, path) => {
+        const errors = []
         const isNumericType = schema.type === 'number' || schema.type === 'integer'
         if (!isNumericType) return
         const multipleOf = schema.multipleOf
@@ -208,15 +221,16 @@ class Validator {
         const invalid = (hasMultipleOfConstrain && !isMultipleOf)
 
         if (invalid) {
-          return {
+          errors.push({
             message: 'Must be multiple of ' + multipleOf,
             path: path
-          }
+          })
         }
 
-        return false
+        return errors
       },
       const: (schema, value, path) => {
+        const errors = []
         const _const = schema.const
         const hasConstConstrain = utils.isSet(_const)
         if (!hasConstConstrain) return
@@ -224,15 +238,16 @@ class Validator {
         const invalid = (hasConstConstrain && valueIsNotEqualConst)
 
         if (invalid) {
-          return {
+          errors.push({
             message: 'Must have value: ' + _const,
             path: path
-          }
+          })
         }
 
-        return false
+        return errors
       },
       enum: (schema, value, path) => {
+        const errors = []
         const _enum = schema.enum
         const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
         if (!hasEnumConstrain) return
@@ -240,15 +255,16 @@ class Validator {
         const invalid = (hasEnumConstrain && valueNotInEnum)
 
         if (invalid) {
-          return {
+          errors.push({
             message: 'Value must be one of the enumerated values',
             path: path
-          }
+          })
         }
 
-        return false
+        return errors
       },
       required: (schema, value, path) => {
+        const errors = []
         const hasRequiredProperties = utils.isArray(schema.required)
         const missingProperties = []
 
@@ -265,13 +281,15 @@ class Validator {
         const invalid = missingProperties.length > 0
 
         if (invalid) {
-          return {
-            message: 'Object is missing the following required properties: ' + missingProperties.join(', '),
-            path: path
-          }
+          missingProperties.forEach((property) => {
+            errors.push({
+              message: 'Object is missing the required property: ' + property,
+              path: path
+            })
+          })
         }
 
-        return false
+        return errors
       }
       // oneOf (schema, value, path) {
       //   const hasOneOf = utils.hasOneOf(schema)
@@ -319,15 +337,18 @@ class Validator {
    * Validates a value against it's schema
    */
   validate (schema, value, path) {
-    const errors = []
+    let schemaErrors = []
+
     Object.keys(this.validators).forEach((key) => {
       const validator = this.validators[key]
-      const error = validator(schema, value, path)
-      if (error) {
-        errors.push(error)
+      const validatorErrors = validator(schema, value, path)
+
+      if (validatorErrors) {
+        schemaErrors = [...schemaErrors, ...validatorErrors]
       }
     })
-    return errors
+
+    return schemaErrors
   }
 }
 
