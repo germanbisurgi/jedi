@@ -1,5 +1,4 @@
 /* global Feature Scenario */
-const assert = require('assert')
 const jsonData = require('./test')
 
 Feature('Lib')
