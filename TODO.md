@@ -1,16 +1,15 @@
 ## fix
 
-- radio container (theme)
-- option exclude
+- bootstrap themes radio controls
 - validators: allOf, anyOf, oneOf, not, disallow, items, maxProperties, properties, patternProperties, propertyNames, additionalProperties, dependencies 
 - non required properties are disabled by default. On focus or value set they become active
-- editor containers (fieldset, divs classes)
 - add translations
 - refresh UI reuse editors
 - getChildEditor(), removeChildEditor() [array and object]
 - array refreshUI with anyOf
 - github actions
 - array tabs
+- option exclude
 
 ##json-schema
 - when to show validation errors

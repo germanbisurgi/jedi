@@ -180,11 +180,11 @@
           this.editor = new Jedi(this.options)
           window.editor = this.editor
 
-          this.editor.events.on('change', () => {
+          this.editor.on('change', () => {
             this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
           })
 
-          this.editor.events.on('ready', () => {
+          this.editor.on('ready', () => {
 
           })
         },

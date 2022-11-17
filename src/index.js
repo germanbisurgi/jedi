@@ -3,7 +3,6 @@ import ThemeBootstrap4 from './themes/bootstrap4'
 import ThemeBootstrap5 from './themes/bootstrap5'
 import Resolver from './resolver'
 import Validator from './validator'
-import EventEmitter from './event-emitter'
 import refParser from '@apidevtools/json-schema-ref-parser'
 import utils from './utils'
 
@@ -18,7 +17,6 @@ class Jedi {
       theme: 'wireframe'
     }, options)
 
-    this.events = new EventEmitter()
     this.resolver = new Resolver()
     this.validator = new Validator()
     this.container = document.querySelector(options.container)
@@ -27,6 +25,7 @@ class Jedi {
     this.editors = {}
     this.theme = null
     this.ready = false
+    this.listeners = []
     this.init()
   }
 
@@ -88,10 +87,10 @@ class Jedi {
     this.container.appendChild(this.root.container)
     this.container.classList.add('jedi-ready')
     this.ready = true
-    this.events.emit('ready')
-    this.events.emit('change')
+    this.emit('ready')
+    this.emit('change')
     this.root.onChange = () => {
-      this.events.emit('change')
+      this.emit('change')
       this.hiddenInput.value = JSON.stringify(this.getValue())
     }
     this.getValue()
@@ -149,7 +148,6 @@ class Jedi {
   }
 
   reset () {
-    this.options.theme = 'bootstrap5'
     this.options.startval = this.getValue()
     this.container.innerHTML = ''
     this.root.destroy()
@@ -159,6 +157,18 @@ class Jedi {
   setTheme (theme) {
     this.options.theme = theme
     this.reset()
+  }
+
+  on (name, callback) {
+    this.listeners.push({ name, callback })
+  }
+
+  emit (name) {
+    const listener = this.listeners.find(listener => listener.name === name)
+
+    if (listener) {
+      listener.callback()
+    }
   }
 
   destroy () {
