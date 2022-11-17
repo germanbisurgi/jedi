@@ -52,7 +52,7 @@ class Wireframe {
   }
 
   getDescriptionContainer (text) {
-    const container = document.createElement('small')
+    const container = document.createElement('p')
     container.textContent = text
     return container
   }

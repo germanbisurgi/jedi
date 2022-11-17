@@ -12,26 +12,23 @@ class Jedi {
       removeProperty: false,
       addProperty: false,
       alwaysShowErrors: false,
+      schema: {},
       theme: 'wireframe'
     }, options)
 
-    this.resolver = new Resolver()
-    this.validator = new Validator()
     this.container = document.querySelector(options.container)
     this.schema = options.schema
-    this.root = null
     this.editors = {}
+    this.root = null
     this.theme = null
     this.ready = false
     this.listeners = []
+    this.resolver = new Resolver()
+    this.validator = new Validator()
     this.init()
   }
 
   async init () {
-    if (utils.isNotSet(this.schema)) {
-      this.schema = {}
-    }
-
     this.ready = false
 
     switch (this.options.theme) {
