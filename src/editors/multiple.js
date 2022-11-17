@@ -132,9 +132,6 @@ class MultipleEditor extends Editor {
     this.container.appendChild(legend)
   }
 
-  setDebugContainer () {
-  }
-
   refreshUI () {
     const oldEditor = this.editors[this.lastIndex]
 
@@ -198,7 +195,6 @@ class MultipleEditor extends Editor {
     this.validate()
     this.refreshUI()
     this.showValidationErrors()
-    this.refreshDebug()
   }
 
   destroy () {

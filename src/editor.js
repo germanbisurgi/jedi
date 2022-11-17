@@ -10,7 +10,6 @@ class Editor {
     this.parent = config.parent || null
     this.container = null
     this.errorsContainer = null
-    this.debugContainer = null
     this.childEditors = []
     this.errors = []
     this.init()
@@ -22,13 +21,11 @@ class Editor {
   init () {
     this.setContainer()
     this.setContainerAttributes()
-    this.setDebugContainer()
     this.setErrorsContainer()
     this.setDefaultValue()
     this.build()
     this.validate()
     this.refreshUI()
-    this.refreshDebug()
     this.showValidationErrors()
     this.register()
   }
@@ -52,13 +49,6 @@ class Editor {
   setErrorsContainer () {
     this.errorsContainer = this.jedi.theme.getErrorsContainer()
     this.container.appendChild(this.errorsContainer)
-  }
-
-  setDebugContainer () {
-    if (this.jedi.options.debug && this.container) {
-      this.debugContainer = this.jedi.theme.getDebugContainer()
-      this.container.appendChild(this.debugContainer)
-    }
   }
 
   /**
@@ -136,7 +126,6 @@ class Editor {
     this.validate()
     this.refreshUI()
     this.showValidationErrors()
-    this.refreshDebug()
   }
 
   /**
@@ -160,16 +149,6 @@ class Editor {
   enable () {
     this.disabled = false
     this.refreshUI()
-  }
-
-  /**
-   * Refresh the UI of the editor to reflect it's value. This is necessary when
-   * using setValue to set the value programmatically.
-   */
-  refreshDebug () {
-    if (this.jedi.options.debug && this.debugContainer) {
-      this.debugContainer.textContent = JSON.stringify(this.getValue(), null, 2)
-    }
   }
 
   /**

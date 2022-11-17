@@ -68,10 +68,6 @@ class Theme {
     return document.createElement('div')
   }
 
-  getDebugContainer () {
-    return document.createElement('pre')
-  }
-
   getH3 (labelText, attributes = {}) {
     const label = document.createElement('h3')
     label.textContent = labelText

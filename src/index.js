@@ -11,8 +11,6 @@ class Jedi {
     this.options = Object.assign({
       removeProperty: false,
       addProperty: false,
-      debug: false,
-      logs: false,
       alwaysShowErrors: false,
       theme: 'wireframe'
     }, options)
@@ -96,12 +94,6 @@ class Jedi {
     this.getValue()
   }
 
-  log () {
-    if (this.options.logs) {
-      console.log(...arguments)
-    }
-  }
-
   /**
    * Adds an editor instance in the editors object
    */
@@ -122,9 +114,7 @@ class Jedi {
    */
   createEditor (config) {
     const EditorClass = this.resolver.resolve(config.schema)
-    const editor = new (EditorClass)(config)
-    this.log('created editor', editor.path)
-    return editor
+    return new (EditorClass)(config)
   }
 
   getValue () {
@@ -174,9 +164,7 @@ class Jedi {
   destroy () {
     this.root.destroy()
 
-    if (this.hiddenInput) {
-      this.hiddenInput.parentNode.removeChild(this.hiddenInput)
-    }
+    this.container.innerHTML = ''
 
     Object.keys(this).forEach((key) => {
       delete this[key]
