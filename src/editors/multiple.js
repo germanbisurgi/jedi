@@ -195,9 +195,10 @@ class MultipleEditor extends Editor {
       this.onChange()
     }
 
+    this.validate()
     this.refreshUI()
-    this.refreshDebug()
     this.showValidationErrors()
+    this.refreshDebug()
   }
 
   destroy () {

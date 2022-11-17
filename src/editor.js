@@ -26,6 +26,7 @@ class Editor {
     this.setErrorsContainer()
     this.setDefaultValue()
     this.build()
+    this.validate()
     this.refreshUI()
     this.refreshDebug()
     this.showValidationErrors()
@@ -132,9 +133,10 @@ class Editor {
       this.onChange()
     }
 
+    this.validate()
     this.refreshUI()
-    this.refreshDebug()
     this.showValidationErrors()
+    this.refreshDebug()
   }
 
   /**
@@ -181,12 +183,17 @@ class Editor {
     return false
   }
 
+  validate () {
+    if (this.jedi.ready || this.jedi.options.alwaysShowErrors) {
+      this.errors = this.jedi.validator.validate(this.schema, this.getValue(), this.path)
+    }
+  }
+
   /**
    * Shows validation messages in the editor container.
    */
   showValidationErrors () {
     if (this.jedi.ready || this.jedi.options.alwaysShowErrors) {
-      this.errors = this.jedi.validator.validate(this.schema, this.getValue(), this.path)
       this.jedi.theme.removeInputError(this.errorsContainer)
 
       this.errors.forEach((error) => {
@@ -221,13 +228,13 @@ class Editor {
 
     this.unregister()
 
-    // for (const key in this) {
-    //   if (!Object.prototype.hasOwnProperty.call(this, key)) {
-    //     continue
-    //   }
-    //
-    //   delete this[key]
-    // }
+    for (const key in this) {
+      if (!Object.prototype.hasOwnProperty.call(this, key)) {
+        continue
+      }
+
+      delete this[key]
+    }
   }
 }
 
