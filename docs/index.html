@@ -81,7 +81,7 @@
 
                         <div class="form-group">
                             <label for="theme">theme</label>
-                            <select class="form-control" id="theme" v-model="options.theme" @change="changeTheme()">
+                            <select class="form-control" id="theme" v-model="options.theme" @change="setEditorTheme()">
                                 <option v-for="theme in themes" :value="theme">{{ theme }}</option>
                             </select>
                         </div>
@@ -132,7 +132,6 @@
           editor: null,
           themes: ['wireframe', 'bootstrap4', 'bootstrap5'],
           stylesheets: ['./css/main.css'],
-          scripts: ['./js/wireframe.js'],
           options: {
             container: '#jedi-container',
             removeProperty: false,
@@ -148,6 +147,7 @@
       },
       mounted() {
         this.initEditor()
+        this.registerThemeStylesheet()
       },
       computed: {
         schemaSelectOptions() {
@@ -176,6 +176,18 @@
         }
       },
       methods: {
+        initEditor() {
+          this.editor = new Jedi(this.options)
+          window.editor = this.editor
+
+          this.editor.events.on('change', () => {
+            this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
+          })
+
+          this.editor.events.on('ready', () => {
+
+          })
+        },
         destroyEditor() {
           this.editor.destroy()
         },
@@ -188,10 +200,11 @@
         setEditorValue() {
           this.editor.setValue(JSON.parse(this.$refs.editorValue.value))
         },
-        removeReadOnly() {
-          this.$refs.editorValue.removeAttribute('readonly')
+        setEditorTheme() {
+          this.editor.setTheme(this.options.theme)
+          this.registerThemeStylesheet()
         },
-        changeTheme() {
+        registerThemeStylesheet() {
           themeElements = document.head.querySelectorAll('.theme')
           themeElements.forEach((element) => {
             element.parentNode.removeChild(element)
@@ -206,8 +219,6 @@
               break
             case 'bootstrap4':
               this.stylesheets = ['https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css']
-              this.scripts = [
-              ]
               break
             case 'bootstrap5':
               this.stylesheets = ['https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css']
@@ -221,13 +232,6 @@
             stylesheet.setAttribute('class', 'theme')
             document.head.appendChild(stylesheet)
           })
-
-          this.scripts.forEach((src) => {
-            const script = document.createElement('script')
-            script.setAttribute('src', src)
-            script.setAttribute('class', 'theme')
-            document.head.appendChild(script)
-          })
         },
         switchSchema(event) {
           const $ref = event.target.value
@@ -238,31 +242,8 @@
 
           this.initEditor()
         },
-        initEditor() {
-          let value
-
-          this.changeTheme()
-
-          if (this.editor) {
-            const value = this.editor.getValue()
-            this.editor.destroy()
-            this.editor = new Jedi(this.options)
-          } else {
-            this.editor = new Jedi(this.options)
-          }
-
-          window.editor = this.editor
-
-          this.editor.events.on('change', () => {
-            this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
-          })
-
-          this.editor.events.on('ready', () => {
-            console.log('je ready')
-            if (value) {
-              this.editor.setValue(value)
-            }
-          })
+        removeReadOnly() {
+          this.$refs.editorValue.removeAttribute('readonly')
         }
       }
     })

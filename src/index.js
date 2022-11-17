@@ -18,7 +18,26 @@ class Jedi {
       theme: 'wireframe'
     }, options)
 
-    switch (options.theme) {
+    this.events = new EventEmitter()
+    this.resolver = new Resolver()
+    this.validator = new Validator()
+    this.container = document.querySelector(options.container)
+    this.schema = options.schema
+    this.root = null
+    this.editors = {}
+    this.theme = null
+    this.ready = false
+    this.init()
+  }
+
+  async init () {
+    if (utils.isNotSet(this.schema)) {
+      this.schema = {}
+    }
+
+    this.ready = false
+
+    switch (this.options.theme) {
       case 'bootstrap4':
         this.theme = new ThemeBootstrap4()
         break
@@ -28,42 +47,6 @@ class Jedi {
       case 'wireframe':
         this.theme = new ThemeWireframe()
         break
-    }
-    this.events = new EventEmitter()
-    this.resolver = new Resolver()
-    this.validator = new Validator()
-    this.container = document.querySelector(options.container)
-    this.schema = options.schema
-    this.root = null
-    this.editors = {}
-    this.ready = false
-    this.init()
-  }
-
-  log () {
-    if (this.options.logs) {
-      console.log(...arguments)
-    }
-  }
-
-  /**
-   * Adds an editor instance in the editors object
-   */
-  registerEditor (editor) {
-    this.editors[editor.path] = editor
-  }
-
-  /**
-   * Removes an editor instance from the editors object
-   */
-  unregisterEditor (editor) {
-    this.editors[editor.path] = null
-    delete this.editors[editor.path]
-  }
-
-  async init () {
-    if (utils.isNotSet(this.schema)) {
-      this.schema = {}
     }
 
     this.schema = await refParser.dereference(this.schema)
@@ -114,6 +97,27 @@ class Jedi {
     this.getValue()
   }
 
+  log () {
+    if (this.options.logs) {
+      console.log(...arguments)
+    }
+  }
+
+  /**
+   * Adds an editor instance in the editors object
+   */
+  registerEditor (editor) {
+    this.editors[editor.path] = editor
+  }
+
+  /**
+   * Removes an editor instance from the editors object
+   */
+  unregisterEditor (editor) {
+    this.editors[editor.path] = null
+    delete this.editors[editor.path]
+  }
+
   /**
    * Creates an editor instance based on the passed schema and config
    */
@@ -142,6 +146,19 @@ class Jedi {
 
   enable () {
     this.root.enable()
+  }
+
+  reset () {
+    this.options.theme = 'bootstrap5'
+    this.options.startval = this.getValue()
+    this.container.innerHTML = ''
+    this.root.destroy()
+    this.init()
+  }
+
+  setTheme (theme) {
+    this.options.theme = theme
+    this.reset()
   }
 
   destroy () {
