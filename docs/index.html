@@ -38,20 +38,15 @@
 
                 <div id="schema-tab" class="tab-pane">
                     <div class="form-group">
-                        <label for="select">Select Schema</label>
-                        <select class="form-control" id="select" name="select" @change="switchSchema($event)">
-                            <option v-for="option in schemaSelectOptions" :value="option.value">{{ option.name }}</option>
+                        <label for="schemas">Schemas</label>
+                        <select ref="schema" class="form-control" id="schemas" @change="switchSchema()">
+                            <option v-for="option in schemas" :value="option.url">{{ option.name }}</option>
                         </select>
                     </div>
 
                     <div class="form-group" v-if="editor">
-                        <label for="dereferenced-schema">Dereferenced Schema</label>
-                        <textarea class="form-control" id="dereferenced-schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(editor.schema, null, 2) }}</textarea>
-                    </div>
-
-                    <div class="form-group">
                         <label for="schema">Schema</label>
-                        <textarea class="form-control" id="schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(options.schema, null, 2) }}</textarea>
+                        <textarea class="form-control" id="schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(editor.schema, null, 2) }}</textarea>
                     </div>
                 </div>
 
@@ -132,6 +127,32 @@
           editor: null,
           themes: ['wireframe', 'bootstrap4', 'bootstrap5'],
           stylesheets: ['./css/main.css'],
+          schemas: [
+            {
+              name: 'Empty',
+              url: './json/empty.json'
+            },
+            {
+              name: 'All editors',
+              url: './json/all-editors.json'
+            },
+            {
+              name: 'Const',
+              url: './json/validator-const.json'
+            },
+            {
+              name: 'Meta schema',
+              url: './json/meta-schema.json'
+            },
+            {
+              name: 'Europass XML 3.3.0',
+              url: './json/europass.json'
+            },
+            {
+              name: './yaml/schema.yaml',
+              url: './yaml/schema.yaml'
+            }
+          ],
           options: {
             container: '#jedi-container',
             removeProperty: false,
@@ -139,7 +160,7 @@
             alwaysShowErrors: true,
             theme: 'wireframe',
             schema: {
-              "$ref": "./json/schema-all-editors.json",
+              "$ref": "./json/empty.json",
             }
           }
         }
@@ -148,34 +169,12 @@
         this.initEditor()
         this.registerThemeStylesheet()
       },
-      computed: {
-        schemaSelectOptions() {
-          return [
-            {
-              name: './json/schema-all-editors.json',
-              value: './json/schema-all-editors.json'
-            },
-            {
-              name: './json/meta-schema.json',
-              value: './json/meta-schema.json'
-            },
-            {
-              name: './json/schema3.json',
-              value: './json/schema3.json'
-            },
-            {
-              name: './json/schema4.json',
-              value: './json/schema4.json'
-            },
-            {
-              name: './yaml/schema.yaml',
-              value: './yaml/schema.yaml'
-            }
-          ]
-        }
-      },
       methods: {
         initEditor() {
+          if (this.editor) {
+            this.editor.destroy()
+          }
+
           this.editor = new Jedi(this.options)
           window.editor = this.editor
 
@@ -232,13 +231,9 @@
             document.head.appendChild(stylesheet)
           })
         },
-        switchSchema(event) {
-          const $ref = event.target.value
-
-          this.options.schema = {
-            "$ref": $ref
-          }
-
+        async switchSchema() {
+          const response = await fetch(this.$refs.schema.value);
+          this.options.schema = await response.json()
           this.initEditor()
         },
         removeReadOnly() {

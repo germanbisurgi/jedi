@@ -15,7 +15,7 @@ class ConstValidator {
 
     if (invalid) {
       this.errors.push({
-        message: 'Must have value: ' + _const,
+        message: 'Must have value: ' + JSON.stringify(_const),
         path: path
       })
     }

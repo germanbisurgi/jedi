@@ -1,0 +1,42 @@
+{
+  "title": "Test: const",
+  "properties": {
+    "string": {
+      "type": "string",
+      "const": "test"
+    },
+    "number": {
+      "type": "number",
+      "const": 2.50
+    },
+    "integer": {
+      "type": "integer",
+      "const": 3
+    },
+    "boolean": {
+      "type": "boolean",
+      "const": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "const": ["test"]
+    },
+    "object": {
+      "type": "object",
+      "properties": {
+        "test": {
+          "type": "string"
+        }
+      },
+      "const": {
+        "test": "test"
+      }
+    },
+    "multiple": {
+      "const": "test"
+    }
+  }
+}

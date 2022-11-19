@@ -5,13 +5,17 @@ Feature('Lib')
 
 Scenario('should have class "jedi-ready" when ready @ready', ({ I }) => {
   I.amOnPage('index.html')
+  I.click('[href="#schema-tab"]')
+  I.fillField('#schemas', 'All editors')
   I.waitForElement('.jedi-ready')
 })
 
 Scenario('Should create all kind of editors', ({ I }) => {
   I.amOnPage('index.html')
+  I.click('[href="#schema-tab"]')
+  I.fillField('#schemas', 'All editors')
   I.waitForElement('.jedi-ready')
-  I.waitForText('Editors', 'h3')
+  I.waitForText('Editor', 'h3')
   I.waitForElement('[data-path="root"]')
   I.waitForElement('[data-path="root.booleans"]')
   I.waitForElement('[data-path="root.booleans.boolean"]')
@@ -42,6 +46,8 @@ Scenario('Should create all kind of editors', ({ I }) => {
 
 Scenario('should destroy', ({ I }) => {
   I.amOnPage('index.html')
+  I.click('[href="#schema-tab"]')
+  I.fillField('#schemas', 'All editors')
   I.waitForElement('.jedi-ready')
   I.click('[href="#actions-tab"]')
   I.waitForElement('#destroy-editor')
@@ -51,6 +57,8 @@ Scenario('should destroy', ({ I }) => {
 
 Scenario('Should disable and enable', ({ I }) => {
   I.amOnPage('index.html')
+  I.click('[href="#schema-tab"]')
+  I.fillField('#schemas', 'All editors')
   I.waitForElement('.jedi-ready')
   I.click('[href="#actions-tab"]')
   I.waitForElement('#disable-editor')
@@ -68,7 +76,10 @@ Scenario('Should disable and enable', ({ I }) => {
 
 Scenario('should set value', async ({ I }) => {
   I.amOnPage('index.html')
+  I.click('[href="#schema-tab"]')
+  I.fillField('#schemas', 'All editors')
   I.waitForElement('.jedi-ready')
+  I.click('[href="#value-tab"]')
   I.click('#editor-value')
   I.fillField('#editor-value', JSON.stringify(jsonData))
   I.click('#set-value')
