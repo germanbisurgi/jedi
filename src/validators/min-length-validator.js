@@ -1,7 +1,7 @@
 import utils from '../utils'
 
 class MinLengthValidator {
-  validate (schema, value, path) {
+  validate (key, schema, value, path) {
     const errors = []
     const isStringType = schema.type === 'string'
     if (!isStringType) return
@@ -9,10 +9,11 @@ class MinLengthValidator {
     const hasMinLengthConstrain = utils.isSet(minLength) && utils.isNumber(minLength)
     if (!hasMinLengthConstrain) return
     const invalid = (hasMinLengthConstrain && value.length < minLength)
+    const field = schema.title || key
 
     if (invalid) {
       errors.push({
-        message: 'Must be at least ' + minLength + ' characters long',
+        message: field + ' must be at least ' + minLength + ' characters long',
         path: path
       })
     }

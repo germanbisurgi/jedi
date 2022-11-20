@@ -5,7 +5,7 @@ class MaxItemsValidator {
     this.errors = []
   }
 
-  validate (schema, value, path) {
+  validate (key, schema, value, path) {
     this.errors = []
     const isArrayType = schema.type === 'array'
     if (!isArrayType) return
@@ -13,10 +13,11 @@ class MaxItemsValidator {
     const hasMaxItemsConstrain = utils.isSet(maxItems) && utils.isNumber(maxItems)
     if (!hasMaxItemsConstrain) return
     const invalid = (hasMaxItemsConstrain && value.length > maxItems)
+    const field = schema.title || key
 
     if (invalid) {
       this.errors.push({
-        message: 'Must have at most ' + maxItems + ' items',
+        message: field + ' must have at most ' + maxItems + ' items',
         path: path
       })
     }

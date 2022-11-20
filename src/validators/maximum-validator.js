@@ -1,7 +1,7 @@
 import utils from '../utils'
 
 class MaximumValidator {
-  validate (schema, value, path) {
+  validate (key, schema, value, path) {
     const errors = []
     const isNumericType = schema.type === 'number' || schema.type === 'integer'
     if (!isNumericType) return
@@ -12,10 +12,11 @@ class MaximumValidator {
     const hasExclusiveMaximumConstrain = utils.isSet(exclusiveMaximum) && exclusiveMaximum === true
     const finalMaximum = hasExclusiveMaximumConstrain ? maximum - 1 : maximum
     const invalid = (hasMaximumConstrain && value > finalMaximum)
+    const field = schema.title || key
 
     if (invalid) {
       errors.push({
-        message: 'Must be less than ' + finalMaximum,
+        message: field + ' must be less than ' + finalMaximum,
         path: path
       })
     }

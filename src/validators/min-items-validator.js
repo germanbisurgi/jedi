@@ -1,7 +1,7 @@
 import utils from '../utils'
 
 class MinItemsValidator {
-  validate (schema, value, path) {
+  validate (key, schema, value, path) {
     const errors = []
     const isArrayType = schema.type === 'array'
     if (!isArrayType) return
@@ -9,10 +9,11 @@ class MinItemsValidator {
     const hasMinItemsConstrain = utils.isSet(minItems) && utils.isNumber(minItems)
     if (!hasMinItemsConstrain) return
     const invalid = (hasMinItemsConstrain && value.length < minItems)
+    const field = schema.title || key
 
     if (invalid) {
       errors.push({
-        message: 'Must have at least ' + minItems + ' items',
+        message: field + ' must have at least ' + minItems + ' items',
         path: path
       })
     }

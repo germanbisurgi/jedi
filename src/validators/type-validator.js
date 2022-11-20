@@ -1,7 +1,7 @@
 import utils from '../utils'
 
 class TypeValidator {
-  validate (schema, value, path) {
+  validate (key, schema, value, path) {
     const errors = []
     if (typeof schema.type === 'undefined') {
       return errors
@@ -26,10 +26,11 @@ class TypeValidator {
     }
 
     const valid = types[schema.type](value)
+    const field = schema.title || key
 
     if (!valid) {
       errors.push({
-        message: 'Must be of type ' + schema.type,
+        message: field + ' must be of type ' + schema.type,
         path: path
       })
     }

@@ -1,7 +1,7 @@
 import utils from '../utils'
 
 class PatternValidator {
-  validate (schema, value, path) {
+  validate (key, schema, value, path) {
     const errors = []
     const isStringType = schema.type === 'string'
     if (!isStringType) return
@@ -11,10 +11,11 @@ class PatternValidator {
     const regexp = new RegExp(pattern)
     const matchPattern = regexp.test(value)
     const invalid = (hasPatternConstrain && !matchPattern)
+    const field = schema.title || key
 
     if (invalid) {
       errors.push({
-        message: 'Must be the pattern: ' + pattern,
+        message: field + ' must be the pattern: ' + pattern,
         path: path
       })
     }

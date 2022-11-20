@@ -5,17 +5,18 @@ class ConstValidator {
     this.errors = []
   }
 
-  validate (schema, value, path) {
+  validate (key, schema, value, path) {
     this.errors = []
     const _const = schema.const
     const hasConstConstrain = utils.isSet(_const)
     if (!hasConstConstrain) return
     const valueIsNotEqualConst = (JSON.stringify(value) !== JSON.stringify(_const))
     const invalid = (hasConstConstrain && valueIsNotEqualConst)
+    const field = schema.title || key
 
     if (invalid) {
       this.errors.push({
-        message: 'Must have value: ' + JSON.stringify(_const),
+        message: field + ' must have value: ' + JSON.stringify(_const),
         path: path
       })
     }

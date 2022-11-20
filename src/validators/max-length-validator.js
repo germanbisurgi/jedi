@@ -5,7 +5,7 @@ class MaxLengthValidator {
     this.errors = []
   }
 
-  validate (schema, value, path) {
+  validate (key, schema, value, path) {
     this.errors = []
     const isStringType = schema.type === 'string'
     if (!isStringType) return
@@ -13,10 +13,11 @@ class MaxLengthValidator {
     const hasMaxLengthConstrain = utils.isSet(maxLength) && utils.isNumber(maxLength)
     if (!hasMaxLengthConstrain) return
     const invalid = (hasMaxLengthConstrain && value.length > maxLength)
+    const field = schema.title || key
 
     if (invalid) {
       this.errors.push({
-        message: 'Must be at most ' + maxLength + ' characters long',
+        message: field + ' must be at most ' + maxLength + ' characters long',
         path: path
       })
     }
