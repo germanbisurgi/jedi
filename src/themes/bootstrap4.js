@@ -113,7 +113,7 @@ class Theme {
     const legend = document.createElement('legend')
     legend.textContent = legendText
     this.setAttributes(legend, attributes)
-    legend.classList.add('d-inline')
+    legend.setAttribute('style', 'width: auto;')
     return legend
   }
 

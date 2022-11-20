@@ -187,7 +187,7 @@
           this.registerThemeStylesheet()
         },
         registerThemeStylesheet() {
-          themeElements = document.head.querySelectorAll('.theme')
+          const themeElements = document.head.querySelectorAll('.theme')
           themeElements.forEach((element) => {
             element.parentNode.removeChild(element)
           })
