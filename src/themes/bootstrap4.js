@@ -61,6 +61,7 @@ class Theme {
     const fieldset = document.createElement('fieldset')
     fieldset.classList.add('card')
     fieldset.classList.add('card-body')
+    fieldset.classList.add('mb-3')
     return fieldset
   }
 
@@ -112,6 +113,7 @@ class Theme {
     const legend = document.createElement('legend')
     legend.textContent = legendText
     this.setAttributes(legend, attributes)
+    legend.classList.add('d-inline')
     return legend
   }
 

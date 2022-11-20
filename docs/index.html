@@ -104,7 +104,12 @@
       data() {
         return {
           editor: null,
-          themes: ['barebones', 'wireframe', 'bootstrap4', 'bootstrap5'],
+          themes: [
+            'bootstrap5',
+            'bootstrap4',
+            'wireframe',
+            'barebones'
+          ],
           stylesheets: ['./css/main.css'],
           schemas: [
             {
@@ -195,13 +200,13 @@
               this.stylesheets = ['./css/main.css']
               break
             case 'bootstrap3':
-              this.stylesheets = ['https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css']
+              this.stylesheets = ['./css/bootstrap3.css']
               break
             case 'bootstrap4':
-              this.stylesheets = ['https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css']
+              this.stylesheets = ['./css/bootstrap4.css']
               break
             case 'bootstrap5':
-              this.stylesheets = ['https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css']
+              this.stylesheets = ['./css/bootstrap5.css']
               break
           }
 

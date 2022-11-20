@@ -1,16 +1,20 @@
 /* global Feature Scenario */
 const jsonData = require('./test')
+const theme = process.env.THEME || 'wireframe'
+console.log('------theme', theme)
 
 Feature('Lib')
 
 Scenario('should have class "jedi-ready" when ready @ready', ({ I }) => {
   I.amOnPage('index.html')
+  I.fillField('#theme', theme)
   I.fillField('#schemas', 'All editors')
   I.waitForElement('.jedi-ready')
 })
 
 Scenario('Should create all kind of editors', ({ I }) => {
   I.amOnPage('index.html')
+  I.fillField('#theme', theme)
   I.fillField('#schemas', 'All editors')
   I.waitForElement('.jedi-ready')
   I.waitForText('Editor', 'h3')
@@ -44,15 +48,17 @@ Scenario('Should create all kind of editors', ({ I }) => {
 
 Scenario('should destroy', ({ I }) => {
   I.amOnPage('index.html')
+  I.fillField('#theme', theme)
   I.fillField('#schemas', 'All editors')
   I.waitForElement('.jedi-ready')
-  I.waitForElement('#destroy-editor')
+  I.waitForClickable('#destroy-editor')
   I.click('#destroy-editor')
   I.dontSeeElement('[data-schemapath="root"]')
 })
 
 Scenario('Should disable and enable', ({ I }) => {
   I.amOnPage('index.html')
+  I.fillField('#theme', theme)
   I.fillField('#schemas', 'All editors')
   I.waitForElement('.jedi-ready')
   I.waitForElement('#disable-editor')
@@ -70,6 +76,7 @@ Scenario('Should disable and enable', ({ I }) => {
 
 Scenario('should set value @setValue', async ({ I }) => {
   I.amOnPage('index.html')
+  I.fillField('#theme', theme)
   I.fillField('#schemas', 'All editors')
   I.waitForElement('.jedi-ready')
   I.click('#editor-value')

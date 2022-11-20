@@ -61,6 +61,7 @@ class Theme {
     const fieldset = document.createElement('fieldset')
     fieldset.classList.add('card')
     fieldset.classList.add('card-body')
+    fieldset.classList.add('mb-3')
     return fieldset
   }
 

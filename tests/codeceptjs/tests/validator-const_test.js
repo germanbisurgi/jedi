@@ -1,9 +1,11 @@
 /* global Feature Scenario */
+const theme = process.env.THEME || 'wireframe'
 
 Feature('Lib')
 
 Scenario('const should restrict a value to a single value @const', ({ I }) => {
   I.amOnPage('index.html')
+  I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'Const')
 
