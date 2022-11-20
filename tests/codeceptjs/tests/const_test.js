@@ -5,7 +5,7 @@ Feature('Lib')
 Scenario('const should restrict a value to a single value @const', ({ I }) => {
   I.amOnPage('index.html')
   I.waitForElement('.jedi-ready')
-  I.click('[href="#schema-tab"]')
+  I.click('[href="#options-tab"]')
   I.fillField('#schemas', 'Const')
 
   // string

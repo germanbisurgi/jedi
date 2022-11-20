@@ -12,17 +12,15 @@
     <h1>Editor</h1>
 
     <div class="row row-between">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-sm-6">
             <form action="" method="POST">
                 <div id="jedi-container"></div>
                 <input class="btn btn-primary" type="submit" value="send">
             </form>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-sm-6">
             <ul class="nav nav-tabs">
-                <li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#value-tab">Value</a>
-                </li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#schema-tab">Schema</a></li>
+                <li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#value-tab">Value</a></li>
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#options-tab">Options</a></li>
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#actions-tab">Actions</a></li>
             </ul>
@@ -34,20 +32,6 @@
                         <textarea ref="editorValue" readonly class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" @click="removeReadOnly"></textarea>
                     </div>
                     <button class="btn btn-primary" id="set-value" @click="setEditorValue()">Set Value</button>
-                </div>
-
-                <div id="schema-tab" class="tab-pane">
-                    <div class="form-group">
-                        <label for="schemas">Schemas</label>
-                        <select ref="schema" class="form-control" id="schemas" @change="switchSchema()">
-                            <option v-for="option in schemas" :value="option.url">{{ option.name }}</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" v-if="editor">
-                        <label for="schema">Schema</label>
-                        <textarea class="form-control" id="schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(editor.schema, null, 2) }}</textarea>
-                    </div>
                 </div>
 
                 <div id="options-tab" class="tab-pane">
@@ -79,6 +63,18 @@
                             <select class="form-control" id="theme" v-model="options.theme" @change="setEditorTheme()">
                                 <option v-for="theme in themes" :value="theme">{{ theme }}</option>
                             </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="schemas">Schemas</label>
+                            <select ref="schema" class="form-control" id="schemas" @change="switchSchema()">
+                                <option v-for="option in schemas" :value="option.url">{{ option.name }}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" v-if="editor">
+                            <label for="schema">Schema</label>
+                            <textarea class="form-control" id="schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(editor.schema, null, 2) }}</textarea>
                         </div>
                     </fieldset>
                 </div>
