@@ -15,79 +15,59 @@
         <div class="col-12 col-sm-8">
             <form action="" method="POST">
                 <div id="jedi-container"></div>
-                <input class="btn btn-primary" type="submit" value="send">
+                <input class="btn btn-primary btn-block" type="submit" value="send">
             </form>
         </div>
         <div class="col-12 col-sm-4">
-            <ul class="nav nav-tabs">
-                <li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#value-tab">Value</a>
-                </li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#options-tab">Options</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#actions-tab">Actions</a></li>
-            </ul>
+            <fieldset class="card card-body">
+                <legend>Methods</legend>
+                <div class="form-group">
+                    <label for="editor-value">Value</label>
+                    <textarea ref="editorValue" readonly class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" @click="removeReadOnly"></textarea>
+                    <button class="btn btn-primary btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
+                </div>
+                <button class="btn btn-primary btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
+                <button class="btn btn-primary btn-block" id="enable-editor" @click="enableEditor()">Enable editor</button>
+                <button class="btn btn-primary btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
+            </fieldset>
 
-            <div class="tab-content">
-                <div id="value-tab" class="tab-pane active">
-                    <fieldset class="form-group">
-                        <label for="editor-value">Value</label>
-                        <textarea ref="editorValue" readonly class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" @click="removeReadOnly"></textarea>
-                    </fieldset>
-                    <button class="btn btn-primary" id="set-value" @click="setEditorValue()">Set Value</button>
+            <fieldset class="card card-body">
+                <legend>Options</legend>
+
+                <div class="form-group">
+                    <input type="checkbox" id="removeProperty" v-model="options.removeProperty" @change="initEditor()">
+                    <label for="removeProperty">removeProperty</label>
                 </div>
 
-                <div id="options-tab" class="tab-pane">
-                    <fieldset class="form-group">
-                        <legend>Options</legend>
-
-                        <div class="form-group">
-                            <input type="checkbox" id="debug" v-model="options.debug" @change="initEditor()">
-                            <label for="debug">debug</label>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="checkbox" id="removeProperty" v-model="options.removeProperty" @change="initEditor()">
-                            <label for="removeProperty">removeProperty</label>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="checkbox" id="addProperty" v-model="options.addProperty" @change="initEditor()">
-                            <label for="addProperty">addProperty</label>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="checkbox" id="alwaysShowErrors" v-model="options.alwaysShowErrors" @change="initEditor()">
-                            <label for="alwaysShowErrors">alwaysShowErrors</label>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="theme">theme</label>
-                            <select class="form-control" id="theme" v-model="options.theme" @change="setEditorTheme()">
-                                <option v-for="theme in themes" :value="theme">{{ theme }}</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="schemas">Schemas</label>
-                            <select ref="schema" class="form-control" id="schemas" @change="switchSchema()">
-                                <option v-for="option in schemas" :value="option.url">{{ option.name }}</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group" v-if="editor">
-                            <label for="schema">Schema</label>
-                            <textarea class="form-control" id="schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(editor.schema, null, 2) }}</textarea>
-                        </div>
-                    </fieldset>
+                <div class="form-group">
+                    <input type="checkbox" id="addProperty" v-model="options.addProperty" @change="initEditor()">
+                    <label for="addProperty">addProperty</label>
                 </div>
 
-                <div id="actions-tab" class="tab-pane">
-                    <fieldset class="form-group">
-                        <button class="btn btn-primary" id="disable-editor" @click="disableEditor()">Disable editor</button>
-                        <button class="btn btn-primary" id="enable-editor" @click="enableEditor()">Enable editor</button>
-                        <button class="btn btn-primary" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
-                    </fieldset>
+                <div class="form-group">
+                    <input type="checkbox" id="alwaysShowErrors" v-model="options.alwaysShowErrors" @change="initEditor()">
+                    <label for="alwaysShowErrors">alwaysShowErrors</label>
                 </div>
-            </div>
+
+                <div class="form-group">
+                    <label for="theme">theme</label>
+                    <select class="form-control" id="theme" v-model="options.theme" @change="setEditorTheme()">
+                        <option v-for="theme in themes" :value="theme">{{ theme }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="schemas">Schemas</label>
+                    <select ref="schema" class="form-control" id="schemas" @change="switchSchema()">
+                        <option v-for="option in schemas" :value="option.url">{{ option.name }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group" v-if="editor">
+                    <label for="schema">Schema</label>
+                    <textarea class="form-control" id="schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(editor.schema, null, 2) }}</textarea>
+                </div>
+            </fieldset>
         </div>
     </div>
 </main>
