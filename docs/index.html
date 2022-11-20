@@ -15,7 +15,7 @@
         <div class="col-12 col-sm-8">
             <form action="" method="POST">
                 <div id="jedi-container"></div>
-                <input class="btn btn-primary btn-block" type="submit" value="send">
+                <input class="btn btn-block" type="submit" value="send">
             </form>
         </div>
         <div class="col-12 col-sm-4">
@@ -24,11 +24,11 @@
                 <div class="form-group">
                     <label for="editor-value">Value</label>
                     <textarea ref="editorValue" readonly class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" @click="removeReadOnly"></textarea>
-                    <button class="btn btn-primary btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
+                    <button class="btn btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
                 </div>
-                <button class="btn btn-primary btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
-                <button class="btn btn-primary btn-block" id="enable-editor" @click="enableEditor()">Enable editor</button>
-                <button class="btn btn-primary btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
+                <button class="btn btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
+                <button class="btn btn-block" id="enable-editor" @click="enableEditor()">Enable editor</button>
+                <button class="btn btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
             </fieldset>
 
             <fieldset class="card card-body">
@@ -134,7 +134,7 @@
           ],
           options: {
             container: '#jedi-container',
-            removeProperty: false,
+            removeProperty: true,
             addProperty: false,
             alwaysShowErrors: true,
             theme: 'wireframe',

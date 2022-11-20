@@ -2,14 +2,6 @@
   "type": "object",
   "title": "Editors",
   "description": "An object editor description",
-  "required": [
-    "multiple",
-    "booleans",
-    "strings",
-    "numbers",
-    "integers",
-    "arrays"
-  ],
   "properties": {
     "multiple": {
       "type": "object",

@@ -40,7 +40,6 @@ class Theme {
   getButton (text) {
     const button = document.createElement('button')
     button.classList.add('btn')
-    button.classList.add('btn-primary')
     button.setAttribute('type', 'button')
     button.textContent = text
     return button
