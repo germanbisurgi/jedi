@@ -99,9 +99,7 @@ class Wireframe {
   }
 
   getCheckboxContainer () {
-    const checkboxContainer = document.createElement('div')
-    checkboxContainer.classList.add('form-check')
-    return checkboxContainer
+    return document.createElement('div')
   }
 
   getRadioContainer () {

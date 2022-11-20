@@ -88,10 +88,14 @@ class MultipleEditor extends Editor {
     this.switcherOptionValues.forEach((value, index) => {
       const uuid = utils.uuid()
 
+      // radio container
+      const radioContainer = this.jedi.theme.getRadioContainer()
+
       // radio
       const radio = this.jedi.theme.getRadio()
       radio.setAttribute('value', value)
       radio.setAttribute('id', this.path + '.switcher' + '.' + index + '.' + uuid)
+      radioContainer.appendChild(radio)
 
       radio.addEventListener('change', () => {
         const index = Number(radio.value)
@@ -99,14 +103,14 @@ class MultipleEditor extends Editor {
       })
 
       this.switcherRadios.push(radio)
-      this.switcher.appendChild(radio)
+      this.switcher.appendChild(radioContainer)
 
       // label
       const label = this.jedi.theme.getLabel(this.switcherOptionsLabels[index], {
         for: this.path + '.switcher' + '.' + index + '.' + uuid
       })
 
-      this.switcher.appendChild(label)
+      radioContainer.appendChild(label)
     })
 
     this.container.appendChild(this.switcher)

@@ -18,21 +18,25 @@ class StringEnumRadioEditor extends StringEditor {
 
     // radios
     optionValues.forEach((value, index) => {
+      // radio container
+      const radioContainer = this.jedi.theme.getRadioContainer()
+
+      // radio
       const radio = this.jedi.theme.getRadio()
       radio.setAttribute('value', value)
       radio.setAttribute('id', this.path + '.' + index)
+      radioContainer.appendChild(radio)
 
       radio.addEventListener('change', () => {
         this.setValue(radio.value)
       })
 
-      fieldset.appendChild(radio)
-
       const label = this.jedi.theme.getLabel(optionsLabels[index], {
         for: this.path + '.' + index
       })
+      radioContainer.appendChild(label)
 
-      fieldset.appendChild(label)
+      fieldset.appendChild(radioContainer)
     })
 
     // description
