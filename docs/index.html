@@ -24,8 +24,8 @@
                 <div class="form-group">
                     <label for="editor-value">Value</label>
                     <textarea ref="editorValue" readonly class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" @click="removeReadOnly"></textarea>
-                    <button class="btn btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
                 </div>
+                <button class="btn btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
                 <button class="btn btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
                 <button class="btn btn-block" id="enable-editor" @click="enableEditor()">Enable editor</button>
                 <button class="btn btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
