@@ -68,7 +68,7 @@ Scenario('Should disable and enable', ({ I }) => {
   I.dontSeeElement('.jedi-ready button[disabled]')
 })
 
-Scenario('should set value', async ({ I }) => {
+Scenario('should set value @setValue', async ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#schemas', 'All editors')
   I.waitForElement('.jedi-ready')
