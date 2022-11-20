@@ -1,3 +1,4 @@
+import ThemeBarebones from './themes/barebones'
 import ThemeWireframe from './themes/wireframe'
 import ThemeBootstrap4 from './themes/bootstrap4'
 import ThemeBootstrap5 from './themes/bootstrap5'
@@ -32,6 +33,9 @@ class Jedi {
     this.ready = false
 
     switch (this.options.theme) {
+      case 'barebones':
+        this.theme = new ThemeBarebones()
+        break
       case 'bootstrap4':
         this.theme = new ThemeBootstrap4()
         break

@@ -39,7 +39,8 @@ class Wireframe {
 
   getButton (text) {
     const button = document.createElement('button')
-    button.setAttribute('class', 'btn')
+    button.classList.add('btn')
+    button.classList.add('btn-primary')
     button.setAttribute('type', 'button')
     button.textContent = text
     return button
@@ -160,34 +161,6 @@ class Wireframe {
     })
 
     return select
-  }
-
-  getTabs (indexes, labels) {
-    // navTab
-    const navTab = document.createElement('ul')
-    navTab.classList.add('nav')
-    navTab.classList.add('nav-pills')
-
-    indexes.forEach((index) => {
-      const li = document.createElement('li')
-      li.classList.add('nav-item')
-      navTab.appendChild(li)
-
-      const a = document.createElement('a')
-      a.classList.add('nav-link')
-
-      if (index === 0) {
-        li.classList.add('active')
-      }
-
-      a.setAttribute('href', '#')
-      a.setAttribute('data-toggle', 'tab')
-      a.setAttribute('data-index', index)
-      a.textContent = labels[index]
-      li.appendChild(a)
-    })
-
-    return navTab
   }
 
   getSelect (optionValues, optionsLabels, attributes = {}) {

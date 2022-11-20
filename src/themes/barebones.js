@@ -1,4 +1,4 @@
-class Theme {
+class Barebones {
   setAttributes (element, attributes = {}) {
     Object.keys(attributes).forEach((key) => {
       element.setAttribute(key, attributes[key])
@@ -12,8 +12,6 @@ class Theme {
     if (container) {
       const error = document.createElement('p')
       error.classList.add('jedi-error-message')
-      error.classList.add('alert')
-      error.classList.add('alert-danger')
       error.textContent = message
       container.appendChild(error)
     }
@@ -33,14 +31,11 @@ class Theme {
 
   getBtnGroup () {
     const btnGroup = document.createElement('div')
-    btnGroup.classList.add('btn-group')
     return btnGroup
   }
 
   getButton (text) {
     const button = document.createElement('button')
-    button.classList.add('btn')
-    button.classList.add('btn-primary')
     button.setAttribute('type', 'button')
     button.textContent = text
     return button
@@ -48,7 +43,6 @@ class Theme {
 
   getContainer () {
     const container = document.createElement('div')
-    container.classList.add('form-group')
     return container
   }
 
@@ -60,8 +54,6 @@ class Theme {
 
   getFieldset () {
     const fieldset = document.createElement('fieldset')
-    fieldset.classList.add('card')
-    fieldset.classList.add('card-body')
     return fieldset
   }
 
@@ -78,7 +70,6 @@ class Theme {
 
   getCheckboxLabel (labelText, attrFor) {
     const label = document.createElement('label')
-    label.classList.add('form-check-label')
     label.setAttribute('for', attrFor)
     label.textContent = labelText
     return label
@@ -86,7 +77,6 @@ class Theme {
 
   getRadioLabel (labelText, attrFor) {
     const label = document.createElement('label')
-    label.classList.add('form-check-label')
     label.setAttribute('for', attrFor)
     label.textContent = labelText
     return label
@@ -100,9 +90,7 @@ class Theme {
   }
 
   getCheckboxContainer () {
-    const checkboxContainer = document.createElement('div')
-    checkboxContainer.classList.add('form-check')
-    return checkboxContainer
+    return document.createElement('div')
   }
 
   getRadioContainer () {
@@ -125,7 +113,6 @@ class Theme {
 
   getCheckbox (attributes = {}) {
     const checkbox = document.createElement('input')
-    checkbox.classList.add('form-check-input')
     checkbox.setAttribute('type', 'checkbox')
     this.setAttributes(checkbox, attributes)
     return checkbox
@@ -133,7 +120,6 @@ class Theme {
 
   getRadio () {
     const radio = document.createElement('input')
-    radio.classList.add('form-check-input')
     radio.setAttribute('type', 'radio')
     return radio
   }
@@ -141,7 +127,6 @@ class Theme {
   getTextarea (attributes = {}) {
     const textarea = document.createElement('textarea')
     this.setAttributes(textarea, attributes)
-    textarea.classList.add('form-control')
     return textarea
   }
 
@@ -168,7 +153,6 @@ class Theme {
   getSelect (optionValues, optionsLabels, attributes = {}) {
     const select = document.createElement('select')
     this.setAttributes(select, attributes)
-    select.classList.add('form-control')
 
     optionValues.forEach((value, index) => {
       const option = document.createElement('option')
@@ -187,4 +171,4 @@ class Theme {
   }
 }
 
-export default Theme
+export default Barebones

@@ -164,7 +164,7 @@ class Editor {
 
   validate () {
     if (this.jedi.ready || this.jedi.options.alwaysShowErrors) {
-      this.errors = this.jedi.validator.validate(this.schema, this.getValue(), this.path)
+      this.errors = this.jedi.validator.validate(this.getKey(), this.schema, this.getValue(), this.path)
     }
   }
 

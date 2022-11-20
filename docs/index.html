@@ -15,7 +15,7 @@
         <div class="col-12 col-md-6">
             <form action="" method="POST">
                 <div id="jedi-container"></div>
-                <input class="btn" type="submit" value="send">
+                <input class="btn btn-primary" type="submit" value="send">
             </form>
         </div>
         <div class="col-12 col-md-6">
@@ -33,7 +33,7 @@
                         <label for="editor-value">Value</label>
                         <textarea ref="editorValue" readonly class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" @click="removeReadOnly"></textarea>
                     </div>
-                    <button class="btn" id="set-value" @click="setEditorValue()">Set Value</button>
+                    <button class="btn btn-primary" id="set-value" @click="setEditorValue()">Set Value</button>
                 </div>
 
                 <div id="schema-tab" class="tab-pane">
@@ -84,9 +84,9 @@
                 </div>
 
                 <div id="actions-tab" class="tab-pane">
-                    <button class="btn" id="disable-editor" @click="disableEditor()">Disable editor</button>
-                    <button class="btn" id="enable-editor" @click="enableEditor()">Enable editor</button>
-                    <button class="btn" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
+                    <button class="btn btn-primary" id="disable-editor" @click="disableEditor()">Disable editor</button>
+                    <button class="btn btn-primary" id="enable-editor" @click="enableEditor()">Enable editor</button>
+                    <button class="btn btn-primary" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
                 </div>
             </div>
         </div>
@@ -125,7 +125,7 @@
       data() {
         return {
           editor: null,
-          themes: ['wireframe', 'bootstrap4', 'bootstrap5'],
+          themes: ['barebones', 'wireframe', 'bootstrap4', 'bootstrap5'],
           stylesheets: ['./css/main.css'],
           schemas: [
             {
@@ -209,6 +209,9 @@
           })
 
           switch (this.options.theme) {
+            case 'barebones':
+              this.stylesheets = []
+              break
             case 'wireframe':
               this.stylesheets = ['./css/main.css']
               break

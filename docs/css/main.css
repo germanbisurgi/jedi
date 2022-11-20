@@ -1277,6 +1277,11 @@ textarea::-ms-input-placeholder {
   display: block;
   width: 100%;
 }
+.btn.btn-primary {
+  background-color: #E98349;
+  border-color: #fbe6db;
+  color: #fefefe;
+}
 .btn.btn-danger {
   background-color: #fcebec;
   border-color: #f8d7da;

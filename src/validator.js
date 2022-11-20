@@ -41,11 +41,11 @@ class Validator {
   /**
    * Validates a value against it's schema
    */
-  validate (schema, value, path) {
+  validate (key, schema, value, path) {
     let schemaErrors = []
 
     this.validators.forEach((validator) => {
-      const validatorErrors = validator.validate(schema, value, path)
+      const validatorErrors = validator.validate(key, schema, value, path)
 
       if (validatorErrors) {
         schemaErrors = [...schemaErrors, ...validatorErrors]
