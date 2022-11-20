@@ -13,9 +13,11 @@ class StringEnumSelectEditor extends StringEditor {
     // input
     const optionValues = utils.getSchemaEnum(this.schema)
     const optionsLabels = utils.getSchemaEnumTitles(this.schema) || optionValues
+
     this.input = this.jedi.theme.getSelect(optionValues, optionsLabels, {
       id: this.path
     })
+
     this.container.appendChild(this.input)
 
     // events
@@ -26,6 +28,12 @@ class StringEnumSelectEditor extends StringEditor {
     // description
     const description = this.jedi.theme.getDescriptionContainer(this.schema.description)
     this.container.appendChild(description)
+
+    const firstOption = optionValues[0]
+
+    if (firstOption) {
+      this.setValue(firstOption, false)
+    }
   }
 }
 

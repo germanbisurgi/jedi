@@ -183,8 +183,7 @@
           "type": "string",
           "title": "string textarea",
           "description": "A String editor description",
-          "format": "textarea",
-          "minLength": 3
+          "format": "textarea"
         },
         "string-enum-select": {
           "type": "string",

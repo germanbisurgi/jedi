@@ -43,6 +43,12 @@ class NumberEnumRadioEditor extends NumberEditor {
     // description
     const description = this.jedi.theme.getDescriptionContainer(this.schema.description)
     this.container.appendChild(description)
+
+    const firstOption = optionValues[0]
+
+    if (firstOption) {
+      this.setValue(firstOption, false)
+    }
   }
 
   refreshUI () {
