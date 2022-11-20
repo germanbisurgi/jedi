@@ -12,25 +12,26 @@
     <h1>Editor</h1>
 
     <div class="row row-between">
-        <div class="col-12 col-sm-6">
+        <div class="col-12 col-sm-8">
             <form action="" method="POST">
                 <div id="jedi-container"></div>
                 <input class="btn btn-primary" type="submit" value="send">
             </form>
         </div>
-        <div class="col-12 col-sm-6">
+        <div class="col-12 col-sm-4">
             <ul class="nav nav-tabs">
-                <li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#value-tab">Value</a></li>
+                <li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#value-tab">Value</a>
+                </li>
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#options-tab">Options</a></li>
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#actions-tab">Actions</a></li>
             </ul>
 
             <div class="tab-content">
                 <div id="value-tab" class="tab-pane active">
-                    <div class="form-group">
+                    <fieldset class="form-group">
                         <label for="editor-value">Value</label>
                         <textarea ref="editorValue" readonly class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" @click="removeReadOnly"></textarea>
-                    </div>
+                    </fieldset>
                     <button class="btn btn-primary" id="set-value" @click="setEditorValue()">Set Value</button>
                 </div>
 
@@ -80,9 +81,11 @@
                 </div>
 
                 <div id="actions-tab" class="tab-pane">
-                    <button class="btn btn-primary" id="disable-editor" @click="disableEditor()">Disable editor</button>
-                    <button class="btn btn-primary" id="enable-editor" @click="enableEditor()">Enable editor</button>
-                    <button class="btn btn-primary" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
+                    <fieldset class="form-group">
+                        <button class="btn btn-primary" id="disable-editor" @click="disableEditor()">Disable editor</button>
+                        <button class="btn btn-primary" id="enable-editor" @click="enableEditor()">Enable editor</button>
+                        <button class="btn btn-primary" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
+                    </fieldset>
                 </div>
             </div>
         </div>
