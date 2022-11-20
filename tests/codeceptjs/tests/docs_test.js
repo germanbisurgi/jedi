@@ -75,7 +75,6 @@ Scenario('should set value', async ({ I }) => {
   I.click('#editor-value')
   I.fillField('#editor-value', JSON.stringify(jsonData))
   I.click('#set-value')
-  I.wait(1)
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(jsonData))
   I.seeCheckboxIsChecked('[id="root.booleans.boolean"]')
   I.seeInField('[id="root.booleans.boolean-enum-select"]', 'true')
