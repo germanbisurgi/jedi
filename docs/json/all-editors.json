@@ -126,11 +126,6 @@
       "type": "object",
       "title": "Booleans",
       "description": "An object editor description",
-      "required": [
-        "boolean",
-        "boolean-enum-select",
-        "boolean-enum-radio"
-      ],
       "properties": {
         "boolean": {
           "type": "boolean",
@@ -167,12 +162,6 @@
       "type": "object",
       "title": "Strings",
       "description": "An object editor description",
-      "required": [
-        "string",
-        "string-textarea",
-        "string-enum-select",
-        "string-enum-radio"
-      ],
       "properties": {
         "string": {
           "type": "string",
@@ -226,11 +215,6 @@
       "type": "object",
       "title": "Numbers",
       "description": "An object editor description",
-      "required": [
-        "number",
-        "number-enum-select",
-        "number-enum-radio"
-      ],
       "properties": {
         "number": {
           "type": "number",
@@ -278,11 +262,6 @@
       "type": "object",
       "title": "Integers",
       "description": "An object editor description",
-      "required": [
-        "integer",
-        "integer-enum-select",
-        "integer-enum-radio"
-      ],
       "properties": {
         "integer": {
           "type": "integer",
@@ -330,9 +309,6 @@
       "type": "object",
       "title": "Arrays",
       "description": "An object editor description",
-      "required": [
-        "string-array"
-      ],
       "properties": {
         "string-array": {
           "type": "array",
