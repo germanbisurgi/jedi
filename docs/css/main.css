@@ -1275,6 +1275,9 @@ textarea::-ms-input-placeholder {
   border-color: #d1e7dd;
   color: #198754;
 }
+.btn:disabled {
+  opacity: 0.5;
+}
 .btn-group {
   display: flex;
 }
@@ -1478,4 +1481,14 @@ textarea::-ms-input-placeholder {
 }
 .offcanvas.open {
   transform: translate(0, 0);
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
