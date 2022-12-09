@@ -69,13 +69,6 @@ class Theme {
     return document.createElement('div')
   }
 
-  getH3 (labelText, attributes = {}) {
-    const label = document.createElement('h3')
-    label.textContent = labelText
-    this.setAttributes(label, attributes)
-    return label
-  }
-
   getCheckboxLabel (labelText, attrFor) {
     const label = document.createElement('label')
     label.classList.add('form-check-label')
@@ -146,26 +139,6 @@ class Theme {
     return textarea
   }
 
-  getMultipleSelect (indexes, labels, attributes) {
-    const select = document.createElement('select')
-    this.setAttributes(select, attributes)
-    // select.classList.add('form-control')
-
-    indexes.forEach((index) => {
-      const option = document.createElement('option')
-      option.setAttribute('value', index)
-      option.textContent = labels[index]
-
-      if (index === 0) {
-        option.setAttribute('selected', true)
-      }
-
-      select.appendChild(option)
-    })
-
-    return select
-  }
-
   getSelect (optionValues, optionsLabels, attributes = {}) {
     const select = document.createElement('select')
     this.setAttributes(select, attributes)
@@ -179,12 +152,6 @@ class Theme {
     })
 
     return select
-  }
-
-  getOutput (attributes = {}) {
-    const output = document.createElement('output')
-    this.setAttributes(output, attributes)
-    return output
   }
 }
 
