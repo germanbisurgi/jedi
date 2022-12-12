@@ -1,10 +1,6 @@
-class Theme {
-  setAttributes (element, attributes = {}) {
-    Object.keys(attributes).forEach((key) => {
-      element.setAttribute(key, attributes[key])
-    })
-  }
+import ThemeBarebones from './barebones'
 
+class ThemeBootstrap4 extends ThemeBarebones {
   /**
    * Adds an error message to the specified editor container.
    */
@@ -16,18 +12,6 @@ class Theme {
       error.classList.add('alert-danger')
       error.textContent = message
       container.appendChild(error)
-    }
-  }
-
-  /**
-   * Removes any error message from the specified editor container.
-   */
-  removeInputError (container) {
-    if (container) {
-      const errors = container.querySelectorAll('*')
-      errors.forEach((error) => {
-        container.removeChild(error)
-      })
     }
   }
 
@@ -51,22 +35,12 @@ class Theme {
     return container
   }
 
-  getDescriptionContainer (text) {
-    const container = document.createElement('p')
-    container.textContent = text
-    return container
-  }
-
   getFieldset () {
     const fieldset = document.createElement('fieldset')
     fieldset.classList.add('card')
     fieldset.classList.add('card-body')
     fieldset.classList.add('mb-3')
     return fieldset
-  }
-
-  getErrorsContainer () {
-    return document.createElement('div')
   }
 
   getCheckboxLabel (labelText, attrFor) {
@@ -85,21 +59,10 @@ class Theme {
     return label
   }
 
-  getLabel (labelText, attributes = {}) {
-    const label = document.createElement('label')
-    label.textContent = labelText
-    this.setAttributes(label, attributes)
-    return label
-  }
-
   getCheckboxContainer () {
     const checkboxContainer = document.createElement('div')
     checkboxContainer.classList.add('form-check')
     return checkboxContainer
-  }
-
-  getRadioContainer () {
-    return this.getCheckboxContainer()
   }
 
   getLegend (legendText, attributes = {}) {
@@ -108,13 +71,6 @@ class Theme {
     this.setAttributes(legend, attributes)
     legend.setAttribute('style', 'width: auto;')
     return legend
-  }
-
-  getInput (attributes = {}) {
-    const input = document.createElement('input')
-    this.setAttributes(input, attributes)
-    input.classList.add('form-control')
-    return input
   }
 
   getCheckbox (attributes = {}) {
@@ -155,4 +111,4 @@ class Theme {
   }
 }
 
-export default Theme
+export default ThemeBootstrap4

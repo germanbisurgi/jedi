@@ -1,4 +1,6 @@
-class Wireframe {
+import ThemeBarebones from './barebones'
+
+class ThemeWireframe extends ThemeBarebones {
   setAttributes (element, attributes = {}) {
     Object.keys(attributes).forEach((key) => {
       element.setAttribute(key, attributes[key])
@@ -16,18 +18,6 @@ class Wireframe {
       error.classList.add('alert-danger')
       error.textContent = message
       container.appendChild(error)
-    }
-  }
-
-  /**
-   * Removes any error message from the specified editor container.
-   */
-  removeInputError (container) {
-    if (container) {
-      const errors = container.querySelectorAll('*')
-      errors.forEach((error) => {
-        container.removeChild(error)
-      })
     }
   }
 
@@ -51,21 +41,11 @@ class Wireframe {
     return container
   }
 
-  getDescriptionContainer (text) {
-    const container = document.createElement('p')
-    container.textContent = text
-    return container
-  }
-
   getFieldset () {
     const fieldset = document.createElement('fieldset')
     fieldset.classList.add('card')
     fieldset.classList.add('card-body')
     return fieldset
-  }
-
-  getErrorsContainer () {
-    return document.createElement('div')
   }
 
   getCheckboxLabel (labelText, attrFor) {
@@ -84,33 +64,11 @@ class Wireframe {
     return label
   }
 
-  getLabel (labelText, attributes = {}) {
-    const label = document.createElement('label')
-    label.textContent = labelText
-    this.setAttributes(label, attributes)
-    return label
-  }
-
-  getCheckboxContainer () {
-    return document.createElement('div')
-  }
-
-  getRadioContainer () {
-    return this.getCheckboxContainer()
-  }
-
   getLegend (legendText, attributes = {}) {
     const legend = document.createElement('legend')
     legend.textContent = legendText
     this.setAttributes(legend, attributes)
     return legend
-  }
-
-  getInput (attributes = {}) {
-    const input = document.createElement('input')
-    this.setAttributes(input, attributes)
-    input.classList.add('form-control')
-    return input
   }
 
   getCheckbox (attributes = {}) {
@@ -151,4 +109,4 @@ class Wireframe {
   }
 }
 
-export default Wireframe
+export default ThemeWireframe

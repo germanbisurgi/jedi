@@ -1,4 +1,4 @@
-class Barebones {
+class ThemeBarebones {
   setAttributes (element, attributes = {}) {
     Object.keys(attributes).forEach((key) => {
       element.setAttribute(key, attributes[key])
@@ -135,4 +135,4 @@ class Barebones {
   }
 }
 
-export default Barebones
+export default ThemeBarebones
