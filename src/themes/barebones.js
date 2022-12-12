@@ -30,8 +30,7 @@ class Barebones {
   }
 
   getBtnGroup () {
-    const btnGroup = document.createElement('div')
-    return btnGroup
+    return document.createElement('div')
   }
 
   getButton (text) {
@@ -42,8 +41,7 @@ class Barebones {
   }
 
   getContainer () {
-    const container = document.createElement('div')
-    return container
+    return document.createElement('div')
   }
 
   getDescriptionContainer (text) {
@@ -53,8 +51,7 @@ class Barebones {
   }
 
   getFieldset () {
-    const fieldset = document.createElement('fieldset')
-    return fieldset
+    return document.createElement('fieldset')
   }
 
   getErrorsContainer () {
