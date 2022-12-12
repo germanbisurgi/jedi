@@ -8,7 +8,10 @@ class BooleanEditor extends Editor {
 
     // label
     const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
-    const label = this.jedi.theme.getCheckboxLabel(labelText, this.path)
+    const label = this.jedi.theme.getCheckboxLabel({
+      for: this.path,
+      textContent: labelText
+    })
 
     // input
     this.input = this.jedi.theme.getCheckbox({

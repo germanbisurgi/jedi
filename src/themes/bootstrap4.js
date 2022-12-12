@@ -43,11 +43,11 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return fieldset
   }
 
-  getCheckboxLabel (labelText, attrFor) {
+  getCheckboxLabel (config) {
     const label = document.createElement('label')
     label.classList.add('form-check-label')
-    label.setAttribute('for', attrFor)
-    label.textContent = labelText
+    label.setAttribute('for', config.for)
+    label.textContent = config.textContent
     return label
   }
 
