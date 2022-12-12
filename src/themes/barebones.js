@@ -65,10 +65,10 @@ class ThemeBarebones {
     return label
   }
 
-  getRadioLabel (labelText, attrFor) {
+  getRadioLabel (config) {
     const label = document.createElement('label')
-    label.setAttribute('for', attrFor)
-    label.textContent = labelText
+    label.setAttribute('for', config.for)
+    label.textContent = config.textContent
     return label
   }
 
@@ -84,7 +84,7 @@ class ThemeBarebones {
   }
 
   getRadioContainer () {
-    return this.getCheckboxContainer()
+    return document.createElement('div')
   }
 
   getLegend (legendText, attributes = {}) {

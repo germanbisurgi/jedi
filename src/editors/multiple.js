@@ -106,10 +106,10 @@ class MultipleEditor extends Editor {
       this.switcher.appendChild(radioContainer)
 
       // label
-      const label = this.jedi.theme.getLabel(this.switcherOptionsLabels[index], {
-        for: this.path + '.switcher' + '.' + index + '.' + uuid
+      const label = this.jedi.theme.getRadioLabel({
+        for: this.path + '.switcher' + '.' + index + '.' + uuid,
+        textContent: this.switcherOptionsLabels[index]
       })
-
       radioContainer.appendChild(label)
     })
 

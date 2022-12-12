@@ -56,11 +56,11 @@ class ThemeWireframe extends ThemeBarebones {
     return label
   }
 
-  getRadioLabel (labelText, attrFor) {
+  getRadioLabel (config) {
     const label = document.createElement('label')
     label.classList.add('form-check-label')
-    label.setAttribute('for', attrFor)
-    label.textContent = labelText
+    label.setAttribute('for', config.for)
+    label.textContent = config.textContent
     return label
   }
 

@@ -51,15 +51,21 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return label
   }
 
-  getRadioLabel (labelText, attrFor) {
+  getRadioLabel (config) {
     const label = document.createElement('label')
     label.classList.add('form-check-label')
-    label.setAttribute('for', attrFor)
-    label.textContent = labelText
+    label.setAttribute('for', config.for)
+    label.textContent = config.textContent
     return label
   }
 
   getCheckboxContainer () {
+    const checkboxContainer = document.createElement('div')
+    checkboxContainer.classList.add('form-check')
+    return checkboxContainer
+  }
+
+  getRadioContainer () {
     const checkboxContainer = document.createElement('div')
     checkboxContainer.classList.add('form-check')
     return checkboxContainer
