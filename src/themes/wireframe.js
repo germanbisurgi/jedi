@@ -1,18 +1,13 @@
 import ThemeBarebones from './barebones'
 
 class ThemeWireframe extends ThemeBarebones {
-  /**
-   * Adds an error message to the specified editor container.
-   */
-  addInputError (container, message) {
-    if (container) {
-      const error = document.createElement('p')
-      error.classList.add('jedi-error-message')
-      error.classList.add('alert')
-      error.classList.add('alert-danger')
-      error.textContent = message
-      container.appendChild(error)
-    }
+  getInputError (config) {
+    const error = document.createElement('p')
+    error.classList.add('jedi-error-message')
+    error.classList.add('alert')
+    error.classList.add('alert-danger')
+    error.textContent = config.message
+    return error
   }
 
   getBtnGroup () {

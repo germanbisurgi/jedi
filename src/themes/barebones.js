@@ -1,26 +1,9 @@
 class ThemeBarebones {
-  /**
-   * Adds an error message to the specified editor container.
-   */
-  addInputError (container, message) {
-    if (container) {
-      const error = document.createElement('p')
-      error.classList.add('jedi-error-message')
-      error.textContent = message
-      container.appendChild(error)
-    }
-  }
-
-  /**
-   * Removes any error message from the specified editor container.
-   */
-  removeInputError (container) {
-    if (container) {
-      const errors = container.querySelectorAll('*')
-      errors.forEach((error) => {
-        container.removeChild(error)
-      })
-    }
+  getInputError (config) {
+    const error = document.createElement('p')
+    error.classList.add('jedi-error-message')
+    error.textContent = config.message
+    return error
   }
 
   getBtnGroup () {

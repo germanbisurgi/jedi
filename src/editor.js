@@ -173,10 +173,12 @@ class Editor {
    */
   showValidationErrors () {
     if (this.jedi.ready || this.jedi.options.alwaysShowErrors) {
-      this.jedi.theme.removeInputError(this.errorsContainer)
+      this.errorsContainer.innerHTML = ''
 
       this.errors.forEach((error) => {
-        this.jedi.theme.addInputError(this.errorsContainer, error.message)
+        this.errorsContainer.appendChild(this.jedi.theme.getInputError({
+          message: error.message
+        }))
       })
     }
   }
