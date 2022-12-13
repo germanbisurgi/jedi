@@ -1,5 +1,6 @@
 ## fix
 
+- filter by field
 - init, options
 - validators: allOf, anyOf, oneOf, not, disallow, items, maxProperties, properties, patternProperties, propertyNames, additionalProperties, dependencies 
 - non required properties are disabled by default. On focus or value set they become active
