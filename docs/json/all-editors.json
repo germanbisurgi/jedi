@@ -3,125 +3,6 @@
   "title": "Editors",
   "description": "An object editor description",
   "properties": {
-    "multiple": {
-      "type": "object",
-      "title": "Multiple",
-      "description": "An object editor description",
-      "properties": {
-        "nestedOf": {
-          "title": "One of",
-          "description": "A multiple editor description",
-          "oneOf": [
-            {
-              "type": "string",
-              "title": "String",
-              "description": "A String editor description"
-            },
-            {
-              "type": "boolean",
-              "title": "Boolean",
-              "description": "A boolean editor description"
-            },
-            {
-              "title": "Any of",
-              "description": "A multiple editor description",
-              "anyOf": [
-                {
-                  "type": "integer",
-                  "title": "Integer",
-                  "description": "An integer editor description"
-
-                },
-                {
-                  "type": "number",
-                  "title": "Number",
-                  "description": "An number editor description"
-                },
-                {
-                  "title": "One of",
-                  "description": "A multiple editor description",
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "title": "Object",
-                      "description": "An object editor description"
-                    },
-                    {
-                      "type": "array",
-                      "title": "Array",
-                      "description": "An array editor description"
-                    },
-                    {
-                      "type": "null",
-                      "title": "Null",
-                      "description": "An null editor description"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        "oneof": {
-          "title": "One of",
-          "description": "A multiple editor description",
-          "oneOf": [
-            {
-              "type": "boolean",
-              "title": "Boolean",
-              "description": "A boolean editor description"
-            },
-            {
-              "type": "string",
-              "title": "String",
-              "description": "A String editor description"
-            },
-            {
-              "type": "integer",
-              "title": "Integer",
-              "description": "An integer editor description"
-            }
-          ]
-        },
-        "anyof": {
-          "title": "Any Of",
-          "description": "A multiple editor description",
-          "anyOf": [
-            {
-              "type": "array",
-              "title": "Array",
-              "description": "An array editor description"
-            },
-            {
-              "type": "object",
-              "title": "Object",
-              "description": "An object editor description"
-            },
-            {
-              "type": "null",
-              "title": "Null"
-            }
-          ]
-        },
-        "type-array": {
-          "type": [
-            "string",
-            "boolean"
-          ],
-          "title": "Type string or boolean",
-          "description": "A multiple editor description"
-        },
-        "type-undefined": {
-          "title": "Type is undefined",
-          "description": "A multiple editor description"
-        },
-        "type-any": {
-          "type": "any",
-          "title": "Type: any",
-          "description": "A multiple editor description"
-        }
-      }
-    },
     "booleans": {
       "type": "object",
       "title": "Booleans",
@@ -324,6 +205,125 @@
             "#b02727",
             "#226996"
           ]
+        }
+      }
+    },
+    "multiple": {
+      "type": "object",
+      "title": "Multiple",
+      "description": "An object editor description",
+      "properties": {
+        "nestedOf": {
+          "title": "One of",
+          "description": "A multiple editor description",
+          "oneOf": [
+            {
+              "type": "string",
+              "title": "String",
+              "description": "A String editor description"
+            },
+            {
+              "type": "boolean",
+              "title": "Boolean",
+              "description": "A boolean editor description"
+            },
+            {
+              "title": "Any of",
+              "description": "A multiple editor description",
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "title": "Integer",
+                  "description": "An integer editor description"
+
+                },
+                {
+                  "type": "number",
+                  "title": "Number",
+                  "description": "An number editor description"
+                },
+                {
+                  "title": "One of",
+                  "description": "A multiple editor description",
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "title": "Object",
+                      "description": "An object editor description"
+                    },
+                    {
+                      "type": "array",
+                      "title": "Array",
+                      "description": "An array editor description"
+                    },
+                    {
+                      "type": "null",
+                      "title": "Null",
+                      "description": "An null editor description"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "oneof": {
+          "title": "One of",
+          "description": "A multiple editor description",
+          "oneOf": [
+            {
+              "type": "boolean",
+              "title": "Boolean",
+              "description": "A boolean editor description"
+            },
+            {
+              "type": "string",
+              "title": "String",
+              "description": "A String editor description"
+            },
+            {
+              "type": "integer",
+              "title": "Integer",
+              "description": "An integer editor description"
+            }
+          ]
+        },
+        "anyof": {
+          "title": "Any Of",
+          "description": "A multiple editor description",
+          "anyOf": [
+            {
+              "type": "array",
+              "title": "Array",
+              "description": "An array editor description"
+            },
+            {
+              "type": "object",
+              "title": "Object",
+              "description": "An object editor description"
+            },
+            {
+              "type": "null",
+              "title": "Null"
+            }
+          ]
+        },
+        "type-array": {
+          "type": [
+            "string",
+            "boolean"
+          ],
+          "title": "Type string or boolean",
+          "description": "A multiple editor description"
+        },
+        "type-undefined": {
+          "title": "Type is undefined",
+          "description": "A multiple editor description"
+        },
+        "type-any": {
+          "type": "any",
+          "title": "Type: any",
+          "description": "A multiple editor description"
         }
       }
     }

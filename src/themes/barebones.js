@@ -114,9 +114,9 @@ class ThemeBarebones {
     return radio
   }
 
-  getTextarea (attributes = {}) {
+  getTextarea (config) {
     const textarea = document.createElement('textarea')
-    this.setAttributes(textarea, attributes)
+    textarea.setAttribute('id', config.id)
     return textarea
   }
 

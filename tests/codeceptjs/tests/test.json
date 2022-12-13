@@ -1,12 +1,4 @@
 {
-  "multiple": {
-    "nestedOf": "",
-    "oneof": false,
-    "anyof": [],
-    "type-array": "",
-    "type-undefined": "",
-    "type-any": ""
-  },
   "booleans": {
     "boolean": true,
     "boolean-enum-select": true,
@@ -33,5 +25,13 @@
       "#b02727",
       "#226996"
     ]
+  },
+  "multiple": {
+    "nestedOf": "",
+    "oneof": false,
+    "anyof": [],
+    "type-array": "",
+    "type-undefined": "",
+    "type-any": ""
   }
 }
