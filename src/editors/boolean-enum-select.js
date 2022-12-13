@@ -10,9 +10,9 @@ class BooleanEnumSelectEditor extends BooleanEditor {
     }))
 
     // input
-    const optionValues = ['false', 'true']
-    const optionsLabels = utils.getSchemaEnumTitles(this.schema) || optionValues
-    this.input = this.jedi.theme.getSelect(optionValues, optionsLabels, {
+    this.input = this.jedi.theme.getSelect({
+      optionValues: ['false', 'true'],
+      optionsLabels: utils.getSchemaEnumTitles(this.schema) || ['false', 'true'],
       id: this.path
     })
     this.container.appendChild(this.input)

@@ -120,14 +120,14 @@ class ThemeBarebones {
     return textarea
   }
 
-  getSelect (optionValues, optionsLabels, attributes = {}) {
+  getSelect (config) {
     const select = document.createElement('select')
-    this.setAttributes(select, attributes)
+    select.setAttribute('id', config.id)
 
-    optionValues.forEach((value, index) => {
+    config.optionValues.forEach((value, index) => {
       const option = document.createElement('option')
       option.setAttribute('value', value)
-      option.textContent = optionsLabels[index]
+      option.textContent = config.optionsLabels[index]
       select.appendChild(option)
     })
 
