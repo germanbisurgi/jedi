@@ -75,10 +75,11 @@ class Jedi {
     }
 
     this.hiddenInput = this.theme.getInput({
-      name: 'json',
       type: 'hidden',
       id: 'jedi-hidden-input'
     })
+
+    this.hiddenInput.setAttribute('name', 'json')
 
     this.container.appendChild(this.hiddenInput)
     this.hiddenInput.value = JSON.stringify(this.getValue())

@@ -94,16 +94,17 @@ class ThemeBarebones {
     return legend
   }
 
-  getInput (attributes = {}) {
+  getInput (config) {
     const input = document.createElement('input')
-    this.setAttributes(input, attributes)
+    input.setAttribute('type', config.type)
+    input.setAttribute('id', config.id)
     input.classList.add('form-control')
     return input
   }
 
-  getCheckbox (attributes = {}) {
+  getCheckbox (config) {
     const checkbox = document.createElement('input')
-    this.setAttributes(checkbox, attributes)
+    checkbox.setAttribute('id', config.id)
     checkbox.setAttribute('type', 'checkbox')
     return checkbox
   }

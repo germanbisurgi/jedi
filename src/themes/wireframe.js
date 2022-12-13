@@ -64,11 +64,11 @@ class ThemeWireframe extends ThemeBarebones {
     return label
   }
 
-  getCheckbox (attributes = {}) {
+  getCheckbox (config) {
     const checkbox = document.createElement('input')
     checkbox.classList.add('form-check-input')
     checkbox.setAttribute('type', 'checkbox')
-    this.setAttributes(checkbox, attributes)
+    checkbox.setAttribute('id', config.id)
     return checkbox
   }
 
