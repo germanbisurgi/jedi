@@ -32,10 +32,10 @@ class NumberEnumRadioEditor extends NumberEditor {
       })
 
       // label
-      const label = this.jedi.theme.getLabel(optionsLabels[index], {
-        for: this.path + '.' + index
-      })
-      radioContainer.appendChild(label)
+      radioContainer.appendChild(this.jedi.theme.getLabel({
+        for: this.path + '.' + index,
+        textContent: optionsLabels[index]
+      }))
 
       fieldset.appendChild(radioContainer)
     })

@@ -4,11 +4,10 @@ import utils from '../utils'
 class BooleanEnumSelectEditor extends BooleanEditor {
   build () {
     // label
-    const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
-    const label = this.jedi.theme.getLabel(labelText, {
-      for: this.path
-    })
-    this.container.appendChild(label)
+    this.container.appendChild(this.jedi.theme.getLabel({
+      for: this.path,
+      textContent: utils.getSchemaTitle(this.schema) || this.getKey()
+    }))
 
     // input
     const optionValues = ['false', 'true']

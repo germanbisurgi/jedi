@@ -72,10 +72,10 @@ class ThemeBarebones {
     return label
   }
 
-  getLabel (labelText, attributes = {}) {
+  getLabel (config) {
     const label = document.createElement('label')
-    label.textContent = labelText
-    this.setAttributes(label, attributes)
+    label.setAttribute('for', config.for)
+    label.textContent = config.textContent
     return label
   }
 
