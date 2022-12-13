@@ -64,13 +64,6 @@ class ThemeWireframe extends ThemeBarebones {
     return label
   }
 
-  getLegend (legendText, attributes = {}) {
-    const legend = document.createElement('legend')
-    legend.textContent = legendText
-    this.setAttributes(legend, attributes)
-    return legend
-  }
-
   getCheckbox (attributes = {}) {
     const checkbox = document.createElement('input')
     checkbox.classList.add('form-check-input')

@@ -4,7 +4,6 @@ import utils from '../utils'
 class StringEnumRadioEditor extends StringEditor {
   build () {
     // input
-    const legendText = utils.getSchemaTitle(this.schema) || this.getKey()
     const optionValues = utils.getSchemaEnum(this.schema)
     const optionsLabels = utils.getSchemaEnumTitles(this.schema) || optionValues
 
@@ -13,8 +12,9 @@ class StringEnumRadioEditor extends StringEditor {
     this.container.appendChild(fieldset)
 
     // legend
-    const legend = this.jedi.theme.getLegend(legendText)
-    fieldset.appendChild(legend)
+    fieldset.appendChild(this.jedi.theme.getLegend({
+      textContent: utils.getSchemaTitle(this.schema) || this.getKey()
+    }))
 
     // radios
     optionValues.forEach((value, index) => {

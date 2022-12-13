@@ -80,10 +80,9 @@ class MultipleEditor extends Editor {
     this.switcherRadios = []
     this.switcher = this.jedi.theme.getFieldset()
 
-    // legend
-    const legendText = 'Options'
-    const legend = this.jedi.theme.getLegend(legendText)
-    this.switcher.appendChild(legend)
+    this.switcher.appendChild(this.jedi.theme.getLegend({
+      textContent: 'Options'
+    }))
 
     this.switcherOptionValues.forEach((value, index) => {
       const uuid = utils.uuid()
@@ -131,10 +130,9 @@ class MultipleEditor extends Editor {
     this.container = this.jedi.theme.getFieldset()
     this.container.setAttribute('data-type', 'multiple')
 
-    // legend
-    const legendText = utils.getSchemaTitle(this.schema) || this.getKey()
-    const legend = this.jedi.theme.getLegend(legendText)
-    this.container.appendChild(legend)
+    this.container.appendChild(this.jedi.theme.getLegend({
+      textContent: utils.getSchemaTitle(this.schema) || this.getKey()
+    }))
   }
 
   refreshUI () {

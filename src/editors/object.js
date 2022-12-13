@@ -28,9 +28,9 @@ class ObjectEditor extends Editor {
 
     // title
     if (!utils.getSchemaOption(this.schema, 'hideTitle')) {
-      const legentText = utils.getSchemaTitle(this.schema) || this.getKey()
-      const label = this.jedi.theme.getLegend(legentText)
-      this.container.appendChild(label)
+      this.container.appendChild(this.jedi.theme.getLegend({
+        textContent: utils.getSchemaTitle(this.schema) || this.getKey()
+      }))
 
       // description
       const description = this.jedi.theme.getDescriptionContainer(this.schema.description)

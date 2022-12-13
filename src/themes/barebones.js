@@ -87,10 +87,10 @@ class ThemeBarebones {
     return document.createElement('div')
   }
 
-  getLegend (legendText, attributes = {}) {
+  getLegend (config) {
     const legend = document.createElement('legend')
-    this.setAttributes(legend, attributes)
-    legend.textContent = legendText
+    legend.textContent = config.textContent
+    legend.setAttribute('style', 'width: auto;')
     return legend
   }
 

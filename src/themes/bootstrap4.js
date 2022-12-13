@@ -71,14 +71,6 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return checkboxContainer
   }
 
-  getLegend (legendText, attributes = {}) {
-    const legend = document.createElement('legend')
-    legend.textContent = legendText
-    this.setAttributes(legend, attributes)
-    legend.setAttribute('style', 'width: auto;')
-    return legend
-  }
-
   getCheckbox (attributes = {}) {
     const checkbox = document.createElement('input')
     checkbox.classList.add('form-check-input')
