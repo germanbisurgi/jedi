@@ -21,11 +21,11 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return btnGroup
   }
 
-  getButton (text) {
+  getButton (config) {
     const button = document.createElement('button')
     button.classList.add('btn')
     button.setAttribute('type', 'button')
-    button.textContent = text
+    button.textContent = config.textContent
     return button
   }
 
@@ -79,10 +79,12 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return checkbox
   }
 
-  getRadio () {
+  getRadio (config) {
     const radio = document.createElement('input')
     radio.classList.add('form-check-input')
     radio.setAttribute('type', 'radio')
+    radio.setAttribute('value', config.value)
+    radio.setAttribute('id', config.id)
     return radio
   }
 

@@ -1,12 +1,6 @@
 import ThemeBarebones from './barebones'
 
 class ThemeWireframe extends ThemeBarebones {
-  setAttributes (element, attributes = {}) {
-    Object.keys(attributes).forEach((key) => {
-      element.setAttribute(key, attributes[key])
-    })
-  }
-
   /**
    * Adds an error message to the specified editor container.
    */
@@ -27,11 +21,11 @@ class ThemeWireframe extends ThemeBarebones {
     return btnGroup
   }
 
-  getButton (text) {
+  getButton (config) {
     const button = document.createElement('button')
     button.classList.add('btn')
     button.setAttribute('type', 'button')
-    button.textContent = text
+    button.textContent = config.textContent
     return button
   }
 
@@ -72,10 +66,12 @@ class ThemeWireframe extends ThemeBarebones {
     return checkbox
   }
 
-  getRadio () {
+  getRadio (config) {
     const radio = document.createElement('input')
     radio.classList.add('form-check-input')
     radio.setAttribute('type', 'radio')
+    radio.setAttribute('value', config.value)
+    radio.setAttribute('id', config.id)
     return radio
   }
 

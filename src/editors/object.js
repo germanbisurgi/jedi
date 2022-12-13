@@ -13,7 +13,9 @@ class ObjectEditor extends Editor {
 
     // addBtn
     if (this.jedi.options.addProperty) {
-      const addBtn = this.jedi.theme.getButton('Add property')
+      const addBtn = this.jedi.theme.getButton({
+        textContent: 'Add property'
+      })
       this.container.appendChild(addBtn)
       addBtn.addEventListener('click', () => {
         const randomKey = 'test-' + Math.ceil(Math.random() * 1000)
@@ -50,7 +52,9 @@ class ObjectEditor extends Editor {
     const propertyEditorIsNotRequired = !editor.isRequired()
     const removePropertyOption = this.jedi.options.removeProperty
     if (propertyEditorIsNotRequired && removePropertyOption) {
-      const removeBtn = this.jedi.theme.getButton('Remove property')
+      const removeBtn = this.jedi.theme.getButton({
+        textContent: 'Remove property'
+      })
       editor.container.appendChild(removeBtn)
       removeBtn.addEventListener('click', () => {
         delete this.value[key]

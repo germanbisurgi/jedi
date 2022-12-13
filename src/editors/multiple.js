@@ -91,9 +91,10 @@ class MultipleEditor extends Editor {
       const radioContainer = this.jedi.theme.getRadioContainer()
 
       // radio
-      const radio = this.jedi.theme.getRadio()
-      radio.setAttribute('value', value)
-      radio.setAttribute('id', this.path + '.switcher' + '.' + index + '.' + uuid)
+      const radio = this.jedi.theme.getRadio({
+        value: value,
+        id: this.path + '.switcher' + '.' + index + '.' + uuid
+      })
       radioContainer.appendChild(radio)
 
       radio.addEventListener('change', () => {

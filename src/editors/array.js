@@ -8,14 +8,18 @@ class ArrayEditor extends Editor {
     this.container.appendChild(btnGroup)
 
     // addBtn
-    this.addBtn = this.jedi.theme.getButton('Add Item')
+    this.addBtn = this.jedi.theme.getButton({
+      textContent: 'Add Item'
+    })
     btnGroup.appendChild(this.addBtn)
     this.addBtn.addEventListener('click', () => {
       this.addItem()
     })
 
     // deleteAll
-    this.deleteAllBtn = this.jedi.theme.getButton('Delete Items')
+    this.deleteAllBtn = this.jedi.theme.getButton({
+      textContent: 'Delete items'
+    })
     btnGroup.appendChild(this.deleteAllBtn)
     this.deleteAllBtn.addEventListener('click', () => {
       if (window.confirm('Confirm to delete all')) {
@@ -61,7 +65,9 @@ class ArrayEditor extends Editor {
 
     const itemIndex = Number(itemEditor.getKey())
 
-    const deleteBtn = this.jedi.theme.getButton('Delete Item')
+    const deleteBtn = this.jedi.theme.getButton({
+      textContent: 'Delete item'
+    })
     btnGroup.appendChild(deleteBtn)
     deleteBtn.addEventListener('click', () => {
       const itemIndex = Number(itemEditor.path.split('.').pop())
@@ -69,7 +75,9 @@ class ArrayEditor extends Editor {
     })
 
     if (this.childEditors.length !== 0) {
-      const moveUpBtn = this.jedi.theme.getButton('Move up')
+      const moveUpBtn = this.jedi.theme.getButton({
+        textContent: 'Move up'
+      })
       btnGroup.appendChild(moveUpBtn)
       moveUpBtn.addEventListener('click', () => {
         const toIndex = itemIndex - 1
@@ -78,7 +86,9 @@ class ArrayEditor extends Editor {
     }
 
     if (this.getValue().length - 1 !== itemIndex) {
-      const moveDownBtn = this.jedi.theme.getButton('Move down')
+      const moveDownBtn = this.jedi.theme.getButton({
+        textContent: 'Move down'
+      })
       btnGroup.appendChild(moveDownBtn)
       moveDownBtn.addEventListener('click', () => {
         const toIndex = itemIndex + 1

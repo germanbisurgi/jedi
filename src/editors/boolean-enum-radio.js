@@ -22,9 +22,10 @@ class BooleanEnumRadioEditor extends BooleanEditor {
       const radioContainer = this.jedi.theme.getRadioContainer()
 
       // radio
-      const radio = this.jedi.theme.getRadio()
-      radio.setAttribute('value', value)
-      radio.setAttribute('id', this.path + '.' + index)
+      const radio = this.jedi.theme.getRadio({
+        value: value,
+        id: this.path + '.' + index
+      })
       radioContainer.appendChild(radio)
 
       radio.addEventListener('change', () => {
