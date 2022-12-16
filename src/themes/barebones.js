@@ -21,9 +21,9 @@ class ThemeBarebones {
     return document.createElement('div')
   }
 
-  getDescriptionContainer (text) {
-    const container = document.createElement('p')
-    container.textContent = text
+  getDescription (config) {
+    const container = document.createElement('small')
+    container.textContent = config.textContent
     return container
   }
 
@@ -32,7 +32,9 @@ class ThemeBarebones {
   }
 
   getErrorsContainer () {
-    return document.createElement('div')
+    const errorsContainer = document.createElement('div')
+    errorsContainer.classList.add('jedi-errors-container')
+    return errorsContainer
   }
 
   getCheckboxLabel (config) {

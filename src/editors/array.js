@@ -37,8 +37,9 @@ class ArrayEditor extends Editor {
     }))
 
     // description
-    const description = this.jedi.theme.getDescriptionContainer(this.schema.description)
-    this.container.appendChild(description)
+    this.container.appendChild(this.jedi.theme.getDescription({
+      textContent: this.schema.description
+    }))
   }
 
   createItemEditor (value) {
