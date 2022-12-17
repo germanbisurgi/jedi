@@ -70,8 +70,6 @@ class Editor {
 
   /**
    * If schema.default is not defined, sets an initial value based on it's type.
-   * If enum is defined and schema.default is not defined set the first item of
-   * the enum als the default value.
    */
   setDefaultValue () {
     let value
@@ -84,9 +82,9 @@ class Editor {
     if (this.schema.type === 'object') value = {}
     if (this.schema.type === 'null') value = null
 
-    const defaulIsDefined = utils.isSet(this.schema.default)
+    const defaultIsDefined = utils.isSet(this.schema.default)
 
-    if (defaulIsDefined) {
+    if (defaultIsDefined) {
       value = this.schema.default
     }
 
