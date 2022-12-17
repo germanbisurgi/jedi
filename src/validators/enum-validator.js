@@ -1,12 +1,8 @@
 import utils from '../utils'
 
 class EnumValidator {
-  constructor () {
-    this.errors = []
-  }
-
   validate (key, schema, value, path) {
-    this.errors = []
+    const errors = []
     const _enum = schema.enum
     const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
     if (!hasEnumConstrain) return
@@ -15,13 +11,13 @@ class EnumValidator {
     const field = schema.title || key
 
     if (invalid) {
-      this.errors.push({
+      errors.push({
         message: field + ' must be one of the enumerated values',
         path: path
       })
     }
 
-    return this.errors
+    return errors
   }
 }
 

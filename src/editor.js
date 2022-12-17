@@ -11,7 +11,6 @@ class Editor {
     this.container = null
     this.errorsContainer = null
     this.childEditors = []
-    this.errors = []
     this.init()
   }
 
@@ -19,15 +18,14 @@ class Editor {
    * Starts the build pipeline of the editor
    */
   init () {
+    this.register()
+    this.setDefaultValue()
     this.setContainer()
     this.setContainerAttributes()
     this.setErrorsContainer()
-    this.setDefaultValue()
     this.build()
-    this.validate()
     this.refreshUI()
     this.showValidationErrors()
-    this.register()
   }
 
   getKey () {
@@ -123,7 +121,6 @@ class Editor {
       this.onChange()
     }
 
-    this.validate()
     this.refreshUI()
     this.showValidationErrors()
   }
@@ -163,9 +160,7 @@ class Editor {
   }
 
   validate () {
-    if (this.jedi.ready || this.jedi.options.alwaysShowErrors) {
-      this.errors = this.jedi.validator.validate(this.getKey(), this.schema, this.getValue(), this.path)
-    }
+    return this.jedi.validator.validate(this.getKey(), this.schema, this.getValue(), this.path)
   }
 
   /**
@@ -173,9 +168,11 @@ class Editor {
    */
   showValidationErrors () {
     if (this.jedi.ready || this.jedi.options.alwaysShowErrors) {
+      const errors = this.validate()
+
       this.errorsContainer.innerHTML = ''
 
-      this.errors.forEach((error) => {
+      errors.forEach((error) => {
         this.errorsContainer.appendChild(this.jedi.theme.getInputError({
           message: error.message
         }))

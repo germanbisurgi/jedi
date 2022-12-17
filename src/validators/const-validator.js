@@ -1,12 +1,8 @@
 import utils from '../utils'
 
 class ConstValidator {
-  constructor () {
-    this.errors = []
-  }
-
   validate (key, schema, value, path) {
-    this.errors = []
+    const errors = []
     const _const = schema.const
     const hasConstConstrain = utils.isSet(_const)
     if (!hasConstConstrain) return
@@ -15,13 +11,13 @@ class ConstValidator {
     const field = schema.title || key
 
     if (invalid) {
-      this.errors.push({
+      errors.push({
         message: field + ' must have value: ' + JSON.stringify(_const),
         path: path
       })
     }
 
-    return this.errors
+    return errors
   }
 }
 

@@ -1,12 +1,8 @@
 import utils from '../utils'
 
 class MaxLengthValidator {
-  constructor () {
-    this.errors = []
-  }
-
   validate (key, schema, value, path) {
-    this.errors = []
+    const errors = []
     const isStringType = schema.type === 'string'
     if (!isStringType) return
     const maxLength = schema.maxLength
@@ -16,13 +12,13 @@ class MaxLengthValidator {
     const field = schema.title || key
 
     if (invalid) {
-      this.errors.push({
+      errors.push({
         message: field + ' must be at most ' + maxLength + ' characters long',
         path: path
       })
     }
 
-    return this.errors
+    return errors
   }
 }
 

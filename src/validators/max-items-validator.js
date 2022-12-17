@@ -1,12 +1,8 @@
 import utils from '../utils'
 
 class MaxItemsValidator {
-  constructor () {
-    this.errors = []
-  }
-
   validate (key, schema, value, path) {
-    this.errors = []
+    const errors = []
     const isArrayType = schema.type === 'array'
     if (!isArrayType) return
     const maxItems = schema.maxItems
@@ -16,13 +12,13 @@ class MaxItemsValidator {
     const field = schema.title || key
 
     if (invalid) {
-      this.errors.push({
+      errors.push({
         message: field + ' must have at most ' + maxItems + ' items',
         path: path
       })
     }
 
-    return this.errors
+    return errors
   }
 }
 
