@@ -137,7 +137,7 @@ class MultipleEditor extends Editor {
   }
 
   refreshUI () {
-    super.showValidationErrors()
+    this.showValidationErrors()
 
     const oldEditor = this.editors[this.lastIndex]
 

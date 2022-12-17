@@ -39,7 +39,7 @@ class BooleanEditor extends Editor {
   }
 
   refreshUI () {
-    super.showValidationErrors()
+    this.showValidationErrors()
     this.input.checked = this.getValue()
 
     if (this.disabled) {

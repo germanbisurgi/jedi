@@ -135,7 +135,7 @@ class ArrayEditor extends Editor {
   }
 
   refreshUI () {
-    super.showValidationErrors()
+    this.showValidationErrors()
 
     const value = this.getValue()
 

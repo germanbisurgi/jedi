@@ -54,7 +54,7 @@ class NumberEnumRadioEditor extends NumberEditor {
   }
 
   refreshUI () {
-    super.showValidationErrors()
+    this.showValidationErrors()
 
     const fieldset = this.container.querySelector('fieldset')
     const radioInputs = fieldset.querySelectorAll('input')
