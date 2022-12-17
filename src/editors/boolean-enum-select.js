@@ -30,6 +30,8 @@ class BooleanEnumSelectEditor extends BooleanEditor {
   }
 
   refreshUI () {
+    super.showValidationErrors()
+
     this.input.value = this.getValue() === true ? 'true' : 'false'
 
     if (this.disabled) {

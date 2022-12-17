@@ -25,7 +25,6 @@ class Editor {
     this.setErrorsContainer()
     this.build()
     this.refreshUI()
-    this.showValidationErrors()
   }
 
   getKey () {
@@ -122,7 +121,6 @@ class Editor {
     }
 
     this.refreshUI()
-    this.showValidationErrors()
   }
 
   /**
@@ -130,6 +128,7 @@ class Editor {
    * using setValue to set the value programmatically.
    */
   refreshUI () {
+    this.showValidationErrors()
   }
 
   /**

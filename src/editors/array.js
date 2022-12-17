@@ -135,6 +135,8 @@ class ArrayEditor extends Editor {
   }
 
   refreshUI () {
+    super.showValidationErrors()
+
     const value = this.getValue()
 
     this.childEditors.forEach((editor) => {
