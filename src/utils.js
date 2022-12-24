@@ -87,10 +87,6 @@ class Utils {
     return (schema && schema.title) ? schema.title : ''
   }
 
-  getSchemaDescription (schema) {
-    return (schema && schema.description) ? schema.description : false
-  }
-
   hasAnyOf (schema) {
     return schema.anyOf && this.isArray(schema.anyOf)
   }
