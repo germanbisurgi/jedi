@@ -1,7 +1,6 @@
 /* global Feature Scenario */
 const jsonData = require('./test')
 const theme = process.env.THEME || 'wireframe'
-console.log('------theme', theme)
 
 Feature('Lib')
 
