@@ -34,7 +34,7 @@ class ArrayEditor extends Editor {
 
     // title
     this.container.appendChild(this.jedi.theme.getLegend({
-      textContent: this.schema.title() || this.getKey()
+      textContent: this.schema.enum() ? this.schema.enum() : this.getKey()
     }))
 
     // description

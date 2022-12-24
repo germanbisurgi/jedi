@@ -28,7 +28,7 @@ class TypeValidator {
     }
 
     const valid = types[schema.type()](value)
-    const field = schema.title() || key
+    const field = schema.title() ? schema.title() : key
 
     if (!valid) {
       errors.push({

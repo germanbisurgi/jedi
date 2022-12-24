@@ -12,7 +12,7 @@ class BooleanEnumRadioEditor extends BooleanEditor {
 
     // legend
     fieldset.appendChild(this.jedi.theme.getLegend({
-      textContent: this.schema.title() || this.getKey()
+      textContent: this.schema.enum() ? this.schema.enum() : this.getKey()
     }))
 
     // radios

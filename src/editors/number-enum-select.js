@@ -4,7 +4,7 @@ class NumberEnumSelectEditor extends NumberEditor {
   build () {
     this.container.appendChild(this.jedi.theme.getLabel({
       for: this.path,
-      textContent: this.schema.title() || this.getKey()
+      textContent: this.schema.enum() ? this.schema.enum() : this.getKey()
     }))
 
     // input

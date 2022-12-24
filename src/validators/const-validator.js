@@ -5,7 +5,7 @@ class ConstValidator {
     if (schema.const()) {
       const valueIsNotEqualConst = (JSON.stringify(value) !== JSON.stringify(schema.const()))
       const invalid = (valueIsNotEqualConst)
-      const field = schema.title() || key
+      const field = schema.title() ? schema.title() : key
 
       if (invalid) {
         errors.push({
