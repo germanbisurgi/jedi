@@ -12,6 +12,7 @@ import NumberEditor from './editors/number'
 import NumberEnumSelectEditor from './editors/number-enum-select'
 import NumberEnumRadioEditor from './editors/number-enum-radio'
 import NullEditor from './editors/null'
+import Schema from './schema'
 
 class Resolver {
   constructor () {
@@ -20,83 +21,67 @@ class Resolver {
      */
     this.resolvers = [
       (schema) => {
-        const hasNoType = !utils.isSet(schema.type)
-        const hasTypeAny = utils.isSet(schema.type) && schema.type === 'any'
-        const typeIsArray = utils.isArray(schema.type)
-        const hasOneOf = utils.hasOneOf(schema)
-        const hasAnyOf = utils.hasAnyOf(schema)
-        if (hasAnyOf || hasOneOf || hasTypeAny || typeIsArray || hasNoType) {
+        if (schema.anyOf() || schema.oneOf() || schema.typeIs('any') || schema.typeIsAnArray() || schema.hasNoType()) {
           return MultipleEditor
         }
       },
       (schema) => {
-        const hasFormatRadio = utils.hasFormatRadio(schema)
-        if (schema.type === 'boolean' && hasFormatRadio) {
+        if (schema.typeIs('boolean') && schema.formatIs('radio')) {
           return BooleanEnumRadioEditor
         }
       },
       (schema) => {
-        const hasFormatSelect = utils.hasFormatSelect(schema)
-        if (schema.type === 'boolean' && hasFormatSelect) {
+        if (schema.typeIs('boolean') && schema.formatIs('select')) {
           return BooleanEnumSelectEditor
         }
       },
       (schema) => {
-        if (schema.type === 'boolean') {
+        if (schema.typeIs('boolean')) {
           return BooleanEditor
         }
       },
       (schema) => {
-        if (schema.type === 'object') {
+        if (schema.typeIs('object')) {
           return ObjectEditor
         }
       },
       (schema) => {
-        if (schema.type === 'array') {
+        if (schema.typeIs('array')) {
           return ArrayEditor
         }
       },
       (schema) => {
-        const hasEnum = utils.getSchemaEnum(schema)
-        const hasFormatRadio = utils.hasFormatRadio(schema)
-        if (schema.type === 'string' && hasEnum && hasFormatRadio) {
+        if (schema.typeIs('string') && schema.enum() && schema.formatIs('radio')) {
           return StringEnumRadioEditor
         }
       },
       (schema) => {
-        const hasEnum = utils.getSchemaEnum(schema)
-        if (schema.type === 'string' && hasEnum) {
+        if (schema.typeIs('string') && schema.enum()) {
           return StringEnumSelectEditor
         }
       },
       (schema) => {
-        if (schema.type === 'string') {
+        if (schema.typeIs('string')) {
           return StringEditor
         }
       },
       (schema) => {
-        const hasNumericType = utils.hasNumericType(schema)
-        const hasEnum = utils.getSchemaEnum(schema)
-        const hasFormatRadio = utils.hasFormatRadio(schema)
-        if (hasNumericType && hasEnum && hasFormatRadio) {
+        if (schema.typeIsNumeric() && schema.enum() && schema.formatIs('radio')) {
           return NumberEnumRadioEditor
         }
       },
       (schema) => {
-        const hasNumericType = utils.hasNumericType(schema)
-        const hasEnum = utils.getSchemaEnum(schema)
-        if (hasNumericType && hasEnum) {
+        if (schema.typeIsNumeric() && schema.enum()) {
           return NumberEnumSelectEditor
         }
       },
       (schema) => {
-        const hasNumericType = utils.hasNumericType(schema)
-        if (hasNumericType) {
+        if (schema.typeIsNumeric()) {
           return NumberEditor
         }
       },
       (schema) => {
-        if (schema.type === 'null') {
+        if (schema.typeIs('null')) {
           return NullEditor
         }
       }
@@ -114,12 +99,11 @@ class Resolver {
    * returns the first editor class that matches the passed schema.
    */
   resolve (schema) {
+    const _schema = new Schema(schema)
     for (const resolver of this.resolvers) {
-      const editorClass = resolver(schema)
+      const editorClass = resolver(_schema)
       if (utils.isSet(editorClass)) {
         return editorClass
-      } else {
-
       }
     }
   }
