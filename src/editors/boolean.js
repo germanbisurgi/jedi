@@ -1,5 +1,4 @@
 import Editor from '../editor'
-import utils from '../utils'
 
 class BooleanEditor extends Editor {
   build () {
@@ -7,7 +6,7 @@ class BooleanEditor extends Editor {
     const checkboxContainer = this.jedi.theme.getCheckboxContainer()
 
     // label
-    const labelText = utils.getSchemaTitle(this.schema) || this.getKey()
+    const labelText = this.schema.title() || this.getKey()
     const label = this.jedi.theme.getCheckboxLabel({
       for: this.path,
       textContent: labelText
@@ -30,7 +29,7 @@ class BooleanEditor extends Editor {
 
     // description
     this.container.appendChild(this.jedi.theme.getDescription({
-      textContent: this.schema.description
+      textContent: this.schema.description()
     }))
   }
 

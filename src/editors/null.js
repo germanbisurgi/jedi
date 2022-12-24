@@ -4,7 +4,7 @@ class NullEditor extends Editor {
   build () {
     // description
     this.container.appendChild(this.jedi.theme.getDescription({
-      textContent: this.schema.description
+      textContent: this.schema.description()
     }))
   }
 

@@ -1,4 +1,5 @@
 import Editor from '../editor'
+import Schema from '../schema'
 import utils from '../utils'
 
 class MultipleEditor extends Editor {
@@ -11,44 +12,46 @@ class MultipleEditor extends Editor {
     this.index = 0
 
     let schemas = []
-    const xOf = this.schema.anyOf ? 'anyOf' : 'oneOf'
-    const xOfValue = this.schema[xOf]
 
-    if (this.schema.anyOf || this.schema.oneOf) {
-      const _schemas = this.schema.anyOf || this.schema.oneOf
+    if (this.schema.anyOf() || this.schema.oneOf()) {
+      const schemasOf = this.schema.anyOf() ? this.schema.anyOf() : this.schema.oneOf()
+      const cloneSchema = this.schema.clone()
+      delete cloneSchema['anyOf']
+      delete cloneSchema['oneOf']
 
-      delete this.schema[xOf]
-
-      _schemas.forEach((schema, index) => {
-        schema = { ...this.schema, ...schema }
+      schemasOf.forEach((schema, index) => {
+        schema = { ...cloneSchema, ...schema }
         this.switcherOptionValues.push(index)
-        const switcherOptionsLabel = utils.getSchemaTitle(schema) || 'Option-' + (index + 1)
+        const switcherOptionsLabel = schema.title || 'Option-' + (index + 1)
         this.switcherOptionsLabels.push(switcherOptionsLabel)
         schemas.push(schema)
       })
+    } else if (utils.isArray(this.schema.type())) {
+      this.schema.type().forEach((type) => {
+        const schemaClone = this.schema.clone()
 
-      this.schema[xOf] = xOfValue
-    } else if (utils.isArray(this.schema.type)) {
-      this.schema.type.forEach((type) => {
-        schemas.push({
-          type: type,
-          title: type[0].toUpperCase() + type.slice(1)
-        })
+        const schema = {
+          ...schemaClone,
+          ...{ type: type, title: type[0].toUpperCase() + type.slice(1) }
+        }
+        schemas.push(schema)
       })
 
       schemas.forEach((schema, index) => {
         this.switcherOptionValues.push(index)
         this.switcherOptionsLabels.push(...schemas.map((schema) => schema.title))
       })
-    } else if (this.schema.type === 'any' || !utils.isSet(this.schema.type)) {
+    } else if (this.schema.typeIs('any') || !this.schema.type()) {
+      const schemaClone = this.schema.clone()
+
       schemas = [
-        { type: 'string', title: 'String' },
-        { type: 'number', title: 'Number' },
-        { type: 'integer', title: 'Integer' },
-        { type: 'boolean', title: 'Boolean' },
-        { type: 'array', title: 'Array' },
-        { type: 'object', title: 'Object' },
-        { type: 'null', title: 'Null' }
+        { ...schemaClone, ...{ type: 'string', title: 'String' } },
+        { ...schemaClone, ...{ type: 'number', title: 'Number' } },
+        { ...schemaClone, ...{ type: 'integer', title: 'Integer' } },
+        { ...schemaClone, ...{ type: 'boolean', title: 'Boolean' } },
+        { ...schemaClone, ...{ type: 'array', title: 'Array' } },
+        { ...schemaClone, ...{ type: 'object', title: 'Object' } },
+        { ...schemaClone, ...{ type: 'null', title: 'Null' } }
       ]
 
       schemas.forEach((schema, index) => {
@@ -61,7 +64,7 @@ class MultipleEditor extends Editor {
     schemas.forEach((schema) => {
       const editor = this.jedi.createEditor({
         jedi: this.jedi,
-        schema: schema,
+        schema: new Schema(schema),
         path: this.path,
         parent: this.parent
       })
@@ -132,7 +135,7 @@ class MultipleEditor extends Editor {
     this.container.setAttribute('data-type', 'multiple')
 
     this.container.appendChild(this.jedi.theme.getLegend({
-      textContent: utils.getSchemaTitle(this.schema) || this.getKey()
+      textContent: this.schema.title() || this.getKey()
     }))
   }
 

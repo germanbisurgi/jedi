@@ -11,7 +11,6 @@ import MultipleOfValidator from './validators/multiple-of-validator'
 import ConstValidator from './validators/const-validator'
 import EnumValidator from './validators/enum-validator'
 import RequiredValidator from './validators/required-validator'
-import Schema from './schema'
 
 class Validator {
   constructor () {
@@ -46,8 +45,7 @@ class Validator {
     let schemaErrors = []
 
     this.validators.forEach((validator) => {
-      const _schema = new Schema(schema)
-      const validatorErrors = validator.validate(key, _schema, value, path)
+      const validatorErrors = validator.validate(key, schema, value, path)
 
       if (validatorErrors) {
         schemaErrors = [...schemaErrors, ...validatorErrors]

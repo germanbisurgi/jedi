@@ -1,4 +1,5 @@
 import Editor from '../editor'
+import Schema from '../schema'
 import utils from '../utils'
 
 class ArrayEditor extends Editor {
@@ -33,30 +34,21 @@ class ArrayEditor extends Editor {
 
     // title
     this.container.appendChild(this.jedi.theme.getLegend({
-      textContent: utils.getSchemaTitle(this.schema) || this.getKey()
+      textContent: this.schema.title() || this.getKey()
     }))
 
     // description
     this.container.appendChild(this.jedi.theme.getDescription({
-      textContent: this.schema.description
+      textContent: this.schema.description()
     }))
   }
 
   createItemEditor (value) {
-    let schema
-
-    // When no schema is defined get the type from the value
-    if (utils.isSet(this.schema.items)) {
-      schema = this.schema.items
-    } else {
-      schema = {
-        type: utils.getType(value)
-      }
-    }
+    const schema = this.schema.items() ? this.schema.items() : { type: utils.getType(value) }
 
     const itemEditor = this.jedi.createEditor({
       jedi: this.jedi,
-      schema: schema,
+      schema: new Schema(schema),
       path: this.path + '.' + this.childEditors.length,
       parent: this
     })

@@ -71,30 +71,6 @@ class Utils {
     return type
   }
 
-  getSchemaOption (schema, option) {
-    return (schema && schema.options && schema.options[option]) ? schema.options[option] : false
-  }
-
-  getSchemaEnumTitles (schema) {
-    return (schema && schema.options && schema.options.enumTitles && this.isArray(schema.options.enumTitles)) ? schema.options.enumTitles : false
-  }
-
-  getSchemaEnum (schema) {
-    return (schema && schema.enum && this.isArray(schema.enum)) ? schema.enum : false
-  }
-
-  getSchemaTitle (schema) {
-    return (schema && schema.title) ? schema.title : ''
-  }
-
-  hasAnyOf (schema) {
-    return schema.anyOf && this.isArray(schema.anyOf)
-  }
-
-  hasOneOf (schema) {
-    return schema.oneOf && this.isArray(schema.oneOf)
-  }
-
   uuid () {
     return uuidv4()
   }

@@ -17,6 +17,10 @@ class Schema {
     return this.schema.const ? this.schema.const : false
   }
 
+  clone () {
+    return JSON.parse(JSON.stringify(this.schema))
+  }
+
   default () {
     return this.schema.default ? this.schema.default : false
   }
@@ -37,12 +41,20 @@ class Schema {
     return (this.format() && this.format() === value)
   }
 
+  items () {
+    return (this.schema.items) ? this.schema.items : false
+  }
+
+  option (option) {
+    return (this.schema.options && this.schema.options[option]) ? this.schema.options[option] : false
+  }
+
   properties () {
     return this.schema.properties ? this.schema.properties : false
   }
 
   required () {
-    return this.schema.required ? this.schema.required : false
+    return (this.schema.required && Array.isArray(this.schema.required)) ? this.schema.required : false
   }
 
   title () {
@@ -57,7 +69,7 @@ class Schema {
     return (this.type() && this.type() === value)
   }
 
-  typeIsAnArray () {
+  types () {
     return (this.schema.type && Array.isArray(this.schema.type))
   }
 
@@ -67,6 +79,10 @@ class Schema {
 
   oneOf () {
     return (this.schema.oneOf && Array.isArray(this.schema.oneOf)) ? this.schema.oneOf : false
+  }
+
+  serialize () {
+    return JSON.stringify(this.schema)
   }
 
   destroy () {

@@ -1,11 +1,10 @@
 import NumberEditor from './number'
-import utils from '../utils'
 
 class NumberEnumRadioEditor extends NumberEditor {
   build () {
     // input
-    const optionValues = utils.getSchemaEnum(this.schema)
-    const optionsLabels = utils.getSchemaEnumTitles(this.schema) || optionValues
+    const optionValues = this.schema.enum()
+    const optionsLabels = this.schema.option('enumTitles') || optionValues
 
     // fieldset
     const fieldset = this.jedi.theme.getFieldset()
@@ -13,7 +12,7 @@ class NumberEnumRadioEditor extends NumberEditor {
 
     // legend
     fieldset.appendChild(this.jedi.theme.getLegend({
-      textContent: utils.getSchemaTitle(this.schema) || this.getKey()
+      textContent: this.schema.title() || this.getKey()
     }))
 
     // radios
@@ -43,7 +42,7 @@ class NumberEnumRadioEditor extends NumberEditor {
 
     // description
     this.container.appendChild(this.jedi.theme.getDescription({
-      textContent: this.schema.description
+      textContent: this.schema.description()
     }))
 
     const firstOption = optionValues[0]

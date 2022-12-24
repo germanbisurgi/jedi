@@ -1,12 +1,11 @@
 import Editor from '../editor'
-import utils from '../utils'
 
 class NumberEditor extends Editor {
   build () {
     // label
     this.container.appendChild(this.jedi.theme.getLabel({
       for: this.path,
-      textContent: utils.getSchemaTitle(this.schema) || this.getKey()
+      textContent: this.schema.title() || this.getKey()
     }))
 
     // input
@@ -23,12 +22,12 @@ class NumberEditor extends Editor {
 
     // description
     this.container.appendChild(this.jedi.theme.getDescription({
-      textContent: this.schema.description
+      textContent: this.schema.description()
     }))
   }
 
   sanitize (value) {
-    if (this.schema.type === 'integer') {
+    if (this.schema.typeIs('integer')) {
       return Math.floor(Number(value))
     } else {
       return Number(value)

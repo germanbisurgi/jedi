@@ -1,12 +1,13 @@
 import Editor from '../editor'
+import Schema from '../schema'
 import utils from '../utils'
 
 class ObjectEditor extends Editor {
   build () {
     // child editors
-    if (utils.isSet(this.schema.properties)) {
-      Object.keys(this.schema.properties).forEach((key) => {
-        const schema = this.schema.properties[key]
+    if (this.schema.properties()) {
+      Object.keys(this.schema.properties()).forEach((key) => {
+        const schema = this.schema.properties()[key]
         this.addChildEditor(schema, key)
       })
     }
@@ -29,14 +30,14 @@ class ObjectEditor extends Editor {
     this.container = this.jedi.theme.getFieldset()
 
     // title
-    if (!utils.getSchemaOption(this.schema, 'hideTitle')) {
+    if (!this.schema.option('hideTitle')) {
       this.container.appendChild(this.jedi.theme.getLegend({
-        textContent: utils.getSchemaTitle(this.schema) || this.getKey()
+        textContent: this.schema.title() || this.getKey()
       }))
 
       // description
       this.container.appendChild(this.jedi.theme.getDescription({
-        textContent: this.schema.description
+        textContent: this.schema.description()
       }))
     }
   }
@@ -44,7 +45,7 @@ class ObjectEditor extends Editor {
   addChildEditor (schema, key) {
     const editor = this.jedi.createEditor({
       jedi: this.jedi,
-      schema: schema,
+      schema: new Schema(schema),
       path: this.path + '.' + key,
       parent: this
     })

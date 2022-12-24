@@ -1,25 +1,24 @@
 import Editor from '../editor'
-import utils from '../utils'
 
 class StringEditor extends Editor {
   build () {
     // label
     this.container.appendChild(this.jedi.theme.getLabel({
       for: this.path,
-      textContent: utils.getSchemaTitle(this.schema) || this.getKey()
+      textContent: this.schema.title() || this.getKey()
     }))
 
     // input
     // todo file, range should be handled differently
     const inputTypes = ['color', 'date', 'datetime-local', 'email', 'number', 'month', 'password', 'search', 'time', 'tel', 'text', 'textarea', 'url', 'week']
 
-    if (this.schema.format === 'textarea') {
+    if (this.schema.formatIs('textarea')) {
       this.input = this.jedi.theme.getTextarea({
         id: this.path
       })
     } else {
       this.input = this.jedi.theme.getInput({
-        type: inputTypes.includes(this.schema.format) ? this.schema.format : 'text',
+        type: inputTypes.includes(this.schema.format()) ? this.schema.format() : 'text',
         id: this.path
       })
     }
@@ -33,7 +32,7 @@ class StringEditor extends Editor {
 
     // description
     this.container.appendChild(this.jedi.theme.getDescription({
-      textContent: this.schema.description
+      textContent: this.schema.description()
     }))
   }
 

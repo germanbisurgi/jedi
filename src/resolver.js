@@ -12,7 +12,6 @@ import NumberEditor from './editors/number'
 import NumberEnumSelectEditor from './editors/number-enum-select'
 import NumberEnumRadioEditor from './editors/number-enum-radio'
 import NullEditor from './editors/null'
-import Schema from './schema'
 
 class Resolver {
   constructor () {
@@ -21,7 +20,7 @@ class Resolver {
      */
     this.resolvers = [
       (schema) => {
-        if (schema.anyOf() || schema.oneOf() || schema.typeIs('any') || schema.typeIsAnArray() || !schema.type()) {
+        if (schema.anyOf() || schema.oneOf() || schema.typeIs('any') || schema.types() || !schema.type()) {
           return MultipleEditor
         }
       },
@@ -99,9 +98,8 @@ class Resolver {
    * returns the first editor class that matches the passed schema.
    */
   resolve (schema) {
-    const _schema = new Schema(schema)
     for (const resolver of this.resolvers) {
-      const editorClass = resolver(_schema)
+      const editorClass = resolver(schema)
       if (utils.isSet(editorClass)) {
         return editorClass
       }

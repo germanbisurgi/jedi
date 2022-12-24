@@ -38,8 +38,8 @@ class Editor {
   setContainerAttributes () {
     this.container.setAttribute('data-path', this.path)
 
-    if (utils.isSet(this.schema.type)) {
-      this.container.setAttribute('data-type', this.schema.type)
+    if (utils.isSet(this.schema.type())) {
+      this.container.setAttribute('data-type', this.schema.type())
     }
   }
 
@@ -74,18 +74,16 @@ class Editor {
   setDefaultValue () {
     let value
 
-    if (this.schema.type === 'boolean') value = false
-    if (this.schema.type === 'number') value = 0.0
-    if (this.schema.type === 'integer') value = 0
-    if (this.schema.type === 'string') value = ''
-    if (this.schema.type === 'array') value = []
-    if (this.schema.type === 'object') value = {}
-    if (this.schema.type === 'null') value = null
+    if (this.schema.type() === 'boolean') value = false
+    if (this.schema.type() === 'number') value = 0.0
+    if (this.schema.type() === 'integer') value = 0
+    if (this.schema.type() === 'string') value = ''
+    if (this.schema.type() === 'array') value = []
+    if (this.schema.type() === 'object') value = {}
+    if (this.schema.type() === 'null') value = null
 
-    const defaultIsDefined = utils.isSet(this.schema.default)
-
-    if (defaultIsDefined) {
-      value = this.schema.default
+    if (this.schema.default()) {
+      value = this.schema.default()
     }
 
     this.value = value
@@ -149,8 +147,9 @@ class Editor {
    * Returns true if the property is required
    */
   isRequired () {
-    if (utils.isArray(this.parent?.schema?.required)) {
-      return this.parent.schema.required.includes(this.getKey())
+    // todo: use schema method
+    if (utils.isArray(this.parent?.schema.required())) {
+      return this.parent.schema.required().includes(this.getKey())
     }
 
     return false

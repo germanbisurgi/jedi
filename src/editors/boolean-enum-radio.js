@@ -1,11 +1,10 @@
 import BooleanEditor from './boolean'
-import utils from '../utils'
 
 class BooleanEnumRadioEditor extends BooleanEditor {
   build () {
     // input
     const optionValues = ['false', 'true']
-    const optionsLabels = utils.getSchemaEnumTitles(this.schema) || optionValues
+    const optionsLabels = this.schema.option('enumTitles') || optionValues
 
     // fieldset
     const fieldset = this.jedi.theme.getFieldset()
@@ -13,7 +12,7 @@ class BooleanEnumRadioEditor extends BooleanEditor {
 
     // legend
     fieldset.appendChild(this.jedi.theme.getLegend({
-      textContent: utils.getSchemaTitle(this.schema) || this.getKey()
+      textContent: this.schema.title() || this.getKey()
     }))
 
     // radios
@@ -44,7 +43,7 @@ class BooleanEnumRadioEditor extends BooleanEditor {
 
     // description
     this.container.appendChild(this.jedi.theme.getDescription({
-      textContent: this.schema.description
+      textContent: this.schema.description()
     }))
   }
 

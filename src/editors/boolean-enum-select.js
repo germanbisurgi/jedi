@@ -1,18 +1,17 @@
 import BooleanEditor from './boolean'
-import utils from '../utils'
 
 class BooleanEnumSelectEditor extends BooleanEditor {
   build () {
     // label
     this.container.appendChild(this.jedi.theme.getLabel({
       for: this.path,
-      textContent: utils.getSchemaTitle(this.schema) || this.getKey()
+      textContent: this.schema.title() || this.getKey()
     }))
 
     // input
     this.input = this.jedi.theme.getSelect({
       optionValues: ['false', 'true'],
-      optionsLabels: utils.getSchemaEnumTitles(this.schema) || ['false', 'true'],
+      optionsLabels: this.schema.option('enumTitles') || ['false', 'true'],
       id: this.path
     })
     this.container.appendChild(this.input)
@@ -25,7 +24,7 @@ class BooleanEnumSelectEditor extends BooleanEditor {
 
     // description
     this.container.appendChild(this.jedi.theme.getDescription({
-      textContent: this.schema.description
+      textContent: this.schema.description()
     }))
   }
 

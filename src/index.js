@@ -3,9 +3,8 @@ import ThemeWireframe from './themes/wireframe'
 import ThemeBootstrap4 from './themes/bootstrap4'
 import ThemeBootstrap5 from './themes/bootstrap5'
 import Resolver from './resolver'
+import Schema from './schema'
 import Validator from './validator'
-import refParser from '@apidevtools/json-schema-ref-parser'
-import utils from './utils'
 
 class Jedi {
   constructor (options) {
@@ -18,7 +17,7 @@ class Jedi {
     }, options)
 
     this.container = document.querySelector(options.container)
-    this.schema = options.schema
+    this.schema = new Schema(options.schema)
     this.editors = {}
     this.root = null
     this.theme = null
@@ -47,23 +46,20 @@ class Jedi {
         break
     }
 
-    this.schema = await refParser.dereference(this.schema)
+    await this.schema.dereference()
 
-    const hasOneOf = utils.hasOneOf(this.schema)
-    const hasAnyOf = utils.hasAnyOf(this.schema)
-
-    if (utils.isNotSet(this.schema.type) && !hasOneOf && !hasAnyOf) {
-      const schemaType = utils.getType(this.schema)
-
-      if (schemaType === 'object' || schemaType === 'array') {
-        this.schema.type = schemaType
-      } else {
-        this.schema = {
-          type: schemaType,
-          default: this.schema
-        }
-      }
-    }
+    // if (!this.schema.type() && !this.schema.oneOf() && !this.schema.anyOf()) {
+    //   const schemaType = utils.getType(this.schema)
+    //
+    //   if (schemaType === 'object' || schemaType === 'array') {
+    //     this.schema.type = schemaType
+    //   } else {
+    //     this.schema = {
+    //       type: schemaType,
+    //       default: this.schema
+    //     }
+    //   }
+    // }
 
     this.root = this.createEditor({
       jedi: this,
