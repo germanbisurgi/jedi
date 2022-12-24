@@ -1,5 +1,6 @@
 {
   "title": "Test: const",
+  "type": "object",
   "properties": {
     "string": {
       "type": "string",
