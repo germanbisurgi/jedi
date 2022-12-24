@@ -6,7 +6,7 @@ class BooleanEditor extends Editor {
     const checkboxContainer = this.jedi.theme.getCheckboxContainer()
 
     // label
-    const labelText = this.schema.enum() ? this.schema.enum() : this.getKey()
+    const labelText = this.schema.title() ? this.schema.title() : this.getKey()
     const label = this.jedi.theme.getCheckboxLabel({
       for: this.path,
       textContent: labelText

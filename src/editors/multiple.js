@@ -135,7 +135,7 @@ class MultipleEditor extends Editor {
     this.container.setAttribute('data-type', 'multiple')
 
     this.container.appendChild(this.jedi.theme.getLegend({
-      textContent: this.schema.enum() ? this.schema.enum() : this.getKey()
+      textContent: this.schema.title() ? this.schema.title() : this.getKey()
     }))
   }
 

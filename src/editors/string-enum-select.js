@@ -5,7 +5,7 @@ class StringEnumSelectEditor extends StringEditor {
     // label
     this.container.appendChild(this.jedi.theme.getLabel({
       for: this.path,
-      textContent: this.schema.enum() ? this.schema.enum() : this.getKey()
+      textContent: this.schema.title() ? this.schema.title() : this.getKey()
     }))
 
     // input
