@@ -1,5 +1,5 @@
 exports.config = {
-  tests: './tests/*_test.js',
+  tests: './**/*_test.js',
   output: './output',
   include: {
     I: './steps_file.js'

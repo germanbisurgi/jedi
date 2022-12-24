@@ -1,0 +1,10 @@
+{
+  "title": "minLength",
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string",
+      "minLength": 5
+    }
+  }
+}

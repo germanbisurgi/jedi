@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'wireframe'
 
 Feature('required')
 
-Scenario('const should restrict a value to a single value @required', ({ I }) => {
+Scenario('should display required validation errors @required', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')

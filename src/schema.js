@@ -45,6 +45,10 @@ class Schema {
     return (this.schema.items) ? this.schema.items : false
   }
 
+  minLength () {
+    return (this.schema.minLength) ? this.schema.minLength : false
+  }
+
   option (option) {
     return (this.schema.options && this.schema.options[option]) ? this.schema.options[option] : false
   }

@@ -1,22 +1,18 @@
 {
   "type": "object",
   "title": "Editors",
-  "description": "An object editor description",
   "properties": {
     "booleans": {
       "type": "object",
       "title": "Booleans",
-      "description": "An object editor description",
       "properties": {
         "boolean": {
           "type": "boolean",
-          "title": "boolean",
-          "description": "A boolean editor description"
+          "title": "boolean"
         },
         "boolean-enum-select": {
           "type": "boolean",
           "title": "boolean enum select",
-          "description": "A boolean editor description",
           "format": "select",
           "options": {
             "enumTitles": [
@@ -28,7 +24,6 @@
         "boolean-enum-radio": {
           "type": "boolean",
           "title": "boolean enum radio",
-          "description": "A boolean editor description",
           "format": "radio",
           "options": {
             "enumTitles": [
@@ -42,23 +37,19 @@
     "strings": {
       "type": "object",
       "title": "Strings",
-      "description": "An object editor description",
       "properties": {
         "string": {
           "type": "string",
-          "title": "string",
-          "description": "A String editor description"
+          "title": "string"
         },
         "string-textarea": {
           "type": "string",
           "title": "string textarea",
-          "description": "A String editor description",
           "format": "textarea"
         },
         "string-enum-select": {
           "type": "string",
           "title": "string enum select",
-          "description": "A String editor description",
           "enum": [
             "albert",
             "betti",
@@ -75,7 +66,6 @@
         "string-enum-radio": {
           "type": "string",
           "title": "string enum radio",
-          "description": "A String editor description",
           "format": "radio",
           "enum": [
             "albert",
@@ -95,17 +85,14 @@
     "numbers": {
       "type": "object",
       "title": "Numbers",
-      "description": "An object editor description",
       "properties": {
         "number": {
           "type": "number",
-          "title": "number",
-          "description": "An number editor description"
+          "title": "number"
         },
         "number-enum-select": {
           "type": "number",
           "title": "number enum select",
-          "description": "An number editor description",
           "enum": [
             1.5,
             2.5,
@@ -122,7 +109,6 @@
         "number-enum-radio": {
           "type": "number",
           "title": "number enum radio",
-          "description": "An number editor description",
           "format": "radio",
           "enum": [
             1.5,
@@ -142,17 +128,14 @@
     "integers": {
       "type": "object",
       "title": "Integers",
-      "description": "An object editor description",
       "properties": {
         "integer": {
           "type": "integer",
-          "title": "integer",
-          "description": "An integer editor description"
+          "title": "integer"
         },
         "integer-enum-select": {
           "type": "integer",
           "title": "integer enum select",
-          "description": "An integer editor description",
           "enum": [
             1,
             2,
@@ -169,7 +152,6 @@
         "integer-enum-radio": {
           "type": "number",
           "title": "integer enum radio",
-          "description": "An number editor description",
           "format": "radio",
           "enum": [
             1,
@@ -189,16 +171,13 @@
     "arrays": {
       "type": "object",
       "title": "Arrays",
-      "description": "An object editor description",
       "properties": {
         "string-array": {
           "type": "array",
           "title": "strings color",
-          "description": "An array editor description",
           "items": {
             "type": "string",
             "title": "color",
-            "description": "A String editor description",
             "format": "color"
           },
           "default": [
@@ -211,55 +190,43 @@
     "multiple": {
       "type": "object",
       "title": "Multiple",
-      "description": "An object editor description",
       "properties": {
         "nestedOf": {
           "title": "One of",
-          "description": "A multiple editor description",
           "oneOf": [
             {
               "type": "string",
-              "title": "String",
-              "description": "A String editor description"
+              "title": "String"
             },
             {
               "type": "boolean",
-              "title": "Boolean",
-              "description": "A boolean editor description"
+              "title": "Boolean"
             },
             {
               "title": "Any of",
-              "description": "A multiple editor description",
               "anyOf": [
                 {
                   "type": "integer",
-                  "title": "Integer",
-                  "description": "An integer editor description"
-
+                  "title": "Integer"
                 },
                 {
                   "type": "number",
-                  "title": "Number",
-                  "description": "An number editor description"
+                  "title": "Number"
                 },
                 {
                   "title": "One of",
-                  "description": "A multiple editor description",
                   "oneOf": [
                     {
                       "type": "object",
-                      "title": "Object",
-                      "description": "An object editor description"
+                      "title": "Object"
                     },
                     {
                       "type": "array",
-                      "title": "Array",
-                      "description": "An array editor description"
+                      "title": "Array"
                     },
                     {
                       "type": "null",
-                      "title": "Null",
-                      "description": "An null editor description"
+                      "title": "Null"
                     }
                   ]
                 }
@@ -269,38 +236,31 @@
         },
         "oneof": {
           "title": "One of",
-          "description": "A multiple editor description",
           "oneOf": [
             {
               "type": "boolean",
-              "title": "Boolean",
-              "description": "A boolean editor description"
+              "title": "Boolean"
             },
             {
               "type": "string",
-              "title": "String",
-              "description": "A String editor description"
+              "title": "String"
             },
             {
               "type": "integer",
-              "title": "Integer",
-              "description": "An integer editor description"
+              "title": "Integer"
             }
           ]
         },
         "anyof": {
           "title": "Any Of",
-          "description": "A multiple editor description",
           "anyOf": [
             {
               "type": "array",
-              "title": "Array",
-              "description": "An array editor description"
+              "title": "Array"
             },
             {
               "type": "object",
-              "title": "Object",
-              "description": "An object editor description"
+              "title": "Object"
             },
             {
               "type": "null",
@@ -313,17 +273,14 @@
             "string",
             "boolean"
           ],
-          "title": "Type string or boolean",
-          "description": "A multiple editor description"
+          "title": "Type string or boolean"
         },
         "type-undefined": {
-          "title": "Type is undefined",
-          "description": "A multiple editor description"
+          "title": "Type is undefined"
         },
         "type-any": {
           "type": "any",
-          "title": "Type: any",
-          "description": "A multiple editor description"
+          "title": "Type: any"
         }
       }
     }

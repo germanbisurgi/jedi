@@ -4,7 +4,7 @@ class TypeValidator {
   validate (key, schema, value, path) {
     const errors = []
 
-    if (!schema.type()) {
+    if (schema.types()) {
       return errors
     }
 
@@ -12,29 +12,26 @@ class TypeValidator {
       return errors
     }
 
-    // todo: should validate multiple types
-    if (utils.isArray(schema.type())) {
-      return errors
-    }
+    if (schema.type()) {
+      const types = {
+        string: value => utils.isString(value),
+        number: value => utils.isNumber(value),
+        integer: value => utils.isInteger(value),
+        boolean: value => utils.isBoolean(value),
+        array: value => utils.isArray(value),
+        object: value => utils.isObject(value),
+        null: value => utils.isNull(value)
+      }
 
-    const types = {
-      string: value => utils.isString(value),
-      number: value => utils.isNumber(value),
-      integer: value => utils.isInteger(value),
-      boolean: value => utils.isBoolean(value),
-      array: value => utils.isArray(value),
-      object: value => utils.isObject(value),
-      null: value => utils.isNull(value)
-    }
+      const valid = types[schema.type()](value)
+      const field = schema.title() ? schema.title() : key
 
-    const valid = types[schema.type()](value)
-    const field = schema.title() ? schema.title() : key
-
-    if (!valid) {
-      errors.push({
-        message: field + ' must be of type ' + schema.type(),
-        path: path
-      })
+      if (!valid) {
+        errors.push({
+          message: field + ' must be of type ' + schema.type(),
+          path: path
+        })
+      }
     }
 
     return errors
