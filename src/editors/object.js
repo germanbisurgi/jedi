@@ -7,7 +7,7 @@ class ObjectEditor extends Editor {
     // child editors
     if (this.schema.properties()) {
       Object.keys(this.schema.properties()).forEach((key) => {
-        const schema = this.schema.properties()[key]
+        const schema = this.schema.property(key)
         this.addChildEditor(schema, key)
       })
     }
@@ -36,9 +36,11 @@ class ObjectEditor extends Editor {
       }))
 
       // description
-      this.container.appendChild(this.jedi.theme.getDescription({
-        textContent: this.schema.description()
-      }))
+      if (this.schema.description()) {
+        this.container.appendChild(this.jedi.theme.getDescription({
+          textContent: this.schema.description()
+        }))
+      }
     }
   }
 
@@ -143,16 +145,9 @@ class ObjectEditor extends Editor {
   }
 
   getChildEditor (key) {
-    let output = false
-
-    this.childEditors.forEach((childEditor) => {
-      const childKey = childEditor.getKey().split('.').pop()
-      if (key === childKey) {
-        output = childEditor
-      }
+    return this.childEditors.find((childEditor) => {
+      return key === childEditor.getKey().split('.').pop()
     })
-
-    return output
   }
 
   sanitize (value) {

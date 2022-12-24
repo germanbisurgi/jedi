@@ -1,0 +1,17 @@
+{
+  "title": "Object",
+  "type": "object",
+  "required": [
+    "required"
+  ],
+  "properties": {
+    "optional": {
+      "title": "Optional property",
+      "type": "string"
+    },
+    "required": {
+      "title": "Required property",
+      "type": "string"
+    }
+  }
+}

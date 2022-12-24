@@ -26,7 +26,7 @@ class MultipleEditor extends Editor {
         this.switcherOptionsLabels.push(switcherOptionsLabel)
         schemas.push(schema)
       })
-    } else if (utils.isArray(this.schema.type())) {
+    } else if (this.schema.types()) {
       this.schema.type().forEach((type) => {
         const schemaClone = this.schema.clone()
 

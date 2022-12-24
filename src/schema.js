@@ -49,6 +49,10 @@ class Schema {
     return (this.schema.options && this.schema.options[option]) ? this.schema.options[option] : false
   }
 
+  property (key) {
+    return this.properties && this.schema.properties[key] ? this.schema.properties[key] : false
+  }
+
   properties () {
     return this.schema.properties ? this.schema.properties : false
   }

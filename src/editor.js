@@ -1,5 +1,3 @@
-import utils from './utils'
-
 class Editor {
   constructor (config) {
     this.jedi = config.jedi
@@ -38,7 +36,7 @@ class Editor {
   setContainerAttributes () {
     this.container.setAttribute('data-path', this.path)
 
-    if (utils.isSet(this.schema.type())) {
+    if (this.schema.type()) {
       this.container.setAttribute('data-type', this.schema.type())
     }
   }
@@ -147,8 +145,7 @@ class Editor {
    * Returns true if the property is required
    */
   isRequired () {
-    // todo: use schema method
-    if (utils.isArray(this.parent?.schema.required())) {
+    if (this.parent?.schema.required()) {
       return this.parent.schema.required().includes(this.getKey())
     }
 

@@ -26,9 +26,11 @@ class StringEnumSelectEditor extends StringEditor {
     })
 
     // description
-    this.container.appendChild(this.jedi.theme.getDescription({
-      textContent: this.schema.description()
-    }))
+    if (this.schema.description()) {
+      this.container.appendChild(this.jedi.theme.getDescription({
+        textContent: this.schema.description()
+      }))
+    }
 
     const firstOption = optionValues[0]
 

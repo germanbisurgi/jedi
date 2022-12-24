@@ -42,9 +42,11 @@ class BooleanEnumRadioEditor extends BooleanEditor {
     })
 
     // description
-    this.container.appendChild(this.jedi.theme.getDescription({
-      textContent: this.schema.description()
-    }))
+    if (this.schema.description()) {
+      this.container.appendChild(this.jedi.theme.getDescription({
+        textContent: this.schema.description()
+      }))
+    }
   }
 
   refreshUI () {
