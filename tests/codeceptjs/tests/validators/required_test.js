@@ -1,7 +1,7 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'wireframe'
 
-Feature('Lib')
+Feature('required')
 
 Scenario('const should restrict a value to a single value @required', ({ I }) => {
   I.amOnPage('index.html')

@@ -4,7 +4,7 @@ class RequiredValidator {
 
     if (schema.required()) {
       const missingProperties = []
-      const field = schema.title() || key
+      const field = schema.title() ? schema.title() : key
       const keys = Object.keys(value)
 
       schema.required().forEach((key) => {
