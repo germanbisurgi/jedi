@@ -91,24 +91,12 @@ class Utils {
     return (schema && schema.description) ? schema.description : false
   }
 
-  hasNumericType (schema) {
-    return schema.type === 'number' || schema.type === 'integer'
-  }
-
-  hasFormatRadio (schema) {
-    return schema.format && schema.format === 'radio'
-  }
-
   hasAnyOf (schema) {
     return schema.anyOf && this.isArray(schema.anyOf)
   }
 
   hasOneOf (schema) {
     return schema.oneOf && this.isArray(schema.oneOf)
-  }
-
-  hasFormatSelect (schema) {
-    return schema.format && schema.format === 'select'
   }
 
   uuid () {

@@ -21,7 +21,7 @@ class Resolver {
      */
     this.resolvers = [
       (schema) => {
-        if (schema.anyOf() || schema.oneOf() || schema.typeIs('any') || schema.typeIsAnArray() || schema.hasNoType()) {
+        if (schema.anyOf() || schema.oneOf() || schema.typeIs('any') || schema.typeIsAnArray() || !schema.type()) {
           return MultipleEditor
         }
       },

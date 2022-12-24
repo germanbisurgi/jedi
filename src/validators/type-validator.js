@@ -3,15 +3,17 @@ import utils from '../utils'
 class TypeValidator {
   validate (key, schema, value, path) {
     const errors = []
-    if (typeof schema.type === 'undefined') {
+
+    if (!schema.type()) {
       return errors
     }
 
-    if (schema.type === 'any') {
+    if (schema.typeIs('any')) {
       return errors
     }
 
-    if (utils.isArray(schema.type)) {
+    // todo: should validate multiple types
+    if (utils.isArray(schema.type())) {
       return errors
     }
 
@@ -25,12 +27,12 @@ class TypeValidator {
       null: value => utils.isNull(value)
     }
 
-    const valid = types[schema.type](value)
-    const field = schema.title || key
+    const valid = types[schema.type()](value)
+    const field = schema.title() || key
 
     if (!valid) {
       errors.push({
-        message: field + ' must be of type ' + schema.type,
+        message: field + ' must be of type ' + schema.type(),
         path: path
       })
     }
