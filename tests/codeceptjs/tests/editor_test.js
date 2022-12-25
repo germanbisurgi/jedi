@@ -2,7 +2,7 @@
 const jsonData = require('./test')
 const theme = process.env.THEME || 'wireframe'
 
-Feature('Lib')
+Feature('editor')
 
 Scenario('should have class "jedi-ready" when ready @ready', ({ I }) => {
   I.amOnPage('index.html')

@@ -33,6 +33,14 @@ class Schema {
     return (this.schema.enum && Array.isArray(this.schema.enum)) ? this.schema.enum : false
   }
 
+  exclusiveMaximum () {
+    return this.schema.exclusiveMaximum ? this.schema.exclusiveMaximum : false
+  }
+
+  exclusiveMinimum () {
+    return this.schema.exclusiveMinimum ? this.schema.exclusiveMinimum : false
+  }
+
   format () {
     return this.schema.format ? this.schema.format : false
   }
@@ -45,8 +53,16 @@ class Schema {
     return (this.schema.items) ? this.schema.items : false
   }
 
+  maximum () {
+    return (this.schema.maximum) ? this.schema.maximum : false
+  }
+
   maxLength () {
     return (this.schema.maxLength) ? this.schema.maxLength : false
+  }
+
+  minimum () {
+    return (this.schema.minimum) ? this.schema.minimum : false
   }
 
   minLength () {

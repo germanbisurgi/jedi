@@ -1,9 +1,9 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'wireframe'
 
-Feature('required')
+Feature('pattern')
 
-Scenario('should display required validation errors @pattern', ({ I }) => {
+Scenario('should display pattern validation errors @pattern', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')

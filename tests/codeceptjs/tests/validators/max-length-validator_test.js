@@ -1,9 +1,9 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'wireframe'
 
-Feature('minLength')
+Feature('maxLength')
 
-Scenario('should display minLength validation errors @maxLength', ({ I }) => {
+Scenario('should display maxLength validation errors @maxLength', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
