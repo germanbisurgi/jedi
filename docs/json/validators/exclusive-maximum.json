@@ -1,0 +1,14 @@
+{
+  "title": "maximum",
+  "type": "object",
+  "properties": {
+    "number": {
+      "type": "number",
+      "exclusiveMaximum": 5
+    },
+    "integer": {
+      "type": "integer",
+      "exclusiveMaximum": 5
+    }
+  }
+}

@@ -9,7 +9,7 @@ class Maximum {
         const field = schema.title() ? schema.title() : key
 
         errors.push({
-          message: field + ' must be less than ' + schema.maximum(),
+          message: field + ' must be less than ' + (schema.maximum() + 1),
           path: path
         })
       }
