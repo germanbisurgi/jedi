@@ -1,0 +1,10 @@
+{
+  "title": "maxLength",
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string",
+      "maxLength": 5
+    }
+  }
+}

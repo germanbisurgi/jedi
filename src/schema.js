@@ -45,6 +45,10 @@ class Schema {
     return (this.schema.items) ? this.schema.items : false
   }
 
+  maxLength () {
+    return (this.schema.maxLength) ? this.schema.maxLength : false
+  }
+
   minLength () {
     return (this.schema.minLength) ? this.schema.minLength : false
   }

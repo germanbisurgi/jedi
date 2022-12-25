@@ -11,7 +11,7 @@ Scenario('should have class "jedi-ready" when ready @ready', ({ I }) => {
   I.waitForElement('.jedi-ready')
 })
 
-Scenario('Should create all kind of editors', ({ I }) => {
+Scenario('Should create all kind of editors @create', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'All editors')
@@ -45,17 +45,18 @@ Scenario('Should create all kind of editors', ({ I }) => {
   I.waitForElement('[data-path="root.multiple.type-any"]')
 })
 
-Scenario('should destroy', ({ I }) => {
+Scenario('should destroy @destroy', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'All editors')
   I.waitForElement('.jedi-ready')
   I.waitForClickable('#destroy-editor')
+  I.scrollTo('#destroy-editor', 0, -300)
   I.click('#destroy-editor')
   I.dontSeeElement('[data-schemapath="root"]')
 })
 
-Scenario('Should disable and enable', ({ I }) => {
+Scenario('Should disable and enable @disable', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'All editors')

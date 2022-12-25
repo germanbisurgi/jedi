@@ -10,16 +10,19 @@ Scenario('should display required validation errors @required', ({ I }) => {
   I.fillField('#schemas', 'Required')
   I.waitForElement('.jedi-ready')
   I.click('#editor-value')
+  I.scrollTo('[data-path="root"]', 0, -300)
   I.dontSee('Object is missing the required property: required', '[data-path="root"]')
   I.fillField('#editor-value', JSON.stringify({
     optional: ''
   }))
   I.click('#set-value')
+  I.scrollTo('[data-path="root"]', 0, -300)
   I.waitForText('Object is missing the required property: required', '[data-path="root"]')
   I.fillField('#editor-value', JSON.stringify({
     optional: '',
     required: ''
   }))
   I.click('#set-value')
+  I.scrollTo('[data-path="root"]', 0, -300)
   I.dontSee('Object is missing the required property: required', '[data-path="root"]')
 })
