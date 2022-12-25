@@ -1,0 +1,10 @@
+{
+  "title": "pattern",
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string",
+      "pattern": "^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$"
+    }
+  }
+}
