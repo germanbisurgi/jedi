@@ -50,7 +50,6 @@ Scenario('should destroy @destroy', ({ I }) => {
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'All editors')
   I.waitForElement('.jedi-ready')
-  I.waitForClickable('#destroy-editor')
   I.scrollTo('#destroy-editor', 0, -300)
   I.click('#destroy-editor')
   I.dontSeeElement('[data-schemapath="root"]')
