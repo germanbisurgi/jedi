@@ -53,6 +53,10 @@ class Schema {
     return (this.schema.options && this.schema.options[option]) ? this.schema.options[option] : false
   }
 
+  pattern () {
+    return (this.schema.pattern) ? this.schema.pattern : false
+  }
+
   property (key) {
     return this.properties && this.schema.properties[key] ? this.schema.properties[key] : false
   }

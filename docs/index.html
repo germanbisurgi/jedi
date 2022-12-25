@@ -20,37 +20,10 @@
         </div>
         <div class="col-12 col-sm-4">
             <fieldset class="card card-body">
-                <legend>Methods</legend>
-                <div class="form-group">
-                    <label for="editor-value">Value</label>
-                    <textarea ref="editorValue" readonly class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" @click="removeReadOnly"></textarea>
-                </div>
-                <button class="btn btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
-                <button class="btn btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
-                <button class="btn btn-block" id="enable-editor" @click="enableEditor()">Enable editor</button>
-                <button class="btn btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
-            </fieldset>
-
-            <fieldset class="card card-body">
                 <legend>Options</legend>
 
                 <div class="form-group">
-                    <input type="checkbox" id="removeProperty" v-model="options.removeProperty" @change="initEditor()">
-                    <label for="removeProperty">removeProperty</label>
-                </div>
-
-                <div class="form-group">
-                    <input type="checkbox" id="addProperty" v-model="options.addProperty" @change="initEditor()">
-                    <label for="addProperty">addProperty</label>
-                </div>
-
-                <div class="form-group">
-                    <input type="checkbox" id="alwaysShowErrors" v-model="options.alwaysShowErrors" @change="initEditor()">
-                    <label for="alwaysShowErrors">alwaysShowErrors</label>
-                </div>
-
-                <div class="form-group">
-                    <label for="theme">theme</label>
+                    <label for="theme">Theme</label>
                     <select class="form-control" id="theme" v-model="options.theme" @change="setEditorTheme()">
                         <option v-for="theme in themes" :value="theme">{{ theme }}</option>
                     </select>
@@ -67,6 +40,33 @@
                     <label for="schema">Schema</label>
                     <textarea class="form-control" id="schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(editor.schema, null, 2) }}</textarea>
                 </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="removeProperty" v-model="options.removeProperty" @change="initEditor()">
+                    <label for="removeProperty">removeProperty</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="addProperty" v-model="options.addProperty" @change="initEditor()">
+                    <label for="addProperty">addProperty</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="alwaysShowErrors" v-model="options.alwaysShowErrors" @change="initEditor()">
+                    <label for="alwaysShowErrors">alwaysShowErrors</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="card card-body">
+                <legend>Methods</legend>
+                <div class="form-group">
+                    <label for="editor-value">Value</label>
+                    <textarea ref="editorValue" readonly class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" @click="removeReadOnly"></textarea>
+                </div>
+                <button class="btn btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
+                <button class="btn btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
+                <button class="btn btn-block" id="enable-editor" @click="enableEditor()">Enable editor</button>
+                <button class="btn btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
             </fieldset>
         </div>
     </div>
