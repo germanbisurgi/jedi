@@ -7,7 +7,6 @@ import MaxLength from './validators/max-length'
 import Pattern from './validators/pattern'
 import Minimum from './validators/minimum'
 import Maximum from './validators/maximum'
-import ExclusiveMaximum from './validators/exclusive-maximum'
 import MultipleOf from './validators/multiple-of'
 import Const from './validators/const'
 import Enum from './validators/enum'
@@ -25,7 +24,6 @@ class Validator {
       new Pattern(),
       new Minimum(),
       new Maximum(),
-      new ExclusiveMaximum(),
       new MultipleOf(),
       new Const(),
       new Enum(),

@@ -3,13 +3,14 @@ class Maximum {
     const errors = []
 
     if (schema.typeIsNumeric() && schema.maximum()) {
-      const invalid = (value > schema.maximum())
+      const computedMaximum = schema.exclusiveMaximum() ? schema.maximum() - 1 : schema.maximum()
+      const invalid = (value > computedMaximum)
 
       if (invalid) {
         const field = schema.title() ? schema.title() : key
 
         errors.push({
-          message: field + ' must be less than ' + (schema.maximum() + 1),
+          message: field + ' must be less than ' + computedMaximum,
           path: path
         })
       }
