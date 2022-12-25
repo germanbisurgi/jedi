@@ -1,4 +1,4 @@
-class PatternValidator {
+class Pattern {
   validate (key, schema, value, path) {
     const errors = []
 
@@ -20,4 +20,4 @@ class PatternValidator {
   }
 }
 
-export default PatternValidator
+export default Pattern

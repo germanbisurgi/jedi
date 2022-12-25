@@ -1,4 +1,4 @@
-class MinLengthValidator {
+class MinLength {
   validate (key, schema, value, path) {
     const errors = []
 
@@ -18,4 +18,4 @@ class MinLengthValidator {
   }
 }
 
-export default MinLengthValidator
+export default MinLength

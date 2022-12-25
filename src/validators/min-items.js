@@ -1,6 +1,6 @@
 import utils from '../utils'
 
-class MinItemsValidator {
+class MinItems {
   validate (key, schema, value, path) {
     const errors = []
     const isArrayType = schema.type === 'array'
@@ -22,4 +22,4 @@ class MinItemsValidator {
   }
 }
 
-export default MinItemsValidator
+export default MinItems

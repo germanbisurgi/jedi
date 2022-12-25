@@ -1,6 +1,6 @@
 import utils from '../utils'
 
-class TypeValidator {
+class Type {
   validate (key, schema, value, path) {
     const errors = []
 
@@ -38,4 +38,4 @@ class TypeValidator {
   }
 }
 
-export default TypeValidator
+export default Type

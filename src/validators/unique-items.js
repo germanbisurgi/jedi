@@ -1,6 +1,6 @@
 import utils from '../utils'
 
-class UniqueItemsValidator {
+class UniqueItems {
   validate (key, schema, value, path) {
     const errors = []
     const isArrayType = schema.type === 'array'
@@ -34,4 +34,4 @@ class UniqueItemsValidator {
   }
 }
 
-export default UniqueItemsValidator
+export default UniqueItems

@@ -1,6 +1,6 @@
 import utils from '../utils'
 
-class MultipleOfValidator {
+class MultipleOf {
   validate (key, schema, value, path) {
     const errors = []
     const isNumericType = schema.type === 'number' || schema.type === 'integer'
@@ -23,4 +23,4 @@ class MultipleOfValidator {
   }
 }
 
-export default MultipleOfValidator
+export default MultipleOf

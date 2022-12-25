@@ -1,6 +1,6 @@
 import utils from '../utils'
 
-class MinimumValidator {
+class Minimum {
   validate (key, schema, value, path) {
     const errors = []
     const isNumericType = schema.type === 'number' || schema.type === 'integer'
@@ -25,4 +25,4 @@ class MinimumValidator {
   }
 }
 
-export default MinimumValidator
+export default Minimum

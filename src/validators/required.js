@@ -1,4 +1,4 @@
-class RequiredValidator {
+class Required {
   validate (key, schema, value, path) {
     const errors = []
 
@@ -29,4 +29,4 @@ class RequiredValidator {
   }
 }
 
-export default RequiredValidator
+export default Required

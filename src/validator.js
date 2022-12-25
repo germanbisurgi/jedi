@@ -1,33 +1,33 @@
-import TypeValidator from './validators/type-validator'
-import UniqueItemsValidator from './validators/unique-items-validator'
-import MinItemsValidator from './validators/min-items-validator'
-import MaxItemsValidator from './validators/max-items-validator'
-import MinLengthValidator from './validators/min-length-validator'
-import MaxLengthValidator from './validators/max-length-validator'
-import PatternValidator from './validators/pattern-validator'
-import MinimumValidator from './validators/minimum-validator'
-import MaximumValidator from './validators/maximum-validator'
-import MultipleOfValidator from './validators/multiple-of-validator'
-import ConstValidator from './validators/const-validator'
-import EnumValidator from './validators/enum-validator'
-import RequiredValidator from './validators/required-validator'
+import Type from './validators/type'
+import Uniqueitems from './validators/unique-items'
+import Minitems from './validators/min-items'
+import Maxitems from './validators/max-items'
+import Minlength from './validators/min-length'
+import Maxlength from './validators/max-length'
+import Pattern from './validators/pattern'
+import Minimum from './validators/minimum'
+import Maximum from './validators/maximum'
+import Multipleof from './validators/multiple-of'
+import Const from './validators/const'
+import Enum from './validators/enum'
+import Required from './validators/required'
 
 class Validator {
   constructor () {
     this.validators = [
-      new TypeValidator(),
-      new UniqueItemsValidator(),
-      new MinItemsValidator(),
-      new MaxItemsValidator(),
-      new MinLengthValidator(),
-      new MaxLengthValidator(),
-      new PatternValidator(),
-      new MinimumValidator(),
-      new MaximumValidator(),
-      new MultipleOfValidator(),
-      new ConstValidator(),
-      new EnumValidator(),
-      new RequiredValidator()
+      new Type(),
+      new Uniqueitems(),
+      new Minitems(),
+      new Maxitems(),
+      new Minlength(),
+      new Maxlength(),
+      new Pattern(),
+      new Minimum(),
+      new Maximum(),
+      new Multipleof(),
+      new Const(),
+      new Enum(),
+      new Required()
     ]
   }
 

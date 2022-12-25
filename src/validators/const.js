@@ -1,4 +1,4 @@
-class ConstValidator {
+class Const {
   validate (key, schema, value, path) {
     const errors = []
 
@@ -19,4 +19,4 @@ class ConstValidator {
   }
 }
 
-export default ConstValidator
+export default Const

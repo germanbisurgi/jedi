@@ -1,6 +1,6 @@
 import utils from '../utils'
 
-class MaxItemsValidator {
+class MaxItems {
   validate (key, schema, value, path) {
     const errors = []
     const isArrayType = schema.type === 'array'
@@ -22,4 +22,4 @@ class MaxItemsValidator {
   }
 }
 
-export default MaxItemsValidator
+export default MaxItems

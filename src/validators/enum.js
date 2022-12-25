@@ -1,6 +1,6 @@
 import utils from '../utils'
 
-class EnumValidator {
+class Enum {
   validate (key, schema, value, path) {
     const errors = []
     const _enum = schema.enum
@@ -21,4 +21,4 @@ class EnumValidator {
   }
 }
 
-export default EnumValidator
+export default Enum

@@ -1,4 +1,4 @@
-class MaximumValidator {
+class Maximum {
   validate (key, schema, value, path) {
     const errors = []
 
@@ -19,4 +19,4 @@ class MaximumValidator {
   }
 }
 
-export default MaximumValidator
+export default Maximum

@@ -1,4 +1,4 @@
-class MaxLengthValidator {
+class MaxLength {
   validate (key, schema, value, path) {
     const errors = []
 
@@ -18,4 +18,4 @@ class MaxLengthValidator {
   }
 }
 
-export default MaxLengthValidator
+export default MaxLength
