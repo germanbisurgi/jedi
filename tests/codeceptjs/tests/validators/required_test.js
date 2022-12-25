@@ -7,7 +7,7 @@ Scenario('should display required validation errors @required', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'Required')
+  I.fillField('#schemas', 'validators/required')
   I.waitForElement('.jedi-ready')
   I.click('#editor-value')
   I.scrollTo('[data-path="root"]', 0, -300)

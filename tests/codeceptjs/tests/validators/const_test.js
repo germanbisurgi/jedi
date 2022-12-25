@@ -7,7 +7,7 @@ Scenario('should display const validation errors @const', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'Const')
+  I.fillField('#schemas', 'validators/const')
 
   // string
   I.scrollTo('[data-path="root.string"]', 0, -300)
