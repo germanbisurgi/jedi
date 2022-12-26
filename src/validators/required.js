@@ -4,7 +4,6 @@ class Required {
 
     if (schema.required()) {
       const missingProperties = []
-      const field = schema.title() ? schema.title() : key
       const keys = Object.keys(value)
 
       schema.required().forEach((key) => {
@@ -16,6 +15,8 @@ class Required {
       const invalid = missingProperties.length > 0
 
       if (invalid) {
+        const field = schema.title() ? schema.title() : key
+
         missingProperties.forEach((property) => {
           errors.push({
             message: field + '  is missing the required property: ' + property,

@@ -1,0 +1,14 @@
+{
+  "title": "enum",
+  "type": "object",
+  "enum": [
+    { "string":  "Albert" },
+    { "string":  "Betti" }
+  ],
+  "properties": {
+    "string": {
+      "type": "string",
+      "default": "Carl"
+    }
+  }
+}

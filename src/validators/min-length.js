@@ -4,9 +4,10 @@ class MinLength {
 
     if (schema.typeIs('string') && schema.minLength()) {
       const invalid = (value.length < schema.minLength())
-      const field = schema.title() ? schema.title() : key
 
       if (invalid) {
+        const field = schema.title() ? schema.title() : key
+
         errors.push({
           message: field + ' must be at least ' + schema.minLength() + ' characters long',
           path: path

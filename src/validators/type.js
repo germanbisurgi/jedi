@@ -24,9 +24,10 @@ class Type {
       }
 
       const valid = types[schema.type()](value)
-      const field = schema.title() ? schema.title() : key
 
       if (!valid) {
+        const field = schema.title() ? schema.title() : key
+
         errors.push({
           message: field + ' must be of type ' + schema.type(),
           path: path

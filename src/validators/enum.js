@@ -1,20 +1,18 @@
-import utils from '../utils'
-
 class Enum {
   validate (key, schema, value, path) {
     const errors = []
-    const _enum = schema.enum
-    const hasEnumConstrain = utils.isSet(_enum) && utils.isArray(_enum)
-    if (!hasEnumConstrain) return
-    const valueNotInEnum = !_enum.some(e => JSON.stringify(value) === JSON.stringify(e))
-    const invalid = (hasEnumConstrain && valueNotInEnum)
-    const field = schema.title || key
 
-    if (invalid) {
-      errors.push({
-        message: field + ' must be one of the enumerated values',
-        path: path
-      })
+    if (schema.enum()) {
+      const invalid = !schema.enum().some(e => JSON.stringify(value) === JSON.stringify(e))
+
+      if (invalid) {
+        const field = schema.title() ? schema.title() : key
+
+        errors.push({
+          message: field + ' must be one of the enumerated values: ' + JSON.stringify(schema.enum()),
+          path: path
+        })
+      }
     }
 
     return errors
