@@ -1,0 +1,14 @@
+{
+  "title": "multipleOf",
+  "type": "object",
+  "properties": {
+    "number": {
+      "type": "number",
+      "multipleOf": 10
+    },
+    "integer": {
+      "type": "integer",
+      "multipleOf": 10
+    }
+  }
+}

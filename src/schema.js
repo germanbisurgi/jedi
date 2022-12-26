@@ -69,6 +69,10 @@ class Schema {
     return (this.schema.minLength) ? this.schema.minLength : false
   }
 
+  multipleOf () {
+    return (this.schema.multipleOf) ? this.schema.multipleOf : false
+  }
+
   option (option) {
     return (this.schema.options && this.schema.options[option]) ? this.schema.options[option] : false
   }
