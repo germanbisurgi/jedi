@@ -1,0 +1,14 @@
+{
+  "title": "uniqueItems",
+  "type": "object",
+  "properties": {
+    "array": {
+      "type": "array",
+      "default": ["Albert", "Albert"],
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

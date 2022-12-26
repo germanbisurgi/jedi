@@ -1,0 +1,13 @@
+{
+  "title": "minItems",
+  "type": "object",
+  "properties": {
+    "array": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

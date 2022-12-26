@@ -53,6 +53,13 @@ class ThemeWireframe extends ThemeBarebones {
     return label
   }
 
+  getMultipleRadioContainer () {
+    const checkboxContainer = document.createElement('div')
+    checkboxContainer.classList.add('form-check')
+    checkboxContainer.classList.add('form-check-inline')
+    return checkboxContainer
+  }
+
   getCheckbox (config) {
     const checkbox = document.createElement('input')
     checkbox.classList.add('form-check-input')

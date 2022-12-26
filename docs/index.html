@@ -121,12 +121,20 @@
               url: './json/validators/const.json'
             },
             {
+              name: 'validators/maxItems',
+              url: './json/validators/max-items.json'
+            },
+            {
               name: 'validators/maxLength',
               url: './json/validators/max-length.json'
             },
             {
               name: 'validators/maximum',
               url: './json/validators/maximum.json'
+            },
+            {
+              name: 'validators/minItems',
+              url: './json/validators/min-items.json'
             },
             {
               name: 'validators/minLength',
@@ -149,6 +157,10 @@
               url: './json/validators/required.json'
             },
             {
+              name: 'validators/uniqueItems',
+              url: './json/validators/unique-items.json'
+            },
+            {
               name: 'meta-schema',
               url: './json/meta-schema.json'
             },
@@ -168,7 +180,7 @@
             alwaysShowErrors: true,
             theme: 'wireframe',
             schema: {
-              "$ref": "./json/all-editors.json",
+              "$ref": "./json/validators/unique-items.json",
             }
           }
         }

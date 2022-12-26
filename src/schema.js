@@ -57,12 +57,20 @@ class Schema {
     return (this.schema.maximum) ? this.schema.maximum : false
   }
 
+  maxItems () {
+    return (this.schema.maxItems) ? this.schema.maxItems : false
+  }
+
   maxLength () {
     return (this.schema.maxLength) ? this.schema.maxLength : false
   }
 
   minimum () {
     return (this.schema.minimum) ? this.schema.minimum : false
+  }
+
+  minItems () {
+    return (this.schema.minItems) ? this.schema.minItems : false
   }
 
   minLength () {
@@ -115,6 +123,10 @@ class Schema {
 
   oneOf () {
     return (this.schema.oneOf && Array.isArray(this.schema.oneOf)) ? this.schema.oneOf : false
+  }
+
+  uniqueItems () {
+    return this.schema.uniqueItems ? this.schema.uniqueItems : false
   }
 
   serialize () {

@@ -1,0 +1,14 @@
+{
+  "title": "maxItems",
+  "type": "object",
+  "properties": {
+    "array": {
+      "type": "array",
+      "default": ["Albert", "Betti", "Carl"],
+      "maxItems": 3,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
