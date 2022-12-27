@@ -1,5 +1,5 @@
 import refParser from '@apidevtools/json-schema-ref-parser'
-import { isString, isArray, isNumber, isInteger, isBoolean } from './utils'
+import { isString, isArray, isNumber, isInteger, isBoolean, isObject } from './utils'
 
 class Schema {
   constructor (schema) {
@@ -27,7 +27,7 @@ class Schema {
   }
 
   description () {
-    return (this.schema.description) ? this.schema.description : false
+    return isString(this.schema.description) ? this.schema.description : false
   }
 
   enum () {
@@ -43,7 +43,7 @@ class Schema {
   }
 
   format () {
-    return this.schema.format ? this.schema.format : false
+    return isString(this.schema.format) ? this.schema.format : false
   }
 
   formatIs (value) {
@@ -51,7 +51,7 @@ class Schema {
   }
 
   items () {
-    return (this.schema.items) ? this.schema.items : false
+    return isObject(this.schema.items) ? this.schema.items : false
   }
 
   maximum () {
@@ -123,7 +123,7 @@ class Schema {
   }
 
   title () {
-    return (this.schema.title) ? this.schema.title : false
+    return isString(this.schema.title) ? this.schema.title : false
   }
 
   type () {
