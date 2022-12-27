@@ -1255,27 +1255,27 @@ textarea::-ms-input-placeholder {
 .btn:hover {
   background-color: #f6f6f6;
 }
-.btn.btn-block {
+.btn:disabled {
+  opacity: 0.5;
+}
+.btn-block {
   display: block;
   width: 100%;
 }
-.btn.btn-danger {
+.btn-danger {
   background-color: #fcebec;
   border-color: #f8d7da;
   color: #dc3545;
 }
-.btn.btn-warning {
+.btn-warning {
   background-color: #fff9e6;
   border-color: #fff3cd;
   color: #ffc107;
 }
-.btn.btn-success {
+.btn-success {
   background-color: #e8f3ee;
   border-color: #d1e7dd;
   color: #198754;
-}
-.btn:disabled {
-  opacity: 0.5;
 }
 .btn-group {
   display: flex;

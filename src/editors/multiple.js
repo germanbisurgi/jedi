@@ -91,7 +91,7 @@ class MultipleEditor extends Editor {
       const uuid = utils.uuid()
 
       // radio container
-      const radioContainer = this.jedi.theme.getMultipleRadioContainer()
+      const radioContainer = this.jedi.theme.getRadioContainer()
 
       // radio
       const radio = this.jedi.theme.getRadio({

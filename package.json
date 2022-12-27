@@ -10,7 +10,7 @@
     "test:bootstrap4": "THEME='bootstrap4' npm run codeceptjs",
     "test": "THEME='wireframe' npm run codeceptjs",
     "test:barebones": "THEME='barebones' npm run codeceptjs",
-    "codeceptjs": "codeceptjs run --steps --debug -c ./tests/codeceptjs/codecept.conf.js'",
+    "codeceptjs": "codeceptjs run --steps --debug -c ./tests/codeceptjs/codecept.conf.js",
     "serve": "reload --port 8282 --browser --watch-dir ./docs --dir ./docs",
     "watch": "webpack --watch",
     "webpack": "webpack",
