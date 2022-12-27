@@ -1,4 +1,4 @@
-import utils from '../utils'
+import { isString, isNumber, isInteger, isBoolean, isArray, isObject, isNull } from '../utils'
 
 class Type {
   validate (key, schema, value, path) {
@@ -14,13 +14,13 @@ class Type {
 
     if (schema.type()) {
       const types = {
-        string: value => utils.isString(value),
-        number: value => utils.isNumber(value),
-        integer: value => utils.isInteger(value),
-        boolean: value => utils.isBoolean(value),
-        array: value => utils.isArray(value),
-        object: value => utils.isObject(value),
-        null: value => utils.isNull(value)
+        string: value => isString(value),
+        number: value => isNumber(value),
+        integer: value => isInteger(value),
+        boolean: value => isBoolean(value),
+        array: value => isArray(value),
+        object: value => isObject(value),
+        null: value => isNull(value)
       }
 
       const valid = types[schema.type()](value)

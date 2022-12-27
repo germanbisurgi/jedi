@@ -49,7 +49,7 @@ class Jedi {
     await this.schema.dereference()
 
     // if (!this.schema.type() && !this.schema.oneOf() && !this.schema.anyOf()) {
-    //   const schemaType = utils.getType(this.schema)
+    //   const schemaType = getType(this.schema)
     //
     //   if (schemaType === 'object' || schemaType === 'array') {
     //     this.schema.type = schemaType

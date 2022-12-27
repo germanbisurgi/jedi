@@ -1,4 +1,4 @@
-import utils from './utils'
+import { isSet } from './utils'
 import ArrayEditor from './editors/array'
 import BooleanEditor from './editors/boolean'
 import BooleanEnumSelectEditor from './editors/boolean-enum-select'
@@ -100,7 +100,7 @@ class Resolver {
   resolve (schema) {
     for (const resolver of this.resolvers) {
       const editorClass = resolver(schema)
-      if (utils.isSet(editorClass)) {
+      if (isSet(editorClass)) {
         return editorClass
       }
     }

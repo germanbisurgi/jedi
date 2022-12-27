@@ -1,6 +1,6 @@
 import Editor from '../editor'
 import Schema from '../schema'
-import utils from '../utils'
+import { equal, isSet, getType, isObject } from '../utils'
 
 class ObjectEditor extends Editor {
   build () {
@@ -102,7 +102,7 @@ class ObjectEditor extends Editor {
     for (let i = this.childEditors.length - 1; i >= 0; i--) {
       const editor = this.childEditors[i]
       const key = editor.getKey()
-      if (!utils.isSet(value[key])) {
+      if (!isSet(value[key])) {
         this.removeChildEditor(key)
       }
     }
@@ -120,7 +120,7 @@ class ObjectEditor extends Editor {
         const newValue = value[childEditor.getKey()]
 
         // update child value if the old value and the new value are different
-        if (!utils.equal(oldValue, newValue)) {
+        if (!equal(oldValue, newValue)) {
           childEditor.setValue(newValue, false)
         }
 
@@ -132,7 +132,7 @@ class ObjectEditor extends Editor {
       } else {
         // create new child editor for the new value entry having the value as default
         const initialValue = value[key]
-        const type = utils.getType(initialValue)
+        const type = getType(initialValue)
 
         const schema = {
           type: type,
@@ -151,7 +151,7 @@ class ObjectEditor extends Editor {
   }
 
   sanitize (value) {
-    if (utils.isObject(value)) {
+    if (isObject(value)) {
       return value
     }
 

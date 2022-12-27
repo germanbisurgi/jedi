@@ -1,6 +1,6 @@
 import Editor from '../editor'
 import Schema from '../schema'
-import utils from '../utils'
+import { getType, clone, isArray } from '../utils'
 
 class ArrayEditor extends Editor {
   build () {
@@ -46,7 +46,7 @@ class ArrayEditor extends Editor {
   }
 
   createItemEditor (value) {
-    const schema = this.schema.items() ? this.schema.items() : { type: utils.getType(value) }
+    const schema = this.schema.items() ? this.schema.items() : { type: getType(value) }
 
     const itemEditor = this.jedi.createEditor({
       jedi: this.jedi,
@@ -95,7 +95,7 @@ class ArrayEditor extends Editor {
   }
 
   move (fromIndex, toIndex) {
-    const value = utils.clone(this.getValue())
+    const value = clone(this.getValue())
     const item = value[fromIndex]
     value.splice(fromIndex, 1)
     value.splice(toIndex, 0, item)
@@ -104,7 +104,7 @@ class ArrayEditor extends Editor {
 
   addItem () {
     const tempEditor = this.createItemEditor()
-    const value = utils.clone(this.getValue())
+    const value = clone(this.getValue())
     value.push(tempEditor.getValue())
     tempEditor.destroy()
     this.setValue(value)
@@ -112,7 +112,7 @@ class ArrayEditor extends Editor {
 
   deleteItem (itemIndex) {
     if (window.confirm('Confirm to delete')) {
-      const currentValue = utils.clone(this.getValue())
+      const currentValue = clone(this.getValue())
       const newValue = currentValue.filter((item, index) => index !== itemIndex)
       this.setValue(newValue)
     }
@@ -178,7 +178,7 @@ class ArrayEditor extends Editor {
   }
 
   sanitize (value) {
-    if (utils.isArray(value)) {
+    if (isArray(value)) {
       return value
     }
 

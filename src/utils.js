@@ -1,79 +1,75 @@
-import { v4 as uuidv4 } from 'uuid'
+import { v4 } from 'uuid'
 
-class Utils {
-  clone (thing) {
-    return JSON.parse(JSON.stringify(thing))
-  }
-
-  equal (a, b) {
-    return JSON.stringify(a) === JSON.stringify(b)
-  }
-
-  different (a, b) {
-    return JSON.stringify(a) !== JSON.stringify(b)
-  }
-
-  isSet (value) {
-    return typeof value !== 'undefined'
-  }
-
-  isNotSet (value) {
-    return typeof value === 'undefined'
-  }
-
-  isNumber (value) {
-    return typeof value === 'number'
-  }
-
-  isInteger (value) {
-    return this.isNumber(value) && value === Math.floor(value)
-  }
-
-  isString (value) {
-    return typeof value === 'string'
-  }
-
-  isBoolean (value) {
-    return typeof value === 'boolean'
-  }
-
-  isArray (value) {
-    return Array.isArray(value)
-  }
-
-  isObject (value) {
-    return !this.isNull(value) && !this.isArray(value) && typeof value === 'object'
-  }
-
-  isNull (value) {
-    return value === null
-  }
-
-  getType (value) {
-    let type = 'any'
-
-    if (this.isNumber(value)) {
-      type = 'number'
-    } else if (this.isInteger(value)) {
-      type = 'integer'
-    } else if (this.isString(value)) {
-      type = 'string'
-    } else if (this.isBoolean(value)) {
-      type = 'boolean'
-    } else if (this.isArray(value)) {
-      type = 'array'
-    } else if (this.isNull(value)) {
-      type = 'null'
-    } else if (this.isObject(value)) {
-      type = 'object'
-    }
-
-    return type
-  }
-
-  uuid () {
-    return uuidv4()
-  }
+export const clone = (thing) => {
+  return JSON.parse(JSON.stringify(thing))
 }
 
-export default new Utils()
+export const equal = (a, b) => {
+  return JSON.stringify(a) === JSON.stringify(b)
+}
+
+export const different = (a, b) => {
+  return JSON.stringify(a) !== JSON.stringify(b)
+}
+
+export const isNull = (value) => {
+  return value === null
+}
+
+export const isSet = (value) => {
+  return typeof value !== 'undefined'
+}
+
+export const isNotSet = (value) => {
+  return typeof value === 'undefined'
+}
+
+export const isNumber = (value) => {
+  return typeof value === 'number'
+}
+
+export const isInteger = (value) => {
+  return isNumber(value) && value === Math.floor(value)
+}
+
+export const isString = (value) => {
+  return typeof value === 'string'
+}
+
+export const isBoolean = (value) => {
+  return typeof value === 'boolean'
+}
+
+export const isArray = (value) => {
+  return Array.isArray(value)
+}
+
+export const isObject = (value) => {
+  return !isNull(value) && !isArray(value) && typeof value === 'object'
+}
+
+export const getType = (value) => {
+  let type = 'any'
+
+  if (isNumber(value)) {
+    type = 'number'
+  } else if (isInteger(value)) {
+    type = 'integer'
+  } else if (isString(value)) {
+    type = 'string'
+  } else if (isBoolean(value)) {
+    type = 'boolean'
+  } else if (isArray(value)) {
+    type = 'array'
+  } else if (isNull(value)) {
+    type = 'null'
+  } else if (isObject(value)) {
+    type = 'object'
+  }
+
+  return type
+}
+
+export const uuidv4 = () => {
+  return v4()
+}

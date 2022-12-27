@@ -1,6 +1,6 @@
 import Editor from '../editor'
 import Schema from '../schema'
-import utils from '../utils'
+import { isSet, equal, uuidv4 } from '../utils'
 
 class MultipleEditor extends Editor {
   build () {
@@ -88,7 +88,7 @@ class MultipleEditor extends Editor {
     }))
 
     this.switcherOptionValues.forEach((value, index) => {
-      const uuid = utils.uuid()
+      const uuid = uuidv4()
 
       // radio container
       const radioContainer = this.jedi.theme.getRadioContainer()
@@ -118,7 +118,7 @@ class MultipleEditor extends Editor {
 
     this.container.appendChild(this.switcher)
 
-    if (utils.isSet(this.editors[0])) {
+    if (isSet(this.editors[0])) {
       this.switchEditor(0)
     }
   }
@@ -179,7 +179,7 @@ class MultipleEditor extends Editor {
         editor.setValue(value)
       }
 
-      if (utils.equal(editor.sanitize(value), value)) {
+      if (equal(editor.sanitize(value), value)) {
         this.switchEditor(index)
         break
       }
@@ -191,7 +191,7 @@ class MultipleEditor extends Editor {
   setValue (value, triggersChange = true) {
     // if value matches the active editor type set the value. Else switch to the first
     // editor that match the value.
-    if (!utils.equal(this.activeEditor.sanitize(value), value)) {
+    if (!equal(this.activeEditor.sanitize(value), value)) {
       this.matchEditor(value, this.editors)
     }
 

@@ -1,4 +1,5 @@
 import refParser from '@apidevtools/json-schema-ref-parser'
+import { isString, isArray, isNumber, isInteger, isBoolean } from './utils'
 
 class Schema {
   constructor (schema) {
@@ -10,7 +11,7 @@ class Schema {
   }
 
   anyOf () {
-    return (this.schema.anyOf && Array.isArray(this.schema.anyOf)) ? this.schema.anyOf : false
+    return isArray(this.schema.anyOf) ? this.schema.anyOf : false
   }
 
   const () {
@@ -30,7 +31,7 @@ class Schema {
   }
 
   enum () {
-    return (this.schema.enum && Array.isArray(this.schema.enum)) ? this.schema.enum : false
+    return isArray(this.schema.enum) ? this.schema.enum : false
   }
 
   exclusiveMaximum () {
@@ -58,27 +59,47 @@ class Schema {
   }
 
   maxItems () {
-    return (this.schema.maxItems) ? this.schema.maxItems : false
+    if (isInteger(this.schema.maxItems) && this.schema.maxItems >= 0) {
+      return this.schema.maxItems
+    }
+
+    return false
   }
 
   maxLength () {
-    return (this.schema.maxLength) ? this.schema.maxLength : false
+    if (isInteger(this.schema.maxLength) && this.schema.maxLength >= 0) {
+      return this.schema.maxLength
+    }
+
+    return false
   }
 
   minimum () {
-    return (this.schema.minimum) ? this.schema.minimum : false
+    return isNumber(this.schema.minimum) ? this.schema.minimum : false
   }
 
   minItems () {
-    return (this.schema.minItems) ? this.schema.minItems : false
+    if (isInteger(this.schema.minItems) && this.schema.minItems >= 0) {
+      return this.schema.minItems
+    }
+
+    return false
   }
 
   minLength () {
-    return (this.schema.minLength) ? this.schema.minLength : false
+    if (isInteger(this.schema.minLength) && this.schema.minLength >= 0) {
+      return this.schema.minLength
+    }
+
+    return false
   }
 
   multipleOf () {
-    return (this.schema.multipleOf) ? this.schema.multipleOf : false
+    if (isNumber(this.schema.multipleOf) && this.schema.multipleOf > 0) {
+      return this.schema.multipleOf
+    }
+
+    return false
   }
 
   option (option) {
@@ -86,7 +107,7 @@ class Schema {
   }
 
   pattern () {
-    return (this.schema.pattern) ? this.schema.pattern : false
+    return isString(this.schema.pattern) ? this.schema.pattern : false
   }
 
   property (key) {
@@ -98,7 +119,7 @@ class Schema {
   }
 
   required () {
-    return (this.schema.required && Array.isArray(this.schema.required)) ? this.schema.required : false
+    return isArray(this.schema.required) ? [...new Set(this.schema.required)] : false
   }
 
   title () {
@@ -106,7 +127,11 @@ class Schema {
   }
 
   type () {
-    return this.schema.type ? this.schema.type : false
+    if (isString(this.schema.type) || isArray(this.schema.type)) {
+      return this.schema.type
+    }
+
+    return false
   }
 
   typeIs (value) {
@@ -114,7 +139,7 @@ class Schema {
   }
 
   types () {
-    return (this.schema.type && Array.isArray(this.schema.type))
+    return isArray(this.schema.type)
   }
 
   typeIsNumeric () {
@@ -122,11 +147,11 @@ class Schema {
   }
 
   oneOf () {
-    return (this.schema.oneOf && Array.isArray(this.schema.oneOf)) ? this.schema.oneOf : false
+    return isArray(this.schema.oneOf) ? this.schema.oneOf : false
   }
 
   uniqueItems () {
-    return this.schema.uniqueItems ? this.schema.uniqueItems : false
+    return isBoolean(this.schema.uniqueItems) ? this.schema.uniqueItems : false
   }
 
   serialize () {
