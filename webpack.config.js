@@ -12,7 +12,7 @@ const common = {
     libraryTarget: 'umd'
   },
   mode: 'production',
-  // devtool: 'inline-source-map',
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -38,7 +38,7 @@ const common = {
     ]
   },
   optimization: {
-    minimize: true
+    minimize: false
   },
   performance: {
     hints: false
