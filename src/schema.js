@@ -35,11 +35,11 @@ class Schema {
   }
 
   exclusiveMaximum () {
-    return this.schema.exclusiveMaximum ? this.schema.exclusiveMaximum : false
+    return isNumber(this.schema.exclusiveMaximum) ? this.schema.exclusiveMaximum : false
   }
 
   exclusiveMinimum () {
-    return this.schema.exclusiveMinimum ? this.schema.exclusiveMinimum : false
+    return isNumber(this.schema.exclusiveMinimum) ? this.schema.exclusiveMinimum : false
   }
 
   format () {

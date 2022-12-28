@@ -2,23 +2,13 @@
   "title": "minimum",
   "type": "object",
   "properties": {
-    "number_minimum": {
+    "number": {
       "type": "number",
       "minimum": 100
     },
-    "number_exclusive_minimum": {
-      "type": "number",
-      "minimum": 100,
-      "exclusiveMinimum": true
-    },
-    "integer_minimum": {
+    "integer": {
       "type": "integer",
       "minimum": 100
-    },
-    "integer_exclusive_minimum": {
-      "type": "integer",
-      "minimum": 100,
-      "exclusiveMinimum": true
     }
   }
 }

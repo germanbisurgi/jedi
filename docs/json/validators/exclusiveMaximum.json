@@ -1,14 +1,14 @@
 {
-  "title": "maximum",
+  "title": "exclusiveMaximum",
   "type": "object",
   "properties": {
     "number": {
       "type": "number",
-      "maximum": 100
+      "exclusiveMaximum": 100
     },
     "integer": {
       "type": "integer",
-      "maximum": 100
+      "exclusiveMaximum": 100
     }
   }
 }

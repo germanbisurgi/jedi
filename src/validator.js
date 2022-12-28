@@ -11,12 +11,16 @@ import MultipleOf from './validators/multiple-of'
 import Const from './validators/const'
 import Enum from './validators/enum'
 import Required from './validators/required'
+import ExclusiveMaximum from './validators/exclusiveMaximum'
+import ExclusiveMinimum from './validators/exclusiveMinimum'
 
 class Validator {
   constructor () {
     this.validators = [
       new Type(),
       new UniqueItems(),
+      new ExclusiveMaximum(),
+      new ExclusiveMinimum(),
       new MinItems(),
       new MaxItems(),
       new MinLength(),

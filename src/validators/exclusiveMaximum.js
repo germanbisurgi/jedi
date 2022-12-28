@@ -1,9 +1,9 @@
-class Maximum {
+class ExclusiveMaximum {
   validate (key, schema, value, path) {
     const errors = []
 
-    if (schema.typeIsNumeric() && schema.maximum()) {
-      const computedMaximum = schema.maximum()
+    if (schema.typeIsNumeric() && schema.exclusiveMaximum()) {
+      const computedMaximum = (schema.exclusiveMaximum() - 1)
       const invalid = (value > computedMaximum)
 
       if (invalid) {
@@ -20,4 +20,4 @@ class Maximum {
   }
 }
 
-export default Maximum
+export default ExclusiveMaximum

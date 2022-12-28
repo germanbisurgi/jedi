@@ -1,9 +1,9 @@
-class Minimum {
+class ExclusiveMinimum {
   validate (key, schema, value, path) {
     const errors = []
 
-    if (schema.typeIsNumeric() && schema.minimum()) {
-      const computedMinimum = schema.minimum()
+    if (schema.typeIsNumeric() && schema.exclusiveMinimum()) {
+      const computedMinimum = (schema.exclusiveMinimum() + 1)
       const invalid = (value < computedMinimum)
 
       if (invalid) {
@@ -20,4 +20,4 @@ class Minimum {
   }
 }
 
-export default Minimum
+export default ExclusiveMinimum
