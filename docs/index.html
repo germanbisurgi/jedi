@@ -38,7 +38,7 @@
 
                 <div class="form-group" v-if="editor">
                     <label for="schema">Schema</label>
-                    <textarea class="form-control" id="schema" style="font-family: monospace;height: 70vh;">{{ JSON.stringify(editor.schema, null, 2) }}</textarea>
+                    <textarea class="form-control" id="schema" style="font-family: monospace;height: 300px;">{{ JSON.stringify(editor.schema, null, 2) }}</textarea>
                 </div>
 
                 <div class="form-group">
@@ -61,7 +61,7 @@
                 <legend>Methods</legend>
                 <div class="form-group">
                     <label for="editor-value">Value</label>
-                    <textarea ref="editorValue" readonly class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" @click="removeReadOnly"></textarea>
+                    <textarea ref="editorValue" class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" ></textarea>
                 </div>
                 <button class="btn btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
                 <button class="btn btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
@@ -141,6 +141,10 @@
               url: './json/validators/maxLength.json'
             },
             {
+              name: 'validators/maxProperties',
+              url: './json/validators/maxProperties.json'
+            },
+            {
               name: 'validators/maximum',
               url: './json/validators/maximum.json'
             },
@@ -151,6 +155,10 @@
             {
               name: 'validators/minLength',
               url: './json/validators/minLength.json'
+            },
+            {
+              name: 'validators/minProperties',
+              url: './json/validators/minProperties.json'
             },
             {
               name: 'validators/minimum',
@@ -270,9 +278,6 @@
           const response = await fetch(this.$refs.schema.value);
           this.options.schema = await response.json()
           this.initEditor()
-        },
-        removeReadOnly() {
-          this.$refs.editorValue.removeAttribute('readonly')
         }
       }
     })

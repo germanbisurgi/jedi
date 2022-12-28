@@ -1,0 +1,6 @@
+{
+  "title": "minProperties",
+  "type": "object",
+  "minProperties": 1,
+  "properties": {}
+}

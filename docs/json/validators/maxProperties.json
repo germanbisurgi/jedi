@@ -1,0 +1,15 @@
+{
+  "title": "maxProperties",
+  "type": "object",
+  "maxProperties": 1,
+  "properties": {
+    "prop1": {
+      "title": "Property 1",
+      "type": "string"
+    },
+    "prop2": {
+      "title": "Property 2",
+      "type": "string"
+    }
+  }
+}

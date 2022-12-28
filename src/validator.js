@@ -1,18 +1,20 @@
 import Type from './validators/type'
-import UniqueItems from './validators/unique-items'
-import MinItems from './validators/min-items'
-import MaxItems from './validators/max-items'
-import MinLength from './validators/min-length'
-import MaxLength from './validators/max-length'
+import UniqueItems from './validators/uniqueItems'
+import MinItems from './validators/minItems'
+import MaxItems from './validators/maxItems'
+import MinLength from './validators/minLength'
+import MaxLength from './validators/maxLength'
 import Pattern from './validators/pattern'
 import Minimum from './validators/minimum'
 import Maximum from './validators/maximum'
-import MultipleOf from './validators/multiple-of'
+import MultipleOf from './validators/multipleOf'
 import Const from './validators/const'
 import Enum from './validators/enum'
 import Required from './validators/required'
 import ExclusiveMaximum from './validators/exclusiveMaximum'
 import ExclusiveMinimum from './validators/exclusiveMinimum'
+import MinProperties from './validators/minProperties'
+import MaxProperties from './validators/maxProperties'
 
 class Validator {
   constructor () {
@@ -31,7 +33,9 @@ class Validator {
       new MultipleOf(),
       new Const(),
       new Enum(),
-      new Required()
+      new Required(),
+      new MinProperties(),
+      new MaxProperties()
     ]
   }
 

@@ -74,6 +74,14 @@ class Schema {
     return false
   }
 
+  maxProperties () {
+    if (isInteger(this.schema.maxProperties) && this.schema.maxProperties >= 0) {
+      return this.schema.maxProperties
+    }
+
+    return false
+  }
+
   minimum () {
     return isNumber(this.schema.minimum) ? this.schema.minimum : false
   }
@@ -89,6 +97,14 @@ class Schema {
   minLength () {
     if (isInteger(this.schema.minLength) && this.schema.minLength >= 0) {
       return this.schema.minLength
+    }
+
+    return false
+  }
+
+  minProperties () {
+    if (isInteger(this.schema.minProperties) && this.schema.minProperties >= 0) {
+      return this.schema.minProperties
     }
 
     return false
