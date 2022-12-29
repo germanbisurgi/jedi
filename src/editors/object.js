@@ -14,15 +14,31 @@ class ObjectEditor extends Editor {
 
     // addBtn
     if (this.jedi.options.addProperty) {
+      const label = this.jedi.theme.getLabel({
+        textContent: 'Property Name',
+        for: 'test-' + Math.ceil(Math.random() * 1000)
+      })
+
+      this.container.appendChild(label)
+
+      const input = this.jedi.theme.getInput({
+        type: 'text',
+        id: 'test-' + Math.ceil(Math.random() * 1000)
+      })
+
+      this.container.appendChild(input)
+
       const addBtn = this.jedi.theme.getButton({
         textContent: 'Add property'
       })
-      this.container.appendChild(addBtn)
+
       addBtn.addEventListener('click', () => {
-        const randomKey = 'test-' + Math.ceil(Math.random() * 1000)
+        const randomKey = input.value
         this.value[randomKey] = undefined
         this.setValue(this.value)
       })
+
+      this.container.appendChild(addBtn)
     }
   }
 
