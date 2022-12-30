@@ -1,8 +1,10 @@
+import { isArray } from '../utils'
+
 class MinItems {
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     const errors = []
 
-    if (schema.typeIs('array') && schema.minItems()) {
+    if (isArray(value) && schema.minItems()) {
       const invalid = (value.length < schema.minItems())
 
       if (invalid) {

@@ -15,6 +15,7 @@ import ExclusiveMaximum from './validators/exclusiveMaximum'
 import ExclusiveMinimum from './validators/exclusiveMinimum'
 import MinProperties from './validators/minProperties'
 import MaxProperties from './validators/maxProperties'
+import AllOf from './validators/allOf'
 
 class Validator {
   constructor () {
@@ -35,7 +36,8 @@ class Validator {
       new Enum(),
       new Required(),
       new MinProperties(),
-      new MaxProperties()
+      new MaxProperties(),
+      new AllOf()
     ]
   }
 
@@ -49,11 +51,11 @@ class Validator {
   /**
    * Validates a value against it's schema
    */
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     let schemaErrors = []
 
     this.validators.forEach((validator) => {
-      const validatorErrors = validator.validate(key, schema, value, path)
+      const validatorErrors = validator.validate(value, schema, key, path, this)
 
       if (validatorErrors) {
         schemaErrors = [...schemaErrors, ...validatorErrors]

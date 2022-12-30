@@ -1,8 +1,10 @@
+import { isString } from '../utils'
+
 class MaxLength {
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     const errors = []
 
-    if (schema.typeIs('string') && schema.maxLength()) {
+    if (isString(value) && schema.maxLength()) {
       const invalid = (value.length > schema.maxLength())
 
       if (invalid) {

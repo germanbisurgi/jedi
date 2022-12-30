@@ -1,8 +1,10 @@
+import { isNumber } from '../utils'
+
 class MultipleOf {
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     const errors = []
 
-    if (schema.typeIsNumeric() && schema.multipleOf()) {
+    if (isNumber(value) && schema.multipleOf()) {
       const isMultipleOf = (value / schema.multipleOf() === Math.floor(value / schema.multipleOf()))
       const invalid = (!isMultipleOf)
 

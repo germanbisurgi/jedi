@@ -153,7 +153,7 @@ class Editor {
   }
 
   validate () {
-    return this.jedi.validator.validate(this.getKey(), this.schema, this.getValue(), this.path)
+    return this.jedi.validator.validate(this.getValue(), this.schema, this.getKey(), this.path)
   }
 
   /**

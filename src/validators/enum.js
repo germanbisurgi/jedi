@@ -1,5 +1,5 @@
 class Enum {
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     const errors = []
 
     if (schema.enum()) {

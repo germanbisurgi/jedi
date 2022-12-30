@@ -1,8 +1,10 @@
+import { isObject } from '../utils'
+
 class MaxProperties {
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     const errors = []
 
-    if (schema.typeIs('object') && schema.maxProperties()) {
+    if (isObject(value) && schema.maxProperties()) {
       const propertiesCount = Object.keys(value).length
       const invalid = (propertiesCount > schema.maxProperties())
 

@@ -1,0 +1,13 @@
+{
+  "title": "allOf",
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string",
+      "allOf": [
+        { "const": "test" },
+        { "minLength": 1 }
+      ]
+    }
+  }
+}

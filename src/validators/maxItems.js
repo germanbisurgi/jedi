@@ -1,8 +1,10 @@
+import { isArray } from '../utils'
+
 class MaxItems {
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     const errors = []
 
-    if (schema.typeIs('array') && schema.maxItems()) {
+    if (isArray(value) && schema.maxItems()) {
       const invalid = (value.length > schema.maxItems())
 
       if (invalid) {

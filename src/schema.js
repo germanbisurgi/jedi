@@ -10,6 +10,10 @@ class Schema {
     this.schema = await refParser.dereference(this.schema)
   }
 
+  allOf () {
+    return isArray(this.schema.allOf) ? this.schema.allOf : false
+  }
+
   anyOf () {
     return isArray(this.schema.anyOf) ? this.schema.anyOf : false
   }
@@ -30,8 +34,16 @@ class Schema {
     return isString(this.schema.description) ? this.schema.description : false
   }
 
+  else () {
+    return isObject(this.schema.else) ? this.schema.else : false
+  }
+
   enum () {
-    return isArray(this.schema.enum) ? this.schema.enum : false
+    if (isArray(this.schema.enum) && this.schema.enum.length > 0) {
+      return this.schema.enum
+    }
+
+    return false
   }
 
   exclusiveMaximum () {
@@ -48,6 +60,10 @@ class Schema {
 
   formatIs (value) {
     return (this.format() && this.format() === value)
+  }
+
+  if () {
+    return isObject(this.schema.if) ? this.schema.if : false
   }
 
   items () {
@@ -136,6 +152,10 @@ class Schema {
 
   required () {
     return isArray(this.schema.required) ? [...new Set(this.schema.required)] : false
+  }
+
+  then () {
+    return isObject(this.schema.then) ? this.schema.then : false
   }
 
   title () {

@@ -1,8 +1,10 @@
+import { isString } from '../utils'
+
 class Pattern {
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     const errors = []
 
-    if (schema.typeIs('string') && schema.pattern()) {
+    if (isString(value) && schema.pattern()) {
       const regexp = new RegExp(schema.pattern())
       const invalid = !regexp.test(value)
 

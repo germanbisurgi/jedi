@@ -1,8 +1,10 @@
+import { isObject } from '../utils'
+
 class MinProperties {
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     const errors = []
 
-    if (schema.typeIs('object') && schema.minProperties()) {
+    if (isObject(value) && schema.minProperties()) {
       const propertiesCount = Object.keys(value).length
       const invalid = (propertiesCount < schema.minProperties())
 

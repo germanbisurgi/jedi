@@ -1,8 +1,10 @@
+import { isString } from '../utils'
+
 class MinLength {
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     const errors = []
 
-    if (schema.typeIs('string') && schema.minLength()) {
+    if (isString(value) && schema.minLength()) {
       const invalid = (value.length < schema.minLength())
 
       if (invalid) {

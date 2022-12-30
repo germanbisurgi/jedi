@@ -1,7 +1,7 @@
 import { isString, isNumber, isInteger, isBoolean, isArray, isObject, isNull } from '../utils'
 
 class Type {
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     const errors = []
 
     if (schema.types()) {

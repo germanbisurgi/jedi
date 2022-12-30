@@ -1,13 +1,14 @@
 class Const {
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     const errors = []
 
     if (schema.const()) {
       const valueIsNotEqualConst = (JSON.stringify(value) !== JSON.stringify(schema.const()))
       const invalid = (valueIsNotEqualConst)
-      const field = schema.title() ? schema.title() : key
 
       if (invalid) {
+        const field = schema.title() ? schema.title() : key
+
         errors.push({
           message: field + ' must have value: ' + JSON.stringify(schema.const()),
           path: path

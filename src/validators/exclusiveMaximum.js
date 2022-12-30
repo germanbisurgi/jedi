@@ -1,8 +1,10 @@
+import { isNumber } from '../utils'
+
 class ExclusiveMaximum {
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     const errors = []
 
-    if (schema.typeIsNumeric() && schema.exclusiveMaximum()) {
+    if (isNumber(value) && schema.exclusiveMaximum()) {
       const computedMaximum = (schema.exclusiveMaximum() - 1)
       const invalid = (value > computedMaximum)
 

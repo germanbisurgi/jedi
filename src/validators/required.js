@@ -1,8 +1,10 @@
+import { isObject } from '../utils'
+
 class Required {
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     const errors = []
 
-    if (schema.required()) {
+    if (isObject(value) && schema.required()) {
       const missingProperties = []
       const keys = Object.keys(value)
 

@@ -1,8 +1,10 @@
+import { isNumber } from '../utils'
+
 class Minimum {
-  validate (key, schema, value, path) {
+  validate (value, schema, key, path) {
     const errors = []
 
-    if (schema.typeIsNumeric() && schema.minimum()) {
+    if (isNumber(value) && schema.minimum()) {
       const computedMinimum = schema.minimum()
       const invalid = (value < computedMinimum)
 
