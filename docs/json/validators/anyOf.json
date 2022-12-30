@@ -1,0 +1,13 @@
+{
+  "title": "anyOf",
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string",
+      "anyOf": [
+        { "const": "Albert" },
+        { "const": "Betty" }
+      ]
+    }
+  }
+}

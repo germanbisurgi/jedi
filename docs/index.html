@@ -121,6 +121,10 @@
               url: './json/validators/allOf.json'
             },
             {
+              name: 'validators/anyOf',
+              url: './json/validators/anyOf.json'
+            },
+            {
               name: 'validators/const',
               url: './json/validators/const.json'
             },
@@ -208,7 +212,7 @@
             alwaysShowErrors: true,
             theme: 'wireframe',
             schema: {
-              "$ref": "./json/all-editors.json",
+              "$ref": "./json/validators/anyOf.json",
             }
           }
         }
