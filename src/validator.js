@@ -17,6 +17,7 @@ import MinProperties from './validators/minProperties'
 import MaxProperties from './validators/maxProperties'
 import AllOf from './validators/allOf'
 import AnyOf from './validators/anyOf'
+import OneOf from './validators/oneOf'
 
 class Validator {
   constructor () {
@@ -39,7 +40,8 @@ class Validator {
       new MinProperties(),
       new MaxProperties(),
       new AllOf(),
-      new AnyOf()
+      new AnyOf(),
+      new OneOf()
     ]
   }
 

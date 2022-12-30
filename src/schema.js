@@ -127,7 +127,7 @@ class Schema {
   }
 
   multipleOf () {
-    if (isNumber(this.schema.multipleOf) && this.schema.multipleOf > 0) {
+    if (isNumber(this.schema.multipleOf) && this.schema.multipleOf >= 0) {
       return this.schema.multipleOf
     }
 

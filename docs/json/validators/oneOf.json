@@ -1,0 +1,13 @@
+{
+  "title": "oneOf",
+  "type": "object",
+  "properties": {
+    "number": {
+      "type": "number",
+      "oneOf": [
+        { "type": "number", "multipleOf": 5 },
+        { "type": "number", "multipleOf": 3 }
+      ]
+    }
+  }
+}
