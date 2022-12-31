@@ -1,23 +1,36 @@
 {
-  "title": "if",
   "type": "object",
   "properties": {
     "street_address": {
       "type": "string"
     },
     "country": {
-      "type": "string",
       "default": "United States of America",
-      "enum": ["United States of America", "Canada"]
+      "enum": [
+        "United States of America",
+        "Canada"
+      ]
     }
   },
   "if": {
-    "properties": { "country": { "const": "United States of America" } }
+    "properties": {
+      "country": {
+        "const": "United States of America"
+      }
+    }
   },
   "then": {
-    "properties": { "postal_code": { "pattern": "[0-9]{5}(-[0-9]{4})?" } }
+    "properties": {
+      "postal_code": {
+        "pattern": "[0-9]{5}(-[0-9]{4})?"
+      }
+    }
   },
   "else": {
-    "properties": { "postal_code": { "pattern": "[A-Z][0-9][A-Z] [0-9][A-Z][0-9]" } }
+    "properties": {
+      "postal_code": {
+        "pattern": "[A-Z][0-9][A-Z] [0-9][A-Z][0-9]"
+      }
+    }
   }
 }

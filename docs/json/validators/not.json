@@ -1,0 +1,11 @@
+{
+  "title": "not",
+  "type": "object",
+  "properties": {
+    "test": {
+      "not": {
+        "type": "string"
+      }
+    }
+  }
+}

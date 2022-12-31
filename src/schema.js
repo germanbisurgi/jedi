@@ -134,6 +134,10 @@ class Schema {
     return false
   }
 
+  not () {
+    return isObject(this.schema.not) ? this.schema.not : false
+  }
+
   option (option) {
     return (this.schema.options && this.schema.options[option]) ? this.schema.options[option] : false
   }

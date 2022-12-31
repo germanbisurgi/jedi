@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+  function traverse(o, func) {
+    for (var i in o) {
+      func.apply(this, [i, o[i]])
+      if (o[i] !== null && typeof (o[i]) == "object") {
+        //going one step down in the object tree!!
+        traverse(o[i], func);
+      }
+    }
+  }
+
+  const schema = {
+    "properties": {
+      "country": {
+        "type": "string",
+        "const": "United States of America"
+      }
+    }
+  }
+
+  traverse(schema, (something) => {
+    console.log('something', something)
+  })
+</script>
+
+</body>
+</html>
