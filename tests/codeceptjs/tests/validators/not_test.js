@@ -8,8 +8,6 @@ Scenario('should display not validation errors @not', ({ I }) => {
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validators/not')
-
-  // string
   I.scrollTo('[data-path="root.test"]', 0, -300)
   I.waitForText('test must not validate against the provided schema {"type":"string"}', '[data-path="root.test"]')
   I.click('Number')
