@@ -22,7 +22,7 @@ class Resolver {
     this.resolvers = [
       (schema) => {
         if (schema.anyOf() || schema.oneOf() || schema.typeIs('any') || schema.types() || !schema.type()) {
-          if (schema.default()) {
+          if (!schema.type() && schema.default()) {
             const originalSchema = schema.clone()
             originalSchema.type = getType(schema.default())
             const newSchema = new Schema(originalSchema)
