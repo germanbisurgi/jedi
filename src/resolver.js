@@ -1,4 +1,4 @@
-import { isSet } from './utils'
+import { isSet, getType } from './utils'
 import ArrayEditor from './editors/array'
 import BooleanEditor from './editors/boolean'
 import BooleanEnumSelectEditor from './editors/boolean-enum-select'
@@ -12,6 +12,7 @@ import NumberEditor from './editors/number'
 import NumberEnumSelectEditor from './editors/number-enum-select'
 import NumberEnumRadioEditor from './editors/number-enum-radio'
 import NullEditor from './editors/null'
+import Schema from './schema'
 
 class Resolver {
   constructor () {
@@ -21,7 +22,14 @@ class Resolver {
     this.resolvers = [
       (schema) => {
         if (schema.anyOf() || schema.oneOf() || schema.typeIs('any') || schema.types() || !schema.type()) {
-          return MultipleEditor
+          if (schema.default()) {
+            const originalSchema = schema.clone()
+            originalSchema.type = getType(schema.default())
+            const newSchema = new Schema(originalSchema)
+            return this.resolve(newSchema)
+          } else {
+            return MultipleEditor
+          }
         }
       },
       (schema) => {
