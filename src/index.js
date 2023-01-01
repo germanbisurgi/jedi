@@ -16,7 +16,7 @@ class Jedi {
       theme: 'wireframe'
     }, options)
 
-    this.container = document.querySelector(options.container)
+    this.container = document.querySelector(options.container) || document.createElement('div')
     this.schema = new Schema(options.schema)
     this.editors = {}
     this.root = null
