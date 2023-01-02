@@ -1,11 +1,7 @@
 ## fix
 
-- custom error messages option
 - init, options
 - validators: 
-    - allOf
-    - anyOf
-    - oneOf
     - not
     - patternProperties
     - propertyNames
