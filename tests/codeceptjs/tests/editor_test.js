@@ -7,14 +7,14 @@ Feature('editor')
 Scenario('should have class "jedi-ready" when ready @ready', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
-  I.fillField('#schemas', 'All editors')
+  I.fillField('#schemas', 'editors')
   I.waitForElement('.jedi-ready')
 })
 
 Scenario('Should create all kind of editors @create', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
-  I.fillField('#schemas', 'All editors')
+  I.fillField('#schemas', 'editors')
   I.waitForElement('.jedi-ready')
   I.waitForText('Editor', 'h3')
   I.waitForElement('[data-path="root"]')
@@ -48,7 +48,7 @@ Scenario('Should create all kind of editors @create', ({ I }) => {
 Scenario('should destroy @destroy', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
-  I.fillField('#schemas', 'All editors')
+  I.fillField('#schemas', 'editors')
   I.waitForElement('.jedi-ready')
   I.scrollTo('#destroy-editor', 0, -300)
   I.click('#destroy-editor')
@@ -58,7 +58,7 @@ Scenario('should destroy @destroy', ({ I }) => {
 Scenario('Should disable and enable @disable', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
-  I.fillField('#schemas', 'All editors')
+  I.fillField('#schemas', 'editors')
   I.waitForElement('.jedi-ready')
   I.waitForElement('#disable-editor')
   I.scrollTo('#disable-editor', 0, -300)
@@ -78,7 +78,7 @@ Scenario('Should disable and enable @disable', ({ I }) => {
 Scenario('should set value @setValue', async ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
-  I.fillField('#schemas', 'All editors')
+  I.fillField('#schemas', 'editors')
   I.waitForElement('.jedi-ready')
   I.scrollTo('#editor-value', 0, -300)
   I.click('#editor-value')
