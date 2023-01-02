@@ -1,6 +1,6 @@
 import Editor from '../editor'
 import Schema from '../schema'
-import { equal, isSet, getType, isObject } from '../utils'
+import { equal, isSet, getType, isObject, uuidv4 } from '../utils'
 
 class ObjectEditor extends Editor {
   build () {
@@ -14,16 +14,18 @@ class ObjectEditor extends Editor {
 
     // addBtn
     if (this.jedi.options.addProperty) {
+      const uuid = uuidv4()
+
       const label = this.jedi.theme.getLabel({
         textContent: 'Property Name',
-        for: 'test-' + Math.ceil(Math.random() * 1000)
+        for: 'jedi-add-property-' + uuid
       })
 
       this.container.appendChild(label)
 
       const input = this.jedi.theme.getInput({
         type: 'text',
-        id: 'test-' + Math.ceil(Math.random() * 1000)
+        id: 'jedi-add-property-' + uuid
       })
 
       this.container.appendChild(input)
@@ -33,8 +35,8 @@ class ObjectEditor extends Editor {
       })
 
       addBtn.addEventListener('click', () => {
-        const randomKey = input.value
-        this.value[randomKey] = undefined
+        const key = input.value
+        this.addChildEditor({ type: 'any' }, key)
         this.setValue(this.value)
       })
 
