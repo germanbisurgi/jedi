@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "title": "format",
+  "properties": {
+    "email": {
+      "title": "E-Mail",
+      "type": "string",
+      "format": "email"
+    }
+  }
+}

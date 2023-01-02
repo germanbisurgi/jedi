@@ -157,6 +157,18 @@ Scenario('should display exclusiveMinimum validation errors @exclusiveMinimum', 
   I.waitForText('number must be at least 101', '[data-path="root.number"]')
   I.waitForText('integer must be at least 101', '[data-path="root.integer"]')
 })
+
+Scenario('should display message validation error @format', ({ I }) => {
+  I.amOnPage('index.html')
+  I.fillField('#theme', theme)
+  I.waitForElement('.jedi-ready')
+  I.fillField('#schemas', 'validator/format')
+  I.waitForText('E-Mail must be a valid email address', '[data-path="root.email"]')
+  I.fillField('[id="root.email"]', 'some@email.com')
+  I.pressKey('Tab')
+  I.dontSee('E-Mail must be a valid email address', '[data-path="root.email"]')
+})
+
 Scenario('should display maximum validation errors @maximum', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
