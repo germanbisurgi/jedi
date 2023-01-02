@@ -1,20 +1,26 @@
 ## fix
 
-- init, options
-- validators: 
-    - not
+- feature: ui slots
+- test addProperty
+- test labels
+- test description
+- feature validators: 
     - patternProperties
     - propertyNames
     - additionalProperties
     - dependencies 
     - dependentRequired 
-- toggle for optional properties
-- array tabs
-- option exclude
-- filter by field
-- array enums
-- array tuple 
-- build class?
-- plugins examples
-- read only
-- accessibility states
+- feature: toggle for optional properties
+- feature: array tabs
+- feature: option exclude
+- feature: filter by field
+- feature: array enums
+- feature: array tuple 
+- feature: plugins examples
+- feature: read only
+- feature: accessibility states
+- feature: collapse
+- feature global vs local configurations
+    - removeProperty: false,
+    - addProperty: false,
+    - alwaysShowErrors: false,

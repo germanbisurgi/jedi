@@ -17,6 +17,11 @@
       "title": "Remember me",
       "type": "boolean",
       "format": "checkbox"
+    },
+    "csfr": {
+      "type": "string",
+      "format": "hidden",
+      "default": "t7eYNThAnB2XJlkNcUcKb7dct37ryw_ACnIJdTvwZPz8-9tYW3faKc1EHXkSHUQXzw2HJr_7N69EKnE2FrE7xA=="
     }
   }
 }

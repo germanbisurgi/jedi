@@ -3,14 +3,18 @@ import Editor from '../editor'
 class StringEditor extends Editor {
   build () {
     // label
-    this.container.appendChild(this.jedi.theme.getLabel({
+    const label = this.jedi.theme.getLabel({
       for: this.path,
       textContent: this.schema.title() ? this.schema.title() : this.getKey()
-    }))
+    })
+
+    if (!this.schema.formatIs('hidden')) {
+      this.container.appendChild(label)
+    }
 
     // input
     // todo file, range should be handled differently
-    const inputTypes = ['color', 'date', 'datetime-local', 'email', 'number', 'month', 'password', 'search', 'time', 'tel', 'text', 'textarea', 'url', 'week']
+    const inputTypes = ['hidden', 'color', 'date', 'datetime-local', 'email', 'number', 'month', 'password', 'search', 'time', 'tel', 'text', 'textarea', 'url', 'week']
 
     if (this.schema.formatIs('textarea')) {
       this.input = this.jedi.theme.getTextarea({

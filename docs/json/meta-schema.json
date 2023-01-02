@@ -1,34 +1,24 @@
 {
-  "title": "JSON Schema",
   "type": "object",
-  "patternProperties": {
-    ".*": {
-      "$ref": "#/definitions/schema"
+  "title": "Object",
+  "properties": {
+    "name": {
+      "title": "Name",
+      "$ref": "#/$defs/name"
+    },
+    "surname": {
+      "title": "Surname",
+      "$ref": "#/$defs/name"
     }
   },
-  "definitions": {
-    "schema": {
-      "type": "object",
-      "default": {},
-      "additionalProperties": false,
-      "properties": {
-        "type": {
-          "title": "type",
-          "type": "string",
-          "enum": [
-            "string",
-            "number",
-            "integer",
-            "object",
-            "array",
-            "boolean",
-            "null"
-          ]
-        },
-        "title": {
-          "type": "string"
-        }
-      }
+  "required": [
+    "name",
+    "surname"
+  ],
+  "$defs": {
+    "name": {
+      "type": "string",
+      "minLength": 1
     }
   }
 }

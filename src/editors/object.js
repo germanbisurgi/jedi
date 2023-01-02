@@ -1,6 +1,6 @@
 import Editor from '../editor'
 import Schema from '../schema'
-import { equal, isSet, getType, isObject, uuidv4 } from '../utils'
+import { equal, isSet, getType, isObject } from '../utils'
 
 class ObjectEditor extends Editor {
   build () {
@@ -13,19 +13,17 @@ class ObjectEditor extends Editor {
     }
 
     // addBtn
-    if (this.jedi.options.addProperty) {
-      const uuid = uuidv4()
-
+    if (this.jedi.options.editableProperties || this.schema.option('editableProperties')) {
       const label = this.jedi.theme.getLabel({
         textContent: 'Property Name',
-        for: 'jedi-add-property-' + uuid
+        for: 'jedi-add-property-input-' + this.path
       })
 
       this.container.appendChild(label)
 
       const input = this.jedi.theme.getInput({
         type: 'text',
-        id: 'jedi-add-property-' + uuid
+        id: 'jedi-add-property-input-' + this.path
       })
 
       this.container.appendChild(input)
@@ -36,8 +34,14 @@ class ObjectEditor extends Editor {
 
       addBtn.addEventListener('click', () => {
         const key = input.value
+
+        if (key.length === 0) {
+          return
+        }
+
         this.addChildEditor({ type: 'any' }, key)
         this.setValue(this.value)
+        input.value = ''
       })
 
       this.container.appendChild(addBtn)
@@ -54,8 +58,9 @@ class ObjectEditor extends Editor {
 
     // removeBtn
     const propertyEditorIsNotRequired = !editor.isRequired()
-    const removePropertyOption = this.jedi.options.removeProperty
-    if (propertyEditorIsNotRequired && removePropertyOption) {
+    const editableProperties = this.jedi.options.editableProperties || this.schema.option('editableProperties')
+
+    if (propertyEditorIsNotRequired && editableProperties) {
       const removeBtn = this.jedi.theme.getButton({
         textContent: 'Remove property'
       })
@@ -66,19 +71,19 @@ class ObjectEditor extends Editor {
       })
     }
 
-    this.container.appendChild(editor.container)
     this.childEditors.push(editor)
     this.value[key] = editor.getValue()
   }
 
   removeChildEditor (key) {
-    for (let i = this.childEditors.length - 1; i >= 0; i--) {
-      const editor = this.childEditors[i]
-      if (editor.getKey() === key) {
+    this.childEditors = this.childEditors.filter((editor) => {
+      if (editor.getKey() !== key) {
         editor.destroy()
-        this.childEditors.splice(i, 1)
+        return false
       }
-    }
+
+      return true
+    })
 
     delete this.value[key]
     this.setValue(this.value)
@@ -126,7 +131,7 @@ class ObjectEditor extends Editor {
     }
   }
 
-  refreshUI () {
+  onSetValue () {
     this.showValidationErrors()
     const value = this.getValue()
 
@@ -155,12 +160,6 @@ class ObjectEditor extends Editor {
         if (!equal(oldValue, newValue)) {
           childEditor.setValue(newValue, false)
         }
-
-        if (this.disabled) {
-          childEditor.disable()
-        } else {
-          childEditor.enable()
-        }
       } else {
         // create new child editor for the new value entry having the value as default
         const initialValue = value[key]
@@ -172,6 +171,28 @@ class ObjectEditor extends Editor {
         }
 
         this.addChildEditor(schema, key)
+      }
+    }
+  }
+
+  refreshUI () {
+    const value = this.getValue()
+
+    for (const key in value) {
+      if (!Object.prototype.hasOwnProperty.call(value, key)) {
+        continue
+      }
+
+      const childEditor = this.getChildEditor(key)
+
+      this.container.appendChild(childEditor.container)
+
+      if (childEditor) {
+        if (this.disabled) {
+          childEditor.disable()
+        } else {
+          childEditor.enable()
+        }
       }
     }
   }

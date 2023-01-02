@@ -9,8 +9,7 @@ import Validator from './validator'
 class Jedi {
   constructor (options) {
     this.options = Object.assign({
-      removeProperty: false,
-      addProperty: false,
+      editableProperties: false,
       alwaysShowErrors: false,
       schema: {},
       theme: 'wireframe'

@@ -1,0 +1,8 @@
+{
+  "type": "object",
+  "title": "Object",
+  "properties": {},
+  "options": {
+    "editableProperties": true
+  }
+}

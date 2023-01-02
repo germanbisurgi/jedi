@@ -117,6 +117,8 @@ class Editor {
       this.onChange()
     }
 
+    this.onSetValue()
+
     this.refreshUI()
   }
 
@@ -171,6 +173,8 @@ class Editor {
       }))
     })
   }
+
+  onSetValue () {}
 
   /**
    * Fires when the value of the editor changes.

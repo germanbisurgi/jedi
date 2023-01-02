@@ -42,13 +42,8 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="checkbox" id="removeProperty" v-model="options.removeProperty" @change="initEditor()">
-                    <label for="removeProperty">removeProperty</label>
-                </div>
-
-                <div class="form-group">
-                    <input type="checkbox" id="addProperty" v-model="options.addProperty" @change="initEditor()">
-                    <label for="addProperty">addProperty</label>
+                    <input type="checkbox" id="editableProperties" v-model="options.editableProperties" @change="initEditor()">
+                    <label for="editableProperties">editableProperties</label>
                 </div>
 
                 <div class="form-group">
@@ -115,6 +110,10 @@
             {
               name: 'editors/all',
               url: './json/editors/all.json'
+            },
+            {
+              name: 'editors/object',
+              url: './json/editors/object.json'
             },
             {
               name: 'examples/login',
@@ -227,12 +226,11 @@
           ],
           options: {
             container: '#jedi-container',
-            removeProperty: false,
-            addProperty: false,
+            editableProperties: false,
             alwaysShowErrors: true,
             theme: 'wireframe',
             schema: {
-              "$ref": "./json/editors/all.json",
+              "$ref": "./json/editors/object.json",
             }
           }
         }
