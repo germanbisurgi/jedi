@@ -44,24 +44,6 @@ class ObjectEditor extends Editor {
     }
   }
 
-  setContainer () {
-    this.container = this.jedi.theme.getFieldset()
-
-    // title
-    if (!this.schema.option('hideTitle')) {
-      this.container.appendChild(this.jedi.theme.getLegend({
-        textContent: this.schema.title() ? this.schema.title() : this.getKey()
-      }))
-
-      // description
-      if (this.schema.description()) {
-        this.container.appendChild(this.jedi.theme.getDescription({
-          textContent: this.schema.description()
-        }))
-      }
-    }
-  }
-
   addChildEditor (schema, key) {
     const editor = this.jedi.createEditor({
       jedi: this.jedi,
@@ -99,6 +81,7 @@ class ObjectEditor extends Editor {
     }
 
     delete this.value[key]
+    this.setValue(this.value)
   }
 
   onChildEditorChange () {
@@ -111,7 +94,40 @@ class ObjectEditor extends Editor {
     this.setValue(value)
   }
 
+  getChildEditor (key) {
+    return this.childEditors.find((childEditor) => {
+      return key === childEditor.getKey().split('.').pop()
+    })
+  }
+
+  sanitize (value) {
+    if (isObject(value)) {
+      return value
+    }
+
+    return {}
+  }
+
+  setContainer () {
+    this.container = this.jedi.theme.getFieldset()
+
+    // title
+    if (!this.schema.option('hideTitle')) {
+      this.container.appendChild(this.jedi.theme.getLegend({
+        textContent: this.schema.title() ? this.schema.title() : this.getKey()
+      }))
+
+      // description
+      if (this.schema.description()) {
+        this.container.appendChild(this.jedi.theme.getDescription({
+          textContent: this.schema.description()
+        }))
+      }
+    }
+  }
+
   refreshUI () {
+    this.showValidationErrors()
     const value = this.getValue()
 
     // remove any children that are not included in the value
@@ -158,20 +174,6 @@ class ObjectEditor extends Editor {
         this.addChildEditor(schema, key)
       }
     }
-  }
-
-  getChildEditor (key) {
-    return this.childEditors.find((childEditor) => {
-      return key === childEditor.getKey().split('.').pop()
-    })
-  }
-
-  sanitize (value) {
-    if (isObject(value)) {
-      return value
-    }
-
-    return {}
   }
 
   destroy () {

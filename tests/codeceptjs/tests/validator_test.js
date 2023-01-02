@@ -18,18 +18,12 @@ Scenario('should display allOf validation errors @allOf', ({ I }) => {
   I.fillField('#schemas', 'validator/allOf')
   I.waitForText('string must be at least 1 characters long', '[data-path="root.string"]')
   I.waitForText('string must have value: "test"', '[data-path="root.string"]')
-  I.fillField('#editor-value', JSON.stringify({
-    string: 't'
-  }))
-  I.click('#set-value')
-  I.scrollTo('[data-path="root.string"]', 0, -300)
+  I.fillField('[id="root.string"]', 't')
+  I.pressKey('Tab')
   I.dontSee('string must be at least 1 characters long', '[data-path="root.string"]')
   I.waitForText('string must have value: "test"', '[data-path="root.string"]')
-  I.fillField('#editor-value', JSON.stringify({
-    string: 'test'
-  }))
-  I.click('#set-value')
-  I.scrollTo('[data-path="root.string"]', 0, -300)
+  I.fillField('[id="root.string"]', 'test')
+  I.pressKey('Tab')
   I.dontSee('string must be at least 1 characters long', '[data-path="root.string"]')
   I.dontSee('string must have value: "test"', '[data-path="root.string"]')
 })
