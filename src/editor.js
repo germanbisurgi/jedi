@@ -23,6 +23,9 @@ class Editor {
     this.setErrorsContainer()
     this.build()
     this.refreshUI()
+    if (this.jedi.ready || this.jedi.options.alwaysShowErrors) {
+      this.showValidationErrors()
+    }
   }
 
   getKey () {
@@ -121,9 +124,7 @@ class Editor {
    * Refresh the UI of the editor to reflect it's value. This is necessary when
    * using setValue to set the value programmatically.
    */
-  refreshUI () {
-    this.showValidationErrors()
-  }
+  refreshUI () {}
 
   /**
    * Disables the editor
@@ -160,17 +161,15 @@ class Editor {
    * Shows validation messages in the editor container.
    */
   showValidationErrors () {
-    if (this.jedi.ready || this.jedi.options.alwaysShowErrors) {
-      const errors = this.validate()
+    const errors = this.validate()
 
-      this.errorsContainer.innerHTML = ''
+    this.errorsContainer.innerHTML = ''
 
-      errors.forEach((error) => {
-        this.errorsContainer.appendChild(this.jedi.theme.getInputError({
-          message: error.message
-        }))
-      })
-    }
+    errors.forEach((error) => {
+      this.errorsContainer.appendChild(this.jedi.theme.getInputError({
+        message: error.message
+      }))
+    })
   }
 
   /**
@@ -180,6 +179,8 @@ class Editor {
     if (this.parent) {
       this.parent.onChildEditorChange()
     }
+
+    this.showValidationErrors()
   }
 
   /**

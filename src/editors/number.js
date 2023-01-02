@@ -37,7 +37,6 @@ class NumberEditor extends Editor {
   }
 
   refreshUI () {
-    this.showValidationErrors()
     this.input.value = this.getValue()
 
     if (this.disabled) {

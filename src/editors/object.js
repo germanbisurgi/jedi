@@ -112,8 +112,6 @@ class ObjectEditor extends Editor {
   }
 
   refreshUI () {
-    this.showValidationErrors()
-
     const value = this.getValue()
 
     // remove any children that are not included in the value

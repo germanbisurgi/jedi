@@ -43,7 +43,6 @@ class StringEditor extends Editor {
   }
 
   refreshUI () {
-    this.showValidationErrors()
     this.input.value = this.getValue()
 
     if (this.disabled) {

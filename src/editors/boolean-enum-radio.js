@@ -50,8 +50,6 @@ class BooleanEnumRadioEditor extends BooleanEditor {
   }
 
   refreshUI () {
-    this.showValidationErrors()
-
     const fieldset = this.container.querySelector('fieldset')
     const radioInputs = fieldset.querySelectorAll('input')
 

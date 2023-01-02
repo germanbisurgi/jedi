@@ -54,8 +54,6 @@ class StringEnumRadioEditor extends StringEditor {
   }
 
   refreshUI () {
-    this.showValidationErrors()
-
     const fieldset = this.container.querySelector('fieldset')
     const radioInputs = fieldset.querySelectorAll('input')
 
