@@ -526,6 +526,15 @@ class Validator {
       }
     })
 
+    if (schemaErrors.length > 0 && schema.option('message')) {
+      schemaErrors = [
+        {
+          message: schema.option('message'),
+          path: path
+        }
+      ]
+    }
+
     return schemaErrors
   }
 }

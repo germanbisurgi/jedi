@@ -18,6 +18,7 @@ class MultipleEditor extends Editor {
       const cloneSchema = this.schema.clone()
       delete cloneSchema['anyOf']
       delete cloneSchema['oneOf']
+      delete cloneSchema['options']
 
       schemasOf.forEach((schema, index) => {
         schema = { ...cloneSchema, ...schema }
