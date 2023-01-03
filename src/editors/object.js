@@ -4,6 +4,7 @@ import { equal, isSet, getType, isObject } from '../utils'
 
 class ObjectEditor extends Editor {
   build () {
+    this.container.appendChild(this.messagesSlot)
     this.container.appendChild(this.childEditorsSlot)
     this.container.appendChild(this.actionsSlot)
 

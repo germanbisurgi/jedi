@@ -2,6 +2,8 @@ import BooleanEditor from './boolean'
 
 class BooleanEnumRadioEditor extends BooleanEditor {
   build () {
+    this.container.appendChild(this.messagesSlot)
+
     // input
     const optionValues = ['false', 'true']
     const optionsLabels = this.schema.option('enumTitles') || optionValues

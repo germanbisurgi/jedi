@@ -2,6 +2,8 @@ import Editor from '../editor'
 
 class StringEditor extends Editor {
   build () {
+    this.container.appendChild(this.messagesSlot)
+
     // label
     const label = this.jedi.theme.getLabel({
       for: this.path,

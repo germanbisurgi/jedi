@@ -7,7 +7,7 @@ class Editor {
     this.path = config.path || 'root'
     this.parent = config.parent || null
     this.container = null
-    this.messagesSlot = null
+    this.messagesSlot = this.jedi.theme.getMessagesSlot()
     this.actionsSlot = this.jedi.theme.getActionsSlot()
     this.childEditorsSlot = this.jedi.theme.getChildEditorsSlot()
     this.childEditors = []
@@ -22,7 +22,6 @@ class Editor {
     this.setDefaultValue()
     this.setContainer()
     this.setContainerAttributes()
-    this.setMessagesSlot()
     this.build()
     this.refreshUI()
     if (this.jedi.ready || this.jedi.options.alwaysShowErrors) {
@@ -44,11 +43,6 @@ class Editor {
     if (this.schema.type()) {
       this.container.setAttribute('data-type', this.schema.type())
     }
-  }
-
-  setMessagesSlot () {
-    this.messagesSlot = this.jedi.theme.getMessagesSlot()
-    this.container.appendChild(this.messagesSlot)
   }
 
   /**

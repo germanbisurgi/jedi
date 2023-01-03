@@ -2,6 +2,8 @@ import StringEditor from './string'
 
 class StringEnumRadioEditor extends StringEditor {
   build () {
+    this.container.appendChild(this.messagesSlot)
+
     // input
     const optionValues = this.schema.enum()
     const optionsLabels = this.schema.option('enumTitles') || optionValues

@@ -2,6 +2,8 @@ import BooleanEditor from './boolean'
 
 class BooleanEnumSelectEditor extends BooleanEditor {
   build () {
+    this.container.appendChild(this.messagesSlot)
+
     // label
     this.container.appendChild(this.jedi.theme.getLabel({
       for: this.path,

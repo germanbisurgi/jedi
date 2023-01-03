@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'wireframe'
 
 Feature('array')
 
-Scenario('should edit properties @items', ({ I }) => {
+Scenario('should edit items @items', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/array')

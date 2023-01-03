@@ -4,6 +4,7 @@ import { getType, clone, isArray } from '../utils'
 
 class ArrayEditor extends Editor {
   build () {
+    this.container.appendChild(this.messagesSlot)
     this.container.appendChild(this.childEditorsSlot)
     this.container.appendChild(this.actionsSlot)
 

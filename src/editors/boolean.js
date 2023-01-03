@@ -2,6 +2,8 @@ import Editor from '../editor'
 
 class BooleanEditor extends Editor {
   build () {
+    this.container.appendChild(this.messagesSlot)
+
     // checkbox container
     const checkboxContainer = this.jedi.theme.getCheckboxContainer()
 

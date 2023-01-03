@@ -2,6 +2,8 @@ import NumberEditor from './number'
 
 class NumberEnumRadioEditor extends NumberEditor {
   build () {
+    this.container.appendChild(this.messagesSlot)
+
     // input
     const optionValues = this.schema.enum()
     const optionsLabels = this.schema.option('enumTitles') || optionValues

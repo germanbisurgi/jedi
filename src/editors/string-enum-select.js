@@ -2,6 +2,8 @@ import StringEditor from './string'
 
 class StringEnumSelectEditor extends StringEditor {
   build () {
+    this.container.appendChild(this.messagesSlot)
+
     // label
     this.container.appendChild(this.jedi.theme.getLabel({
       for: this.path,

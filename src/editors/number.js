@@ -2,6 +2,8 @@ import Editor from '../editor'
 
 class NumberEditor extends Editor {
   build () {
+    this.container.appendChild(this.messagesSlot)
+
     // label
     this.container.appendChild(this.jedi.theme.getLabel({
       for: this.path,

@@ -2,6 +2,8 @@ import NumberEditor from './number'
 
 class NumberEnumSelectEditor extends NumberEditor {
   build () {
+    this.container.appendChild(this.messagesSlot)
+
     this.container.appendChild(this.jedi.theme.getLabel({
       for: this.path,
       textContent: this.schema.title() ? this.schema.title() : this.getKey()

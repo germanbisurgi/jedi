@@ -4,6 +4,8 @@ import { isSet, equal, uuidv4 } from '../utils'
 
 class MultipleEditor extends Editor {
   build () {
+    this.container.appendChild(this.messagesSlot)
+
     this.editors = []
     this.switcherOptionValues = []
     this.switcherOptionsLabels = []
