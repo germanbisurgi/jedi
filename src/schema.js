@@ -30,6 +30,10 @@ class Schema {
     return this.schema.default ? this.schema.default : false
   }
 
+  dependentRequired () {
+    return isObject(this.schema.dependentRequired) ? this.schema.dependentRequired : false
+  }
+
   description () {
     return isString(this.schema.description) ? this.schema.description : false
   }

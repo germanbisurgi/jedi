@@ -4,6 +4,7 @@ import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isString } f
 class Validator {
   constructor () {
     this.validators = [
+      'dependentRequired',
       'format',
       'if',
       'const',
@@ -77,6 +78,35 @@ class Validator {
 
         errors.push({
           message: field + ' must have value: ' + JSON.stringify(schema.const()),
+          path: path
+        })
+      }
+    }
+
+    return errors
+  }
+
+  dependentRequired (value, schema, key, path) {
+    const errors = []
+
+    if (schema.dependentRequired()) {
+      let missingProperties = []
+
+      Object.keys(schema.dependentRequired()).forEach((key) => {
+        const requiredPropertied = schema.dependentRequired()[key]
+
+        missingProperties = requiredPropertied.filter((property) => {
+          return !Object.prototype.hasOwnProperty.call(value, property)
+        })
+      })
+
+      const invalid = missingProperties.length > 0
+
+      if (invalid) {
+        const field = schema.title() ? schema.title() : key
+
+        errors.push({
+          message: field + '  is missing the required properties: ' + missingProperties.join(', '),
           path: path
         })
       }
@@ -450,11 +480,9 @@ class Validator {
       if (invalid) {
         const field = schema.title() ? schema.title() : key
 
-        missingProperties.forEach((property) => {
-          errors.push({
-            message: field + '  is missing the required property: ' + property,
-            path: path
-          })
+        errors.push({
+          message: field + '  is missing the required properties: ' + missingProperties.join(', '),
+          path: path
         })
       }
     }

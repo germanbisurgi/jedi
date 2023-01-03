@@ -48,7 +48,7 @@ Scenario('should display @const validation errors', ({ I }) => {
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/const')
-I.checkOption('[id="alwaysShowErrors"]')
+  I.checkOption('[id="alwaysShowErrors"]')
 
   // string
   I.scrollTo('[data-path="root.string"]', 0, -300)
@@ -99,6 +99,24 @@ I.checkOption('[id="alwaysShowErrors"]')
   I.fillField('[id="root.multiple"]', 'test')
   I.pressKey('Tab')
   I.dontSee('multiple must have value: "test"', '[data-path="root.multiple"]')
+})
+
+Scenario('should display @dependentRequired validation errors', ({ I }) => {
+  I.amOnPage('index.html')
+  I.fillField('#theme', theme)
+  I.waitForElement('.jedi-ready')
+  I.fillField('#schemas', 'validator/dependentRequired')
+  I.checkOption('[id="alwaysShowErrors"]')
+  I.waitForElement('.jedi-ready')
+  I.waitForText('dependentRequired is missing the required properties: address, telephone', '[data-path="root"]')
+  I.fillField('#editor-value', JSON.stringify({
+    creditCard: 0,
+    address: 'test',
+    telephone: '123456789'
+  }))
+  I.click('#set-value')
+  I.scrollTo('[data-path="root"]', 0, -300)
+  I.dontSee('Object is missing the required properties: required', '[data-path="root"]')
 })
 
 Scenario('should display @enum validation errors', ({ I }) => {
@@ -373,20 +391,20 @@ Scenario('should display @required validation errors', ({ I }) => {
   I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.scrollTo('[data-path="root"]', 0, -300)
-  I.dontSee('Object is missing the required property: required', '[data-path="root"]')
+  I.dontSee('Object is missing the required properties: required', '[data-path="root"]')
   I.fillField('#editor-value', JSON.stringify({
     optional: ''
   }))
   I.click('#set-value')
   I.scrollTo('[data-path="root"]', 0, -300)
-  I.waitForText('Object is missing the required property: required', '[data-path="root"]')
+  I.waitForText('Object is missing the required properties: required', '[data-path="root"]')
   I.fillField('#editor-value', JSON.stringify({
     optional: '',
     required: ''
   }))
   I.click('#set-value')
   I.scrollTo('[data-path="root"]', 0, -300)
-  I.dontSee('Object is missing the required property: required', '[data-path="root"]')
+  I.dontSee('Object is missing the required properties: required', '[data-path="root"]')
 })
 
 Scenario('should display @uniqueItems validation errors', ({ I }) => {

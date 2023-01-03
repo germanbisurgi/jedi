@@ -1,0 +1,15 @@
+{
+  "title": "dependentRequired",
+  "type": "object",
+  "properties": {
+    "creditCard": {
+      "type": "number"
+    }
+  },
+  "dependentRequired": {
+    "creditCard": [
+      "address",
+      "telephone"
+    ]
+  }
+}

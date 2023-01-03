@@ -8,7 +8,6 @@
     - propertyNames
     - additionalProperties
     - dependencies 
-    - dependentRequired 
 - feature: toggle for optional properties
 - feature: array tabs
 - feature: option exclude
