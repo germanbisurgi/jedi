@@ -122,15 +122,15 @@ class MultipleEditor extends Editor {
     this.container.appendChild(this.switcher)
 
     if (isSet(this.editors[0])) {
-      this.switchEditor(0)
+      this.switchEditor(0, false)
     }
   }
 
-  switchEditor (newIndex) {
+  switchEditor (newIndex, triggersChange = true) {
     this.lastIndex = this.index
     this.index = newIndex
     this.activeEditor = this.editors[this.index]
-    this.setValue(this.getValue(), true)
+    this.setValue(this.getValue(), triggersChange)
   }
 
   setContainer () {

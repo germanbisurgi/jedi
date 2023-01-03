@@ -8,6 +8,7 @@ Scenario('should display message validation error @message', ({ I }) => {
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/message')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForText('If the string length is more than 5 characters, it must be "cinco", otherwise "dos".', '[data-path="root.string"]')
 })
 
@@ -16,6 +17,7 @@ Scenario('should display allOf validation errors @allOf', ({ I }) => {
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/allOf')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForText('string must be at least 1 characters long', '[data-path="root.string"]')
   I.waitForText('string must have value: "test"', '[data-path="root.string"]')
   I.fillField('[id="root.string"]', 't')
@@ -33,6 +35,7 @@ Scenario('should display anyOf validation errors @anyOf', ({ I }) => {
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/anyOf')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForText('string must validate against at least one of the provided schemas', '[data-path="root.string"]')
   I.fillField('[id="root.string"]', 'Albert')
   I.pressKey('Tab')
@@ -40,11 +43,12 @@ Scenario('should display anyOf validation errors @anyOf', ({ I }) => {
   I.dontSee('string must validate against at least one of the provided schemas', '[data-path="root.string"]')
 })
 
-Scenario('should display const validation errors @const', ({ I }) => {
+Scenario('should display @const validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/const')
+I.checkOption('[id="alwaysShowErrors"]')
 
   // string
   I.scrollTo('[data-path="root.string"]', 0, -300)
@@ -97,22 +101,24 @@ Scenario('should display const validation errors @const', ({ I }) => {
   I.dontSee('multiple must have value: "test"', '[data-path="root.multiple"]')
 })
 
-Scenario('should display enum validation errors @enum', ({ I }) => {
+Scenario('should display @enum validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/enum')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForText('enum must be one of the enumerated values: [{"string":"Albert"},{"string":"Betti"}]', '[data-path="root"]')
   I.fillField('[id="root.string"]', 'Albert')
   I.pressKey('Tab')
   I.dontSee('enum must be one of the enumerated values: [{"string":"Albert"},{"string":"Betti"}]', '[data-path="root"]')
 })
 
-Scenario('should display exclusiveMaximum validation errors @exclusiveMaximum', ({ I }) => {
+Scenario('should display @exclusiveMaximum validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/exclusiveMaximum')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.dontSee('number must be less than 99', '[data-path="root.number"]')
   I.dontSee('integer must be less than 99', '[data-path="root.integer"]')
@@ -130,11 +136,12 @@ Scenario('should display exclusiveMaximum validation errors @exclusiveMaximum', 
   I.dontSee('integer must be less than 99', '[data-path="root.integer"]')
 })
 
-Scenario('should display exclusiveMinimum validation errors @exclusiveMinimum', ({ I }) => {
+Scenario('should display @exclusiveMinimum validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/exclusiveMinimum')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.waitForText('number must be at least 101', '[data-path="root.number"]')
   I.waitForText('integer must be at least 101', '[data-path="root.integer"]')
@@ -152,22 +159,24 @@ Scenario('should display exclusiveMinimum validation errors @exclusiveMinimum', 
   I.waitForText('integer must be at least 101', '[data-path="root.integer"]')
 })
 
-Scenario('should display message validation error @format', ({ I }) => {
+Scenario('should display @message validation error', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/format')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForText('E-Mail must be a valid email address', '[data-path="root.email"]')
   I.fillField('[id="root.email"]', 'some@email.com')
   I.pressKey('Tab')
   I.dontSee('E-Mail must be a valid email address', '[data-path="root.email"]')
 })
 
-Scenario('should display maximum validation errors @maximum', ({ I }) => {
+Scenario('should display @maximum validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/maximum')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.dontSee('number must be less than 100', '[data-path="root.number"]')
   I.dontSee('integer must be less than 100', '[data-path="root.integer"]')
@@ -185,22 +194,24 @@ Scenario('should display maximum validation errors @maximum', ({ I }) => {
   I.dontSee('integer must be less than 100', '[data-path="root.integer"]')
 })
 
-Scenario('should display maxItems validation errors @maxItems', ({ I }) => {
+Scenario('should display @maxItems validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/maxItems')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.dontSee('array must have at most 3 items', '[data-path="root.array"]')
   I.click('Add item')
   I.waitForText('array must have at most 3 items', '[data-path="root.array"]')
 })
 
-Scenario('should display maxLength validation errors @maxLength', ({ I }) => {
+Scenario('should display @maxLength validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/maxLength')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.dontSee('string must be at most 5 characters long', '[data-path="root.string"]')
   I.fillField('[id="root.string"]', 'string')
@@ -208,11 +219,12 @@ Scenario('should display maxLength validation errors @maxLength', ({ I }) => {
   I.waitForText('string must be at most 5 characters long', '[data-path="root.string"]')
 })
 
-Scenario('should display maxProperties validation errors @maxProperties', ({ I }) => {
+Scenario('should display @maxProperties validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/maxProperties')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.waitForText('maxProperties must have at most 1 properties', '[data-path="root"]')
   I.fillField('#editor-value', JSON.stringify({
@@ -223,11 +235,12 @@ Scenario('should display maxProperties validation errors @maxProperties', ({ I }
   I.dontSee('maxProperties must have at most 1 properties', '[data-path="root"]')
 })
 
-Scenario('should display minimum validation errors @minimum', ({ I }) => {
+Scenario('should display @minimum validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/minimum')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.waitForText('number must be at least 100', '[data-path="root.number"]')
   I.waitForText('integer must be at least 100', '[data-path="root.integer"]')
@@ -245,22 +258,24 @@ Scenario('should display minimum validation errors @minimum', ({ I }) => {
   I.waitForText('integer must be at least 100', '[data-path="root.integer"]')
 })
 
-Scenario('should display minItems validation errors @minItems', ({ I }) => {
+Scenario('should display @minItems validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/minItems')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.waitForText('array must have at least 1 items', '[data-path="root.array"]')
   I.click('Add item')
   I.dontSee('array must have at least 1 items', '[data-path="root.array"]')
 })
 
-Scenario('should display minLength validation errors @minLength', ({ I }) => {
+Scenario('should display @minLength validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/minLength')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.waitForText('string must be at least 5 characters long', '[data-path="root.string"]')
   I.fillField('[id="root.string"]', 'string')
@@ -268,11 +283,12 @@ Scenario('should display minLength validation errors @minLength', ({ I }) => {
   I.dontSee('string must be at least 5 characters long', '[data-path="root.string"]')
 })
 
-Scenario('should display minProperties validation errors @minProperties', ({ I }) => {
+Scenario('should display @minProperties validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/minProperties')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.waitForText('minProperties must have at least 1 properties', '[data-path="root"]')
   I.fillField('#editor-value', JSON.stringify({
@@ -283,11 +299,12 @@ Scenario('should display minProperties validation errors @minProperties', ({ I }
   I.dontSee('minProperties must have at least 1 properties', '[data-path="root"]')
 })
 
-Scenario('should display multipleOf validation errors @multipleOf', ({ I }) => {
+Scenario('should display @multipleOf validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/multipleOf')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.dontSee('number must be multiple of 10', '[data-path="root.number"]')
   I.dontSee('integer must be multiple of 10', '[data-path="root.integer"]')
@@ -305,22 +322,24 @@ Scenario('should display multipleOf validation errors @multipleOf', ({ I }) => {
   I.dontSee('integer must be multiple of 10', '[data-path="root.integer"]')
 })
 
-Scenario('should display not validation errors @not', ({ I }) => {
+Scenario('should display @not validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/not')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.scrollTo('[data-path="root.test"]', 0, -300)
   I.waitForText('test must not validate against the provided schema {"type":"string"}', '[data-path="root.test"]')
   I.click('Number')
   I.dontSee('test must not validate against the provided schema {"type":"string"}', '[data-path="root.test"]')
 })
 
-Scenario('should display oneOf validation errors @oneOf', ({ I }) => {
+Scenario('should display @oneOf validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/oneOf')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForText('number must validate against exactly one of the provided schemas. It currently validates against 2 of the schemas.', '[data-path="root.number"]')
   I.fillField('[id="root.number"]', 3)
   I.pressKey('Tab')
@@ -333,11 +352,12 @@ Scenario('should display oneOf validation errors @oneOf', ({ I }) => {
   I.dontSee('number must validate against at least one of the provided schemas', '[data-path="root.number"]')
 })
 
-Scenario('should display pattern validation errors @pattern', ({ I }) => {
+Scenario('should display @pattern validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/pattern')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.waitForText('string must be the pattern: ^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$', '[data-path="root"]')
   I.fillField('[id="root.string"]', 'test@test.com')
@@ -345,11 +365,12 @@ Scenario('should display pattern validation errors @pattern', ({ I }) => {
   I.dontSee('string must be the pattern: ^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$', '[data-path="root"]')
 })
 
-Scenario('should display required validation errors @required', ({ I }) => {
+Scenario('should display @required validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/required')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.scrollTo('[data-path="root"]', 0, -300)
   I.dontSee('Object is missing the required property: required', '[data-path="root"]')
@@ -368,11 +389,12 @@ Scenario('should display required validation errors @required', ({ I }) => {
   I.dontSee('Object is missing the required property: required', '[data-path="root"]')
 })
 
-Scenario('should display uniqueItems validation errors @uniqueItems', ({ I }) => {
+Scenario('should display @uniqueItems validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/uniqueItems')
+  I.checkOption('[id="alwaysShowErrors"]')
   I.waitForElement('.jedi-ready')
   I.waitForText('array must have unique items', '[data-path="root.array"]')
   I.fillField('[id="root.array.1"]', 'Betty')
