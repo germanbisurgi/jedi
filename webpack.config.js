@@ -45,11 +45,11 @@ const common = {
   }
 }
 
-const dist = deepmerge(common, {
-  output: {
-    path: path.resolve(__dirname, 'dist')
-  }
-})
+// const dist = deepmerge(common, {
+//   output: {
+//     path: path.resolve(__dirname, 'dist')
+//   }
+// })
 
 const docs = deepmerge(common, {
   output: {
@@ -58,6 +58,6 @@ const docs = deepmerge(common, {
 })
 
 module.exports = [
-  dist,
+  // dist,
   docs
 ]

@@ -1,8 +1,8 @@
 ## Todo
+
+- fix: bootstrap 5 classes
 - feature: icons
 - feature: classes for jedi elements like buttons and switchers
-- test labels
-- test description
 - feature validators: 
     - patternProperties
     - propertyNames
@@ -21,6 +21,7 @@
 - feature: collapse
 - feature global vs local configurations
     - alwaysShowErrors: false
+
 
 ## Resources
 * [Understanding JSON Schema](http://json-schema.org/understanding-json-schema/index.html)

@@ -1,0 +1,13 @@
+/* global Feature Scenario */
+const theme = process.env.THEME || 'wireframe'
+
+Feature('number')
+
+Scenario('should have @title and @description', ({ I }) => {
+  I.amOnPage('index.html')
+  I.fillField('#theme', theme)
+  I.fillField('#schemas', 'editors/number')
+  I.waitForElement('.jedi-ready')
+  I.waitForText('Number', 'label')
+  I.waitForText('The number type is used for any numeric type, either integers or floating point numbers.')
+})

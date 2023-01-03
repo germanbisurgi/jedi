@@ -1,6 +1,6 @@
 {
   "type": "object",
-  "title": "Editors",
+  "title": "All Editors",
   "properties": {
     "booleans": {
       "type": "object",
@@ -8,11 +8,11 @@
       "properties": {
         "boolean": {
           "type": "boolean",
-          "title": "boolean"
+          "title": "Boolean"
         },
         "boolean-enum-select": {
           "type": "boolean",
-          "title": "boolean enum select",
+          "title": "Boolean enum select",
           "format": "select",
           "options": {
             "enumTitles": [
@@ -23,7 +23,7 @@
         },
         "boolean-enum-radio": {
           "type": "boolean",
-          "title": "boolean enum radio",
+          "title": "Boolean enum radio",
           "format": "radio",
           "options": {
             "enumTitles": [
@@ -40,16 +40,16 @@
       "properties": {
         "string": {
           "type": "string",
-          "title": "string"
+          "title": "String"
         },
         "string-textarea": {
           "type": "string",
-          "title": "string textarea",
+          "title": "String textarea",
           "format": "textarea"
         },
         "string-enum-select": {
           "type": "string",
-          "title": "string enum select",
+          "title": "String enum select",
           "enum": [
             "albert",
             "betti",
@@ -65,7 +65,7 @@
         },
         "string-enum-radio": {
           "type": "string",
-          "title": "string enum radio",
+          "title": "String enum radio",
           "format": "radio",
           "enum": [
             "albert",
@@ -88,11 +88,11 @@
       "properties": {
         "number": {
           "type": "number",
-          "title": "number"
+          "title": "Number"
         },
         "number-enum-select": {
           "type": "number",
-          "title": "number enum select",
+          "title": "Number enum select",
           "enum": [
             1.5,
             2.5,
@@ -108,7 +108,7 @@
         },
         "number-enum-radio": {
           "type": "number",
-          "title": "number enum radio",
+          "title": "Number enum radio",
           "format": "radio",
           "enum": [
             1.5,
@@ -131,11 +131,11 @@
       "properties": {
         "integer": {
           "type": "integer",
-          "title": "integer"
+          "title": "Integer"
         },
         "integer-enum-select": {
           "type": "integer",
-          "title": "integer enum select",
+          "title": "Integer enum select",
           "enum": [
             1,
             2,
@@ -151,7 +151,7 @@
         },
         "integer-enum-radio": {
           "type": "number",
-          "title": "integer enum radio",
+          "title": "Integer enum radio",
           "format": "radio",
           "enum": [
             1,
@@ -174,10 +174,10 @@
       "properties": {
         "string-array": {
           "type": "array",
-          "title": "strings color",
+          "title": "Color",
           "items": {
             "type": "string",
-            "title": "color",
+            "title": "Color",
             "format": "color"
           },
           "default": [
