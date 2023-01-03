@@ -19,9 +19,6 @@
 - feature: read only
 - feature: accessibility states
 - feature: collapse
-- feature global vs local configurations
-    - alwaysShowErrors: false
-
 
 ## Resources
 * [Understanding JSON Schema](http://json-schema.org/understanding-json-schema/index.html)

@@ -24,7 +24,7 @@ class Editor {
     this.setContainerAttributes()
     this.build()
     this.refreshUI()
-    if (this.jedi.ready || this.jedi.options.alwaysShowErrors) {
+    if (this.jedi.ready || this.jedi.options.alwaysShowErrors || this.schema.option('alwaysShowErrors')) {
       this.showValidationErrors()
     }
   }
