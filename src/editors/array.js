@@ -4,13 +4,16 @@ import { getType, clone, isArray } from '../utils'
 
 class ArrayEditor extends Editor {
   build () {
+    this.container.appendChild(this.childEditorsSlot)
+    this.container.appendChild(this.actionsSlot)
+
     // btn group
     const btnGroup = this.jedi.theme.getBtnGroup()
-    this.container.appendChild(btnGroup)
+    this.actionsSlot.appendChild(btnGroup)
 
     // addBtn
     this.addBtn = this.jedi.theme.getButton({
-      textContent: 'Add Item'
+      textContent: 'Add item'
     })
     btnGroup.appendChild(this.addBtn)
     this.addBtn.addEventListener('click', () => {
@@ -56,7 +59,8 @@ class ArrayEditor extends Editor {
     })
 
     const btnGroup = this.jedi.theme.getBtnGroup()
-    itemEditor.container.appendChild(btnGroup)
+    itemEditor.container.appendChild(itemEditor.actionsSlot)
+    itemEditor.actionsSlot.appendChild(btnGroup)
 
     const itemIndex = Number(itemEditor.getKey())
 
@@ -163,7 +167,7 @@ class ArrayEditor extends Editor {
     })
 
     this.childEditors.forEach((editor) => {
-      this.container.appendChild(editor.container)
+      this.childEditorsSlot.appendChild(editor.container)
     })
 
     if (this.disabled) {

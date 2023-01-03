@@ -7,7 +7,9 @@ class Editor {
     this.path = config.path || 'root'
     this.parent = config.parent || null
     this.container = null
-    this.errorsContainer = null
+    this.messagesSlot = null
+    this.actionsSlot = this.jedi.theme.getActionsSlot()
+    this.childEditorsSlot = this.jedi.theme.getChildEditorsSlot()
     this.childEditors = []
     this.init()
   }
@@ -20,7 +22,7 @@ class Editor {
     this.setDefaultValue()
     this.setContainer()
     this.setContainerAttributes()
-    this.setErrorsContainer()
+    this.setMessagesSlot()
     this.build()
     this.refreshUI()
     if (this.jedi.ready || this.jedi.options.alwaysShowErrors) {
@@ -44,9 +46,9 @@ class Editor {
     }
   }
 
-  setErrorsContainer () {
-    this.errorsContainer = this.jedi.theme.getErrorsContainer()
-    this.container.appendChild(this.errorsContainer)
+  setMessagesSlot () {
+    this.messagesSlot = this.jedi.theme.getMessagesSlot()
+    this.container.appendChild(this.messagesSlot)
   }
 
   /**
@@ -165,10 +167,10 @@ class Editor {
   showValidationErrors () {
     const errors = this.validate()
 
-    this.errorsContainer.innerHTML = ''
+    this.messagesSlot.innerHTML = ''
 
     errors.forEach((error) => {
-      this.errorsContainer.appendChild(this.jedi.theme.getInputError({
+      this.messagesSlot.appendChild(this.jedi.theme.getInputError({
         message: error.message
       }))
     })

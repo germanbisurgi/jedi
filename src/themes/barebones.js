@@ -6,6 +6,18 @@ class ThemeBarebones {
     return error
   }
 
+  getActionsSlot () {
+    const actionsSlot = document.createElement('div')
+    actionsSlot.classList.add('jedi-actions-slot')
+    return actionsSlot
+  }
+
+  getChildEditorsSlot () {
+    const childEditorsSlot = document.createElement('div')
+    childEditorsSlot.classList.add('jedi-child-editors-slot')
+    return childEditorsSlot
+  }
+
   getBtnGroup () {
     return document.createElement('div')
   }
@@ -31,10 +43,10 @@ class ThemeBarebones {
     return document.createElement('fieldset')
   }
 
-  getErrorsContainer () {
-    const errorsContainer = document.createElement('div')
-    errorsContainer.classList.add('jedi-errors-container')
-    return errorsContainer
+  getMessagesSlot () {
+    const messagesSlot = document.createElement('div')
+    messagesSlot.classList.add('jedi-messages-slot')
+    return messagesSlot
   }
 
   getCheckboxLabel (config) {

@@ -14,4 +14,6 @@ Scenario('should edit properties @editableProperties', ({ I }) => {
   I.pressKey('Tab')
   I.click('Add property')
   I.waitForElement('[id="root.test"]')
+  I.click('Remove property')
+  I.dontSee('[id="root.test"]')
 })

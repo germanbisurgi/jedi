@@ -1,7 +1,8 @@
-## fix
+## todo
 
+- feature: icons
 - feature: ui slots
-- test addProperty
+- feature: classes for jedi elements like buttons and switchers
 - test labels
 - test description
 - feature validators: 
@@ -21,6 +22,4 @@
 - feature: accessibility states
 - feature: collapse
 - feature global vs local configurations
-    - removeProperty: false,
-    - addProperty: false,
-    - alwaysShowErrors: false,
+    - alwaysShowErrors: false

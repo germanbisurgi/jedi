@@ -4,6 +4,9 @@ import { equal, isSet, getType, isObject } from '../utils'
 
 class ObjectEditor extends Editor {
   build () {
+    this.container.appendChild(this.childEditorsSlot)
+    this.container.appendChild(this.actionsSlot)
+
     // child editors
     if (this.schema.properties()) {
       Object.keys(this.schema.properties()).forEach((key) => {
@@ -35,7 +38,13 @@ class ObjectEditor extends Editor {
       addBtn.addEventListener('click', () => {
         const key = input.value
 
+        // if not property name was given return
         if (key.length === 0) {
+          return
+        }
+
+        // if property exist return
+        if (isSet(this.value[key])) {
           return
         }
 
@@ -76,14 +85,13 @@ class ObjectEditor extends Editor {
   }
 
   removeChildEditor (key) {
-    this.childEditors = this.childEditors.filter((editor) => {
-      if (editor.getKey() !== key) {
+    for (let i = this.childEditors.length - 1; i >= 0; i--) {
+      const editor = this.childEditors[i]
+      if (editor.getKey() === key) {
         editor.destroy()
-        return false
+        this.childEditors.splice(i, 1)
       }
-
-      return true
-    })
+    }
 
     delete this.value[key]
     this.setValue(this.value)
@@ -185,7 +193,7 @@ class ObjectEditor extends Editor {
 
       const childEditor = this.getChildEditor(key)
 
-      this.container.appendChild(childEditor.container)
+      this.childEditorsSlot.appendChild(childEditor.container)
 
       if (childEditor) {
         if (this.disabled) {

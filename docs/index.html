@@ -15,7 +15,7 @@
         <div class="col-12 col-sm-6">
             <form action="" method="POST">
                 <div id="jedi-container"></div>
-                <input class="btn btn-block" type="submit" value="send">
+                <input class="btn btn-block" type="submit" value="Submit">
             </form>
         </div>
         <div class="col-12 col-sm-6">
@@ -114,6 +114,10 @@
             {
               name: 'editors/object',
               url: './json/editors/object.json'
+            },
+            {
+              name: 'editors/array',
+              url: './json/editors/array.json'
             },
             {
               name: 'examples/login',
@@ -230,7 +234,7 @@
             alwaysShowErrors: true,
             theme: 'wireframe',
             schema: {
-              "$ref": "./json/editors/object.json",
+              "$ref": "./json/editors/all.json",
             }
           }
         }

@@ -77,7 +77,7 @@ Scenario('should display const validation errors @const', ({ I }) => {
   // array
   I.scrollTo('[data-path="root.array"]', 0, -300)
   I.waitForText('array must have value: ["test"]', 1, '[data-path="root.array"]')
-  I.click('Add Item', '[data-path="root.array"]')
+  I.click('Add item', '[data-path="root.array"]')
   I.fillField('[id="root.array.0"]', 'test')
   I.pressKey('Tab')
   I.dontSee('array must have value: ["test"]', '[data-path="root.array"]')
@@ -192,7 +192,7 @@ Scenario('should display maxItems validation errors @maxItems', ({ I }) => {
   I.fillField('#schemas', 'validator/maxItems')
   I.waitForElement('.jedi-ready')
   I.dontSee('array must have at most 3 items', '[data-path="root.array"]')
-  I.click('Add Item')
+  I.click('Add item')
   I.waitForText('array must have at most 3 items', '[data-path="root.array"]')
 })
 
@@ -252,7 +252,7 @@ Scenario('should display minItems validation errors @minItems', ({ I }) => {
   I.fillField('#schemas', 'validator/minItems')
   I.waitForElement('.jedi-ready')
   I.waitForText('array must have at least 1 items', '[data-path="root.array"]')
-  I.click('Add Item')
+  I.click('Add item')
   I.dontSee('array must have at least 1 items', '[data-path="root.array"]')
 })
 
