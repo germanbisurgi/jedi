@@ -1,6 +1,11 @@
 import NumberEditor from './number'
 
 class NumberEnumSelectEditor extends NumberEditor {
+  prepare () {
+    this.optionValues = this.schema.enum()
+    this.optionsLabels = this.schema.option('enumTitles') || this.optionValues
+  }
+
   build () {
     this.container.appendChild(this.messagesSlot)
 
@@ -10,11 +15,9 @@ class NumberEnumSelectEditor extends NumberEditor {
     }))
 
     // input
-    const optionValues = this.schema.enum()
-    const optionsLabels = this.schema.option('enumTitles') || optionValues
     this.input = this.jedi.theme.getSelect({
-      optionValues: optionValues,
-      optionsLabels: optionsLabels,
+      optionValues: this.optionValues,
+      optionsLabels: this.optionsLabels,
       id: this.path
     })
     this.container.appendChild(this.input)
@@ -31,7 +34,7 @@ class NumberEnumSelectEditor extends NumberEditor {
       }))
     }
 
-    const firstOption = optionValues[0]
+    const firstOption = this.optionValues[0]
 
     if (firstOption) {
       this.setValue(firstOption, false)

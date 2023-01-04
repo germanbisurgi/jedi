@@ -3,11 +3,7 @@ import Schema from '../schema'
 import { equal, isSet, getType, isObject } from '../utils'
 
 class ObjectEditor extends Editor {
-  build () {
-    this.container.appendChild(this.messagesSlot)
-    this.container.appendChild(this.childEditorsSlot)
-    this.container.appendChild(this.actionsSlot)
-
+  prepare () {
     // child editors
     if (this.schema.properties()) {
       for (const key in this.schema.properties()) {
@@ -40,6 +36,12 @@ class ObjectEditor extends Editor {
         }
       }
     }
+  }
+
+  build () {
+    this.container.appendChild(this.messagesSlot)
+    this.container.appendChild(this.childEditorsSlot)
+    this.container.appendChild(this.actionsSlot)
 
     // addBtn
     if (this.jedi.options.editableProperties || this.schema.option('editableProperties')) {
@@ -177,24 +179,6 @@ class ObjectEditor extends Editor {
     return {}
   }
 
-  setContainer () {
-    this.container = this.jedi.theme.getFieldset()
-
-    // title
-    if (!this.schema.option('hideTitle')) {
-      this.container.appendChild(this.jedi.theme.getLegend({
-        textContent: this.schema.title() ? this.schema.title() : this.getKey()
-      }))
-
-      // description
-      if (this.schema.description()) {
-        this.container.appendChild(this.jedi.theme.getDescription({
-          textContent: this.schema.description()
-        }))
-      }
-    }
-  }
-
   onSetValue () {
     this.showValidationErrors()
     const value = this.getValue()
@@ -257,6 +241,24 @@ class ObjectEditor extends Editor {
         } else {
           childEditor.enable()
         }
+      }
+    }
+  }
+
+  setContainer () {
+    this.container = this.jedi.theme.getFieldset()
+
+    // title
+    if (!this.schema.option('hideTitle')) {
+      this.container.appendChild(this.jedi.theme.getLegend({
+        textContent: this.schema.title() ? this.schema.title() : this.getKey()
+      }))
+
+      // description
+      if (this.schema.description()) {
+        this.container.appendChild(this.jedi.theme.getDescription({
+          textContent: this.schema.description()
+        }))
       }
     }
   }

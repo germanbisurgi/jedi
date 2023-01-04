@@ -1,6 +1,11 @@
 import StringEditor from './string'
 
 class StringEnumSelectEditor extends StringEditor {
+  prepare () {
+    this.optionValues = this.schema.enum()
+    this.optionsLabels = this.schema.option('enumTitles') || this.optionValues
+  }
+
   build () {
     this.container.appendChild(this.messagesSlot)
 
@@ -11,12 +16,9 @@ class StringEnumSelectEditor extends StringEditor {
     }))
 
     // input
-    const optionValues = this.schema.enum()
-    const optionsLabels = this.schema.option('enumTitles') || optionValues
-
     this.input = this.jedi.theme.getSelect({
-      optionValues: optionValues,
-      optionsLabels: optionsLabels,
+      optionValues: this.optionValues,
+      optionsLabels: this.optionsLabels,
       id: this.path
     })
 
@@ -34,7 +36,7 @@ class StringEnumSelectEditor extends StringEditor {
       }))
     }
 
-    const firstOption = optionValues[0]
+    const firstOption = this.optionValues[0]
 
     if (firstOption) {
       this.setValue(firstOption, false)

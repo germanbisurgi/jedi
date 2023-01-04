@@ -1,12 +1,13 @@
 import StringEditor from './string'
 
 class StringEnumRadioEditor extends StringEditor {
+  prepare () {
+    this.optionValues = this.schema.enum()
+    this.optionsLabels = this.schema.option('enumTitles') || this.optionValues
+  }
+
   build () {
     this.container.appendChild(this.messagesSlot)
-
-    // input
-    const optionValues = this.schema.enum()
-    const optionsLabels = this.schema.option('enumTitles') || optionValues
 
     // fieldset
     const fieldset = this.jedi.theme.getFieldset()
@@ -18,7 +19,7 @@ class StringEnumRadioEditor extends StringEditor {
     }))
 
     // radios
-    optionValues.forEach((value, index) => {
+    this.optionValues.forEach((value, index) => {
       // radio container
       const radioContainer = this.jedi.theme.getRadioContainer()
 
@@ -35,7 +36,7 @@ class StringEnumRadioEditor extends StringEditor {
 
       radioContainer.appendChild(this.jedi.theme.getLabel({
         for: this.path + '.' + index,
-        textContent: optionsLabels[index]
+        textContent: this.optionsLabels[index]
       }))
 
       fieldset.appendChild(radioContainer)
@@ -48,7 +49,7 @@ class StringEnumRadioEditor extends StringEditor {
       }))
     }
 
-    const firstOption = optionValues[0]
+    const firstOption = this.optionValues[0]
 
     if (firstOption) {
       this.setValue(firstOption, false)

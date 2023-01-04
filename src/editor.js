@@ -22,6 +22,7 @@ class Editor {
     this.setDefaultValue()
     this.setContainer()
     this.setContainerAttributes()
+    this.prepare()
     this.build()
     this.refreshUI()
     if (this.jedi.ready || this.jedi.options.alwaysShowErrors || this.schema.option('alwaysShowErrors')) {
@@ -44,6 +45,11 @@ class Editor {
       this.container.setAttribute('data-type', this.schema.type())
     }
   }
+
+  /**
+   * Prepare data before building the editor
+   */
+  prepare () {}
 
   /**
    * build the editor's user interface

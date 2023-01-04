@@ -1,6 +1,5 @@
 ## Todo
 
-- dependentRequired + showRequiredOnly
 - refactoring: preBuild()
 - fix: bootstrap 5 classes
 - feature: icons

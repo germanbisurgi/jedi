@@ -3,9 +3,7 @@ import Schema from '../schema'
 import { isSet, equal, uuidv4 } from '../utils'
 
 class MultipleEditor extends Editor {
-  build () {
-    this.container.appendChild(this.messagesSlot)
-
+  prepare () {
     this.editors = []
     this.switcherOptionValues = []
     this.switcherOptionsLabels = []
@@ -81,6 +79,10 @@ class MultipleEditor extends Editor {
 
       this.editors.push(editor)
     })
+  }
+
+  build () {
+    this.container.appendChild(this.messagesSlot)
 
     // switcher radios
     this.switcherRadios = []
