@@ -9,7 +9,6 @@ class ObjectEditor extends Editor {
     this.container.appendChild(this.actionsSlot)
 
     // child editors
-    // todo: add all properties setting value. then remove the non required properties. then add editors
     if (this.schema.properties()) {
       for (const key in this.schema.properties()) {
         if (!Object.prototype.hasOwnProperty.call(this.schema.properties(), key)) {
@@ -25,6 +24,20 @@ class ObjectEditor extends Editor {
 
         const schema = this.schema.property(key)
         this.addChildEditor(schema, key)
+      }
+    }
+
+    // Add dependent required properties
+    if (this.schema.properties()) {
+      for (const key in this.schema.properties()) {
+        if (!Object.prototype.hasOwnProperty.call(this.schema.properties(), key)) {
+          continue
+        }
+
+        if (this.isDependentRequired(key)) {
+          const schema = this.schema.property(key)
+          this.addChildEditor(schema, key)
+        }
       }
     }
 
@@ -74,27 +87,30 @@ class ObjectEditor extends Editor {
    * Returns true if the property is required
    */
   isRequired (property) {
-    if (this.schema.required() && this.schema.required().includes(property)) {
-      return true
-    }
+    return this.schema.required() && this.schema.required().includes(property)
+  }
 
-    // if (this.parent.schema.dependentRequired()) {
-    //   let missingProperties = []
-    //
-    //   Object.keys(this.schema.dependentRequired()).forEach((key) => {
-    //     if (isSet(this.getValue()[key])) {
-    //       const requiredProperties = this.schema.dependentRequired()[key]
-    //
-    //       missingProperties = requiredProperties.filter((property) => {
-    //         return !Object.prototype.hasOwnProperty.call(this.getValue(), property)
-    //       })
-    //     }
-    //   })
-    //
-    //   console.log('missingProperties', missingProperties)
-    //
-    //   return missingProperties.includes(this.getKey())
-    // }
+  /**
+   * Returns true if the property is dependent required
+   */
+  isDependentRequired (property) {
+    const dependentRequired = this.schema.dependentRequired()
+
+    if (dependentRequired) {
+      let missingProperties = []
+
+      Object.keys(dependentRequired).forEach((key) => {
+        if (isSet(this.value[key])) {
+          const requiredProperties = dependentRequired[key]
+
+          missingProperties = requiredProperties.filter((property) => {
+            return !Object.prototype.hasOwnProperty.call(this.value, property)
+          })
+        }
+      })
+
+      return missingProperties.includes(property)
+    }
 
     return false
   }
@@ -108,10 +124,11 @@ class ObjectEditor extends Editor {
     })
 
     // removeBtn
-    const propertyEditorIsNotRequired = !this.isRequired(key)
+    const notRequired = !this.isRequired(key)
+    const notDependentRequired = !this.isDependentRequired(key)
     const editableProperties = this.jedi.options.editableProperties || this.schema.option('editableProperties')
 
-    if (propertyEditorIsNotRequired && editableProperties) {
+    if (notRequired && notDependentRequired && editableProperties) {
       const removeBtn = this.jedi.theme.getButton({
         textContent: 'Remove property'
       })
@@ -126,7 +143,7 @@ class ObjectEditor extends Editor {
     this.value[key] = editor.getValue()
   }
 
-  removeChildEditor (key) {
+  deleteChildEditor (key) {
     for (let i = this.childEditors.length - 1; i >= 0; i--) {
       const editor = this.childEditors[i]
       if (editor.getKey() === key) {
@@ -134,9 +151,6 @@ class ObjectEditor extends Editor {
         this.childEditors.splice(i, 1)
       }
     }
-
-    delete this.value[key]
-    this.setValue(this.value)
   }
 
   onChildEditorChange () {
@@ -190,7 +204,7 @@ class ObjectEditor extends Editor {
       const editor = this.childEditors[i]
       const key = editor.getKey()
       if (!isSet(value[key])) {
-        this.removeChildEditor(key)
+        this.deleteChildEditor(key)
       }
     }
 
