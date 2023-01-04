@@ -74,7 +74,6 @@ class MultipleEditor extends Editor {
 
       editor.onChange = () => {
         this.onChange()
-        this.setValue(editor.getValue(), false) // todo: set value will not work properly with this
       }
 
       this.editors.push(editor)
