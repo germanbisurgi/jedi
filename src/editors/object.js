@@ -9,6 +9,7 @@ class ObjectEditor extends Editor {
     this.container.appendChild(this.actionsSlot)
 
     // child editors
+    // todo: add all properties setting value. then remove the non required properties. then add editors
     if (this.schema.properties()) {
       for (const key in this.schema.properties()) {
         if (!Object.prototype.hasOwnProperty.call(this.schema.properties(), key)) {
