@@ -25,6 +25,7 @@ class Jedi {
     this.listeners = []
     this.resolver = new Resolver()
     this.validator = new Validator()
+    this.errors = []
     this.init()
   }
 
@@ -133,6 +134,15 @@ class Jedi {
 
   enable () {
     this.root.enable()
+  }
+
+  validate () {
+    Object.keys(this.editors).forEach((key) => {
+      const editor = this.editors[key]
+      this.errors = [...this.errors, ...editor.validate()]
+    })
+
+    return this.errors
   }
 
   reset () {

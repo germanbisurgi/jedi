@@ -1,6 +1,5 @@
 ## Todo
 
-- refactoring: preBuild()
 - fix: bootstrap 5 classes
 - feature: icons
 - feature: classes for jedi elements like buttons and switchers
