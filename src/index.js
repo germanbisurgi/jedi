@@ -11,6 +11,7 @@ class Jedi {
     this.options = Object.assign({
       editableProperties: false,
       alwaysShowErrors: false,
+      showRequiredOnly: false,
       schema: {},
       theme: 'wireframe'
     }, options)

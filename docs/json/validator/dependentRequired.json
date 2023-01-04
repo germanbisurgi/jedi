@@ -1,9 +1,21 @@
 {
   "title": "dependentRequired",
   "type": "object",
+  "required": [
+    "creditCard"
+  ],
   "properties": {
     "creditCard": {
+      "title": "Credit Card",
       "type": "number"
+    },
+    "address": {
+      "title": "Address",
+      "type": "string"
+    },
+    "telephone": {
+      "title": "Telephone",
+      "type": "string"
     }
   },
   "dependentRequired": {
@@ -11,5 +23,8 @@
       "address",
       "telephone"
     ]
+  },
+  "options": {
+    "alwaysShowErrors": true
   }
 }

@@ -107,6 +107,8 @@ Scenario('should display @dependentRequired validation errors', ({ I }) => {
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/dependentRequired')
   I.checkOption('[id="alwaysShowErrors"]')
+  I.checkOption('[id="showRequiredOnly"]')
+  I.scrollTo('[data-path="root"]', 0, -300)
   I.waitForElement('.jedi-ready')
   I.waitForText('dependentRequired is missing the required properties: address, telephone', '[data-path="root"]')
   I.fillField('#editor-value', JSON.stringify({

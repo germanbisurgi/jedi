@@ -1,5 +1,6 @@
 ## Todo
 
+- dependentRequired + showRequiredOnly
 - fix: bootstrap 5 classes
 - feature: icons
 - feature: classes for jedi elements like buttons and switchers
@@ -8,8 +9,9 @@
     - propertyNames
     - additionalProperties
     - dependencies 
-- feature: toggle for optional properties
 - feature: array tabs
+- feature: edit object values
+- feature: edit array values
 - feature: option exclude
 - feature: filter by field
 - feature: array enums

@@ -140,17 +140,6 @@ class Editor {
     this.refreshUI()
   }
 
-  /**
-   * Returns true if the property is required
-   */
-  isRequired () {
-    if (this.parent?.schema.required()) {
-      return this.parent.schema.required().includes(this.getKey())
-    }
-
-    return false
-  }
-
   validate () {
     return this.jedi.validator.validate(this.getValue(), this.schema, this.getKey(), this.path)
   }

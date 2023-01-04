@@ -10,10 +10,21 @@ class ObjectEditor extends Editor {
 
     // child editors
     if (this.schema.properties()) {
-      Object.keys(this.schema.properties()).forEach((key) => {
+      for (const key in this.schema.properties()) {
+        if (!Object.prototype.hasOwnProperty.call(this.schema.properties(), key)) {
+          continue
+        }
+
+        const showRequiredOnly = this.jedi.options.showRequiredOnly || this.schema.option('showRequiredOnly')
+        const isNotRequired = !this.schema.required() || !this.schema.required().includes(key)
+
+        if (showRequiredOnly && isNotRequired) {
+          continue
+        }
+
         const schema = this.schema.property(key)
         this.addChildEditor(schema, key)
-      })
+      }
     }
 
     // addBtn
@@ -58,6 +69,35 @@ class ObjectEditor extends Editor {
     }
   }
 
+  /**
+   * Returns true if the property is required
+   */
+  isRequired (property) {
+    if (this.schema.required() && this.schema.required().includes(property)) {
+      return true
+    }
+
+    // if (this.parent.schema.dependentRequired()) {
+    //   let missingProperties = []
+    //
+    //   Object.keys(this.schema.dependentRequired()).forEach((key) => {
+    //     if (isSet(this.getValue()[key])) {
+    //       const requiredProperties = this.schema.dependentRequired()[key]
+    //
+    //       missingProperties = requiredProperties.filter((property) => {
+    //         return !Object.prototype.hasOwnProperty.call(this.getValue(), property)
+    //       })
+    //     }
+    //   })
+    //
+    //   console.log('missingProperties', missingProperties)
+    //
+    //   return missingProperties.includes(this.getKey())
+    // }
+
+    return false
+  }
+
   addChildEditor (schema, key) {
     const editor = this.jedi.createEditor({
       jedi: this.jedi,
@@ -67,7 +107,7 @@ class ObjectEditor extends Editor {
     })
 
     // removeBtn
-    const propertyEditorIsNotRequired = !editor.isRequired()
+    const propertyEditorIsNotRequired = !this.isRequired(key)
     const editableProperties = this.jedi.options.editableProperties || this.schema.option('editableProperties')
 
     if (propertyEditorIsNotRequired && editableProperties) {

@@ -1,5 +1,5 @@
 import Schema from './schema'
-import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isString } from './utils'
+import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isSet, isString } from './utils'
 
 class Validator {
   constructor () {
@@ -89,15 +89,17 @@ class Validator {
   dependentRequired (value, schema, key, path) {
     const errors = []
 
-    if (schema.dependentRequired()) {
+    if (isObject(value) && schema.dependentRequired()) {
       let missingProperties = []
 
       Object.keys(schema.dependentRequired()).forEach((key) => {
-        const requiredPropertied = schema.dependentRequired()[key]
+        if (isSet(value[key])) {
+          const requiredProperties = schema.dependentRequired()[key]
 
-        missingProperties = requiredPropertied.filter((property) => {
-          return !Object.prototype.hasOwnProperty.call(value, property)
-        })
+          missingProperties = requiredProperties.filter((property) => {
+            return !Object.prototype.hasOwnProperty.call(value, property)
+          })
+        }
       })
 
       const invalid = missingProperties.length > 0

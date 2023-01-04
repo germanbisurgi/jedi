@@ -50,6 +50,13 @@
                     <input type="checkbox" id="alwaysShowErrors" v-model="options.alwaysShowErrors" @change="initEditor()">
                     <label for="alwaysShowErrors">alwaysShowErrors</label>
                 </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="showRequiredOnly" v-model="options.showRequiredOnly" @change="initEditor()">
+                    <label for="showRequiredOnly">showRequiredOnly</label>
+                </div>
+
+
             </fieldset>
 
             <fieldset class="card card-body">
@@ -252,9 +259,10 @@
             container: '#jedi-container',
             editableProperties: false,
             alwaysShowErrors: false,
+            showRequiredOnly: false,
             theme: 'wireframe',
             schema: {
-              "$ref": "./json/validator/dependentRequired.json",
+              "$ref": "./json/editors/all.json",
             }
           }
         }
