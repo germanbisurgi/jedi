@@ -1,5 +1,6 @@
 ## Todo
 
+- dereference schema first and the initialize editor
 - fix: bootstrap 5 classes
 - feature: icons
 - feature: classes for jedi elements like buttons and switchers

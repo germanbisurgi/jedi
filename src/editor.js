@@ -86,6 +86,10 @@ class Editor {
     if (this.schema.type() === 'null') value = null
 
     if (this.schema.default()) {
+      if (this.schema.enum() && !this.schema.enum().includes(this.schema.default())) {
+        return
+      }
+
       value = this.schema.default()
     }
 

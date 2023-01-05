@@ -50,11 +50,11 @@ class NumberEnumRadioEditor extends NumberEditor {
       }))
     }
 
-    const firstOption = this.optionValues[0]
-
-    if (firstOption) {
-      this.setValue(firstOption, false)
-    }
+    // const firstOption = this.optionValues[0]
+    //
+    // if (firstOption) {
+    //   this.setValue(firstOption, false)
+    // }
   }
 
   refreshUI () {

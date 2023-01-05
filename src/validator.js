@@ -1,4 +1,5 @@
 import Schema from './schema'
+import Jedi from './index'
 import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isSet, isString } from './utils'
 
 class Validator {
@@ -208,14 +209,19 @@ class Validator {
         return errors
       }
 
-      const ifErrors = this.validate(value, new Schema(schema.if()), key, path)
+      const ifEditor = new Jedi({ schema: schema.if(), startval: value })
+      const ifErrors = ifEditor.validate()
 
       if (ifErrors.length === 0) {
-        errors = this.validate(value, new Schema(schema.then()), key, path)
+        const thenEditor = new Jedi({ schema: schema.then(), startval: value })
+        errors = thenEditor.validate()
       } else {
-        errors = this.validate(value, new Schema(schema.else()), key, path)
+        const elseEditor = new Jedi({ schema: schema.else(), startval: value })
+        errors = elseEditor.validate()
       }
     }
+
+    console.log(errors)
 
     return errors
   }
