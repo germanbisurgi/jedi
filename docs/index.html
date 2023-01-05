@@ -55,8 +55,6 @@
                     <input type="checkbox" id="showRequiredOnly" v-model="options.showRequiredOnly" @change="initEditor()">
                     <label for="showRequiredOnly">showRequiredOnly</label>
                 </div>
-
-
             </fieldset>
 
             <fieldset class="card card-body">
@@ -261,14 +259,12 @@
             alwaysShowErrors: false,
             showRequiredOnly: false,
             theme: 'wireframe',
-            schema: {
-              "$ref": "./json/editors/all.json",
-            }
+            schema: {}
           }
         }
       },
       mounted() {
-        this.initEditor()
+        this.switchSchema()
         this.registerThemeStylesheet()
       },
       methods: {
@@ -284,9 +280,7 @@
             this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
           })
 
-          this.editor.on('ready', () => {
-
-          })
+          this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
         },
         destroyEditor() {
           this.editor.destroy()
@@ -337,7 +331,8 @@
           })
         },
         async switchSchema() {
-          const response = await fetch(this.$refs.schema.value);
+          const url = this.$refs.schema.value
+          const response = await fetch(url);
           this.options.schema = await response.json()
           this.initEditor()
         }

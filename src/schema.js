@@ -1,13 +1,8 @@
-import refParser from '@apidevtools/json-schema-ref-parser'
 import { isString, isArray, isNumber, isInteger, isBoolean, isObject } from './utils'
 
 class Schema {
   constructor (schema) {
     this.schema = schema
-  }
-
-  async dereference () {
-    this.schema = await refParser.dereference(this.schema)
   }
 
   allOf () {

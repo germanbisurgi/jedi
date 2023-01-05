@@ -21,7 +21,6 @@ class Jedi {
     this.editors = {}
     this.root = null
     this.theme = null
-    this.ready = false
     this.listeners = []
     this.resolver = new Resolver()
     this.validator = new Validator()
@@ -29,9 +28,7 @@ class Jedi {
     this.init()
   }
 
-  async init () {
-    this.ready = false
-
+  init () {
     switch (this.options.theme) {
       case 'barebones':
         this.theme = new ThemeBarebones()
@@ -46,21 +43,6 @@ class Jedi {
         this.theme = new ThemeWireframe()
         break
     }
-
-    await this.schema.dereference()
-
-    // if (!this.schema.type() && !this.schema.oneOf() && !this.schema.anyOf()) {
-    //   const schemaType = getType(this.schema)
-    //
-    //   if (schemaType === 'object' || schemaType === 'array') {
-    //     this.schema.type = schemaType
-    //   } else {
-    //     this.schema = {
-    //       type: schemaType,
-    //       default: this.schema
-    //     }
-    //   }
-    // }
 
     this.root = this.createEditor({
       jedi: this,
@@ -83,8 +65,6 @@ class Jedi {
 
     this.container.appendChild(this.root.container)
     this.container.classList.add('jedi-ready')
-    this.ready = true
-    this.emit('ready')
     this.emit('change')
     this.root.onChange = () => {
       this.emit('change')

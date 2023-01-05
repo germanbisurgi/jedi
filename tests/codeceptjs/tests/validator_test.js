@@ -3,13 +3,13 @@ const theme = process.env.THEME || 'wireframe'
 
 Feature('validator')
 
-Scenario('should display message validation error @message', ({ I }) => {
+Scenario('should display @message validation error', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/message')
   I.checkOption('[id="alwaysShowErrors"]')
-  I.waitForText('If the string length is more than 5 characters, it must be "cinco", otherwise "dos".', '[data-path="root.string"]')
+  I.waitForText('5 chars please.', '[data-path="root.string"]')
 })
 
 Scenario('should display allOf validation errors @allOf', ({ I }) => {
@@ -181,7 +181,7 @@ Scenario('should display @exclusiveMinimum validation errors', ({ I }) => {
   I.waitForText('integer must be at least 101', '[data-path="root.integer"]')
 })
 
-Scenario('should display @message validation error', ({ I }) => {
+Scenario('should display @format validation error', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')

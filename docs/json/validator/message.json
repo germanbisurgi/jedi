@@ -4,17 +4,9 @@
   "properties": {
     "string": {
       "type": "string",
-      "if": {
-        "minLength": 5
-      },
-      "then": {
-        "const": "cinco"
-      },
-      "else": {
-        "const": "dos"
-      },
+      "const": 5,
       "options": {
-        "message": "If the string length is more than 5 characters, it must be \"cinco\", otherwise \"dos\"."
+        "message": "5 chars please."
       }
     }
   }
