@@ -1,5 +1,7 @@
 ## Todo
 
+- global messages by validator name
+- deprecate sanitize?
 - json-schema-tools
 - browser and node Lib
 - multiple buttons
@@ -8,10 +10,8 @@
 - feature: icons
 - feature: classes for jedi elements like buttons and switchers
 - feature validators: 
-    - patternProperties
     - propertyNames
     - additionalProperties
-    - dependencies 
 - feature: array tabs
 - feature: edit object values
 - feature: edit array values

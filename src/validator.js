@@ -22,6 +22,7 @@ class Validator {
       'maximum',
       'multipleOf',
       'pattern',
+      'patternProperties',
       'enum',
       'required',
       'minProperties',
@@ -463,6 +464,33 @@ class Validator {
           path: path
         })
       }
+    }
+
+    return errors
+  }
+
+  patternProperties (value, schema, key, path) {
+    let errors = []
+
+    if (isObject(value) && schema.patternProperties()) {
+      const patternProperties = schema.patternProperties()
+
+      Object.keys(value).forEach((propertyName) => {
+        Object.keys(patternProperties).forEach((pattern) => {
+          const regexp = new RegExp(pattern)
+          if (regexp.test(propertyName)) {
+            const schema = patternProperties[pattern]
+            schema.title = propertyName
+
+            const editor = new Jedi({
+              schema: schema,
+              startval: value[propertyName]
+            })
+
+            errors = [...errors, ...editor.validate()]
+          }
+        })
+      })
     }
 
     return errors

@@ -145,6 +145,10 @@ class Schema {
     return isString(this.schema.pattern) ? this.schema.pattern : false
   }
 
+  patternProperties () {
+    return isObject(this.schema.patternProperties) ? this.schema.patternProperties : false
+  }
+
   property (key) {
     return this.properties && this.schema.properties[key] ? this.schema.properties[key] : false
   }
