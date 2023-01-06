@@ -1,5 +1,8 @@
 ## Todo
 
+- json-schema-tools
+- browser and node Lib
+- multiple buttons
 - dereference schema first and the initialize editor
 - fix: bootstrap 5 classes
 - feature: icons

@@ -1,6 +1,7 @@
 {
   "title": "anyOf",
   "type": "object",
+  "description": "To validate against anyOf, the given data must be valid against any (one or more) of the given subschemas.",
   "properties": {
     "string": {
       "type": "string",

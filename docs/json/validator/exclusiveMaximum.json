@@ -1,5 +1,6 @@
 {
   "title": "exclusiveMaximum",
+  "description": "Ranges of numbers are specified using a combination of the minimum and maximum keywords, (or exclusiveMinimum and exclusiveMaximum for expressing exclusive range).",
   "type": "object",
   "properties": {
     "number": {

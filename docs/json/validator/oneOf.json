@@ -1,6 +1,7 @@
 {
   "title": "oneOf",
   "type": "object",
+  "description": "To validate against oneOf, the given data must be valid against exactly one of the given subschemas.",
   "properties": {
     "number": {
       "type": "number",

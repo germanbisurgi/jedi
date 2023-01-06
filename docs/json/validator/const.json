@@ -1,6 +1,7 @@
 {
   "title": "Test: const",
   "type": "object",
+  "description": "The const keyword is used to restrict a value to a single value.",
   "properties": {
     "string": {
       "type": "string",
