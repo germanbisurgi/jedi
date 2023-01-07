@@ -1,6 +1,5 @@
 ## Todo
 
-- global messages by validator name
 - deprecate sanitize?
 - json-schema-tools
 - browser and node Lib

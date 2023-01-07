@@ -5,6 +5,7 @@ import ThemeBootstrap5 from './themes/bootstrap5'
 import Resolver from './resolver'
 import Schema from './schema'
 import Validator from './validator'
+import RefParser from './ref-parser'
 
 class Jedi {
   constructor (options) {
@@ -24,6 +25,7 @@ class Jedi {
     this.listeners = []
     this.resolver = new Resolver()
     this.validator = new Validator()
+    this.refParser = new RefParser()
     this.errors = []
     this.init()
   }
