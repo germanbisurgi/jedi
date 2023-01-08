@@ -1,4 +1,4 @@
-import { isSet, getType, mergeDeep } from './utils'
+import { isSet, getType } from './utils'
 import ArrayEditor from './editors/array'
 import BooleanEditor from './editors/boolean'
 import BooleanEnumSelectEditor from './editors/boolean-enum-select'
@@ -20,19 +20,19 @@ class Resolver {
      * Functions that return an editor class if the condition pass
      */
     this.resolvers = [
-      (schema, config) => {
-        if (schema.allOf()) {
-          let merged = {}
-
-          schema.allOf().forEach((allOfSchema) => {
-            merged = mergeDeep(merged, allOfSchema)
-          })
-
-          config.schema = new Schema(merged)
-
-          return this.resolve(config)
-        }
-      },
+      // (schema, config) => {
+      //   if (schema.allOf()) {
+      //     let merged = {}
+      //
+      //     schema.allOf().forEach((allOfSchema) => {
+      //       merged = mergeDeep(merged, allOfSchema)
+      //     })
+      //
+      //     config.schema = new Schema(merged)
+      //
+      //     return this.resolve(config)
+      //   }
+      // },
       (schema, config) => {
         if (schema.anyOf() || schema.oneOf() || schema.typeIs('any') || schema.types() || !schema.type()) {
           if (!schema.type() && schema.default()) {

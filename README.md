@@ -1,5 +1,7 @@
 ## Todo
 
+- fix array validator undefined (complete refactoring)
+- fix: bootstrap 5 classes
 - sr-only titles
 - test: multiple
 - max deep ref parser
@@ -8,7 +10,6 @@
 - json-schema-tools
 - browser and node Lib
 - dereference schema first and the initialize editor
-- fix: bootstrap 5 classes
 - feature: icons
 - feature: classes for jedi elements like buttons and switchers
 - feature validators: 

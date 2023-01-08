@@ -5,6 +5,9 @@ import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isSet, isStr
 class Validator {
   constructor () {
     this.validators = [
+      'allOf',
+      'anyOf',
+      'oneOf',
       'dependentRequired',
       'format',
       'if',
@@ -26,10 +29,7 @@ class Validator {
       'enum',
       'required',
       'minProperties',
-      'maxProperties',
-      'allOf',
-      'anyOf',
-      'oneOf'
+      'maxProperties'
     ]
   }
 
