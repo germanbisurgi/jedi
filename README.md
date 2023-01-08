@@ -1,9 +1,11 @@
 ## Todo
 
+- test: multiple
+- max deep ref parser
+- patternProperties resolver
 - deprecate sanitize?
 - json-schema-tools
 - browser and node Lib
-- multiple buttons
 - dereference schema first and the initialize editor
 - fix: bootstrap 5 classes
 - feature: icons

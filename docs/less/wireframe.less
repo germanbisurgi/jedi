@@ -17,7 +17,7 @@ html {
 body {
   background-color: #fefefe;
   font-size: 1.8rem;
-  color: #555;
+  color: #333;
 }
 p {
   line-height: 1.5;
@@ -86,8 +86,8 @@ article {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-right: -8px;
-  margin-left: -8px;
+  margin-right: -16px;
+  margin-left: -16px;
 }
 .row.no-gap {
   margin-right: 0;
@@ -239,8 +239,8 @@ article {
 }
 /* ------------------------------------------------------------------ columns */
 [class^="col-"] {
-  padding-right: 8px;
-  padding-left: 8px;
+  padding-right: 16px;
+  padding-left: 16px;
 }
 .col-self-start {
   align-self: flex-start;
@@ -922,7 +922,7 @@ article {
   margin-right: 16px;
 }
 .nav > li a {
-  color: #555;
+  color: #333;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   border-radius: 5px;
   padding: 0 16px;
@@ -1114,13 +1114,13 @@ input:disabled {
   opacity: 0.4;
 }
 input::placeholder {
-  color: #555;
+  color: #333;
 }
 input:-ms-input-placeholder {
-  color: #555;
+  color: #333;
 }
 input::-ms-input-placeholder {
-  color: #555;
+  color: #333;
 }
 select {
   -webkit-appearance: none;
@@ -1144,13 +1144,13 @@ textarea:disabled {
   opacity: 0.4;
 }
 textarea::placeholder {
-  color: #555;
+  color: #333;
 }
 textarea:-ms-input-placeholder {
-  color: #555;
+  color: #333;
 }
 textarea::-ms-input-placeholder {
-  color: #555;
+  color: #333;
 }
 .checkbox {
   display: inline-block;
@@ -1216,7 +1216,7 @@ textarea::-ms-input-placeholder {
   transform: translate(-50%, -50%);
   width: 6.5px;
   height: 6.5px;
-  background-color: #555;
+  background-color: #333;
   border-radius: 100%;
 }
 .radio input[type="radio"]:disabled ~ .indicator {
@@ -1242,7 +1242,7 @@ textarea::-ms-input-placeholder {
   background-color: #fefefe;
   border: 1px solid #d2d2d2;
   border-radius: 5px;
-  color: #555;
+  color: #333;
   cursor: pointer;
   display: inline-block;
   font-size: 1.8rem;
@@ -1283,7 +1283,8 @@ textarea::-ms-input-placeholder {
   color: #198754;
 }
 .btn-group {
-  display: flex;
+  display: inline-flex;
+  flex-wrap: wrap;
 }
 .btn-group .btn {
   border-radius: 0;
@@ -1443,7 +1444,7 @@ textarea::-ms-input-placeholder {
   height: 0;
   border-style: solid;
   border-width: 25px 0 25px 40px;
-  border-color: transparent transparent transparent #555;
+  border-color: transparent transparent transparent #333;
   z-index: -1;
 }
 .progress {

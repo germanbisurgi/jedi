@@ -1,24 +1,106 @@
 {
-  "type": "object",
-  "title": "Object",
-  "properties": {
-    "name": {
-      "title": "Name",
-      "$ref": "#/$defs/name"
+  "title": "Schema",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/string"
     },
-    "surname": {
-      "title": "Surname",
-      "$ref": "#/$defs/name"
+    {
+      "$ref": "#/$defs/object"
+    },
+    {
+      "$ref": "#/$defs/array"
     }
-  },
-  "required": [
-    "name",
-    "surname"
   ],
   "$defs": {
-    "name": {
-      "type": "string",
-      "minLength": 1
+    "string": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/schema"
+        },
+        {
+          "title": "String",
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "default": "string",
+              "const": "string"
+            }
+          }
+        }
+      ]
+    },
+    "object": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/schema"
+        },
+        {
+          "title": "Object",
+          "required": [
+            "type",
+            "properties"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "default": "object",
+              "const": "object"
+            },
+            "properties": {
+              "type": "object",
+              "options": {
+                "editableProperties": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    "array": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/schema"
+        },
+        {
+          "title": "Array",
+          "required": [
+            "items",
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "default": "array",
+              "const": "array"
+            },
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/string"
+                },
+                {
+                  "$ref": "#/$defs/object"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "schema": {
+    "title": "Schema",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "format": "hidden"
+        }
+      }
     }
   }
 }
