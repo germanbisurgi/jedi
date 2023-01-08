@@ -30,6 +30,10 @@ class ThemeBarebones {
     return button
   }
 
+  getButtonActiveClass () {
+    return 'btn-info'
+  }
+
   getContainer () {
     return document.createElement('div')
   }

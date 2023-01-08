@@ -161,7 +161,11 @@ class MultipleEditor extends Editor {
     }
 
     this.switcherButtons.forEach((button) => {
-      button.checked = (Number(button.value) === Number(this.index))
+      if ((Number(button.value) === Number(this.index))) {
+        button.classList.add(this.jedi.theme.getButtonActiveClass())
+      } else {
+        button.classList.remove(this.jedi.theme.getButtonActiveClass())
+      }
     })
   }
 

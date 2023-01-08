@@ -19,7 +19,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
   getButton (config) {
     const button = document.createElement('button')
     button.classList.add('btn')
-    button.classList.add('btn-primary')
+    button.classList.add('btn-default')
     button.setAttribute('type', 'button')
     button.value = config.value
     button.textContent = config.textContent
