@@ -21,6 +21,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
     button.classList.add('btn')
     button.classList.add('btn-primary')
     button.setAttribute('type', 'button')
+    button.value = config.value
     button.textContent = config.textContent
     return button
   }

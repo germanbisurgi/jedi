@@ -25,6 +25,7 @@ class ThemeBarebones {
   getButton (config) {
     const button = document.createElement('button')
     button.setAttribute('type', 'button')
+    button.value = config.value
     button.textContent = config.textContent
     return button
   }

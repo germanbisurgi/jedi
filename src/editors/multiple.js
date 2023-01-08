@@ -1,6 +1,6 @@
 import Editor from '../editor'
 import Schema from '../schema'
-import { isSet, equal, uuidv4 } from '../utils'
+import { isSet, equal, mergeDeep } from '../utils'
 
 class MultipleEditor extends Editor {
   prepare () {
@@ -22,6 +22,18 @@ class MultipleEditor extends Editor {
 
       schemasOf.forEach((schema, index) => {
         schema = { ...cloneSchema, ...schema }
+
+        // merge allOf
+        if (schema.allOf) {
+          let merged = {}
+
+          schema.allOf.forEach((allOfSchema) => {
+            merged = mergeDeep(merged, allOfSchema)
+          })
+
+          schema = merged
+        }
+
         this.switcherOptionValues.push(index)
         const switcherOptionsLabel = schema.title || 'Option-' + (index + 1)
         this.switcherOptionsLabels.push(switcherOptionsLabel)
@@ -83,41 +95,25 @@ class MultipleEditor extends Editor {
   build () {
     this.container.appendChild(this.messagesSlot)
 
-    // switcher radios
-    this.switcherRadios = []
-    this.switcher = this.jedi.theme.getFieldset()
-
-    this.switcher.appendChild(this.jedi.theme.getLegend({
-      textContent: 'Options'
-    }))
+    // switcher buttons
+    this.switcherButtons = []
+    this.switcher = this.jedi.theme.getBtnGroup()
+    this.switcher.classList.add('jedi-switcher')
 
     this.switcherOptionValues.forEach((value, index) => {
-      const uuid = uuidv4()
-
-      // radio container
-      const radioContainer = this.jedi.theme.getRadioContainer()
-
-      // radio
-      const radio = this.jedi.theme.getRadio({
-        value: value,
-        id: this.path + '.switcher' + '.' + index + '.' + uuid
+      // button
+      const button = this.jedi.theme.getButton({
+        textContent: this.switcherOptionsLabels[index],
+        value: index
       })
-      radioContainer.appendChild(radio)
 
-      radio.addEventListener('change', () => {
-        const index = Number(radio.value)
+      button.addEventListener('click', () => {
+        const index = Number(button.value)
         this.switchEditor(index)
       })
 
-      this.switcherRadios.push(radio)
-      this.switcher.appendChild(radioContainer)
-
-      // label
-      const label = this.jedi.theme.getRadioLabel({
-        for: this.path + '.switcher' + '.' + index + '.' + uuid,
-        textContent: this.switcherOptionsLabels[index]
-      })
-      radioContainer.appendChild(label)
+      this.switcher.appendChild(button)
+      this.switcherButtons.push(button)
     })
 
     this.container.appendChild(this.switcher)
@@ -154,14 +150,18 @@ class MultipleEditor extends Editor {
 
     if (this.disabled) {
       this.activeEditor.disable()
-      this.switcher.disabled = true
+      this.switcherButtons.forEach((button) => {
+        button.disabled = true
+      })
     } else {
       this.activeEditor.enable()
-      this.switcher.disabled = false
+      this.switcherButtons.forEach((button) => {
+        button.disabled = false
+      })
     }
 
-    this.switcherRadios.forEach((radio) => {
-      radio.checked = (Number(radio.value) === Number(this.index))
+    this.switcherButtons.forEach((button) => {
+      button.checked = (Number(button.value) === Number(this.index))
     })
   }
 

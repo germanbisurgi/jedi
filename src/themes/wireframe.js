@@ -20,6 +20,7 @@ class ThemeWireframe extends ThemeBarebones {
     const button = document.createElement('button')
     button.classList.add('btn')
     button.setAttribute('type', 'button')
+    button.value = config.value
     button.textContent = config.textContent
     return button
   }
@@ -45,12 +46,12 @@ class ThemeWireframe extends ThemeBarebones {
     return label
   }
 
-  getRadioLabel (config) {
-    const label = document.createElement('label')
-    label.classList.add('form-check-label')
-    label.setAttribute('for', config.for)
-    label.textContent = config.textContent
-    return label
+  getCheckbox (config) {
+    const checkbox = document.createElement('input')
+    checkbox.classList.add('form-check-input')
+    checkbox.setAttribute('type', 'checkbox')
+    checkbox.setAttribute('id', config.id)
+    return checkbox
   }
 
   getRadioContainer () {
@@ -60,12 +61,12 @@ class ThemeWireframe extends ThemeBarebones {
     return checkboxContainer
   }
 
-  getCheckbox (config) {
-    const checkbox = document.createElement('input')
-    checkbox.classList.add('form-check-input')
-    checkbox.setAttribute('type', 'checkbox')
-    checkbox.setAttribute('id', config.id)
-    return checkbox
+  getRadioLabel (config) {
+    const label = document.createElement('label')
+    label.classList.add('form-check-label')
+    label.setAttribute('for', config.for)
+    label.textContent = config.textContent
+    return label
   }
 
   getRadio (config) {

@@ -18,7 +18,6 @@ class Jedi {
     }, options)
 
     this.container = document.querySelector(options.container) || document.createElement('div')
-    this.schema = new Schema(options.schema)
     this.editors = {}
     this.root = null
     this.theme = null
@@ -26,6 +25,7 @@ class Jedi {
     this.resolver = new Resolver()
     this.validator = new Validator()
     this.refParser = new RefParser()
+    this.schema = new Schema(options.schema)
     this.errors = []
     this.init()
   }
@@ -45,6 +45,8 @@ class Jedi {
         this.theme = new ThemeWireframe()
         break
     }
+
+    this.refParser.dereference(this.schema.schema)
 
     this.root = this.createEditor({
       jedi: this,
@@ -94,8 +96,7 @@ class Jedi {
    * Creates an editor instance based on the passed schema and config
    */
   createEditor (config) {
-    const EditorClass = this.resolver.resolve(config.schema)
-    return new (EditorClass)(config)
+    return this.resolver.resolve(config)
   }
 
   getValue () {

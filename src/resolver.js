@@ -1,4 +1,4 @@
-import { isSet, getType } from './utils'
+import { isSet, getType, mergeDeep } from './utils'
 import ArrayEditor from './editors/array'
 import BooleanEditor from './editors/boolean'
 import BooleanEnumSelectEditor from './editors/boolean-enum-select'
@@ -20,7 +20,20 @@ class Resolver {
      * Functions that return an editor class if the condition pass
      */
     this.resolvers = [
-      (schema) => {
+      (schema, config) => {
+        if (schema.allOf()) {
+          let merged = {}
+
+          schema.allOf().forEach((allOfSchema) => {
+            merged = mergeDeep(merged, allOfSchema)
+          })
+
+          config.schema = new Schema(merged)
+
+          return this.resolve(config)
+        }
+      },
+      (schema, config) => {
         if (schema.anyOf() || schema.oneOf() || schema.typeIs('any') || schema.types() || !schema.type()) {
           if (!schema.type() && schema.default()) {
             const originalSchema = schema.clone()
@@ -28,68 +41,68 @@ class Resolver {
             const newSchema = new Schema(originalSchema)
             return this.resolve(newSchema)
           } else {
-            return MultipleEditor
+            return new MultipleEditor(config)
           }
         }
       },
-      (schema) => {
+      (schema, config) => {
         if (schema.typeIs('boolean') && schema.formatIs('radio')) {
-          return BooleanEnumRadioEditor
+          return new BooleanEnumRadioEditor(config)
         }
       },
-      (schema) => {
+      (schema, config) => {
         if (schema.typeIs('boolean') && schema.formatIs('select')) {
-          return BooleanEnumSelectEditor
+          return new BooleanEnumSelectEditor(config)
         }
       },
-      (schema) => {
+      (schema, config) => {
         if (schema.typeIs('boolean')) {
-          return BooleanEditor
+          return new BooleanEditor(config)
         }
       },
-      (schema) => {
+      (schema, config) => {
         if (schema.typeIs('object')) {
-          return ObjectEditor
+          return new ObjectEditor(config)
         }
       },
-      (schema) => {
+      (schema, config) => {
         if (schema.typeIs('array')) {
-          return ArrayEditor
+          return new ArrayEditor(config)
         }
       },
-      (schema) => {
+      (schema, config) => {
         if (schema.typeIs('string') && schema.enum() && schema.formatIs('radio')) {
-          return StringEnumRadioEditor
+          return new StringEnumRadioEditor(config)
         }
       },
-      (schema) => {
+      (schema, config) => {
         if (schema.typeIs('string') && schema.enum()) {
-          return StringEnumSelectEditor
+          return new StringEnumSelectEditor(config)
         }
       },
-      (schema) => {
+      (schema, config) => {
         if (schema.typeIs('string')) {
-          return StringEditor
+          return new StringEditor(config)
         }
       },
-      (schema) => {
+      (schema, config) => {
         if (schema.typeIsNumeric() && schema.enum() && schema.formatIs('radio')) {
-          return NumberEnumRadioEditor
+          return new NumberEnumRadioEditor(config)
         }
       },
-      (schema) => {
+      (schema, config) => {
         if (schema.typeIsNumeric() && schema.enum()) {
-          return NumberEnumSelectEditor
+          return new NumberEnumSelectEditor(config)
         }
       },
-      (schema) => {
+      (schema, config) => {
         if (schema.typeIsNumeric()) {
-          return NumberEditor
+          return new NumberEditor(config)
         }
       },
-      (schema) => {
+      (schema, config) => {
         if (schema.typeIs('null')) {
-          return NullEditor
+          return new NullEditor(config)
         }
       }
     ]
@@ -105,9 +118,9 @@ class Resolver {
   /**
    * returns the first editor class that matches the passed schema.
    */
-  resolve (schema) {
+  resolve (config) {
     for (const resolver of this.resolvers) {
-      const editorClass = resolver(schema)
+      const editorClass = resolver(config.schema, config)
       if (isSet(editorClass)) {
         return editorClass
       }

@@ -7,15 +7,13 @@ class RefParser {
   }
 
   dereference (schema) {
-    this.defs = schema['$defs'] || schema['definitions']
+    this.defs = schema['$defs']
 
     for (let i = 0; i < this.iterations; i++) {
       this.traverse(this.defs)
       this.traverse(schema)
     }
 
-    console.log('....dereferenced schema')
-    console.log(JSON.stringify(schema, null, 2))
     return schema
   }
 
@@ -24,7 +22,7 @@ class RefParser {
       return ref
     }
 
-    if (ref.startsWith('#/$defs') || ref.startsWith('#/definitions')) {
+    if (ref.startsWith('#/$defs')) {
       const refParts = ref.split('/')
       const defName = refParts.pop()
 
