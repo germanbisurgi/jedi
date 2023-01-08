@@ -28,6 +28,9 @@
               "default": "string",
               "const": "string"
             }
+          },
+          "options": {
+            "switcherTitle": "String Schema"
           }
         }
       ]
@@ -55,6 +58,9 @@
                 "editableProperties": true
               }
             }
+          },
+          "options": {
+            "switcherTitle": "Object Schema"
           }
         }
       ]
@@ -86,12 +92,15 @@
                 }
               ]
             }
+          },
+          "options": {
+            "switcherTitle": "Array Schema"
           }
         }
       ]
     },
     "schema": {
-    "title": "Schema",
+      "title": "Schema",
       "type": "object",
       "properties": {
         "title": {

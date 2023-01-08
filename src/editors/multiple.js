@@ -34,43 +34,53 @@ class MultipleEditor extends Editor {
           schema = merged
         }
 
+        if (isSet(cloneSchema.title)) {
+          schema.title = cloneSchema.title
+        }
+
         this.switcherOptionValues.push(index)
-        const switcherOptionsLabel = schema.title || 'Option-' + (index + 1)
+        const switcherOptionsLabel = schema.options?.switcherTitle || 'Option-' + (index + 1)
         this.switcherOptionsLabels.push(switcherOptionsLabel)
         schemas.push(schema)
       })
     } else if (this.schema.types()) {
-      this.schema.type().forEach((type) => {
+      this.schema.type().forEach((type, index) => {
         const schemaClone = this.schema.clone()
 
         const schema = {
           ...schemaClone,
           ...{ type: type, title: type[0].toUpperCase() + type.slice(1) }
         }
-        schemas.push(schema)
-      })
 
-      schemas.forEach((schema, index) => {
+        if (isSet(schemaClone.title)) {
+          schema.title = schemaClone.title
+        }
+
+        schemas.push(schema)
+
         this.switcherOptionValues.push(index)
-        this.switcherOptionsLabels.push(...schemas.map((schema) => schema.title))
+        this.switcherOptionsLabels.push(type.charAt(0).toUpperCase() + type.slice(1))
       })
     } else if (this.schema.typeIs('any') || !this.schema.type()) {
       const schemaClone = this.schema.clone()
 
       schemas = [
-        { ...schemaClone, ...{ type: 'string', title: 'String' } },
-        { ...schemaClone, ...{ type: 'number', title: 'Number' } },
-        { ...schemaClone, ...{ type: 'integer', title: 'Integer' } },
-        { ...schemaClone, ...{ type: 'boolean', title: 'Boolean' } },
-        { ...schemaClone, ...{ type: 'array', title: 'Array' } },
-        { ...schemaClone, ...{ type: 'object', title: 'Object' } },
-        { ...schemaClone, ...{ type: 'null', title: 'Null' } }
+        { ...schemaClone, ...{ type: 'string' } },
+        { ...schemaClone, ...{ type: 'number' } },
+        { ...schemaClone, ...{ type: 'integer' } },
+        { ...schemaClone, ...{ type: 'boolean' } },
+        { ...schemaClone, ...{ type: 'array' } },
+        { ...schemaClone, ...{ type: 'object' } },
+        { ...schemaClone, ...{ type: 'null' } }
       ]
 
       schemas.forEach((schema, index) => {
         this.switcherOptionValues.push(index)
-        this.switcherOptionsLabels.push(...schemas.map((schema) => schema.title))
       })
+
+      this.switcherOptionsLabels = [
+        'String', 'Number', 'Integer', 'Boolean', 'Array', 'Object', 'Null'
+      ]
     }
 
     // Editors
@@ -135,7 +145,8 @@ class MultipleEditor extends Editor {
     this.container.setAttribute('data-type', 'multiple')
 
     this.container.appendChild(this.jedi.theme.getLegend({
-      textContent: this.schema.title() ? this.schema.title() : this.getKey()
+      textContent: this.schema.title() ? this.schema.title() : this.getKey(),
+      srOnly: true
     }))
   }
 
@@ -171,6 +182,11 @@ class MultipleEditor extends Editor {
 
   getValue () {
     return this.activeEditor.getValue()
+  }
+
+  showValidationErrors () {
+    super.showValidationErrors()
+    this.activeEditor.showValidationErrors()
   }
 
   sanitize (value) {

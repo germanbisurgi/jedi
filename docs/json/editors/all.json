@@ -192,41 +192,61 @@
       "title": "Multiple",
       "properties": {
         "nestedOf": {
-          "title": "One of",
+          "title": "Nested of",
           "oneOf": [
             {
               "type": "string",
-              "title": "String"
+              "options": {
+                "switcherTitle": "String"
+              }
             },
             {
               "type": "boolean",
-              "title": "Boolean"
+              "options": {
+                "switcherTitle": "Boolean"
+              }
             },
             {
               "title": "Any of",
+              "options": {
+                "switcherTitle": "Any of"
+              },
               "anyOf": [
                 {
                   "type": "integer",
-                  "title": "Integer"
+                  "options": {
+                    "switcherTitle": "Integer"
+                  }
                 },
                 {
                   "type": "number",
-                  "title": "Number"
+                  "options": {
+                    "switcherTitle": "Number"
+                  }
                 },
                 {
                   "title": "One of",
+                  "options": {
+                    "switcherTitle": "One of"
+                  },
                   "oneOf": [
                     {
                       "type": "object",
-                      "title": "Object"
+                      "options": {
+                        "switcherTitle": "Object"
+                      }
                     },
                     {
                       "type": "array",
-                      "title": "Array"
+                      "options": {
+                        "switcherTitle": "Array"
+                      }
                     },
                     {
                       "type": "null",
-                      "title": "Null"
+                      "options": {
+                        "switcherTitle": "Null"
+                      }
                     }
                   ]
                 }
@@ -239,15 +259,21 @@
           "oneOf": [
             {
               "type": "boolean",
-              "title": "Boolean"
+              "options": {
+                "switcherTitle": "Boolean"
+              }
             },
             {
               "type": "string",
-              "title": "String"
+              "options": {
+                "switcherTitle": "String"
+              }
             },
             {
               "type": "integer",
-              "title": "Integer"
+              "options": {
+                "switcherTitle": "Integer"
+              }
             }
           ]
         },
@@ -256,24 +282,30 @@
           "anyOf": [
             {
               "type": "array",
-              "title": "Array"
+              "options": {
+                "switcherTitle": "Array"
+              }
             },
             {
               "type": "object",
-              "title": "Object"
+              "options": {
+                "switcherTitle": "Object"
+              }
             },
             {
               "type": "null",
-              "title": "Null"
+              "options": {
+                "switcherTitle": "Null"
+              }
             }
           ]
         },
         "type-array": {
+          "title": "Type string or boolean",
           "type": [
             "string",
             "boolean"
-          ],
-          "title": "Type string or boolean"
+          ]
         },
         "type-undefined": {
           "title": "Type is undefined"

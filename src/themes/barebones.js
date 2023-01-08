@@ -87,6 +87,11 @@ class ThemeBarebones {
     const legend = document.createElement('legend')
     legend.textContent = config.textContent
     legend.setAttribute('style', 'width: auto;')
+
+    if (config.srOnly) {
+      legend.classList.add('sr-only')
+    }
+
     return legend
   }
 

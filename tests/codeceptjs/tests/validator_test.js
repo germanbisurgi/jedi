@@ -12,7 +12,7 @@ Scenario('should display @message validation error', ({ I }) => {
   I.waitForText('5 chars please.', '[data-path="root.string"]')
 })
 
-Scenario('should display allOf validation errors @allOf', ({ I }) => {
+Scenario('should display @allOf validation errors', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.waitForElement('.jedi-ready')
