@@ -8,13 +8,10 @@ class BooleanEnumRadioEditor extends BooleanEditor {
 
   build () {
     this.container.appendChild(this.messagesSlot)
-
-    // fieldset
-    const fieldset = this.jedi.theme.getFieldset()
-    this.container.appendChild(fieldset)
+    this.radioInputs = []
 
     // legend
-    fieldset.appendChild(this.jedi.theme.getLegend({
+    this.container.appendChild(this.jedi.theme.getRadioLegend({
       textContent: this.schema.title() ? this.schema.title() : this.getKey()
     }))
 
@@ -35,13 +32,15 @@ class BooleanEnumRadioEditor extends BooleanEditor {
         this.setValue(radioValue)
       })
 
+      this.radioInputs.push(radio)
+
       // label
       radioContainer.appendChild(this.jedi.theme.getLabel({
         for: this.path + '.' + index,
         textContent: this.optionsLabels[index]
       }))
 
-      fieldset.appendChild(radioContainer)
+      this.container.appendChild(radioContainer)
     })
 
     // description
@@ -53,15 +52,11 @@ class BooleanEnumRadioEditor extends BooleanEditor {
   }
 
   refreshUI () {
-    const fieldset = this.container.querySelector('fieldset')
-    const radioInputs = fieldset.querySelectorAll('input')
-
-    radioInputs.forEach((radio) => {
+    this.radioInputs.forEach((radio) => {
       const radioValue = radio.value === 'true'
       radio.checked = radioValue === this.getValue()
+      radio.disabled = this.disabled
     })
-
-    fieldset.disabled = this.disabled
   }
 }
 

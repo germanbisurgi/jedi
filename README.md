@@ -1,5 +1,6 @@
 ## Todo
 
+- sr-only titles
 - test: multiple
 - max deep ref parser
 - patternProperties resolver

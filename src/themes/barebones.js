@@ -61,6 +61,12 @@ class ThemeBarebones {
     return label
   }
 
+  getRadioLegend (config) {
+    const label = document.createElement('p')
+    label.textContent = config.textContent
+    return label
+  }
+
   getRadioLabel (config) {
     const label = document.createElement('label')
     label.setAttribute('for', config.for)

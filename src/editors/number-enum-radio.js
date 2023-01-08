@@ -8,13 +8,10 @@ class NumberEnumRadioEditor extends NumberEditor {
 
   build () {
     this.container.appendChild(this.messagesSlot)
-
-    // fieldset
-    const fieldset = this.jedi.theme.getFieldset()
-    this.container.appendChild(fieldset)
+    this.radioInputs = []
 
     // legend
-    fieldset.appendChild(this.jedi.theme.getLegend({
+    this.container.appendChild(this.jedi.theme.getRadioLegend({
       textContent: this.schema.title() ? this.schema.title() : this.getKey()
     }))
 
@@ -34,13 +31,15 @@ class NumberEnumRadioEditor extends NumberEditor {
         this.setValue(radio.value)
       })
 
+      this.radioInputs.push(radio)
+
       // label
       radioContainer.appendChild(this.jedi.theme.getLabel({
         for: this.path + '.' + index,
         textContent: this.optionsLabels[index]
       }))
 
-      fieldset.appendChild(radioContainer)
+      this.container.appendChild(radioContainer)
     })
 
     // description
@@ -49,23 +48,13 @@ class NumberEnumRadioEditor extends NumberEditor {
         textContent: this.schema.description()
       }))
     }
-
-    // const firstOption = this.optionValues[0]
-    //
-    // if (firstOption) {
-    //   this.setValue(firstOption, false)
-    // }
   }
 
   refreshUI () {
-    const fieldset = this.container.querySelector('fieldset')
-    const radioInputs = fieldset.querySelectorAll('input')
-
-    radioInputs.forEach((radio) => {
+    this.radioInputs.forEach((radio) => {
       radio.checked = (Number(radio.value) === Number(this.getValue()))
+      radio.disabled = this.disabled
     })
-
-    fieldset.disabled = this.disabled
   }
 }
 
