@@ -11,7 +11,8 @@ class NumberEnumSelectEditor extends NumberEditor {
 
     this.container.appendChild(this.jedi.theme.getLabel({
       for: this.path,
-      textContent: this.schema.title() ? this.schema.title() : this.getKey()
+      textContent: this.schema.title() ? this.schema.title() : this.getKey(),
+      srOnly: this.schema.option('hideTitle')
     }))
 
     // input
@@ -33,12 +34,6 @@ class NumberEnumSelectEditor extends NumberEditor {
         textContent: this.schema.description()
       }))
     }
-
-    // const firstOption = this.optionValues[0]
-    //
-    // if (firstOption) {
-    //   this.setValue(firstOption, false)
-    // }
   }
 }
 

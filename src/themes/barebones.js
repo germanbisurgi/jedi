@@ -58,12 +58,22 @@ class ThemeBarebones {
     const label = document.createElement('label')
     label.setAttribute('for', config.for)
     label.textContent = config.textContent
+
+    if (config.srOnly) {
+      label.classList.add('sr-only')
+    }
+
     return label
   }
 
   getRadioLegend (config) {
     const label = document.createElement('p')
     label.textContent = config.textContent
+
+    if (config.srOnly) {
+      label.classList.add('sr-only')
+    }
+
     return label
   }
 
@@ -71,6 +81,11 @@ class ThemeBarebones {
     const label = document.createElement('label')
     label.setAttribute('for', config.for)
     label.textContent = config.textContent
+
+    if (config.srOnly) {
+      label.classList.add('sr-only')
+    }
+
     return label
   }
 
@@ -78,6 +93,11 @@ class ThemeBarebones {
     const label = document.createElement('label')
     label.setAttribute('for', config.for)
     label.textContent = config.textContent
+
+    if (config.srOnly) {
+      label.classList.add('sr-only')
+    }
+
     return label
   }
 

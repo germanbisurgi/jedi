@@ -43,6 +43,11 @@ class ThemeWireframe extends ThemeBarebones {
     label.classList.add('form-check-label')
     label.setAttribute('for', config.for)
     label.textContent = config.textContent
+
+    if (config.srOnly) {
+      label.classList.add('sr-only')
+    }
+
     return label
   }
 
@@ -66,6 +71,11 @@ class ThemeWireframe extends ThemeBarebones {
     label.classList.add('form-check-label')
     label.setAttribute('for', config.for)
     label.textContent = config.textContent
+
+    if (config.srOnly) {
+      label.classList.add('sr-only')
+    }
+
     return label
   }
 

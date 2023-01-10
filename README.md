@@ -1,31 +1,37 @@
 ## Todo
 
-- fix array validator undefined (complete refactoring)
-- fix: bootstrap 5 classes
-- sr-only titles
-- test: multiple
-- max deep ref parser
-- patternProperties resolver
-- deprecate sanitize?
-- json-schema-tools
-- browser and node Lib
-- dereference schema first and the initialize editor
-- feature: icons
-- feature: classes for jedi elements like buttons and switchers
-- feature validators: 
-    - propertyNames
-    - additionalProperties
-- feature: array tabs
-- feature: edit object values
-- feature: edit array values
-- feature: option exclude
-- feature: filter by field
-- feature: array enums
-- feature: array tuple 
-- feature: plugins examples
-- feature: read only
-- feature: accessibility states
-- feature: collapse
+- fixes:
+    - array validator undefined (complete refactoring)
+    - bootstrap 5 classes
+    - refactor themes (dry labels)
+    - max deep ref parser
+    - patternProperties resolver
+    - deprecate sanitize?
+    - json-schema-tools
+    - browser and node Lib
+    - dereference schema first and the initialize editor
+ 
+- tests:
+    - sr-only titles
+    - multiple
+
+- feature: 
+    - form builder: new EditorUI(editor, theme)
+    - icons
+    - classes for jedi elements like buttons and switchers
+    - propertyNames validator
+    - additionalProperties validator
+    - array tabs
+    - edit object values
+    - edit array values
+    - option exclude
+    - filter by field
+    - array enums
+    - array tuple 
+    - plugins examples
+    - read only
+    - accessibility states
+    - collapse
 
 ## Resources
 * [Understanding JSON Schema](http://json-schema.org/understanding-json-schema/index.html)

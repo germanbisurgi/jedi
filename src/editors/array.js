@@ -38,7 +38,8 @@ class ArrayEditor extends Editor {
 
     // title
     this.container.appendChild(this.jedi.theme.getLegend({
-      textContent: this.schema.title() ? this.schema.title() : this.getKey()
+      textContent: this.schema.title() ? this.schema.title() : this.getKey(),
+      srOnly: this.schema.option('hideTitle')
     }))
 
     // description

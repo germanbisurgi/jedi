@@ -7,7 +7,8 @@ class StringEditor extends Editor {
     // label
     const label = this.jedi.theme.getLabel({
       for: this.path,
-      textContent: this.schema.title() ? this.schema.title() : this.getKey()
+      textContent: this.schema.title() ? this.schema.title() : this.getKey(),
+      srOnly: this.schema.option('hideTitle')
     })
 
     if (!this.schema.formatIs('hidden')) {

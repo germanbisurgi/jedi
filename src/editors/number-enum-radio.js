@@ -36,7 +36,8 @@ class NumberEnumRadioEditor extends NumberEditor {
       // label
       radioContainer.appendChild(this.jedi.theme.getLabel({
         for: this.path + '.' + index,
-        textContent: this.optionsLabels[index]
+        textContent: this.optionsLabels[index],
+        srOnly: this.schema.option('hideTitle')
       }))
 
       this.container.appendChild(radioContainer)

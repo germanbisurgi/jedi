@@ -249,17 +249,16 @@ class ObjectEditor extends Editor {
     this.container = this.jedi.theme.getFieldset()
 
     // title
-    if (!this.schema.option('hideTitle')) {
-      this.container.appendChild(this.jedi.theme.getLegend({
-        textContent: this.schema.title() ? this.schema.title() : this.getKey()
-      }))
+    this.container.appendChild(this.jedi.theme.getLegend({
+      textContent: this.schema.title() ? this.schema.title() : this.getKey(),
+      srOnly: this.schema.option('hideTitle')
+    }))
 
-      // description
-      if (this.schema.description()) {
-        this.container.appendChild(this.jedi.theme.getDescription({
-          textContent: this.schema.description()
-        }))
-      }
+    // description
+    if (this.schema.description()) {
+      this.container.appendChild(this.jedi.theme.getDescription({
+        textContent: this.schema.description()
+      }))
     }
   }
 
