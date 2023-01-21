@@ -1,21 +1,35 @@
 ## Todo
 
+- architecture:
+    - instance
+    - editors
+    - documentation
+    - validator
+    - constrains    
+
 - fixes:
-    - array validator undefined (complete refactoring)
-    - bootstrap 5 classes
-    - refactor themes (dry labels)
+    - array validator undefined
     - max deep ref parser
-    - patternProperties resolver
+
+- refactoring:
+    - helper hasOwnProperty()
+    - control slot
+    - destroy intermediate editors (validator)
+    - array
+    - themes
     - deprecate sanitize?
     - json-schema-tools
     - browser and node Lib
     - dereference schema first and the initialize editor
- 
+    
 - tests:
     - sr-only titles
     - multiple
 
-- feature: 
+- feature:
+    - read only
+    - grid
+    - patternProperties resolver
     - form builder: new EditorUI(editor, theme)
     - icons
     - classes for jedi elements like buttons and switchers
@@ -29,7 +43,6 @@
     - array enums
     - array tuple 
     - plugins examples
-    - read only
     - accessibility states
     - collapse
 
