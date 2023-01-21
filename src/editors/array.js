@@ -1,3 +1,5 @@
+/* global confirm */
+
 import Editor from '../editor'
 import Schema from '../schema'
 import { getType, clone, isArray } from '../utils'
@@ -10,13 +12,12 @@ class ArrayEditor extends Editor {
 
     // btn group
     const btnGroup = this.jedi.theme.getBtnGroup()
-    this.actionsSlot.appendChild(btnGroup)
 
     // addBtn
     this.addBtn = this.jedi.theme.getButton({
       textContent: 'Add item'
     })
-    btnGroup.appendChild(this.addBtn)
+
     this.addBtn.addEventListener('click', () => {
       this.addItem()
     })
@@ -25,12 +26,16 @@ class ArrayEditor extends Editor {
     this.deleteAllBtn = this.jedi.theme.getButton({
       textContent: 'Delete items'
     })
-    btnGroup.appendChild(this.deleteAllBtn)
+
     this.deleteAllBtn.addEventListener('click', () => {
-      if (window.confirm('Confirm to delete all')) {
+      if (confirm('Confirm to delete all')) {
         this.setValue([])
       }
     })
+
+    this.actionsSlot.appendChild(btnGroup)
+    btnGroup.appendChild(this.addBtn)
+    btnGroup.appendChild(this.deleteAllBtn)
   }
 
   setContainer () {
@@ -52,24 +57,22 @@ class ArrayEditor extends Editor {
 
   createItemEditor (value) {
     const schema = this.schema.items() ? this.schema.items() : { type: getType(value) }
+    const itemSchema = new Schema(schema)
 
     const itemEditor = this.jedi.createEditor({
       jedi: this.jedi,
-      schema: new Schema(schema),
+      schema: itemSchema,
       path: this.path + '.' + this.childEditors.length,
       parent: this
     })
 
     const btnGroup = this.jedi.theme.getBtnGroup()
-    itemEditor.container.appendChild(itemEditor.actionsSlot)
-    itemEditor.actionsSlot.appendChild(btnGroup)
-
     const itemIndex = Number(itemEditor.getKey())
 
     const deleteBtn = this.jedi.theme.getButton({
       textContent: 'Delete item'
     })
-    btnGroup.appendChild(deleteBtn)
+
     deleteBtn.addEventListener('click', () => {
       const itemIndex = Number(itemEditor.path.split('.').pop())
       this.deleteItem(itemIndex)
@@ -79,23 +82,31 @@ class ArrayEditor extends Editor {
       const moveUpBtn = this.jedi.theme.getButton({
         textContent: 'Move up'
       })
-      btnGroup.appendChild(moveUpBtn)
+
       moveUpBtn.addEventListener('click', () => {
         const toIndex = itemIndex - 1
         this.move(itemIndex, toIndex)
       })
+
+      btnGroup.appendChild(moveUpBtn)
     }
 
     if (this.getValue().length - 1 !== itemIndex) {
       const moveDownBtn = this.jedi.theme.getButton({
         textContent: 'Move down'
       })
-      btnGroup.appendChild(moveDownBtn)
+
       moveDownBtn.addEventListener('click', () => {
         const toIndex = itemIndex + 1
         this.move(itemIndex, toIndex)
       })
+
+      btnGroup.appendChild(moveDownBtn)
     }
+
+    itemEditor.container.appendChild(itemEditor.actionsSlot)
+    itemEditor.actionsSlot.appendChild(btnGroup)
+    btnGroup.appendChild(deleteBtn)
 
     return itemEditor
   }
@@ -117,7 +128,7 @@ class ArrayEditor extends Editor {
   }
 
   deleteItem (itemIndex) {
-    if (window.confirm('Confirm to delete')) {
+    if (confirm('Confirm to delete')) {
       const currentValue = clone(this.getValue())
       const newValue = currentValue.filter((item, index) => index !== itemIndex)
       this.setValue(newValue)
@@ -176,8 +187,8 @@ class ArrayEditor extends Editor {
       this.addBtn.setAttribute('disabled', 'disabled')
       this.deleteAllBtn.setAttribute('disabled', 'disabled')
     } else {
-      this.addBtn.removeAttribute('disabled', 'disabled')
-      this.deleteAllBtn.removeAttribute('disabled', 'disabled')
+      this.addBtn.removeAttribute('disabled')
+      this.deleteAllBtn.removeAttribute('disabled')
     }
   }
 

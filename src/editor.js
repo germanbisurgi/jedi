@@ -2,7 +2,6 @@ class Editor {
   constructor (config) {
     this.jedi = config.jedi
     this.schema = config.schema
-    this.disabled = false
     this.value = config.value || undefined
     this.path = config.path || 'root'
     this.parent = config.parent || null
@@ -11,6 +10,7 @@ class Editor {
     this.actionsSlot = this.jedi.theme.getActionsSlot()
     this.childEditorsSlot = this.jedi.theme.getChildEditorsSlot()
     this.childEditors = []
+    this.disabled = false
     this.init()
   }
 
@@ -200,7 +200,7 @@ class Editor {
     this.unregister()
 
     for (const key in this) {
-      if (!Object.prototype.hasOwnProperty.call(this, key)) {
+      if (!Object.hasOwn(this, key)) {
         continue
       }
 

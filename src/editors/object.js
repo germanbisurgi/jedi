@@ -7,7 +7,7 @@ class ObjectEditor extends Editor {
     // child editors
     if (this.schema.properties()) {
       for (const key in this.schema.properties()) {
-        if (!Object.prototype.hasOwnProperty.call(this.schema.properties(), key)) {
+        if (!Object.hasOwn(this.schema.properties(), key)) {
           continue
         }
 
@@ -26,7 +26,7 @@ class ObjectEditor extends Editor {
     // Add dependent required properties
     if (this.schema.properties()) {
       for (const key in this.schema.properties()) {
-        if (!Object.prototype.hasOwnProperty.call(this.schema.properties(), key)) {
+        if (!Object.hasOwn(this.schema.properties(), key)) {
           continue
         }
 
@@ -106,7 +106,7 @@ class ObjectEditor extends Editor {
           const requiredProperties = dependentRequired[key]
 
           missingProperties = requiredProperties.filter((property) => {
-            return !Object.prototype.hasOwnProperty.call(this.value, property)
+            return !Object.hasOwn(this.value, property)
           })
         }
       })
@@ -193,7 +193,7 @@ class ObjectEditor extends Editor {
     }
 
     for (const key in value) {
-      if (!Object.prototype.hasOwnProperty.call(value, key)) {
+      if (!Object.hasOwn(value, key)) {
         continue
       }
 
@@ -227,7 +227,7 @@ class ObjectEditor extends Editor {
     const value = this.getValue()
 
     for (const key in value) {
-      if (!Object.prototype.hasOwnProperty.call(value, key)) {
+      if (!Object.hasOwn(value, key)) {
         continue
       }
 

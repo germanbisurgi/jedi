@@ -40,7 +40,7 @@ class RefParser {
         thing[index] = this.define(value['$ref'])
       } else {
         for (const index in value) {
-          if (!Object.prototype.hasOwnProperty.call(value, index)) {
+          if (!Object.hasOwn(value, index)) {
             continue
           }
 

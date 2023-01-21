@@ -99,7 +99,7 @@ class Validator {
           const requiredProperties = schema.dependentRequired()[key]
 
           missingProperties = requiredProperties.filter((property) => {
-            return !Object.prototype.hasOwnProperty.call(value, property)
+            return !Object.hasOwn(value, property)
           })
         }
       })

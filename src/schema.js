@@ -203,7 +203,7 @@ class Schema {
 
   destroy () {
     for (const key in this) {
-      if (!Object.prototype.hasOwnProperty.call(this, key)) {
+      if (!Object.hasOwn(this, key)) {
         continue
       }
 
