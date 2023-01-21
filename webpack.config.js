@@ -9,7 +9,8 @@ const common = {
     filename: '[name].js',
     libraryExport: 'default',
     library: 'Jedi',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    globalObject: 'this'
   },
   mode: 'production',
   devtool: 'inline-source-map',
