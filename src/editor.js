@@ -5,12 +5,14 @@ class Editor {
     this.value = config.value || undefined
     this.path = config.path || 'root'
     this.parent = config.parent || null
+
     this.container = null
     this.messagesSlot = this.jedi.theme.getMessagesSlot()
     this.actionsSlot = this.jedi.theme.getActionsSlot()
     this.childEditorsSlot = this.jedi.theme.getChildEditorsSlot()
     this.childEditors = []
     this.disabled = false
+
     this.init()
   }
 
@@ -25,36 +27,17 @@ class Editor {
     this.prepare()
     this.build()
     this.refreshUI()
+
     if (this.jedi.ready || this.jedi.options.alwaysShowErrors || this.schema.option('alwaysShowErrors')) {
       this.showValidationErrors()
     }
   }
 
+  /**
+   * Return the last part of the path
+   */
   getKey () {
     return this.path.split('.').pop()
-  }
-
-  setContainer () {
-    this.container = this.jedi.theme.getContainer()
-  }
-
-  setContainerAttributes () {
-    this.container.setAttribute('data-path', this.path)
-
-    if (this.schema.type()) {
-      this.container.setAttribute('data-type', this.schema.type())
-    }
-  }
-
-  /**
-   * Prepare data before building the editor
-   */
-  prepare () {}
-
-  /**
-   * build the editor's user interface
-   */
-  build () {
   }
 
   /**
@@ -128,6 +111,53 @@ class Editor {
     this.refreshUI()
   }
 
+  onSetValue () {}
+
+  /**
+   * Fires when the value of the editor changes.
+   */
+  onChange () {
+    if (this.parent) {
+      this.parent.onChildEditorChange()
+    }
+
+    this.showValidationErrors()
+  }
+
+  /**
+   * Fires when the value of a child editor changes. This is relevant for Array
+   * and Object editors.
+   */
+  onChildEditorChange () {
+  }
+
+  validate () {
+    return this.jedi.validator.validate(this.getValue(), this.schema, this.getKey(), this.path)
+  }
+
+  setContainer () {
+    this.container = this.jedi.theme.getContainer()
+  }
+
+  setContainerAttributes () {
+    this.container.setAttribute('data-path', this.path)
+
+    if (this.schema.type()) {
+      this.container.setAttribute('data-type', this.schema.type())
+    }
+  }
+
+  /**
+   * Prepare data before building the editor
+   */
+  prepare () {}
+
+  /**
+   * build the editor's user interface
+   */
+  build () {
+  }
+
   /**
    * Refresh the UI of the editor to reflect it's value. This is necessary when
    * using setValue to set the value programmatically.
@@ -150,10 +180,6 @@ class Editor {
     this.refreshUI()
   }
 
-  validate () {
-    return this.jedi.validator.validate(this.getValue(), this.schema, this.getKey(), this.path)
-  }
-
   /**
    * Shows validation messages in the editor container.
    */
@@ -167,26 +193,6 @@ class Editor {
         message: error.message
       }))
     })
-  }
-
-  onSetValue () {}
-
-  /**
-   * Fires when the value of the editor changes.
-   */
-  onChange () {
-    if (this.parent) {
-      this.parent.onChildEditorChange()
-    }
-
-    this.showValidationErrors()
-  }
-
-  /**
-   * Fires when the value of a child editor changes. This is relevant for Array
-   * and Object editors.
-   */
-  onChildEditorChange () {
   }
 
   /**
