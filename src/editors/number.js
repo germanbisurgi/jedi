@@ -1,38 +1,38 @@
-import Editor from '../editor'
+import Editor from './editor'
 
 class NumberEditor extends Editor {
   build () {
     this.container.appendChild(this.messagesSlot)
 
     // label
-    this.container.appendChild(this.jedi.theme.getLabel({
-      for: this.path,
-      textContent: this.schema.title() ? this.schema.title() : this.getKey(),
-      srOnly: this.schema.option('hideTitle')
+    this.container.appendChild(this.theme.getLabel({
+      for: this.instance.path,
+      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
+      srOnly: this.instance.schema.option('hideTitle')
     }))
 
     // input
-    this.input = this.jedi.theme.getInput({
+    this.input = this.theme.getInput({
       type: 'number',
-      id: this.path
+      id: this.instance.path
     })
     this.container.appendChild(this.input)
 
     // events
     this.input.addEventListener('change', () => {
-      this.setValue(this.input.value)
+      this.instance.setValue(this.input.value)
     })
 
     // description
-    if (this.schema.description()) {
-      this.container.appendChild(this.jedi.theme.getDescription({
-        textContent: this.schema.description()
+    if (this.instance.schema.description()) {
+      this.container.appendChild(this.theme.getDescription({
+        textContent: this.instance.schema.description()
       }))
     }
   }
 
   sanitize (value) {
-    if (this.schema.typeIs('integer')) {
+    if (this.instance.schema.typeIs('integer')) {
       return Math.floor(Number(value))
     } else {
       return Number(value)
@@ -40,7 +40,7 @@ class NumberEditor extends Editor {
   }
 
   refreshUI () {
-    this.input.value = this.getValue()
+    this.input.value = this.instance.getValue()
 
     if (this.disabled) {
       this.input.setAttribute('disabled', 'disabled')

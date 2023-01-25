@@ -12,7 +12,6 @@
     - max deep ref parser
 
 - refactoring:
-    - helper hasOwnProperty()
     - control slot
     - destroy intermediate editors (validator)
     - array
@@ -27,6 +26,7 @@
     - multiple
 
 - feature:
+    - documentors
     - read only
     - grid
     - patternProperties resolver

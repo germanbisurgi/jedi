@@ -1,15 +1,15 @@
-import InstanceResolver from './instance-resolver'
+import ThemeBarebones from './themes/barebones'
+import ThemeWireframe from './themes/wireframe'
+import ThemeBootstrap4 from './themes/bootstrap4'
+import ThemeBootstrap5 from './themes/bootstrap5'
+import InstanceResolver from './resolver'
 import Schema from './schema'
 import Validator from './validator'
 import RefParser from './ref-parser'
-import EventEmitter from './event-emitter'
 
-class Jedi extends EventEmitter {
+class Jedi {
   constructor (options) {
-    super()
     this.options = Object.assign({
-      container: null,
-      isEditor: false,
       editableProperties: false,
       alwaysShowErrors: false,
       showRequiredOnly: false,
@@ -17,7 +17,7 @@ class Jedi extends EventEmitter {
       theme: 'wireframe'
     }, options)
 
-    this.container = document.querySelector(options.container)
+    this.container = document.querySelector(options.container) || document.createElement('div')
     this.editors = {}
     this.root = null
     this.theme = null
@@ -31,6 +31,21 @@ class Jedi extends EventEmitter {
   }
 
   init () {
+    switch (this.options.theme) {
+      case 'barebones':
+        this.theme = new ThemeBarebones()
+        break
+      case 'bootstrap4':
+        this.theme = new ThemeBootstrap4()
+        break
+      case 'bootstrap5':
+        this.theme = new ThemeBootstrap5()
+        break
+      case 'wireframe':
+        this.theme = new ThemeWireframe()
+        break
+    }
+
     this.refParser.dereference(this.schema.schema)
 
     this.root = this.createEditor({
@@ -42,21 +57,7 @@ class Jedi extends EventEmitter {
       this.root.setValue(this.options.startval)
     }
 
-    if (this.options.isEditor && this.container) {
-      this.appendHiddenInput()
-      this.container.appendChild(this.root.ui.container)
-      this.container.classList.add('jedi-ready')
-    }
-
-    this.root.on('change', () => {
-      this.emit('change')
-    })
-
-    console.table(this.editors)
-  }
-
-  appendHiddenInput () {
-    this.hiddenInput = this.root.ui.theme.getInput({
+    this.hiddenInput = this.theme.getInput({
       type: 'hidden',
       id: 'jedi-hidden-input'
     })
@@ -66,9 +67,16 @@ class Jedi extends EventEmitter {
     this.container.appendChild(this.hiddenInput)
     this.hiddenInput.value = JSON.stringify(this.getValue())
 
-    this.on('change', () => {
+    this.container.appendChild(this.root.container)
+    this.container.classList.add('jedi-ready')
+    this.emit('change')
+    this.root.onChange = () => {
+      this.emit('change')
       this.hiddenInput.value = JSON.stringify(this.getValue())
-    })
+    }
+    this.getValue()
+
+    console.table(this.editors)
   }
 
   /**
@@ -106,16 +114,14 @@ class Jedi extends EventEmitter {
   }
 
   disable () {
-    this.root.ui.disable()
+    this.root.disable()
   }
 
   enable () {
-    this.root.ui.enable()
+    this.root.enable()
   }
 
   validate () {
-    this.errors = []
-
     Object.keys(this.editors).forEach((key) => {
       const editor = this.editors[key]
       this.errors = [...this.errors, ...editor.validate()]
@@ -134,6 +140,18 @@ class Jedi extends EventEmitter {
   setTheme (theme) {
     this.options.theme = theme
     this.reset()
+  }
+
+  on (name, callback) {
+    this.listeners.push({ name, callback })
+  }
+
+  emit (name) {
+    const listener = this.listeners.find(listener => listener.name === name)
+
+    if (listener) {
+      listener.callback()
+    }
   }
 
   destroy () {

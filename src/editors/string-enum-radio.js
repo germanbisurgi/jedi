@@ -1,59 +1,56 @@
 import StringEditor from './string'
 
 class StringEnumRadioEditor extends StringEditor {
-  prepare () {
-    this.optionValues = this.schema.enum()
-    this.optionsLabels = this.schema.option('enumTitles') || this.optionValues
-  }
-
   build () {
+    this.optionValues = this.instance.schema.enum()
+    this.optionsLabels = this.instance.schema.option('enumTitles') || this.optionValues
     this.container.appendChild(this.messagesSlot)
     this.radioInputs = []
 
     // legend
-    this.container.appendChild(this.jedi.theme.getRadioLegend({
-      textContent: this.schema.title() ? this.schema.title() : this.getKey()
+    this.container.appendChild(this.theme.getRadioLegend({
+      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey()
     }))
 
     // radios
     this.optionValues.forEach((value, index) => {
       // radio container
-      const radioContainer = this.jedi.theme.getRadioContainer()
+      const radioContainer = this.theme.getRadioContainer()
 
       // radio
-      const radio = this.jedi.theme.getRadio({
+      const radio = this.theme.getRadio({
         value: value,
-        id: this.path + '.' + index
+        id: this.instance.path + '.' + index
       })
       radioContainer.appendChild(radio)
 
       radio.addEventListener('change', () => {
-        this.setValue(radio.value)
+        this.instance.setValue(radio.value)
       })
 
       this.radioInputs.push(radio)
 
       // label
-      radioContainer.appendChild(this.jedi.theme.getLabel({
-        for: this.path + '.' + index,
+      radioContainer.appendChild(this.theme.getLabel({
+        for: this.instance.path + '.' + index,
         textContent: this.optionsLabels[index],
-        srOnly: this.schema.option('hideTitle')
+        srOnly: this.instance.schema.option('hideTitle')
       }))
 
       this.container.appendChild(radioContainer)
     })
 
     // description
-    if (this.schema.description()) {
-      this.container.appendChild(this.jedi.theme.getDescription({
-        textContent: this.schema.description()
+    if (this.instance.schema.description()) {
+      this.container.appendChild(this.theme.getDescription({
+        textContent: this.instance.schema.description()
       }))
     }
   }
 
   refreshUI () {
     this.radioInputs.forEach((radio) => {
-      radio.checked = (radio.value === this.getValue())
+      radio.checked = (radio.value === this.instance.getValue())
       radio.disabled = this.disabled
     })
   }

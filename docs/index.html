@@ -14,8 +14,8 @@
     <div class="row row-between">
         <div class="col-12 col-sm-7">
             <form action="" method="POST">
-                <div id="jedi-container"></div>
-                <input class="btn btn-primary btn-block" type="submit" value="Submit">
+                <div ref="jediContainer" id="jedi-container"></div>
+                <input v-if="options.isEditor" class="btn btn-primary btn-block" type="submit" value="Submit">
             </form>
         </div>
         <div class="col-12 col-sm-5">
@@ -39,6 +39,11 @@
                 <div class="form-group" v-if="editor">
                     <label for="schema">Schema</label>
                     <textarea class="form-control" id="schema" style="font-family: monospace; height: 200px;">{{ JSON.stringify(editor.schema.clone(), null, 2) }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="isEditor" v-model="options.isEditor" @change="initEditor()">
+                    <label for="isEditor">isEditor</label>
                 </div>
 
                 <div class="form-group">
@@ -258,6 +263,7 @@
             }
           ],
           options: {
+            isEditor: true,
             container: '#jedi-container',
             editableProperties: false,
             alwaysShowErrors: false,
@@ -336,7 +342,7 @@
         },
         async switchSchema() {
           const url = this.$refs.schema.value
-          // const url = './json/validator/anyOf.json'
+          // const url = './json/editors/string-enum-select.json'
           const response = await fetch(url);
           this.options.schema = await response.json()
           this.initEditor()

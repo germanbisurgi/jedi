@@ -1,17 +1,17 @@
-import Editor from '../editor'
+import Editor from './editor'
 
 class StringEditor extends Editor {
   build () {
     this.container.appendChild(this.messagesSlot)
 
     // label
-    const label = this.jedi.theme.getLabel({
-      for: this.path,
-      textContent: this.schema.title() ? this.schema.title() : this.getKey(),
-      srOnly: this.schema.option('hideTitle')
+    const label = this.theme.getLabel({
+      for: this.instance.path,
+      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
+      srOnly: this.instance.schema.option('hideTitle')
     })
 
-    if (!this.schema.formatIs('hidden')) {
+    if (!this.instance.schema.formatIs('hidden')) {
       this.container.appendChild(label)
     }
 
@@ -19,14 +19,14 @@ class StringEditor extends Editor {
     // todo file, range should be handled differently
     const inputTypes = ['hidden', 'color', 'date', 'datetime-local', 'email', 'number', 'month', 'password', 'search', 'time', 'tel', 'text', 'textarea', 'url', 'week']
 
-    if (this.schema.formatIs('textarea')) {
-      this.input = this.jedi.theme.getTextarea({
-        id: this.path
+    if (this.instance.schema.formatIs('textarea')) {
+      this.input = this.theme.getTextarea({
+        id: this.instance.path
       })
     } else {
-      this.input = this.jedi.theme.getInput({
-        type: inputTypes.includes(this.schema.format()) ? this.schema.format() : 'text',
-        id: this.path
+      this.input = this.theme.getInput({
+        type: inputTypes.includes(this.instance.schema.format()) ? this.instance.schema.format() : 'text',
+        id: this.instance.path
       })
     }
 
@@ -34,23 +34,19 @@ class StringEditor extends Editor {
 
     // events
     this.input.addEventListener('change', () => {
-      this.setValue(this.input.value)
+      this.instance.setValue(this.input.value)
     })
 
     // description
-    if (this.schema.description()) {
-      this.container.appendChild(this.jedi.theme.getDescription({
-        textContent: this.schema.description()
+    if (this.instance.schema.description()) {
+      this.container.appendChild(this.theme.getDescription({
+        textContent: this.instance.schema.description()
       }))
     }
   }
 
-  sanitize (value) {
-    return String(value)
-  }
-
   refreshUI () {
-    this.input.value = this.getValue()
+    this.input.value = this.instance.getValue()
 
     if (this.disabled) {
       this.input.setAttribute('disabled', 'disabled')
