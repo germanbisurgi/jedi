@@ -14,10 +14,17 @@ class Editor extends EventEmitter {
     this.build()
     this.setContainerAttributes()
     this.refreshUI()
-    this.showValidationErrors()
+
+    if (this.instance.jedi.ready || this.instance.jedi.options.alwaysShowErrors || this.instance.schema.option('alwaysShowErrors')) {
+      this.showValidationErrors()
+    }
 
     this.instance.on('set-value', () => {
       this.refreshUI()
+    })
+
+    this.instance.on('change', () => {
+      this.showValidationErrors()
     })
   }
 

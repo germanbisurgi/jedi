@@ -9,7 +9,6 @@ class ObjectInstance extends Instance {
   }
 
   prepare () {
-    // child editors
     if (this.schema.properties()) {
       for (const key in this.schema.properties()) {
         if (!Object.hasOwn(this.schema.properties(), key)) {
@@ -24,7 +23,7 @@ class ObjectInstance extends Instance {
         }
 
         const schema = this.schema.property(key)
-        this.addChildEditor(schema, key)
+        this.createChildInstance(schema, key)
       }
     }
 
@@ -37,10 +36,14 @@ class ObjectInstance extends Instance {
 
         if (this.isDependentRequired(key)) {
           const schema = this.schema.property(key)
-          this.addChildEditor(schema, key)
+          this.createChildInstance(schema, key)
         }
       }
     }
+
+    this.on('set-value', () => {
+      this.onSetValue()
+    })
   }
 
   /**
@@ -75,23 +78,23 @@ class ObjectInstance extends Instance {
     return false
   }
 
-  addChildEditor (schema, key) {
-    const editor = this.jedi.createEditor({
+  createChildInstance (schema, key) {
+    const instance = this.jedi.createEditor({
       jedi: this.jedi,
       schema: new Schema(schema),
       path: this.path + '.' + key,
       parent: this
     })
 
-    this.childEditors.push(editor)
-    this.value[key] = editor.getValue()
+    this.childEditors.push(instance)
+    this.value[key] = instance.getValue()
   }
 
-  deleteChildEditor (key) {
+  deleteChildInstance (key) {
     for (let i = this.childEditors.length - 1; i >= 0; i--) {
-      const editor = this.childEditors[i]
-      if (editor.getKey() === key) {
-        editor.destroy()
+      const instance = this.childEditors[i]
+      if (instance.getKey() === key) {
+        instance.destroy()
         this.childEditors.splice(i, 1)
       }
     }
@@ -100,16 +103,16 @@ class ObjectInstance extends Instance {
   onChildEditorChange () {
     const value = {}
 
-    this.childEditors.forEach((childEditor) => {
-      value[childEditor.getKey()] = childEditor.getValue()
+    this.childEditors.forEach((instance) => {
+      value[instance.getKey()] = instance.getValue()
     })
 
     this.setValue(value)
   }
 
-  getChildEditor (key) {
-    return this.childEditors.find((childEditor) => {
-      return key === childEditor.getKey().split('.').pop()
+  getChildInstance (key) {
+    return this.childEditors.find((instance) => {
+      return key === instance.getKey().split('.').pop()
     })
   }
 
@@ -126,10 +129,10 @@ class ObjectInstance extends Instance {
 
     // remove any children that are not included in the value
     for (let i = this.childEditors.length - 1; i >= 0; i--) {
-      const editor = this.childEditors[i]
-      const key = editor.getKey()
+      const instance = this.childEditors[i]
+      const key = instance.getKey()
       if (!isSet(value[key])) {
-        this.deleteChildEditor(key)
+        this.deleteChildInstance(key)
       }
     }
 
@@ -138,19 +141,19 @@ class ObjectInstance extends Instance {
         continue
       }
 
-      const childEditor = this.getChildEditor(key)
+      const childInstance = this.getChildInstance(key)
 
-      // If a value has a already a child editor
-      if (childEditor) {
-        const oldValue = childEditor.getValue()
-        const newValue = value[childEditor.getKey()]
+      // If a value has a already a child instance
+      if (childInstance) {
+        const oldValue = childInstance.getValue()
+        const newValue = value[childInstance.getKey()]
 
         // update child value if the old value and the new value are different
         if (!equal(oldValue, newValue)) {
-          childEditor.setValue(newValue, false)
+          childInstance.setValue(newValue, false)
         }
       } else {
-        // create new child editor for the new value entry having the value as default
+        // create new child instance for the new value entry having the value as default
         const initialValue = value[key]
         const type = getType(initialValue)
 
@@ -159,17 +162,9 @@ class ObjectInstance extends Instance {
           default: initialValue
         }
 
-        this.addChildEditor(schema, key)
+        this.createChildInstance(schema, key)
       }
     }
-  }
-
-  destroy () {
-    this.childEditors.forEach((childEditor) => {
-      childEditor.destroy()
-    })
-
-    super.destroy()
   }
 }
 

@@ -72,9 +72,6 @@ class MultipleEditor extends Editor {
     super.showValidationErrors()
     this.instance.activeEditor.ui.showValidationErrors()
   }
-
-  destroy () {
-  }
 }
 
 export default MultipleEditor

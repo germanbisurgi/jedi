@@ -8,19 +8,15 @@ class ArrayInstance extends Instance {
     this.ui = new ArrayEditor(this)
   }
 
-  createItemEditor (value) {
+  createItemInstance (value) {
     const schema = this.schema.items() ? this.schema.items() : { type: getType(value) }
 
-    const editor = this.jedi.createEditor({
+    return this.jedi.createEditor({
       jedi: this.jedi,
       schema: new Schema(schema),
       path: this.path + '.' + this.childEditors.length,
       parent: this
     })
-
-    console.log('.....', editor)
-
-    return editor
   }
 
   move (fromIndex, toIndex) {
@@ -32,7 +28,7 @@ class ArrayInstance extends Instance {
   }
 
   addItem () {
-    const tempEditor = this.createItemEditor()
+    const tempEditor = this.createItemInstance()
     const value = clone(this.getValue())
     value.push(tempEditor.getValue())
     tempEditor.destroy()
@@ -48,8 +44,8 @@ class ArrayInstance extends Instance {
   onChildEditorChange () {
     const value = []
 
-    this.childEditors.forEach((childEditor) => {
-      value.push(childEditor.getValue())
+    this.childEditors.forEach((instance) => {
+      value.push(instance.getValue())
     })
 
     this.setValue(value)
@@ -61,14 +57,6 @@ class ArrayInstance extends Instance {
     }
 
     return []
-  }
-
-  destroy () {
-    this.childEditors.forEach((childEditor) => {
-      childEditor.destroy()
-    })
-
-    super.destroy()
   }
 }
 

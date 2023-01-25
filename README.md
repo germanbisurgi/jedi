@@ -1,17 +1,22 @@
 ## Todo
 
+- fixes:
+    - object editor properties buttons
+    - array editor item buttons
+    - themes
+    - array validator undefined
+    - max deep ref parser
+
 - architecture:
     - instance
     - editors
     - documentation
     - validator
-    - constrains    
-
-- fixes:
-    - array validator undefined
-    - max deep ref parser
+    - constrains
+    - extend functionality
 
 - refactoring:
+    - variable names (editor vs instance)
     - control slot
     - destroy intermediate editors (validator)
     - array

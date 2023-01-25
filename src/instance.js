@@ -69,9 +69,9 @@ class Instance extends EventEmitter {
     if (this.schema.type() === 'object') value = {}
     if (this.schema.type() === 'null') value = null
 
-    if (this.schema.enum()) {
-      value = this.schema.enum()[0]
-    }
+    // if (this.schema.enum()) {
+    //   value = this.schema.enum()[0]
+    // }
 
     if (this.schema.default()) {
       if (this.schema.enum() && !this.schema.enum().includes(this.schema.default())) {
@@ -138,6 +138,10 @@ class Instance extends EventEmitter {
    * Destroys the editor, and every reference that it is attached to it.
    */
   destroy () {
+    this.childEditors.forEach((instance) => {
+      instance.destroy()
+    })
+
     this.unregister()
 
     if (this.ui) {

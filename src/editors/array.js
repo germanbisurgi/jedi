@@ -6,6 +6,7 @@ import { getType, clone } from '../utils'
 
 class ArrayEditor extends Editor {
   build () {
+    this.setContainer()
     this.container.appendChild(this.messagesSlot)
     this.container.appendChild(this.childEditorsSlot)
     this.container.appendChild(this.actionsSlot)
@@ -19,7 +20,7 @@ class ArrayEditor extends Editor {
     })
 
     this.addBtn.addEventListener('click', () => {
-      this.addItem()
+      this.instance.addItem()
     })
 
     // deleteAll
@@ -55,7 +56,7 @@ class ArrayEditor extends Editor {
     }
   }
 
-  createItemEditor (value) {
+  createItemInstance (value) {
     const schema = this.instance.schema.items() ? this.instance.schema.items() : { type: getType(value) }
     const itemSchema = new Schema(schema)
 
@@ -75,7 +76,7 @@ class ArrayEditor extends Editor {
 
     deleteBtn.addEventListener('click', () => {
       const itemIndex = Number(itemEditor.path.split('.').pop())
-      this.deleteItem(itemIndex)
+      this.instance.deleteItem(itemIndex)
     })
 
     if (this.instance.childEditors.length !== 0) {
@@ -119,32 +120,6 @@ class ArrayEditor extends Editor {
     this.instance.setValue(value)
   }
 
-  addItem () {
-    const tempEditor = this.createItemEditor()
-    const value = clone(this.instance.getValue())
-    value.push(tempEditor.getValue())
-    tempEditor.destroy()
-    this.instance.setValue(value)
-  }
-
-  deleteItem (itemIndex) {
-    if (confirm('Confirm to delete')) {
-      const currentValue = clone(this.instance.getValue())
-      const newValue = currentValue.filter((item, index) => index !== itemIndex)
-      this.instance.setValue(newValue)
-    }
-  }
-
-  onChildEditorChange () {
-    const value = []
-
-    this.instance.childEditors.forEach((childEditor) => {
-      value.push(childEditor.getValue())
-    })
-
-    this.instance.setValue(value)
-  }
-
   refreshUI () {
     const value = this.instance.getValue()
 
@@ -155,7 +130,7 @@ class ArrayEditor extends Editor {
     this.instance.childEditors = []
 
     value.forEach((itemValue) => {
-      const itemEditor = this.createItemEditor(itemValue)
+      const itemEditor = this.createItemInstance(itemValue)
       itemEditor.setValue(itemValue, false)
       this.instance.childEditors.push(itemEditor)
 
@@ -190,14 +165,6 @@ class ArrayEditor extends Editor {
       this.addBtn.removeAttribute('disabled')
       this.deleteAllBtn.removeAttribute('disabled')
     }
-  }
-
-  destroy () {
-    this.instance.childEditors.forEach((childEditor) => {
-      childEditor.destroy()
-    })
-
-    super.destroy()
   }
 }
 

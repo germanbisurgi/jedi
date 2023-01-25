@@ -16,14 +16,10 @@ class ObjectEditor extends Editor {
         for: 'jedi-add-property-input-' + this.instance.path
       })
 
-      this.container.appendChild(label)
-
       const input = this.theme.getInput({
         type: 'text',
         id: 'jedi-add-property-input-' + this.instance.path
       })
-
-      this.container.appendChild(input)
 
       const addBtn = this.theme.getButton({
         textContent: 'Add property'
@@ -45,12 +41,16 @@ class ObjectEditor extends Editor {
         this.instance.addChildEditor({ type: 'any' }, key)
         this.instance.setValue(this.instance.value)
         input.value = ''
+
+        this.container.appendChild(label)
+        this.container.appendChild(input)
       })
 
       this.container.appendChild(addBtn)
     }
   }
 
+  // todo refactor this still not used method
   addChildEditor (schema, key) {
     const editor = this.instance.jedi.createEditor({
       jedi: this.instance.jedi,
@@ -87,7 +87,7 @@ class ObjectEditor extends Editor {
         continue
       }
 
-      const childEditor = this.instance.getChildEditor(key)
+      const childEditor = this.instance.getChildInstance(key)
 
       this.childEditorsSlot.appendChild(childEditor.ui.container)
 
@@ -116,14 +116,6 @@ class ObjectEditor extends Editor {
         textContent: this.instance.schema.description()
       }))
     }
-  }
-
-  destroy () {
-    this.instance.childEditors.forEach((childEditor) => {
-      childEditor.destroy()
-    })
-
-    super.destroy()
   }
 }
 

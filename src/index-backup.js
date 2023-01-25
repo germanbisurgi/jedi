@@ -75,8 +75,6 @@ class Jedi {
       this.hiddenInput.value = JSON.stringify(this.getValue())
     }
     this.getValue()
-
-    console.table(this.editors)
   }
 
   /**
