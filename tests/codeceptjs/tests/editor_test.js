@@ -60,6 +60,8 @@ Scenario('Should disable and enable @disable', ({ I }) => {
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
+  I.checkOption('[id="editableProperties"]')
+  I._waitForElement('.jedi-ready')
   I._waitForElement('#disable-editor')
   I.scrollTo('#disable-editor', 0, -300)
   I.click('#disable-editor')

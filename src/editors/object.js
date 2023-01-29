@@ -15,17 +15,17 @@ class ObjectEditor extends Editor {
         for: 'jedi-add-property-input-' + this.instance.path
       })
 
-      const input = this.theme.getInput({
+      this.addPropertyInput = this.theme.getInput({
         type: 'text',
         id: 'jedi-add-property-input-' + this.instance.path
       })
 
-      const addBtn = this.theme.getButton({
+      this.addPropertyBtn = this.theme.getButton({
         textContent: 'Add property'
       })
 
-      addBtn.addEventListener('click', () => {
-        const key = input.value
+      this.addPropertyBtn.addEventListener('click', () => {
+        const key = this.addPropertyInput.value
 
         // if not property name was given return
         if (key.length === 0) {
@@ -39,12 +39,12 @@ class ObjectEditor extends Editor {
 
         this.instance.createChildInstance({ type: 'any' }, key)
         this.instance.setValue(this.instance.value)
-        input.value = ''
+        this.addPropertyInput.value = ''
       })
 
       this.actionsSlot.appendChild(label)
-      this.actionsSlot.appendChild(input)
-      this.actionsSlot.appendChild(addBtn)
+      this.actionsSlot.appendChild(this.addPropertyInput)
+      this.actionsSlot.appendChild(this.addPropertyBtn)
     }
   }
 
@@ -72,7 +72,8 @@ class ObjectEditor extends Editor {
 
         const isRequired = this.instance.isRequired(childInstance.getKey())
         const isDependentRequired = this.instance.isDependentRequired(childInstance.getKey())
-        checkbox.disabled = isRequired || isDependentRequired
+        const disabled = this.disabled
+        checkbox.disabled = isRequired || isDependentRequired || disabled
 
         checkbox.addEventListener('change', () => {
           if (checkbox.checked) {
@@ -134,6 +135,14 @@ class ObjectEditor extends Editor {
   refreshUI () {
     this.refreshProperties()
     this.refreshEditors()
+
+    if (this.disabled) {
+      this.addPropertyBtn.setAttribute('disabled', 'disabled')
+      this.addPropertyInput.setAttribute('disabled', 'disabled')
+    } else {
+      this.addPropertyBtn.removeAttribute('disabled')
+      this.addPropertyInput.removeAttribute('disabled')
+    }
   }
 }
 

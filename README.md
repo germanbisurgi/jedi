@@ -1,29 +1,21 @@
 ## Todo
 
 - fixes:
-    - refresh ui
-    - object editor properties buttons
     - array editor item buttons
     - themes
     - array validator undefined
     - max deep ref parser
-    - object editor disable state
 
 - architecture:
-    - instance
-    - editors
     - documentation
-    - validator
     - constrains
     - extend functionality
 
 - refactoring:
-    - variable names (editor vs instance)
-    - control slot
     - destroy intermediate editors (validator)
     - array
     - themes
-    - deprecate sanitize?
+    - opt-out sanitize
     - json-schema-tools
     - browser and node Lib
     - dereference schema first and the initialize editor
@@ -38,7 +30,6 @@
     - read only
     - grid
     - patternProperties resolver
-    - form builder: new EditorUI(editor, theme)
     - icons
     - classes for jedi elements like buttons and switchers
     - propertyNames validator
