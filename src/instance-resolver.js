@@ -60,13 +60,6 @@ class InstanceResolver {
   }
 
   /**
-   * Adds a resolver function
-   */
-  addResolver (resolver) {
-    this.resolvers.unshift(resolver)
-  }
-
-  /**
    * returns the first editor class that matches the passed schema.
    */
   resolve (config) {

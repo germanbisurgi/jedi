@@ -1,6 +1,6 @@
 import Instance from '../instance'
 import Schema from '../schema'
-import { equal, isSet, getType, isObject } from '../utils'
+import { different, isSet, notSet, getType, isObject } from '../utils'
 import ObjectEditor from '../editors/object'
 
 class ObjectInstance extends Instance {
@@ -130,7 +130,7 @@ class ObjectInstance extends Instance {
     for (let i = this.childEditors.length - 1; i >= 0; i--) {
       const instance = this.childEditors[i]
       const key = instance.getKey()
-      if (!isSet(value[key])) {
+      if (notSet(value[key])) {
         this.deleteChildInstance(key)
       }
     }
@@ -144,7 +144,7 @@ class ObjectInstance extends Instance {
         const newValue = value[childInstance.getKey()]
 
         // update child value if the old value and the new value are different
-        if (!equal(oldValue, newValue)) {
+        if (different(oldValue, newValue)) {
           childInstance.setValue(newValue, false)
         }
       } else {

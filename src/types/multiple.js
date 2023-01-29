@@ -1,6 +1,6 @@
 import Instance from '../instance'
 import Schema from '../schema'
-import { isSet, equal, mergeDeep } from '../utils'
+import { isSet, equal, different, mergeDeep } from '../utils'
 import MultipleEditor from '../editors/multiple'
 
 class MultipleInstance extends Instance {
@@ -146,7 +146,7 @@ class MultipleInstance extends Instance {
   setValue (value, triggersChange = true) {
     // if value matches the active editor type set the value. Else switch to the first
     // editor that match the value.
-    if (!equal(this.activeEditor.sanitize(value), value)) {
+    if (different(this.activeEditor.sanitize(value), value)) {
       this.matchEditor(value, this.editors)
     }
 

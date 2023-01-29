@@ -125,10 +125,6 @@ class Instance extends EventEmitter {
     return this.jedi.validator.validate(this.getValue(), this.schema, this.getKey(), this.path)
   }
 
-  setContainer () {
-    this.container = this.jedi.theme.getContainer()
-  }
-
   /**
    * Prepare data before building the editor
    */

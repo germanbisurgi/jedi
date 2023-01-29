@@ -12,7 +12,7 @@ class NullEditor extends Editor {
     }
   }
 
-  sanitize (value) {
+  sanitize () {
     return null
   }
 }

@@ -38,8 +38,8 @@ class Jedi extends EventEmitter {
       schema: this.schema
     })
 
-    if (this.options.startval) {
-      this.root.setValue(this.options.startval)
+    if (this.options.startValue) {
+      this.root.setValue(this.options.startValue)
     }
 
     if (this.options.isEditor && this.container) {
@@ -125,7 +125,7 @@ class Jedi extends EventEmitter {
   }
 
   reset () {
-    this.options.startval = this.getValue()
+    this.options.startValue = this.getValue()
     this.container.innerHTML = ''
     this.root.destroy()
     this.init()
