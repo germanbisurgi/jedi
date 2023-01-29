@@ -60,10 +60,10 @@ class ArrayEditor extends Editor {
     const schema = this.instance.schema.items() ? this.instance.schema.items() : { type: getType(value) }
     const itemSchema = new Schema(schema)
 
-    const itemEditor = this.instance.jedi.createEditor({
+    const itemEditor = this.instance.jedi.createInstance({
       jedi: this.instance.jedi,
       schema: itemSchema,
-      path: this.instance.path + '.' + this.instance.childEditors.length,
+      path: this.instance.path + '.' + this.instance.children.length,
       parent: this.instance
     })
 
@@ -79,7 +79,7 @@ class ArrayEditor extends Editor {
       this.instance.deleteItem(itemIndex)
     })
 
-    if (this.instance.childEditors.length !== 0) {
+    if (this.instance.children.length !== 0) {
       const moveUpBtn = this.theme.getButton({
         textContent: 'Move up'
       })
@@ -123,39 +123,39 @@ class ArrayEditor extends Editor {
   refreshUI () {
     const value = this.instance.getValue()
 
-    this.instance.childEditors.forEach((editor) => {
-      editor.destroy()
+    this.instance.children.forEach((child) => {
+      child.destroy()
     })
 
-    this.instance.childEditors = []
+    this.instance.children = []
 
     value.forEach((itemValue) => {
-      const itemEditor = this.createItemInstance(itemValue)
-      itemEditor.setValue(itemValue, false)
-      this.instance.childEditors.push(itemEditor)
+      const child = this.createItemInstance(itemValue)
+      child.setValue(itemValue, false)
+      this.instance.children.push(child)
 
       let buttons = Array.from(this.container.querySelectorAll('button'))
 
-      this.instance.childEditors.forEach((childEditor) => {
-        const childButtons = Array.from(childEditor.ui.container.querySelectorAll('button'))
+      this.instance.children.forEach((child) => {
+        const childButtons = Array.from(child.ui.container.querySelectorAll('button'))
         buttons = buttons.concat(childButtons)
       })
 
       if (this.disabled) {
-        itemEditor.ui.disable()
+        child.ui.disable()
         buttons.forEach((button) => {
           button.setAttribute('disabled', 'disabled')
         })
       } else {
-        itemEditor.ui.enable()
+        child.ui.enable()
         buttons.forEach((button) => {
           button.removeAttribute('disabled')
         })
       }
     })
 
-    this.instance.childEditors.forEach((editor) => {
-      this.childEditorsSlot.appendChild(editor.ui.container)
+    this.instance.children.forEach((child) => {
+      this.childEditorsSlot.appendChild(child.ui.container)
     })
 
     if (this.disabled) {

@@ -90,7 +90,7 @@ class MultipleInstance extends Instance {
 
     // Editors
     this.schemas.forEach((schema) => {
-      const editor = this.jedi.createEditor({
+      const editor = this.jedi.createInstance({
         jedi: this.jedi,
         schema: new Schema(schema),
         path: this.path,

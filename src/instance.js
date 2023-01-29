@@ -9,13 +9,13 @@ class Instance extends EventEmitter {
     this.isActive = true
     this.path = config.path || 'root'
     this.parent = config.parent || null
-    this.childEditors = []
+    this.children = []
     this.ui = null
     this.init()
   }
 
   /**
-   * Starts the build pipeline of the editor
+   * Initializes and register the instance
    */
   init () {
     this.register()
@@ -28,36 +28,39 @@ class Instance extends EventEmitter {
 
     this.on('change', () => {
       if (this.parent) {
-        this.parent.onChildEditorChange()
+        this.parent.onChildChange()
       }
     })
   }
 
+  /**
+   * Sets the instance ui property. UI can be an editor instance or similar
+   */
   setUI () {}
 
   /**
-   * Return the last part of the path
+   * Return the last part of the instance path
    */
   getKey () {
     return this.path.split('.').pop()
   }
 
   /**
-   * Adds this editor instance in the jedi.editors object
+   * Adds a child instance pointer to the instances list
    */
   register () {
-    this.jedi.registerEditor(this)
+    this.jedi.register(this)
   }
 
   /**
-   * Removes this editor instance from the jedi.editors object
+   * Deletes a child instance pointer from the instances list
    */
   unregister () {
-    this.jedi.unregisterEditor(this)
+    this.jedi.unregister(this)
   }
 
   /**
-   * If schema.default is not defined, sets an initial value based on it's type.
+   * Sets the default value of the instance based on it'S schema
    */
   setDefaultValue () {
     let value
@@ -86,23 +89,21 @@ class Instance extends EventEmitter {
   }
 
   /**
-   * Returns the current value of the editor
+   * Returns the value of the instance
    */
   getValue () {
     return this.value
   }
 
   /**
-   * Sanitize value
+   * Transforms the input value if necessary before value set
    */
   sanitize (value) {
     return value
   }
 
   /**
-   * Sets the editor value and calls refreshUI right after. The onChange method
-   * will be called unless triggersChange is explicitly set to false. This is
-   * useful for initial or default values.
+   * Sets the instance value
    */
   setValue (newValue, triggersChange = true) {
     newValue = this.sanitize(newValue)
@@ -116,12 +117,14 @@ class Instance extends EventEmitter {
   }
 
   /**
-   * Fires when the value of a child editor changes. This is relevant for Array
-   * and Object editors.
+   * Fires when a child's instance state changes
    */
-  onChildEditorChange () {
+  onChildChange () {
   }
 
+  /**
+   * Returns an array of validation error messages
+   */
   validate () {
     return this.jedi.validator.validate(this.getValue(), this.schema, this.getKey(), this.path)
   }
@@ -131,6 +134,9 @@ class Instance extends EventEmitter {
    */
   prepare () {}
 
+  /**
+   * Activates the instance
+   */
   activate () {
     if (this.isActive === false) {
       this.isActive = true
@@ -138,6 +144,9 @@ class Instance extends EventEmitter {
     }
   }
 
+  /**
+   * Deactivates the instance
+   */
   deactivate () {
     if (this.isActive === true) {
       this.isActive = false
@@ -146,11 +155,11 @@ class Instance extends EventEmitter {
   }
 
   /**
-   * Destroys the editor, and every reference that it is attached to it.
+   * Destroy the instance and it's children
    */
   destroy () {
-    this.childEditors.forEach((instance) => {
-      instance.destroy()
+    this.children.forEach((child) => {
+      child.destroy()
     })
 
     this.unregister()

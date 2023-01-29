@@ -21,7 +21,7 @@
     "csfr": {
       "type": "string",
       "format": "hidden",
-      "default": "__your_token_here__"
+      "default": "csfr"
     }
   }
 }

@@ -3,7 +3,6 @@
 - fixes:
     - array editor item buttons
     - themes
-    - array validator undefined
     - max deep ref parser
 
 - architecture:

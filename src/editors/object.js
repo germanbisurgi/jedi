@@ -9,39 +9,39 @@ class ObjectEditor extends Editor {
     this.container.appendChild(this.messagesSlot)
     this.container.appendChild(this.childEditorsSlot)
 
+    const label = this.theme.getLabel({
+      textContent: 'Property Name',
+      for: 'jedi-add-property-input-' + this.instance.path
+    })
+
+    this.addPropertyInput = this.theme.getInput({
+      type: 'text',
+      id: 'jedi-add-property-input-' + this.instance.path
+    })
+
+    this.addPropertyBtn = this.theme.getButton({
+      textContent: 'Add property'
+    })
+
+    this.addPropertyBtn.addEventListener('click', () => {
+      const key = this.addPropertyInput.value
+
+      // if not property name was given return
+      if (key.length === 0) {
+        return
+      }
+
+      // if property exist return
+      if (isSet(this.instance.value[key])) {
+        return
+      }
+
+      this.instance.createChild({ type: 'any' }, key)
+      this.instance.setValue(this.instance.value)
+      this.addPropertyInput.value = ''
+    })
+
     if (this.instance.jedi.options.editableProperties || this.instance.schema.option('editableProperties')) {
-      const label = this.theme.getLabel({
-        textContent: 'Property Name',
-        for: 'jedi-add-property-input-' + this.instance.path
-      })
-
-      this.addPropertyInput = this.theme.getInput({
-        type: 'text',
-        id: 'jedi-add-property-input-' + this.instance.path
-      })
-
-      this.addPropertyBtn = this.theme.getButton({
-        textContent: 'Add property'
-      })
-
-      this.addPropertyBtn.addEventListener('click', () => {
-        const key = this.addPropertyInput.value
-
-        // if not property name was given return
-        if (key.length === 0) {
-          return
-        }
-
-        // if property exist return
-        if (isSet(this.instance.value[key])) {
-          return
-        }
-
-        this.instance.createChildInstance({ type: 'any' }, key)
-        this.instance.setValue(this.instance.value)
-        this.addPropertyInput.value = ''
-      })
-
       this.actionsSlot.appendChild(label)
       this.actionsSlot.appendChild(this.addPropertyInput)
       this.actionsSlot.appendChild(this.addPropertyBtn)
@@ -54,32 +54,32 @@ class ObjectEditor extends Editor {
         this.propertiesSlot.removeChild(this.propertiesSlot.lastChild)
       }
 
-      this.instance.childEditors.forEach((childInstance) => {
-        const id = childInstance.path + '-activator'
+      this.instance.children.forEach((child) => {
+        const id = child.path + '-activator'
 
         const checkboxContainer = this.theme.getCheckboxContainer()
 
         const label = this.theme.getCheckboxLabel({
           for: id,
-          textContent: childInstance.schema.title() ? childInstance.schema.title() : childInstance.getKey()
+          textContent: child.schema.title() ? child.schema.title() : child.getKey()
         })
 
         const checkbox = this.theme.getCheckbox({
           id: id
         })
 
-        checkbox.checked = Object.hasOwn(this.instance.getValue(), childInstance.getKey())
+        checkbox.checked = Object.hasOwn(this.instance.getValue(), child.getKey())
 
-        const isRequired = this.instance.isRequired(childInstance.getKey())
-        const isDependentRequired = this.instance.isDependentRequired(childInstance.getKey())
+        const isRequired = this.instance.isRequired(child.getKey())
+        const isDependentRequired = this.instance.isDependentRequired(child.getKey())
         const disabled = this.disabled
         checkbox.disabled = isRequired || isDependentRequired || disabled
 
         checkbox.addEventListener('change', () => {
           if (checkbox.checked) {
-            childInstance.activate()
+            child.activate()
           } else {
-            childInstance.deactivate()
+            child.deactivate()
           }
         })
 
@@ -116,16 +116,16 @@ class ObjectEditor extends Editor {
     const value = this.instance.getValue()
 
     Object.keys(value).forEach((key) => {
-      const childInstance = this.instance.getChildInstance(key)
+      const child = this.instance.getChild(key)
 
-      if (childInstance.isActive) {
-        this.childEditorsSlot.appendChild(childInstance.ui.container)
+      if (child.isActive) {
+        this.childEditorsSlot.appendChild(child.ui.container)
 
-        if (childInstance) {
+        if (child) {
           if (this.disabled) {
-            childInstance.ui.disable()
+            child.ui.disable()
           } else {
-            childInstance.ui.enable()
+            child.ui.enable()
           }
         }
       }

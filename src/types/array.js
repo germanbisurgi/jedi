@@ -11,10 +11,10 @@ class ArrayInstance extends Instance {
   createItemInstance (value) {
     const schema = this.schema.items() ? this.schema.items() : { type: getType(value) }
 
-    return this.jedi.createEditor({
+    return this.jedi.createInstance({
       jedi: this.jedi,
       schema: new Schema(schema),
-      path: this.path + '.' + this.childEditors.length,
+      path: this.path + '.' + this.children.length,
       parent: this
     })
   }
@@ -41,11 +41,11 @@ class ArrayInstance extends Instance {
     this.setValue(newValue)
   }
 
-  onChildEditorChange () {
+  onChildChange () {
     const value = []
 
-    this.childEditors.forEach((instance) => {
-      value.push(instance.getValue())
+    this.children.forEach((child) => {
+      value.push(child.getValue())
     })
 
     this.setValue(value)
