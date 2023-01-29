@@ -1,35 +1,36 @@
 /* global confirm */
 
-import Editor from '../editor'
+import Editor from './editor'
 import Schema from '../schema'
-import { getType, clone, isArray } from '../utils'
+import { getType, clone } from '../utils'
 
 class ArrayEditor extends Editor {
   build () {
+    this.setContainer()
     this.container.appendChild(this.messagesSlot)
     this.container.appendChild(this.childEditorsSlot)
     this.container.appendChild(this.actionsSlot)
 
     // btn group
-    const btnGroup = this.jedi.theme.getBtnGroup()
+    const btnGroup = this.theme.getBtnGroup()
 
     // addBtn
-    this.addBtn = this.jedi.theme.getButton({
+    this.addBtn = this.theme.getButton({
       textContent: 'Add item'
     })
 
     this.addBtn.addEventListener('click', () => {
-      this.addItem()
+      this.instance.addItem()
     })
 
     // deleteAll
-    this.deleteAllBtn = this.jedi.theme.getButton({
+    this.deleteAllBtn = this.theme.getButton({
       textContent: 'Delete items'
     })
 
     this.deleteAllBtn.addEventListener('click', () => {
       if (confirm('Confirm to delete all')) {
-        this.setValue([])
+        this.instance.setValue([])
       }
     })
 
@@ -39,47 +40,47 @@ class ArrayEditor extends Editor {
   }
 
   setContainer () {
-    this.container = this.jedi.theme.getFieldset()
+    this.container = this.theme.getFieldset()
 
     // title
-    this.container.appendChild(this.jedi.theme.getLegend({
-      textContent: this.schema.title() ? this.schema.title() : this.getKey(),
-      srOnly: this.schema.option('hideTitle')
+    this.container.appendChild(this.theme.getLegend({
+      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
+      srOnly: this.instance.schema.option('hideTitle')
     }))
 
     // description
-    if (this.schema.description()) {
-      this.container.appendChild(this.jedi.theme.getDescription({
-        textContent: this.schema.description()
+    if (this.instance.schema.description()) {
+      this.container.appendChild(this.theme.getDescription({
+        textContent: this.instance.schema.description()
       }))
     }
   }
 
-  createItemEditor (value) {
-    const schema = this.schema.items() ? this.schema.items() : { type: getType(value) }
+  createItemInstance (value) {
+    const schema = this.instance.schema.items() ? this.instance.schema.items() : { type: getType(value) }
     const itemSchema = new Schema(schema)
 
-    const itemEditor = this.jedi.createEditor({
-      jedi: this.jedi,
+    const itemEditor = this.instance.jedi.createEditor({
+      jedi: this.instance.jedi,
       schema: itemSchema,
-      path: this.path + '.' + this.childEditors.length,
-      parent: this
+      path: this.instance.path + '.' + this.instance.childEditors.length,
+      parent: this.instance
     })
 
-    const btnGroup = this.jedi.theme.getBtnGroup()
+    const btnGroup = this.theme.getBtnGroup()
     const itemIndex = Number(itemEditor.getKey())
 
-    const deleteBtn = this.jedi.theme.getButton({
+    const deleteBtn = this.theme.getButton({
       textContent: 'Delete item'
     })
 
     deleteBtn.addEventListener('click', () => {
       const itemIndex = Number(itemEditor.path.split('.').pop())
-      this.deleteItem(itemIndex)
+      this.instance.deleteItem(itemIndex)
     })
 
-    if (this.childEditors.length !== 0) {
-      const moveUpBtn = this.jedi.theme.getButton({
+    if (this.instance.childEditors.length !== 0) {
+      const moveUpBtn = this.theme.getButton({
         textContent: 'Move up'
       })
 
@@ -91,8 +92,8 @@ class ArrayEditor extends Editor {
       btnGroup.appendChild(moveUpBtn)
     }
 
-    if (this.getValue().length - 1 !== itemIndex) {
-      const moveDownBtn = this.jedi.theme.getButton({
+    if (this.instance.getValue().length - 1 !== itemIndex) {
+      const moveDownBtn = this.theme.getButton({
         textContent: 'Move down'
       })
 
@@ -104,83 +105,57 @@ class ArrayEditor extends Editor {
       btnGroup.appendChild(moveDownBtn)
     }
 
-    itemEditor.container.appendChild(itemEditor.actionsSlot)
-    itemEditor.actionsSlot.appendChild(btnGroup)
+    itemEditor.ui.container.appendChild(itemEditor.ui.actionsSlot)
+    itemEditor.ui.actionsSlot.appendChild(btnGroup)
     btnGroup.appendChild(deleteBtn)
 
     return itemEditor
   }
 
   move (fromIndex, toIndex) {
-    const value = clone(this.getValue())
+    const value = clone(this.instance.getValue())
     const item = value[fromIndex]
     value.splice(fromIndex, 1)
     value.splice(toIndex, 0, item)
-    this.setValue(value)
-  }
-
-  addItem () {
-    const tempEditor = this.createItemEditor()
-    const value = clone(this.getValue())
-    value.push(tempEditor.getValue())
-    tempEditor.destroy()
-    this.setValue(value)
-  }
-
-  deleteItem (itemIndex) {
-    if (confirm('Confirm to delete')) {
-      const currentValue = clone(this.getValue())
-      const newValue = currentValue.filter((item, index) => index !== itemIndex)
-      this.setValue(newValue)
-    }
-  }
-
-  onChildEditorChange () {
-    const value = []
-
-    this.childEditors.forEach((childEditor) => {
-      value.push(childEditor.getValue())
-    })
-
-    this.setValue(value)
+    this.instance.setValue(value)
   }
 
   refreshUI () {
-    const value = this.getValue()
+    const value = this.instance.getValue()
 
-    this.childEditors.forEach((editor) => {
+    this.instance.childEditors.forEach((editor) => {
       editor.destroy()
     })
 
-    this.childEditors = []
+    this.instance.childEditors = []
 
     value.forEach((itemValue) => {
-      const itemEditor = this.createItemEditor(itemValue)
+      const itemEditor = this.createItemInstance(itemValue)
       itemEditor.setValue(itemValue, false)
-      this.childEditors.push(itemEditor)
+      this.instance.childEditors.push(itemEditor)
 
       let buttons = Array.from(this.container.querySelectorAll('button'))
 
-      this.childEditors.forEach((childEditor) => {
-        const childButtons = Array.from(childEditor.container.querySelectorAll('button'))
+      this.instance.childEditors.forEach((childEditor) => {
+        const childButtons = Array.from(childEditor.ui.container.querySelectorAll('button'))
         buttons = buttons.concat(childButtons)
       })
 
       if (this.disabled) {
-        itemEditor.disable()
+        itemEditor.ui.disable()
         buttons.forEach((button) => {
           button.setAttribute('disabled', 'disabled')
         })
       } else {
-        itemEditor.enable()
+        itemEditor.ui.enable()
         buttons.forEach((button) => {
           button.removeAttribute('disabled')
         })
       }
     })
 
-    this.childEditors.forEach((editor) => {
-      this.childEditorsSlot.appendChild(editor.container)
+    this.instance.childEditors.forEach((editor) => {
+      this.childEditorsSlot.appendChild(editor.ui.container)
     })
 
     if (this.disabled) {
@@ -190,22 +165,6 @@ class ArrayEditor extends Editor {
       this.addBtn.removeAttribute('disabled')
       this.deleteAllBtn.removeAttribute('disabled')
     }
-  }
-
-  sanitize (value) {
-    if (isArray(value)) {
-      return value
-    }
-
-    return []
-  }
-
-  destroy () {
-    this.childEditors.forEach((childEditor) => {
-      childEditor.destroy()
-    })
-
-    super.destroy()
   }
 }
 

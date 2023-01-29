@@ -1,37 +1,34 @@
 import NumberEditor from './number'
 
 class NumberEnumSelectEditor extends NumberEditor {
-  prepare () {
-    this.optionValues = this.schema.enum()
-    this.optionsLabels = this.schema.option('enumTitles') || this.optionValues
-  }
-
   build () {
+    this.optionValues = this.instance.schema.enum()
+    this.optionsLabels = this.instance.schema.option('enumTitles') || this.optionValues
     this.container.appendChild(this.messagesSlot)
 
-    this.container.appendChild(this.jedi.theme.getLabel({
-      for: this.path,
-      textContent: this.schema.title() ? this.schema.title() : this.getKey(),
-      srOnly: this.schema.option('hideTitle')
+    this.container.appendChild(this.theme.getLabel({
+      for: this.instance.path,
+      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
+      srOnly: this.instance.schema.option('hideTitle')
     }))
 
     // input
-    this.input = this.jedi.theme.getSelect({
+    this.input = this.theme.getSelect({
       optionValues: this.optionValues,
       optionsLabels: this.optionsLabels,
-      id: this.path
+      id: this.instance.path
     })
     this.container.appendChild(this.input)
 
     // events
     this.input.addEventListener('change', () => {
-      this.setValue(this.input.value)
+      this.instance.setValue(this.input.value)
     })
 
     // description
-    if (this.schema.description()) {
-      this.container.appendChild(this.jedi.theme.getDescription({
-        textContent: this.schema.description()
+    if (this.instance.schema.description()) {
+      this.container.appendChild(this.theme.getDescription({
+        textContent: this.instance.schema.description()
       }))
     }
   }

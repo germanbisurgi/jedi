@@ -1,22 +1,22 @@
-import Editor from '../editor'
+import Editor from './editor'
 
 class BooleanEditor extends Editor {
   build () {
     this.container.appendChild(this.messagesSlot)
 
     // checkbox container
-    const checkboxContainer = this.jedi.theme.getCheckboxContainer()
+    const checkboxContainer = this.theme.getCheckboxContainer()
 
     // label
-    const label = this.jedi.theme.getCheckboxLabel({
-      for: this.path,
-      textContent: this.schema.title() ? this.schema.title() : this.getKey(),
-      srOnly: this.schema.option('hideTitle')
+    const label = this.theme.getCheckboxLabel({
+      for: this.instance.path,
+      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
+      srOnly: this.instance.schema.option('hideTitle')
     })
 
     // input
-    this.input = this.jedi.theme.getCheckbox({
-      id: this.path
+    this.input = this.theme.getCheckbox({
+      id: this.instance.path
     })
 
     // appends
@@ -26,13 +26,13 @@ class BooleanEditor extends Editor {
 
     // events
     this.input.addEventListener('change', () => {
-      this.setValue(this.input.checked)
+      this.instance.setValue(this.input.checked)
     })
 
     // description
-    if (this.schema.description()) {
-      this.container.appendChild(this.jedi.theme.getDescription({
-        textContent: this.schema.description()
+    if (this.instance.schema.description()) {
+      this.container.appendChild(this.theme.getDescription({
+        textContent: this.instance.schema.description()
       }))
     }
   }
@@ -42,7 +42,7 @@ class BooleanEditor extends Editor {
   }
 
   refreshUI () {
-    this.input.checked = this.getValue()
+    this.input.checked = this.instance.getValue()
 
     if (this.disabled) {
       this.input.setAttribute('disabled', 'disabled')

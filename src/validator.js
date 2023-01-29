@@ -202,7 +202,7 @@ class Validator {
     return errors
   }
 
-  if (value, schema, key, path) {
+  if (value, schema) {
     let errors = []
 
     if (schema.if()) {
@@ -210,14 +210,14 @@ class Validator {
         return errors
       }
 
-      const ifEditor = new Jedi({ schema: schema.if(), startval: value })
+      const ifEditor = new Jedi({ schema: schema.if(), startValue: value })
       const ifErrors = ifEditor.validate()
 
       if (ifErrors.length === 0) {
-        const thenEditor = new Jedi({ schema: schema.then(), startval: value })
+        const thenEditor = new Jedi({ schema: schema.then(), startValue: value })
         errors = thenEditor.validate()
       } else {
-        const elseEditor = new Jedi({ schema: schema.else(), startval: value })
+        const elseEditor = new Jedi({ schema: schema.else(), startValue: value })
         errors = elseEditor.validate()
       }
     }
@@ -469,7 +469,7 @@ class Validator {
     return errors
   }
 
-  patternProperties (value, schema, key, path) {
+  patternProperties (value, schema) {
     let errors = []
 
     if (isObject(value) && schema.patternProperties()) {
@@ -484,7 +484,7 @@ class Validator {
 
             const editor = new Jedi({
               schema: schema,
-              startval: value[propertyName]
+              startValue: value[propertyName]
             })
 
             errors = [...errors, ...editor.validate()]
@@ -590,13 +590,6 @@ class Validator {
     }
 
     return errors
-  }
-
-  /**
-   * Adds a validator function
-   */
-  addValidator (validator) {
-    this.validators.push(validator)
   }
 
   /**

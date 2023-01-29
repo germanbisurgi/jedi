@@ -1,5 +1,3 @@
-import { v4 } from 'uuid'
-
 export const clone = (thing) => {
   return JSON.parse(JSON.stringify(thing))
 }
@@ -20,7 +18,7 @@ export const isSet = (value) => {
   return typeof value !== 'undefined'
 }
 
-export const isNotSet = (value) => {
+export const notSet = (value) => {
   return typeof value === 'undefined'
 }
 
@@ -70,16 +68,12 @@ export const getType = (value) => {
   return type
 }
 
-export const uuidv4 = () => {
-  return v4()
-}
-
 export const mergeDeep = (target, ...sources) => {
   if (!sources.length) return target
   const source = sources.shift()
 
   if (isObject(target) && isObject(source)) {
-    for (const key in source) {
+    Object.keys(source).forEach((key) => {
       if (isObject(source[key])) {
         if (!target[key]) {
           Object.assign(target, {
@@ -92,7 +86,7 @@ export const mergeDeep = (target, ...sources) => {
           [key]: source[key]
         })
       }
-    }
+    })
   }
 
   return mergeDeep(target, ...sources)

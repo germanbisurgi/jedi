@@ -1,65 +1,26 @@
-import Editor from '../editor'
-import Schema from '../schema'
-import { equal, isSet, getType, isObject } from '../utils'
+import Editor from './editor'
+import { isSet } from '../utils'
 
 class ObjectEditor extends Editor {
-  prepare () {
-    // child editors
-    if (this.schema.properties()) {
-      for (const key in this.schema.properties()) {
-        if (!Object.hasOwn(this.schema.properties(), key)) {
-          continue
-        }
-
-        const showRequiredOnly = this.jedi.options.showRequiredOnly || this.schema.option('showRequiredOnly')
-        const isNotRequired = !this.schema.required() || !this.schema.required().includes(key)
-
-        if (showRequiredOnly && isNotRequired) {
-          continue
-        }
-
-        const schema = this.schema.property(key)
-        this.addChildEditor(schema, key)
-      }
-    }
-
-    // Add dependent required properties
-    if (this.schema.properties()) {
-      for (const key in this.schema.properties()) {
-        if (!Object.hasOwn(this.schema.properties(), key)) {
-          continue
-        }
-
-        if (this.isDependentRequired(key)) {
-          const schema = this.schema.property(key)
-          this.addChildEditor(schema, key)
-        }
-      }
-    }
-  }
-
   build () {
+    this.setContainer()
+    this.container.appendChild(this.propertiesSlot)
+    this.container.appendChild(this.actionsSlot)
     this.container.appendChild(this.messagesSlot)
     this.container.appendChild(this.childEditorsSlot)
-    this.container.appendChild(this.actionsSlot)
 
-    // addBtn
-    if (this.jedi.options.editableProperties || this.schema.option('editableProperties')) {
-      const label = this.jedi.theme.getLabel({
+    if (this.instance.jedi.options.editableProperties || this.instance.schema.option('editableProperties')) {
+      const label = this.theme.getLabel({
         textContent: 'Property Name',
-        for: 'jedi-add-property-input-' + this.path
+        for: 'jedi-add-property-input-' + this.instance.path
       })
 
-      this.container.appendChild(label)
-
-      const input = this.jedi.theme.getInput({
+      const input = this.theme.getInput({
         type: 'text',
-        id: 'jedi-add-property-input-' + this.path
+        id: 'jedi-add-property-input-' + this.instance.path
       })
 
-      this.container.appendChild(input)
-
-      const addBtn = this.jedi.theme.getButton({
+      const addBtn = this.theme.getButton({
         textContent: 'Add property'
       })
 
@@ -72,202 +33,107 @@ class ObjectEditor extends Editor {
         }
 
         // if property exist return
-        if (isSet(this.value[key])) {
+        if (isSet(this.instance.value[key])) {
           return
         }
 
-        this.addChildEditor({ type: 'any' }, key)
-        this.setValue(this.value)
+        this.instance.createChildInstance({ type: 'any' }, key)
+        this.instance.setValue(this.instance.value)
         input.value = ''
       })
 
-      this.container.appendChild(addBtn)
+      this.actionsSlot.appendChild(label)
+      this.actionsSlot.appendChild(input)
+      this.actionsSlot.appendChild(addBtn)
     }
   }
 
-  /**
-   * Returns true if the property is required
-   */
-  isRequired (property) {
-    return this.schema.required() && this.schema.required().includes(property)
-  }
+  refreshProperties () {
+    if (this.instance.jedi.options.editableProperties || this.instance.schema.option('editableProperties')) {
+      while (this.propertiesSlot.firstChild) {
+        this.propertiesSlot.removeChild(this.propertiesSlot.lastChild)
+      }
 
-  /**
-   * Returns true if the property is dependent required
-   */
-  isDependentRequired (property) {
-    const dependentRequired = this.schema.dependentRequired()
+      this.instance.childEditors.forEach((childInstance) => {
+        const id = childInstance.path + '-activator'
 
-    if (dependentRequired) {
-      let missingProperties = []
+        const checkboxContainer = this.theme.getCheckboxContainer()
 
-      Object.keys(dependentRequired).forEach((key) => {
-        if (isSet(this.value[key])) {
-          const requiredProperties = dependentRequired[key]
+        const label = this.theme.getCheckboxLabel({
+          for: id,
+          textContent: childInstance.schema.title() ? childInstance.schema.title() : childInstance.getKey()
+        })
 
-          missingProperties = requiredProperties.filter((property) => {
-            return !Object.hasOwn(this.value, property)
-          })
-        }
+        const checkbox = this.theme.getCheckbox({
+          id: id
+        })
+
+        checkbox.checked = Object.hasOwn(this.instance.getValue(), childInstance.getKey())
+
+        const isRequired = this.instance.isRequired(childInstance.getKey())
+        const isDependentRequired = this.instance.isDependentRequired(childInstance.getKey())
+        checkbox.disabled = isRequired || isDependentRequired
+
+        checkbox.addEventListener('change', () => {
+          if (checkbox.checked) {
+            childInstance.activate()
+          } else {
+            childInstance.deactivate()
+          }
+        })
+
+        // appends
+        this.propertiesSlot.appendChild(checkboxContainer)
+        checkboxContainer.appendChild(checkbox)
+        checkboxContainer.appendChild(label)
       })
-
-      return missingProperties.includes(property)
-    }
-
-    return false
-  }
-
-  addChildEditor (schema, key) {
-    const editor = this.jedi.createEditor({
-      jedi: this.jedi,
-      schema: new Schema(schema),
-      path: this.path + '.' + key,
-      parent: this
-    })
-
-    // removeBtn
-    const notRequired = !this.isRequired(key)
-    const notDependentRequired = !this.isDependentRequired(key)
-    const editableProperties = this.jedi.options.editableProperties || this.schema.option('editableProperties')
-
-    if (notRequired && notDependentRequired && editableProperties) {
-      const removeBtn = this.jedi.theme.getButton({
-        textContent: 'Remove property'
-      })
-      editor.container.appendChild(removeBtn)
-      removeBtn.addEventListener('click', () => {
-        delete this.value[key]
-        this.setValue(this.value)
-      })
-    }
-
-    this.childEditors.push(editor)
-    this.value[key] = editor.getValue()
-  }
-
-  deleteChildEditor (key) {
-    for (let i = this.childEditors.length - 1; i >= 0; i--) {
-      const editor = this.childEditors[i]
-      if (editor.getKey() === key) {
-        editor.destroy()
-        this.childEditors.splice(i, 1)
-      }
-    }
-  }
-
-  onChildEditorChange () {
-    const value = {}
-
-    this.childEditors.forEach((childEditor) => {
-      value[childEditor.getKey()] = childEditor.getValue()
-    })
-
-    this.setValue(value)
-  }
-
-  getChildEditor (key) {
-    return this.childEditors.find((childEditor) => {
-      return key === childEditor.getKey().split('.').pop()
-    })
-  }
-
-  sanitize (value) {
-    if (isObject(value)) {
-      return value
-    }
-
-    return {}
-  }
-
-  onSetValue () {
-    this.showValidationErrors()
-    const value = this.getValue()
-
-    // remove any children that are not included in the value
-    for (let i = this.childEditors.length - 1; i >= 0; i--) {
-      const editor = this.childEditors[i]
-      const key = editor.getKey()
-      if (!isSet(value[key])) {
-        this.deleteChildEditor(key)
-      }
-    }
-
-    for (const key in value) {
-      if (!Object.hasOwn(value, key)) {
-        continue
-      }
-
-      const childEditor = this.getChildEditor(key)
-
-      // If a value has a already a child editor
-      if (childEditor) {
-        const oldValue = childEditor.getValue()
-        const newValue = value[childEditor.getKey()]
-
-        // update child value if the old value and the new value are different
-        if (!equal(oldValue, newValue)) {
-          childEditor.setValue(newValue, false)
-        }
-      } else {
-        // create new child editor for the new value entry having the value as default
-        const initialValue = value[key]
-        const type = getType(initialValue)
-
-        const schema = {
-          type: type,
-          default: initialValue
-        }
-
-        this.addChildEditor(schema, key)
-      }
-    }
-  }
-
-  refreshUI () {
-    const value = this.getValue()
-
-    for (const key in value) {
-      if (!Object.hasOwn(value, key)) {
-        continue
-      }
-
-      const childEditor = this.getChildEditor(key)
-
-      this.childEditorsSlot.appendChild(childEditor.container)
-
-      if (childEditor) {
-        if (this.disabled) {
-          childEditor.disable()
-        } else {
-          childEditor.enable()
-        }
-      }
     }
   }
 
   setContainer () {
-    this.container = this.jedi.theme.getFieldset()
+    this.container = this.theme.getFieldset()
 
     // title
-    this.container.appendChild(this.jedi.theme.getLegend({
-      textContent: this.schema.title() ? this.schema.title() : this.getKey(),
-      srOnly: this.schema.option('hideTitle')
+    this.container.appendChild(this.theme.getLegend({
+      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
+      srOnly: this.instance.schema.option('hideTitle')
     }))
 
     // description
-    if (this.schema.description()) {
-      this.container.appendChild(this.jedi.theme.getDescription({
-        textContent: this.schema.description()
+    if (this.instance.schema.description()) {
+      this.container.appendChild(this.theme.getDescription({
+        textContent: this.instance.schema.description()
       }))
     }
   }
 
-  destroy () {
-    this.childEditors.forEach((childEditor) => {
-      childEditor.destroy()
-    })
+  refreshEditors () {
+    while (this.childEditorsSlot.firstChild) {
+      this.childEditorsSlot.removeChild(this.childEditorsSlot.lastChild)
+    }
 
-    super.destroy()
+    const value = this.instance.getValue()
+
+    Object.keys(value).forEach((key) => {
+      const childInstance = this.instance.getChildInstance(key)
+
+      if (childInstance.isActive) {
+        this.childEditorsSlot.appendChild(childInstance.ui.container)
+
+        if (childInstance) {
+          if (this.disabled) {
+            childInstance.ui.disable()
+          } else {
+            childInstance.ui.enable()
+          }
+        }
+      }
+    })
+  }
+
+  refreshUI () {
+    this.refreshProperties()
+    this.refreshEditors()
   }
 }
 

@@ -1,53 +1,50 @@
 import BooleanEditor from './boolean'
 
 class BooleanEnumRadioEditor extends BooleanEditor {
-  prepare () {
-    this.optionValues = ['false', 'true']
-    this.optionsLabels = this.schema.option('enumTitles') || this.optionValues
-  }
-
   build () {
+    this.optionValues = ['false', 'true']
+    this.optionsLabels = this.instance.schema.option('enumTitles') || this.optionValues
     this.container.appendChild(this.messagesSlot)
     this.radioInputs = []
 
     // legend
-    this.container.appendChild(this.jedi.theme.getRadioLegend({
-      textContent: this.schema.title() ? this.schema.title() : this.getKey()
+    this.container.appendChild(this.theme.getRadioLegend({
+      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey()
     }))
 
     // radios
     this.optionValues.forEach((value, index) => {
       // radio container
-      const radioContainer = this.jedi.theme.getRadioContainer()
+      const radioContainer = this.theme.getRadioContainer()
 
       // radio
-      const radio = this.jedi.theme.getRadio({
+      const radio = this.theme.getRadio({
         value: value,
-        id: this.path + '.' + index
+        id: this.instance.path + '.' + index
       })
       radioContainer.appendChild(radio)
 
       radio.addEventListener('change', () => {
         const radioValue = radio.value === 'true'
-        this.setValue(radioValue)
+        this.instance.setValue(radioValue)
       })
 
       this.radioInputs.push(radio)
 
       // label
-      radioContainer.appendChild(this.jedi.theme.getLabel({
-        for: this.path + '.' + index,
+      radioContainer.appendChild(this.theme.getLabel({
+        for: this.instance.path + '.' + index,
         textContent: this.optionsLabels[index],
-        srOnly: this.schema.option('hideTitle')
+        srOnly: this.instance.schema.option('hideTitle')
       }))
 
       this.container.appendChild(radioContainer)
     })
 
     // description
-    if (this.schema.description()) {
-      this.container.appendChild(this.jedi.theme.getDescription({
-        textContent: this.schema.description()
+    if (this.instance.schema.description()) {
+      this.container.appendChild(this.theme.getDescription({
+        textContent: this.instance.schema.description()
       }))
     }
   }
@@ -55,7 +52,7 @@ class BooleanEnumRadioEditor extends BooleanEditor {
   refreshUI () {
     this.radioInputs.forEach((radio) => {
       const radioValue = radio.value === 'true'
-      radio.checked = radioValue === this.getValue()
+      radio.checked = radioValue === this.instance.getValue()
       radio.disabled = this.disabled
     })
   }

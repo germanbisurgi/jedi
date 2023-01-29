@@ -197,18 +197,10 @@ class Schema {
     return isBoolean(this.schema.uniqueItems) ? this.schema.uniqueItems : false
   }
 
-  serialize () {
-    return JSON.stringify(this.schema)
-  }
-
   destroy () {
-    for (const key in this) {
-      if (!Object.hasOwn(this, key)) {
-        continue
-      }
-
+    Object.keys(this).forEach((key) => {
       delete this[key]
-    }
+    })
   }
 }
 

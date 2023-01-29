@@ -1,18 +1,24 @@
 ## Todo
 
+- fixes:
+    - refresh ui
+    - object editor properties buttons
+    - array editor item buttons
+    - themes
+    - array validator undefined
+    - max deep ref parser
+    - object editor disable state
+
 - architecture:
     - instance
     - editors
     - documentation
     - validator
-    - constrains    
-
-- fixes:
-    - array validator undefined
-    - max deep ref parser
+    - constrains
+    - extend functionality
 
 - refactoring:
-    - helper hasOwnProperty()
+    - variable names (editor vs instance)
     - control slot
     - destroy intermediate editors (validator)
     - array
@@ -23,10 +29,12 @@
     - dereference schema first and the initialize editor
     
 - tests:
+    - object edit checkbox
     - sr-only titles
     - multiple
 
 - feature:
+    - documentors
     - read only
     - grid
     - patternProperties resolver

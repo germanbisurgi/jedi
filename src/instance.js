@@ -1,18 +1,16 @@
-class Editor {
+import EventEmitter from './event-emitter'
+
+class Instance extends EventEmitter {
   constructor (config) {
+    super()
     this.jedi = config.jedi
     this.schema = config.schema
     this.value = config.value || undefined
+    this.isActive = true
     this.path = config.path || 'root'
     this.parent = config.parent || null
-
-    this.container = null
-    this.messagesSlot = this.jedi.theme.getMessagesSlot()
-    this.actionsSlot = this.jedi.theme.getActionsSlot()
-    this.childEditorsSlot = this.jedi.theme.getChildEditorsSlot()
     this.childEditors = []
-    this.disabled = false
-
+    this.ui = null
     this.init()
   }
 
@@ -22,16 +20,20 @@ class Editor {
   init () {
     this.register()
     this.setDefaultValue()
-    this.setContainer()
-    this.setContainerAttributes()
     this.prepare()
-    this.build()
-    this.refreshUI()
 
-    if (this.jedi.ready || this.jedi.options.alwaysShowErrors || this.schema.option('alwaysShowErrors')) {
-      this.showValidationErrors()
+    if (this.jedi.options.isEditor) {
+      this.setUI()
     }
+
+    this.on('change', () => {
+      if (this.parent) {
+        this.parent.onChildEditorChange()
+      }
+    })
   }
+
+  setUI () {}
 
   /**
    * Return the last part of the path
@@ -68,6 +70,10 @@ class Editor {
     if (this.schema.type() === 'object') value = {}
     if (this.schema.type() === 'null') value = null
 
+    // if (this.schema.enum()) {
+    //   value = this.schema.enum()[0]
+    // }
+
     if (this.schema.default()) {
       if (this.schema.enum() && !this.schema.enum().includes(this.schema.default())) {
         return
@@ -103,25 +109,10 @@ class Editor {
     this.value = newValue
 
     if (triggersChange) {
-      this.onChange()
+      this.emit('change')
     }
 
-    this.onSetValue()
-
-    this.refreshUI()
-  }
-
-  onSetValue () {}
-
-  /**
-   * Fires when the value of the editor changes.
-   */
-  onChange () {
-    if (this.parent) {
-      this.parent.onChildEditorChange()
-    }
-
-    this.showValidationErrors()
+    this.emit('set-value')
   }
 
   /**
@@ -135,84 +126,43 @@ class Editor {
     return this.jedi.validator.validate(this.getValue(), this.schema, this.getKey(), this.path)
   }
 
-  setContainer () {
-    this.container = this.jedi.theme.getContainer()
-  }
-
-  setContainerAttributes () {
-    this.container.setAttribute('data-path', this.path)
-
-    if (this.schema.type()) {
-      this.container.setAttribute('data-type', this.schema.type())
-    }
-  }
-
   /**
    * Prepare data before building the editor
    */
   prepare () {}
 
-  /**
-   * build the editor's user interface
-   */
-  build () {
+  activate () {
+    if (this.isActive === false) {
+      this.isActive = true
+      this.emit('change')
+    }
   }
 
-  /**
-   * Refresh the UI of the editor to reflect it's value. This is necessary when
-   * using setValue to set the value programmatically.
-   */
-  refreshUI () {}
-
-  /**
-   * Disables the editor
-   */
-  disable () {
-    this.disabled = true
-    this.refreshUI()
-  }
-
-  /**
-   * Enables the editor
-   */
-  enable () {
-    this.disabled = false
-    this.refreshUI()
-  }
-
-  /**
-   * Shows validation messages in the editor container.
-   */
-  showValidationErrors () {
-    const errors = this.validate()
-
-    this.messagesSlot.innerHTML = ''
-
-    errors.forEach((error) => {
-      this.messagesSlot.appendChild(this.jedi.theme.getInputError({
-        message: error.message
-      }))
-    })
+  deactivate () {
+    if (this.isActive === true) {
+      this.isActive = false
+      this.emit('change')
+    }
   }
 
   /**
    * Destroys the editor, and every reference that it is attached to it.
    */
   destroy () {
-    if (this.container && this.container.parentNode) {
-      this.container.parentNode.removeChild(this.container)
-    }
+    this.childEditors.forEach((instance) => {
+      instance.destroy()
+    })
 
     this.unregister()
 
-    for (const key in this) {
-      if (!Object.hasOwn(this, key)) {
-        continue
-      }
-
-      delete this[key]
+    if (this.ui) {
+      this.ui.destroy()
     }
+
+    Object.keys(this).forEach((key) => {
+      delete this[key]
+    })
   }
 }
 
-export default Editor
+export default Instance
