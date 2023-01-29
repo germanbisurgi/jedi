@@ -1,4 +1,4 @@
-import Instance from '../instance'
+import Instance from './instance'
 import BooleanEnumRadioEditor from '../editors/boolean-enum-radio'
 import BooleanEnumSelectEditor from '../editors/boolean-enum-select'
 import BooleanEditor from '../editors/boolean'

@@ -17,17 +17,15 @@ class Jedi extends EventEmitter {
       theme: 'wireframe'
     }, options)
 
-    this.container = document.querySelector(options.container)
     this.instances = {}
     this.root = null
     this.theme = null
     this.resolver = new InstanceResolver()
     this.validator = new Validator()
     this.refParser = new RefParser()
-    this.schema = new Schema(options.schema)
+    this.schema = new Schema(this.options.schema)
     this.errors = []
     this.init()
-    console.table(this.instances)
   }
 
   init () {
@@ -42,7 +40,8 @@ class Jedi extends EventEmitter {
       this.root.setValue(this.options.startValue)
     }
 
-    if (this.options.isEditor && this.container) {
+    if (this.options.isEditor && this.options.container) {
+      this.container = this.options.container
       this.appendHiddenInput()
       this.container.appendChild(this.root.ui.container)
       this.container.classList.add('jedi-ready')
@@ -112,10 +111,10 @@ class Jedi extends EventEmitter {
   }
 
   /**
-   * Returns a root child instance give it'S path
+   * Returns a instance by path
    * @return {*}
    */
-  getEditor (path) {
+  getInstance (path) {
     return this.instances[path]
   }
 

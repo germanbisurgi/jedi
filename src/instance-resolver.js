@@ -1,11 +1,11 @@
 import { isSet, getType } from './utils'
-import ArrayInstance from './types/array'
-import BooleanInstance from './types/boolean'
-import ObjectInstance from './types/object'
-import StringInstance from './types/string'
-import MultipleInstance from './types/multiple'
-import NumberInstance from './types/number'
-import NullInstance from './types/null'
+import ArrayInstance from './instances/array'
+import BooleanInstance from './instances/boolean'
+import ObjectInstance from './instances/object'
+import StringInstance from './instances/string'
+import MultipleInstance from './instances/multiple'
+import NumberInstance from './instances/number'
+import NullInstance from './instances/null'
 import Schema from './schema'
 
 class InstanceResolver {

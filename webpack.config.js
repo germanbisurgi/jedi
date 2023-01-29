@@ -1,5 +1,5 @@
 const path = require('path')
-const deepmerge = require('deepmerge')
+const merge = require('deepmerge')
 
 const common = {
   entry: {
@@ -46,19 +46,19 @@ const common = {
   }
 }
 
-// const dist = deepmerge(common, {
-//   output: {
-//     path: path.resolve(__dirname, 'dist')
-//   }
-// })
+const dist = merge(common, {
+  output: {
+    path: path.resolve(__dirname, 'dist')
+  }
+})
 
-const docs = deepmerge(common, {
+const docs = merge(common, {
   output: {
     path: path.resolve(__dirname, 'docs/js')
   }
 })
 
 module.exports = [
-  // dist,
+  dist,
   docs
 ]

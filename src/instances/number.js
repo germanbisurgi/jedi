@@ -1,4 +1,4 @@
-import Instance from '../instance'
+import Instance from './instance'
 import NumberEnumRadioEditor from '../editors/number-enum-radio'
 import NumberEnumSelectEditor from '../editors/number-enum-select'
 import NumberEditor from '../editors/number'

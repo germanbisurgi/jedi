@@ -1,4 +1,4 @@
-import Instance from '../instance'
+import Instance from './instance'
 import StringEditor from '../editors/string'
 import StringEnumRadioEditor from '../editors/string-enum-radio'
 import StringEnumSelectEditor from '../editors/string-enum-select'

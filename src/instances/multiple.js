@@ -1,4 +1,4 @@
-import Instance from '../instance'
+import Instance from './instance'
 import Schema from '../schema'
 import { isSet, equal, different, mergeDeep } from '../utils'
 import MultipleEditor from '../editors/multiple'

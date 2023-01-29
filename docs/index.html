@@ -23,7 +23,7 @@
                 <legend>Methods</legend>
                 <div class="form-group">
                     <label for="editor-value">Value</label>
-                    <textarea ref="editorValue" class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" ></textarea>
+                    <textarea ref="editorValue" class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;"></textarea>
                 </div>
                 <button class="btn btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
                 <button class="btn btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
@@ -264,7 +264,7 @@
           ],
           options: {
             isEditor: true,
-            container: '#jedi-container',
+            container: document.querySelector('#jedi-container'),
             editableProperties: false,
             alwaysShowErrors: false,
             showRequiredOnly: false,
@@ -274,6 +274,7 @@
         }
       },
       mounted() {
+        this.options.container = document.querySelector('#jedi-container')
         this.switchSchema()
         this.registerThemeStylesheet()
       },

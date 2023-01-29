@@ -1,4 +1,4 @@
-import Instance from '../instance'
+import Instance from './instance'
 import Schema from '../schema'
 import { different, isSet, notSet, getType, isObject } from '../utils'
 import ObjectEditor from '../editors/object'

@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "npm run watch & npm run less & npm run serve",
     "less": "less-watch-compiler ./docs/less ./docs/css main.less",
+    "jest": "jest --config=./tests/jest/jest.config.js",
     "test:bootstrap5": "THEME='bootstrap5' npm run codeceptjs",
     "test:bootstrap4": "THEME='bootstrap4' npm run codeceptjs",
     "test": "THEME='wireframe' npm run codeceptjs",
@@ -43,6 +44,7 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
+    "jest": "^29.4.1",
     "less": "^4.1.2",
     "less-watch-compiler": "^1.16.3",
     "puppeteer": "^13.5.2",

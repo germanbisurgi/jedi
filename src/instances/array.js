@@ -1,4 +1,4 @@
-import Instance from '../instance'
+import Instance from './instance'
 import Schema from '../schema'
 import { getType, clone, isArray } from '../utils'
 import ArrayEditor from '../editors/array'
