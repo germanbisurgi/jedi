@@ -7,6 +7,7 @@ class Editor extends EventEmitter {
     this.instance = instance
     this.theme = new ThemeWireframe()
     this.container = this.theme.getContainer()
+    this.propertiesSlot = this.theme.getPropertiesSlot()
     this.messagesSlot = this.theme.getMessagesSlot()
     this.actionsSlot = this.theme.getActionsSlot()
     this.childEditorsSlot = this.theme.getChildEditorsSlot()

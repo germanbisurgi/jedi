@@ -6,6 +6,7 @@ class Instance extends EventEmitter {
     this.jedi = config.jedi
     this.schema = config.schema
     this.value = config.value || undefined
+    this.isActive = true
     this.path = config.path || 'root'
     this.parent = config.parent || null
     this.childEditors = []
@@ -129,6 +130,20 @@ class Instance extends EventEmitter {
    * Prepare data before building the editor
    */
   prepare () {}
+
+  activate () {
+    if (this.isActive === false) {
+      this.isActive = true
+      this.emit('change')
+    }
+  }
+
+  deactivate () {
+    if (this.isActive === true) {
+      this.isActive = false
+      this.emit('change')
+    }
+  }
 
   /**
    * Destroys the editor, and every reference that it is attached to it.

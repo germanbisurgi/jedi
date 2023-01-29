@@ -20,6 +20,18 @@
         </div>
         <div class="col-12 col-sm-5">
             <fieldset class="card card-body">
+                <legend>Methods</legend>
+                <div class="form-group">
+                    <label for="editor-value">Value</label>
+                    <textarea ref="editorValue" class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" ></textarea>
+                </div>
+                <button class="btn btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
+                <button class="btn btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
+                <button class="btn btn-block" id="enable-editor" @click="enableEditor()">Enable editor</button>
+                <button class="btn btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
+            </fieldset>
+
+            <fieldset class="card card-body">
                 <legend>Options</legend>
 
                 <div class="form-group">
@@ -60,18 +72,6 @@
                     <input type="checkbox" id="showRequiredOnly" v-model="options.showRequiredOnly" @change="initEditor()">
                     <label for="showRequiredOnly">showRequiredOnly</label>
                 </div>
-            </fieldset>
-
-            <fieldset class="card card-body">
-                <legend>Methods</legend>
-                <div class="form-group">
-                    <label for="editor-value">Value</label>
-                    <textarea ref="editorValue" class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;" ></textarea>
-                </div>
-                <button class="btn btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
-                <button class="btn btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
-                <button class="btn btn-block" id="enable-editor" @click="enableEditor()">Enable editor</button>
-                <button class="btn btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
             </fieldset>
         </div>
     </div>
@@ -342,7 +342,7 @@
         },
         async switchSchema() {
           const url = this.$refs.schema.value
-          // const url = './json/editors/string-enum-select.json'
+          // const url = './json/validator/required.json'
           const response = await fetch(url);
           this.options.schema = await response.json()
           this.initEditor()

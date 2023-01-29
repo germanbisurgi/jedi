@@ -8,8 +8,8 @@ Scenario('should have @title and @description', ({ I }) => {
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/array')
   I._waitForElement('.jedi-ready')
-  I.waitForText('Array', 'legend')
-  I.waitForText('Arrays are used for ordered elements. In JSON, each element in an array may be of a different type.')
+  I._waitForText('Array', 'legend')
+  I._waitForText('Arrays are used for ordered elements. In JSON, each element in an array may be of a different type.')
 })
 
 Scenario('should edit items @items', ({ I }) => {

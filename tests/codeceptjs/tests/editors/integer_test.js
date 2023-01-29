@@ -8,6 +8,6 @@ Scenario('should have @title and @description', ({ I }) => {
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/integer')
   I._waitForElement('.jedi-ready')
-  I.waitForText('Integer', 'label')
-  I.waitForText('The integer type is used for integral numbers.')
+  I._waitForText('Integer', 'label')
+  I._waitForText('The integer type is used for integral numbers.')
 })

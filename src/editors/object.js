@@ -4,9 +4,10 @@ import { isSet } from '../utils'
 class ObjectEditor extends Editor {
   build () {
     this.setContainer()
+    this.container.appendChild(this.propertiesSlot)
+    this.container.appendChild(this.actionsSlot)
     this.container.appendChild(this.messagesSlot)
     this.container.appendChild(this.childEditorsSlot)
-    this.container.appendChild(this.actionsSlot)
 
     if (this.instance.jedi.options.editableProperties || this.instance.schema.option('editableProperties')) {
       const label = this.theme.getLabel({
@@ -41,86 +42,52 @@ class ObjectEditor extends Editor {
         input.value = ''
       })
 
-      this.instance.childEditors.forEach((instance) => {
-        const id = 'property-' + instance.getKey()
-
-        const checkboxContainer = this.theme.getCheckboxContainer()
-
-        const label = this.theme.getCheckboxLabel({
-          for: id,
-          textContent: instance.getKey()
-        })
-
-        const checkbox = this.theme.getCheckbox({
-          id: id
-        })
-
-        checkbox.checked = true
-
-        checkbox.addEventListener('change', () => {
-          if (checkbox.checked) {
-
-          } else {
-            this.instance.deleteChildInstance(instance.getKey())
-          }
-        })
-
-        // appends
-        this.actionsSlot.appendChild(checkboxContainer)
-        checkboxContainer.appendChild(checkbox)
-        checkboxContainer.appendChild(label)
-      })
-
       this.actionsSlot.appendChild(label)
       this.actionsSlot.appendChild(input)
       this.actionsSlot.appendChild(addBtn)
     }
   }
 
-  // addChildEditor (schema, key) {
-  //   const editor = this.instance.jedi.createEditor({
-  //     jedi: this.instance.jedi,
-  //     schema: new Schema(schema),
-  //     path: this.instance.path + '.' + key,
-  //     parent: this.instance
-  //   })
-  //
-  //   // removeBtn
-  //   const notRequired = !this.instance.isRequired(key)
-  //   const notDependentRequired = !this.instance.isDependentRequired(key)
-  //   const editableProperties = this.instance.jedi.options.editableProperties || this.instance.schema.option('editableProperties')
-  //
-  //   if (notRequired && notDependentRequired && editableProperties) {
-  //     const removeBtn = this.theme.getButton({
-  //       textContent: 'Remove property'
-  //     })
-  //     editor.container.appendChild(removeBtn)
-  //     removeBtn.addEventListener('click', () => {
-  //       delete this.instance.value[key]
-  //       this.instance.setValue(this.instance.value)
-  //     })
-  //   }
-  //
-  //   this.instance.childEditors.push(editor)
-  //   this.instance.value[key] = editor.getValue()
-  // }
-
-  refreshUI () {
-    const value = this.instance.getValue()
-
-    Object.keys(value).forEach((key) => {
-      const childEditor = this.instance.getChildInstance(key)
-
-      this.childEditorsSlot.appendChild(childEditor.ui.container)
-
-      if (childEditor) {
-        if (this.disabled) {
-          childEditor.ui.disable()
-        } else {
-          childEditor.ui.enable()
-        }
+  refreshProperties () {
+    if (this.instance.jedi.options.editableProperties || this.instance.schema.option('editableProperties')) {
+      while (this.propertiesSlot.firstChild) {
+        this.propertiesSlot.removeChild(this.propertiesSlot.lastChild)
       }
-    })
+
+      this.instance.childEditors.forEach((childInstance) => {
+        const id = childInstance.path + '-activator'
+
+        const checkboxContainer = this.theme.getCheckboxContainer()
+
+        const label = this.theme.getCheckboxLabel({
+          for: id,
+          textContent: childInstance.schema.title() ? childInstance.schema.title() : childInstance.getKey()
+        })
+
+        const checkbox = this.theme.getCheckbox({
+          id: id
+        })
+
+        checkbox.checked = Object.hasOwn(this.instance.getValue(), childInstance.getKey())
+
+        const isRequired = this.instance.isRequired(childInstance.getKey())
+        const isDependentRequired = this.instance.isDependentRequired(childInstance.getKey())
+        checkbox.disabled = isRequired || isDependentRequired
+
+        checkbox.addEventListener('change', () => {
+          if (checkbox.checked) {
+            childInstance.activate()
+          } else {
+            childInstance.deactivate()
+          }
+        })
+
+        // appends
+        this.propertiesSlot.appendChild(checkboxContainer)
+        checkboxContainer.appendChild(checkbox)
+        checkboxContainer.appendChild(label)
+      })
+    }
   }
 
   setContainer () {
@@ -138,6 +105,35 @@ class ObjectEditor extends Editor {
         textContent: this.instance.schema.description()
       }))
     }
+  }
+
+  refreshEditors () {
+    while (this.childEditorsSlot.firstChild) {
+      this.childEditorsSlot.removeChild(this.childEditorsSlot.lastChild)
+    }
+
+    const value = this.instance.getValue()
+
+    Object.keys(value).forEach((key) => {
+      const childInstance = this.instance.getChildInstance(key)
+
+      if (childInstance.isActive) {
+        this.childEditorsSlot.appendChild(childInstance.ui.container)
+
+        if (childInstance) {
+          if (this.disabled) {
+            childInstance.ui.disable()
+          } else {
+            childInstance.ui.enable()
+          }
+        }
+      }
+    })
+  }
+
+  refreshUI () {
+    this.refreshProperties()
+    this.refreshEditors()
   }
 }
 

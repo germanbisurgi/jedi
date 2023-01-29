@@ -51,8 +51,6 @@ class Jedi extends EventEmitter {
     this.root.on('change', () => {
       this.emit('change')
     })
-
-    console.table(this.editors)
   }
 
   appendHiddenInput () {

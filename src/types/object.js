@@ -99,16 +99,6 @@ class ObjectInstance extends Instance {
     }
   }
 
-  onChildEditorChange () {
-    const value = {}
-
-    this.childEditors.forEach((instance) => {
-      value[instance.getKey()] = instance.getValue()
-    })
-
-    this.setValue(value)
-  }
-
   getChildInstance (key) {
     return this.childEditors.find((instance) => {
       return key === instance.getKey().split('.').pop()
@@ -123,6 +113,28 @@ class ObjectInstance extends Instance {
     return {}
   }
 
+  onChildEditorChange () {
+    const value = {}
+
+    this.childEditors.forEach((instance) => {
+      if (instance.isActive) {
+        value[instance.getKey()] = instance.getValue()
+      }
+    })
+
+    this.setValue(value)
+  }
+
+  hasProperty (propertyName) {
+    const properties = this.schema.properties()
+
+    if (!properties) {
+      return false
+    }
+
+    return Object.keys(properties).includes(propertyName)
+  }
+
   onSetValue () {
     const value = this.getValue()
 
@@ -131,7 +143,11 @@ class ObjectInstance extends Instance {
       const instance = this.childEditors[i]
       const key = instance.getKey()
       if (notSet(value[key])) {
-        this.deleteChildInstance(key)
+        if (this.hasProperty(key)) {
+          instance.deactivate()
+        } else {
+          this.deleteChildInstance(key)
+        }
       }
     }
 

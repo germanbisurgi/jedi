@@ -8,6 +8,6 @@ Scenario('should have @title and @description', ({ I }) => {
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/string')
   I._waitForElement('.jedi-ready')
-  I.waitForText('String', 'label')
-  I.waitForText('The string type is used for strings of text. It may contain Unicode characters.')
+  I._waitForText('String', 'label')
+  I._waitForText('The string type is used for strings of text. It may contain Unicode characters.')
 })

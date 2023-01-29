@@ -16,7 +16,7 @@ Scenario('Should create all kind of editors @create', ({ I }) => {
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
-  I.waitForText('Editor', 'h3')
+  I._waitForText('Editor', 'h1')
   I._waitForElement('[data-path="root"]')
   I._waitForElement('[data-path="root.booleans"]')
   I._waitForElement('[data-path="root.booleans.boolean"]')

@@ -8,6 +8,6 @@ Scenario('should have @title and @description', ({ I }) => {
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/number')
   I._waitForElement('.jedi-ready')
-  I.waitForText('Number', 'label')
-  I.waitForText('The number type is used for any numeric type, either integers or floating point numbers.')
+  I._waitForText('Number', 'label')
+  I._waitForText('The number type is used for any numeric type, either integers or floating point numbers.')
 })

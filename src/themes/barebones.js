@@ -6,16 +6,22 @@ class ThemeBarebones {
     return error
   }
 
+  getPropertiesSlot () {
+    const slot = document.createElement('div')
+    slot.classList.add('jedi-properties-slot')
+    return slot
+  }
+
   getActionsSlot () {
-    const actionsSlot = document.createElement('div')
-    actionsSlot.classList.add('jedi-actions-slot')
-    return actionsSlot
+    const slot = document.createElement('div')
+    slot.classList.add('jedi-actions-slot')
+    return slot
   }
 
   getChildEditorsSlot () {
-    const childEditorsSlot = document.createElement('div')
-    childEditorsSlot.classList.add('jedi-child-editors-slot')
-    return childEditorsSlot
+    const slot = document.createElement('div')
+    slot.classList.add('jedi-child-editors-slot')
+    return slot
   }
 
   getBtnGroup () {
