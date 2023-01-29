@@ -76,13 +76,9 @@ class Editor extends EventEmitter {
       this.container.parentNode.removeChild(this.container)
     }
 
-    for (const key in this) {
-      if (!Object.hasOwn(this, key)) {
-        continue
-      }
-
+    Object.keys(this).forEach((key) => {
       delete this[key]
-    }
+    })
   }
 }
 

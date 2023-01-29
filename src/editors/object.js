@@ -1,5 +1,4 @@
 import Editor from './editor'
-import Schema from '../schema'
 import { isSet } from '../utils'
 
 class ObjectEditor extends Editor {
@@ -9,7 +8,6 @@ class ObjectEditor extends Editor {
     this.container.appendChild(this.childEditorsSlot)
     this.container.appendChild(this.actionsSlot)
 
-    // addBtn
     if (this.instance.jedi.options.editableProperties || this.instance.schema.option('editableProperties')) {
       const label = this.theme.getLabel({
         textContent: 'Property Name',
@@ -38,55 +36,79 @@ class ObjectEditor extends Editor {
           return
         }
 
-        this.instance.addChildEditor({ type: 'any' }, key)
+        this.instance.createChildInstance({ type: 'any' }, key)
         this.instance.setValue(this.instance.value)
         input.value = ''
-
-        this.container.appendChild(label)
-        this.container.appendChild(input)
       })
 
-      this.container.appendChild(addBtn)
+      this.instance.childEditors.forEach((instance) => {
+        const id = 'property-' + instance.getKey()
+
+        const checkboxContainer = this.theme.getCheckboxContainer()
+
+        const label = this.theme.getCheckboxLabel({
+          for: id,
+          textContent: instance.getKey()
+        })
+
+        const checkbox = this.theme.getCheckbox({
+          id: id
+        })
+
+        checkbox.checked = true
+
+        checkbox.addEventListener('change', () => {
+          if (checkbox.checked) {
+
+          } else {
+            this.instance.deleteChildInstance(instance.getKey())
+          }
+        })
+
+        // appends
+        this.actionsSlot.appendChild(checkboxContainer)
+        checkboxContainer.appendChild(checkbox)
+        checkboxContainer.appendChild(label)
+      })
+
+      this.actionsSlot.appendChild(label)
+      this.actionsSlot.appendChild(input)
+      this.actionsSlot.appendChild(addBtn)
     }
   }
 
-  // todo refactor this still not used method
-  addChildEditor (schema, key) {
-    const editor = this.instance.jedi.createEditor({
-      jedi: this.instance.jedi,
-      schema: new Schema(schema),
-      path: this.instance.path + '.' + key,
-      parent: this.instance
-    })
-
-    // removeBtn
-    const notRequired = !this.instance.isRequired(key)
-    const notDependentRequired = !this.instance.isDependentRequired(key)
-    const editableProperties = this.instance.jedi.options.editableProperties || this.instance.schema.option('editableProperties')
-
-    if (notRequired && notDependentRequired && editableProperties) {
-      const removeBtn = this.theme.getButton({
-        textContent: 'Remove property'
-      })
-      editor.container.appendChild(removeBtn)
-      removeBtn.addEventListener('click', () => {
-        delete this.instance.value[key]
-        this.instance.setValue(this.instance.value)
-      })
-    }
-
-    this.instance.childEditors.push(editor)
-    this.instance.value[key] = editor.getValue()
-  }
+  // addChildEditor (schema, key) {
+  //   const editor = this.instance.jedi.createEditor({
+  //     jedi: this.instance.jedi,
+  //     schema: new Schema(schema),
+  //     path: this.instance.path + '.' + key,
+  //     parent: this.instance
+  //   })
+  //
+  //   // removeBtn
+  //   const notRequired = !this.instance.isRequired(key)
+  //   const notDependentRequired = !this.instance.isDependentRequired(key)
+  //   const editableProperties = this.instance.jedi.options.editableProperties || this.instance.schema.option('editableProperties')
+  //
+  //   if (notRequired && notDependentRequired && editableProperties) {
+  //     const removeBtn = this.theme.getButton({
+  //       textContent: 'Remove property'
+  //     })
+  //     editor.container.appendChild(removeBtn)
+  //     removeBtn.addEventListener('click', () => {
+  //       delete this.instance.value[key]
+  //       this.instance.setValue(this.instance.value)
+  //     })
+  //   }
+  //
+  //   this.instance.childEditors.push(editor)
+  //   this.instance.value[key] = editor.getValue()
+  // }
 
   refreshUI () {
     const value = this.instance.getValue()
 
-    for (const key in value) {
-      if (!Object.hasOwn(value, key)) {
-        continue
-      }
-
+    Object.keys(value).forEach((key) => {
       const childEditor = this.instance.getChildInstance(key)
 
       this.childEditorsSlot.appendChild(childEditor.ui.container)
@@ -98,7 +120,7 @@ class ObjectEditor extends Editor {
           childEditor.ui.enable()
         }
       }
-    }
+    })
   }
 
   setContainer () {

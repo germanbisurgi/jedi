@@ -1,11 +1,13 @@
 ## Todo
 
 - fixes:
+    - refresh ui
     - object editor properties buttons
     - array editor item buttons
     - themes
     - array validator undefined
     - max deep ref parser
+    - object editor disable state
 
 - architecture:
     - instance
@@ -27,6 +29,7 @@
     - dereference schema first and the initialize editor
     
 - tests:
+    - object edit checkbox
     - sr-only titles
     - multiple
 

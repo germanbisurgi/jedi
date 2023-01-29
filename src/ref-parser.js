@@ -39,13 +39,9 @@ class RefParser {
       if (isSet(value['$ref']) && isSet(thing)) {
         thing[index] = this.define(value['$ref'])
       } else {
-        for (const index in value) {
-          if (!Object.hasOwn(value, index)) {
-            continue
-          }
-
+        Object.keys(value).forEach((index) => {
           this.traverse(value[index], value, index)
-        }
+        })
       }
     }
 

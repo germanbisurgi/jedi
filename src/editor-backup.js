@@ -205,13 +205,9 @@ class Editor {
 
     this.unregister()
 
-    for (const key in this) {
-      if (!Object.hasOwn(this, key)) {
-        continue
-      }
-
+    Object.keys(this).forEach((key) => {
       delete this[key]
-    }
+    })
   }
 }
 

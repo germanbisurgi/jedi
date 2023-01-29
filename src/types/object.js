@@ -9,36 +9,34 @@ class ObjectInstance extends Instance {
   }
 
   prepare () {
+    // if (this.schema.properties()) {
+    //   Object.keys(this.schema.properties()).forEach((key) => {
+    //     const showRequiredOnly = this.jedi.options.showRequiredOnly || this.schema.option('showRequiredOnly')
+    //     const isNotRequired = !this.schema.required() || !this.schema.required().includes(key)
+    //
+    //     if (showRequiredOnly && isNotRequired) {
+    //       // do nothing
+    //     } else {
+    //       const schema = this.schema.property(key)
+    //       this.createChildInstance(schema, key)
+    //     }
+    //   })
+    //
+    //   // Add dependent required properties
+    //
+    //   Object.keys(this.schema.properties()).forEach((key) => {
+    //     if (this.isDependentRequired(key)) {
+    //       const schema = this.schema.property(key)
+    //       this.createChildInstance(schema, key)
+    //     }
+    //   })
+    // }
+
     if (this.schema.properties()) {
-      for (const key in this.schema.properties()) {
-        if (!Object.hasOwn(this.schema.properties(), key)) {
-          continue
-        }
-
-        const showRequiredOnly = this.jedi.options.showRequiredOnly || this.schema.option('showRequiredOnly')
-        const isNotRequired = !this.schema.required() || !this.schema.required().includes(key)
-
-        if (showRequiredOnly && isNotRequired) {
-          continue
-        }
-
+      Object.keys(this.schema.properties()).forEach((key) => {
         const schema = this.schema.property(key)
         this.createChildInstance(schema, key)
-      }
-    }
-
-    // Add dependent required properties
-    if (this.schema.properties()) {
-      for (const key in this.schema.properties()) {
-        if (!Object.hasOwn(this.schema.properties(), key)) {
-          continue
-        }
-
-        if (this.isDependentRequired(key)) {
-          const schema = this.schema.property(key)
-          this.createChildInstance(schema, key)
-        }
-      }
+      })
     }
 
     this.on('set-value', () => {
@@ -96,6 +94,7 @@ class ObjectInstance extends Instance {
       if (instance.getKey() === key) {
         instance.destroy()
         this.childEditors.splice(i, 1)
+        this.onChildEditorChange()
       }
     }
   }
@@ -136,11 +135,7 @@ class ObjectInstance extends Instance {
       }
     }
 
-    for (const key in value) {
-      if (!Object.hasOwn(value, key)) {
-        continue
-      }
-
+    Object.keys(value).forEach((key) => {
       const childInstance = this.getChildInstance(key)
 
       // If a value has a already a child instance
@@ -164,7 +159,7 @@ class ObjectInstance extends Instance {
 
         this.createChildInstance(schema, key)
       }
-    }
+    })
   }
 }
 
