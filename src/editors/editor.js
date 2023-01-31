@@ -1,17 +1,21 @@
 import EventEmitter from '../event-emitter'
 import ThemeWireframe from '../themes/wireframe'
+import ThemeBootstrap4 from '../themes/bootstrap4'
+import ThemeBootstrap5 from '../themes/bootstrap5'
+import ThemeBarebones from '../themes/barebones'
 
 class Editor extends EventEmitter {
   constructor (instance) {
     super()
     this.instance = instance
-    this.theme = new ThemeWireframe()
-    this.container = this.theme.getContainer()
-    this.propertiesSlot = this.theme.getPropertiesSlot()
-    this.messagesSlot = this.theme.getMessagesSlot()
-    this.actionsSlot = this.theme.getActionsSlot()
-    this.childEditorsSlot = this.theme.getChildEditorsSlot()
+    this.theme = null
+    this.container = null
+    this.propertiesSlot = null
+    this.messagesSlot = null
+    this.actionsSlot = null
+    this.childEditorsSlot = null
     this.disabled = false
+    this.init()
     this.build()
     this.setContainerAttributes()
     this.refreshUI()
@@ -27,6 +31,30 @@ class Editor extends EventEmitter {
     this.instance.on('change', () => {
       this.showValidationErrors()
     })
+  }
+
+  init () {
+    switch (this.instance.jedi.options.theme) {
+      case 'wireframe':
+        this.theme = new ThemeWireframe()
+        break
+      case 'bootstrap4':
+        this.theme = new ThemeBootstrap4()
+        break
+      case 'bootstrap5':
+        this.theme = new ThemeBootstrap5()
+        break
+      case 'barebones':
+        this.theme = new ThemeBarebones()
+        break
+      default:
+        this.theme = new ThemeBarebones()
+    }
+    this.container = this.theme.getContainer()
+    this.propertiesSlot = this.theme.getPropertiesSlot()
+    this.messagesSlot = this.theme.getMessagesSlot()
+    this.actionsSlot = this.theme.getActionsSlot()
+    this.childEditorsSlot = this.theme.getChildEditorsSlot()
   }
 
   setContainerAttributes () {
