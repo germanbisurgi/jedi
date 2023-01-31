@@ -12,7 +12,7 @@ Scenario('should have @title and @description', ({ I }) => {
   I._waitForText('Objects are the mapping type in JSON. They map “keys” to “values”. In JSON, the “keys” must always be strings. Each of these pairs is conventionally referred to as a “property”.')
 })
 
-Scenario('should edit properties @editableProperties', ({ I }) => {
+Scenario('should add properties @editableProperties', ({ I }) => {
   I.amOnPage('index.html')
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/object')
@@ -26,4 +26,19 @@ Scenario('should edit properties @editableProperties', ({ I }) => {
   I._waitForElement('[id="root.test"]')
   I.click('[id="root.test-activator"]')
   I.dontSee('[id="root.test"]')
+})
+
+Scenario('should activate and deactivate properties @editableProperties', ({ I }) => {
+  I.amOnPage('index.html')
+  I.fillField('#theme', theme)
+  I.fillField('#schemas', 'editors/object')
+  I._waitForElement('.jedi-ready')
+  I._waitForElement('[id="root.required-activator"]:disabled')
+  I._waitForElement('[id="root.notRequired-activator"]:not(:disabled)')
+  I._waitForElement('[id="root.required"]')
+  I._waitForElement('[id="root.notRequired"]')
+  I.click('[id="root.notRequired-activator"]')
+  I.dontSee('[id="root.notRequired"]')
+  I.click('[id="root.notRequired-activator"]')
+  I._waitForElement('[id="root.notRequired"]')
 })

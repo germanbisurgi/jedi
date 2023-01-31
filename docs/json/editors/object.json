@@ -2,7 +2,19 @@
   "type": "object",
   "title": "Object",
   "description": "Objects are the mapping type in JSON. They map “keys” to “values”. In JSON, the “keys” must always be strings. Each of these pairs is conventionally referred to as a “property”.",
-  "properties": {},
+  "required": [
+    "required"
+  ],
+  "properties": {
+    "required": {
+      "title": "Required",
+      "type": "string"
+    },
+    "notRequired": {
+      "title": "Not required",
+      "type": "string"
+    }
+  },
   "options": {
     "editableProperties": true
   }

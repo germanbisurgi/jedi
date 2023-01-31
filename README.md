@@ -14,13 +14,12 @@
     - destroy intermediate editors (validator)
     - array
     - themes
-    - opt-out sanitize
+    - sanitizeValues : true
     - json-schema-tools
     - browser and node Lib
     - dereference schema first and the initialize editor
     
 - tests:
-    - object edit checkbox
     - sr-only titles
     - multiple
 
@@ -41,7 +40,7 @@
     - array enums
     - array tuple 
     - plugins examples
-    - accessibility states
+    - improve accessibility in themes
     - collapse
 
 ## Resources
