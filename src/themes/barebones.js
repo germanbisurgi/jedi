@@ -6,7 +6,7 @@ class ThemeBarebones {
     return error
   }
 
-  getPropertiesSlot () {
+  getActivatorsSlot () {
     const slot = document.createElement('div')
     slot.classList.add('jedi-properties-slot')
     return slot
@@ -18,7 +18,7 @@ class ThemeBarebones {
     return slot
   }
 
-  getChildEditorsSlot () {
+  getChildrenSlot () {
     const slot = document.createElement('div')
     slot.classList.add('jedi-child-editors-slot')
     return slot

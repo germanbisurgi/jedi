@@ -4,10 +4,10 @@ import { isSet } from '../utils'
 class ObjectEditor extends Editor {
   build () {
     this.setContainer()
-    this.container.appendChild(this.propertiesSlot)
+    this.container.appendChild(this.activatorsSlot)
     this.container.appendChild(this.actionsSlot)
     this.container.appendChild(this.messagesSlot)
-    this.container.appendChild(this.childEditorsSlot)
+    this.container.appendChild(this.childrenSlot)
 
     const label = this.theme.getLabel({
       textContent: 'Property Name',
@@ -48,35 +48,35 @@ class ObjectEditor extends Editor {
     }
   }
 
-  refreshProperties () {
+  refreshActivators () {
     if (this.instance.jedi.options.editableProperties || this.instance.schema.option('editableProperties')) {
-      while (this.propertiesSlot.firstChild) {
-        this.propertiesSlot.removeChild(this.propertiesSlot.lastChild)
+      while (this.activatorsSlot.firstChild) {
+        this.activatorsSlot.removeChild(this.activatorsSlot.lastChild)
       }
 
       this.instance.children.forEach((child) => {
-        const id = child.path + '-activator'
+        const activatorId = child.path + '-activator'
 
-        const checkboxContainer = this.theme.getCheckboxContainer()
+        const activatorContainer = this.theme.getCheckboxContainer()
 
-        const label = this.theme.getCheckboxLabel({
-          for: id,
+        const activatorLabel = this.theme.getCheckboxLabel({
+          for: activatorId,
           textContent: child.schema.title() ? child.schema.title() : child.getKey()
         })
 
-        const checkbox = this.theme.getCheckbox({
-          id: id
+        const activatorInput = this.theme.getCheckbox({
+          id: activatorId
         })
 
-        checkbox.checked = Object.hasOwn(this.instance.getValue(), child.getKey())
+        activatorInput.checked = Object.hasOwn(this.instance.getValue(), child.getKey())
 
         const isRequired = this.instance.isRequired(child.getKey())
         const isDependentRequired = this.instance.isDependentRequired(child.getKey())
         const disabled = this.disabled
-        checkbox.disabled = isRequired || isDependentRequired || disabled
+        activatorInput.disabled = isRequired || isDependentRequired || disabled
 
-        checkbox.addEventListener('change', () => {
-          if (checkbox.checked) {
+        activatorInput.addEventListener('change', () => {
+          if (activatorInput.checked) {
             child.activate()
           } else {
             child.deactivate()
@@ -84,9 +84,9 @@ class ObjectEditor extends Editor {
         })
 
         // appends
-        this.propertiesSlot.appendChild(checkboxContainer)
-        checkboxContainer.appendChild(checkbox)
-        checkboxContainer.appendChild(label)
+        this.activatorsSlot.appendChild(activatorContainer)
+        activatorContainer.appendChild(activatorInput)
+        activatorContainer.appendChild(activatorLabel)
       })
     }
   }
@@ -109,8 +109,8 @@ class ObjectEditor extends Editor {
   }
 
   refreshEditors () {
-    while (this.childEditorsSlot.firstChild) {
-      this.childEditorsSlot.removeChild(this.childEditorsSlot.lastChild)
+    while (this.childrenSlot.firstChild) {
+      this.childrenSlot.removeChild(this.childrenSlot.lastChild)
     }
 
     const value = this.instance.getValue()
@@ -119,7 +119,7 @@ class ObjectEditor extends Editor {
       const child = this.instance.getChild(key)
 
       if (child.isActive) {
-        this.childEditorsSlot.appendChild(child.ui.container)
+        this.childrenSlot.appendChild(child.ui.container)
 
         if (child) {
           if (this.disabled) {
@@ -133,7 +133,7 @@ class ObjectEditor extends Editor {
   }
 
   refreshUI () {
-    this.refreshProperties()
+    this.refreshActivators()
     this.refreshEditors()
 
     if (this.disabled) {

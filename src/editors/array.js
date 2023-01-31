@@ -8,7 +8,7 @@ class ArrayEditor extends Editor {
   build () {
     this.setContainer()
     this.container.appendChild(this.messagesSlot)
-    this.container.appendChild(this.childEditorsSlot)
+    this.container.appendChild(this.childrenSlot)
     this.container.appendChild(this.actionsSlot)
 
     // btn group
@@ -155,7 +155,7 @@ class ArrayEditor extends Editor {
     })
 
     this.instance.children.forEach((child) => {
-      this.childEditorsSlot.appendChild(child.ui.container)
+      this.childrenSlot.appendChild(child.ui.container)
     })
 
     if (this.disabled) {

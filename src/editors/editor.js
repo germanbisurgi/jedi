@@ -10,17 +10,17 @@ class Editor extends EventEmitter {
     this.instance = instance
     this.theme = null
     this.container = null
-    this.propertiesSlot = null
+    this.activatorsSlot = null
     this.messagesSlot = null
     this.actionsSlot = null
-    this.childEditorsSlot = null
+    this.childrenSlot = null
     this.disabled = false
     this.init()
     this.build()
     this.setContainerAttributes()
     this.refreshUI()
 
-    if (this.instance.jedi.ready || this.instance.jedi.options.alwaysShowErrors || this.instance.schema.option('alwaysShowErrors')) {
+    if (this.instance.jedi.options.alwaysShowErrors || this.instance.schema.option('alwaysShowErrors')) {
       this.showValidationErrors()
     }
 
@@ -51,10 +51,10 @@ class Editor extends EventEmitter {
         this.theme = new ThemeBarebones()
     }
     this.container = this.theme.getContainer()
-    this.propertiesSlot = this.theme.getPropertiesSlot()
+    this.activatorsSlot = this.theme.getActivatorsSlot()
     this.messagesSlot = this.theme.getMessagesSlot()
     this.actionsSlot = this.theme.getActionsSlot()
-    this.childEditorsSlot = this.theme.getChildEditorsSlot()
+    this.childrenSlot = this.theme.getChildrenSlot()
   }
 
   setContainerAttributes () {
