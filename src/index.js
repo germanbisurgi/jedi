@@ -1,6 +1,6 @@
 import InstanceResolver from './instance-resolver'
 import Schema from './schema'
-import Validator from './validator'
+import Validator from './validation/validator'
 import RefParser from './ref-parser'
 import EventEmitter from './event-emitter'
 

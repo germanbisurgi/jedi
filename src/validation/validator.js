@@ -1,6 +1,6 @@
-import Schema from './schema'
-import Jedi from './index'
-import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isSet, isString } from './utils'
+import Schema from '../schema'
+import Jedi from '../index'
+import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isSet, isString } from '../utils'
 
 class Validator {
   constructor () {
