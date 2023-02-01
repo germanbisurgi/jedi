@@ -343,7 +343,7 @@
         },
         async switchSchema() {
           const url = this.$refs.schema.value
-          // const url = './json/validator/required.json'
+          // const url = './json/editors/array.json'
           const response = await fetch(url);
           this.options.schema = await response.json()
           this.initEditor()

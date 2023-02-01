@@ -108,12 +108,11 @@ class Instance extends EventEmitter {
   setValue (newValue, triggersChange = true) {
     newValue = this.sanitize(newValue)
     this.value = newValue
+    this.emit('set-value')
 
     if (triggersChange) {
       this.emit('change')
     }
-
-    this.emit('set-value')
   }
 
   /**
