@@ -174,7 +174,7 @@
       "properties": {
         "string-array": {
           "type": "array",
-          "title": "Color",
+          "title": "Colors",
           "items": {
             "type": "string",
             "title": "Color",
