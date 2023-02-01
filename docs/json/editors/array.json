@@ -3,6 +3,12 @@
   "title": "Array",
   "description": "Arrays are used for ordered elements. In JSON, each element in an array may be of a different type.",
   "items": {
-    "type": "string"
-  }
+    "type": "string",
+    "title": "Color",
+    "format": "color"
+  },
+  "default": [
+    "#e8f3ee",
+    "#fff9e6"
+  ]
 }

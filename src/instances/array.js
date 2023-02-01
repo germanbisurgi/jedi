@@ -1,6 +1,6 @@
 import Instance from './instance'
 import Schema from '../schema'
-import { getType, clone, isArray } from '../utils'
+import { getType, isSet, clone, isArray } from '../utils'
 import ArrayEditor from '../editors/array'
 
 class ArrayInstance extends Instance {
@@ -8,15 +8,29 @@ class ArrayInstance extends Instance {
     this.ui = new ArrayEditor(this)
   }
 
+  prepare () {
+    this.refreshChildren()
+
+    this.on('set-value', () => {
+      this.refreshChildren()
+    })
+  }
+
   createItemInstance (value) {
     const schema = this.schema.items() ? this.schema.items() : { type: getType(value) }
 
-    return this.jedi.createInstance({
+    const child = this.jedi.createInstance({
       jedi: this.jedi,
       schema: new Schema(schema),
       path: this.path + '.' + this.children.length,
       parent: this
     })
+
+    if (isSet(value)) {
+      child.setValue(value, false)
+    }
+
+    return child
   }
 
   move (fromIndex, toIndex) {
@@ -49,6 +63,21 @@ class ArrayInstance extends Instance {
     })
 
     this.setValue(value)
+  }
+
+  refreshChildren () {
+    this.children.forEach((child) => {
+      child.destroy()
+    })
+
+    this.children = []
+
+    const value = this.getValue()
+
+    value.forEach((itemValue) => {
+      const child = this.createItemInstance(itemValue)
+      this.children.push(child)
+    })
   }
 
   sanitize (value) {

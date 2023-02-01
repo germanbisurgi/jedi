@@ -47,14 +47,16 @@ class MultipleEditor extends Editor {
 
     this.container.appendChild(this.instance.activeEditor.ui.container)
 
+    const buttons = this.container.querySelectorAll('button')
+
     if (this.disabled) {
       this.instance.activeEditor.ui.disable()
-      this.switcherButtons.forEach((button) => {
+      buttons.forEach((button) => {
         button.disabled = true
       })
     } else {
       this.instance.activeEditor.ui.enable()
-      this.switcherButtons.forEach((button) => {
+      buttons.forEach((button) => {
         button.disabled = false
       })
     }

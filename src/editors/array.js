@@ -1,8 +1,6 @@
 /* global confirm */
 
 import Editor from './editor'
-import Schema from '../schema'
-import { getType, clone } from '../utils'
 
 class ArrayEditor extends Editor {
   build () {
@@ -56,94 +54,61 @@ class ArrayEditor extends Editor {
     }
   }
 
-  createItemInstance (value) {
-    const schema = this.instance.schema.items() ? this.instance.schema.items() : { type: getType(value) }
-    const itemSchema = new Schema(schema)
-
-    const itemEditor = this.instance.jedi.createInstance({
-      jedi: this.instance.jedi,
-      schema: itemSchema,
-      path: this.instance.path + '.' + this.instance.children.length,
-      parent: this.instance
-    })
-
-    const btnGroup = this.theme.getBtnGroup()
-    const itemIndex = Number(itemEditor.getKey())
-
-    // delete
-    const deleteBtn = this.theme.getButton({
-      textContent: 'Delete item'
-    })
-
-    deleteBtn.addEventListener('click', () => {
-      const itemIndex = Number(itemEditor.path.split('.').pop())
-      this.instance.deleteItem(itemIndex)
-    })
-
-    btnGroup.appendChild(deleteBtn)
-
-    // move up
-    if (this.instance.children.length !== 0) {
-      const moveUpBtn = this.theme.getButton({
-        textContent: 'Move up'
-      })
-
-      moveUpBtn.addEventListener('click', () => {
-        const toIndex = itemIndex - 1
-        this.instance.move(itemIndex, toIndex)
-      })
-
-      btnGroup.appendChild(moveUpBtn)
-    }
-
-    // move down
-    if (this.instance.getValue().length - 1 !== itemIndex) {
-      const moveDownBtn = this.theme.getButton({
-        textContent: 'Move down'
-      })
-
-      moveDownBtn.addEventListener('click', () => {
-        const toIndex = itemIndex + 1
-        this.instance.move(itemIndex, toIndex)
-      })
-
-      btnGroup.appendChild(moveDownBtn)
-    }
-
-    itemEditor.ui.container.appendChild(itemEditor.ui.actionsSlot)
-    itemEditor.ui.actionsSlot.appendChild(btnGroup)
-
-    return itemEditor
-  }
-
-  move (fromIndex, toIndex) {
-    const value = clone(this.instance.getValue())
-    const item = value[fromIndex]
-    value.splice(fromIndex, 1)
-    value.splice(toIndex, 0, item)
-    this.instance.setValue(value)
-  }
-
   refreshUI () {
-    const value = this.instance.getValue()
-
     this.instance.children.forEach((child) => {
-      child.destroy()
-    })
+      child.ui.container.appendChild(child.ui.actionsSlot)
+      this.childrenSlot.appendChild(child.ui.container)
 
-    this.instance.children = []
+      while (child.ui.actionsSlot.firstChild) {
+        child.ui.actionsSlot.removeChild(child.ui.actionsSlot.lastChild)
+      }
 
-    value.forEach((itemValue) => {
-      const child = this.createItemInstance(itemValue)
-      child.setValue(itemValue, false)
-      this.instance.children.push(child)
+      const btnGroup = this.theme.getBtnGroup()
+      const itemIndex = Number(child.getKey())
 
-      let buttons = Array.from(this.container.querySelectorAll('button'))
-
-      this.instance.children.forEach((child) => {
-        const childButtons = Array.from(child.ui.container.querySelectorAll('button'))
-        buttons = buttons.concat(childButtons)
+      // delete
+      const deleteBtn = this.theme.getButton({
+        textContent: 'Delete item'
       })
+
+      deleteBtn.addEventListener('click', () => {
+        const itemIndex = Number(child.path.split('.').pop())
+        this.instance.deleteItem(itemIndex)
+      })
+
+      btnGroup.appendChild(deleteBtn)
+
+      // move up
+      if (this.instance.children.length !== 0) {
+        const moveUpBtn = this.theme.getButton({
+          textContent: 'Move up'
+        })
+
+        moveUpBtn.addEventListener('click', () => {
+          const toIndex = itemIndex - 1
+          this.instance.move(itemIndex, toIndex)
+        })
+
+        btnGroup.appendChild(moveUpBtn)
+      }
+
+      // move down
+      if (this.instance.getValue().length - 1 !== itemIndex) {
+        const moveDownBtn = this.theme.getButton({
+          textContent: 'Move down'
+        })
+
+        moveDownBtn.addEventListener('click', () => {
+          const toIndex = itemIndex + 1
+          this.instance.move(itemIndex, toIndex)
+        })
+
+        btnGroup.appendChild(moveDownBtn)
+      }
+
+      child.ui.actionsSlot.appendChild(btnGroup)
+
+      const buttons = this.container.querySelectorAll('button')
 
       if (this.disabled) {
         child.ui.disable()
@@ -157,18 +122,6 @@ class ArrayEditor extends Editor {
         })
       }
     })
-
-    this.instance.children.forEach((child) => {
-      this.childrenSlot.appendChild(child.ui.container)
-    })
-
-    if (this.disabled) {
-      this.addBtn.setAttribute('disabled', 'disabled')
-      this.deleteAllBtn.setAttribute('disabled', 'disabled')
-    } else {
-      this.addBtn.removeAttribute('disabled')
-      this.deleteAllBtn.removeAttribute('disabled')
-    }
   }
 }
 
