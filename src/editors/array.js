@@ -70,6 +70,7 @@ class ArrayEditor extends Editor {
     const btnGroup = this.theme.getBtnGroup()
     const itemIndex = Number(itemEditor.getKey())
 
+    // delete
     const deleteBtn = this.theme.getButton({
       textContent: 'Delete item'
     })
@@ -79,6 +80,9 @@ class ArrayEditor extends Editor {
       this.instance.deleteItem(itemIndex)
     })
 
+    btnGroup.appendChild(deleteBtn)
+
+    // move up
     if (this.instance.children.length !== 0) {
       const moveUpBtn = this.theme.getButton({
         textContent: 'Move up'
@@ -92,6 +96,7 @@ class ArrayEditor extends Editor {
       btnGroup.appendChild(moveUpBtn)
     }
 
+    // move down
     if (this.instance.getValue().length - 1 !== itemIndex) {
       const moveDownBtn = this.theme.getButton({
         textContent: 'Move down'
@@ -107,7 +112,6 @@ class ArrayEditor extends Editor {
 
     itemEditor.ui.container.appendChild(itemEditor.ui.actionsSlot)
     itemEditor.ui.actionsSlot.appendChild(btnGroup)
-    btnGroup.appendChild(deleteBtn)
 
     return itemEditor
   }
