@@ -90,7 +90,7 @@ class ArrayEditor extends Editor {
 
       moveUpBtn.addEventListener('click', () => {
         const toIndex = itemIndex - 1
-        this.move(itemIndex, toIndex)
+        this.instance.move(itemIndex, toIndex)
       })
 
       btnGroup.appendChild(moveUpBtn)
@@ -104,7 +104,7 @@ class ArrayEditor extends Editor {
 
       moveDownBtn.addEventListener('click', () => {
         const toIndex = itemIndex + 1
-        this.move(itemIndex, toIndex)
+        this.instance.move(itemIndex, toIndex)
       })
 
       btnGroup.appendChild(moveDownBtn)
