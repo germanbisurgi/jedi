@@ -1,8 +1,15 @@
-import InstanceResolver from './instance-resolver'
 import Schema from './schema'
 import Validator from './validation/validator'
 import RefParser from './ref-parser'
 import EventEmitter from './event-emitter'
+import { getType, isSet } from './utils'
+import MultipleInstance from './instances/multiple'
+import BooleanInstance from './instances/boolean'
+import ObjectInstance from './instances/object'
+import ArrayInstance from './instances/array'
+import StringInstance from './instances/string'
+import NumberInstance from './instances/number'
+import NullInstance from './instances/null'
 
 class Jedi extends EventEmitter {
   constructor (options) {
@@ -20,15 +27,16 @@ class Jedi extends EventEmitter {
     this.instances = {}
     this.root = null
     this.theme = null
-    this.resolver = new InstanceResolver()
-    this.validator = new Validator()
-    this.refParser = new RefParser()
-    this.schema = new Schema(this.options.schema)
-    this.errors = []
+    this.validator = null
+    this.refParser = null
+    this.schema = null
     this.init()
   }
 
   init () {
+    this.validator = new Validator()
+    this.refParser = new RefParser()
+    this.schema = new Schema(this.options.schema)
     this.refParser.dereference(this.schema.schema)
 
     this.root = this.createInstance({
@@ -91,7 +99,46 @@ class Jedi extends EventEmitter {
    * Creates an json instance
    */
   createInstance (config) {
-    return this.resolver.resolve(config)
+    let instance
+
+    if (config.schema.anyOf() || config.schema.oneOf() || config.schema.typeIs('any') || config.schema.types() || !config.schema.type()) {
+      if (!config.schema.type() && config.schema.default()) {
+        const originalSchema = config.schema.clone()
+        originalSchema.type = getType(config.schema.default())
+        const newSchema = new Schema(originalSchema)
+        return this.resolve(newSchema)
+      } else {
+        instance = new MultipleInstance(config)
+      }
+    }
+
+    if (config.schema.typeIs('boolean')) {
+      instance = new BooleanInstance(config)
+    }
+
+    if (config.schema.typeIs('object')) {
+      instance = new ObjectInstance(config)
+    }
+
+    if (config.schema.typeIs('array')) {
+      instance = new ArrayInstance(config)
+    }
+
+    if (config.schema.typeIs('string')) {
+      instance = new StringInstance(config)
+    }
+
+    if (config.schema.typeIsNumeric()) {
+      instance = new NumberInstance(config)
+    }
+
+    if (config.schema.typeIs('null')) {
+      instance = new NullInstance(config)
+    }
+
+    if (isSet(instance)) {
+      return instance
+    }
   }
 
   /**
@@ -136,14 +183,14 @@ class Jedi extends EventEmitter {
    * Returns an array of validation error messages
    */
   validate () {
-    this.errors = []
+    let errors = []
 
     Object.keys(this.instances).forEach((key) => {
       const editor = this.instances[key]
-      this.errors = [...this.errors, ...editor.validate()]
+      errors = [...errors, ...editor.validate()]
     })
 
-    return this.errors
+    return errors
   }
 
   reset () {
