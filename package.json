@@ -11,7 +11,7 @@
     "test:bootstrap4": "THEME='bootstrap4' npm run codeceptjs",
     "test": "THEME='wireframe' npm run codeceptjs",
     "test:barebones": "THEME='barebones' npm run codeceptjs",
-    "codeceptjs": "codeceptjs run -c ./tests/codeceptjs/codecept.conf.js --steps --debug --grep '@additionalProperties'",
+    "codeceptjs": "codeceptjs run -c ./tests/codeceptjs/codecept.conf.js --steps --debug",
     "serve": "reload --port 8282 --browser --watch-dir ./docs --dir ./docs",
     "watch": "webpack --watch",
     "webpack": "webpack",

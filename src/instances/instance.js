@@ -106,7 +106,9 @@ class Instance extends EventEmitter {
    * Sets the instance value
    */
   setValue (newValue, triggersChange = true) {
-    // newValue = this.sanitize(newValue)
+    if (this.jedi.options.isEditor) {
+      newValue = this.sanitize(newValue)
+    }
     this.value = newValue
     this.emit('set-value')
 

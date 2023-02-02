@@ -5,7 +5,7 @@
     - dereference schema first and the initialize editor
 
 - instance:
-    - do not sanitize values
+    - do not sanitize values 
     - array enums
     - array tuple 
     
@@ -34,8 +34,6 @@
     - rootName
     
 - validation
-    - remove field name from validation
-    - additionalProperties validator
     - display single error messages also when there are multiple?
     - use template literals in errors
     - contains
@@ -45,7 +43,6 @@
     - propertyNames
 
 - Jedi:
-    - configurable root name ('#')
 
 ## Resources
 * [Understanding JSON Schema](http://json-schema.org/understanding-json-schema/index.html)

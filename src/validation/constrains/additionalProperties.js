@@ -12,7 +12,7 @@ export const _additionalProperties = (validator, value, schema, key, path) => {
       Object.keys(value).forEach((property) => {
         if (additionalProperties === false && !Object.hasOwn(properties, property)) {
           errors.push({
-            message: `Property ${property} has not been defined and the schema does not allow additional properties.`,
+            message: `Property "${property}" has not been defined and the schema does not allow additional properties.`,
             path: path
           })
         }

@@ -154,6 +154,10 @@
               url: './json/examples/login.json'
             },
             {
+              name: 'validator/additionalProperties',
+              url: './json/validator/additionalProperties.json'
+            },
+            {
               name: 'validator/allOf',
               url: './json/validator/allOf.json'
             },
@@ -266,7 +270,7 @@
             isEditor: true,
             container: document.querySelector('#jedi-container'),
             editableProperties: false,
-            alwaysShowErrors: true,
+            alwaysShowErrors: false,
             showRequiredOnly: false,
             theme: 'wireframe',
             schema: {}
@@ -342,9 +346,9 @@
           })
         },
         async switchSchema() {
-          // const url = this.$refs.schema.value
+          const url = this.$refs.schema.value
           // const url = './json/editors/array.json'
-          const url = './json/validator/additionalProperties.json'
+          // const url = './json/validator/additionalProperties.json'
           const response = await fetch(url);
           this.options.schema = await response.json()
           this.initEditor()
