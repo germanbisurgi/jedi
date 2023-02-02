@@ -41,6 +41,8 @@
     - maxContains
     - prefixItems
     - propertyNames
+    - formats
+    - if
 
 - Jedi:
 

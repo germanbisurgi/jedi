@@ -1,7 +1,7 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'wireframe'
 
-Feature('validator')
+Feature('additionalProperties')
 
 Scenario('should display @additionalProperties validation errors', ({ I }) => {
   I.amOnPage('index.html')
