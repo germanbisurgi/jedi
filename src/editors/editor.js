@@ -27,6 +27,7 @@ class Editor extends EventEmitter {
 
     this.instance.on('set-value', () => {
       this.refreshUI()
+      this.showValidationErrors()
     })
 
     this.instance.on('change', () => {
@@ -81,7 +82,7 @@ class Editor extends EventEmitter {
     this.messagesSlot.innerHTML = ''
 
     errors.forEach((error) => {
-      this.messagesSlot.appendChild(this.theme.getInputError({
+      this.messagesSlot.appendChild(this.theme.getAlert({
         message: error.message
       }))
     })

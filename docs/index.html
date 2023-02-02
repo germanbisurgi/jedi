@@ -266,7 +266,7 @@
             isEditor: true,
             container: document.querySelector('#jedi-container'),
             editableProperties: false,
-            alwaysShowErrors: false,
+            alwaysShowErrors: true,
             showRequiredOnly: false,
             theme: 'wireframe',
             schema: {}
@@ -342,9 +342,9 @@
           })
         },
         async switchSchema() {
-          const url = this.$refs.schema.value
+          // const url = this.$refs.schema.value
           // const url = './json/editors/array.json'
-          // const url = './json/validator/patternProperties.json'
+          const url = './json/validator/additionalProperties.json'
           const response = await fetch(url);
           this.options.schema = await response.json()
           this.initEditor()

@@ -14,9 +14,9 @@ class ThemeBootstrap5 extends ThemeBootstrap4 {
   }
 
   getControlSlot () {
-    const group = super.getControlSlot()
-    group.classList.add('mb-3')
-    return group
+    const controlSlot = super.getControlSlot()
+    controlSlot.classList.add('mb-3')
+    return controlSlot
   }
 
   getLabel (config) {

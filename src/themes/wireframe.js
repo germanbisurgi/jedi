@@ -1,17 +1,15 @@
 import ThemeBarebones from './barebones'
 
 class ThemeWireframe extends ThemeBarebones {
-  getInputError (config) {
-    const error = document.createElement('p')
-    error.classList.add('jedi-error-message')
+  getAlert (config) {
+    const error = super.getAlert(config)
     error.classList.add('alert')
     error.classList.add('alert-danger')
-    error.textContent = config.message
     return error
   }
 
   getBtnGroup () {
-    const btnGroup = document.createElement('div')
+    const btnGroup = super.getBtnGroup()
     btnGroup.classList.add('btn-group')
     return btnGroup
   }
@@ -23,93 +21,64 @@ class ThemeWireframe extends ThemeBarebones {
   }
 
   getControlSlot () {
-    const slot = super.getControlSlot()
-    slot.classList.add('form-group')
-    return slot
+    const controlSlot = super.getControlSlot()
+    controlSlot.classList.add('form-group')
+    return controlSlot
   }
 
   getCheckboxContainer () {
-    const container = super.getCheckboxContainer()
-    container.classList.add('form-group')
-    return container
+    const checkboxContainer = super.getCheckboxContainer()
+    checkboxContainer.classList.add('form-group')
+    return checkboxContainer
   }
 
   getFieldset () {
-    const fieldset = document.createElement('fieldset')
+    const fieldset = super.getFieldset()
     fieldset.classList.add('card')
     fieldset.classList.add('card-body')
     return fieldset
   }
 
   getCheckboxLabel (config) {
-    const label = document.createElement('label')
-    label.classList.add('form-check-label')
-    label.setAttribute('for', config.for)
-    label.textContent = config.textContent
-
-    if (config.srOnly) {
-      label.classList.add('sr-only')
-    }
-
-    return label
+    const checkboxLabel = super.getCheckboxLabel(config)
+    checkboxLabel.classList.add('form-check-label')
+    return checkboxLabel
   }
 
   getCheckbox (config) {
-    const checkbox = document.createElement('input')
+    const checkbox = super.getCheckbox(config)
     checkbox.classList.add('form-check-input')
-    checkbox.setAttribute('type', 'checkbox')
-    checkbox.setAttribute('id', config.id)
     return checkbox
   }
 
   getRadioContainer () {
-    const checkboxContainer = super.getRadioContainer()
-    checkboxContainer.classList.add('form-check')
-    checkboxContainer.classList.add('form-check-inline')
-    return checkboxContainer
+    const radioContainer = super.getRadioContainer()
+    radioContainer.classList.add('form-check')
+    radioContainer.classList.add('form-check-inline')
+    return radioContainer
   }
 
   getRadioLabel (config) {
-    const label = document.createElement('label')
-    label.classList.add('form-check-label')
-    label.setAttribute('for', config.for)
-    label.textContent = config.textContent
-
-    if (config.srOnly) {
-      label.classList.add('sr-only')
-    }
-
-    return label
+    const radioLabel = super.getRadioLabel(config)
+    radioLabel.classList.add('form-check-label')
+    return radioLabel
   }
 
   getRadio (config) {
-    const radio = document.createElement('input')
+    const radio = super.getRadio(config)
     radio.classList.add('form-check-input')
-    radio.setAttribute('type', 'radio')
-    radio.setAttribute('value', config.value)
-    radio.setAttribute('id', config.id)
     return radio
   }
 
   getTextarea (config) {
-    const textarea = document.createElement('textarea')
-    textarea.setAttribute('id', config.id)
+    const textarea = super.getTextarea(config)
     textarea.classList.add('form-control')
     return textarea
   }
 
   getSelect (config) {
-    const select = document.createElement('select')
-    select.setAttribute('id', config.id)
+    const select = super.getSelect(config)
     select.classList.add('form-control')
-
-    config.optionValues.forEach((value, index) => {
-      const option = document.createElement('option')
-      option.setAttribute('value', value)
-      option.textContent = config.optionsLabels[index]
-      select.appendChild(option)
-    })
-
     return select
   }
 }

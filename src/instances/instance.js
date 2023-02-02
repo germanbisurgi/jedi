@@ -7,7 +7,7 @@ class Instance extends EventEmitter {
     this.schema = config.schema
     this.value = config.value || undefined
     this.isActive = true
-    this.path = config.path || 'root'
+    this.path = config.path || this.jedi.options.rootName
     this.parent = config.parent || null
     this.children = []
     this.ui = null
@@ -106,7 +106,7 @@ class Instance extends EventEmitter {
    * Sets the instance value
    */
   setValue (newValue, triggersChange = true) {
-    newValue = this.sanitize(newValue)
+    // newValue = this.sanitize(newValue)
     this.value = newValue
     this.emit('set-value')
 

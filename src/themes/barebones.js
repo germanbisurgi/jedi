@@ -1,27 +1,27 @@
 class ThemeBarebones {
-  getInputError (config) {
-    const error = document.createElement('p')
-    error.classList.add('jedi-error-message')
-    error.textContent = config.message
-    return error
+  getAlert (config) {
+    const alert = document.createElement('p')
+    alert.classList.add('jedi-error-message')
+    alert.textContent = config.message
+    return alert
   }
 
   getActivatorsSlot () {
-    const slot = document.createElement('div')
-    slot.classList.add('jedi-properties-slot')
-    return slot
+    const activatorsSlot = document.createElement('div')
+    activatorsSlot.classList.add('jedi-properties-slot')
+    return activatorsSlot
   }
 
   getActionsSlot () {
-    const slot = document.createElement('div')
-    slot.classList.add('jedi-actions-slot')
-    return slot
+    const actionsSlots = document.createElement('div')
+    actionsSlots.classList.add('jedi-actions-slot')
+    return actionsSlots
   }
 
   getChildrenSlot () {
-    const slot = document.createElement('div')
-    slot.classList.add('jedi-child-editors-slot')
-    return slot
+    const childrenSlot = document.createElement('div')
+    childrenSlot.classList.add('jedi-child-editors-slot')
+    return childrenSlot
   }
 
   getBtnGroup () {
@@ -45,13 +45,15 @@ class ThemeBarebones {
   }
 
   getContainer () {
-    return document.createElement('div')
+    const container = document.createElement('div')
+    container.classList.add('jedi-editor-container')
+    return container
   }
 
   getDescription (config) {
-    const container = document.createElement('small')
-    container.textContent = config.textContent
-    return container
+    const description = document.createElement('small')
+    description.textContent = config.textContent
+    return description
   }
 
   getFieldset () {
@@ -65,42 +67,44 @@ class ThemeBarebones {
   }
 
   getControlSlot () {
-    return document.createElement('div')
+    const controlSlot = document.createElement('div')
+    controlSlot.classList.add('jedi-control-slot')
+    return controlSlot
   }
 
   getCheckboxLabel (config) {
-    const label = document.createElement('label')
-    label.setAttribute('for', config.for)
-    label.textContent = config.textContent
+    const checkboxLabel = document.createElement('label')
+    checkboxLabel.setAttribute('for', config.for)
+    checkboxLabel.textContent = config.textContent
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      checkboxLabel.classList.add('sr-only')
     }
 
-    return label
+    return checkboxLabel
   }
 
   getRadioLegend (config) {
-    const label = document.createElement('p')
-    label.textContent = config.textContent
+    const radioLegend = document.createElement('p')
+    radioLegend.textContent = config.textContent
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      radioLegend.classList.add('sr-only')
     }
 
-    return label
+    return radioLegend
   }
 
   getRadioLabel (config) {
-    const label = document.createElement('label')
-    label.setAttribute('for', config.for)
-    label.textContent = config.textContent
+    const radioLabel = document.createElement('label')
+    radioLabel.setAttribute('for', config.for)
+    radioLabel.textContent = config.textContent
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      radioLabel.classList.add('sr-only')
     }
 
-    return label
+    return radioLabel
   }
 
   getLabel (config) {

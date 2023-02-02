@@ -5,6 +5,10 @@ class Schema {
     this.schema = schema
   }
 
+  additionalProperties () {
+    return isObject(this.schema.additionalProperties) || isBoolean(this.schema.additionalProperties) ? this.schema.additionalProperties : false
+  }
+
   allOf () {
     return isArray(this.schema.allOf) ? this.schema.allOf : false
   }

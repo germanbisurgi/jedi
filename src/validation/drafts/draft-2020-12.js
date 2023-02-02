@@ -23,8 +23,10 @@ import { _required } from '../constrains/required'
 import { _type } from '../constrains/type'
 import { _maximum } from '../constrains/maximum'
 import { _uniqueItems } from '../constrains/uniqueItems'
+import { _additionalProperties } from '../constrains/additionalProperties'
 
 export default [
+  _additionalProperties,
   _allOf,
   _anyOf,
   _const,

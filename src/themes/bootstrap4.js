@@ -1,13 +1,12 @@
 import ThemeBarebones from './barebones'
 
 class ThemeBootstrap4 extends ThemeBarebones {
-  getInputError (config) {
-    const error = document.createElement('p')
-    error.classList.add('jedi-error-message')
-    error.classList.add('alert')
-    error.classList.add('alert-danger')
-    error.textContent = config.message
-    return error
+  getAlert (config) {
+    const alert = super.getAlert(config)
+    alert.classList.add('jedi-error-message')
+    alert.classList.add('alert')
+    alert.classList.add('alert-danger')
+    return alert
   }
 
   getInput (config) {
@@ -17,7 +16,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 
   getBtnGroup () {
-    const btnGroup = document.createElement('div')
+    const btnGroup = super.getBtnGroup()
     btnGroup.classList.add('btn-group')
     btnGroup.classList.add('mb-3')
     return btnGroup
@@ -31,7 +30,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 
   getFieldset () {
-    const fieldset = document.createElement('fieldset')
+    const fieldset = super.getFieldset()
     fieldset.classList.add('card')
     fieldset.classList.add('card-body')
     fieldset.classList.add('mb-3')
@@ -40,35 +39,21 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 
   getCheckboxLabel (config) {
-    const label = document.createElement('label')
-    label.classList.add('form-check-label')
-    label.setAttribute('for', config.for)
-    label.textContent = config.textContent
-
-    if (config.srOnly) {
-      label.classList.add('sr-only')
-    }
-
-    return label
+    const checkboxLabel = super.getCheckboxLabel(config)
+    checkboxLabel.classList.add('form-check-label')
+    return checkboxLabel
   }
 
   getRadioLabel (config) {
-    const label = document.createElement('label')
-    label.classList.add('form-check-label')
-    label.setAttribute('for', config.for)
-    label.textContent = config.textContent
-
-    if (config.srOnly) {
-      label.classList.add('sr-only')
-    }
-
-    return label
+    const radioLabel = super.getRadioLabel(config)
+    radioLabel.classList.add('form-check-label')
+    return radioLabel
   }
 
   getControlSlot () {
-    const slot = super.getControlSlot()
-    slot.classList.add('form-group')
-    return slot
+    const controlSlot = super.getControlSlot()
+    controlSlot.classList.add('form-group')
+    return controlSlot
   }
 
   getCheckboxContainer () {
@@ -78,47 +63,32 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 
   getRadioContainer () {
-    const checkboxContainer = super.getRadioContainer()
-    checkboxContainer.classList.add('form-check')
-    return checkboxContainer
+    const radioContainer = super.getRadioContainer()
+    radioContainer.classList.add('form-check')
+    return radioContainer
   }
 
   getCheckbox (config) {
-    const checkbox = document.createElement('input')
+    const checkbox = super.getCheckbox(config)
     checkbox.classList.add('form-check-input')
-    checkbox.setAttribute('type', 'checkbox')
-    checkbox.setAttribute('id', config.id)
     return checkbox
   }
 
   getRadio (config) {
-    const radio = document.createElement('input')
+    const radio = super.getRadio(config)
     radio.classList.add('form-check-input')
-    radio.setAttribute('type', 'radio')
-    radio.setAttribute('value', config.value)
-    radio.setAttribute('id', config.id)
     return radio
   }
 
   getTextarea (config) {
-    const textarea = document.createElement('textarea')
-    textarea.setAttribute('id', config.id)
+    const textarea = super.getTextarea(config)
     textarea.classList.add('form-control')
     return textarea
   }
 
   getSelect (config) {
-    const select = document.createElement('select')
-    select.setAttribute('id', config.id)
+    const select = super.getSelect(config)
     select.classList.add('form-control')
-
-    config.optionValues.forEach((value, index) => {
-      const option = document.createElement('option')
-      option.setAttribute('value', value)
-      option.textContent = config.optionsLabels[index]
-      select.appendChild(option)
-    })
-
     return select
   }
 }

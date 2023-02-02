@@ -21,7 +21,8 @@ class Jedi extends EventEmitter {
       alwaysShowErrors: false,
       showRequiredOnly: false,
       schema: {},
-      theme: 'wireframe'
+      theme: 'wireframe',
+      rootName: 'root'
     }, options)
 
     this.instances = {}
