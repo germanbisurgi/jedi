@@ -6,11 +6,11 @@ class NumberEnumSelectEditor extends NumberEditor {
     this.optionsLabels = this.instance.schema.option('enumTitles') || this.optionValues
     this.container.appendChild(this.messagesSlot)
 
-    this.container.appendChild(this.theme.getLabel({
+    const label = this.theme.getLabel({
       for: this.instance.path,
       textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
-    }))
+    })
 
     // input
     this.input = this.theme.getSelect({
@@ -18,7 +18,6 @@ class NumberEnumSelectEditor extends NumberEditor {
       optionsLabels: this.optionsLabels,
       id: this.instance.path
     })
-    this.container.appendChild(this.input)
 
     // events
     this.input.addEventListener('change', () => {
@@ -27,10 +26,14 @@ class NumberEnumSelectEditor extends NumberEditor {
 
     // description
     if (this.instance.schema.description()) {
-      this.container.appendChild(this.theme.getDescription({
+      this.controlSlot.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))
     }
+
+    this.container.appendChild(this.controlSlot)
+    this.controlSlot.appendChild(label)
+    this.controlSlot.appendChild(this.input)
   }
 }
 

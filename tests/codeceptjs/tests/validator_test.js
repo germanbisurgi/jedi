@@ -395,8 +395,8 @@ Scenario('should display @patternProperties validation errors', ({ I }) => {
   I.checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I.fillField('#editor-value', JSON.stringify({
-    S: '',
-    I: 0
+    "S": "",
+    "I": 0
   }))
   I.click('#set-value')
   I.scrollTo('[data-path="root"]', 0, -300)

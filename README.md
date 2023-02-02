@@ -1,29 +1,32 @@
 ## Todo
 
 - fixes:
-    - array editor item buttons
-    - themes
     - max deep ref parser
 
 - architecture:
     - documentation
-    - constrains
     - extend functionality
 
 - refactoring:
-    - destroy intermediate editors (validator)
-    - array
-    - themes
+    - fieldset in containers
+    - configurable root name ('#')
+    - themes extension from barebones
     - sanitizeValues : true
-    - json-schema-tools
-    - browser and node Lib
     - dereference schema first and the initialize editor
     
 - tests:
+    - array move up and down
     - sr-only titles
     - multiple
+    
+- validation
+    - contains
+    - minContains
+    - maxContains
+    - prefixItems
 
 - feature:
+    - format categories
     - documentors
     - read only
     - grid
@@ -40,7 +43,6 @@
     - array enums
     - array tuple 
     - plugins examples
-    - improve accessibility in themes
     - collapse
 
 ## Resources

@@ -5,11 +5,11 @@ class NumberEditor extends Editor {
     this.container.appendChild(this.messagesSlot)
 
     // label
-    this.container.appendChild(this.theme.getLabel({
+    const label = this.theme.getLabel({
       for: this.instance.path,
       textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
-    }))
+    })
 
     // input
     this.input = this.theme.getInput({
@@ -25,10 +25,14 @@ class NumberEditor extends Editor {
 
     // description
     if (this.instance.schema.description()) {
-      this.container.appendChild(this.theme.getDescription({
+      this.controlSlot.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))
     }
+
+    this.container.appendChild(this.controlSlot)
+    this.controlSlot.appendChild(label)
+    this.controlSlot.appendChild(this.input)
   }
 
   sanitize (value) {

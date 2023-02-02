@@ -20,6 +20,8 @@ export const _patternProperties = (validator, value, schema) => {
           })
 
           errors = [...errors, ...editor.validate()]
+
+          editor.destroy()
         }
       })
     })

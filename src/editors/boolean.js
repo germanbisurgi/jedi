@@ -19,11 +19,6 @@ class BooleanEditor extends Editor {
       id: this.instance.path
     })
 
-    // appends
-    this.container.appendChild(checkboxContainer)
-    checkboxContainer.appendChild(this.input)
-    checkboxContainer.appendChild(label)
-
     // events
     this.input.addEventListener('change', () => {
       this.instance.setValue(this.input.checked)
@@ -31,10 +26,16 @@ class BooleanEditor extends Editor {
 
     // description
     if (this.instance.schema.description()) {
-      this.container.appendChild(this.theme.getDescription({
+      this.controlSlot.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))
     }
+
+    // appends
+    this.container.appendChild(this.controlSlot)
+    this.controlSlot.appendChild(checkboxContainer)
+    checkboxContainer.appendChild(this.input)
+    checkboxContainer.appendChild(label)
   }
 
   sanitize (value) {

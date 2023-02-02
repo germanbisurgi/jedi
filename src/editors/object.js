@@ -3,11 +3,26 @@ import { isSet } from '../utils'
 
 class ObjectEditor extends Editor {
   build () {
-    this.setContainer()
-    this.container.appendChild(this.activatorsSlot)
-    this.container.appendChild(this.actionsSlot)
-    this.container.appendChild(this.messagesSlot)
-    this.container.appendChild(this.childrenSlot)
+    this.fieldset = this.theme.getFieldset()
+
+    // title
+    this.fieldset.appendChild(this.theme.getLegend({
+      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
+      srOnly: this.instance.schema.option('hideTitle')
+    }))
+
+    // description
+    if (this.instance.schema.description()) {
+      this.fieldset.appendChild(this.theme.getDescription({
+        textContent: this.instance.schema.description()
+      }))
+    }
+
+    this.fieldset.appendChild(this.activatorsSlot)
+    this.fieldset.appendChild(this.actionsSlot)
+    this.fieldset.appendChild(this.messagesSlot)
+    this.fieldset.appendChild(this.childrenSlot)
+    this.container.appendChild(this.fieldset)
 
     const label = this.theme.getLabel({
       textContent: 'Property Name',
@@ -88,23 +103,6 @@ class ObjectEditor extends Editor {
         activatorContainer.appendChild(activatorInput)
         activatorContainer.appendChild(activatorLabel)
       })
-    }
-  }
-
-  setContainer () {
-    this.container = this.theme.getFieldset()
-
-    // title
-    this.container.appendChild(this.theme.getLegend({
-      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle')
-    }))
-
-    // description
-    if (this.instance.schema.description()) {
-      this.container.appendChild(this.theme.getDescription({
-        textContent: this.instance.schema.description()
-      }))
     }
   }
 

@@ -10,9 +10,16 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return error
   }
 
+  getInput (config) {
+    const input = super.getInput(config)
+    input.classList.add('mb-3')
+    return input
+  }
+
   getBtnGroup () {
     const btnGroup = document.createElement('div')
     btnGroup.classList.add('btn-group')
+    btnGroup.classList.add('mb-3')
     return btnGroup
   }
 
@@ -23,17 +30,12 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return button
   }
 
-  getContainer () {
-    const container = document.createElement('div')
-    container.classList.add('form-group')
-    return container
-  }
-
   getFieldset () {
     const fieldset = document.createElement('fieldset')
     fieldset.classList.add('card')
     fieldset.classList.add('card-body')
     fieldset.classList.add('mb-3')
+    fieldset.classList.add('py-0')
     return fieldset
   }
 
@@ -63,14 +65,20 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return label
   }
 
+  getControlSlot () {
+    const slot = super.getControlSlot()
+    slot.classList.add('form-group')
+    return slot
+  }
+
   getCheckboxContainer () {
-    const checkboxContainer = document.createElement('div')
+    const checkboxContainer = super.getCheckboxContainer()
     checkboxContainer.classList.add('form-check')
     return checkboxContainer
   }
 
   getRadioContainer () {
-    const checkboxContainer = document.createElement('div')
+    const checkboxContainer = super.getRadioContainer()
     checkboxContainer.classList.add('form-check')
     return checkboxContainer
   }

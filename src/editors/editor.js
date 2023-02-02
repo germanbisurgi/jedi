@@ -11,6 +11,7 @@ class Editor extends EventEmitter {
     this.theme = null
     this.container = null
     this.activatorsSlot = null
+    this.controlSlot = null
     this.messagesSlot = null
     this.actionsSlot = null
     this.childrenSlot = null
@@ -50,8 +51,10 @@ class Editor extends EventEmitter {
       default:
         this.theme = new ThemeBarebones()
     }
+
     this.container = this.theme.getContainer()
     this.activatorsSlot = this.theme.getActivatorsSlot()
+    this.controlSlot = this.theme.getControlSlot()
     this.messagesSlot = this.theme.getMessagesSlot()
     this.actionsSlot = this.theme.getActionsSlot()
     this.childrenSlot = this.theme.getChildrenSlot()

@@ -11,10 +11,6 @@ class StringEditor extends Editor {
       srOnly: this.instance.schema.option('hideTitle')
     })
 
-    if (!this.instance.schema.formatIs('hidden')) {
-      this.container.appendChild(label)
-    }
-
     // input
     // todo file, range should be handled differently
     const inputTypes = ['hidden', 'color', 'date', 'datetime-local', 'email', 'number', 'month', 'password', 'search', 'time', 'tel', 'text', 'textarea', 'url', 'week']
@@ -35,7 +31,11 @@ class StringEditor extends Editor {
       this.instance.setValue('#000000', false)
     }
 
-    this.container.appendChild(this.input)
+    this.container.appendChild(this.controlSlot)
+    if (!this.instance.schema.formatIs('hidden')) {
+      this.controlSlot.appendChild(label)
+    }
+    this.controlSlot.appendChild(this.input)
 
     // events
     this.input.addEventListener('change', () => {
@@ -44,7 +44,7 @@ class StringEditor extends Editor {
 
     // description
     if (this.instance.schema.description()) {
-      this.container.appendChild(this.theme.getDescription({
+      this.controlSlot.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))
     }

@@ -8,7 +8,7 @@ class StringEnumRadioEditor extends StringEditor {
     this.radioInputs = []
 
     // legend
-    this.container.appendChild(this.theme.getRadioLegend({
+    this.controlSlot.appendChild(this.theme.getRadioLegend({
       textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey()
     }))
 
@@ -37,12 +37,14 @@ class StringEnumRadioEditor extends StringEditor {
         srOnly: this.instance.schema.option('hideTitle')
       }))
 
-      this.container.appendChild(radioContainer)
+      this.controlSlot.appendChild(radioContainer)
     })
+
+    this.container.appendChild(this.controlSlot)
 
     // description
     if (this.instance.schema.description()) {
-      this.container.appendChild(this.theme.getDescription({
+      this.controlSlot.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))
     }

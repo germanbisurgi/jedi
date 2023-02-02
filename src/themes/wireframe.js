@@ -22,8 +22,14 @@ class ThemeWireframe extends ThemeBarebones {
     return button
   }
 
-  getContainer () {
-    const container = document.createElement('div')
+  getControlSlot () {
+    const slot = super.getControlSlot()
+    slot.classList.add('form-group')
+    return slot
+  }
+
+  getCheckboxContainer () {
+    const container = super.getCheckboxContainer()
     container.classList.add('form-group')
     return container
   }
@@ -57,7 +63,7 @@ class ThemeWireframe extends ThemeBarebones {
   }
 
   getRadioContainer () {
-    const checkboxContainer = document.createElement('div')
+    const checkboxContainer = super.getRadioContainer()
     checkboxContainer.classList.add('form-check')
     checkboxContainer.classList.add('form-check-inline')
     return checkboxContainer

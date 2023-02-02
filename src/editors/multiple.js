@@ -28,16 +28,6 @@ class MultipleEditor extends Editor {
     this.container.appendChild(this.switcher)
   }
 
-  setContainer () {
-    this.container = this.theme.getFieldset()
-    this.container.setAttribute('data-type', 'multiple')
-
-    this.container.appendChild(this.theme.getLegend({
-      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: true
-    }))
-  }
-
   refreshUI () {
     const oldEditor = this.instance.editors[this.instance.lastIndex]
 

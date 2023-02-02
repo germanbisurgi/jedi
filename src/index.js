@@ -195,7 +195,9 @@ class Jedi extends EventEmitter {
 
   reset () {
     this.options.startValue = this.getValue()
-    this.container.innerHTML = ''
+    if (this.options.isEditor) {
+      this.container.innerHTML = ''
+    }
     this.root.destroy()
     this.init()
   }
@@ -211,7 +213,9 @@ class Jedi extends EventEmitter {
   destroy () {
     this.root.destroy()
 
-    this.container.innerHTML = ''
+    if (this.options.isEditor) {
+      this.container.innerHTML = ''
+    }
 
     Object.keys(this).forEach((key) => {
       delete this[key]

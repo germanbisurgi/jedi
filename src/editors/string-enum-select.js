@@ -7,11 +7,11 @@ class StringEnumSelectEditor extends StringEditor {
     this.container.appendChild(this.messagesSlot)
 
     // label
-    this.container.appendChild(this.theme.getLabel({
+    const label = this.theme.getLabel({
       for: this.instance.path,
       textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
-    }))
+    })
 
     // input
     this.input = this.theme.getSelect({
@@ -20,7 +20,9 @@ class StringEnumSelectEditor extends StringEditor {
       id: this.instance.path
     })
 
-    this.container.appendChild(this.input)
+    this.container.appendChild(this.controlSlot)
+    this.controlSlot.appendChild(label)
+    this.controlSlot.appendChild(this.input)
 
     // events
     this.input.addEventListener('change', () => {
@@ -29,7 +31,7 @@ class StringEnumSelectEditor extends StringEditor {
 
     // description
     if (this.instance.schema.description()) {
-      this.container.appendChild(this.theme.getDescription({
+      this.controlSlot.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))
     }

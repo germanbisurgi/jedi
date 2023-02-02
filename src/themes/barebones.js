@@ -64,6 +64,10 @@ class ThemeBarebones {
     return messagesSlot
   }
 
+  getControlSlot () {
+    return document.createElement('div')
+  }
+
   getCheckboxLabel (config) {
     const label = document.createElement('label')
     label.setAttribute('for', config.for)

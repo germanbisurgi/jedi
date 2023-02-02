@@ -4,10 +4,25 @@ import Editor from './editor'
 
 class ArrayEditor extends Editor {
   build () {
-    this.setContainer()
-    this.container.appendChild(this.messagesSlot)
-    this.container.appendChild(this.childrenSlot)
-    this.container.appendChild(this.actionsSlot)
+    this.fieldset = this.theme.getFieldset()
+
+    // title
+    this.fieldset.appendChild(this.theme.getLegend({
+      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
+      srOnly: this.instance.schema.option('hideTitle')
+    }))
+
+    // description
+    if (this.instance.schema.description()) {
+      this.fieldset.appendChild(this.theme.getDescription({
+        textContent: this.instance.schema.description()
+      }))
+    }
+
+    this.fieldset.appendChild(this.messagesSlot)
+    this.fieldset.appendChild(this.childrenSlot)
+    this.fieldset.appendChild(this.actionsSlot)
+    this.container.appendChild(this.fieldset)
 
     // btn group
     const btnGroup = this.theme.getBtnGroup()
@@ -37,27 +52,11 @@ class ArrayEditor extends Editor {
     btnGroup.appendChild(this.deleteAllBtn)
   }
 
-  setContainer () {
-    this.container = this.theme.getFieldset()
-
-    // title
-    this.container.appendChild(this.theme.getLegend({
-      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle')
-    }))
-
-    // description
-    if (this.instance.schema.description()) {
-      this.container.appendChild(this.theme.getDescription({
-        textContent: this.instance.schema.description()
-      }))
-    }
-  }
-
   refreshUI () {
     this.instance.children.forEach((child) => {
-      child.ui.container.appendChild(child.ui.actionsSlot)
       this.childrenSlot.appendChild(child.ui.container)
+
+      child.ui.controlSlot.appendChild(child.ui.actionsSlot)
 
       while (child.ui.actionsSlot.firstChild) {
         child.ui.actionsSlot.removeChild(child.ui.actionsSlot.lastChild)

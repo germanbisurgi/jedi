@@ -5,11 +5,11 @@ class BooleanEnumSelectEditor extends BooleanEditor {
     this.container.appendChild(this.messagesSlot)
 
     // label
-    this.container.appendChild(this.theme.getLabel({
+    this.label = this.theme.getLabel({
       for: this.instance.path,
       textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
-    }))
+    })
 
     // input
     this.input = this.theme.getSelect({
@@ -17,9 +17,7 @@ class BooleanEnumSelectEditor extends BooleanEditor {
       optionsLabels: this.instance.schema.option('enumTitles') || ['false', 'true'],
       id: this.instance.path
     })
-    this.container.appendChild(this.input)
 
-    // events
     this.input.addEventListener('change', () => {
       const value = this.input.value === 'true'
       this.instance.setValue(value)
@@ -27,10 +25,14 @@ class BooleanEnumSelectEditor extends BooleanEditor {
 
     // description
     if (this.instance.schema.description()) {
-      this.container.appendChild(this.theme.getDescription({
+      this.controlSlot.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))
     }
+
+    this.container.appendChild(this.controlSlot)
+    this.controlSlot.appendChild(this.label)
+    this.controlSlot.appendChild(this.input)
   }
 
   refreshUI () {
