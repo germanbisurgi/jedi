@@ -1,6 +1,7 @@
 {
   "type": "object",
   "title": "All Editors",
+  "minProperties": 6,
   "properties": {
     "booleans": {
       "type": "object",
@@ -8,12 +9,14 @@
       "properties": {
         "boolean": {
           "type": "boolean",
-          "title": "Boolean"
+          "title": "Boolean",
+          "const": true
         },
         "boolean-enum-select": {
           "type": "boolean",
           "title": "Boolean enum select",
           "format": "select",
+          "const": true,
           "options": {
             "enumTitles": [
               "No",
@@ -25,6 +28,7 @@
           "type": "boolean",
           "title": "Boolean enum radio",
           "format": "radio",
+          "const": true,
           "options": {
             "enumTitles": [
               "No",
@@ -40,12 +44,14 @@
       "properties": {
         "string": {
           "type": "string",
-          "title": "String"
+          "title": "String",
+          "minLength": 1
         },
         "string-textarea": {
           "type": "string",
           "title": "String textarea",
-          "format": "textarea"
+          "format": "textarea",
+          "minLength": 1
         },
         "string-enum-select": {
           "type": "string",
@@ -88,7 +94,8 @@
       "properties": {
         "number": {
           "type": "number",
-          "title": "Number"
+          "title": "Number",
+          "minimum": 1
         },
         "number-enum-select": {
           "type": "number",
@@ -131,7 +138,8 @@
       "properties": {
         "integer": {
           "type": "integer",
-          "title": "Integer"
+          "title": "Integer",
+          "minimum": 1
         },
         "integer-enum-select": {
           "type": "integer",
@@ -178,12 +186,16 @@
           "items": {
             "type": "string",
             "title": "Color",
-            "format": "color"
+            "format": "color",
+            "not": {
+              "const": "#000000"
+            }
           },
           "default": [
             "#e8f3ee",
             "#fff9e6"
-          ]
+          ],
+          "minItems": 3
         }
       }
     },

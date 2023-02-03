@@ -9,10 +9,11 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return alert
   }
 
-  getInput (config) {
-    const input = super.getInput(config)
-    input.classList.add('mb-3')
-    return input
+  getInvalidFeedback (config) {
+    const invalidFeedback = super.getInvalidFeedback(config)
+    invalidFeedback.classList.add('invalid-feedback')
+    invalidFeedback.classList.add('d-block')
+    return invalidFeedback
   }
 
   getBtnGroup () {
@@ -90,6 +91,10 @@ class ThemeBootstrap4 extends ThemeBarebones {
     const select = super.getSelect(config)
     select.classList.add('form-control')
     return select
+  }
+
+  getButtonActiveClass () {
+    return 'btn-primary'
   }
 }
 

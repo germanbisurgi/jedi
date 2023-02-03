@@ -4,7 +4,6 @@ class BooleanEnumRadioEditor extends BooleanEditor {
   build () {
     this.optionValues = ['false', 'true']
     this.optionsLabels = this.instance.schema.option('enumTitles') || this.optionValues
-    this.container.appendChild(this.messagesSlot)
     this.radioInputs = []
 
     // legend
@@ -41,6 +40,7 @@ class BooleanEnumRadioEditor extends BooleanEditor {
       this.controlSlot.appendChild(radioContainer)
     })
 
+    this.controlSlot.appendChild(this.messagesSlot)
     this.container.appendChild(this.controlSlot)
 
     // description

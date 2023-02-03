@@ -6,6 +6,13 @@ class ThemeBarebones {
     return alert
   }
 
+  getInvalidFeedback (config) {
+    const invalidFeedback = document.createElement('div')
+    invalidFeedback.classList.add('jedi-error-message')
+    invalidFeedback.textContent = config.message
+    return invalidFeedback
+  }
+
   getActivatorsSlot () {
     const activatorsSlot = document.createElement('div')
     activatorsSlot.classList.add('jedi-properties-slot')
@@ -38,10 +45,6 @@ class ThemeBarebones {
 
     button.textContent = config.textContent
     return button
-  }
-
-  getButtonActiveClass () {
-    return 'btn-info'
   }
 
   getContainer () {
@@ -180,6 +183,10 @@ class ThemeBarebones {
     })
 
     return select
+  }
+
+  getButtonActiveClass () {
+    return 'btn-info'
   }
 }
 

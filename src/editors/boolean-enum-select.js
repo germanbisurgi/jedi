@@ -2,8 +2,6 @@ import BooleanEditor from './boolean'
 
 class BooleanEnumSelectEditor extends BooleanEditor {
   build () {
-    this.container.appendChild(this.messagesSlot)
-
     // label
     this.label = this.theme.getLabel({
       for: this.instance.path,
@@ -33,6 +31,7 @@ class BooleanEnumSelectEditor extends BooleanEditor {
     this.container.appendChild(this.controlSlot)
     this.controlSlot.appendChild(this.label)
     this.controlSlot.appendChild(this.input)
+    this.controlSlot.appendChild(this.messagesSlot)
   }
 
   refreshUI () {

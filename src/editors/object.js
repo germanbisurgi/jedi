@@ -18,9 +18,9 @@ class ObjectEditor extends Editor {
       }))
     }
 
+    this.fieldset.appendChild(this.messagesSlot)
     this.fieldset.appendChild(this.activatorsSlot)
     this.fieldset.appendChild(this.actionsSlot)
-    this.fieldset.appendChild(this.messagesSlot)
     this.fieldset.appendChild(this.childrenSlot)
     this.container.appendChild(this.fieldset)
 
@@ -61,6 +61,12 @@ class ObjectEditor extends Editor {
       this.actionsSlot.appendChild(this.addPropertyInput)
       this.actionsSlot.appendChild(this.addPropertyBtn)
     }
+  }
+
+  getInvalidFeedback (message) {
+    return this.theme.getAlert({
+      message: message
+    })
   }
 
   refreshActivators () {

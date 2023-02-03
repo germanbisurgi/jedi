@@ -52,6 +52,12 @@ class ArrayEditor extends Editor {
     btnGroup.appendChild(this.deleteAllBtn)
   }
 
+  getInvalidFeedback (message) {
+    return this.theme.getAlert({
+      message: message
+    })
+  }
+
   refreshUI () {
     this.instance.children.forEach((child) => {
       this.childrenSlot.appendChild(child.ui.container)

@@ -8,6 +8,12 @@ class ThemeWireframe extends ThemeBarebones {
     return error
   }
 
+  getInvalidFeedback (config) {
+    const invalidFeedback = super.getInvalidFeedback(config)
+    invalidFeedback.classList.add('invalid-feedback')
+    return invalidFeedback
+  }
+
   getBtnGroup () {
     const btnGroup = super.getBtnGroup()
     btnGroup.classList.add('btn-group')
@@ -24,12 +30,6 @@ class ThemeWireframe extends ThemeBarebones {
     const controlSlot = super.getControlSlot()
     controlSlot.classList.add('form-group')
     return controlSlot
-  }
-
-  getCheckboxContainer () {
-    const checkboxContainer = super.getCheckboxContainer()
-    checkboxContainer.classList.add('form-group')
-    return checkboxContainer
   }
 
   getFieldset () {
@@ -80,6 +80,10 @@ class ThemeWireframe extends ThemeBarebones {
     const select = super.getSelect(config)
     select.classList.add('form-control')
     return select
+  }
+
+  getButtonActiveClass () {
+    return 'btn-info'
   }
 }
 

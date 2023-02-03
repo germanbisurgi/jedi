@@ -82,9 +82,14 @@ class Editor extends EventEmitter {
     this.messagesSlot.innerHTML = ''
 
     errors.forEach((error) => {
-      this.messagesSlot.appendChild(this.theme.getAlert({
-        message: error.message
-      }))
+      const invalidFeedback = this.getInvalidFeedback(error.message)
+      this.messagesSlot.appendChild(invalidFeedback)
+    })
+  }
+
+  getInvalidFeedback (message) {
+    return this.theme.getInvalidFeedback({
+      message: message
     })
   }
 

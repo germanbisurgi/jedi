@@ -2,8 +2,6 @@ import Editor from './editor'
 
 class NumberEditor extends Editor {
   build () {
-    this.container.appendChild(this.messagesSlot)
-
     // label
     const label = this.theme.getLabel({
       for: this.instance.path,
@@ -33,6 +31,7 @@ class NumberEditor extends Editor {
     this.container.appendChild(this.controlSlot)
     this.controlSlot.appendChild(label)
     this.controlSlot.appendChild(this.input)
+    this.controlSlot.appendChild(this.messagesSlot)
   }
 
   sanitize (value) {

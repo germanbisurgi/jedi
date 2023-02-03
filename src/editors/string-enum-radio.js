@@ -4,7 +4,6 @@ class StringEnumRadioEditor extends StringEditor {
   build () {
     this.optionValues = this.instance.schema.enum()
     this.optionsLabels = this.instance.schema.option('enumTitles') || this.optionValues
-    this.container.appendChild(this.messagesSlot)
     this.radioInputs = []
 
     // legend
@@ -40,6 +39,7 @@ class StringEnumRadioEditor extends StringEditor {
       this.controlSlot.appendChild(radioContainer)
     })
 
+    this.controlSlot.appendChild(this.messagesSlot)
     this.container.appendChild(this.controlSlot)
 
     // description

@@ -2,8 +2,6 @@ import Editor from './editor'
 
 class BooleanEditor extends Editor {
   build () {
-    this.container.appendChild(this.messagesSlot)
-
     // checkbox container
     const checkboxContainer = this.theme.getCheckboxContainer()
 
@@ -36,6 +34,7 @@ class BooleanEditor extends Editor {
     this.controlSlot.appendChild(checkboxContainer)
     checkboxContainer.appendChild(this.input)
     checkboxContainer.appendChild(label)
+    this.controlSlot.appendChild(this.messagesSlot)
   }
 
   sanitize (value) {

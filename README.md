@@ -1,5 +1,9 @@
 ## Todo
 
+- bugs:
+    - integer validation (sanitize?)
+    - validation types
+
 - RefParser:
     - max deep ref parser
     - dereference schema first and the initialize editor

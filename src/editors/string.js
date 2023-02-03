@@ -2,8 +2,6 @@ import Editor from './editor'
 
 class StringEditor extends Editor {
   build () {
-    this.container.appendChild(this.messagesSlot)
-
     // label
     const label = this.theme.getLabel({
       for: this.instance.path,
@@ -26,21 +24,24 @@ class StringEditor extends Editor {
       })
     }
 
+    // events
+    this.input.addEventListener('change', () => {
+      this.instance.setValue(this.input.value)
+    })
+
     // fix color picker bug
     if (this.instance.schema.formatIs('color') && this.instance.value.length === 0) {
       this.instance.setValue('#000000', false)
     }
 
     this.container.appendChild(this.controlSlot)
+
     if (!this.instance.schema.formatIs('hidden')) {
       this.controlSlot.appendChild(label)
     }
-    this.controlSlot.appendChild(this.input)
 
-    // events
-    this.input.addEventListener('change', () => {
-      this.instance.setValue(this.input.value)
-    })
+    this.controlSlot.appendChild(this.input)
+    this.controlSlot.appendChild(this.messagesSlot)
 
     // description
     if (this.instance.schema.description()) {

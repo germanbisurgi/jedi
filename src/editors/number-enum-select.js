@@ -4,7 +4,6 @@ class NumberEnumSelectEditor extends NumberEditor {
   build () {
     this.optionValues = this.instance.schema.enum()
     this.optionsLabels = this.instance.schema.option('enumTitles') || this.optionValues
-    this.container.appendChild(this.messagesSlot)
 
     const label = this.theme.getLabel({
       for: this.instance.path,
@@ -34,6 +33,7 @@ class NumberEnumSelectEditor extends NumberEditor {
     this.container.appendChild(this.controlSlot)
     this.controlSlot.appendChild(label)
     this.controlSlot.appendChild(this.input)
+    this.controlSlot.appendChild(this.messagesSlot)
   }
 }
 
