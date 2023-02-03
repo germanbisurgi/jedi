@@ -23,13 +23,11 @@
     - icons
 
 - refactoring:
-    - isArray(schema.type())
     
 - tests:
     - array move up and down
     - sr-only titles
     - multiple
-    - rootName
     
 - validation
     - display single error messages also when there are multiple?

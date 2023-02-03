@@ -102,3 +102,13 @@ Scenario('should set value @setValue', async ({ I }) => {
   I.seeInField('[id="root.integers.integer-enum-select"]', '3')
   I.seeInField('[id="root.integers.integer-enum-radio.2"]', '3')
 })
+
+Scenario('should set @rootName', async ({ I }) => {
+  I.amOnPage('index.html')
+  I.fillField('#theme', theme)
+  I.fillField('#schemas', 'editors/all')
+  I._waitForElement('.jedi-ready')
+  I.fillField('[id="rootName"]', '#')
+  I.pressKey('Tab')
+  I._waitForElement('[data-path="#"]')
+})
