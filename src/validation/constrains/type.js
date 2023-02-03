@@ -1,9 +1,9 @@
-import { getType } from '../../utils'
+import { getType, isArray } from '../../utils'
 
 export const _type = (validator, value, schema, key, path) => {
   const errors = []
 
-  if (schema.types()) {
+  if (isArray(schema.type())) {
     return errors
   }
 

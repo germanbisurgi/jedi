@@ -185,10 +185,6 @@ class Schema {
     return (this.type() && this.type() === value)
   }
 
-  types () {
-    return isArray(this.schema.type)
-  }
-
   typeIsNumeric () {
     return this.typeIs('number') || this.typeIs('integer')
   }

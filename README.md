@@ -25,8 +25,6 @@
 - refactoring:
     - isArray(schema.type())
     
-    
-    
 - tests:
     - array move up and down
     - sr-only titles
@@ -43,6 +41,7 @@
     - propertyNames
     - formats
     - if
+    - type
 
 - Jedi:
 

@@ -1,6 +1,6 @@
 import Instance from './instance'
 import Schema from '../schema'
-import { isSet, equal, different, mergeDeep } from '../utils'
+import { isSet, equal, different, mergeDeep, isArray } from '../utils'
 import MultipleEditor from '../editors/multiple'
 
 class MultipleInstance extends Instance {
@@ -48,7 +48,7 @@ class MultipleInstance extends Instance {
 
         this.schemas.push(schema)
       })
-    } else if (this.schema.types()) {
+    } else if (isArray(this.schema.type())) {
       this.schema.type().forEach((type, index) => {
         const schemaClone = this.schema.clone()
 
