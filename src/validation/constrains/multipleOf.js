@@ -5,7 +5,7 @@ export const _multipleOf = (validator, value, schema, key, path) => {
 
   if (isNumber(value) && schema.multipleOf()) {
     const isMultipleOf = (value / schema.multipleOf() === Math.floor(value / schema.multipleOf()))
-    const invalid = (!isMultipleOf)
+    const invalid = (!isMultipleOf || value.toString().includes('e'))
 
     if (invalid) {
       const field = schema.title() ? schema.title() : key

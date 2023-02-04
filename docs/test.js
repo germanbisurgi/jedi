@@ -1,6 +1,9 @@
 const Jedi = require('../dist/jedi')
-const schema = require('./json/editors/all')
 const jedi = new Jedi({
-  schema: schema
+  schema: {
+    minItems: 1.0
+  },
+  startValue: []
 })
+console.log(jedi.getValue())
 console.log(jedi.validate())
