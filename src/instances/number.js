@@ -13,14 +13,6 @@ class NumberInstance extends Instance {
       this.ui = new NumberEditor(this)
     }
   }
-
-  sanitize (value) {
-    if (this.schema.typeIs('integer')) {
-      return Math.floor(Number(value))
-    } else {
-      return Number(value)
-    }
-  }
 }
 
 export default NumberInstance

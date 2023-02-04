@@ -1,5 +1,5 @@
 import Editor from './editor'
-import { isSet } from '../utils'
+import { equal, isSet } from '../utils'
 
 class ObjectEditor extends Editor {
   build () {
@@ -56,7 +56,7 @@ class ObjectEditor extends Editor {
       this.addPropertyInput.value = ''
     })
 
-    if (this.instance.jedi.options.editableProperties || this.instance.schema.option('editableProperties')) {
+    if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {
       this.actionsSlot.appendChild(label)
       this.actionsSlot.appendChild(this.addPropertyInput)
       this.actionsSlot.appendChild(this.addPropertyBtn)
@@ -70,7 +70,7 @@ class ObjectEditor extends Editor {
   }
 
   refreshActivators () {
-    if (this.instance.jedi.options.editableProperties || this.instance.schema.option('editableProperties')) {
+    if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {
       while (this.activatorsSlot.firstChild) {
         this.activatorsSlot.removeChild(this.activatorsSlot.lastChild)
       }
@@ -117,20 +117,14 @@ class ObjectEditor extends Editor {
       this.childrenSlot.removeChild(this.childrenSlot.lastChild)
     }
 
-    const value = this.instance.getValue()
-
-    Object.keys(value).forEach((key) => {
-      const child = this.instance.getChild(key)
-
+    this.instance.children.forEach((child) => {
       if (child.isActive) {
         this.childrenSlot.appendChild(child.ui.container)
 
-        if (child) {
-          if (this.disabled) {
-            child.ui.disable()
-          } else {
-            child.ui.enable()
-          }
+        if (this.disabled) {
+          child.ui.disable()
+        } else {
+          child.ui.enable()
         }
       }
     })

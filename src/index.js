@@ -45,7 +45,7 @@ class Jedi extends EventEmitter {
       schema: this.schema
     })
 
-    if (this.options.startValue) {
+    if (isSet(this.options.startValue)) {
       this.root.setValue(this.options.startValue)
     }
 

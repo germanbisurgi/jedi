@@ -1,4 +1,4 @@
-import { getType, isArray } from '../../utils'
+import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isString } from '../../utils'
 
 export const _type = (validator, value, schema, key, path) => {
   const errors = []
@@ -12,7 +12,17 @@ export const _type = (validator, value, schema, key, path) => {
   }
 
   if (schema.type()) {
-    const valid = schema.type() === getType(value)
+    const types = {
+      string: value => isString(value),
+      number: value => isNumber(value),
+      integer: value => isInteger(value),
+      boolean: value => isBoolean(value),
+      array: value => isArray(value),
+      object: value => isObject(value),
+      null: value => isNull(value)
+    }
+
+    const valid = types[schema.type()](value)
 
     if (!valid) {
       const field = schema.title() ? schema.title() : key

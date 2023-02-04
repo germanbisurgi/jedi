@@ -16,8 +16,10 @@ class ObjectInstance extends Instance {
       })
     }
 
+    this.refreshInstances()
+
     this.on('set-value', () => {
-      this.onSetValue()
+      this.refreshInstances()
     })
   }
 
@@ -112,7 +114,7 @@ class ObjectInstance extends Instance {
     return Object.keys(properties).includes(propertyName)
   }
 
-  onSetValue () {
+  refreshInstances () {
     const value = this.getValue()
 
     // remove any children that are not included in the value

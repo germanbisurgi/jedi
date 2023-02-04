@@ -50,9 +50,7 @@ export const getType = (value) => {
   let type = 'any'
 
   if (isNumber(value)) {
-    type = 'number'
-  } else if (isInteger(value)) {
-    type = 'integer'
+    type = isInteger(value) ? 'integer' : 'number'
   } else if (isString(value)) {
     type = 'string'
   } else if (isBoolean(value)) {
