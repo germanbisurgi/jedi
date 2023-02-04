@@ -1,6 +1,6 @@
 import Instance from './instance'
 import Schema from '../schema'
-import { isSet, equal, different, mergeDeep, isArray } from '../utils'
+import { isSet, equal, mergeDeep, isArray, different } from '../utils'
 import MultipleEditor from '../editors/multiple'
 
 class MultipleInstance extends Instance {
@@ -9,13 +9,17 @@ class MultipleInstance extends Instance {
   }
 
   prepare () {
-    this.editors = []
-    this.activeEditor = null
+    this.instances = []
+    this.activeInstance = null
     this.lastIndex = 0
     this.index = 0
     this.schemas = []
     this.switcherOptionValues = []
     this.switcherOptionsLabels = []
+
+    this.on('set-value', () => {
+      this.onSetValue()
+    })
 
     if (this.schema.anyOf() || this.schema.oneOf()) {
       const schemasOf = this.schema.anyOf() ? this.schema.anyOf() : this.schema.oneOf()
@@ -88,54 +92,48 @@ class MultipleInstance extends Instance {
       ]
     }
 
-    // Editors
+    // Instances
     this.schemas.forEach((schema) => {
-      const editor = this.jedi.createInstance({
+      const instance = this.jedi.createInstance({
         jedi: this.jedi,
         schema: new Schema(schema),
         path: this.path,
         parent: this.parent
       })
 
-      editor.unregister()
+      instance.unregister()
 
-      editor.on('change', () => {
+      instance.on('change', () => {
         this.emit('change')
       })
 
-      this.editors.push(editor)
+      this.instances.push(instance)
+
+      this.register()
     })
 
-    if (isSet(this.editors[0])) {
-      this.switchEditor(0, false)
+    if (isSet(this.instances[0])) {
+      this.switchInstance(0, false)
     }
   }
 
-  switchEditor (newIndex, triggersChange = true) {
+  switchInstance (newIndex, triggersChange = true) {
     this.lastIndex = this.index
     this.index = newIndex
-    this.activeEditor = this.editors[this.index]
+    this.activeInstance = this.instances[this.index]
     this.setValue(this.getValue(), triggersChange)
   }
 
-  getValue () {
-    return this.activeEditor.getValue()
-  }
-
-  sanitize (value) {
-    return this.activeEditor.sanitize(value)
-  }
-
-  matchEditor (value, editors) {
+  matchInstance (value) {
     let index = 0
 
-    for (const editor of editors) {
-      if (editor.editors) {
-        editor.setValue(value)
+    for (const instance of this.instances) {
+      if (instance.instances) {
+        instance.setValue(value)
       }
 
-      if (equal(editor.sanitize(value), value)) {
-        this.switchEditor(index)
+      if (equal(instance.getValue(), value)) {
+        this.switchInstance(index)
         break
       }
 
@@ -143,23 +141,29 @@ class MultipleInstance extends Instance {
     }
   }
 
-  setValue (value, triggersChange = true) {
-    // if value matches the active editor type set the value. Else switch to the first
-    // editor that match the value.
-    if (different(this.activeEditor.sanitize(value), value)) {
-      this.matchEditor(value, this.editors)
+  onSetValue () {
+    const value = this.value
+
+    // if value matches the active instance type set the value. Else switch to the first
+    // instance that match the value.
+    if (different(this.activeInstance.sanitize(value), value)) {
+      this.matchInstance(value)
     }
 
-    this.activeEditor.setValue(value, triggersChange)
+    this.activeInstance.setValue(value, true)
+  }
 
-    if (triggersChange) {
-      this.emit('change')
-    }
+  getValue () {
+    return this.activeInstance.getValue()
+  }
+
+  sanitize (value) {
+    return this.activeInstance.sanitize(value)
   }
 
   destroy () {
-    this.editors.forEach((editor) => {
-      editor.destroy()
+    this.instances.forEach((instance) => {
+      instance.destroy()
     })
 
     super.destroy()

@@ -18,7 +18,7 @@ class MultipleEditor extends Editor {
 
       button.addEventListener('click', () => {
         const index = Number(button.value)
-        this.instance.switchEditor(index)
+        this.instance.switchInstance(index)
       })
 
       this.switcher.appendChild(button)
@@ -29,23 +29,23 @@ class MultipleEditor extends Editor {
   }
 
   refreshUI () {
-    const oldEditor = this.instance.editors[this.instance.lastIndex]
+    const oldInstance = this.instance.instances[this.instance.lastIndex]
 
-    if (oldEditor.ui.container.parentNode) {
-      this.container.removeChild(oldEditor.ui.container)
+    if (oldInstance.ui.container.parentNode) {
+      this.container.removeChild(oldInstance.ui.container)
     }
 
-    this.container.appendChild(this.instance.activeEditor.ui.container)
+    this.container.appendChild(this.instance.activeInstance.ui.container)
 
     const buttons = this.container.querySelectorAll('button')
 
     if (this.disabled) {
-      this.instance.activeEditor.ui.disable()
+      this.instance.activeInstance.ui.disable()
       buttons.forEach((button) => {
         button.disabled = true
       })
     } else {
-      this.instance.activeEditor.ui.enable()
+      this.instance.activeInstance.ui.enable()
       buttons.forEach((button) => {
         button.disabled = false
       })
@@ -62,7 +62,7 @@ class MultipleEditor extends Editor {
 
   showValidationErrors () {
     super.showValidationErrors()
-    this.instance.activeEditor.ui.showValidationErrors()
+    this.instance.activeInstance.ui.showValidationErrors()
   }
 }
 
