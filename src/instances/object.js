@@ -130,6 +130,10 @@ class ObjectInstance extends Instance {
       }
     }
 
+    if (!isObject(value)) {
+      return
+    }
+
     Object.keys(value).forEach((key) => {
       const child = this.getChild(key)
 

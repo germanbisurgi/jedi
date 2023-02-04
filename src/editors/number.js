@@ -1,4 +1,5 @@
 import Editor from './editor'
+import { isNumber } from '../utils'
 
 class NumberEditor extends Editor {
   build () {
@@ -44,7 +45,11 @@ class NumberEditor extends Editor {
   }
 
   refreshUI () {
-    this.input.value = this.instance.getValue()
+    const value = this.instance.getValue()
+
+    if (isNumber(value)) {
+      this.input.value = this.instance.getValue()
+    }
 
     if (this.disabled) {
       this.input.setAttribute('disabled', 'disabled')

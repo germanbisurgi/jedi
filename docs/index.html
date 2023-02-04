@@ -255,6 +255,10 @@
               url: './json/validator/required.json'
             },
             {
+              name: 'validator/type',
+              url: './json/validator/type.json'
+            },
+            {
               name: 'validator/uniqueItems',
               url: './json/validator/uniqueItems.json'
             },
@@ -354,7 +358,7 @@
         async switchSchema() {
           const url = this.$refs.schema.value
           // const url = './json/editors/integer.json'
-          // const url = './json/validator/additionalProperties.json'
+          // const url = './json/validator/type.json'
           const response = await fetch(url);
           this.options.schema = await response.json()
           this.initEditor()

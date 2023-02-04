@@ -74,6 +74,10 @@ class ArrayInstance extends Instance {
 
     const value = this.getValue()
 
+    if (!isArray(value)) {
+      return
+    }
+
     value.forEach((itemValue) => {
       const child = this.createItemInstance(itemValue)
       this.children.push(child)
