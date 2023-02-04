@@ -6,7 +6,7 @@ class Schema {
   }
 
   additionalProperties () {
-    return isObject(this.schema.additionalProperties) || isBoolean(this.schema.additionalProperties) ? this.schema.additionalProperties : false
+    return isObject(this.schema.additionalProperties) || isBoolean(this.schema.additionalProperties) ? this.schema.additionalProperties : true
   }
 
   allOf () {
