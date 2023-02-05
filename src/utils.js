@@ -2,12 +2,27 @@ export const clone = (thing) => {
   return JSON.parse(JSON.stringify(thing))
 }
 
+export const round2decimals = (number) => {
+  return Math.round(number * 100) / 100
+}
+
+export const sortObject = (obj) => {
+  return Object.keys(obj).sort().reduce((result, key) => {
+    result[key] = obj[key]
+    return result
+  }, {})
+}
+
 export const equal = (a, b) => {
+  if (isObject(a) && isObject(b)) {
+    a = sortObject(a)
+    b = sortObject(b)
+  }
   return JSON.stringify(a) === JSON.stringify(b)
 }
 
 export const different = (a, b) => {
-  return JSON.stringify(a) !== JSON.stringify(b)
+  return !equal(a, b)
 }
 
 export const isNull = (value) => {
