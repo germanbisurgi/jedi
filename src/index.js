@@ -106,8 +106,8 @@ class Jedi extends EventEmitter {
       if (!config.schema.type() && config.schema.default()) {
         const originalSchema = config.schema.clone()
         originalSchema.type = getType(config.schema.default())
-        const newSchema = new Schema(originalSchema)
-        return this.resolve(newSchema)
+        config.schema = new Schema(originalSchema)
+        return this.createInstance(config)
       } else {
         instance = new MultipleInstance(config)
       }
