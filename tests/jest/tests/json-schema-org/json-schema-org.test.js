@@ -1,6 +1,6 @@
 /* global describe it expect */
 
-const Jedi = require('../../../../../dist/jedi')
+const Jedi = require('../../../../dist/jedi')
 
 const suites = [
   // require('./test-suite/additionalProperties'),
