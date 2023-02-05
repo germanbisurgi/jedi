@@ -83,13 +83,11 @@ class Instance extends EventEmitter {
         return
       }
 
-      // const defaultErrors = this.jedi.validator.validate(this.schema.default(), this.schema, this.getKey(), this.path)
-      //
-      // if (defaultErrors.length === 0) {
-      //   value = this.schema.default()
-      // }
+      const defaultErrors = this.jedi.validator.validate(this.schema.default(), this.schema, this.getKey(), this.path)
 
-      value = this.schema.default()
+      if (defaultErrors.length === 0) {
+        value = this.schema.default()
+      }
     }
 
     this.value = value

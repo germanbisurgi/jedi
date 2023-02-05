@@ -2,21 +2,18 @@
 
 - bugs:
     - use isSet everywhere, especially in if with schema getters
-    - integer validation (sanitize?)
-    - validation types
     - object instance default
+    - make schemas with default valid agaist it schemas
 
 - RefParser:
     - max deep ref parser
     - dereference schema first and the initialize editor
 
 - instance:
-    - do not sanitize values 
     - array enums
     - array tuple 
     
 - editors:
-    - sanitizeValues : true
     - format categories
     - grid
     - plugins examples
@@ -30,10 +27,13 @@
 
 - refactoring:
     
-- tests:
+- e2e:
     - array move up and down
     - sr-only titles
     - multiple
+    
+- unit:
+    - json-schema-org tests
     
 - validation
     - display single error messages also when there are multiple?
@@ -51,3 +51,4 @@
 
 ## Resources
 * [Understanding JSON Schema](http://json-schema.org/understanding-json-schema/index.html)
+* [JSON-Schema-Test-Suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite)

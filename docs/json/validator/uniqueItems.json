@@ -5,7 +5,7 @@
   "properties": {
     "array": {
       "type": "array",
-      "default": ["Albert", "Albert"],
+      "default": ["Albert", "Betti"],
       "uniqueItems": true,
       "items": {
         "type": "string"

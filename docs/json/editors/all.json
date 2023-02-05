@@ -193,7 +193,8 @@
           },
           "default": [
             "#e8f3ee",
-            "#fff9e6"
+            "#fff9e6",
+            "#ffffff"
           ],
           "minItems": 3
         }
