@@ -18,7 +18,7 @@ class Schema {
   }
 
   const () {
-    return this.schema.const ? this.schema.const : false
+    return this.schema.const
   }
 
   clone () {
@@ -50,11 +50,11 @@ class Schema {
   }
 
   exclusiveMaximum () {
-    return isNumber(this.schema.exclusiveMaximum) ? this.schema.exclusiveMaximum : false
+    return isNumber(this.schema.exclusiveMaximum) ? this.schema.exclusiveMaximum : undefined
   }
 
   exclusiveMinimum () {
-    return isNumber(this.schema.exclusiveMinimum) ? this.schema.exclusiveMinimum : false
+    return isNumber(this.schema.exclusiveMinimum) ? this.schema.exclusiveMinimum : undefined
   }
 
   format () {
@@ -66,7 +66,15 @@ class Schema {
   }
 
   if () {
-    return isObject(this.schema.if) ? this.schema.if : false
+    if (isObject(this.schema.if)) {
+      return this.schema.if
+    }
+
+    if (isBoolean(this.schema.if)) {
+      return this.schema.if
+    }
+
+    return undefined
   }
 
   items () {
