@@ -4,6 +4,7 @@ export const _maxLength = (validator, value, schema, key, path) => {
   const errors = []
 
   if (isString(value) && schema.maxLength()) {
+    value = value.replace(/[\uDCA9]/g, '') // remove Unicode code points
     const invalid = (value.length > schema.maxLength())
 
     if (invalid) {

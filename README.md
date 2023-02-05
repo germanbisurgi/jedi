@@ -1,8 +1,10 @@
 ## Todo
 
 - bugs:
+    - use isSet everywhere, especially in if with schema getters
     - integer validation (sanitize?)
     - validation types
+    - object instance default
 
 - RefParser:
     - max deep ref parser

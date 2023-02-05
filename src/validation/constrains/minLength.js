@@ -4,6 +4,7 @@ export const _minLength = (validator, value, schema, key, path) => {
   const errors = []
 
   if (isString(value) && schema.minLength()) {
+    value = value.replace(/[\uDCA9]/g, '') // remove Unicode code points
     const invalid = (value.length < schema.minLength())
 
     if (invalid) {
