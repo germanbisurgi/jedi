@@ -124,6 +124,10 @@ class Instance extends EventEmitter {
    * Returns an array of validation error messages
    */
   validate () {
+    if (!this.isActive) {
+      return []
+    }
+
     return this.jedi.validator.validate(this.getValue(), this.schema, this.getKey(), this.path)
   }
 
