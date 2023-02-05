@@ -1,6 +1,7 @@
 /* global confirm */
 
 import Editor from './editor'
+import { isArray } from '../utils'
 
 class ArrayEditor extends Editor {
   build () {
@@ -56,6 +57,14 @@ class ArrayEditor extends Editor {
     return this.theme.getAlert({
       message: message
     })
+  }
+
+  sanitize (value) {
+    if (isArray(value)) {
+      return value
+    }
+
+    return []
   }
 
   refreshUI () {

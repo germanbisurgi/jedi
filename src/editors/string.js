@@ -51,6 +51,10 @@ class StringEditor extends Editor {
     }
   }
 
+  sanitize (value) {
+    return String(value)
+  }
+
   refreshUI () {
     this.input.value = this.instance.getValue()
 

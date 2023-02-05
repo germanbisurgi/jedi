@@ -13,10 +13,6 @@ class StringInstance extends Instance {
       this.ui = new StringEditor(this)
     }
   }
-
-  sanitize (value) {
-    return String(value)
-  }
 }
 
 export default StringInstance

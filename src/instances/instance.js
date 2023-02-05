@@ -1,4 +1,5 @@
 import EventEmitter from '../event-emitter'
+import { isSet } from '../utils'
 
 class Instance extends EventEmitter {
   constructor (config) {
@@ -77,10 +78,16 @@ class Instance extends EventEmitter {
     //   value = this.schema.enum()[0]
     // }
 
-    if (this.schema.default()) {
+    if (isSet(this.schema.default())) {
       if (this.schema.enum() && !this.schema.enum().includes(this.schema.default())) {
         return
       }
+
+      // const defaultErrors = this.jedi.validator.validate(this.schema.default(), this.schema, this.getKey(), this.path)
+      //
+      // if (defaultErrors.length === 0) {
+      //   value = this.schema.default()
+      // }
 
       value = this.schema.default()
     }
@@ -93,13 +100,6 @@ class Instance extends EventEmitter {
    */
   getValue () {
     return this.value
-  }
-
-  /**
-   * Transforms the input value if necessary before value set
-   */
-  sanitize (value) {
-    return value
   }
 
   /**

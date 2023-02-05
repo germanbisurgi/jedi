@@ -2,6 +2,10 @@ export const clone = (thing) => {
   return JSON.parse(JSON.stringify(thing))
 }
 
+export const pretty = (value) => {
+  return JSON.stringify(value, null, 2)
+}
+
 export const round2decimals = (number) => {
   return Math.round(number * 100) / 100
 }

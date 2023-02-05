@@ -1,12 +1,19 @@
-import Schema from '../../schema'
+import Jedi from '../../index'
+import { isSet } from '../../utils'
 
 export const _anyOf = (validator, value, schema, key, path) => {
   const errors = []
 
-  if (schema.anyOf()) {
-    const valid = schema.anyOf().some((schema) => {
-      const anyOfErrors = validator.validate(value, new Schema(schema), key, path)
-      return anyOfErrors.length === 0
+  if (isSet(schema.anyOf())) {
+    const anyOf = schema.anyOf()
+    let valid = false
+
+    anyOf.forEach((schema) => {
+      const anyOfEditor = new Jedi({ schema: schema, startValue: value })
+      const anyOfErrors = anyOfEditor.validate()
+      if (anyOfErrors.length === 0) {
+        valid = true
+      }
     })
 
     if (!valid) {

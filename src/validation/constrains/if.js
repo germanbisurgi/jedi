@@ -12,8 +12,6 @@ export const _if = (validator, value, schema) => {
     const ifEditor = new Jedi({ schema: schema.if(), startValue: value })
     const ifErrors = ifEditor.validate()
 
-    console.log('ifErrors', ifErrors)
-
     let thenErrors = []
     let elseErrors = []
 
@@ -26,27 +24,21 @@ export const _if = (validator, value, schema) => {
     if (schema.else()) {
       const elseEditor = new Jedi({ schema: schema.else(), startValue: value })
       elseErrors = elseEditor.validate()
-      console.log(schema.else(), value, elseErrors)
     }
 
     if (schema.if() === true) {
-      console.log('if true then')
       return thenErrors
     }
 
     if (schema.if() === false) {
-      console.log('if false else')
       return elseErrors
     }
 
     if (ifErrors.length === 0) {
-      console.log('then')
       return thenErrors
     }
 
     if (ifErrors.length > 0) {
-      console.log('else')
-      console.log('elseErrors', elseErrors)
       return elseErrors
     }
   }

@@ -109,6 +109,13 @@ class Editor extends EventEmitter {
     this.refreshUI()
   }
 
+  /**
+   * Transforms the input value if necessary before value set
+   */
+  sanitize (value) {
+    return value
+  }
+
   destroy () {
     if (this.container && this.container.parentNode) {
       this.container.parentNode.removeChild(this.container)

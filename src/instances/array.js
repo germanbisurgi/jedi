@@ -83,14 +83,6 @@ class ArrayInstance extends Instance {
       this.children.push(child)
     })
   }
-
-  sanitize (value) {
-    if (isArray(value)) {
-      return value
-    }
-
-    return []
-  }
 }
 
 export default ArrayInstance

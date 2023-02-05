@@ -21,8 +21,8 @@ class MultipleInstance extends Instance {
       this.onSetValue()
     })
 
-    if (this.schema.anyOf() || this.schema.oneOf()) {
-      const schemasOf = this.schema.anyOf() ? this.schema.anyOf() : this.schema.oneOf()
+    if (isSet(this.schema.anyOf()) || isSet(this.schema.oneOf())) {
+      const schemasOf = isSet(this.schema.anyOf()) ? this.schema.anyOf() : this.schema.oneOf()
       const cloneSchema = this.schema.clone()
       delete cloneSchema['anyOf']
       delete cloneSchema['oneOf']
@@ -146,7 +146,7 @@ class MultipleInstance extends Instance {
 
     // if value matches the active instance type set the value. Else switch to the first
     // instance that match the value.
-    if (different(this.activeInstance.sanitize(value), value)) {
+    if (different(this.activeInstance.getValue(), value)) {
       this.matchInstance(value)
     }
 
@@ -155,10 +155,6 @@ class MultipleInstance extends Instance {
 
   getValue () {
     return this.activeInstance.getValue()
-  }
-
-  sanitize (value) {
-    return this.activeInstance.sanitize(value)
   }
 
   destroy () {

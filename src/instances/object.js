@@ -84,14 +84,6 @@ class ObjectInstance extends Instance {
     })
   }
 
-  sanitize (value) {
-    if (isObject(value)) {
-      return value
-    }
-
-    return {}
-  }
-
   onChildChange () {
     const value = {}
 

@@ -14,7 +14,7 @@ class Schema {
   }
 
   anyOf () {
-    return isArray(this.schema.anyOf) ? this.schema.anyOf : false
+    return isArray(this.schema.anyOf) ? this.schema.anyOf : undefined
   }
 
   const () {
@@ -26,7 +26,7 @@ class Schema {
   }
 
   default () {
-    return this.schema.default ? this.schema.default : false
+    return this.schema.default
   }
 
   dependentRequired () {
@@ -102,11 +102,11 @@ class Schema {
   }
 
   maxProperties () {
-    if (isInteger(this.schema.maxProperties) && this.schema.maxProperties >= 0) {
+    if (isInteger(this.schema.maxProperties)) {
       return this.schema.maxProperties
     }
 
-    return false
+    return undefined
   }
 
   minimum () {
@@ -158,7 +158,7 @@ class Schema {
   }
 
   patternProperties () {
-    return isObject(this.schema.patternProperties) ? this.schema.patternProperties : false
+    return isObject(this.schema.patternProperties) ? this.schema.patternProperties : undefined
   }
 
   property (key) {
@@ -198,11 +198,11 @@ class Schema {
   }
 
   oneOf () {
-    return isArray(this.schema.oneOf) ? this.schema.oneOf : false
+    return isArray(this.schema.oneOf) ? this.schema.oneOf : undefined
   }
 
   uniqueItems () {
-    return isBoolean(this.schema.uniqueItems) ? this.schema.uniqueItems : false
+    return isBoolean(this.schema.uniqueItems) ? this.schema.uniqueItems : undefined
   }
 
   destroy () {

@@ -1,9 +1,9 @@
-import { isArray } from '../../utils'
+import { isArray, isSet } from '../../utils'
 
 export const _uniqueItems = (validator, value, schema, key, path) => {
   const errors = []
 
-  if (isArray(value) && schema.uniqueItems()) {
+  if (isArray(value) && isSet(schema.uniqueItems())) {
     const seen = {}
     let hasDuplicatedItems = false
 

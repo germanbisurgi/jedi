@@ -1,7 +1,9 @@
+import { isString } from '../../utils'
+
 export const _format = (validator, value, schema, key, path) => {
   const errors = []
 
-  if (schema.format()) {
+  if (schema.format() && isString(value)) {
     let invalid = false
 
     if (schema.formatIs('email')) {

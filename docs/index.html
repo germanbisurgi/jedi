@@ -23,7 +23,11 @@
                 <legend>Methods</legend>
                 <div class="form-group">
                     <label for="editor-value">Value</label>
-                    <textarea ref="editorValue" class="form-control" id="editor-value" style="font-family: monospace;height: 70vh;"></textarea>
+                    <textarea ref="editorValue" class="form-control" id="editor-value" style="font-family: monospace;height: 30vh;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editor-errors">Errors</label>
+                    <textarea ref="editorErrors" class="form-control" id="editor-errors" style="font-family: monospace;height: 30vh;"></textarea>
                 </div>
                 <button class="btn btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
                 <button class="btn btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
@@ -303,9 +307,11 @@
 
           this.editor.on('change', () => {
             this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
+            this.$refs.editorErrors.value = JSON.stringify(this.editor.validate(), null, 2)
           })
 
           this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
+          this.$refs.editorErrors.value = JSON.stringify(this.editor.validate(), null, 2)
         },
         destroyEditor() {
           this.editor.destroy()

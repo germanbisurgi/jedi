@@ -1,5 +1,5 @@
 import Editor from './editor'
-import { equal, isSet } from '../utils'
+import { equal, isObject, isSet } from '../utils'
 
 class ObjectEditor extends Editor {
   build () {
@@ -61,6 +61,14 @@ class ObjectEditor extends Editor {
       this.actionsSlot.appendChild(this.addPropertyInput)
       this.actionsSlot.appendChild(this.addPropertyBtn)
     }
+  }
+
+  sanitize (value) {
+    if (isObject(value)) {
+      return value
+    }
+
+    return {}
   }
 
   getInvalidFeedback (message) {

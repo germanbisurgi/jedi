@@ -13,10 +13,6 @@ class BooleanInstance extends Instance {
       this.ui = new BooleanEditor(this)
     }
   }
-
-  sanitize (value) {
-    return Boolean(value)
-  }
 }
 
 export default BooleanInstance

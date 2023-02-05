@@ -1,9 +1,10 @@
 import Schema from '../../schema'
+import { isSet } from '../../utils'
 
 export const _oneOf = (validator, value, schema, key, path) => {
   const errors = []
 
-  if (schema.oneOf()) {
+  if (isSet(schema.oneOf())) {
     let counter = 0
 
     schema.oneOf().forEach((schema) => {
