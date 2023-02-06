@@ -3,10 +3,6 @@ import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isSet, isStr
 export const _type = (validator, value, schema, key, path) => {
   const errors = []
 
-  if (isArray(schema.type())) {
-    return errors
-  }
-
   if (schema.typeIs('any')) {
     return errors
   }
@@ -22,7 +18,15 @@ export const _type = (validator, value, schema, key, path) => {
       null: value => isNull(value)
     }
 
-    const valid = types[schema.type()](value)
+    let valid = true
+
+    if (isArray(schema.type())) {
+      valid = schema.type().some((type) => {
+        return types[type](value)
+      })
+    } else {
+      valid = types[schema.type()](value)
+    }
 
     if (!valid) {
       const field = isSet(schema.title()) ? schema.title() : key

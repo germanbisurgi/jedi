@@ -29,7 +29,7 @@ const suites = [
   // require('./test-suite/patternProperties'),
   // require('./test-suite/properties'),
   require('./test-suite/required'),
-  // require('./test-suite/type'),
+  require('./test-suite/type')
   // require('./test-suite/uniqueItems'),
 ]
 
@@ -39,9 +39,10 @@ suites.forEach((suite) => {
       scenario.tests.forEach((test) => {
         it(test.description, function () {
           const jedi = new Jedi({
-            schema: scenario.schema,
-            startValue: test.data
+            schema: scenario.schema
           })
+
+          jedi.setValue(test.data)
           const errors = jedi.validate()
           const valid = (errors.length === 0)
           jedi.destroy()

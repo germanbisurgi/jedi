@@ -1,9 +1,10 @@
 const Jedi = require('../dist/jedi')
 const jedi = new Jedi({
   schema: {
-    minItems: 1.0
-  },
-  startValue: []
+    type: ['array', 'object', 'null']
+  }
 })
+
+jedi.setValue('')
 console.log(jedi.getValue())
 console.log(jedi.validate())

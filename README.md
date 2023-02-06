@@ -2,7 +2,6 @@
 
 - bugs:
     - object instance default
-    - make schemas with default valid agaist it schemas
 
 - RefParser:
     - max deep ref parser
