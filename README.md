@@ -14,6 +14,7 @@
     - array tuple 
     
 - editors:
+    - refactor description and titles (duplicated code)
     - format categories
     - grid
     - plugins examples
@@ -25,8 +26,6 @@
     - filter by field
     - icons
 
-- refactoring:
-    
 - e2e:
     - array move up and down
     - sr-only titles
@@ -46,8 +45,6 @@
     - formats
     - if
     - type
-
-- Jedi:
 
 ## Resources
 * [Understanding JSON Schema](http://json-schema.org/understanding-json-schema/index.html)
