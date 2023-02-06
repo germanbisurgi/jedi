@@ -11,7 +11,7 @@ class ObjectInstance extends Instance {
   prepare () {
     if (isSet(this.schema.properties())) {
       Object.keys(this.schema.properties()).forEach((key) => {
-        const schema = this.schema.property(key)
+        const schema = this.schema.properties()[key]
         this.createChild(schema, key)
       })
     }

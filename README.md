@@ -1,7 +1,6 @@
 ## Todo
 
 - bugs:
-    - use isSet everywhere, especially in if with schema getters
     - object instance default
     - make schemas with default valid agaist it schemas
 

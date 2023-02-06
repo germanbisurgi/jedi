@@ -161,10 +161,6 @@ class Schema {
     return isObject(this.schema.patternProperties) ? this.schema.patternProperties : undefined
   }
 
-  property (key) {
-    return isSet(this.properties) && this.schema.properties[key] ? this.schema.properties[key] : false
-  }
-
   properties () {
     return isObject(this.schema.properties) ? this.schema.properties : undefined
   }
