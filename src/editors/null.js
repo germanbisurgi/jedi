@@ -1,4 +1,5 @@
 import Editor from './editor'
+import { isSet } from '../utils'
 
 class NullEditor extends Editor {
   build () {
@@ -6,7 +7,7 @@ class NullEditor extends Editor {
     this.container.appendChild(this.controlSlot)
 
     // description
-    if (this.instance.schema.description()) {
+    if (isSet(this.instance.schema.description())) {
       this.container.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))

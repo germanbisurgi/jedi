@@ -1,4 +1,5 @@
 import BooleanEditor from './boolean'
+import { isSet } from '../utils'
 
 class BooleanEnumRadioEditor extends BooleanEditor {
   build () {
@@ -8,7 +9,7 @@ class BooleanEnumRadioEditor extends BooleanEditor {
 
     // legend
     this.controlSlot.appendChild(this.theme.getRadioLegend({
-      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey()
+      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey()
     }))
 
     // radios
@@ -44,7 +45,7 @@ class BooleanEnumRadioEditor extends BooleanEditor {
     this.container.appendChild(this.controlSlot)
 
     // description
-    if (this.instance.schema.description()) {
+    if (isSet(this.instance.schema.description())) {
       this.controlSlot.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))

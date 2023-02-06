@@ -1,11 +1,11 @@
 import Jedi from '../../index'
-import { isSet } from '../../utils'
+import { isSet, notSet } from '../../utils'
 
 export const _if = (validator, value, schema) => {
   const errors = []
 
   if (isSet(schema.if())) {
-    if (!schema.then() && !schema.else()) {
+    if (notSet(schema.then()) && notSet(schema.else())) {
       return errors
     }
 
@@ -15,13 +15,13 @@ export const _if = (validator, value, schema) => {
     let thenErrors = []
     let elseErrors = []
 
-    if (schema.then()) {
+    if (isSet(schema.then())) {
       const thenEditor = new Jedi({ schema: schema.then(), startValue: value })
       thenErrors = thenEditor.validate()
       thenEditor.destroy()
     }
 
-    if (schema.else()) {
+    if (isSet(schema.else())) {
       const elseEditor = new Jedi({ schema: schema.else(), startValue: value })
       elseErrors = elseEditor.validate()
     }

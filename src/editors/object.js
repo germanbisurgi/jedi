@@ -7,12 +7,12 @@ class ObjectEditor extends Editor {
 
     // title
     this.fieldset.appendChild(this.theme.getLegend({
-      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
+      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
     }))
 
     // description
-    if (this.instance.schema.description()) {
+    if (isSet(this.instance.schema.description())) {
       this.fieldset.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))
@@ -90,7 +90,7 @@ class ObjectEditor extends Editor {
 
         const activatorLabel = this.theme.getCheckboxLabel({
           for: activatorId,
-          textContent: child.schema.title() ? child.schema.title() : child.getKey()
+          textContent: isSet(child.schema.title()) ? child.schema.title() : child.getKey()
         })
 
         const activatorInput = this.theme.getCheckbox({

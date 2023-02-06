@@ -1,4 +1,5 @@
 import Editor from './editor'
+import { isSet } from '../utils'
 
 class BooleanEditor extends Editor {
   build () {
@@ -8,7 +9,7 @@ class BooleanEditor extends Editor {
     // label
     const label = this.theme.getCheckboxLabel({
       for: this.instance.path,
-      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
+      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
     })
 
@@ -23,7 +24,7 @@ class BooleanEditor extends Editor {
     })
 
     // description
-    if (this.instance.schema.description()) {
+    if (isSet(this.instance.schema.description())) {
       this.controlSlot.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))

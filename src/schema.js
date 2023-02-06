@@ -30,15 +30,15 @@ class Schema {
   }
 
   dependentRequired () {
-    return isObject(this.schema.dependentRequired) ? this.schema.dependentRequired : false
+    return isObject(this.schema.dependentRequired) ? this.schema.dependentRequired : undefined
   }
 
   description () {
-    return isString(this.schema.description) ? this.schema.description : false
+    return isString(this.schema.description) ? this.schema.description : undefined
   }
 
   else () {
-    return isObject(this.schema.else) ? this.schema.else : false
+    return (isObject(this.schema.else) || isBoolean(this.schema.else)) ? this.schema.else : undefined
   }
 
   enum () {
@@ -46,7 +46,7 @@ class Schema {
       return this.schema.enum
     }
 
-    return false
+    return undefined
   }
 
   exclusiveMaximum () {
@@ -58,11 +58,11 @@ class Schema {
   }
 
   format () {
-    return isString(this.schema.format) ? this.schema.format : false
+    return isString(this.schema.format) ? this.schema.format : undefined
   }
 
   formatIs (value) {
-    return (this.format() && this.format() === value)
+    return (isSet(this.format()) && this.format() === value)
   }
 
   if () {
@@ -78,11 +78,11 @@ class Schema {
   }
 
   items () {
-    return isObject(this.schema.items) ? this.schema.items : false
+    return isObject(this.schema.items) ? this.schema.items : undefined
   }
 
   maximum () {
-    return (this.schema.maximum) ? this.schema.maximum : false
+    return isNumber(this.schema.maximum) ? this.schema.maximum : undefined
   }
 
   maxItems () {
@@ -90,7 +90,7 @@ class Schema {
       return this.schema.maxItems
     }
 
-    return false
+    return undefined
   }
 
   maxLength () {
@@ -98,7 +98,7 @@ class Schema {
       return this.schema.maxLength
     }
 
-    return false
+    return undefined
   }
 
   maxProperties () {
@@ -110,7 +110,7 @@ class Schema {
   }
 
   minimum () {
-    return isNumber(this.schema.minimum) ? this.schema.minimum : false
+    return isNumber(this.schema.minimum) ? this.schema.minimum : undefined
   }
 
   minItems () {
@@ -118,7 +118,7 @@ class Schema {
       return this.schema.minItems
     }
 
-    return false
+    return undefined
   }
 
   minLength () {
@@ -126,7 +126,7 @@ class Schema {
       return this.schema.minLength
     }
 
-    return false
+    return undefined
   }
 
   minProperties () {
@@ -134,7 +134,7 @@ class Schema {
       return this.schema.minProperties
     }
 
-    return false
+    return undefined
   }
 
   multipleOf () {
@@ -142,11 +142,11 @@ class Schema {
       return this.schema.multipleOf
     }
 
-    return false
+    return undefined
   }
 
   not () {
-    return isObject(this.schema.not) ? this.schema.not : false
+    return (isObject(this.schema.not) || isBoolean(this.schema.not)) ? this.schema.not : undefined
   }
 
   option (option) {
@@ -154,7 +154,7 @@ class Schema {
   }
 
   pattern () {
-    return isString(this.schema.pattern) ? this.schema.pattern : false
+    return isString(this.schema.pattern) ? this.schema.pattern : undefined
   }
 
   patternProperties () {
@@ -162,23 +162,23 @@ class Schema {
   }
 
   property (key) {
-    return this.properties && this.schema.properties[key] ? this.schema.properties[key] : false
+    return isSet(this.properties) && this.schema.properties[key] ? this.schema.properties[key] : false
   }
 
   properties () {
-    return this.schema.properties ? this.schema.properties : false
+    return isObject(this.schema.properties) ? this.schema.properties : undefined
   }
 
   required () {
-    return isArray(this.schema.required) ? [...new Set(this.schema.required)] : false
+    return isArray(this.schema.required) ? [...new Set(this.schema.required)] : undefined
   }
 
   then () {
-    return isObject(this.schema.then) ? this.schema.then : false
+    return (isObject(this.schema.then) || isBoolean(this.schema.then)) ? this.schema.then : undefined
   }
 
   title () {
-    return isString(this.schema.title) ? this.schema.title : false
+    return isString(this.schema.title) ? this.schema.title : undefined
   }
 
   type () {

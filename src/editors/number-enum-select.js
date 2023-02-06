@@ -1,4 +1,5 @@
 import NumberEditor from './number'
+import { isSet } from '../utils'
 
 class NumberEnumSelectEditor extends NumberEditor {
   build () {
@@ -7,7 +8,7 @@ class NumberEnumSelectEditor extends NumberEditor {
 
     const label = this.theme.getLabel({
       for: this.instance.path,
-      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
+      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
     })
 
@@ -24,7 +25,7 @@ class NumberEnumSelectEditor extends NumberEditor {
     })
 
     // description
-    if (this.instance.schema.description()) {
+    if (isSet(this.instance.schema.description())) {
       this.controlSlot.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))

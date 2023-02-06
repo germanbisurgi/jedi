@@ -9,7 +9,7 @@ class ObjectInstance extends Instance {
   }
 
   prepare () {
-    if (this.schema.properties()) {
+    if (isSet(this.schema.properties())) {
       Object.keys(this.schema.properties()).forEach((key) => {
         const schema = this.schema.property(key)
         this.createChild(schema, key)
@@ -27,7 +27,7 @@ class ObjectInstance extends Instance {
    * Returns true if the property is required
    */
   isRequired (property) {
-    return this.schema.required() && this.schema.required().includes(property)
+    return isSet(this.schema.required()) && this.schema.required().includes(property)
   }
 
   /**
@@ -36,7 +36,7 @@ class ObjectInstance extends Instance {
   isDependentRequired (property) {
     const dependentRequired = this.schema.dependentRequired()
 
-    if (dependentRequired) {
+    if (isSet(dependentRequired)) {
       let missingProperties = []
 
       Object.keys(dependentRequired).forEach((key) => {
@@ -99,7 +99,7 @@ class ObjectInstance extends Instance {
   hasProperty (propertyName) {
     const properties = this.schema.properties()
 
-    if (!properties) {
+    if (notSet(properties)) {
       return false
     }
 

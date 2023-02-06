@@ -1,4 +1,5 @@
 import StringEditor from './string'
+import { isSet } from '../utils'
 
 class StringEnumRadioEditor extends StringEditor {
   build () {
@@ -8,7 +9,7 @@ class StringEnumRadioEditor extends StringEditor {
 
     // legend
     this.controlSlot.appendChild(this.theme.getRadioLegend({
-      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey()
+      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey()
     }))
 
     // radios
@@ -43,7 +44,7 @@ class StringEnumRadioEditor extends StringEditor {
     this.container.appendChild(this.controlSlot)
 
     // description
-    if (this.instance.schema.description()) {
+    if (isSet(this.instance.schema.description())) {
       this.controlSlot.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))

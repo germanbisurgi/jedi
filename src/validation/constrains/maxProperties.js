@@ -8,7 +8,7 @@ export const _maxProperties = (validator, value, schema, key, path) => {
     const invalid = (propertiesCount > schema.maxProperties())
 
     if (invalid) {
-      const field = schema.title() ? schema.title() : key
+      const field = isSet(schema.title()) ? schema.title() : key
 
       errors.push({
         message: field + ' must have at most ' + schema.maxProperties() + ' properties',

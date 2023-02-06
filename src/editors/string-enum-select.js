@@ -1,4 +1,5 @@
 import StringEditor from './string'
+import { isSet } from '../utils'
 
 class StringEnumSelectEditor extends StringEditor {
   build () {
@@ -8,7 +9,7 @@ class StringEnumSelectEditor extends StringEditor {
     // label
     const label = this.theme.getLabel({
       for: this.instance.path,
-      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
+      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
     })
 
@@ -30,7 +31,7 @@ class StringEnumSelectEditor extends StringEditor {
     })
 
     // description
-    if (this.instance.schema.description()) {
+    if (isSet(this.instance.schema.description())) {
       this.controlSlot.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))

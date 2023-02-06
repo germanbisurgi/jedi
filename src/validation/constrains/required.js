@@ -1,9 +1,9 @@
-import { isObject } from '../../utils'
+import { isObject, isSet } from '../../utils'
 
 export const _required = (validator, value, schema, key, path) => {
   const errors = []
 
-  if (isObject(value) && schema.required()) {
+  if (isObject(value) && isSet(schema.required())) {
     const missingProperties = []
     const keys = Object.keys(value)
 
@@ -16,7 +16,7 @@ export const _required = (validator, value, schema, key, path) => {
     const invalid = missingProperties.length > 0
 
     if (invalid) {
-      const field = schema.title() ? schema.title() : key
+      const field = isSet(schema.title()) ? schema.title() : key
 
       errors.push({
         message: field + '  is missing the required properties: ' + missingProperties.join(', '),

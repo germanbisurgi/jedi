@@ -1,11 +1,12 @@
 import BooleanEditor from './boolean'
+import { isSet } from '../utils'
 
 class BooleanEnumSelectEditor extends BooleanEditor {
   build () {
     // label
     this.label = this.theme.getLabel({
       for: this.instance.path,
-      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
+      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
     })
 
@@ -22,7 +23,7 @@ class BooleanEnumSelectEditor extends BooleanEditor {
     })
 
     // description
-    if (this.instance.schema.description()) {
+    if (isSet(this.instance.schema.description())) {
       this.controlSlot.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))

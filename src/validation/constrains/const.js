@@ -7,7 +7,7 @@ export const _const = (validator, value, schema, key, path) => {
     const invalid = (valueIsNotEqualConst)
 
     if (invalid) {
-      const field = schema.title() ? schema.title() : key
+      const field = isSet(schema.title()) ? schema.title() : key
 
       errors.push({
         message: field + ' must have value: ' + JSON.stringify(schema.const()),

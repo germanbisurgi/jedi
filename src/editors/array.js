@@ -1,7 +1,7 @@
 /* global confirm */
 
 import Editor from './editor'
-import { isArray } from '../utils'
+import { isArray, isSet } from '../utils'
 
 class ArrayEditor extends Editor {
   build () {
@@ -9,12 +9,12 @@ class ArrayEditor extends Editor {
 
     // title
     this.fieldset.appendChild(this.theme.getLegend({
-      textContent: this.instance.schema.title() ? this.instance.schema.title() : this.instance.getKey(),
+      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
     }))
 
     // description
-    if (this.instance.schema.description()) {
+    if (isSet(this.instance.schema.description())) {
       this.fieldset.appendChild(this.theme.getDescription({
         textContent: this.instance.schema.description()
       }))

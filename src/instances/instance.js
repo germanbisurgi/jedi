@@ -79,7 +79,7 @@ class Instance extends EventEmitter {
     // }
 
     if (isSet(this.schema.default())) {
-      if (this.schema.enum() && !this.schema.enum().includes(this.schema.default())) {
+      if (isSet(this.schema.enum()) && !this.schema.enum().includes(this.schema.default())) {
         return
       }
 

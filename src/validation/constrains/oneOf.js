@@ -16,7 +16,7 @@ export const _oneOf = (validator, value, schema, key, path) => {
     })
 
     if (counter !== 1) {
-      const field = schema.title() ? schema.title() : key
+      const field = isSet(schema.title()) ? schema.title() : key
 
       errors.push({
         message: field + ' must validate against exactly one of the provided schemas. It currently validates against ' + counter + ' of the schemas.',

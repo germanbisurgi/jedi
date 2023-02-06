@@ -17,7 +17,7 @@ class ArrayInstance extends Instance {
   }
 
   createItemInstance (value) {
-    const schema = this.schema.items() ? this.schema.items() : { type: getType(value) }
+    const schema = isSet(this.schema.items()) ? this.schema.items() : { type: getType(value) }
 
     const child = this.jedi.createInstance({
       jedi: this.jedi,

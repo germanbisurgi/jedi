@@ -1,9 +1,9 @@
-import { isString } from '../../utils'
+import { isSet, isString } from '../../utils'
 
 export const _format = (validator, value, schema, key, path) => {
   const errors = []
 
-  if (schema.format() && isString(value)) {
+  if (isSet(schema.format()) && isString(value)) {
     let invalid = false
 
     if (schema.formatIs('email')) {
@@ -12,7 +12,7 @@ export const _format = (validator, value, schema, key, path) => {
     }
 
     if (invalid) {
-      const field = schema.title() ? schema.title() : key
+      const field = isSet(schema.title()) ? schema.title() : key
 
       errors.push({
         message: field + ' must be a valid email address',
