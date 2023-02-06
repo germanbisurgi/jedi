@@ -1,6 +1,6 @@
 import Instance from './instance'
 import Schema from '../schema'
-import { isSet, equal, mergeDeep, isArray, different } from '../utils'
+import { isSet, equal, mergeDeep, isArray, different, isObject } from '../utils'
 import MultipleEditor from '../editors/multiple'
 
 class MultipleInstance extends Instance {
@@ -112,16 +112,22 @@ class MultipleInstance extends Instance {
       this.register()
     })
 
+    const schemaClone = this.schema.clone()
+    const setValue = isObject(schemaClone)
+
     if (isSet(this.instances[0])) {
-      this.switchInstance(0, false)
+      this.switchInstance(0, false, setValue)
     }
   }
 
-  switchInstance (newIndex, triggersChange = true) {
+  switchInstance (newIndex, triggersChange = true, setValue = true) {
     this.lastIndex = this.index
     this.index = newIndex
     this.activeInstance = this.instances[this.index]
-    this.setValue(this.getValue(), triggersChange)
+
+    if (setValue) {
+      this.setValue(this.getValue(), triggersChange)
+    }
   }
 
   matchInstance (value) {
@@ -154,6 +160,10 @@ class MultipleInstance extends Instance {
   }
 
   getValue () {
+    if (!this.activeInstance) {
+      return
+    }
+
     return this.activeInstance.getValue()
   }
 

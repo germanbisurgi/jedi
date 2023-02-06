@@ -1,4 +1,5 @@
 import draft from './drafts/draft-2020-12'
+import { isBoolean } from '../utils'
 
 class Validator {
   constructor () {
@@ -10,6 +11,19 @@ class Validator {
    */
   validate (value, schema, key, path) {
     let schemaErrors = []
+
+    const schemaClone = schema.clone()
+
+    if (isBoolean(schemaClone) && schemaClone === true) {
+      return schemaErrors
+    }
+
+    if (isBoolean(schemaClone) && schemaClone === false) {
+      return [{
+        message: schema.option('message') ? schema.option('message') : 'invalid',
+        path: path
+      }]
+    }
 
     this.draft.forEach((validator) => {
       const validatorErrors = validator(this, value, schema, key, path)

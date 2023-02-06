@@ -64,6 +64,12 @@ class MultipleEditor extends Editor {
     super.showValidationErrors()
     this.instance.activeInstance.ui.showValidationErrors()
   }
+
+  getInvalidFeedback (message) {
+    return this.theme.getAlert({
+      message: message
+    })
+  }
 }
 
 export default MultipleEditor

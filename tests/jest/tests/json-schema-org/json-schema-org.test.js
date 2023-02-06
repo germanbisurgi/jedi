@@ -6,6 +6,7 @@ const suites = [
   // require('./test-suite/additionalProperties'),
   // require('./test-suite/allOf'),
   // require('./test-suite/anyOf'),
+  require('./test-suite/boolean_schema'),
   require('./test-suite/const'),
   // require('./test-suite/default'),
   require('./test-suite/enum'),
