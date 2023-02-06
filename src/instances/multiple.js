@@ -32,7 +32,7 @@ class MultipleInstance extends Instance {
         schema = { ...cloneSchema, ...schema }
 
         // merge allOf
-        if (schema.allOf) {
+        if (isSet(schema.allOf)) {
           let merged = {}
 
           schema.allOf.forEach((allOfSchema) => {

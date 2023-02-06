@@ -10,7 +10,7 @@ class Schema {
   }
 
   allOf () {
-    return isArray(this.schema.allOf) ? this.schema.allOf : false
+    return isArray(this.schema.allOf) ? this.schema.allOf : undefined
   }
 
   anyOf () {
