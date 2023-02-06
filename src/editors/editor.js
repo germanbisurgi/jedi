@@ -3,6 +3,7 @@ import ThemeWireframe from '../themes/wireframe'
 import ThemeBootstrap4 from '../themes/bootstrap4'
 import ThemeBootstrap5 from '../themes/bootstrap5'
 import ThemeBarebones from '../themes/barebones'
+import { isSet } from '../utils'
 
 class Editor extends EventEmitter {
   constructor (instance) {
@@ -64,7 +65,7 @@ class Editor extends EventEmitter {
   setContainerAttributes () {
     this.container.setAttribute('data-path', this.instance.path)
 
-    if (this.instance.schema.type()) {
+    if (isSet(this.instance.schema.type())) {
       this.container.setAttribute('data-type', this.instance.schema.type())
     }
   }

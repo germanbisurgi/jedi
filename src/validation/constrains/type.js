@@ -1,4 +1,4 @@
-import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isString } from '../../utils'
+import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isSet, isString } from '../../utils'
 
 export const _type = (validator, value, schema, key, path) => {
   const errors = []
@@ -11,7 +11,7 @@ export const _type = (validator, value, schema, key, path) => {
     return errors
   }
 
-  if (schema.type()) {
+  if (isSet(schema.type())) {
     const types = {
       string: value => isString(value),
       number: value => isNumber(value),

@@ -2,7 +2,7 @@ import Schema from './schema'
 import Validator from './validation/validator'
 import RefParser from './ref-parser'
 import EventEmitter from './event-emitter'
-import { getType, isArray, isSet } from './utils'
+import { getType, isArray, isSet, notSet } from './utils'
 import MultipleInstance from './instances/multiple'
 import BooleanInstance from './instances/boolean'
 import ObjectInstance from './instances/object'
@@ -102,8 +102,8 @@ class Jedi extends EventEmitter {
   createInstance (config) {
     let instance
 
-    if (isSet(config.schema.anyOf()) || isSet(config.schema.oneOf()) || config.schema.typeIs('any') || isArray(config.schema.type()) || !config.schema.type()) {
-      if (!config.schema.type() && isSet(config.schema.default())) {
+    if (isSet(config.schema.anyOf()) || isSet(config.schema.oneOf()) || config.schema.typeIs('any') || isArray(config.schema.type()) || notSet(config.schema.type())) {
+      if (notSet(config.schema.type()) && isSet(config.schema.default())) {
         const originalSchema = config.schema.clone()
         originalSchema.type = getType(config.schema.default())
         config.schema = new Schema(originalSchema)

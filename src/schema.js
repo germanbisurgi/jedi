@@ -1,4 +1,4 @@
-import { isString, isArray, isNumber, isInteger, isBoolean, isObject } from './utils'
+import { isString, isArray, isNumber, isInteger, isBoolean, isObject, isSet } from './utils'
 
 class Schema {
   constructor (schema) {
@@ -186,11 +186,11 @@ class Schema {
       return this.schema.type
     }
 
-    return false
+    return undefined
   }
 
   typeIs (value) {
-    return (this.type() && this.type() === value)
+    return (isSet(this.type()) && this.type() === value)
   }
 
   typeIsNumeric () {
