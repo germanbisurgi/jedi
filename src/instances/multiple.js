@@ -1,7 +1,13 @@
 import Instance from './instance'
 import Schema from '../schema'
-import { isSet, mergeDeep, isArray, different, isObject } from '../utils'
 import MultipleEditor from '../editors/multiple'
+import {
+  isSet,
+  // mergeDeep,
+  isArray,
+  different,
+  isObject
+} from '../utils'
 
 class MultipleInstance extends Instance {
   setUI () {
@@ -32,15 +38,15 @@ class MultipleInstance extends Instance {
         schema = { ...cloneSchema, ...schema }
 
         // merge allOf
-        if (isSet(schema.allOf)) {
-          let merged = {}
-
-          schema.allOf.forEach((allOfSchema) => {
-            merged = mergeDeep(merged, allOfSchema)
-          })
-
-          schema = merged
-        }
+        // if (isSet(schema.allOf)) {
+        //   let merged = {}
+        //
+        //   schema.allOf.forEach((allOfSchema) => {
+        //     merged = mergeDeep(merged, allOfSchema)
+        //   })
+        //
+        //   schema = merged
+        // }
 
         if (isSet(cloneSchema.title)) {
           schema.title = cloneSchema.title
