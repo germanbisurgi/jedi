@@ -282,12 +282,13 @@
           options: {
             isEditor: true,
             container: document.querySelector('#jedi-container'),
-            editableProperties: false,
-            alwaysShowErrors: false,
+            editableProperties: true,
+            alwaysShowErrors: true,
             showRequiredOnly: false,
             theme: 'wireframe',
             rootName: 'root',
-            schema: {}
+            schema: {},
+            startValue: {"foo": "baz", "bar": "quux"}
           }
         }
       },

@@ -11,6 +11,7 @@ export const _if = (validator, value, schema) => {
 
     const ifEditor = new Jedi({ schema: schema.if(), startValue: value })
     const ifErrors = ifEditor.validate()
+    ifEditor.destroy()
 
     let thenErrors = []
     let elseErrors = []
@@ -24,6 +25,7 @@ export const _if = (validator, value, schema) => {
     if (isSet(schema.else())) {
       const elseEditor = new Jedi({ schema: schema.else(), startValue: value })
       elseErrors = elseEditor.validate()
+      elseEditor.destroy()
     }
 
     if (schema.if() === true) {
