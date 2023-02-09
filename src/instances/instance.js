@@ -20,8 +20,9 @@ class Instance extends EventEmitter {
    */
   init () {
     this.register()
-    this.setDefaultValue()
+    this.setInitialValue()
     this.prepare()
+    this.setDefaultValue()
 
     if (this.jedi.options.isEditor) {
       this.setUI()
@@ -63,7 +64,7 @@ class Instance extends EventEmitter {
   /**
    * Sets the default value of the instance based on it'S schema
    */
-  setDefaultValue () {
+  setInitialValue () {
     let value
 
     if (this.schema.type() === 'boolean') value = false
@@ -74,6 +75,10 @@ class Instance extends EventEmitter {
     if (this.schema.type() === 'object') value = {}
     if (this.schema.type() === 'null') value = null
 
+    this.value = value
+  }
+
+  setDefaultValue () {
     // if (this.schema.enum()) {
     //   value = this.schema.enum()[0]
     // }
@@ -84,13 +89,12 @@ class Instance extends EventEmitter {
       }
 
       const defaultErrors = this.jedi.validator.validate(this.schema.default(), this.schema, this.getKey(), this.path)
+      const validDefault = defaultErrors.length === 0
 
-      if (defaultErrors.length === 0) {
-        value = this.schema.default()
+      if (validDefault) {
+        this.setValue(this.schema.default(), false)
       }
     }
-
-    this.value = value
   }
 
   /**
