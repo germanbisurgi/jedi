@@ -1,6 +1,6 @@
 import Instance from './instance'
 import Schema from '../schema'
-import { isSet, equal, mergeDeep, isArray, different, isObject } from '../utils'
+import { isSet, mergeDeep, isArray, different, isObject } from '../utils'
 import MultipleEditor from '../editors/multiple'
 
 class MultipleInstance extends Instance {
@@ -138,7 +138,10 @@ class MultipleInstance extends Instance {
         instance.setValue(value)
       }
 
-      if (equal(instance.getValue(), value)) {
+      const instanceErrors = this.jedi.validator.validate(value, instance.schema, instance.getKey(), instance.path)
+      const valid = instanceErrors.length === 0
+
+      if (valid) {
         this.switchInstance(index)
         break
       }
