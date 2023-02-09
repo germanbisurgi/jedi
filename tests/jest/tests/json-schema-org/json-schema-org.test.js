@@ -4,7 +4,7 @@ const Jedi = require('../../../../dist/jedi')
 
 const suites = [
   // require('./test-suite/additionalProperties'), // 12
-  require('./test-suite/allOf'), // 1
+  require('./test-suite/allOf'),
   require('./test-suite/anyOf'),
   require('./test-suite/boolean_schema'),
   require('./test-suite/const'),
@@ -27,7 +27,7 @@ const suites = [
   // require('./test-suite/not'), // 2
   require('./test-suite/oneOf'),
   require('./test-suite/pattern'),
-  // require('./test-suite/patternProperties'),
+  require('./test-suite/patternProperties'),
   // require('./test-suite/properties'), // 8
   require('./test-suite/required'),
   require('./test-suite/type'),
