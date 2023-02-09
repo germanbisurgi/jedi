@@ -19,8 +19,8 @@ class ObjectEditor extends Editor {
     }
 
     this.fieldset.appendChild(this.messagesSlot)
-    this.fieldset.appendChild(this.activatorsSlot)
     this.fieldset.appendChild(this.actionsSlot)
+    this.fieldset.appendChild(this.activatorsSlot)
     this.fieldset.appendChild(this.childrenSlot)
     this.container.appendChild(this.fieldset)
 
