@@ -5,7 +5,7 @@ const Jedi = require('../../../../dist/jedi')
 const suites = [
   // require('./test-suite/additionalProperties'),
   // require('./test-suite/allOf'),
-  // require('./test-suite/anyOf'),
+  require('./test-suite/anyOf'),
   require('./test-suite/boolean_schema'),
   require('./test-suite/const'),
   // require('./test-suite/default'),
@@ -42,7 +42,6 @@ suites.forEach((suite) => {
           const jedi = new Jedi({
             schema: scenario.schema
           })
-
           jedi.setValue(test.data)
           const errors = jedi.validate()
           const valid = (errors.length === 0)
