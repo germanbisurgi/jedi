@@ -8,10 +8,8 @@ export const _maximum = (validator, value, schema, key, path) => {
     const invalid = (value > computedMaximum)
 
     if (invalid) {
-      const field = isSet(schema.title()) ? schema.title() : key
-
       errors.push({
-        message: field + ' must be less than ' + computedMaximum,
+        message: 'Must be less than ' + computedMaximum,
         path: path
       })
     }

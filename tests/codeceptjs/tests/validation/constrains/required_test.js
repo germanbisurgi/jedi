@@ -11,18 +11,18 @@ Scenario('should display @required validation errors', ({ I }) => {
   I.checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I.scrollTo('[data-path="root"]', 0, -300)
-  I.dontSee('Object is missing the required properties: required', '[data-path="root"]')
+  I.dontSee('Must have the required properties: required', '[data-path="root"]')
   I.fillField('#editor-value', JSON.stringify({
     optional: ''
   }))
   I.click('#set-value')
   I.scrollTo('[data-path="root"]', 0, -300)
-  I._waitForText('Object is missing the required properties: required', '[data-path="root"]')
+  I._waitForText('Must have the required properties: required', '[data-path="root"]')
   I.fillField('#editor-value', JSON.stringify({
     optional: '',
     required: ''
   }))
   I.click('#set-value')
   I.scrollTo('[data-path="root"]', 0, -300)
-  I.dontSee('Object is missing the required properties: required', '[data-path="root"]')
+  I.dontSee('Must have the required properties: required', '[data-path="root"]')
 })

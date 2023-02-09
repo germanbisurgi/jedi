@@ -7,10 +7,8 @@ export const _maxItems = (validator, value, schema, key, path) => {
     const invalid = (value.length > schema.maxItems())
 
     if (invalid) {
-      const field = isSet(schema.title()) ? schema.title() : key
-
       errors.push({
-        message: field + ' must have at most ' + schema.maxItems() + ' items',
+        message: 'Must have at most ' + schema.maxItems() + ' items',
         path: path
       })
     }

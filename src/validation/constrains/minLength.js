@@ -8,10 +8,8 @@ export const _minLength = (validator, value, schema, key, path) => {
     const invalid = (value.length < schema.minLength())
 
     if (invalid) {
-      const field = isSet(schema.title()) ? schema.title() : key
-
       errors.push({
-        message: field + ' must be at least ' + schema.minLength() + ' characters long',
+        message: 'Must be at least ' + schema.minLength() + ' characters long',
         path: path
       })
     }

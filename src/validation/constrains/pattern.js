@@ -8,10 +8,8 @@ export const _pattern = (validator, value, schema, key, path) => {
     const invalid = !regexp.test(value)
 
     if (invalid) {
-      const field = isSet(schema.title()) ? schema.title() : key
-
       errors.push({
-        message: field + ' must be the pattern: ' + schema.pattern(),
+        message: 'Must be the pattern: ' + schema.pattern(),
         path: path
       })
     }

@@ -8,10 +8,8 @@ export const _minProperties = (validator, value, schema, key, path) => {
     const invalid = (propertiesCount < schema.minProperties())
 
     if (invalid) {
-      const field = isSet(schema.title()) ? schema.title() : key
-
       errors.push({
-        message: field + ' must have at least ' + schema.minProperties() + ' properties',
+        message: 'Must have at least ' + schema.minProperties() + ' properties',
         path: path
       })
     }

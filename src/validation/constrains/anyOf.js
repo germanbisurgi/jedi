@@ -19,10 +19,8 @@ export const _anyOf = (validator, value, schema, key, path) => {
     })
 
     if (!valid) {
-      const field = isSet(schema.title()) ? schema.title() : key
-
       errors.push({
-        message: field + '  must validate against at least one of the provided schemas',
+        message: 'Must validate against at least one of the provided schemas',
         path: path
       })
     }

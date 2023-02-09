@@ -10,10 +10,8 @@ export const _not = (validator, value, schema, key, path) => {
     const invalid = notErrors.length === 0
 
     if (invalid) {
-      const field = isSet(schema.title()) ? schema.title() : key
-
       errors.push({
-        message: field + ' must not validate against the provided schema ' + JSON.stringify(schema.not()),
+        message: 'Must not validate against the provided schema ' + JSON.stringify(schema.not()),
         path: path
       })
     }

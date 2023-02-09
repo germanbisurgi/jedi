@@ -12,15 +12,15 @@ Scenario('should display @dependentRequired validation errors', ({ I }) => {
   I.checkOption('[id="showRequiredOnly"]')
   I.scrollTo('[data-path="root"]', 0, -300)
   I._waitForElement('.jedi-ready')
-  I.dontSee('dependentRequired is missing the required properties: address, telephone', '[data-path="root"]')
+  I.dontSee('Must have the required properties: address, telephone', '[data-path="root"]')
   I.fillField('#editor-value', JSON.stringify({
     creditCard: 0
   }))
   I.click('#set-value')
   I.scrollTo('[data-path="root"]', 0, -300)
-  I._waitForText('dependentRequired is missing the required properties: address, telephone', '[data-path="root"]')
+  I._waitForText('Must have the required properties: address, telephone', '[data-path="root"]')
   I.fillField('#editor-value', JSON.stringify({}))
   I.click('#set-value')
   I.scrollTo('[data-path="root"]', 0, -300)
-  I._waitForText('dependentRequired is missing the required properties: creditCard', '[data-path="root"]')
+  I._waitForText('Must have the required properties: creditCard', '[data-path="root"]')
 })

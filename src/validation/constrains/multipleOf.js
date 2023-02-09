@@ -8,10 +8,8 @@ export const _multipleOf = (validator, value, schema, key, path) => {
     const invalid = (!isMultipleOf || value.toString().includes('e'))
 
     if (invalid) {
-      const field = isSet(schema.title()) ? schema.title() : key
-
       errors.push({
-        message: field + ' must be multiple of ' + schema.multipleOf(),
+        message: 'Must be multiple of ' + schema.multipleOf(),
         path: path
       })
     }

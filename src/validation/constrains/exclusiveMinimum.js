@@ -7,10 +7,8 @@ export const _exclusiveMinimum = (validator, value, schema, key, path) => {
     const invalid = (value <= schema.exclusiveMinimum())
 
     if (invalid) {
-      const field = isSet(schema.title()) ? schema.title() : key
-
       errors.push({
-        message: field + ' must be greater than ' + schema.exclusiveMinimum(),
+        message: 'Must be greater than ' + schema.exclusiveMinimum(),
         path: path
       })
     }

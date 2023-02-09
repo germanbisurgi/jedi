@@ -19,10 +19,8 @@ export const _dependentRequired = (validator, value, schema, key, path) => {
     const invalid = missingProperties.length > 0
 
     if (invalid) {
-      const field = isSet(schema.title()) ? schema.title() : key
-
       errors.push({
-        message: field + '  is missing the required properties: ' + missingProperties.join(', '),
+        message: 'Must have the required properties: ' + missingProperties.join(', '),
         path: path
       })
     }

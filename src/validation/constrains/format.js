@@ -12,10 +12,8 @@ export const _format = (validator, value, schema, key, path) => {
     }
 
     if (invalid) {
-      const field = isSet(schema.title()) ? schema.title() : key
-
       errors.push({
-        message: field + ' must be a valid email address',
+        message: 'Must be a valid email address',
         path: path
       })
     }

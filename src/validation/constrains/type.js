@@ -29,10 +29,8 @@ export const _type = (validator, value, schema, key, path) => {
     }
 
     if (!valid) {
-      const field = isSet(schema.title()) ? schema.title() : key
-
       errors.push({
-        message: field + ' must be of type ' + schema.type(),
+        message: 'Must be of type ' + schema.type(),
         path: path
       })
     }

@@ -19,10 +19,8 @@ export const _uniqueItems = (validator, value, schema, key, path) => {
     const invalid = (hasDuplicatedItems)
 
     if (invalid) {
-      const field = isSet(schema.title()) ? schema.title() : key
-
       errors.push({
-        message: field + ' must have unique items',
+        message: 'Must have unique items',
         path: path
       })
     }
