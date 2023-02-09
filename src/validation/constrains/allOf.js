@@ -6,7 +6,7 @@ export const _allOf = (validator, value, schema, key, path) => {
 
   if (isSet(schema.allOf())) {
     schema.allOf().forEach((schema) => {
-      const subSchemaEditor = new Jedi({ schema: schema, startValue: value })
+      const subSchemaEditor = new Jedi({ schema: schema, startValue: value, rootName: key })
       const subSchemaErrors = subSchemaEditor.validate()
       subSchemaEditor.destroy()
       errors = [...errors, ...subSchemaErrors]

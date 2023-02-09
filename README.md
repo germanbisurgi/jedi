@@ -33,6 +33,7 @@
     - json-schema-org tests
     
 - validation
+    - don't use field name in error messages?
     - display single error messages also when there are multiple?
     - use template literals in errors
     - contains
