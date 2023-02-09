@@ -102,17 +102,6 @@ class Jedi extends EventEmitter {
   createInstance (config) {
     let instance
 
-    if (isSet(config.schema.anyOf()) || isSet(config.schema.oneOf()) || config.schema.typeIs('any') || isArray(config.schema.type()) || notSet(config.schema.type())) {
-      if (notSet(config.schema.type()) && isSet(config.schema.default())) {
-        const originalSchema = config.schema.clone()
-        originalSchema.type = getType(config.schema.default())
-        config.schema = new Schema(originalSchema)
-        return this.createInstance(config)
-      } else {
-        instance = new MultipleInstance(config)
-      }
-    }
-
     if (config.schema.typeIs('boolean')) {
       instance = new BooleanInstance(config)
     }
@@ -135,6 +124,17 @@ class Jedi extends EventEmitter {
 
     if (config.schema.typeIs('null')) {
       instance = new NullInstance(config)
+    }
+
+    if (isSet(config.schema.anyOf()) || isSet(config.schema.oneOf()) || config.schema.typeIs('any') || isArray(config.schema.type()) || notSet(config.schema.type())) {
+      if (notSet(config.schema.type()) && isSet(config.schema.default())) {
+        const originalSchema = config.schema.clone()
+        originalSchema.type = getType(config.schema.default())
+        config.schema = new Schema(originalSchema)
+        return this.createInstance(config)
+      } else {
+        instance = new MultipleInstance(config)
+      }
     }
 
     if (isSet(instance)) {
