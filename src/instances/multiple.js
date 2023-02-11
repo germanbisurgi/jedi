@@ -3,7 +3,7 @@ import Schema from '../schema'
 import MultipleEditor from '../editors/multiple'
 import {
   isSet,
-  // mergeDeep,
+  mergeDeep,
   isArray,
   different,
   isObject
@@ -38,22 +38,23 @@ class MultipleInstance extends Instance {
         schema = { ...cloneSchema, ...schema }
 
         // merge allOf
-        // if (isSet(schema.allOf)) {
-        //   let merged = {}
-        //
-        //   schema.allOf.forEach((allOfSchema) => {
-        //     merged = mergeDeep(merged, allOfSchema)
-        //   })
-        //
-        //   schema = merged
-        // }
+        if (isSet(schema.allOf) && schema.options?.mergeAllOf) {
+          let merged = {}
+
+          schema.allOf.forEach((allOfSchema) => {
+            merged = mergeDeep(merged, allOfSchema)
+          })
+
+          schema = merged
+          console.log(JSON.stringify(schema, null, 2))
+        }
 
         if (isSet(cloneSchema.title)) {
           schema.title = cloneSchema.title
         }
 
-        this.switcherOptionValues.push(index)
         const switcherOptionsLabel = schema.options?.switcherTitle || 'Option-' + (index + 1)
+        this.switcherOptionValues.push(index)
         this.switcherOptionsLabels.push(switcherOptionsLabel)
 
         this.schemas.push(schema)
