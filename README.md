@@ -1,17 +1,21 @@
 ## Todo
 
 - bugs:
-    - object instance default
 
 - RefParser:
     - max deep ref parser
     - dereference schema first and the initialize editor
 
 - instance:
+    - additionalProperties
+    - readonly
     - array enums
     - array tuple 
     
 - editors:
+    - collapse properties and checkboxes
+    - additionalProperties
+    - readonly
     - refactor description and titles (duplicated code)
     - format categories
     - grid
@@ -25,15 +29,17 @@
     - icons
 
 - e2e:
+    - additionalProperties
     - array move up and down
     - sr-only titles
     - multiple
     
 - unit:
+    - additionalProperties
     - json-schema-org tests
     
 - validation
-    - don't use field name in error messages?
+    - additionalProperties
     - display single error messages also when there are multiple?
     - use template literals in errors
     - contains
