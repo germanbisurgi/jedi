@@ -165,6 +165,10 @@ class Schema {
     return isObject(this.schema.properties) ? this.schema.properties : undefined
   }
 
+  readOnly () {
+    return isBoolean(this.schema.readOnly) ? this.schema.readOnly : undefined
+  }
+
   required () {
     return isArray(this.schema.required) ? [...new Set(this.schema.required)] : undefined
   }
