@@ -47,7 +47,6 @@ class MultipleInstance extends Instance {
           })
 
           schema = merged
-          console.log(JSON.stringify(schema, null, 2))
         }
 
         if (isSet(cloneSchema.title)) {
