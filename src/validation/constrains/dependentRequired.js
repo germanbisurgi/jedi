@@ -1,4 +1,4 @@
-import { isObject, isSet } from '../../utils'
+import { hasOwn, isObject, isSet } from '../../utils'
 
 export const _dependentRequired = (validator, value, schema, key, path) => {
   const errors = []
@@ -11,7 +11,7 @@ export const _dependentRequired = (validator, value, schema, key, path) => {
         const requiredProperties = schema.dependentRequired()[key]
 
         missingProperties = requiredProperties.filter((property) => {
-          return !Object.hasOwn(value, property)
+          return !hasOwn(value, property)
         })
       }
     })

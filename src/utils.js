@@ -2,6 +2,10 @@ export const clone = (thing) => {
   return JSON.parse(JSON.stringify(thing))
 }
 
+export const hasOwn = (obj, key) => {
+  return Object.prototype.hasOwnProperty.call(obj, key)
+}
+
 export const pretty = (value) => {
   return JSON.stringify(value, null, 2)
 }

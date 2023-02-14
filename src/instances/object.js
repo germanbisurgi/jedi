@@ -1,6 +1,6 @@
 import Instance from './instance'
 import Schema from '../schema'
-import { different, isSet, notSet, getType, isObject } from '../utils'
+import { different, isSet, notSet, getType, isObject, hasOwn } from '../utils'
 import ObjectEditor from '../editors/object'
 
 class ObjectInstance extends Instance {
@@ -44,7 +44,7 @@ class ObjectInstance extends Instance {
           const requiredProperties = dependentRequired[key]
 
           missingProperties = requiredProperties.filter((property) => {
-            return !Object.hasOwn(this.value, property)
+            return !hasOwn(this.value, property)
           })
         }
       })

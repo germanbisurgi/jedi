@@ -1,5 +1,10 @@
 import Editor from './editor'
-import { equal, isObject, isSet } from '../utils'
+import {
+  equal,
+  hasOwn,
+  isObject,
+  isSet
+} from '../utils'
 
 class ObjectEditor extends Editor {
   build () {
@@ -97,7 +102,7 @@ class ObjectEditor extends Editor {
           id: activatorId
         })
 
-        activatorInput.checked = Object.hasOwn(this.instance.getValue(), child.getKey())
+        activatorInput.checked = hasOwn(this.instance.getValue(), child.getKey())
 
         const isRequired = this.instance.isRequired(child.getKey())
         const isDependentRequired = this.instance.isDependentRequired(child.getKey())

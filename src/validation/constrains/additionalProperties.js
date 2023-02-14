@@ -1,4 +1,4 @@
-import { isObject, isSet } from '../../utils'
+import { hasOwn, isObject, isSet } from '../../utils'
 import Jedi from '../../index'
 
 export const _additionalProperties = (validator, value, schema, key, path) => {
@@ -20,14 +20,14 @@ export const _additionalProperties = (validator, value, schema, key, path) => {
           })
         }
 
-        if (!inPatternProperty && additionalProperties === false && !Object.hasOwn(properties, property)) {
+        if (!inPatternProperty && additionalProperties === false && !hasOwn(properties, property)) {
           errors.push({
             message: `Property "${property}" has not been defined and the schema does not allow additional properties.`,
             path: path
           })
         }
 
-        if (!inPatternProperty && isObject(additionalProperties) && !Object.hasOwn(properties, property)) {
+        if (!inPatternProperty && isObject(additionalProperties) && !hasOwn(properties, property)) {
           const editor = new Jedi({
             rootName: property,
             schema: additionalProperties,
