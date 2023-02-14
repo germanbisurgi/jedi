@@ -6,7 +6,8 @@ import {
   mergeDeep,
   isArray,
   different,
-  isObject
+  isObject,
+  notSet
 } from '../utils'
 
 class MultipleInstance extends Instance {
@@ -137,8 +138,10 @@ class MultipleInstance extends Instance {
     }
   }
 
-  matchInstance (value) {
+  getFittestIndex (value) {
     let index = 0
+    let fittestIndex
+    let championErrors
 
     for (const instance of this.instances) {
       if (instance.instances) {
@@ -146,15 +149,21 @@ class MultipleInstance extends Instance {
       }
 
       const instanceErrors = this.jedi.validator.validate(value, instance.schema, instance.getKey(), instance.path)
-      const valid = instanceErrors.length === 0
 
-      if (valid) {
-        this.switchInstance(index)
-        break
+      if (notSet(fittestIndex) || notSet(championErrors)) {
+        fittestIndex = index
+        championErrors = instanceErrors
+      }
+
+      if (instanceErrors.length < championErrors.length) {
+        fittestIndex = index
+        championErrors = instanceErrors
       }
 
       index++
     }
+
+    return fittestIndex
   }
 
   onSetValue () {
@@ -163,7 +172,8 @@ class MultipleInstance extends Instance {
     // if value matches the active instance type set the value. Else switch to the first
     // instance that match the value.
     if (different(this.activeInstance.getValue(), value)) {
-      this.matchInstance(value)
+      const fittestIndex = this.getFittestIndex(value)
+      this.switchInstance(fittestIndex)
     }
 
     this.activeInstance.setValue(value, true)
