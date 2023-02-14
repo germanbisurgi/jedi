@@ -7,17 +7,27 @@ export const _additionalProperties = (validator, value, schema, key, path) => {
   if (isObject(value) && isSet(schema.additionalProperties())) {
     const properties = isSet(schema.properties()) ? schema.properties() : {}
     const additionalProperties = schema.additionalProperties()
+    const patternProperties = schema.patternProperties()
 
     if (properties) {
       Object.keys(value).forEach((property) => {
-        if (additionalProperties === false && !Object.hasOwn(properties, property)) {
+        let inPatternProperty = false
+
+        if (isSet(patternProperties)) {
+          Object.keys(patternProperties).forEach((pattern) => {
+            const regexp = new RegExp(pattern)
+            inPatternProperty = regexp.test(property)
+          })
+        }
+
+        if (!inPatternProperty && additionalProperties === false && !Object.hasOwn(properties, property)) {
           errors.push({
             message: `Property "${property}" has not been defined and the schema does not allow additional properties.`,
             path: path
           })
         }
 
-        if (isObject(additionalProperties) && !Object.hasOwn(properties, property)) {
+        if (!inPatternProperty && isObject(additionalProperties) && !Object.hasOwn(properties, property)) {
           const editor = new Jedi({
             rootName: property,
             schema: additionalProperties,

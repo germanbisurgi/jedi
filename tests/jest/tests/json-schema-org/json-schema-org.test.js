@@ -3,7 +3,7 @@
 const Jedi = require('../../../../dist/jedi')
 
 const suites = [
-  // require('./test-suite/additionalProperties'), // 12
+  // require('./test-suite/additionalProperties'), // 11
   require('./test-suite/allOf'),
   require('./test-suite/anyOf'),
   require('./test-suite/boolean_schema'),
