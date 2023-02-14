@@ -56,7 +56,15 @@ class ObjectEditor extends Editor {
         return
       }
 
-      this.instance.createChild({ type: 'any' }, key)
+      let schema = { type: 'any' }
+
+      const additionalProperties = this.instance.schema.additionalProperties()
+
+      if (isSet(additionalProperties)) {
+        schema = additionalProperties
+      }
+
+      this.instance.createChild(schema, key)
       this.instance.setValue(this.instance.value)
       this.addPropertyInput.value = ''
     })

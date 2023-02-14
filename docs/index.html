@@ -362,8 +362,8 @@
           })
         },
         async switchSchema() {
-          const url = this.$refs.schema.value
-          // const url = './json/editors/integer.json'
+          // const url = this.$refs.schema.value
+          const url = './json/meta-schema.json'
           // const url = './json/validator/additionalProperties.json'
           const response = await fetch(url);
           this.options.schema = await response.json()
