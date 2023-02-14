@@ -34,7 +34,7 @@ const suites = [
   require('./test-suite/pattern'),
   require('./test-suite/patternProperties'),
   // require('./test-suite/prefixItems'),
-  // require('./test-suite/properties'), // 8
+  require('./test-suite/properties'), // 1
   require('./test-suite/required'),
   require('./test-suite/type'),
   // require('./test-suite/uniqueItems'), // 15
