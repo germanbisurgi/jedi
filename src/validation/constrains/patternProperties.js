@@ -1,7 +1,7 @@
 import { isObject, isSet } from '../../utils'
 import Jedi from '../../index'
 
-export const _patternProperties = (validator, value, schema) => {
+export const _patternProperties = (validator, value, schema, path) => {
   let errors = []
 
   if (isObject(value) && isSet(schema.patternProperties())) {
@@ -13,16 +13,19 @@ export const _patternProperties = (validator, value, schema) => {
         if (regexp.test(propertyName)) {
           const schema = patternProperties[pattern]
 
-          if (isObject(schema)) {
-            schema.title = propertyName
-          }
-
           const editor = new Jedi({
             schema: schema,
             startValue: value[propertyName]
           })
 
-          errors = [...errors, ...editor.validate()]
+          const editorErrors = editor.validate().map((error) => {
+            return {
+              message: error.message,
+              path: path + '.' + propertyName
+            }
+          })
+
+          errors = [...errors, ...editorErrors]
 
           editor.destroy()
         }
