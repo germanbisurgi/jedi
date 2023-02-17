@@ -55,6 +55,7 @@ class Editor extends EventEmitter {
     }
 
     this.container = this.theme.getContainer()
+    this.toolbarSlot = this.theme.getToolbarSlot()
     this.activatorsSlot = this.theme.getActivatorsSlot()
     this.controlSlot = this.theme.getControlSlot()
     this.messagesSlot = this.theme.getMessagesSlot()

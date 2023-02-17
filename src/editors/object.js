@@ -10,27 +10,21 @@ class ObjectEditor extends Editor {
   build () {
     this.fieldset = this.theme.getFieldset()
 
-    // title
-    this.fieldset.appendChild(this.theme.getLegend({
+    this.legend = this.theme.getLegend({
       textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
-    }))
+    })
 
-    // description
-    if (isSet(this.instance.schema.description())) {
-      this.fieldset.appendChild(this.theme.getDescription({
-        textContent: this.instance.schema.description()
-      }))
-    }
+    this.description = this.theme.getDescription({
+      textContent: this.instance.schema.description()
+    })
 
-    this.fieldset.appendChild(this.messagesSlot)
-    this.fieldset.appendChild(this.actionsSlot)
-    this.fieldset.appendChild(this.activatorsSlot)
-    this.fieldset.appendChild(this.childrenSlot)
-    this.container.appendChild(this.fieldset)
+    this.dropdown = this.theme.getDropdown()
+    this.dropdownToggle = this.theme.getDropdownToggle()
+    this.dropdownMenu = this.theme.getDropdownMenu()
 
-    const label = this.theme.getLabel({
-      textContent: 'Property Name',
+    this.addPropertyLabel = this.theme.getLabel({
+      textContent: 'Property',
       for: 'jedi-add-property-input-' + this.instance.path
     })
 
@@ -46,13 +40,15 @@ class ObjectEditor extends Editor {
     this.addPropertyBtn.addEventListener('click', () => {
       const key = this.addPropertyInput.value
 
-      // if not property name was given return
-      if (key.length === 0) {
+      const propertyNameEmpty = key.length === 0
+
+      if (propertyNameEmpty) {
         return
       }
 
-      // if property exist return
-      if (isSet(this.instance.value[key])) {
+      const propertyExist = isSet(this.instance.value[key])
+
+      if (propertyExist) {
         return
       }
 
@@ -69,10 +65,25 @@ class ObjectEditor extends Editor {
       this.addPropertyInput.value = ''
     })
 
+    this.fieldset.appendChild(this.legend)
+    this.fieldset.appendChild(this.toolbarSlot)
+    this.fieldset.appendChild(this.messagesSlot)
+    this.fieldset.appendChild(this.actionsSlot)
+    this.fieldset.appendChild(this.childrenSlot)
+    this.container.appendChild(this.fieldset)
+
+    if (isSet(this.instance.schema.description())) {
+      this.fieldset.appendChild(this.description)
+    }
+
     if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {
-      this.actionsSlot.appendChild(label)
-      this.actionsSlot.appendChild(this.addPropertyInput)
-      this.actionsSlot.appendChild(this.addPropertyBtn)
+      this.toolbarSlot.appendChild(this.dropdown)
+      this.dropdown.appendChild(this.dropdownToggle)
+      this.dropdown.appendChild(this.dropdownMenu)
+      this.dropdownMenu.appendChild(this.addPropertyLabel)
+      this.dropdownMenu.appendChild(this.addPropertyInput)
+      this.dropdownMenu.appendChild(this.addPropertyBtn)
+      this.dropdownMenu.appendChild(this.activatorsSlot)
     }
   }
 

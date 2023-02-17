@@ -5,12 +5,6 @@
   font-family: sans-serif;
   list-style-position: inside;
 }
-/* ------------------------------------------------------------------- colors */
-/* --------------------------------------------------------------------- grid */
-/* --------------------------------------------------------------- typography */
-/* -------------------------------------------------------------- scaffolding */
-/* -------------------------------------------------------------------- forms */
-/* --------------------------------------------------------------- navigation */
 html {
   font-size: 62.5%;
 }
@@ -81,7 +75,6 @@ section {
 article {
   margin-bottom: calc(16px * 1);
 }
-/* --------------------------------------------------------------------- rows */
 .row {
   display: flex;
   flex-direction: row;
@@ -237,7 +230,6 @@ article {
     align-items: stretch;
   }
 }
-/* ------------------------------------------------------------------ columns */
 [class^="col-"] {
   padding-right: 16px;
   padding-left: 16px;
@@ -400,7 +392,6 @@ article {
 .col-order-12 {
   order: 11;
 }
-/* responsive */
 @media only screen and (min-width: 768px) {
   .col-sm-self-start {
     align-self: flex-start;
@@ -987,7 +978,7 @@ article {
   position: absolute;
   top: 100%;
   left: 0;
-  min-width: 160px;
+  min-width: 230px;
   z-index: 1;
 }
 .dropdown .dropdown-menu li {
@@ -1244,7 +1235,6 @@ textarea::-ms-input-placeholder {
   color: #dc3545;
   font-size: 1.4rem;
 }
-/* ----------------------------------------------------------------- buttons  */
 .btn {
   background-color: #fefefe;
   border: 1px solid #d2d2d2;
@@ -1313,7 +1303,6 @@ textarea::-ms-input-placeholder {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-/* ----------------------------------------------------------------- images  */
 .img-responsive {
   display: block;
   max-width: 100%;
@@ -1332,7 +1321,6 @@ textarea::-ms-input-placeholder {
 .bg-img.bg-fixed {
   background-attachment: fixed;
 }
-/* ------------------------------------------------------------------ tables  */
 .table {
   border-radius: 5px;
   border-collapse: collapse;

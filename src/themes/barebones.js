@@ -13,6 +13,35 @@ class ThemeBarebones {
     return invalidFeedback
   }
 
+  getDropdown () {
+    const html = document.createElement('li')
+    html.classList.add('dropdown')
+    return html
+  }
+
+  getDropdownToggle () {
+    const html = document.createElement('a')
+    html.textContent = 'Properties'
+    html.setAttribute('data-toggle', 'dropdown')
+    html.classList.add('dropdown-toggle')
+    html.classList.add('jedi-dropdown-properties')
+    return html
+  }
+
+  getDropdownMenu () {
+    const html = document.createElement('ul')
+    html.classList.add('dropdown-menu')
+    return html
+  }
+
+  getToolbarSlot () {
+    const html = document.createElement('ul')
+    html.classList.add('nav')
+    html.classList.add('navbar-nav')
+    html.classList.add('jedi-toolbar-slot')
+    return html
+  }
+
   getActivatorsSlot () {
     const activatorsSlot = document.createElement('div')
     activatorsSlot.classList.add('jedi-properties-slot')

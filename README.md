@@ -1,6 +1,9 @@
 ## Todo
 
+- rethink docs
+
 - bugs:
+    - object set value
 
 - RefParser:
     - max deep ref parser

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Test page for jedi">
+    <title>Spec Test</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+
+<main id="app" class="container">
+    <section v-for="suite in data">
+        <h2>{{ suite.description }}</h2>
+        <pre>{{ suite.schema }}</pre>
+        <article v-for="test in suite.tests">
+            <h3>{{ test.description }}</h3>
+            <pre>{{ test.data }}</pre>
+            <p>valid: <code>{{ test.valid }}</code></p>
+            <div class="editor-container"></div>
+        </article>
+    </section>
+</main>
+
+<script src="js/vue.js"></script>
+<script src="js/jedi.js"></script>
+<script src="js/wireframe.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          data: null
+        }
+      },
+      mounted() {
+        this.loadData()
+      },
+      methods: {
+        async loadData() {
+          const url = './json/spec/maxItems.json'
+          const response = await fetch(url);
+          this.data = await response.json()
+        }
+      }
+    })
+  })
+</script>
+</body>
+</html>
