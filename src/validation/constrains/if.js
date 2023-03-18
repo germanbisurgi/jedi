@@ -1,4 +1,4 @@
-import Jedi from '../../index'
+import SchemaTools from '../../index'
 import { isSet, notSet } from '../../utils'
 
 export const _if = (validator, value, schema) => {
@@ -9,7 +9,7 @@ export const _if = (validator, value, schema) => {
       return errors
     }
 
-    const ifEditor = new Jedi({ schema: schema.if(), startValue: value })
+    const ifEditor = new SchemaTools.Jedi({ schema: schema.if(), startValue: value })
     const ifErrors = ifEditor.validate()
     ifEditor.destroy()
 
@@ -17,13 +17,13 @@ export const _if = (validator, value, schema) => {
     let elseErrors = []
 
     if (isSet(schema.then())) {
-      const thenEditor = new Jedi({ schema: schema.then(), startValue: value })
+      const thenEditor = new SchemaTools.Jedi({ schema: schema.then(), startValue: value })
       thenErrors = thenEditor.validate()
       thenEditor.destroy()
     }
 
     if (isSet(schema.else())) {
-      const elseEditor = new Jedi({ schema: schema.else(), startValue: value })
+      const elseEditor = new SchemaTools.Jedi({ schema: schema.else(), startValue: value })
       elseErrors = elseEditor.validate()
       elseEditor.destroy()
     }

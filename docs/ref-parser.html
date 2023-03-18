@@ -5,48 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Test page for ref parser">
     <title>Ref Parser</title>
+    <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
 
+<div class="container">
+    <div id="jedi-container"></div>
+</div>
 
-<script src="js/jedi.js"></script>
+<script src="js/schema-tools.js"></script>
 <script>
   const schema = {
-    "type": "object",
-    "properties": {
-      "first_name": {
-        "$ref": "#/$defs/name"
+    type: 'object',
+    properties: {
+      name: {
+        $ref: '#/$defs/name'
       },
-      "last_name": {
-        "$ref": "#/$defs/name"
-      },
-      "test": {
-        "allOf": [
-          {
-            "$ref": "#/$defs/minLength"
-          },
-          {
-            "$ref": "#/$defs/maxLength"
-          }
-        ]
-      },
+      age: {
+        $ref: 'http://localhost:8282/ref.json'
+      }
     },
-
-    "$defs": {
-      "name": {
-        "$ref": "#/$defs/minLength"
-      },
-      "minLength": {
-        "$ref": "#/$defs/maxLength"
-      },
-      "maxLength": {
-        "maxLength": 3
+    $defs: {
+      name: {
+        type: 'string'
       }
     }
   }
 
-  const editor = new Jedi({
-    schema: schema
+  const refParser = new SchemaTools.RefParser()
+  const dereferencedSchema = refParser.dereference(schema)
+  console.log(JSON.stringify(dereferencedSchema, null, 2))
+
+  new SchemaTools.Jedi({
+    container: document.querySelector('#jedi-container'),
+    isEditor: true,
+    schema: dereferencedSchema
   })
 </script>
 </body>

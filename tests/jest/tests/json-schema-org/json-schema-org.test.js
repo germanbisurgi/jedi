@@ -1,6 +1,6 @@
 /* global describe it expect */
 
-const Jedi = require('../../../../dist/jedi')
+const SchemaTools = require('../../../../dist/schema-tools')
 
 const suites = [
   require('./test-suite/additionalProperties'), // 11
@@ -45,7 +45,7 @@ suites.forEach((suite) => {
     describe(scenario.description, function () {
       scenario.tests.forEach((test) => {
         it(test.description, function () {
-          const jedi = new Jedi({
+          const jedi = new SchemaTools.Jedi({
             schema: scenario.schema
           })
           jedi.setValue(test.data)

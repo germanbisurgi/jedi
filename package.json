@@ -51,7 +51,8 @@
     "puppeteer": "^13.5.2",
     "reload": "^3.2.0",
     "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "xmlhttprequest": "^1.8.0"
   },
   "dependencies": {
     "uuid": "^9.0.0"

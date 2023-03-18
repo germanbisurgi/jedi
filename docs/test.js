@@ -1,10 +1,29 @@
-const Jedi = require('../dist/jedi')
-const jedi = new Jedi({
-  schema: {
-    type: ['array', 'object', 'null']
-  }
-})
+const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
+const SchemaTools = require('../dist/schema-tools')
 
-jedi.setValue('')
-console.log(jedi.getValue())
-console.log(jedi.validate())
+const schema = {
+  type: 'object',
+  properties: {
+    name: {
+      $ref: '#/$defs/name'
+    },
+    age: {
+      $ref: 'http://localhost:8282/ref.json'
+    }
+  },
+  $defs: {
+    name: {
+      type: 'string'
+    }
+  }
+}
+
+const refParser = new SchemaTools.RefParser({
+  XMLHttpRequest: XMLHttpRequest
+})
+const dereferencedSchema = refParser.dereference(schema)
+console.log(JSON.stringify(dereferencedSchema, null, 2))
+
+new SchemaTools.Jedi({
+  schema: dereferencedSchema
+})

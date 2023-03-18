@@ -1,5 +1,5 @@
 import { isObject, isSet } from '../../utils'
-import Jedi from '../../index'
+import SchemaTools from '../../index'
 
 export const _patternProperties = (validator, value, schema, path) => {
   let errors = []
@@ -13,7 +13,7 @@ export const _patternProperties = (validator, value, schema, path) => {
         if (regexp.test(propertyName)) {
           const schema = patternProperties[pattern]
 
-          const editor = new Jedi({
+          const editor = new SchemaTools.Jedi({
             schema: schema,
             startValue: value[propertyName]
           })

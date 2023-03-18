@@ -8020,6 +8020,11 @@ xmlcreate@^1.0.1:
   resolved "https://registry.yarnpkg.com/xmlcreate/-/xmlcreate-1.0.2.tgz#fa6bf762a60a413fb3dd8f4b03c5b269238d308f"
   integrity sha512-Mbe56Dvj00onbnSo9J0qj/XlY5bfN9KidsOnpd5tRCsR3ekB3hyyNU9fGrTdqNT5ZNvv4BsA2TcQlignsZyVcw==
 
+xmlhttprequest@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/xmlhttprequest/-/xmlhttprequest-1.8.0.tgz#67fe075c5c24fef39f9d65f5f7b7fe75171968fc"
+  integrity sha512-58Im/U0mlVBLM38NdZjHyhuMtCqa61469k2YP/AaPbvCoV9aQGUpbJBj1QRm2ytRiVQBD/fsw7L2bJGDVQswBA==
+
 xpath-builder@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/xpath-builder/-/xpath-builder-0.0.7.tgz#67d6bbc3f6a320ec317e3e6368c5706b6111deec"

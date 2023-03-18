@@ -3,12 +3,12 @@ const merge = require('deepmerge')
 
 const common = {
   entry: {
-    jedi: './src/index.js'
+    'schema-tools': './src/index.js'
   },
   output: {
     filename: '[name].js',
     libraryExport: 'default',
-    library: 'Jedi',
+    library: 'SchemaTools',
     libraryTarget: 'umd',
     globalObject: 'this'
   },

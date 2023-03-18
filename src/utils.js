@@ -2,6 +2,12 @@ export const clone = (thing) => {
   return JSON.parse(JSON.stringify(thing))
 }
 
+export const fakeForEach = (array, callback) => {
+  for (let index = 0; index < array.length; index++) {
+    callback(array[index], index, array)
+  }
+}
+
 export const hasOwn = (obj, key) => {
   return Object.prototype.hasOwnProperty.call(obj, key)
 }
