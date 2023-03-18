@@ -1,8 +1,22 @@
-import { isArray, isObject, isSet, isString } from './utils'
+/* global XMLHttpRequest */
+
+import {
+  isArray,
+  isObject,
+  isSet,
+  isString,
+  fakeForEach,
+  notSet
+} from './utils'
 
 class RefParser {
-  constructor () {
-    this.iterations = 5
+  constructor (options) {
+    if (notSet(options)) {
+      options = {}
+    }
+
+    this.iterations = options.iterations || 5
+    this.XMLHttpRequest = options.XMLHttpRequest || XMLHttpRequest
     this.defs = {}
   }
 
@@ -10,7 +24,6 @@ class RefParser {
     this.defs = schema['$defs']
 
     for (let i = 0; i < this.iterations; i++) {
-      this.traverse(this.defs)
       this.traverse(schema)
     }
 
@@ -31,6 +44,18 @@ class RefParser {
       }
     }
 
+    if (ref.startsWith('http') || ref.startsWith('https')) {
+      const request = new this.XMLHttpRequest()
+      request.open('GET', ref, false) // `false` makes the request synchronous
+      request.send(null)
+
+      if (request.status === 200) {
+        return JSON.parse(request.responseText)
+      } else {
+        console.error('can not load', ref)
+      }
+    }
+
     return ref
   }
 
@@ -39,14 +64,14 @@ class RefParser {
       if (isSet(value['$ref']) && isSet(thing)) {
         thing[index] = this.define(value['$ref'])
       } else {
-        Object.keys(value).forEach((index) => {
-          this.traverse(value[index], value, index)
+        fakeForEach(Object.keys(value), (item) => {
+          this.traverse(value[item], value, item)
         })
       }
     }
 
     if (isArray(value)) {
-      value.forEach((item, index) => {
+      fakeForEach(value, (item, index) => {
         this.traverse(item, value, index)
       })
     }
