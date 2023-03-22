@@ -16,18 +16,34 @@
 <script src="js/schema-tools.js"></script>
 <script>
   const schema = {
-    type: 'object',
-    properties: {
-      name: {
-        $ref: '#/$defs/name'
+    'title': 'Person',
+    'type': 'object',
+    'required': [],
+    'definitions': {
+      'schemaBase': {
+        'type': 'string'
       },
-      age: {
-        $ref: 'http://localhost:8282/ref.json'
+      'schema': {
+        'allOf': [
+          {
+            '$ref': '#/definitions/schemaBase',
+          }
+        ],
+        'oneOf': [
+          {
+            'format': 'url',
+            'description': 'url'
+          },
+          {
+            'format': 'uuid',
+            'description': 'uuid'
+          }
+        ]
       }
     },
-    $defs: {
-      name: {
-        type: 'string'
+    'properties': {
+      'name': {
+        '$ref': '#/definitions/schema'
       }
     }
   }
@@ -42,6 +58,7 @@
   })
 
   console.log(JSON.stringify(dereferencedSchema, null, 2))
+
 </script>
 </body>
 </html>

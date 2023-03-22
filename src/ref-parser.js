@@ -5,7 +5,6 @@ import {
   isObject,
   isSet,
   isString,
-  fakeForEach,
   notSet
 } from './utils'
 
@@ -17,14 +16,32 @@ class RefParser {
 
     this.iterations = options.iterations || 5
     this.XMLHttpRequest = options.XMLHttpRequest || XMLHttpRequest
-    this.defs = {}
+    this.pointers = {}
   }
 
   dereference (schema) {
-    this.defs = schema['$defs']
-
     for (let i = 0; i < this.iterations; i++) {
-      this.traverse(schema)
+      // register pointers
+      this.traverse({
+        value: schema,
+        callback: (args) => {
+          if (args.key !== '$ref' && isObject(args.value)) {
+            this.pointers[args.path] = args.value
+          }
+        }
+      })
+
+      // dereference
+      this.traverse({
+        value: schema,
+        callback: (args) => {
+          if (isSet(args.value['$ref']) && isSet(args.prevValue)) {
+            args.prevValue[args.key] = this.define(args.value['$ref'])
+          }
+        }
+      })
+
+      // this.defineRefs(schema)
     }
 
     return schema
@@ -35,12 +52,10 @@ class RefParser {
       return ref
     }
 
-    if (ref.startsWith('#/$defs')) {
-      const refParts = ref.split('/')
-      const defName = refParts.pop()
-
-      if (isSet(this.defs[defName])) {
-        return this.defs[defName]
+    // pointers
+    if (ref.startsWith('#')) {
+      if (isSet(this.pointers[ref])) {
+        return this.pointers[ref]
       }
     }
 
@@ -56,23 +71,36 @@ class RefParser {
       }
     }
 
-    return ref
+    return undefined
   }
 
-  traverse (value, thing, index) {
+  traverse (args) {
+    const value = args.value
+    const callback = args.callback
+    const path = isSet(args.path) ? args.path + '/' + args.key : '#'
+    args.path = path
+
+    if (isSet(callback)) {
+      callback(args)
+    }
+
     if (isObject(value)) {
-      if (isSet(value['$ref']) && isSet(thing)) {
-        thing[index] = this.define(value['$ref'])
-      } else {
-        fakeForEach(Object.keys(value), (item) => {
-          this.traverse(value[item], value, item)
-        })
-      }
+      Object.keys(value).forEach((key) => {
+        args.value = value[key]
+        args.key = key
+        args.path = path
+        args.prevValue = value
+        this.traverse(args)
+      })
     }
 
     if (isArray(value)) {
-      fakeForEach(value, (item, index) => {
-        this.traverse(item, value, index)
+      value.forEach((newValue, key) => {
+        args.value = newValue
+        args.key = key
+        args.path = path
+        args.prevValue = value
+        this.traverse(args)
       })
     }
   }

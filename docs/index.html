@@ -302,6 +302,9 @@
             this.editor.destroy()
           }
 
+          const refParser = new SchemaTools.RefParser()
+          this.options.schema = refParser.dereference(this.options.schema)
+
           this.editor = new SchemaTools.Jedi(this.options)
           window.editor = this.editor
 

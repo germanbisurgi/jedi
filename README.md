@@ -38,8 +38,7 @@
     - multiple
     
 - unit:
-    - additionalProperties
-    - json-schema-org tests
+    - 1 error: properties, patternProperties, additionalProperties interaction › property validates property
     
 - validation
     - additionalProperties
