@@ -1,5 +1,4 @@
 import Instance from './instance'
-import Schema from '../schema'
 import { getType, isSet, clone, isArray } from '../utils'
 import ArrayEditor from '../editors/array'
 
@@ -21,7 +20,7 @@ class ArrayInstance extends Instance {
 
     const child = this.jedi.createInstance({
       jedi: this.jedi,
-      schema: new Schema(schema),
+      schema: schema,
       path: this.path + '.' + this.children.length,
       parent: this
     })

@@ -1,4 +1,4 @@
-import SchemaTools from '../../index'
+import Jedi from '../../jedi'
 import { isSet } from '../../utils'
 
 export const _anyOf = (validator, value, schema, key, path) => {
@@ -9,7 +9,7 @@ export const _anyOf = (validator, value, schema, key, path) => {
     let valid = false
 
     anyOf.forEach((schema) => {
-      const anyOfEditor = new SchemaTools.Jedi({ schema: schema, startValue: value })
+      const anyOfEditor = new Jedi({ schema: schema, startValue: value, refParser: false })
       const anyOfErrors = anyOfEditor.validate()
       anyOfEditor.destroy()
 

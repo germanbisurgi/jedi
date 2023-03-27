@@ -1,5 +1,4 @@
 import Instance from './instance'
-import Schema from '../schema'
 import { different, isSet, notSet, getType, isObject, hasOwn } from '../utils'
 import ObjectEditor from '../editors/object'
 
@@ -58,7 +57,7 @@ class ObjectInstance extends Instance {
   createChild (schema, key) {
     const instance = this.jedi.createInstance({
       jedi: this.jedi,
-      schema: new Schema(schema),
+      schema: schema,
       path: this.path + '.' + key,
       parent: this
     })

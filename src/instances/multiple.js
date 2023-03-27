@@ -1,5 +1,4 @@
 import Instance from './instance'
-import Schema from '../schema'
 import MultipleEditor from '../editors/multiple'
 import {
   isSet,
@@ -103,7 +102,7 @@ class MultipleInstance extends Instance {
     this.schemas.forEach((schema) => {
       const instance = this.jedi.createInstance({
         jedi: this.jedi,
-        schema: new Schema(schema),
+        schema: schema,
         path: this.path,
         parent: this.parent
       })

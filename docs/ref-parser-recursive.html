@@ -16,18 +16,12 @@
 <script src="js/jedi.js"></script>
 <script>
   const schema = {
-    type: 'object',
-    properties: {
-      name: {
-        $ref: '#/$defs/name'
-      },
-      age: {
-        $ref: 'http://localhost:8282/ref.json'
-      }
-    },
-    $defs: {
-      name: {
-        type: 'string'
+    "type": "object",
+    "properties": {
+      "name": { "type": "string" },
+      "children": {
+        "type": "array",
+        "items": { "$ref": "#" }
       }
     }
   }

@@ -4,6 +4,7 @@
 
 - bugs:
     - object set value
+    - when adding properties in meta schema the non required properties should be unchecked
 
 - RefParser:
     - max deep ref parser

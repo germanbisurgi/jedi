@@ -5,7 +5,8 @@ import {
   isObject,
   isSet,
   isString,
-  notSet
+  notSet,
+  clone, equal
 } from './utils'
 
 class RefParser {
@@ -14,19 +15,19 @@ class RefParser {
       options = {}
     }
 
-    this.iterations = options.iterations || 5
+    this.iterations = options.iterations || 7
     this.XMLHttpRequest = options.XMLHttpRequest || XMLHttpRequest
-    this.pointers = {}
+    this.definitions = {}
   }
 
   dereference (schema) {
     for (let i = 0; i < this.iterations; i++) {
-      // register pointers
+      // register definitions as long as they are not references
       this.traverse({
         value: schema,
         callback: (args) => {
-          if (args.key !== '$ref' && isObject(args.value)) {
-            this.pointers[args.path] = args.value
+          if (args.key !== '$ref') {
+            this.definitions[args.path] = args.value
           }
         }
       })
@@ -35,16 +36,49 @@ class RefParser {
       this.traverse({
         value: schema,
         callback: (args) => {
-          if (isSet(args.value['$ref']) && isSet(args.prevValue)) {
-            args.prevValue[args.key] = this.define(args.value['$ref'])
+          if (!isObject(args.value)) {
+            return
+          }
+
+          const refOwner = args.prevValue
+          const ref = args.value['$ref']
+
+          if (isSet(refOwner) && isSet(ref)) {
+            if (this.isCircularPath(args.path)) {
+              console.log('circular', args.path)
+              return
+            }
+
+            refOwner[args.key] = this.define(ref)
           }
         }
       })
-
-      // this.defineRefs(schema)
     }
 
     return schema
+  }
+
+  isCircularPath (path) {
+    let output = false
+
+    Object.keys(this.definitions).forEach((key) => {
+      // remove #
+      path = path.substring(1)
+
+      if (path.length === 0) {
+        return output
+      }
+
+      const half = Math.ceil(path.length / 2)
+      const firstHalf = path.slice(0, half)
+      const secondHalf = path.slice(half)
+
+      if (equal(firstHalf, secondHalf)) {
+        output = true
+      }
+    })
+
+    return output
   }
 
   define (ref) {
@@ -52,10 +86,10 @@ class RefParser {
       return ref
     }
 
-    // pointers
+    // definitions
     if (ref.startsWith('#')) {
-      if (isSet(this.pointers[ref])) {
-        return this.pointers[ref]
+      if (isSet(this.definitions[ref])) {
+        return clone(this.definitions[ref])
       }
     }
 

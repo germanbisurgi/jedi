@@ -1,5 +1,5 @@
 import { hasOwn, isObject, isSet } from '../../utils'
-import SchemaTools from '../../index'
+import Jedi from '../../jedi'
 
 export const _additionalProperties = (validator, value, schema, key, path) => {
   let errors = []
@@ -28,10 +28,11 @@ export const _additionalProperties = (validator, value, schema, key, path) => {
         }
 
         if (!definedInPatternProperty && isObject(additionalProperties) && !hasOwn(properties, property)) {
-          const editor = new SchemaTools.Jedi({
+          const editor = new Jedi({
             rootName: property,
             schema: additionalProperties,
-            startValue: value[property]
+            startValue: value[property],
+            refParser: false
           })
 
           const additionalPropertyErrors = editor.validate().map((error) => {

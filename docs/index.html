@@ -88,7 +88,7 @@
 
 <script src="js/vue.js"></script>
 <script src="js/vue-i18n.js"></script>
-<script src="js/schema-tools.js"></script>
+<script src="js/jedi.js"></script>
 <script src="js/wireframe.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', () => {
@@ -302,10 +302,8 @@
             this.editor.destroy()
           }
 
-          const refParser = new SchemaTools.RefParser()
-          this.options.schema = refParser.dereference(this.options.schema)
 
-          this.editor = new SchemaTools.Jedi(this.options)
+          this.editor = new Jedi(this.options)
           window.editor = this.editor
 
           this.editor.on('change', () => {

@@ -1,5 +1,5 @@
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
-const SchemaTools = require('../dist/schema-tools')
+const Jedi = require('../dist/jedi')
 
 const schema = {
   type: 'object',
@@ -18,12 +18,9 @@ const schema = {
   }
 }
 
-const refParser = new SchemaTools.RefParser({
+const jedi = new Jedi({
+  schema: schema,
   XMLHttpRequest: XMLHttpRequest
 })
-const dereferencedSchema = refParser.dereference(schema)
-console.log(JSON.stringify(dereferencedSchema, null, 2))
 
-new SchemaTools.Jedi({
-  schema: dereferencedSchema
-})
+console.log(JSON.stringify(jedi.schema, null, 2))

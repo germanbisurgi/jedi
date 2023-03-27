@@ -1,6 +1,7 @@
 /* global describe it expect */
 
-const SchemaTools = require('../../../../dist/schema-tools')
+const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
+const Jedi = require('../../../../dist/jedi')
 
 const suites = [
   require('./test-suite/additionalProperties'), // 11
@@ -36,7 +37,7 @@ const suites = [
   // require('./test-suite/prefixItems'),
   require('./test-suite/properties'), // 1
   require('./test-suite/required'),
-  require('./test-suite/type'),
+  require('./test-suite/type')
   // require('./test-suite/uniqueItems'), // 15
 ]
 
@@ -45,8 +46,9 @@ suites.forEach((suite) => {
     describe(scenario.description, function () {
       scenario.tests.forEach((test) => {
         it(test.description, function () {
-          const jedi = new SchemaTools.Jedi({
-            schema: scenario.schema
+          const jedi = new Jedi({
+            schema: scenario.schema,
+            XMLHttpRequest: XMLHttpRequest
           })
           jedi.setValue(test.data)
           const errors = jedi.validate()

@@ -1,7 +1,7 @@
 import Schema from './schema'
 import Validator from './validation/validator'
 import EventEmitter from './event-emitter'
-import { getType, isArray, isSet, notSet } from './utils'
+import { getType, hasOwn, isArray, isSet, notSet } from './utils'
 import MultipleInstance from './instances/multiple'
 import BooleanInstance from './instances/boolean'
 import ObjectInstance from './instances/object'
@@ -9,6 +9,7 @@ import ArrayInstance from './instances/array'
 import StringInstance from './instances/string'
 import NumberInstance from './instances/number'
 import NullInstance from './instances/null'
+import RefParser from './ref-parser'
 
 class Jedi extends EventEmitter {
   constructor (options) {
@@ -21,7 +22,8 @@ class Jedi extends EventEmitter {
       showRequiredOnly: false,
       schema: {},
       theme: 'wireframe',
-      rootName: 'root'
+      rootName: 'root',
+      refParser: true
     }, options)
 
     this.instances = {}
@@ -29,16 +31,25 @@ class Jedi extends EventEmitter {
     this.theme = null
     this.validator = null
     this.schema = null
+    this.refParser = null
     this.init()
   }
 
   init () {
     this.validator = new Validator()
+    if (this.options.refParser) {
+      this.refParser = new RefParser({
+        XMLHttpRequest: this.options.XMLHttpRequest
+      })
+
+      this.options.schema = this.refParser.dereference(this.options.schema)
+    }
+
     this.schema = new Schema(this.options.schema)
 
     this.root = this.createInstance({
       jedi: this,
-      schema: this.schema
+      schema: this.options.schema
     })
 
     if (isSet(this.options.startValue)) {
@@ -97,6 +108,13 @@ class Jedi extends EventEmitter {
    */
   createInstance (config) {
     let instance
+
+    // circular $ref are not initially dereferenced and must be defined on creation
+    if (this.options.refParser && hasOwn(config.schema, '$ref')) {
+      config.schema = this.refParser.define(config.schema['$ref'])
+    }
+
+    config.schema = new Schema(config.schema)
 
     if (config.schema.typeIs('boolean')) {
       instance = new BooleanInstance(config)
