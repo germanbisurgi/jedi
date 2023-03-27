@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm run watch & npm run less & npm run serve",
     "less": "less-watch-compiler ./docs/less ./docs/css main.less",
-    "unit": "jest --config=./tests/jest/jest.config.js",
+    "unit": "jest --config=./tests/unit/jest.config.js",
     "test:bootstrap5": "THEME='bootstrap5' npm run e2e",
     "test:bootstrap4": "THEME='bootstrap4' npm run e2e",
     "test": "THEME='wireframe' npm run e2e",
