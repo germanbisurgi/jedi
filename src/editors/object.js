@@ -60,7 +60,8 @@ class ObjectEditor extends Editor {
         schema = additionalProperties
       }
 
-      this.instance.createChild(schema, key)
+      const child = this.instance.createChild(schema, key)
+      child.activate()
       this.instance.setValue(this.instance.value)
       this.addPropertyInput.value = ''
     })
@@ -80,10 +81,10 @@ class ObjectEditor extends Editor {
       this.toolbarSlot.appendChild(this.dropdown)
       this.dropdown.appendChild(this.dropdownToggle)
       this.dropdown.appendChild(this.dropdownMenu)
+      this.dropdownMenu.appendChild(this.activatorsSlot)
       this.dropdownMenu.appendChild(this.addPropertyLabel)
       this.dropdownMenu.appendChild(this.addPropertyInput)
       this.dropdownMenu.appendChild(this.addPropertyBtn)
-      this.dropdownMenu.appendChild(this.activatorsSlot)
     }
   }
 

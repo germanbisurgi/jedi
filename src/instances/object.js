@@ -64,6 +64,15 @@ class ObjectInstance extends Instance {
 
     this.children.push(instance)
     this.value[key] = instance.getValue()
+
+    const isNotRequired = !this.isRequired(key)
+    const shouldStartDeactivated = this.jedi.options.deactivateProperties || this.schema.option('deactivateProperties')
+
+    if (isNotRequired && shouldStartDeactivated) {
+      instance.deactivate()
+    }
+
+    return instance
   }
 
   deleteChild (key) {
@@ -95,16 +104,6 @@ class ObjectInstance extends Instance {
     this.setValue(value)
   }
 
-  hasProperty (propertyName) {
-    const properties = this.schema.properties()
-
-    if (notSet(properties)) {
-      return false
-    }
-
-    return Object.keys(properties).includes(propertyName)
-  }
-
   refreshInstances () {
     const value = this.getValue()
 
@@ -113,7 +112,7 @@ class ObjectInstance extends Instance {
       const instance = this.children[i]
       const key = instance.getKey()
       if (notSet(value[key])) {
-        if (this.hasProperty(key)) {
+        if (this.getChild(key)) {
           instance.deactivate()
         } else {
           this.deleteChild(key)

@@ -5,207 +5,51 @@
     "editableProperties": true
   },
   "additionalProperties":  {
-    "anyOf": [
-      {
-        "$ref": "#/$defs/string"
-      },
-      {
-        "$ref": "#/$defs/boolean"
-      },
-      {
-        "$ref": "#/$defs/array"
-      },
-      {
-        "$ref": "#/$defs/object"
-      },
-      {
-        "$ref": "#/$defs/number"
-      },
-      {
-        "$ref": "#/$defs/integer"
-      },
-      {
-        "$ref": "#/$defs/null"
-      }
-    ]
+    "$ref": "#/$defs/schema"
   },
   "$defs": {
-    "base": {
+    "schema": {
       "type": "object",
-      "required": [
-        "type"
-      ],
-      "options": {
-        "editableProperties": true
-      },
-      "default": {}
-    },
-    "string": {
-      "options": {
-        "mergeAllOf": true
-      },
-      "allOf": [
-        {
-          "$ref": "#/$defs/base"
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "string",
+            "integer",
+            "number",
+            "boolean",
+            "array",
+            "object",
+            "null",
+            "any"
+          ],
+          "default": "string"
         },
-        {
-          "properties": {
-            "type": {
-              "type": "string",
-              "default": "string"
-            },
-            "minLength": {
-              "type": "integer",
-              "minimum": 0
-            },
-            "maxLength": {
-              "type": "integer",
-              "minimum": 0
-            },
-            "pattern": {
-              "type": "string",
-              "format": "regex"
-            }
-          },
-          "options": {
-            "switcherTitle": "String"
-          }
-        }
-      ]
-    },
-    "boolean": {
-      "options": {
-        "mergeAllOf": true
-      },
-      "allOf": [
-        {
-          "$ref": "#/$defs/base"
+        "minLength": {
+          "type": "integer",
+          "minimum": 0
         },
-        {
-          "properties": {
-            "type": {
-              "type": "string",
-              "default": "boolean"
-            }
-          },
-          "options": {
-            "switcherTitle": "Boolean"
-          }
-        }
-      ]
-    },
-    "array": {
-      "options": {
-        "mergeAllOf": true
-      },
-      "allOf": [
-        {
-          "$ref": "#/$defs/base"
+        "maxLength": {
+          "type": "integer",
+          "minimum": 0
         },
-        {
-          "properties": {
-            "type": {
-              "type": "string",
-              "default": "array"
-            },
-            "minItems": {
-              "type": "integer",
-              "minimum": 0
-            },
-            "maxItems": {
-              "type": "integer",
-              "minimum": 0
-            }
-          },
-          "options": {
-            "switcherTitle": "Array"
-          }
-        }
-      ]
-    },
-    "object": {
-      "options": {
-        "mergeAllOf": true
-      },
-      "allOf": [
-        {
-          "$ref": "#/$defs/base"
+        "pattern": {
+          "type": "string",
+          "format": "regex"
         },
-        {
-          "properties": {
-            "type": {
-              "type": "string",
-              "default": "object"
-            }
-          },
-          "options": {
-            "switcherTitle": "Object"
-          }
-        }
-      ]
-    },
-    "number": {
-      "options": {
-        "mergeAllOf": true
-      },
-      "allOf": [
-        {
-          "$ref": "#/$defs/base"
+        "minItems": {
+          "type": "integer",
+          "minimum": 0
         },
-        {
-          "properties": {
-            "type": {
-              "type": "string",
-              "default": "number"
-            }
-          },
-          "options": {
-            "switcherTitle": "Number"
-          }
+        "maxItems": {
+          "type": "integer",
+          "minimum": 0
         }
-      ]
-    },
-    "integer": {
-      "options": {
-        "mergeAllOf": true
       },
-      "allOf": [
-        {
-          "$ref": "#/$defs/base"
-        },
-        {
-          "properties": {
-            "type": {
-              "type": "string",
-              "default": "integer"
-            }
-          },
-          "options": {
-            "switcherTitle": "Integer"
-          }
-        }
-      ]
-    },
-    "null": {
       "options": {
-        "mergeAllOf": true
-      },
-      "allOf": [
-        {
-          "$ref": "#/$defs/base"
-        },
-        {
-          "properties": {
-            "type": {
-              "type": "string",
-              "default": "null"
-            }
-          },
-          "options": {
-            "switcherTitle": "Null"
-          }
-        }
-      ]
+        "editableProperties": true,
+        "deactivateProperties": true
+      }
     }
   }
 }

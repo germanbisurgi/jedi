@@ -1,4 +1,4 @@
-import { isSet, isString, notSet } from '../../utils'
+import { isSet, isString } from '../../utils'
 
 export const _format = (validator, value, schema, key, path) => {
   const errors = []
@@ -22,7 +22,7 @@ export const _format = (validator, value, schema, key, path) => {
       message = 'Must be a valid email uuid'
     }
 
-    const invalid = notSet(regexp) || !regexp.test(value)
+    const invalid = isSet(regexp) && !regexp.test(value)
 
     if (invalid) {
       errors.push({
