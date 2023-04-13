@@ -14,7 +14,7 @@
     "e2e": "codeceptjs run-workers 43 -c tests/e2e/codecept.conf.js --debug",
     "e2e-grep": "codeceptjs run -c tests/e2e/codecept.conf.js --debug --grep '@editableProperties'",
     "serve": "reload --port 8282 --browser --watch-dir ./docs --dir ./docs",
-    "watch": "webpack --watch",
+    "watch": "webpack --config config/webpack.config.js --watch",
     "webpack": "webpack",
     "eslint": "eslint ./src",
     "eslint:fix": "eslint --fix ./src"

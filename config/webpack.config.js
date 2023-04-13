@@ -54,7 +54,7 @@ const dist = merge(jedi, {
 
 const docs = merge(jedi, {
   output: {
-    path: path.resolve(__dirname, '../docs/views/js')
+    path: path.resolve(__dirname, '../docs/js')
   }
 })
 
