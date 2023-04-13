@@ -42,22 +42,22 @@ class ThemeBarebones {
     return html
   }
 
-  getActivatorsSlot () {
-    const activatorsSlot = document.createElement('div')
-    activatorsSlot.classList.add('jedi-properties-slot')
-    return activatorsSlot
+  getPropertiesSlot () {
+    const slot = document.createElement('div')
+    slot.classList.add('jedi-properties-slot')
+    return slot
   }
 
   getActionsSlot () {
-    const actionsSlots = document.createElement('div')
-    actionsSlots.classList.add('jedi-actions-slot')
-    return actionsSlots
+    const slot = document.createElement('div')
+    slot.classList.add('jedi-actions-slot')
+    return slot
   }
 
   getChildrenSlot () {
-    const childrenSlot = document.createElement('div')
-    childrenSlot.classList.add('jedi-child-editors-slot')
-    return childrenSlot
+    const slot = document.createElement('div')
+    slot.classList.add('jedi-child-editors-slot')
+    return slot
   }
 
   getBtnGroup () {

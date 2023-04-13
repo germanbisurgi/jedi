@@ -11,7 +11,7 @@ class Editor extends EventEmitter {
     this.instance = instance
     this.theme = null
     this.container = null
-    this.activatorsSlot = null
+    this.propertiesSlot = null
     this.controlSlot = null
     this.messagesSlot = null
     this.actionsSlot = null
@@ -56,7 +56,7 @@ class Editor extends EventEmitter {
 
     this.container = this.theme.getContainer()
     this.toolbarSlot = this.theme.getToolbarSlot()
-    this.activatorsSlot = this.theme.getActivatorsSlot()
+    this.propertiesSlot = this.theme.getPropertiesSlot()
     this.controlSlot = this.theme.getControlSlot()
     this.messagesSlot = this.theme.getMessagesSlot()
     this.actionsSlot = this.theme.getActionsSlot()

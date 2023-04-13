@@ -1,9 +1,9 @@
 const path = require('path')
 const merge = require('deepmerge')
 
-const common = {
+const jedi = {
   entry: {
-    jedi: './src/jedi.js'
+    jedi: path.resolve(__dirname, '../src/jedi.js')
   },
   output: {
     filename: '[name].js',
@@ -22,7 +22,7 @@ const common = {
         loader: 'eslint-loader',
         enforce: 'pre',
         options: {
-          configFile: './.eslintrc.json',
+          configFile: path.resolve(__dirname, '.eslintrc.json'),
           cache: false,
           fix: true
         }
@@ -46,15 +46,15 @@ const common = {
   }
 }
 
-const dist = merge(common, {
+const dist = merge(jedi, {
   output: {
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, '../dist')
   }
 })
 
-const docs = merge(common, {
+const docs = merge(jedi, {
   output: {
-    path: path.resolve(__dirname, 'docs/js')
+    path: path.resolve(__dirname, '../docs/views/js')
   }
 })
 

@@ -208,20 +208,6 @@ class Jedi extends EventEmitter {
     return errors
   }
 
-  reset () {
-    this.options.startValue = this.getValue()
-    if (this.options.isEditor) {
-      this.container.innerHTML = ''
-    }
-    this.root.destroy()
-    this.init()
-  }
-
-  setTheme (theme) {
-    this.options.theme = theme
-    this.reset()
-  }
-
   /**
    * Destroy the root instance and it'S children
    */

@@ -1,5 +1,22 @@
 ## Todo
 
+- future features:
+    - ui required (not json required)
+    - collapse properties and checkboxes
+    - additionalProperties
+    - readonly
+    - refactor description and titles (duplicated code)
+    - format categories
+    - grid
+    - plugins examples
+    - collapse
+    - array tabs
+    - edit object values
+    - edit array values
+    - option exclude
+    - filter by field
+    - icons
+
 - rethink docs
 
 - bugs:
@@ -15,22 +32,6 @@
     - readonly
     - array enums
     - array tuple 
-    
-- editors:
-    - collapse properties and checkboxes
-    - additionalProperties
-    - readonly
-    - refactor description and titles (duplicated code)
-    - format categories
-    - grid
-    - plugins examples
-    - collapse
-    - array tabs
-    - edit object values
-    - edit array values
-    - option exclude
-    - filter by field
-    - icons
 
 - e2e:
     - additionalProperties

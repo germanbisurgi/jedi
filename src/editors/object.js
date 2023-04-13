@@ -81,7 +81,7 @@ class ObjectEditor extends Editor {
       this.toolbarSlot.appendChild(this.dropdown)
       this.dropdown.appendChild(this.dropdownToggle)
       this.dropdown.appendChild(this.dropdownMenu)
-      this.dropdownMenu.appendChild(this.activatorsSlot)
+      this.dropdownMenu.appendChild(this.propertiesSlot)
       this.dropdownMenu.appendChild(this.addPropertyLabel)
       this.dropdownMenu.appendChild(this.addPropertyInput)
       this.dropdownMenu.appendChild(this.addPropertyBtn)
@@ -102,35 +102,35 @@ class ObjectEditor extends Editor {
     })
   }
 
-  refreshActivators () {
+  refreshPropertiesSlot () {
     if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {
-      while (this.activatorsSlot.firstChild) {
-        this.activatorsSlot.removeChild(this.activatorsSlot.lastChild)
+      while (this.propertiesSlot.firstChild) {
+        this.propertiesSlot.removeChild(this.propertiesSlot.lastChild)
       }
 
       this.instance.children.forEach((child) => {
-        const activatorId = child.path + '-activator'
+        const id = child.path + '-activator'
 
-        const activatorContainer = this.theme.getCheckboxContainer()
+        const checkboxContainer = this.theme.getCheckboxContainer()
 
-        const activatorLabel = this.theme.getCheckboxLabel({
-          for: activatorId,
+        const checkboxLabel = this.theme.getCheckboxLabel({
+          for: id,
           textContent: isSet(child.schema.title()) ? child.schema.title() : child.getKey()
         })
 
-        const activatorInput = this.theme.getCheckbox({
-          id: activatorId
+        const checkbox = this.theme.getCheckbox({
+          id: id
         })
 
-        activatorInput.checked = hasOwn(this.instance.getValue(), child.getKey())
+        checkbox.checked = hasOwn(this.instance.getValue(), child.getKey())
 
         const isRequired = this.instance.isRequired(child.getKey())
         const isDependentRequired = this.instance.isDependentRequired(child.getKey())
         const disabled = this.disabled
-        activatorInput.disabled = isRequired || isDependentRequired || disabled
+        checkbox.disabled = isRequired || isDependentRequired || disabled
 
-        activatorInput.addEventListener('change', () => {
-          if (activatorInput.checked) {
+        checkbox.addEventListener('change', () => {
+          if (checkbox.checked) {
             child.activate()
           } else {
             child.deactivate()
@@ -138,9 +138,9 @@ class ObjectEditor extends Editor {
         })
 
         // appends
-        this.activatorsSlot.appendChild(activatorContainer)
-        activatorContainer.appendChild(activatorInput)
-        activatorContainer.appendChild(activatorLabel)
+        this.propertiesSlot.appendChild(checkboxContainer)
+        checkboxContainer.appendChild(checkbox)
+        checkboxContainer.appendChild(checkboxLabel)
       })
     }
   }
@@ -164,7 +164,7 @@ class ObjectEditor extends Editor {
   }
 
   refreshUI () {
-    this.refreshActivators()
+    this.refreshPropertiesSlot()
     this.refreshEditors()
 
     if (this.disabled) {
