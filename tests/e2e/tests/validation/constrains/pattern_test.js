@@ -5,7 +5,7 @@ Feature('pattern')
 
 Scenario('should display @pattern validation errors', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/pattern')
   I.checkOption('[id="alwaysShowErrors"]')

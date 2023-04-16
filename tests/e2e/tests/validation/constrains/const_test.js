@@ -5,7 +5,7 @@ Feature('const')
 
 Scenario('should display @const validation errors', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/const')
   I.checkOption('[id="alwaysShowErrors"]')

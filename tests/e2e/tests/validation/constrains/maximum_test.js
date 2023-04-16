@@ -5,7 +5,7 @@ Feature('maximum')
 
 Scenario('should display @maximum validation errors', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/maximum')
   I.checkOption('[id="alwaysShowErrors"]')

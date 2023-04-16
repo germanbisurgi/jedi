@@ -5,7 +5,7 @@ Feature('minProperties')
 
 Scenario('should display @minProperties validation errors', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/minProperties')
   I.checkOption('[id="alwaysShowErrors"]')

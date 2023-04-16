@@ -5,7 +5,7 @@ Feature('maxProperties')
 
 Scenario('should display @maxProperties validation errors', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/maxProperties')
   I.checkOption('[id="alwaysShowErrors"]')

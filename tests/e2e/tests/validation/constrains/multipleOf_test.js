@@ -5,7 +5,7 @@ Feature('multipleOf')
 
 Scenario('should display @multipleOf validation errors', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/multipleOf')
   I.checkOption('[id="alwaysShowErrors"]')

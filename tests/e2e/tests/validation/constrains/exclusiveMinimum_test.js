@@ -5,7 +5,7 @@ Feature('exclusiveMinimum')
 
 Scenario('should display @exclusiveMinimum validation errors', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/exclusiveMinimum')
   I.checkOption('[id="alwaysShowErrors"]')

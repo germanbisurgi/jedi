@@ -5,7 +5,7 @@ Feature('dependentRequired')
 
 Scenario('should display @dependentRequired validation errors', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/dependentRequired')
   I.checkOption('[id="alwaysShowErrors"]')

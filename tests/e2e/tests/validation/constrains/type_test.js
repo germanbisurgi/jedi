@@ -5,7 +5,7 @@ Feature('type')
 
 Scenario('should display @type validation errors', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/type')
   I.fillField('#editor-value', JSON.stringify({

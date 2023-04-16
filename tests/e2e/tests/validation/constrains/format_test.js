@@ -5,7 +5,7 @@ Feature('format')
 
 Scenario('should display @format validation error', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/format')
   I.checkOption('[id="alwaysShowErrors"]')

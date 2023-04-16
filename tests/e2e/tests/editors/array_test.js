@@ -5,7 +5,7 @@ Feature('array')
 
 Scenario('should have @title and @description', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I.fillField('#schemas', 'editors/array')
   I._waitForElement('.jedi-ready')
   I._waitForText('Array', 'legend')
@@ -14,7 +14,7 @@ Scenario('should have @title and @description', ({ I }) => {
 
 Scenario('should edit items @items', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I.fillField('#schemas', 'editors/array')
   I._waitForElement('.jedi-ready')
   I.dontSee('[id="root.0"]')

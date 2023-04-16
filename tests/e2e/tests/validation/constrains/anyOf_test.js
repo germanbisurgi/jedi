@@ -5,7 +5,7 @@ Feature('anyOf')
 
 Scenario('should display anyOf validation errors @anyOf', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/anyOf')
   I.checkOption('[id="alwaysShowErrors"]')

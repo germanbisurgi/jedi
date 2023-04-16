@@ -5,7 +5,7 @@ Feature('object')
 
 Scenario('should have @title and @description', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')
   I._waitForText('Object', 'legend')
@@ -14,7 +14,7 @@ Scenario('should have @title and @description', ({ I }) => {
 
 Scenario('should add properties @editableProperties', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')
   I.click('.jedi-dropdown-properties')
@@ -31,7 +31,7 @@ Scenario('should add properties @editableProperties', ({ I }) => {
 
 Scenario('should activate and deactivate properties @editableProperties', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')
   I.click('.jedi-dropdown-properties')

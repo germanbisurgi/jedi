@@ -5,7 +5,7 @@ Feature('boolean')
 
 Scenario('should have @title and @description', ({ I }) => {
   I.amOnPage(`index.html?theme=${theme}`)
-  I.fillField('#theme', theme)
+
   I.fillField('#schemas', 'editors/boolean')
   I._waitForElement('.jedi-ready')
   I._waitForText('Boolean', 'label')
