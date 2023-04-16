@@ -1,10 +1,10 @@
 /* global Feature Scenario */
-const theme = process.env.THEME || 'wireframe'
+const theme = process.env.THEME || 'barebones'
 
 Feature('object')
 
 Scenario('should have @title and @description', ({ I }) => {
-  I.amOnPage('index.html')
+  I.amOnPage(`index.html?theme=${theme}`)
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')
@@ -13,7 +13,7 @@ Scenario('should have @title and @description', ({ I }) => {
 })
 
 Scenario('should add properties @editableProperties', ({ I }) => {
-  I.amOnPage('index.html')
+  I.amOnPage(`index.html?theme=${theme}`)
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')
@@ -30,7 +30,7 @@ Scenario('should add properties @editableProperties', ({ I }) => {
 })
 
 Scenario('should activate and deactivate properties @editableProperties', ({ I }) => {
-  I.amOnPage('index.html')
+  I.amOnPage(`index.html?theme=${theme}`)
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')

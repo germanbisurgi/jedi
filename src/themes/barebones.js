@@ -36,8 +36,6 @@ class ThemeBarebones {
 
   getToolbarSlot () {
     const html = document.createElement('ul')
-    html.classList.add('nav')
-    html.classList.add('navbar-nav')
     html.classList.add('jedi-toolbar-slot')
     return html
   }
@@ -162,7 +160,6 @@ class ThemeBarebones {
   getLegend (config) {
     const legend = document.createElement('legend')
     legend.textContent = config.textContent
-    legend.setAttribute('style', 'width: auto;')
 
     if (config.srOnly) {
       legend.classList.add('sr-only')

@@ -1,18 +1,18 @@
 /* global Feature Scenario */
 const jsonData = require('./test')
-const theme = process.env.THEME || 'wireframe'
+const theme = process.env.THEME || 'barebones'
 
 Feature('editor')
 
 Scenario('should have class "jedi-ready" when ready @ready', ({ I }) => {
-  I.amOnPage('index.html')
+  I.amOnPage(`index.html?theme=${theme}`)
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
 })
 
 Scenario('Should create all kind of editors @create', ({ I }) => {
-  I.amOnPage('index.html')
+  I.amOnPage(`index.html?theme=${theme}`)
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
@@ -46,7 +46,7 @@ Scenario('Should create all kind of editors @create', ({ I }) => {
 })
 
 Scenario('should destroy @destroy', ({ I }) => {
-  I.amOnPage('index.html')
+  I.amOnPage(`index.html?theme=${theme}`)
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
@@ -56,7 +56,7 @@ Scenario('should destroy @destroy', ({ I }) => {
 })
 
 Scenario('Should disable and enable @disable', ({ I }) => {
-  I.amOnPage('index.html')
+  I.amOnPage(`index.html?theme=${theme}`)
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
@@ -78,7 +78,7 @@ Scenario('Should disable and enable @disable', ({ I }) => {
 })
 
 Scenario('should set value @setValue', async ({ I }) => {
-  I.amOnPage('index.html')
+  I.amOnPage(`index.html?theme=${theme}`)
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
@@ -104,7 +104,7 @@ Scenario('should set value @setValue', async ({ I }) => {
 })
 
 Scenario('should set @rootName', async ({ I }) => {
-  I.amOnPage('index.html')
+  I.amOnPage(`index.html?theme=${theme}`)
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')

@@ -17,9 +17,8 @@
     - filter by field
     - icons
 
-- rethink docs
-
 - bugs:
+    - move bootstrap classes from barebones
     - object set value
     - when adding properties in meta schema the non required properties should be unchecked
 

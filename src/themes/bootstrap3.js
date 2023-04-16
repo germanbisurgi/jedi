@@ -1,6 +1,6 @@
 import ThemeBarebones from './barebones'
 
-class ThemeBootstrap4 extends ThemeBarebones {
+class ThemeBootstrap3 extends ThemeBarebones {
   getAlert (config) {
     const alert = super.getAlert(config)
     alert.classList.add('alert')
@@ -103,4 +103,4 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 }
 
-export default ThemeBootstrap4
+export default ThemeBootstrap3

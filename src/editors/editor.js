@@ -1,5 +1,6 @@
 import EventEmitter from '../event-emitter'
 import ThemeWireframe from '../themes/wireframe'
+import ThemeBootstrap3 from '../themes/bootstrap3'
 import ThemeBootstrap4 from '../themes/bootstrap4'
 import ThemeBootstrap5 from '../themes/bootstrap5'
 import ThemeBarebones from '../themes/barebones'
@@ -40,6 +41,9 @@ class Editor extends EventEmitter {
     switch (this.instance.jedi.options.theme) {
       case 'wireframe':
         this.theme = new ThemeWireframe()
+        break
+      case 'bootstrap3':
+        this.theme = new ThemeBootstrap3()
         break
       case 'bootstrap4':
         this.theme = new ThemeBootstrap4()

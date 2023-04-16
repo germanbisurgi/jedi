@@ -1,10 +1,10 @@
 /* global Feature Scenario */
-const theme = process.env.THEME || 'wireframe'
+const theme = process.env.THEME || 'barebones'
 
 Feature('null')
 
 Scenario('should have @description', ({ I }) => {
-  I.amOnPage('index.html')
+  I.amOnPage(`index.html?theme=${theme}`)
   I.fillField('#theme', theme)
   I.fillField('#schemas', 'editors/null')
   I._waitForElement('.jedi-ready')

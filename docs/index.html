@@ -1,130 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Test page for jedi">
-    <title>Editor</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Test page for jedi">
+  <title>Editor</title>
 </head>
 <body>
 
 <main id="app" class="container">
-    <h1>Editor</h1>
+  <h1>Editor</h1>
 
-    <div class="row row-between">
-        <div class="col-12 col-sm-7">
-            <form action="" method="POST">
-                <div ref="jediContainer" id="jedi-container"></div>
-                <input v-if="options.isEditor" class="btn btn-primary btn-block" type="submit" value="Submit">
-            </form>
-        </div>
-        <div class="col-12 col-sm-5">
-            <fieldset class="card card-body">
-                <legend>Methods</legend>
-                <div class="form-group">
-                    <label for="editor-value">Value</label>
-                    <textarea ref="editorValue" class="form-control" id="editor-value" style="font-family: monospace;height: 30vh;"></textarea>
-                    <button class="btn btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
-                </div>
-                <div class="form-group">
-                    <label for="editor-errors">Errors</label>
-                    <textarea ref="editorErrors" class="form-control" id="editor-errors" style="font-family: monospace;height: 30vh;"></textarea>
-                </div>
-                <button class="btn btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
-                <button class="btn btn-block" id="enable-editor" @click="enableEditor()">Enable editor</button>
-                <button class="btn btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
-            </fieldset>
-
-            <fieldset class="card card-body">
-                <legend>Options</legend>
-
-                <div class="form-group">
-                    <input type="checkbox" id="isEditor" v-model="options.isEditor" @change="initEditor()">
-                    <label for="isEditor"><code>isEditor</code></label>
-                </div>
-
-                <div class="form-group">
-                    <input type="checkbox" id="editableProperties" v-model="options.editableProperties" @change="initEditor()">
-                    <label for="editableProperties"><code>editableProperties</code></label>
-                </div>
-
-                <div class="form-group">
-                    <input type="checkbox" id="alwaysShowErrors" v-model="options.alwaysShowErrors" @change="initEditor()">
-                    <label for="alwaysShowErrors"><code>alwaysShowErrors</code></label>
-                </div>
-
-                <div class="form-group">
-                    <input type="checkbox" id="showRequiredOnly" v-model="options.showRequiredOnly" @change="initEditor()">
-                    <label for="showRequiredOnly"><code>showRequiredOnly</code></label>
-                </div>
-
-                <div class="form-group">
-                    <label for="rootName"><code>rootName</code></label>
-                    <input class="form-control" id="rootName" v-model="options.rootName" @change="initEditor()">
-                </div>
-
-                <div class="form-group">
-                    <label for="theme"><code>theme</code></label>
-                    <select class="form-control" id="theme" v-model="options.theme" @change="setEditorTheme()">
-                        <option v-for="theme in themes" :value="theme">{{ theme }}</option>
-                    </select>
-                </div>
-
-                <div class="form-group" v-if="editor">
-                    <label for="schema">Schema</label>
-                    <textarea class="form-control" id="schema" style="font-family: monospace; height: 200px;">{{ JSON.stringify(editor.schema.clone(), null, 2) }}</textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="schemas">Schemas</label>
-                    <select ref="schema" class="form-control" id="schemas" @change="switchSchema()">
-                        <option v-for="option in schemas" :value="option.url">{{ option.name }}</option>
-                    </select>
-                </div>
-            </fieldset>
-        </div>
+  <div class="row row-between">
+    <div class="col-12 col-sm-7">
+      <form action="" method="POST">
+        <div ref="jediContainer" id="jedi-container"></div>
+        <input v-if="options.isEditor" class="btn btn-primary btn-block" type="submit" value="Submit">
+      </form>
     </div>
+    <div class="col-12 col-sm-5">
+      <fieldset class="card card-body">
+        <legend>Methods</legend>
+        <div class="form-group">
+          <label for="editor-value">Value</label>
+          <textarea ref="editorValue" class="form-control" id="editor-value" style="font-family: monospace;height: 30vh;"></textarea>
+          <button class="btn btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
+        </div>
+        <div class="form-group">
+          <label for="editor-errors">Errors</label>
+          <textarea ref="editorErrors" class="form-control" id="editor-errors" style="font-family: monospace;height: 30vh;"></textarea>
+        </div>
+        <button class="btn btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
+        <button class="btn btn-block" id="enable-editor" @click="enableEditor()">Enable editor</button>
+        <button class="btn btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
+      </fieldset>
+
+      <fieldset class="card card-body">
+        <legend>Options</legend>
+
+        <div class="form-group">
+          <input type="checkbox" id="isEditor" v-model="options.isEditor" @change="initEditor()">
+          <label for="isEditor"><code>isEditor</code></label>
+        </div>
+
+        <div class="form-group">
+          <input type="checkbox" id="editableProperties" v-model="options.editableProperties" @change="initEditor()">
+          <label for="editableProperties"><code>editableProperties</code></label>
+        </div>
+
+        <div class="form-group">
+          <input type="checkbox" id="alwaysShowErrors" v-model="options.alwaysShowErrors" @change="initEditor()">
+          <label for="alwaysShowErrors"><code>alwaysShowErrors</code></label>
+        </div>
+
+        <div class="form-group">
+          <input type="checkbox" id="showRequiredOnly" v-model="options.showRequiredOnly" @change="initEditor()">
+          <label for="showRequiredOnly"><code>showRequiredOnly</code></label>
+        </div>
+
+        <div class="form-group">
+          <label for="rootName"><code>rootName</code></label>
+          <input class="form-control" id="rootName" v-model="options.rootName" @change="initEditor()">
+        </div>
+
+        <div class="form-group">
+          <label for="theme"><code>theme</code></label>
+          <select class="form-control" id="theme" v-model="options.theme" @change="reload()">
+            <option v-for="theme in themes" :value="theme">{{ theme }}</option>
+          </select>
+        </div>
+
+        <div class="form-group" v-if="editor">
+          <label for="schema">Schema</label>
+          <textarea class="form-control" id="schema" style="font-family: monospace; height: 200px;">{{ JSON.stringify(editor.schema.clone(), null, 2) }}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="schemas">Schemas</label>
+          <select ref="schema" class="form-control" id="schemas" @change="switchSchema()">
+            <option v-for="option in schemas" :value="option.url">{{ option.name }}</option>
+          </select>
+        </div>
+      </fieldset>
+    </div>
+  </div>
 </main>
 
 <script src="js/vue.js"></script>
-<script src="js/vue-i18n.js"></script>
 <script src="js/jedi.js"></script>
-<script src="js/wireframe.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    Vue.use(VueI18n)
-
-    const messages = {
-      de: {
-        message: {
-          options: 'Options'
-        }
-      },
-      en: {
-        message: {
-          options: 'Options',
-        }
-      }
-    }
-
-    const i18n = new VueI18n({
-      locale: 'de',
-      messages
-    })
-
     new Vue({
-      i18n,
       el: '#app',
       data() {
         return {
           editor: null,
+          theme: 'wireframe',
           themes: [
             'bootstrap5',
             'bootstrap4',
+            'bootstrap3',
             'wireframe',
             'barebones'
           ],
-          stylesheets: ['./css/main.css'],
           schemas: [
             {
               name: 'editors/all',
@@ -294,14 +272,18 @@
       mounted() {
         this.options.container = document.querySelector('#jedi-container')
         this.switchSchema()
-        this.registerThemeStylesheet()
+        const theme = this.getQueryParam('theme')
+
+        if (theme) {
+          this.theme = theme
+          this.options.theme = theme
+        }
       },
       methods: {
         initEditor() {
           if (this.editor) {
             this.editor.destroy()
           }
-
 
           this.editor = new Jedi(this.options)
           window.editor = this.editor
@@ -313,6 +295,8 @@
 
           this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
           this.$refs.editorErrors.value = JSON.stringify(this.editor.validate(), null, 2)
+
+          this.registerThemeAssets()
         },
         destroyEditor() {
           this.editor.destroy()
@@ -326,49 +310,75 @@
         setEditorValue() {
           this.editor.setValue(JSON.parse(this.$refs.editorValue.value))
         },
-        setEditorTheme() {
-          this.editor.setTheme(this.options.theme)
-          this.registerThemeStylesheet()
+        reload() {
+          console.log(this.theme)
+          const newUrl = window.location.origin + "?theme=" + this.options.theme;
+          window.open(newUrl, '_self')
         },
-        registerThemeStylesheet() {
-          const themeElements = document.head.querySelectorAll('.theme')
-          themeElements.forEach((element) => {
-            element.parentNode.removeChild(element)
-          })
+        registerThemeAssets() {
+          let stylesheets = []
+          let scripts = []
 
           switch (this.options.theme) {
-            case 'barebones':
-              this.stylesheets = []
-              break
             case 'wireframe':
-              this.stylesheets = ['./css/main.css']
+              stylesheets = ['./css/main.css']
+              scripts = ['./js/wireframe.js']
               break
             case 'bootstrap3':
-              this.stylesheets = ['./css/bootstrap3.css']
+              stylesheets = ['https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css']
+              scripts = [
+                'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js',
+                'https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js'
+              ]
               break
             case 'bootstrap4':
-              this.stylesheets = ['./css/bootstrap4.css']
+              stylesheets = ['https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css']
+              scripts = [
+                'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js',
+                'https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js',
+                'https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js'
+              ]
               break
             case 'bootstrap5':
-              this.stylesheets = ['./css/bootstrap5.css']
+              stylesheets = ['https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css']
+              scripts = ['https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js']
               break
           }
 
-          this.stylesheets.forEach((href) => {
+          this.registerStylesheets(stylesheets)
+          this.registerScripts(scripts)
+        },
+        registerStylesheets(stylesheets) {
+          stylesheets.forEach((href) => {
             const stylesheet = document.createElement('link')
             stylesheet.setAttribute('rel', 'stylesheet')
             stylesheet.setAttribute('href', href)
-            stylesheet.setAttribute('class', 'theme')
             document.head.appendChild(stylesheet)
           })
         },
+        registerScripts(scripts, index = 0) {
+          const script = document.createElement('script')
+          document.body.appendChild(script)
+
+          script.onload = () => {
+            index++
+
+            if (scripts[index]) {
+              this.registerScripts(scripts, index)
+            }
+          }
+
+          script.src = scripts[index]
+        },
         async switchSchema() {
           const url = this.$refs.schema.value
-          // const url = './json/meta-schema.json'
-          // const url = './json/validator/additionalProperties.json'
           const response = await fetch(url);
           this.options.schema = await response.json()
           this.initEditor()
+        },
+        getQueryParam(name) {
+          const match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+          return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
         }
       }
     })

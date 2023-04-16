@@ -1,10 +1,10 @@
 /* global Feature Scenario */
-const theme = process.env.THEME || 'wireframe'
+const theme = process.env.THEME || 'barebones'
 
 Feature('required')
 
 Scenario('should display @required validation errors', ({ I }) => {
-  I.amOnPage('index.html')
+  I.amOnPage(`index.html?theme=${theme}`)
   I.fillField('#theme', theme)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/required')
