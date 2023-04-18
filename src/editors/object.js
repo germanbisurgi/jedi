@@ -20,6 +20,7 @@ class ObjectEditor extends Editor {
     })
 
     this.propertiesToggle = this.theme.getPropertiesToggle({
+      textContent: 'Properties',
       id: 'properties-slot-' + this.instance.path.replace('.', '-')
     })
 
@@ -71,9 +72,9 @@ class ObjectEditor extends Editor {
     })
 
     this.fieldset.appendChild(this.legend)
+    this.legend.appendChild(this.actionsSlot)
     this.fieldset.appendChild(this.propertiesSlot)
     this.fieldset.appendChild(this.messagesSlot)
-    this.fieldset.appendChild(this.actionsSlot)
     this.fieldset.appendChild(this.childrenSlot)
     this.container.appendChild(this.fieldset)
 
@@ -82,7 +83,7 @@ class ObjectEditor extends Editor {
     }
 
     if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {
-      this.legend.appendChild(this.propertiesToggle)
+      this.actionsSlot.appendChild(this.propertiesToggle)
       this.propertiesSlot.appendChild(this.propertiesContainer)
       this.propertiesSlot.appendChild(this.addPropertyLabel)
       this.propertiesSlot.appendChild(this.addPropertyInput)
@@ -170,9 +171,11 @@ class ObjectEditor extends Editor {
     this.refreshEditors()
 
     if (this.disabled) {
+      this.propertiesToggle.setAttribute('disabled', 'disabled')
       this.addPropertyBtn.setAttribute('disabled', 'disabled')
       this.addPropertyInput.setAttribute('disabled', 'disabled')
     } else {
+      this.propertiesToggle.removeAttribute('disabled')
       this.addPropertyBtn.removeAttribute('disabled')
       this.addPropertyInput.removeAttribute('disabled')
     }

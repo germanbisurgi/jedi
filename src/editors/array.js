@@ -8,10 +8,10 @@ class ArrayEditor extends Editor {
     this.fieldset = this.theme.getFieldset()
 
     // title
-    this.fieldset.appendChild(this.theme.getContainerHead({
+    this.legend = this.theme.getContainerHead({
       textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
-    }))
+    })
 
     // description
     if (isSet(this.instance.schema.description())) {
@@ -20,31 +20,28 @@ class ArrayEditor extends Editor {
       }))
     }
 
+    this.fieldset.appendChild(this.legend)
     this.fieldset.appendChild(this.messagesSlot)
     this.fieldset.appendChild(this.childrenSlot)
-    this.fieldset.appendChild(this.actionsSlot)
+    this.legend.appendChild(this.actionsSlot)
     this.container.appendChild(this.fieldset)
 
     // btn group
     const btnGroup = this.theme.getBtnGroup()
 
     // addBtn
-    this.addBtn = this.theme.getButton({
+    this.addBtn = this.theme.getArrayBtnAdd({
       textContent: 'Add item'
     })
-
-    this.addBtn.classList.add('jedi-array-add')
 
     this.addBtn.addEventListener('click', () => {
       this.instance.addItem()
     })
 
     // deleteAll
-    this.deleteAllBtn = this.theme.getButton({
+    this.deleteAllBtn = this.theme.getArrayBtnDeleteAll({
       textContent: 'Delete items'
     })
-
-    this.deleteAllBtn.classList.add('jedi-array-delete-all')
 
     this.deleteAllBtn.addEventListener('click', () => {
       if (confirm('Confirm to delete all')) {

@@ -7,14 +7,16 @@ class ThemeBootstrap5 extends ThemeBootstrap4 {
     return label
   }
 
+  getActionsSlot () {
+    const html = super.getActionsSlot()
+    return html
+  }
+
   getPropertiesToggle (config) {
-    const html = document.createElement('button')
-    html.textContent = 'Properties'
-    html.setAttribute('type', 'button')
+    const html = this.getButton(config)
     html.setAttribute('data-bs-toggle', 'collapse')
     html.setAttribute('data-bs-target', '#' + config.id)
     html.classList.add('jedi-properties-toggle')
-    html.classList.add('float-end')
     return html
   }
 }

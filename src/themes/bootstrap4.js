@@ -18,15 +18,15 @@ class ThemeBootstrap4 extends ThemeBarebones {
   getBtnGroup () {
     const btnGroup = super.getBtnGroup()
     btnGroup.classList.add('btn-group')
-    btnGroup.classList.add('mb-3')
     return btnGroup
   }
 
   getButton (config) {
-    const button = super.getButton(config)
-    button.classList.add('btn')
-    button.classList.add('btn-default')
-    return button
+    const html = super.getButton(config)
+    html.classList.add('btn')
+    html.classList.add('btn-sm')
+    html.classList.add('btn-light')
+    return html
   }
 
   getFieldset () {
@@ -41,6 +41,10 @@ class ThemeBootstrap4 extends ThemeBarebones {
     html.textContent = config.textContent
     html.classList.add('jedi-container-head')
     html.classList.add('card-header')
+    html.classList.add('d-flex')
+    html.classList.add('justify-content-between')
+    html.classList.add('align-items-center')
+    html.classList.add('py-1')
 
     if (config.srOnly) {
       html.classList.add('sr-only')
@@ -49,14 +53,16 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return html
   }
 
+  getActionsSlot () {
+    const html = super.getActionsSlot()
+    return html
+  }
+
   getPropertiesToggle (config) {
-    const html = document.createElement('button')
-    html.textContent = 'Properties'
-    html.setAttribute('type', 'button')
+    const html = this.getButton(config)
     html.setAttribute('data-toggle', 'collapse')
     html.setAttribute('data-target', '#' + config.id)
     html.classList.add('jedi-properties-toggle')
-    html.classList.add('float-right')
     return html
   }
 

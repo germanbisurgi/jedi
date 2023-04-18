@@ -23,10 +23,36 @@ class ThemeBootstrap3 extends ThemeBarebones {
   }
 
   getButton (config) {
-    const button = super.getButton(config)
-    button.classList.add('btn')
-    button.classList.add('btn-default')
-    return button
+    const html = super.getButton(config)
+    html.classList.add('btn')
+    html.classList.add('btn-xs')
+    html.classList.add('btn-default')
+    return html
+  }
+
+  getArrayBtnAdd (config) {
+    const html = super.getArrayBtnAdd(config)
+    return html
+  }
+
+  getArrayBtnDeleteAll (config) {
+    const html = super.getArrayBtnDeleteAll(config)
+    return html
+  }
+
+  getActionsSlot () {
+    const html = super.getActionsSlot()
+    html.classList.add('pull-right')
+    return html
+  }
+
+  getPropertiesToggle (config) {
+    const html = this.getButton(config)
+    html.setAttribute('data-toggle', 'collapse')
+    html.setAttribute('data-target', '#' + config.id)
+    html.classList.add('jedi-properties-toggle')
+    html.classList.add('pull-right')
+    return html
   }
 
   getChildrenSlot () {
@@ -52,17 +78,6 @@ class ThemeBootstrap3 extends ThemeBarebones {
       html.classList.add('sr-only')
     }
 
-    return html
-  }
-
-  getPropertiesToggle (config) {
-    const html = document.createElement('button')
-    html.textContent = 'Properties'
-    html.setAttribute('type', 'button')
-    html.setAttribute('data-toggle', 'collapse')
-    html.setAttribute('data-target', '#' + config.id)
-    html.classList.add('jedi-properties-toggle')
-    html.classList.add('pull-right')
     return html
   }
 

@@ -14,7 +14,7 @@ class ThemeBarebones {
   }
 
   getPropertiesToggle (config) {
-    const html = document.createElement('span')
+    const html = this.getButton(config)
     html.classList.add('jedi-properties-toggle')
     return html
   }
@@ -55,8 +55,24 @@ class ThemeBarebones {
       button.value = config.value
     }
 
+    if (config.id) {
+      button.setAttribute('id', config.value)
+    }
+
     button.textContent = config.textContent
     return button
+  }
+
+  getArrayBtnAdd (config) {
+    const html = this.getButton(config)
+    html.classList.add('jedi-array-add')
+    return html
+  }
+
+  getArrayBtnDeleteAll (config) {
+    const html = this.getButton(config)
+    html.classList.add('jedi-array-delete-all')
+    return html
   }
 
   getContainer () {
