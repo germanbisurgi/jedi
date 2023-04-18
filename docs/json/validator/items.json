@@ -1,0 +1,8 @@
+{
+  "title": "items",
+  "description": "List validation is useful for arrays of arbitrary length where each item matches the same schema. For this kind of array, set the items keyword to a single schema that will be used to validate all of the items in the array.",
+  "type": "array",
+  "items": {
+    "type": "string"
+  }
+}

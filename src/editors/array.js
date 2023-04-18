@@ -8,7 +8,7 @@ class ArrayEditor extends Editor {
     this.fieldset = this.theme.getFieldset()
 
     // title
-    this.fieldset.appendChild(this.theme.getLegend({
+    this.fieldset.appendChild(this.theme.getContainerHead({
       textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
     }))
@@ -33,6 +33,8 @@ class ArrayEditor extends Editor {
       textContent: 'Add item'
     })
 
+    this.addBtn.classList.add('jedi-array-add')
+
     this.addBtn.addEventListener('click', () => {
       this.instance.addItem()
     })
@@ -41,6 +43,8 @@ class ArrayEditor extends Editor {
     this.deleteAllBtn = this.theme.getButton({
       textContent: 'Delete items'
     })
+
+    this.deleteAllBtn.classList.add('jedi-array-delete-all')
 
     this.deleteAllBtn.addEventListener('click', () => {
       if (confirm('Confirm to delete all')) {
@@ -85,6 +89,8 @@ class ArrayEditor extends Editor {
         textContent: 'Delete item'
       })
 
+      deleteBtn.classList.add('jedi-array-delete')
+
       deleteBtn.addEventListener('click', () => {
         const itemIndex = Number(child.path.split('.').pop())
         this.instance.deleteItem(itemIndex)
@@ -97,6 +103,8 @@ class ArrayEditor extends Editor {
         const moveUpBtn = this.theme.getButton({
           textContent: 'Move up'
         })
+
+        moveUpBtn.classList.add('jedi-array-move-up')
 
         moveUpBtn.addEventListener('click', () => {
           const toIndex = itemIndex - 1
@@ -111,6 +119,8 @@ class ArrayEditor extends Editor {
         const moveDownBtn = this.theme.getButton({
           textContent: 'Move down'
         })
+
+        moveDownBtn.classList.add('jedi-array-move-down')
 
         moveDownBtn.addEventListener('click', () => {
           const toIndex = itemIndex + 1

@@ -7,6 +7,21 @@ module.exports = function () {
     },
     _waitForText: function (text, context) {
       this.waitForText(text, 5, context)
+    },
+    _scrollTo: function (locator) {
+      this.executeScript(function (locator) {
+        document.querySelector(locator).scrollIntoView()
+      }, locator)
+
+      this.wait(1)
+    },
+    _click: function (locator) {
+      this.executeScript(function (locator) {
+        document.querySelector(locator).scrollIntoView()
+      }, locator)
+
+      this.wait(1)
+      this.click(locator)
     }
   })
 }

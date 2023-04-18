@@ -1,61 +1,46 @@
 class ThemeBarebones {
   getAlert (config) {
-    const alert = document.createElement('p')
-    alert.classList.add('jedi-error-message')
-    alert.textContent = config.message
-    return alert
+    const html = document.createElement('p')
+    html.classList.add('jedi-error-message')
+    html.textContent = config.message
+    return html
   }
 
   getInvalidFeedback (config) {
-    const invalidFeedback = document.createElement('div')
-    invalidFeedback.classList.add('jedi-error-message')
-    invalidFeedback.textContent = config.message
-    return invalidFeedback
-  }
-
-  getDropdown () {
-    const html = document.createElement('li')
-    html.classList.add('dropdown')
+    const html = document.createElement('div')
+    html.classList.add('jedi-error-message')
+    html.textContent = config.message
     return html
   }
 
-  getDropdownToggle () {
-    const html = document.createElement('a')
-    html.textContent = 'Properties'
-    html.setAttribute('data-toggle', 'dropdown')
-    html.classList.add('dropdown-toggle')
-    html.classList.add('jedi-dropdown-properties')
+  getPropertiesToggle (config) {
+    const html = document.createElement('span')
+    html.classList.add('jedi-properties-toggle')
     return html
   }
 
-  getDropdownMenu () {
-    const html = document.createElement('ul')
-    html.classList.add('dropdown-menu')
-    return html
-  }
-
-  getToolbarSlot () {
-    const html = document.createElement('ul')
-    html.classList.add('jedi-toolbar-slot')
+  getPropertiesActivators () {
+    const html = document.createElement('div')
+    html.classList.add('jedi-properties-container')
     return html
   }
 
   getPropertiesSlot () {
-    const slot = document.createElement('div')
-    slot.classList.add('jedi-properties-slot')
-    return slot
+    const html = document.createElement('div')
+    html.classList.add('jedi-properties-slot')
+    return html
   }
 
   getActionsSlot () {
-    const slot = document.createElement('div')
-    slot.classList.add('jedi-actions-slot')
-    return slot
+    const html = document.createElement('div')
+    html.classList.add('jedi-actions-slot')
+    return html
   }
 
   getChildrenSlot () {
-    const slot = document.createElement('div')
-    slot.classList.add('jedi-child-editors-slot')
-    return slot
+    const html = document.createElement('div')
+    html.classList.add('jedi-child-editors-slot')
+    return html
   }
 
   getBtnGroup () {
@@ -80,14 +65,26 @@ class ThemeBarebones {
     return container
   }
 
-  getDescription (config) {
-    const description = document.createElement('small')
-    description.textContent = config.textContent
-    return description
+  getContainerHead (config) {
+    const html = document.createElement('legend')
+    html.textContent = config.textContent
+    html.classList.add('jedi-container-head')
+
+    if (config.srOnly) {
+      html.classList.add('sr-only')
+    }
+
+    return html
   }
 
   getFieldset () {
     return document.createElement('fieldset')
+  }
+
+  getDescription (config) {
+    const description = document.createElement('small')
+    description.textContent = config.textContent
+    return description
   }
 
   getMessagesSlot () {
@@ -155,17 +152,6 @@ class ThemeBarebones {
 
   getRadioContainer () {
     return document.createElement('div')
-  }
-
-  getLegend (config) {
-    const legend = document.createElement('legend')
-    legend.textContent = config.textContent
-
-    if (config.srOnly) {
-      legend.classList.add('sr-only')
-    }
-
-    return legend
   }
 
   getInput (config) {

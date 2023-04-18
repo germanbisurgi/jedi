@@ -4,7 +4,7 @@ const theme = process.env.THEME || 'barebones'
 Feature('maxProperties')
 
 Scenario('should display @maxProperties validation errors', ({ I }) => {
-  I.amOnPage(`index.html?theme=${theme}`)
+  I.amOnPage(`${theme}.html?theme=${theme}`)
 
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/maxProperties')
@@ -14,7 +14,7 @@ Scenario('should display @maxProperties validation errors', ({ I }) => {
   I.fillField('#editor-value', JSON.stringify({
     prop1: ''
   }))
-  I.click('#set-value')
-  I.scrollTo('[data-path="root"]', 0, -300)
+  I._click('#set-value')
+  I._scrollTo('[data-path="root"]')
   I.dontSee('Must have at most 1 properties', '[data-path="root"]')
 })

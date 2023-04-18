@@ -4,7 +4,7 @@ const theme = process.env.THEME || 'barebones'
 Feature('additionalProperties')
 
 Scenario('should display @additionalProperties validation errors', ({ I }) => {
-  I.amOnPage(`index.html?theme=${theme}`)
+  I.amOnPage(`${theme}.html?theme=${theme}`)
 
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/additionalProperties')
@@ -20,8 +20,8 @@ Scenario('should display @additionalProperties validation errors', ({ I }) => {
       additional: 42
     }
   }))
-  I.click('#set-value')
-  I.scrollTo('[data-path="root"]', 0, -300)
+  I._click('#set-value')
+  I._scrollTo('[data-path="root"]')
   I._waitForText('Property "additional" has not been defined and the schema does not allow additional properties.', '[data-path="root.boolean"]')
   I._waitForText('Must be of type string', '[data-path="root.schema"]')
 })

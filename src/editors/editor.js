@@ -59,8 +59,9 @@ class Editor extends EventEmitter {
     }
 
     this.container = this.theme.getContainer()
-    this.toolbarSlot = this.theme.getToolbarSlot()
-    this.propertiesSlot = this.theme.getPropertiesSlot()
+    this.propertiesSlot = this.theme.getPropertiesSlot({
+      id: 'properties-slot-' + this.instance.path.replace('.', '-')
+    })
     this.controlSlot = this.theme.getControlSlot()
     this.messagesSlot = this.theme.getMessagesSlot()
     this.actionsSlot = this.theme.getActionsSlot()

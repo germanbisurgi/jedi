@@ -5,18 +5,15 @@ const theme = process.env.THEME || 'barebones'
 Feature('editor')
 
 Scenario('should have class "jedi-ready" when ready @ready', ({ I }) => {
-  I.amOnPage(`index.html?theme=${theme}`)
-
+  I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
 })
 
 Scenario('Should create all kind of editors @create', ({ I }) => {
-  I.amOnPage(`index.html?theme=${theme}`)
-
+  I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
-  I._waitForText('Editor', 'h1')
   I._waitForElement('[data-path="root"]')
   I._waitForElement('[data-path="root.booleans"]')
   I._waitForElement('[data-path="root.booleans.boolean"]')
@@ -46,31 +43,29 @@ Scenario('Should create all kind of editors @create', ({ I }) => {
 })
 
 Scenario('should destroy @destroy', ({ I }) => {
-  I.amOnPage(`index.html?theme=${theme}`)
-
+  I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
-  I.scrollTo('#destroy-editor', 0, -300)
-  I.click('#destroy-editor')
+  I._scrollTo('#destroy-editor')
+  I._click('#destroy-editor')
   I.dontSeeElement('[data-schemapath="root"]')
 })
 
 Scenario('Should disable and enable @disable', ({ I }) => {
-  I.amOnPage(`index.html?theme=${theme}`)
-
+  I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
   I.checkOption('[id="editableProperties"]')
   I._waitForElement('.jedi-ready')
   I._waitForElement('#disable-editor')
-  I.scrollTo('#disable-editor', 0, -300)
-  I.click('#disable-editor')
+  I._scrollTo('#disable-editor')
+  I._click('#disable-editor')
   I.dontSeeElement('.jedi-ready input:not(:disabled)')
   I.dontSeeElement('.jedi-ready textarea:not(:disabled)')
   I.dontSeeElement('.jedi-ready select:not(:disabled)')
   I.dontSeeElement('.jedi-ready button:not(:disabled)')
-  I.scrollTo('#enable-editor', 0, -300)
-  I.click('#enable-editor')
+  I._scrollTo('#enable-editor')
+  I._click('#enable-editor')
   I.dontSeeElement('.jedi-ready input[disabled]')
   I.dontSeeElement('.jedi-ready textarea[disabled]')
   I.dontSeeElement('.jedi-ready select[disabled]')
@@ -78,15 +73,14 @@ Scenario('Should disable and enable @disable', ({ I }) => {
 })
 
 Scenario('should set value @setValue', async ({ I }) => {
-  I.amOnPage(`index.html?theme=${theme}`)
-
+  I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
-  I.scrollTo('#editor-value', 0, -300)
-  I.click('#editor-value')
+  I._scrollTo('#editor-value')
+  I._click('#editor-value')
   I.fillField('#editor-value', JSON.stringify(jsonData))
-  I.scrollTo('#set-value', 0, -300)
-  I.click('#set-value')
+  I._scrollTo('#set-value')
+  I._click('#set-value')
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(jsonData))
   I.seeCheckboxIsChecked('[id="root.booleans.boolean"]')
   I.seeInField('[id="root.booleans.boolean-enum-select"]', 'true')
@@ -104,8 +98,7 @@ Scenario('should set value @setValue', async ({ I }) => {
 })
 
 Scenario('should set @rootName', async ({ I }) => {
-  I.amOnPage(`index.html?theme=${theme}`)
-
+  I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
   I.fillField('[id="rootName"]', '#')

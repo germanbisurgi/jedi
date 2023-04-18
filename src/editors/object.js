@@ -10,7 +10,7 @@ class ObjectEditor extends Editor {
   build () {
     this.fieldset = this.theme.getFieldset()
 
-    this.legend = this.theme.getLegend({
+    this.legend = this.theme.getContainerHead({
       textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
     })
@@ -19,9 +19,11 @@ class ObjectEditor extends Editor {
       textContent: this.instance.schema.description()
     })
 
-    this.dropdown = this.theme.getDropdown()
-    this.dropdownToggle = this.theme.getDropdownToggle()
-    this.dropdownMenu = this.theme.getDropdownMenu()
+    this.propertiesToggle = this.theme.getPropertiesToggle({
+      id: 'properties-slot-' + this.instance.path.replace('.', '-')
+    })
+
+    this.propertiesContainer = this.theme.getPropertiesActivators()
 
     this.addPropertyLabel = this.theme.getLabel({
       textContent: 'Property',
@@ -36,6 +38,8 @@ class ObjectEditor extends Editor {
     this.addPropertyBtn = this.theme.getButton({
       textContent: 'Add property'
     })
+
+    this.addPropertyBtn.classList.add('jedi-object-add')
 
     this.addPropertyBtn.addEventListener('click', () => {
       const key = this.addPropertyInput.value
@@ -67,7 +71,7 @@ class ObjectEditor extends Editor {
     })
 
     this.fieldset.appendChild(this.legend)
-    this.fieldset.appendChild(this.toolbarSlot)
+    this.fieldset.appendChild(this.propertiesSlot)
     this.fieldset.appendChild(this.messagesSlot)
     this.fieldset.appendChild(this.actionsSlot)
     this.fieldset.appendChild(this.childrenSlot)
@@ -78,13 +82,11 @@ class ObjectEditor extends Editor {
     }
 
     if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {
-      this.toolbarSlot.appendChild(this.dropdown)
-      this.dropdown.appendChild(this.dropdownToggle)
-      this.dropdown.appendChild(this.dropdownMenu)
-      this.dropdownMenu.appendChild(this.propertiesSlot)
-      this.dropdownMenu.appendChild(this.addPropertyLabel)
-      this.dropdownMenu.appendChild(this.addPropertyInput)
-      this.dropdownMenu.appendChild(this.addPropertyBtn)
+      this.legend.appendChild(this.propertiesToggle)
+      this.propertiesSlot.appendChild(this.propertiesContainer)
+      this.propertiesSlot.appendChild(this.addPropertyLabel)
+      this.propertiesSlot.appendChild(this.addPropertyInput)
+      this.propertiesSlot.appendChild(this.addPropertyBtn)
     }
   }
 
@@ -104,8 +106,8 @@ class ObjectEditor extends Editor {
 
   refreshPropertiesSlot () {
     if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {
-      while (this.propertiesSlot.firstChild) {
-        this.propertiesSlot.removeChild(this.propertiesSlot.lastChild)
+      while (this.propertiesContainer.firstChild) {
+        this.propertiesContainer.removeChild(this.propertiesContainer.lastChild)
       }
 
       this.instance.children.forEach((child) => {
@@ -138,7 +140,7 @@ class ObjectEditor extends Editor {
         })
 
         // appends
-        this.propertiesSlot.appendChild(checkboxContainer)
+        this.propertiesContainer.appendChild(checkboxContainer)
         checkboxContainer.appendChild(checkbox)
         checkboxContainer.appendChild(checkboxLabel)
       })

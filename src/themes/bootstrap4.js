@@ -29,19 +29,49 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return button
   }
 
-  getToolbarSlot () {
-    const html = super.getToolbarSlot()
-    html.classList.add('nav')
+  getFieldset () {
+    const html = document.createElement('div')
+    html.classList.add('card')
+    html.classList.add('mb-3')
     return html
   }
 
-  getFieldset () {
-    const fieldset = super.getFieldset()
-    fieldset.classList.add('card')
-    fieldset.classList.add('card-body')
-    fieldset.classList.add('mb-3')
-    fieldset.classList.add('py-0')
-    return fieldset
+  getContainerHead (config) {
+    const html = document.createElement('div')
+    html.textContent = config.textContent
+    html.classList.add('jedi-container-head')
+    html.classList.add('card-header')
+
+    if (config.srOnly) {
+      html.classList.add('sr-only')
+    }
+
+    return html
+  }
+
+  getPropertiesToggle (config) {
+    const html = document.createElement('button')
+    html.textContent = 'Properties'
+    html.setAttribute('type', 'button')
+    html.setAttribute('data-toggle', 'collapse')
+    html.setAttribute('data-target', '#' + config.id)
+    html.classList.add('jedi-properties-toggle')
+    html.classList.add('float-right')
+    return html
+  }
+
+  getPropertiesSlot (config) {
+    const html = super.getPropertiesSlot()
+    html.classList.add('collapse')
+    html.classList.add('card-body')
+    html.setAttribute('id', config.id)
+    return html
+  }
+
+  getChildrenSlot () {
+    const html = super.getChildrenSlot()
+    html.classList.add('card-body')
+    return html
   }
 
   getCheckboxLabel (config) {

@@ -9,6 +9,7 @@
     "unit": "jest --config=./tests/unit/jest.config.js",
     "e2e": "codeceptjs run-workers 43 -c tests/e2e/codecept.conf.js --debug",
     "e2e:wireframe": "THEME='wireframe' npm run e2e",
+    "e2e:bootstrap3": "THEME='bootstrap3' npm run e2e",
     "e2e:bootstrap4": "THEME='bootstrap4' npm run e2e",
     "e2e:bootstrap5": "THEME='bootstrap5' npm run e2e",
     "e2e-grep": "codeceptjs run -c tests/e2e/codecept.conf.js --debug --grep '@editableProperties'",

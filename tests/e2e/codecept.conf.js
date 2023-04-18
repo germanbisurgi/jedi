@@ -10,7 +10,8 @@ exports.config = {
       show: false,
       waitForAction: 500,
       waitForTimeout: 10000,
-      windowSize: '1200x600'
+      windowSize: '1200x600',
+      // waitForNavigation: 'load'
     }
   }
 }

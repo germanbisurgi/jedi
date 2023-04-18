@@ -33,10 +33,21 @@ class ThemeWireframe extends ThemeBarebones {
   }
 
   getFieldset () {
-    const fieldset = super.getFieldset()
-    fieldset.classList.add('card')
-    fieldset.classList.add('card-body')
-    return fieldset
+    const html = document.createElement('div')
+    html.classList.add('card')
+    return html
+  }
+
+  getContainerHead (config) {
+    const html = document.createElement('div')
+    html.textContent = config.textContent
+    html.classList.add('card-header')
+
+    if (config.srOnly) {
+      html.classList.add('sr-only')
+    }
+
+    return html
   }
 
   getCheckboxLabel (config) {

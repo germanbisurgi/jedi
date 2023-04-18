@@ -4,7 +4,7 @@ const theme = process.env.THEME || 'barebones'
 Feature('integer')
 
 Scenario('should have @title and @description', ({ I }) => {
-  I.amOnPage(`index.html?theme=${theme}`)
+  I.amOnPage(`${theme}.html?theme=${theme}`)
 
   I.fillField('#schemas', 'editors/integer')
   I._waitForElement('.jedi-ready')

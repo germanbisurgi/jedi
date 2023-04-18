@@ -4,7 +4,7 @@ const theme = process.env.THEME || 'barebones'
 Feature('exclusiveMinimum')
 
 Scenario('should display @exclusiveMinimum validation errors', ({ I }) => {
-  I.amOnPage(`index.html?theme=${theme}`)
+  I.amOnPage(`${theme}.html?theme=${theme}`)
 
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/exclusiveMinimum')
