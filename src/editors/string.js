@@ -7,7 +7,7 @@ class StringEditor extends Editor {
     const label = this.theme.getLabel({
       for: this.instance.path,
       textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle')
+      srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden')
     })
 
     // input
@@ -36,11 +36,7 @@ class StringEditor extends Editor {
     }
 
     this.container.appendChild(this.controlSlot)
-
-    if (!this.instance.schema.formatIs('hidden')) {
-      this.controlSlot.appendChild(label)
-    }
-
+    this.controlSlot.appendChild(label)
     this.controlSlot.appendChild(this.input)
     this.controlSlot.appendChild(this.messagesSlot)
 

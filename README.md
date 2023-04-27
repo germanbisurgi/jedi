@@ -3,7 +3,7 @@
 - future features:
     - theme checkbox
     - all themes extend from barebones
-    - refactore path to look like '#/something/other'
+    - refactor path to look like '#/something/other'
     - ui required (not json required)
     - additionalProperties
     - readonly
@@ -11,7 +11,6 @@
     - format categories
     - grid
     - plugins examples
-    - collapse
     - array tabs
     - edit object values
     - edit array values

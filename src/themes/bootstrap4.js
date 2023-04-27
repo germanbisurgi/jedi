@@ -54,8 +54,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 
   getActionsSlot () {
-    const html = super.getActionsSlot()
-    return html
+    return super.getActionsSlot()
   }
 
   getPropertiesToggle (config) {

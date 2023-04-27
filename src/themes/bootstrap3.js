@@ -31,13 +31,11 @@ class ThemeBootstrap3 extends ThemeBarebones {
   }
 
   getArrayBtnAdd (config) {
-    const html = super.getArrayBtnAdd(config)
-    return html
+    return super.getArrayBtnAdd(config)
   }
 
   getArrayBtnDeleteAll (config) {
-    const html = super.getArrayBtnDeleteAll(config)
-    return html
+    return super.getArrayBtnAdd(config)
   }
 
   getActionsSlot () {

@@ -8,8 +8,7 @@ class ThemeBootstrap5 extends ThemeBootstrap4 {
   }
 
   getActionsSlot () {
-    const html = super.getActionsSlot()
-    return html
+    return super.getActionsSlot()
   }
 
   getPropertiesToggle (config) {
