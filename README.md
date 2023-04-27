@@ -1,8 +1,10 @@
 ## Todo
 
 - future features:
+    - theme checkbox
+    - all themes extend from barebones
+    - refactore path to look like '#/something/other'
     - ui required (not json required)
-    - collapse properties and checkboxes
     - additionalProperties
     - readonly
     - refactor description and titles (duplicated code)
@@ -18,7 +20,6 @@
     - icons
 
 - bugs:
-    - move bootstrap classes from barebones
     - object set value
     - when adding properties in meta schema the non required properties should be unchecked
 

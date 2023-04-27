@@ -1,27 +1,19 @@
 class ThemeBarebones {
-  getAlert (config) {
-    const html = document.createElement('p')
-    html.classList.add('jedi-error-message')
-    html.textContent = config.message
-    return html
+  getContainer () {
+    const container = document.createElement('div')
+    container.classList.add('jedi-editor-container')
+    return container
   }
 
-  getInvalidFeedback (config) {
-    const html = document.createElement('div')
-    html.classList.add('jedi-error-message')
-    html.textContent = config.message
-    return html
-  }
+  getContainerHead (config) {
+    const html = document.createElement('legend')
+    html.textContent = config.textContent
+    html.classList.add('jedi-container-head')
 
-  getPropertiesToggle (config) {
-    const html = this.getButton(config)
-    html.classList.add('jedi-properties-toggle')
-    return html
-  }
+    if (config.srOnly) {
+      html.classList.add('sr-only')
+    }
 
-  getPropertiesActivators () {
-    const html = document.createElement('div')
-    html.classList.add('jedi-properties-container')
     return html
   }
 
@@ -40,6 +32,30 @@ class ThemeBarebones {
   getChildrenSlot () {
     const html = document.createElement('div')
     html.classList.add('jedi-child-editors-slot')
+    return html
+  }
+
+  getMessagesSlot () {
+    const messagesSlot = document.createElement('div')
+    messagesSlot.classList.add('jedi-messages-slot')
+    return messagesSlot
+  }
+
+  getControlSlot () {
+    const controlSlot = document.createElement('div')
+    controlSlot.classList.add('jedi-control-slot')
+    return controlSlot
+  }
+
+  getPropertiesToggle (config) {
+    const html = this.getButton(config)
+    html.classList.add('jedi-properties-toggle')
+    return html
+  }
+
+  getPropertiesActivators () {
+    const html = document.createElement('div')
+    html.classList.add('jedi-properties-container')
     return html
   }
 
@@ -75,22 +91,8 @@ class ThemeBarebones {
     return html
   }
 
-  getContainer () {
-    const container = document.createElement('div')
-    container.classList.add('jedi-editor-container')
-    return container
-  }
-
-  getContainerHead (config) {
-    const html = document.createElement('legend')
-    html.textContent = config.textContent
-    html.classList.add('jedi-container-head')
-
-    if (config.srOnly) {
-      html.classList.add('sr-only')
-    }
-
-    return html
+  getButtonActiveClass () {
+    return 'btn-info'
   }
 
   getFieldset () {
@@ -101,18 +103,6 @@ class ThemeBarebones {
     const description = document.createElement('small')
     description.textContent = config.textContent
     return description
-  }
-
-  getMessagesSlot () {
-    const messagesSlot = document.createElement('div')
-    messagesSlot.classList.add('jedi-messages-slot')
-    return messagesSlot
-  }
-
-  getControlSlot () {
-    const controlSlot = document.createElement('div')
-    controlSlot.classList.add('jedi-control-slot')
-    return controlSlot
   }
 
   getCheckboxLabel (config) {
@@ -213,8 +203,18 @@ class ThemeBarebones {
     return select
   }
 
-  getButtonActiveClass () {
-    return 'btn-info'
+  getAlert (config) {
+    const html = document.createElement('p')
+    html.classList.add('jedi-error-message')
+    html.textContent = config.message
+    return html
+  }
+
+  getInvalidFeedback (config) {
+    const html = document.createElement('div')
+    html.classList.add('jedi-error-message')
+    html.textContent = config.message
+    return html
   }
 }
 

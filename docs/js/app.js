@@ -46,6 +46,10 @@ window.addEventListener('DOMContentLoaded', () => {
             url: './json/editors/string.json'
           },
           {
+            name: 'examples/resume-schema',
+            url: './json/examples/resume-schema.json'
+          },
+          {
             name: 'examples/login',
             url: './json/examples/login.json'
           },
