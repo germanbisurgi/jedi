@@ -7,10 +7,6 @@ class ThemeBootstrap5 extends ThemeBootstrap4 {
     return label
   }
 
-  getActionsSlot () {
-    return super.getActionsSlot()
-  }
-
   getPropertiesToggle (config) {
     const html = this.getButton(config)
     html.setAttribute('data-bs-toggle', 'collapse')

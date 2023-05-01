@@ -25,6 +25,11 @@ class StringEditor extends Editor {
       })
     }
 
+    // description
+    this.description = this.theme.getDescription({
+      textContent: this.instance.schema.description()
+    })
+
     // events
     this.input.addEventListener('change', () => {
       this.instance.setValue(this.input.value)
@@ -35,16 +40,15 @@ class StringEditor extends Editor {
       this.instance.setValue('#000000', false)
     }
 
+    // appends
     this.container.appendChild(this.controlSlot)
     this.controlSlot.appendChild(label)
     this.controlSlot.appendChild(this.input)
     this.controlSlot.appendChild(this.messagesSlot)
+    this.controlSlot.appendChild(this.descriptionSlot)
 
-    // description
     if (isSet(this.instance.schema.description())) {
-      this.controlSlot.appendChild(this.theme.getDescription({
-        textContent: this.instance.schema.description()
-      }))
+      this.descriptionSlot.appendChild(this.description)
     }
   }
 

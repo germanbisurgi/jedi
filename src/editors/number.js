@@ -24,16 +24,20 @@ class NumberEditor extends Editor {
     })
 
     // description
-    if (isSet(this.instance.schema.description())) {
-      this.controlSlot.appendChild(this.theme.getDescription({
-        textContent: this.instance.schema.description()
-      }))
-    }
+    this.description = this.theme.getDescription({
+      textContent: this.instance.schema.description()
+    })
 
+    // appends
     this.container.appendChild(this.controlSlot)
     this.controlSlot.appendChild(label)
     this.controlSlot.appendChild(this.input)
     this.controlSlot.appendChild(this.messagesSlot)
+    this.controlSlot.appendChild(this.descriptionSlot)
+
+    if (isSet(this.instance.schema.description())) {
+      this.controlSlot.appendChild(this.description)
+    }
   }
 
   sanitize (value) {

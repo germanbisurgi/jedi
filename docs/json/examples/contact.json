@@ -1,0 +1,36 @@
+{
+  "title": "Contact",
+  "type": "object",
+  "required": [
+    "name",
+    "email",
+    "message",
+    "gdpr"
+  ],
+  "properties": {
+    "name": {
+      "title": "Name",
+      "type": "string",
+      "minLength": 1
+    },
+    "email": {
+      "title": "E-Mail",
+      "type": "string",
+      "format": "E-Mail",
+      "minLength": 1
+    },
+    "message": {
+      "title": "Message",
+      "type": "string",
+      "format": "textarea",
+      "minLength": 1
+    },
+    "gdpr": {
+      "title": "I have read and accept the privacy policy",
+      "type": "boolean",
+      "format": "checkbox",
+      "default": false,
+      "const": true
+    }
+  }
+}

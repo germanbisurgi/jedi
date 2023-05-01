@@ -5,10 +5,18 @@ class ThemeBarebones {
     return container
   }
 
-  getContainerHead (config) {
+  getFieldset () {
+    return document.createElement('fieldset')
+  }
+
+  getFieldsetBody () {
+    return document.createElement('div')
+  }
+
+  getLegend (config) {
     const html = document.createElement('legend')
     html.textContent = config.textContent
-    html.classList.add('jedi-container-head')
+    html.style.fontSize = 'inherit'
 
     if (config.srOnly) {
       html.classList.add('sr-only')
@@ -35,16 +43,22 @@ class ThemeBarebones {
     return html
   }
 
+  getDescriptionSlot () {
+    const html = document.createElement('div')
+    html.classList.add('jedi-description-slot')
+    return html
+  }
+
   getMessagesSlot () {
-    const messagesSlot = document.createElement('div')
-    messagesSlot.classList.add('jedi-messages-slot')
-    return messagesSlot
+    const html = document.createElement('div')
+    html.classList.add('jedi-messages-slot')
+    return html
   }
 
   getControlSlot () {
-    const controlSlot = document.createElement('div')
-    controlSlot.classList.add('jedi-control-slot')
-    return controlSlot
+    const html = document.createElement('div')
+    html.classList.add('jedi-control-slot')
+    return html
   }
 
   getPropertiesToggle (config) {
@@ -92,52 +106,39 @@ class ThemeBarebones {
   }
 
   getButtonActiveClass () {
-    return 'btn-info'
-  }
-
-  getFieldset () {
-    return document.createElement('fieldset')
+    return 'jedi-active-btn'
   }
 
   getDescription (config) {
-    const description = document.createElement('small')
-    description.textContent = config.textContent
-    return description
+    const html = document.createElement('p')
+    const small = document.createElement('small')
+    small.textContent = config.textContent
+    html.appendChild(small)
+    return html
   }
 
   getCheckboxLabel (config) {
-    const checkboxLabel = document.createElement('label')
-    checkboxLabel.setAttribute('for', config.for)
-    checkboxLabel.textContent = config.textContent
+    const html = document.createElement('label')
+    html.setAttribute('for', config.for)
+    html.textContent = config.textContent
 
     if (config.srOnly) {
-      checkboxLabel.classList.add('sr-only')
+      html.classList.add('sr-only')
     }
 
-    return checkboxLabel
-  }
-
-  getRadioLegend (config) {
-    const radioLegend = document.createElement('p')
-    radioLegend.textContent = config.textContent
-
-    if (config.srOnly) {
-      radioLegend.classList.add('sr-only')
-    }
-
-    return radioLegend
+    return html
   }
 
   getRadioLabel (config) {
-    const radioLabel = document.createElement('label')
-    radioLabel.setAttribute('for', config.for)
-    radioLabel.textContent = config.textContent
+    const html = document.createElement('label')
+    html.setAttribute('for', config.for)
+    html.textContent = config.textContent
 
     if (config.srOnly) {
-      radioLabel.classList.add('sr-only')
+      html.classList.add('sr-only')
     }
 
-    return radioLabel
+    return html
   }
 
   getLabel (config) {
@@ -158,6 +159,18 @@ class ThemeBarebones {
 
   getRadioContainer () {
     return document.createElement('div')
+  }
+
+  getFakeLegend (config) {
+    const label = document.createElement('label')
+    label.setAttribute('for', config.for)
+    label.textContent = config.textContent
+
+    if (config.srOnly) {
+      label.classList.add('sr-only')
+    }
+
+    return label
   }
 
   getInput (config) {

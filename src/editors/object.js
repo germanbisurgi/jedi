@@ -9,8 +9,9 @@ import {
 class ObjectEditor extends Editor {
   build () {
     this.fieldset = this.theme.getFieldset()
+    this.fieldsetBody = this.theme.getFieldsetBody()
 
-    this.legend = this.theme.getContainerHead({
+    this.legend = this.theme.getLegend({
       textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
     })
@@ -71,15 +72,17 @@ class ObjectEditor extends Editor {
       this.addPropertyInput.value = ''
     })
 
-    this.fieldset.appendChild(this.legend)
-    this.legend.appendChild(this.actionsSlot)
-    this.fieldset.appendChild(this.propertiesSlot)
-    this.fieldset.appendChild(this.messagesSlot)
-    this.fieldset.appendChild(this.childrenSlot)
     this.container.appendChild(this.fieldset)
+    this.fieldset.appendChild(this.legend)
+    this.fieldset.appendChild(this.fieldsetBody)
+    this.legend.appendChild(this.actionsSlot)
+    this.fieldsetBody.appendChild(this.descriptionSlot)
+    this.fieldsetBody.appendChild(this.propertiesSlot)
+    this.fieldsetBody.appendChild(this.messagesSlot)
+    this.fieldsetBody.appendChild(this.childrenSlot)
 
     if (isSet(this.instance.schema.description())) {
-      this.fieldset.appendChild(this.description)
+      this.descriptionSlot.appendChild(this.description)
     }
 
     if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {

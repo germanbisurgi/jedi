@@ -2,7 +2,11 @@ import Editor from './editor'
 
 class MultipleEditor extends Editor {
   build () {
-    this.container.appendChild(this.messagesSlot)
+    this.fieldset = this.theme.getFieldset()
+    this.legend = this.theme.getLegend({
+      textContent: 'Options'
+    })
+    this.fieldsetBody = this.theme.getFieldsetBody()
 
     // switcher buttons
     this.switcherButtons = []
@@ -25,17 +29,23 @@ class MultipleEditor extends Editor {
       this.switcherButtons.push(button)
     })
 
-    this.container.appendChild(this.switcher)
+    // appends
+    this.container.appendChild(this.fieldset)
+    this.fieldset.appendChild(this.legend)
+    this.fieldset.appendChild(this.fieldsetBody)
+    this.legend.appendChild(this.actionsSlot)
+    this.container.appendChild(this.messagesSlot)
+    this.actionsSlot.appendChild(this.switcher)
   }
 
   refreshUI () {
     const oldInstance = this.instance.instances[this.instance.lastIndex]
 
     if (oldInstance.ui.container.parentNode) {
-      this.container.removeChild(oldInstance.ui.container)
+      this.fieldsetBody.removeChild(oldInstance.ui.container)
     }
 
-    this.container.appendChild(this.instance.activeInstance.ui.container)
+    this.fieldsetBody.appendChild(this.instance.activeInstance.ui.container)
 
     const buttons = this.container.querySelectorAll('button')
 

@@ -54,6 +54,10 @@ window.addEventListener('DOMContentLoaded', () => {
             url: './json/examples/login.json'
           },
           {
+            name: 'examples/contact',
+            url: './json/examples/contact.json'
+          },
+          {
             name: 'validator/additionalProperties',
             url: './json/validator/additionalProperties.json'
           },
@@ -178,7 +182,7 @@ window.addEventListener('DOMContentLoaded', () => {
           isEditor: true,
           container: document.querySelector('#jedi-container'),
           editableProperties: true,
-          alwaysShowErrors: false,
+          alwaysShowErrors: true,
           showRequiredOnly: false,
           theme: 'wireframe',
           rootName: 'root',

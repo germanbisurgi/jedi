@@ -7,7 +7,7 @@ Scenario('should have @title and @description', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')
-  I._waitForText('Object', '.jedi-container-head')
+  I._waitForText('Object', 'legend')
   I._waitForText('Objects are the mapping type in JSON. They map “keys” to “values”. In JSON, the “keys” must always be strings. Each of these pairs is conventionally referred to as a “property”.')
 })
 

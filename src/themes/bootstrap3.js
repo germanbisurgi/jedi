@@ -10,15 +10,13 @@ class ThemeBootstrap3 extends ThemeBarebones {
 
   getInvalidFeedback (config) {
     const invalidFeedback = super.getInvalidFeedback(config)
-    invalidFeedback.classList.add('invalid-feedback')
-    invalidFeedback.classList.add('d-block')
+    invalidFeedback.classList.add('text-danger')
     return invalidFeedback
   }
 
   getBtnGroup () {
     const btnGroup = super.getBtnGroup()
     btnGroup.classList.add('btn-group')
-    btnGroup.classList.add('mb-3')
     return btnGroup
   }
 
@@ -54,28 +52,19 @@ class ThemeBootstrap3 extends ThemeBarebones {
   }
 
   getChildrenSlot () {
-    const html = super.getChildrenSlot()
-    html.classList.add('panel-body')
-    return html
+    return super.getChildrenSlot()
   }
 
   getFieldset () {
-    const html = document.createElement('div')
+    const html = document.createElement('fieldset')
     html.classList.add('panel')
     html.classList.add('panel-default')
     return html
   }
 
-  getContainerHead (config) {
-    const html = document.createElement('div')
-    html.textContent = config.textContent
-    html.classList.add('jedi-container-head')
-    html.classList.add('panel-heading')
-
-    if (config.srOnly) {
-      html.classList.add('sr-only')
-    }
-
+  getFieldsetBody () {
+    const html = super.getFieldsetBody()
+    html.classList.add('panel-body')
     return html
   }
 
@@ -87,16 +76,27 @@ class ThemeBootstrap3 extends ThemeBarebones {
     return html
   }
 
+  getLabel (config) {
+    return super.getLabel(config)
+  }
+
   getCheckboxLabel (config) {
-    const checkboxLabel = super.getCheckboxLabel(config)
-    checkboxLabel.classList.add('form-check-label')
-    return checkboxLabel
+    const html = super.getCheckboxLabel(config)
+    html.classList.add('form-check-label')
+    return html
   }
 
   getRadioLabel (config) {
-    const radioLabel = super.getRadioLabel(config)
-    radioLabel.classList.add('form-check-label')
-    return radioLabel
+    const html = super.getRadioLabel(config)
+    html.classList.add('form-check-label')
+    return html
+  }
+
+  getLegend (config) {
+    const html = super.getLegend(config)
+    html.classList.add('panel-heading')
+    html.classList.add('pull-right')
+    return html
   }
 
   getControlSlot () {

@@ -1,12 +1,5 @@
 {
-  "title": "Schema",
-  "type": "object",
-  "options": {
-    "editableProperties": true
-  },
-  "additionalProperties":  {
-    "$ref": "#/$defs/schema"
-  },
+  "$ref": "#/$defs/schema",
   "$defs": {
     "schema": {
       "type": "object",
@@ -45,6 +38,9 @@
           "type": "integer",
           "minimum": 0
         }
+      },
+      "additionalProperties":  {
+        "$ref": "#/$defs/schema"
       },
       "options": {
         "editableProperties": true,

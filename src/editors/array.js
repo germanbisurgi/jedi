@@ -6,25 +6,31 @@ import { isArray, isSet } from '../utils'
 class ArrayEditor extends Editor {
   build () {
     this.fieldset = this.theme.getFieldset()
+    this.fieldsetBody = this.theme.getFieldsetBody()
 
     // title
-    this.legend = this.theme.getContainerHead({
+    this.legend = this.theme.getLegend({
       textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
     })
 
     // description
-    if (isSet(this.instance.schema.description())) {
-      this.fieldset.appendChild(this.theme.getDescription({
-        textContent: this.instance.schema.description()
-      }))
-    }
+    this.description = this.theme.getDescription({
+      textContent: this.instance.schema.description()
+    })
 
-    this.fieldset.appendChild(this.legend)
-    this.fieldset.appendChild(this.messagesSlot)
-    this.fieldset.appendChild(this.childrenSlot)
-    this.legend.appendChild(this.actionsSlot)
+    // appends
     this.container.appendChild(this.fieldset)
+    this.fieldset.appendChild(this.legend)
+    this.fieldset.appendChild(this.fieldsetBody)
+    this.legend.appendChild(this.actionsSlot)
+    this.fieldsetBody.appendChild(this.descriptionSlot)
+    this.fieldsetBody.appendChild(this.messagesSlot)
+    this.fieldsetBody.appendChild(this.childrenSlot)
+
+    if (isSet(this.instance.schema.description())) {
+      this.descriptionSlot.appendChild(this.description)
+    }
 
     // btn group
     const btnGroup = this.theme.getBtnGroup()

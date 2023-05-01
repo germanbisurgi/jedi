@@ -4,7 +4,7 @@ import { isSet } from '../utils'
 class BooleanEditor extends Editor {
   build () {
     // checkbox container
-    const checkboxContainer = this.theme.getCheckboxContainer()
+    this.control = this.theme.getCheckboxContainer()
 
     // label
     const label = this.theme.getCheckboxLabel({
@@ -24,18 +24,21 @@ class BooleanEditor extends Editor {
     })
 
     // description
-    if (isSet(this.instance.schema.description())) {
-      this.controlSlot.appendChild(this.theme.getDescription({
-        textContent: this.instance.schema.description()
-      }))
-    }
+    this.description = this.theme.getDescription({
+      textContent: this.instance.schema.description()
+    })
 
     // appends
     this.container.appendChild(this.controlSlot)
-    this.controlSlot.appendChild(checkboxContainer)
-    checkboxContainer.appendChild(this.input)
-    checkboxContainer.appendChild(label)
+    this.controlSlot.appendChild(this.control)
     this.controlSlot.appendChild(this.messagesSlot)
+    this.controlSlot.appendChild(this.descriptionSlot)
+    this.control.appendChild(this.input)
+    this.control.appendChild(label)
+
+    if (isSet(this.instance.schema.description())) {
+      this.descriptionSlot.appendChild(this.description)
+    }
   }
 
   sanitize (value) {

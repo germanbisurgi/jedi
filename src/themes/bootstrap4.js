@@ -30,31 +30,27 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 
   getFieldset () {
-    const html = document.createElement('div')
+    const html = document.createElement('fieldset')
     html.classList.add('card')
     html.classList.add('mb-3')
     return html
   }
 
-  getContainerHead (config) {
-    const html = document.createElement('div')
-    html.textContent = config.textContent
-    html.classList.add('jedi-container-head')
+  getFieldsetBody () {
+    const html = super.getFieldsetBody()
+    html.classList.add('card-body')
+    return html
+  }
+
+  getLegend (config) {
+    const html = super.getLegend(config)
     html.classList.add('card-header')
     html.classList.add('d-flex')
     html.classList.add('justify-content-between')
     html.classList.add('align-items-center')
     html.classList.add('py-1')
-
-    if (config.srOnly) {
-      html.classList.add('sr-only')
-    }
-
+    html.classList.add('float-right')
     return html
-  }
-
-  getActionsSlot () {
-    return super.getActionsSlot()
   }
 
   getPropertiesToggle (config) {
@@ -74,9 +70,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 
   getChildrenSlot () {
-    const html = super.getChildrenSlot()
-    html.classList.add('card-body')
-    return html
+    return super.getChildrenSlot()
   }
 
   getCheckboxLabel (config) {
