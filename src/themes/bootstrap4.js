@@ -25,7 +25,6 @@ class ThemeBootstrap4 extends ThemeBarebones {
     const html = super.getButton(config)
     html.classList.add('btn')
     html.classList.add('btn-sm')
-    html.classList.add('btn-light')
     return html
   }
 
