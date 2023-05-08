@@ -3,20 +3,19 @@ import { isSet } from '../utils'
 
 class BooleanEnumSelectEditor extends BooleanEditor {
   build () {
-    // label
-    this.label = this.theme.getLabel({
-      for: this.instance.path,
-      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
+    // control
+    const control = this.theme.getSelectControl({
+      values: ['false', 'true'],
+      titles: this.instance.schema.option('enumTitles') || ['false', 'true'],
+      id: this.instance.path,
+      label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
     })
 
-    // input
-    this.input = this.theme.getSelect({
-      optionValues: ['false', 'true'],
-      optionsLabels: this.instance.schema.option('enumTitles') || ['false', 'true'],
-      id: this.instance.path
-    })
+    this.control = control.control
+    this.input = control.input
 
+    // events
     this.input.addEventListener('change', () => {
       const value = this.input.value === 'true'
       this.instance.setValue(value)
@@ -29,10 +28,9 @@ class BooleanEnumSelectEditor extends BooleanEditor {
 
     // appends
     this.container.appendChild(this.controlSlot)
-    this.controlSlot.appendChild(this.label)
-    this.controlSlot.appendChild(this.input)
-    this.controlSlot.appendChild(this.messagesSlot)
-    this.controlSlot.appendChild(this.descriptionSlot)
+    this.controlSlot.appendChild(this.control)
+    this.control.appendChild(this.messagesSlot)
+    this.control.appendChild(this.descriptionSlot)
 
     if (isSet(this.instance.schema.description())) {
       this.descriptionSlot.appendChild(this.description)

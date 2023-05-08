@@ -2,9 +2,9 @@ import ThemeBootstrap4 from './bootstrap4'
 
 class ThemeBootstrap5 extends ThemeBootstrap4 {
   getLabel (config) {
-    const label = super.getLabel(config)
-    label.classList.add('form-label')
-    return label
+    const html = super.getLabel(config)
+    html.classList.add('form-label')
+    return html
   }
 
   getPropertiesToggle (config) {
@@ -13,6 +13,13 @@ class ThemeBootstrap5 extends ThemeBootstrap4 {
     html.setAttribute('data-bs-target', '#' + config.id)
     html.classList.add('jedi-properties-toggle')
     return html
+  }
+
+  getSelectControl (config) {
+    const control = super.getSelectControl(config)
+    control.control.classList.add('form-group')
+    control.input.classList.add('form-select')
+    return control
   }
 }
 

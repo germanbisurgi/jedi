@@ -1,8 +1,8 @@
 class ThemeBarebones {
   getContainer () {
-    const container = document.createElement('div')
-    container.classList.add('jedi-editor-container')
-    return container
+    const html = document.createElement('div')
+    html.classList.add('jedi-editor-container')
+    return html
   }
 
   getFieldset () {
@@ -78,19 +78,19 @@ class ThemeBarebones {
   }
 
   getButton (config) {
-    const button = document.createElement('button')
-    button.setAttribute('type', 'button')
+    const html = document.createElement('button')
+    html.setAttribute('type', 'button')
 
     if (config.value) {
-      button.value = config.value
+      html.value = config.value
     }
 
     if (config.id) {
-      button.setAttribute('id', config.value)
+      html.setAttribute('id', config.value)
     }
 
-    button.textContent = config.textContent
-    return button
+    html.textContent = config.textContent
+    return html
   }
 
   getArrayBtnAdd (config) {
@@ -142,15 +142,15 @@ class ThemeBarebones {
   }
 
   getLabel (config) {
-    const label = document.createElement('label')
-    label.setAttribute('for', config.for)
-    label.textContent = config.textContent
+    const html = document.createElement('label')
+    html.setAttribute('for', config.for)
+    html.textContent = config.textContent
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      html.classList.add('sr-only')
     }
 
-    return label
+    return html
   }
 
   getCheckboxContainer () {
@@ -162,58 +162,88 @@ class ThemeBarebones {
   }
 
   getFakeLegend (config) {
+    const html = document.createElement('label')
+    html.setAttribute('for', config.for)
+    html.textContent = config.textContent
+
+    if (config.srOnly) {
+      html.classList.add('sr-only')
+    }
+
+    return html
+  }
+
+  getInput (config) {
+    const html = document.createElement('input')
+    html.setAttribute('type', config.type)
+    html.setAttribute('id', config.id)
+    return html
+  }
+
+  getCheckbox (config) {
+    const html = document.createElement('input')
+    html.setAttribute('id', config.id)
+    html.setAttribute('type', 'checkbox')
+    return html
+  }
+
+  getRadio (config) {
+    const html = document.createElement('input')
+    html.setAttribute('type', 'radio')
+    html.setAttribute('value', config.value)
+    html.setAttribute('id', config.id)
+    return html
+  }
+
+  getTextarea (config) {
+    const html = document.createElement('textarea')
+    html.setAttribute('id', config.id)
+    return html
+  }
+
+  getSelectControl (config) {
+    // control
+    const control = document.createElement('div')
+
+    // input
+    const input = document.createElement('select')
+    input.setAttribute('id', config.id)
+
+    config.values.forEach((value, index) => {
+      const option = document.createElement('option')
+      option.setAttribute('value', value)
+      option.textContent = config.titles[index]
+      input.appendChild(option)
+    })
+
+    // label
     const label = document.createElement('label')
-    label.setAttribute('for', config.for)
-    label.textContent = config.textContent
+    label.setAttribute('for', config.id)
+    label.textContent = config.label
 
     if (config.srOnly) {
       label.classList.add('sr-only')
     }
 
-    return label
-  }
+    // appends
+    control.appendChild(label)
+    control.appendChild(input)
 
-  getInput (config) {
-    const input = document.createElement('input')
-    input.setAttribute('type', config.type)
-    input.setAttribute('id', config.id)
-    input.classList.add('form-control')
-    return input
-  }
-
-  getCheckbox (config) {
-    const checkbox = document.createElement('input')
-    checkbox.setAttribute('id', config.id)
-    checkbox.setAttribute('type', 'checkbox')
-    return checkbox
-  }
-
-  getRadio (config) {
-    const radio = document.createElement('input')
-    radio.setAttribute('type', 'radio')
-    radio.setAttribute('value', config.value)
-    radio.setAttribute('id', config.id)
-    return radio
-  }
-
-  getTextarea (config) {
-    const textarea = document.createElement('textarea')
-    textarea.setAttribute('id', config.id)
-    return textarea
+    return { control, input }
   }
 
   getSelect (config) {
-    const select = document.createElement('select')
-    select.setAttribute('id', config.id)
+    const html = document.createElement('select')
+    html.setAttribute('id', config.id)
 
     config.optionValues.forEach((value, index) => {
       const option = document.createElement('option')
       option.setAttribute('value', value)
       option.textContent = config.optionsLabels[index]
-      select.appendChild(option)
+      html.appendChild(option)
     })
 
-    return select
+    return html
   }
 
   getAlert (config) {

@@ -4,12 +4,13 @@ window.addEventListener('DOMContentLoaded', () => {
     data() {
       return {
         editor: null,
-        theme: 'wireframe',
+        theme: 'barebones',
         themes: [
           'bootstrap5',
           'bootstrap4',
           'bootstrap3',
-          'wireframe',
+          'spectre',
+          'material',
           'barebones'
         ],
         schemas: [

@@ -2,23 +2,23 @@ import ThemeBarebones from './barebones'
 
 class ThemeBootstrap4 extends ThemeBarebones {
   getAlert (config) {
-    const alert = super.getAlert(config)
-    alert.classList.add('alert')
-    alert.classList.add('alert-danger')
-    return alert
+    const html = super.getAlert(config)
+    html.classList.add('alert')
+    html.classList.add('alert-danger')
+    return html
   }
 
   getInvalidFeedback (config) {
-    const invalidFeedback = super.getInvalidFeedback(config)
-    invalidFeedback.classList.add('invalid-feedback')
-    invalidFeedback.classList.add('d-block')
-    return invalidFeedback
+    const html = super.getInvalidFeedback(config)
+    html.classList.add('invalid-feedback')
+    html.classList.add('d-block')
+    return html
   }
 
   getBtnGroup () {
-    const btnGroup = super.getBtnGroup()
-    btnGroup.classList.add('btn-group')
-    return btnGroup
+    const html = super.getBtnGroup()
+    html.classList.add('btn-group')
+    return html
   }
 
   getButton (config) {
@@ -63,7 +63,6 @@ class ThemeBootstrap4 extends ThemeBarebones {
   getPropertiesSlot (config) {
     const html = super.getPropertiesSlot()
     html.classList.add('collapse')
-    html.classList.add('card-body')
     html.setAttribute('id', config.id)
     return html
   }
@@ -73,57 +72,70 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 
   getCheckboxLabel (config) {
-    const checkboxLabel = super.getCheckboxLabel(config)
-    checkboxLabel.classList.add('form-check-label')
-    return checkboxLabel
+    const html = super.getCheckboxLabel(config)
+    html.classList.add('form-check-label')
+    return html
   }
 
   getRadioLabel (config) {
-    const radioLabel = super.getRadioLabel(config)
-    radioLabel.classList.add('form-check-label')
-    return radioLabel
+    const html = super.getRadioLabel(config)
+    html.classList.add('form-check-label')
+    return html
   }
 
   getControlSlot () {
-    const controlSlot = super.getControlSlot()
-    controlSlot.classList.add('form-group')
-    return controlSlot
+    const html = super.getControlSlot()
+    html.classList.add('form-group')
+    return html
   }
 
   getCheckboxContainer () {
-    const checkboxContainer = super.getCheckboxContainer()
-    checkboxContainer.classList.add('form-check')
-    return checkboxContainer
+    const html = super.getCheckboxContainer()
+    html.classList.add('form-check')
+    return html
   }
 
   getRadioContainer () {
-    const radioContainer = super.getRadioContainer()
-    radioContainer.classList.add('form-check')
-    return radioContainer
+    const html = super.getRadioContainer()
+    html.classList.add('form-check')
+    return html
   }
 
   getCheckbox (config) {
-    const checkbox = super.getCheckbox(config)
-    checkbox.classList.add('form-check-input')
-    return checkbox
+    const html = super.getCheckbox(config)
+    html.classList.add('form-check-input')
+    return html
   }
 
   getRadio (config) {
-    const radio = super.getRadio(config)
-    radio.classList.add('form-check-input')
-    return radio
+    const html = super.getRadio(config)
+    html.classList.add('form-check-input')
+    return html
+  }
+
+  getInput (config) {
+    const html = super.getInput(config)
+    html.classList.add('form-control')
+    return html
   }
 
   getTextarea (config) {
-    const textarea = super.getTextarea(config)
-    textarea.classList.add('form-control')
-    return textarea
+    const html = super.getTextarea(config)
+    html.classList.add('form-control')
+    return html
   }
 
   getSelect (config) {
-    const select = super.getSelect(config)
-    select.classList.add('form-control')
-    return select
+    const html = super.getSelect(config)
+    html.classList.add('form-control')
+    return html
+  }
+
+  getSelectControl (config) {
+    const control = super.getSelectControl(config)
+    control.control.classList.add('form-group')
+    control.input.classList.add('form-control')
+    return control
   }
 
   getButtonActiveClass () {

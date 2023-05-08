@@ -1,6 +1,8 @@
 ## Todo
 
 - future features:
+    - actions by type: array actions, object actions, etc
+    - array of objects: missing buttons
     - theme checkbox
     - all themes extend from barebones
     - refactor path to look like '#/something/other'
