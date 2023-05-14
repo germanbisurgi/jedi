@@ -21,7 +21,8 @@ class NumberEnumSelectEditor extends NumberEditor {
 
     // events
     this.input.addEventListener('change', () => {
-      this.instance.setValue(this.input.value)
+      const value = this.sanitize(this.input.value)
+      this.instance.setValue(value)
     })
 
     // description

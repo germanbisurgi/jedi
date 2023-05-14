@@ -25,7 +25,8 @@ class NumberEnumRadioEditor extends NumberEditor {
       radioContainer.appendChild(radio)
 
       radio.addEventListener('change', () => {
-        this.instance.setValue(radio.value)
+        const value = this.sanitize(radio.value)
+        this.instance.setValue(value)
       })
 
       this.radioInputs.push(radio)
