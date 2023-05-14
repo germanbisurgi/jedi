@@ -3,20 +3,14 @@ import { isSet } from '../utils'
 
 class BooleanEditor extends Editor {
   build () {
-    // checkbox container
-    this.control = this.theme.getCheckboxContainer()
-
-    // label
-    const label = this.theme.getCheckboxLabel({
-      for: this.instance.path,
-      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
+    const control = this.theme.getCheckboxControl({
+      id: this.instance.path,
+      label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle')
     })
 
-    // input
-    this.input = this.theme.getCheckbox({
-      id: this.instance.path
-    })
+    this.control = control.control
+    this.input = control.input
 
     // events
     this.input.addEventListener('change', () => {
@@ -31,10 +25,8 @@ class BooleanEditor extends Editor {
     // appends
     this.container.appendChild(this.controlSlot)
     this.controlSlot.appendChild(this.control)
-    this.controlSlot.appendChild(this.messagesSlot)
-    this.controlSlot.appendChild(this.descriptionSlot)
-    this.control.appendChild(this.input)
-    this.control.appendChild(label)
+    this.control.appendChild(this.messagesSlot)
+    this.control.appendChild(this.descriptionSlot)
 
     if (isSet(this.instance.schema.description())) {
       this.descriptionSlot.appendChild(this.description)

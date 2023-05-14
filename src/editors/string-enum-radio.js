@@ -3,41 +3,23 @@ import { isSet } from '../utils'
 
 class StringEnumRadioEditor extends StringEditor {
   build () {
-    this.optionValues = this.instance.schema.enum()
-    this.optionsLabels = this.instance.schema.option('enumTitles') || this.optionValues
-    this.radioInputs = []
+    // control
+    const control = this.theme.getRadiosControl({
+      values: this.instance.schema.enum(),
+      titles: this.instance.schema.option('enumTitles') || this.instance.schema.enum(),
+      id: this.instance.path,
+      label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
+      srOnly: this.instance.schema.option('hideTitle')
+    })
 
-    // legend
-    this.controlSlot.appendChild(this.theme.getFakeLegend({
-      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey()
-    }))
+    this.control = control.control
+    this.radioInputs = control.inputs
 
-    // radios
-    this.optionValues.forEach((value, index) => {
-      // radio container
-      const radioContainer = this.theme.getRadioContainer()
-
-      // radio
-      const radio = this.theme.getRadio({
-        value: value,
-        id: this.instance.path + '.' + index
-      })
-      radioContainer.appendChild(radio)
-
+    // events
+    this.radioInputs.forEach((radio) => {
       radio.addEventListener('change', () => {
         this.instance.setValue(radio.value)
       })
-
-      this.radioInputs.push(radio)
-
-      // label
-      radioContainer.appendChild(this.theme.getLabel({
-        for: this.instance.path + '.' + index,
-        textContent: this.optionsLabels[index],
-        srOnly: this.instance.schema.option('hideTitle')
-      }))
-
-      this.controlSlot.appendChild(radioContainer)
     })
 
     // description
@@ -47,6 +29,7 @@ class StringEnumRadioEditor extends StringEditor {
 
     // appends
     this.container.appendChild(this.controlSlot)
+    this.controlSlot.appendChild(this.control)
     this.controlSlot.appendChild(this.messagesSlot)
     this.controlSlot.appendChild(this.descriptionSlot)
 

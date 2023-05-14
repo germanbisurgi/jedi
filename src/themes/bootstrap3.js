@@ -146,6 +146,79 @@ class ThemeBootstrap3 extends ThemeBarebones {
     return html
   }
 
+  getRadiosControl (config) {
+    // control
+    const control = document.createElement('div')
+
+    // legend
+    const legend = document.createElement('label')
+    legend.textContent = config.label
+
+    if (config.srOnly) {
+      legend.classList.add('sr-only')
+    }
+
+    control.appendChild(legend)
+
+    const inputs = []
+
+    config.values.forEach((value, index) => {
+      const radioControl = document.createElement('div')
+      radioControl.classList.add('radio')
+
+      const radio = document.createElement('input')
+      radio.setAttribute('type', 'radio')
+      radio.setAttribute('id', config.id + '.' + index)
+      radio.setAttribute('value', value)
+      inputs.push(radio)
+
+      const label = document.createElement('label')
+      label.setAttribute('for', config.id + '.' + index)
+
+      const labelText = document.createElement('span')
+
+      if (config.titles && config.titles[index]) {
+        labelText.textContent = config.titles[index]
+      }
+
+      control.appendChild(radioControl)
+      radioControl.appendChild(label)
+      label.appendChild(radio)
+      label.appendChild(labelText)
+    })
+
+    return { control, inputs }
+  }
+
+  getCheckboxControl (config) {
+    // control
+    const control = document.createElement('div')
+    control.classList.add('checkbox')
+
+    // input
+    const input = document.createElement('input')
+    input.setAttribute('type', 'checkbox')
+    input.setAttribute('id', config.id)
+
+    // label
+    const label = document.createElement('label')
+    label.setAttribute('for', config.id)
+
+    const labelText = document.createElement('span')
+    labelText.textContent = config.label
+
+    if (config.srOnly) {
+      labelText.classList.add('sr-only')
+    }
+
+    // appends
+    control.appendChild(label)
+    label.appendChild(input)
+    label.appendChild(labelText)
+
+    return { control, input }
+  }
+
   getSelectControl (config) {
     const control = super.getSelectControl(config)
     control.control.classList.add('form-group')
