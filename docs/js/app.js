@@ -183,7 +183,7 @@ window.addEventListener('DOMContentLoaded', () => {
           isEditor: true,
           container: document.querySelector('#jedi-container'),
           editableProperties: true,
-          alwaysShowErrors: true,
+          alwaysShowErrors: false,
           showRequiredOnly: false,
           theme: 'wireframe',
           rootName: 'root',

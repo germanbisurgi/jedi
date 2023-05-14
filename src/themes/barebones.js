@@ -212,7 +212,11 @@ class ThemeBarebones {
     config.values.forEach((value, index) => {
       const option = document.createElement('option')
       option.setAttribute('value', value)
-      option.textContent = config.titles[index]
+
+      if (config.titles && config.titles[index]) {
+        option.textContent = config.titles[index]
+      }
+
       input.appendChild(option)
     })
 
