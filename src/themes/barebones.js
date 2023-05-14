@@ -235,8 +235,8 @@ class ThemeBarebones {
       }
 
       control.appendChild(radioControl)
-      radioControl.appendChild(label)
       radioControl.appendChild(radio)
+      radioControl.appendChild(label)
     })
 
     return { control, inputs }
@@ -261,8 +261,8 @@ class ThemeBarebones {
     }
 
     // appends
-    control.appendChild(label)
     control.appendChild(input)
+    control.appendChild(label)
 
     return { control, input }
   }

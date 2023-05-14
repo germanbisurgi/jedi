@@ -16,8 +16,8 @@
     "email": {
       "title": "E-Mail",
       "type": "string",
-      "format": "E-Mail",
-      "minLength": 1
+      "format": "email",
+      "minLength": 3
     },
     "message": {
       "title": "Message",

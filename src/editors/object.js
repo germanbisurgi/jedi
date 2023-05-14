@@ -117,16 +117,13 @@ class ObjectEditor extends Editor {
       this.instance.children.forEach((child) => {
         const id = child.path + '-activator'
 
-        const checkboxContainer = this.theme.getCheckboxContainer()
-
-        const checkboxLabel = this.theme.getCheckboxLabel({
-          for: id,
-          textContent: isSet(child.schema.title()) ? child.schema.title() : child.getKey()
+        const checboxControl = this.theme.getCheckboxControl({
+          id: id,
+          label: isSet(child.schema.title()) ? child.schema.title() : child.getKey(),
+          srOnly: false
         })
 
-        const checkbox = this.theme.getCheckbox({
-          id: id
-        })
+        const checkbox = checboxControl.input
 
         checkbox.checked = hasOwn(this.instance.getValue(), child.getKey())
 
@@ -144,9 +141,7 @@ class ObjectEditor extends Editor {
         })
 
         // appends
-        this.propertiesContainer.appendChild(checkboxContainer)
-        checkboxContainer.appendChild(checkbox)
-        checkboxContainer.appendChild(checkboxLabel)
+        this.propertiesContainer.appendChild(checboxControl.control)
       })
     }
   }
