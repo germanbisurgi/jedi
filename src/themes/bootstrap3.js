@@ -79,18 +79,6 @@ class ThemeBootstrap3 extends ThemeBarebones {
     return super.getLabel(config)
   }
 
-  getCheckboxLabel (config) {
-    const html = super.getCheckboxLabel(config)
-    html.classList.add('form-check-label')
-    return html
-  }
-
-  getRadioLabel (config) {
-    const html = super.getRadioLabel(config)
-    html.classList.add('form-check-label')
-    return html
-  }
-
   getLegend (config) {
     const html = super.getLegend(config)
     html.classList.add('panel-heading')
@@ -104,44 +92,14 @@ class ThemeBootstrap3 extends ThemeBarebones {
     return html
   }
 
-  getCheckboxContainer () {
-    const html = super.getCheckboxContainer()
-    html.classList.add('form-check')
-    return html
-  }
-
   getInput (config) {
     const html = super.getInput(config)
     html.classList.add('form-control')
     return html
   }
 
-  getRadioContainer () {
-    const html = super.getRadioContainer()
-    html.classList.add('form-check')
-    return html
-  }
-
-  getCheckbox (config) {
-    const html = super.getCheckbox(config)
-    html.classList.add('form-check-input')
-    return html
-  }
-
-  getRadio (config) {
-    const html = super.getRadio(config)
-    html.classList.add('form-check-input')
-    return html
-  }
-
   getTextarea (config) {
     const html = super.getTextarea(config)
-    html.classList.add('form-control')
-    return html
-  }
-
-  getSelect (config) {
-    const html = super.getSelect(config)
     html.classList.add('form-control')
     return html
   }

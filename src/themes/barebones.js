@@ -117,51 +117,7 @@ class ThemeBarebones {
     return html
   }
 
-  getCheckboxLabel (config) {
-    const html = document.createElement('label')
-    html.setAttribute('for', config.for)
-    html.textContent = config.textContent
-
-    if (config.srOnly) {
-      html.classList.add('sr-only')
-    }
-
-    return html
-  }
-
-  getRadioLabel (config) {
-    const html = document.createElement('label')
-    html.setAttribute('for', config.for)
-    html.textContent = config.textContent
-
-    if (config.srOnly) {
-      html.classList.add('sr-only')
-    }
-
-    return html
-  }
-
   getLabel (config) {
-    const html = document.createElement('label')
-    html.setAttribute('for', config.for)
-    html.textContent = config.textContent
-
-    if (config.srOnly) {
-      html.classList.add('sr-only')
-    }
-
-    return html
-  }
-
-  getCheckboxContainer () {
-    return document.createElement('div')
-  }
-
-  getRadioContainer () {
-    return document.createElement('div')
-  }
-
-  getFakeLegend (config) {
     const html = document.createElement('label')
     html.setAttribute('for', config.for)
     html.textContent = config.textContent
@@ -176,21 +132,6 @@ class ThemeBarebones {
   getInput (config) {
     const html = document.createElement('input')
     html.setAttribute('type', config.type)
-    html.setAttribute('id', config.id)
-    return html
-  }
-
-  getCheckbox (config) {
-    const html = document.createElement('input')
-    html.setAttribute('id', config.id)
-    html.setAttribute('type', 'checkbox')
-    return html
-  }
-
-  getRadio (config) {
-    const html = document.createElement('input')
-    html.setAttribute('type', 'radio')
-    html.setAttribute('value', config.value)
     html.setAttribute('id', config.id)
     return html
   }
@@ -300,20 +241,6 @@ class ThemeBarebones {
     control.appendChild(input)
 
     return { control, input }
-  }
-
-  getSelect (config) {
-    const html = document.createElement('select')
-    html.setAttribute('id', config.id)
-
-    config.optionValues.forEach((value, index) => {
-      const option = document.createElement('option')
-      option.setAttribute('value', value)
-      option.textContent = config.optionsLabels[index]
-      html.appendChild(option)
-    })
-
-    return html
   }
 
   getAlert (config) {

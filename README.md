@@ -1,9 +1,10 @@
 ## Todo
 
 - future features:
+    - control components for string number
+    - nest messages and descriptions slots inside control
     - actions by type: array actions, object actions, etc
     - array of objects: missing buttons
-    - theme checkbox
     - all themes extend from barebones
     - refactor path to look like '#/something/other'
     - ui required (not json required)
@@ -19,6 +20,7 @@
     - option exclude
     - filter by field
     - icons
+    - form wizard
 
 - bugs:
     - object set value
