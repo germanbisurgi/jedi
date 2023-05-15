@@ -3,27 +3,26 @@ import { isSet } from '../utils'
 
 class StringEditor extends Editor {
   build () {
-    // label
-    const label = this.theme.getLabel({
-      for: this.instance.path,
-      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden')
-    })
-
-    // input
-    // todo file, range should be handled differently
     const inputTypes = ['hidden', 'color', 'date', 'datetime-local', 'email', 'number', 'month', 'password', 'search', 'time', 'tel', 'text', 'textarea', 'url', 'week']
+    let control
 
     if (this.instance.schema.formatIs('textarea')) {
-      this.input = this.theme.getTextarea({
-        id: this.instance.path
+      control = this.theme.getTextareaControl({
+        id: this.instance.path,
+        label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
+        srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden')
       })
     } else {
-      this.input = this.theme.getInput({
+      control = this.theme.getInputControl({
         type: inputTypes.includes(this.instance.schema.format()) ? this.instance.schema.format() : 'text',
-        id: this.instance.path
+        id: this.instance.path,
+        label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
+        srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden')
       })
     }
+
+    this.control = control.control
+    this.input = control.input
 
     // description
     this.description = this.theme.getDescription({
@@ -42,10 +41,9 @@ class StringEditor extends Editor {
 
     // appends
     this.container.appendChild(this.controlSlot)
-    this.controlSlot.appendChild(label)
-    this.controlSlot.appendChild(this.input)
-    this.controlSlot.appendChild(this.messagesSlot)
+    this.controlSlot.appendChild(this.control)
     this.controlSlot.appendChild(this.descriptionSlot)
+    this.controlSlot.appendChild(this.messagesSlot)
 
     if (isSet(this.instance.schema.description())) {
       this.descriptionSlot.appendChild(this.description)

@@ -73,10 +73,11 @@ class Jedi extends EventEmitter {
    * of the root instance.
    */
   appendHiddenInput () {
-    this.hiddenInput = this.root.ui.theme.getInput({
+    const hiddenControl = this.root.ui.theme.getInputControl({
       type: 'hidden',
       id: 'jedi-hidden-input'
     })
+    this.hiddenInput = hiddenControl.input
 
     this.hiddenInput.setAttribute('name', 'json')
 

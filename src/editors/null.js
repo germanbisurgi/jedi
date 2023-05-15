@@ -9,8 +9,8 @@ class NullEditor extends Editor {
     })
 
     // appends
-    this.container.appendChild(this.messagesSlot)
     this.container.appendChild(this.descriptionSlot)
+    this.container.appendChild(this.messagesSlot)
     this.container.appendChild(this.controlSlot)
 
     if (isSet(this.instance.schema.description())) {

@@ -92,23 +92,52 @@ class ThemeBootstrap3 extends ThemeBarebones {
     return html
   }
 
-  getInput (config) {
-    const html = super.getInput(config)
-    html.classList.add('form-control')
-    return html
+  getTextareaControl (config) {
+    const control = document.createElement('div')
+
+    const input = document.createElement('textarea')
+    input.setAttribute('id', config.id)
+    input.classList.add('form-control')
+
+    const label = document.createElement('label')
+    label.setAttribute('for', config.id)
+    label.textContent = config.label
+
+    if (config.srOnly) {
+      label.classList.add('sr-only')
+    }
+
+    control.appendChild(label)
+    control.appendChild(input)
+
+    return { control, input }
   }
 
-  getTextarea (config) {
-    const html = super.getTextarea(config)
-    html.classList.add('form-control')
-    return html
+  getInputControl (config) {
+    const control = document.createElement('div')
+
+    const input = document.createElement('input')
+    input.setAttribute('type', config.type)
+    input.setAttribute('id', config.id)
+    input.classList.add('form-control')
+
+    const label = document.createElement('label')
+    label.setAttribute('for', config.id)
+    label.textContent = config.label
+
+    if (config.srOnly) {
+      label.classList.add('sr-only')
+    }
+
+    control.appendChild(label)
+    control.appendChild(input)
+
+    return { control, input }
   }
 
   getRadiosControl (config) {
-    // control
     const control = document.createElement('div')
 
-    // legend
     const legend = document.createElement('label')
     legend.textContent = config.label
 
@@ -149,16 +178,13 @@ class ThemeBootstrap3 extends ThemeBarebones {
   }
 
   getCheckboxControl (config) {
-    // control
     const control = document.createElement('div')
     control.classList.add('checkbox')
 
-    // input
     const input = document.createElement('input')
     input.setAttribute('type', 'checkbox')
     input.setAttribute('id', config.id)
 
-    // label
     const label = document.createElement('label')
     label.setAttribute('for', config.id)
 
@@ -169,7 +195,6 @@ class ThemeBootstrap3 extends ThemeBarebones {
       labelText.classList.add('sr-only')
     }
 
-    // appends
     control.appendChild(label)
     label.appendChild(input)
     label.appendChild(labelText)

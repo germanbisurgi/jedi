@@ -27,15 +27,13 @@ class ObjectEditor extends Editor {
 
     this.propertiesContainer = this.theme.getPropertiesActivators()
 
-    this.addPropertyLabel = this.theme.getLabel({
-      textContent: 'Property',
-      for: 'jedi-add-property-input-' + this.instance.path
+    this.addPropertyControl = this.theme.getInputControl({
+      type: 'text',
+      id: 'jedi-add-property-input-' + this.instance.path,
+      label: 'Property'
     })
 
-    this.addPropertyInput = this.theme.getInput({
-      type: 'text',
-      id: 'jedi-add-property-input-' + this.instance.path
-    })
+    this.addPropertyInput = this.addPropertyControl.input
 
     this.addPropertyBtn = this.theme.getButton({
       textContent: 'Add property'
@@ -88,9 +86,8 @@ class ObjectEditor extends Editor {
     if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {
       this.actionsSlot.appendChild(this.propertiesToggle)
       this.propertiesSlot.appendChild(this.propertiesContainer)
-      this.propertiesSlot.appendChild(this.addPropertyLabel)
-      this.propertiesSlot.appendChild(this.addPropertyInput)
-      this.propertiesSlot.appendChild(this.addPropertyBtn)
+      this.propertiesSlot.appendChild(this.addPropertyControl.control)
+      this.addPropertyControl.control.appendChild(this.addPropertyBtn)
     }
   }
 

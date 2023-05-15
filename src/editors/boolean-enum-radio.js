@@ -31,8 +31,8 @@ class BooleanEnumRadioEditor extends BooleanEditor {
     // appends
     this.container.appendChild(this.controlSlot)
     this.controlSlot.appendChild(this.control)
-    this.controlSlot.appendChild(this.messagesSlot)
     this.controlSlot.appendChild(this.descriptionSlot)
+    this.controlSlot.appendChild(this.messagesSlot)
 
     if (isSet(this.instance.schema.description())) {
       this.descriptionSlot.appendChild(this.description)

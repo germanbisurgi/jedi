@@ -50,12 +50,6 @@ class ThemeWireframe extends ThemeBarebones {
     return html
   }
 
-  getTextarea (config) {
-    const textarea = super.getTextarea(config)
-    textarea.classList.add('form-control')
-    return textarea
-  }
-
   getButtonActiveClass () {
     return 'btn-info'
   }

@@ -3,19 +3,15 @@ import { isNumber, isSet } from '../utils'
 
 class NumberEditor extends Editor {
   build () {
-    // label
-    const label = this.theme.getLabel({
-      for: this.instance.path,
-      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle')
+    const control = this.theme.getInputControl({
+      type: 'number',
+      id: this.instance.path,
+      label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
+      srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden')
     })
 
-    // input
-    this.input = this.theme.getInput({
-      type: 'number',
-      id: this.instance.path
-    })
-    this.container.appendChild(this.input)
+    this.control = control.control
+    this.input = control.input
 
     // events
     this.input.addEventListener('change', () => {
@@ -30,13 +26,12 @@ class NumberEditor extends Editor {
 
     // appends
     this.container.appendChild(this.controlSlot)
-    this.controlSlot.appendChild(label)
-    this.controlSlot.appendChild(this.input)
-    this.controlSlot.appendChild(this.messagesSlot)
+    this.controlSlot.appendChild(this.control)
     this.controlSlot.appendChild(this.descriptionSlot)
+    this.controlSlot.appendChild(this.messagesSlot)
 
     if (isSet(this.instance.schema.description())) {
-      this.controlSlot.appendChild(this.description)
+      this.descriptionSlot.appendChild(this.description)
     }
   }
 

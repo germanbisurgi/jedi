@@ -110,11 +110,9 @@ class ThemeBarebones {
   }
 
   getDescription (config) {
-    const html = document.createElement('p')
     const small = document.createElement('small')
     small.textContent = config.textContent
-    html.appendChild(small)
-    return html
+    return small
   }
 
   getLabel (config) {
@@ -129,17 +127,47 @@ class ThemeBarebones {
     return html
   }
 
-  getInput (config) {
-    const html = document.createElement('input')
-    html.setAttribute('type', config.type)
-    html.setAttribute('id', config.id)
-    return html
+  getTextareaControl (config) {
+    const control = document.createElement('div')
+
+    const input = document.createElement('textarea')
+    input.setAttribute('id', config.id)
+
+    const label = document.createElement('label')
+    label.setAttribute('for', config.id)
+    label.textContent = config.label
+
+    if (config.srOnly) {
+      label.classList.add('sr-only')
+    }
+
+    // appends
+    control.appendChild(label)
+    control.appendChild(input)
+
+    return { control, input }
   }
 
-  getTextarea (config) {
-    const html = document.createElement('textarea')
-    html.setAttribute('id', config.id)
-    return html
+  getInputControl (config) {
+    const control = document.createElement('div')
+
+    const input = document.createElement('input')
+    input.setAttribute('type', config.type)
+    input.setAttribute('id', config.id)
+
+    const label = document.createElement('label')
+    label.setAttribute('for', config.id)
+    label.textContent = config.label
+
+    if (config.srOnly) {
+      label.classList.add('sr-only')
+    }
+
+    // appends
+    control.appendChild(label)
+    control.appendChild(input)
+
+    return { control, input }
   }
 
   getRadiosControl (config) {
