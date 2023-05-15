@@ -7,7 +7,7 @@
     "dev": "npm run watch & npm run less & npm run serve",
     "less": "less-watch-compiler ./docs/less ./docs/css main.less",
     "unit": "jest --config=./tests/unit/jest.config.js",
-    "e2e": "codeceptjs run-workers 43 -c tests/e2e/codecept.conf.js --debug",
+    "e2e": "codeceptjs run-workers 20 -c tests/e2e/codecept.conf.js --debug",
     "e2e:wireframe": "THEME='wireframe' npm run e2e",
     "e2e:b3": "THEME='bootstrap3' npm run e2e",
     "e2e:b4": "THEME='bootstrap4' npm run e2e",
