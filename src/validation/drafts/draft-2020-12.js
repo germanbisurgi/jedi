@@ -1,6 +1,7 @@
 import { _allOf } from '../constrains/allOf'
 import { _minLength } from '../constrains/minLength'
 import { _const } from '../constrains/const'
+import { _contains } from '../constrains/contains'
 import { _anyOf } from '../constrains/anyOf'
 import { _dependentRequired } from '../constrains/dependentRequired'
 import { _enum } from '../constrains/enum'
@@ -30,6 +31,7 @@ export default [
   _allOf,
   _anyOf,
   _const,
+  _contains,
   _dependentRequired,
   _enum,
   _exclusiveMaximum,

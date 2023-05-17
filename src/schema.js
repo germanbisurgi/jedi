@@ -21,6 +21,10 @@ class Schema {
     return this.schema.const
   }
 
+  contains () {
+    return (isObject(this.schema.contains) || isBoolean(this.schema.contains)) ? this.schema.contains : undefined
+  }
+
   clone () {
     return JSON.parse(JSON.stringify(this.schema))
   }
@@ -85,6 +89,14 @@ class Schema {
     return isNumber(this.schema.maximum) ? this.schema.maximum : undefined
   }
 
+  maxContains () {
+    if (isInteger(this.schema.maxContains) && this.schema.maxContains >= 0) {
+      return this.schema.maxContains
+    }
+
+    return undefined
+  }
+
   maxItems () {
     if (isInteger(this.schema.maxItems) && this.schema.maxItems >= 0) {
       return this.schema.maxItems
@@ -111,6 +123,14 @@ class Schema {
 
   minimum () {
     return isNumber(this.schema.minimum) ? this.schema.minimum : undefined
+  }
+
+  minContains () {
+    if (isInteger(this.schema.minContains) && this.schema.minContains >= 0) {
+      return this.schema.minContains
+    }
+
+    return undefined
   }
 
   minItems () {
