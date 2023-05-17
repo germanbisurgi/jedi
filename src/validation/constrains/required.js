@@ -1,6 +1,6 @@
 import { isObject, isSet } from '../../utils'
 
-export const _required = (validator, value, schema, key, path) => {
+export const required = (validator, value, schema, key, path) => {
   const errors = []
 
   if (isObject(value) && isSet(schema.required())) {

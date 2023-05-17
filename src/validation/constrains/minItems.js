@@ -1,6 +1,6 @@
 import { isArray, isSet } from '../../utils'
 
-export const _minItems = (validator, value, schema, key, path) => {
+export const minItems = (validator, value, schema, key, path) => {
   const errors = []
 
   if (isArray(value) && isSet(schema.minItems())) {

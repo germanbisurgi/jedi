@@ -1,6 +1,6 @@
 import { hasOwn, isObject, isSet } from '../../utils'
 
-export const _dependentRequired = (validator, value, schema, key, path) => {
+export const dependentRequired = (validator, value, schema, key, path) => {
   const errors = []
 
   if (isObject(value) && isSet(schema.dependentRequired())) {

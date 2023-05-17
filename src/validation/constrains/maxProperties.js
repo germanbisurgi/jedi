@@ -1,6 +1,6 @@
 import { isObject, isSet } from '../../utils'
 
-export const _maxProperties = (validator, value, schema, key, path) => {
+export const maxProperties = (validator, value, schema, key, path) => {
   const errors = []
 
   if (isObject(value) && isSet(schema.maxProperties())) {

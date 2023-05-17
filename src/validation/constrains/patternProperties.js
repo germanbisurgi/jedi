@@ -1,7 +1,7 @@
 import { isObject, isSet } from '../../utils'
 import Jedi from '../../jedi'
 
-export const _patternProperties = (validator, value, schema, path) => {
+export const patternProperties = (validator, value, schema, path) => {
   let errors = []
 
   if (isObject(value) && isSet(schema.patternProperties())) {

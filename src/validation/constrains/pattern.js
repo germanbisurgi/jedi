@@ -1,6 +1,6 @@
 import { isSet, isString } from '../../utils'
 
-export const _pattern = (validator, value, schema, key, path) => {
+export const pattern = (validator, value, schema, key, path) => {
   const errors = []
 
   if (isString(value) && isSet(schema.pattern())) {

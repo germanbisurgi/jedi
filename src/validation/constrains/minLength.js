@@ -1,6 +1,6 @@
 import { isSet, isString } from '../../utils'
 
-export const _minLength = (validator, value, schema, key, path) => {
+export const minLength = (validator, value, schema, key, path) => {
   const errors = []
 
   if (isString(value) && isSet(schema.minLength())) {

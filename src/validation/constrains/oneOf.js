@@ -1,7 +1,7 @@
 import { isSet } from '../../utils'
 import Jedi from '../../jedi'
 
-export const _oneOf = (validator, value, schema, key, path) => {
+export const oneOf = (validator, value, schema, key, path) => {
   const errors = []
 
   if (isSet(schema.oneOf())) {

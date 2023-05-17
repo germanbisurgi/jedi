@@ -1,5 +1,5 @@
 import draft from './drafts/draft-2020-12'
-import { isBoolean } from '../utils'
+import { hasOwn, isBoolean } from '../utils'
 
 class Validator {
   constructor () {
@@ -25,11 +25,14 @@ class Validator {
       }]
     }
 
-    this.draft.forEach((validator) => {
-      const validatorErrors = validator(this, value, schema, key, path)
+    Object.keys(this.draft).forEach((constrain) => {
+      if (hasOwn(schemaClone, constrain)) {
+        const validator = this.draft[constrain]
+        const validatorErrors = validator(this, value, schema, key, path)
 
-      if (validatorErrors) {
-        schemaErrors = [...schemaErrors, ...validatorErrors]
+        if (validatorErrors) {
+          schemaErrors = [...schemaErrors, ...validatorErrors]
+        }
       }
     })
 
