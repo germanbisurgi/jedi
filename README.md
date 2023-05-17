@@ -1,6 +1,8 @@
 ## Todo
 
 - future features:
+    - schema getter: proof also boolean schemas
+    - avoid validator function calls
     - control components for string number
     - nest messages and descriptions slots inside control
     - actions by type: array actions, object actions, etc
