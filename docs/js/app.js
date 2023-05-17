@@ -75,6 +75,10 @@ window.addEventListener('DOMContentLoaded', () => {
             url: './json/validator/const.json'
           },
           {
+            name: 'validator/contains',
+            url: './json/validator/contains.json'
+          },
+          {
             name: 'validator/dependentRequired',
             url: './json/validator/dependentRequired.json'
           },
@@ -113,6 +117,14 @@ window.addEventListener('DOMContentLoaded', () => {
           {
             name: 'validator/items',
             url: './json/validator/items.json'
+          },
+          {
+            name: 'validator/maxContains',
+            url: './json/validator/maxContains.json'
+          },
+          {
+            name: 'validator/minContains',
+            url: './json/validator/minContains.json'
           },
           {
             name: 'validator/maximum',
