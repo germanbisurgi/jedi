@@ -78,10 +78,10 @@ class ArrayEditor extends Editor {
     this.instance.children.forEach((child) => {
       this.childrenSlot.appendChild(child.ui.container)
 
-      child.ui.controlSlot.appendChild(child.ui.actionsSlot)
+      child.ui.controlSlot.appendChild(child.ui.arrayActionsSlot)
 
-      while (child.ui.actionsSlot.firstChild) {
-        child.ui.actionsSlot.removeChild(child.ui.actionsSlot.lastChild)
+      while (child.ui.arrayActionsSlot.firstChild) {
+        child.ui.arrayActionsSlot.removeChild(child.ui.arrayActionsSlot.lastChild)
       }
 
       const btnGroup = this.theme.getBtnGroup()
@@ -133,7 +133,7 @@ class ArrayEditor extends Editor {
         btnGroup.appendChild(moveDownBtn)
       }
 
-      child.ui.actionsSlot.appendChild(btnGroup)
+      child.ui.arrayActionsSlot.appendChild(btnGroup)
 
       const buttons = this.container.querySelectorAll('button')
 

@@ -1,5 +1,4 @@
 import EventEmitter from '../event-emitter'
-import ThemeWireframe from '../themes/wireframe'
 import ThemeBootstrap3 from '../themes/bootstrap3'
 import ThemeBootstrap4 from '../themes/bootstrap4'
 import ThemeBootstrap5 from '../themes/bootstrap5'
@@ -16,6 +15,7 @@ class Editor extends EventEmitter {
     this.controlSlot = null
     this.messagesSlot = null
     this.actionsSlot = null
+    this.arrayActionsSlot = null
     this.childrenSlot = null
     this.descriptionSlot = null
     this.disabled = false
@@ -40,9 +40,6 @@ class Editor extends EventEmitter {
 
   init () {
     switch (this.instance.jedi.options.theme) {
-      case 'wireframe':
-        this.theme = new ThemeWireframe()
-        break
       case 'bootstrap3':
         this.theme = new ThemeBootstrap3()
         break
@@ -66,6 +63,7 @@ class Editor extends EventEmitter {
     this.controlSlot = this.theme.getControlSlot()
     this.messagesSlot = this.theme.getMessagesSlot()
     this.actionsSlot = this.theme.getActionsSlot()
+    this.arrayActionsSlot = this.theme.getArrayActionsSlot()
     this.childrenSlot = this.theme.getChildrenSlot()
     this.descriptionSlot = this.theme.getDescriptionSlot()
   }

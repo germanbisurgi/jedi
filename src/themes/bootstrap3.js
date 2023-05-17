@@ -42,6 +42,12 @@ class ThemeBootstrap3 extends ThemeBarebones {
     return html
   }
 
+  getArrayActionsSlot () {
+    const html = super.getArrayActionsSlot()
+    html.classList.add('pull-right')
+    return html
+  }
+
   getPropertiesToggle (config) {
     const html = this.getButton(config)
     html.setAttribute('data-toggle', 'collapse')

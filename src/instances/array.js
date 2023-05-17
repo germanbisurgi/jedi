@@ -1,5 +1,5 @@
 import Instance from './instance'
-import { getType, isSet, clone, isArray } from '../utils'
+import { getType, isSet, clone, isArray, notSet } from '../utils'
 import ArrayEditor from '../editors/array'
 
 class ArrayInstance extends Instance {
@@ -16,7 +16,11 @@ class ArrayInstance extends Instance {
   }
 
   createItemInstance (value) {
-    const schema = isSet(this.schema.items()) ? this.schema.items() : { type: getType(value) }
+    const schema = isSet(this.schema.items()) ? this.schema.items() : {}
+
+    if (notSet(schema.type)) {
+      schema.type = isSet(value) ? getType(value) : 'any'
+    }
 
     const child = this.jedi.createInstance({
       jedi: this.jedi,

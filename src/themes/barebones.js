@@ -37,6 +37,12 @@ class ThemeBarebones {
     return html
   }
 
+  getArrayActionsSlot () {
+    const html = document.createElement('div')
+    html.classList.add('jedi-array-actions-slot')
+    return html
+  }
+
   getChildrenSlot () {
     const html = document.createElement('div')
     html.classList.add('jedi-child-editors-slot')
