@@ -4,14 +4,14 @@ const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
 const Jedi = require('../../../../dist/jedi')
 
 const suites = [
-  require('./test-suite/additionalProperties'), // 11
+  require('./test-suite/additionalProperties'),
   require('./test-suite/allOf'),
   require('./test-suite/anyOf'),
   require('./test-suite/boolean_schema'),
   require('./test-suite/const'),
-  // require('./test-suite/contains'),
+  require('./test-suite/contains'),
   require('./test-suite/default'),
-  // require('./test-suite/dependentRequired'),
+  require('./test-suite/dependentRequired'),
   // require('./test-suite/dependentSchemas'),
   require('./test-suite/enum'),
   require('./test-suite/exclusiveMaximum'),
@@ -19,12 +19,12 @@ const suites = [
   require('./test-suite/format'),
   require('./test-suite/if-then-else'),
   // require('./test-suite/items'), // 7
-  // require('./test-suite/maxContains'),
+  require('./test-suite/maxContains'),
   require('./test-suite/maximum'),
   require('./test-suite/maxItems'),
   require('./test-suite/maxLength'),
   require('./test-suite/maxProperties'),
-  // require('./test-suite/minContains'),
+  require('./test-suite/minContains'),
   require('./test-suite/minimum'),
   require('./test-suite/minItems'),
   require('./test-suite/minLength'),
@@ -37,7 +37,7 @@ const suites = [
   // require('./test-suite/prefixItems'),
   require('./test-suite/properties'), // 1
   require('./test-suite/required'),
-  require('./test-suite/type')
+  require('./test-suite/type'),
   // require('./test-suite/uniqueItems'), // 15
 ]
 
