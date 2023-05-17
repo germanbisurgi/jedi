@@ -21,7 +21,7 @@ class Jedi extends EventEmitter {
       alwaysShowErrors: false,
       showRequiredOnly: false,
       schema: {},
-      theme: 'wireframe',
+      theme: 'barebones',
       rootName: 'root',
       refParser: true
     }, options)
