@@ -1,31 +1,8 @@
 import ThemeBarebones from './barebones'
 
 class ThemeBootstrap4 extends ThemeBarebones {
-  getAlert (config) {
-    const html = super.getAlert(config)
-    html.classList.add('alert')
-    html.classList.add('alert-danger')
-    return html
-  }
-
-  getInvalidFeedback (config) {
-    const html = super.getInvalidFeedback(config)
-    html.classList.add('invalid-feedback')
-    html.classList.add('d-block')
-    return html
-  }
-
-  getBtnGroup () {
-    const html = super.getBtnGroup()
-    html.classList.add('btn-group')
-    return html
-  }
-
-  getButton (config) {
-    const html = super.getButton(config)
-    html.classList.add('btn')
-    html.classList.add('btn-sm')
-    return html
+  getEditorContainer () {
+    return super.getEditorContainer()
   }
 
   getFieldset () {
@@ -52,6 +29,37 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return html
   }
 
+  getPropertiesSlot (config) {
+    const html = super.getPropertiesSlot()
+    html.classList.add('collapse')
+    html.setAttribute('id', config.id)
+    return html
+  }
+
+  getActionsSlot () {
+    return super.getActionsSlot()
+  }
+
+  getArrayActionsSlot () {
+    return super.getArrayActionsSlot()
+  }
+
+  getChildrenSlot () {
+    return super.getChildrenSlot()
+  }
+
+  getDescriptionSlot () {
+    return super.getDescriptionSlot()
+  }
+
+  getMessagesSlot () {
+    return super.getMessagesSlot()
+  }
+
+  getControlSlot () {
+    return super.getControlSlot()
+  }
+
   getPropertiesToggle (config) {
     const html = this.getButton(config)
     html.setAttribute('data-toggle', 'collapse')
@@ -60,25 +68,42 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return html
   }
 
-  getPropertiesSlot (config) {
-    const html = super.getPropertiesSlot()
-    html.classList.add('collapse')
-    html.setAttribute('id', config.id)
+  getPropertiesActivators () {
+    return super.getPropertiesActivators()
+  }
+
+  getBtnGroup () {
+    const html = super.getBtnGroup()
+    html.classList.add('btn-group')
     return html
   }
 
-  getChildrenSlot () {
-    return super.getChildrenSlot()
+  getButton (config) {
+    const html = super.getButton(config)
+    html.classList.add('btn')
+    html.classList.add('btn-sm')
+    return html
   }
 
-  getControlSlot () {
-    const html = super.getControlSlot()
-    html.classList.add('form-group')
-    return html
+  getArrayBtnAdd (config) {
+    return super.getArrayBtnAdd(config)
+  }
+
+  getArrayBtnDeleteAll (config) {
+    return super.getArrayBtnDeleteAll(config)
+  }
+
+  getButtonActiveClass () {
+    return 'btn-primary'
+  }
+
+  getDescription (config) {
+    return super.getDescription(config)
   }
 
   getTextareaControl (config) {
     const control = document.createElement('div')
+    control.classList.add('form-group')
 
     const input = document.createElement('textarea')
     input.setAttribute('id', config.id)
@@ -100,6 +125,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
 
   getInputControl (config) {
     const control = document.createElement('div')
+    control.classList.add('form-group')
 
     const input = document.createElement('input')
     input.setAttribute('type', config.type)
@@ -193,8 +219,18 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return control
   }
 
-  getButtonActiveClass () {
-    return 'btn-primary'
+  getAlert (config) {
+    const html = super.getAlert(config)
+    html.classList.add('alert')
+    html.classList.add('alert-danger')
+    return html
+  }
+
+  getInvalidFeedback (config) {
+    const html = super.getInvalidFeedback(config)
+    html.classList.add('invalid-feedback')
+    html.classList.add('d-block')
+    return html
   }
 }
 

@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "npm run watch & npm run serve",
     "unit": "jest --config=./tests/unit/jest.config.js",
-    "e2e": "codeceptjs run-workers 15 -c tests/e2e/codecept.conf.js --debug",
-    "e2e:wireframe": "THEME='wireframe' npm run e2e",
+    "e2e": "codeceptjs run-workers 15 -c tests/e2e/codecept.conf.js",
     "e2e:b3": "THEME='bootstrap3' npm run e2e",
     "e2e:b4": "THEME='bootstrap4' npm run e2e",
     "e2e:b5": "THEME='bootstrap5' npm run e2e",

@@ -56,7 +56,7 @@ class Editor extends EventEmitter {
         this.theme = new ThemeBarebones()
     }
 
-    this.container = this.theme.getContainer()
+    this.container = this.theme.getEditorContainer()
     this.propertiesSlot = this.theme.getPropertiesSlot({
       id: 'properties-slot-' + this.instance.path.replace('.', '-')
     })

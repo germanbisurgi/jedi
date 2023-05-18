@@ -1,13 +1,9 @@
 ## Todo
 
-- schema getter: proof also boolean schemas
 - nest messages and descriptions slots inside control
 - actions by type: array actions, object actions, etc
-- array of objects: missing buttons
-- all themes extend from barebones
 - refactor path to look like '#/something/other'
 - ui required (not json required)
-- additionalProperties
 - readonly
 - refactor description and titles (duplicated code)
 - format categories

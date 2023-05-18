@@ -1,5 +1,5 @@
 class ThemeBarebones {
-  getContainer () {
+  getEditorContainer () {
     const html = document.createElement('div')
     html.classList.add('jedi-editor-container')
     return html
@@ -121,18 +121,6 @@ class ThemeBarebones {
     return small
   }
 
-  getLabel (config) {
-    const html = document.createElement('label')
-    html.setAttribute('for', config.for)
-    html.textContent = config.textContent
-
-    if (config.srOnly) {
-      html.classList.add('sr-only')
-    }
-
-    return html
-  }
-
   getTextareaControl (config) {
     const control = document.createElement('div')
 
@@ -147,7 +135,6 @@ class ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    // appends
     control.appendChild(label)
     control.appendChild(input)
 
@@ -169,7 +156,6 @@ class ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    // appends
     control.appendChild(label)
     control.appendChild(input)
 
@@ -177,10 +163,8 @@ class ThemeBarebones {
   }
 
   getRadiosControl (config) {
-    // control
     const control = document.createElement('div')
 
-    // legend
     const legend = document.createElement('label')
     legend.textContent = config.label
 
@@ -218,15 +202,12 @@ class ThemeBarebones {
   }
 
   getCheckboxControl (config) {
-    // control
     const control = document.createElement('div')
 
-    // input
     const input = document.createElement('input')
     input.setAttribute('type', 'checkbox')
     input.setAttribute('id', config.id)
 
-    // label
     const label = document.createElement('label')
     label.setAttribute('for', config.id)
     label.textContent = config.label
@@ -235,7 +216,6 @@ class ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    // appends
     control.appendChild(input)
     control.appendChild(label)
 
@@ -243,10 +223,8 @@ class ThemeBarebones {
   }
 
   getSelectControl (config) {
-    // control
     const control = document.createElement('div')
 
-    // input
     const input = document.createElement('select')
     input.setAttribute('id', config.id)
 
@@ -261,7 +239,6 @@ class ThemeBarebones {
       input.appendChild(option)
     })
 
-    // label
     const label = document.createElement('label')
     label.setAttribute('for', config.id)
     label.textContent = config.label
@@ -270,7 +247,6 @@ class ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    // appends
     control.appendChild(label)
     control.appendChild(input)
 
