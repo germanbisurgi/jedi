@@ -98,7 +98,9 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 
   getDescription (config) {
-    return super.getDescription(config)
+    const description = super.getDescription(config)
+    description.classList.add('form-text')
+    return description
   }
 
   getTextareaControl (config) {
@@ -148,6 +150,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
 
   getRadiosControl (config) {
     const control = document.createElement('div')
+    control.classList.add('form-group')
 
     const legend = document.createElement('label')
     legend.textContent = config.label
@@ -205,7 +208,6 @@ class ThemeBootstrap4 extends ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    // appends
     control.appendChild(input)
     control.appendChild(label)
 
@@ -228,7 +230,8 @@ class ThemeBootstrap4 extends ThemeBarebones {
 
   getInvalidFeedback (config) {
     const html = super.getInvalidFeedback(config)
-    html.classList.add('invalid-feedback')
+    html.classList.add('text-danger')
+    html.classList.add('form-text')
     html.classList.add('d-block')
     return html
   }

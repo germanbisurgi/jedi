@@ -42,8 +42,8 @@ class StringEditor extends Editor {
     // appends
     this.container.appendChild(this.controlSlot)
     this.controlSlot.appendChild(this.control)
-    this.controlSlot.appendChild(this.descriptionSlot)
-    this.controlSlot.appendChild(this.messagesSlot)
+    this.control.appendChild(this.descriptionSlot)
+    this.control.appendChild(this.messagesSlot)
 
     if (isSet(this.instance.schema.description())) {
       this.descriptionSlot.appendChild(this.description)

@@ -1,6 +1,6 @@
 ## Todo
 
-- nest messages and descriptions slots inside control
+- error messages texts
 - actions by type: array actions, object actions, etc
 - refactor path to look like '#/something/other'
 - ui required (not json required)

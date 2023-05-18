@@ -150,6 +150,7 @@ class ThemeBootstrap3 extends ThemeBarebones {
 
   getRadiosControl (config) {
     const control = document.createElement('div')
+    control.classList.add('form-group')
 
     const legend = document.createElement('label')
     legend.textContent = config.label
@@ -193,6 +194,7 @@ class ThemeBootstrap3 extends ThemeBarebones {
   getCheckboxControl (config) {
     const control = document.createElement('div')
     control.classList.add('checkbox')
+    control.classList.add('form-group')
 
     const input = document.createElement('input')
     input.setAttribute('type', 'checkbox')

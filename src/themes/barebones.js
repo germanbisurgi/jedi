@@ -116,9 +116,9 @@ class ThemeBarebones {
   }
 
   getDescription (config) {
-    const small = document.createElement('small')
-    small.textContent = config.textContent
-    return small
+    const description = document.createElement('div')
+    description.textContent = config.textContent
+    return description
   }
 
   getTextareaControl (config) {

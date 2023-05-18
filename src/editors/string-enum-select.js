@@ -15,20 +15,23 @@ class StringEnumSelectEditor extends StringEditor {
     this.control = control.control
     this.input = control.input
 
-    this.container.appendChild(this.controlSlot)
-    this.controlSlot.appendChild(this.control)
-    this.control.appendChild(this.messagesSlot)
+    // description
+    this.description = this.theme.getDescription({
+      textContent: this.instance.schema.description()
+    })
 
     // events
     this.input.addEventListener('change', () => {
       this.instance.setValue(this.input.value)
     })
 
-    // description
+    this.container.appendChild(this.controlSlot)
+    this.controlSlot.appendChild(this.control)
+    this.control.appendChild(this.descriptionSlot)
+    this.control.appendChild(this.messagesSlot)
+
     if (isSet(this.instance.schema.description())) {
-      this.controlSlot.appendChild(this.theme.getDescription({
-        textContent: this.instance.schema.description()
-      }))
+      this.descriptionSlot.appendChild(this.description)
     }
   }
 }

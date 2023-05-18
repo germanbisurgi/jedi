@@ -57,7 +57,9 @@ class ThemeBootstrap5 extends ThemeBarebones {
   }
 
   getControlSlot () {
-    return super.getControlSlot()
+    const controlSlot = super.getControlSlot()
+    controlSlot.classList.add('mb-3')
+    return controlSlot
   }
 
   getPropertiesToggle (config) {
@@ -98,12 +100,13 @@ class ThemeBootstrap5 extends ThemeBarebones {
   }
 
   getDescription (config) {
-    return super.getDescription(config)
+    const description = super.getDescription(config)
+    description.classList.add('form-text')
+    return description
   }
 
   getTextareaControl (config) {
     const control = document.createElement('div')
-    control.classList.add('form-group')
 
     const input = document.createElement('textarea')
     input.setAttribute('id', config.id)
@@ -125,7 +128,6 @@ class ThemeBootstrap5 extends ThemeBarebones {
 
   getInputControl (config) {
     const control = document.createElement('div')
-    control.classList.add('form-group')
 
     const input = document.createElement('input')
     input.setAttribute('type', config.type)
@@ -205,7 +207,6 @@ class ThemeBootstrap5 extends ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    // appends
     control.appendChild(input)
     control.appendChild(label)
 
@@ -214,7 +215,6 @@ class ThemeBootstrap5 extends ThemeBarebones {
 
   getSelectControl (config) {
     const control = super.getSelectControl(config)
-    control.control.classList.add('form-group')
     control.input.classList.add('form-select')
     return control
   }
@@ -228,8 +228,9 @@ class ThemeBootstrap5 extends ThemeBarebones {
 
   getInvalidFeedback (config) {
     const html = super.getInvalidFeedback(config)
-    html.classList.add('invalid-feedback')
+    html.classList.add('text-danger')
     html.classList.add('d-block')
+    html.classList.add('form-text')
     return html
   }
 }
