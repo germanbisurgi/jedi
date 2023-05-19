@@ -49,6 +49,24 @@
       <div class="panel panel-default">
         <div class="panel-heading">Options</div>
         <div class="panel-body">
+          <div class="form-group">
+            <label for="theme"><code>theme</code></label>
+            <select class="form-control" id="theme" v-model="options.theme" @change="reload()">
+              <option v-for="theme in themes" :value="theme">{{ theme }}</option>
+            </select>
+          </div>
+
+          <div class="form-group" v-if="editor">
+            <label for="schema">Schema</label>
+            <textarea class="form-control" id="schema" style="font-family: monospace; height: 200px;">{{ JSON.stringify(editor.schema.clone(), null, 2) }}</textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="schemas">Schemas</label>
+            <select ref="schema" class="form-control" id="schemas" @change="switchSchema()">
+              <option v-for="option in schemas" :value="option.url">{{ option.name }}</option>
+            </select>
+          </div>
 
           <div class="form-group">
             <input type="checkbox" id="isEditor" v-model="options.isEditor" @change="initEditor()">
@@ -68,30 +86,6 @@
           <div class="form-group">
             <input type="checkbox" id="showRequiredOnly" v-model="options.showRequiredOnly" @change="initEditor()">
             <label for="showRequiredOnly"><code>showRequiredOnly</code></label>
-          </div>
-
-          <div class="form-group">
-            <label for="rootName"><code>rootName</code></label>
-            <input class="form-control" id="rootName" v-model="options.rootName" @change="initEditor()">
-          </div>
-
-          <div class="form-group">
-            <label for="theme"><code>theme</code></label>
-            <select class="form-control" id="theme" v-model="options.theme" @change="reload()">
-              <option v-for="theme in themes" :value="theme">{{ theme }}</option>
-            </select>
-          </div>
-
-          <div class="form-group" v-if="editor">
-            <label for="schema">Schema</label>
-            <textarea class="form-control" id="schema" style="font-family: monospace; height: 200px;">{{ JSON.stringify(editor.schema.clone(), null, 2) }}</textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="schemas">Schemas</label>
-            <select ref="schema" class="form-control" id="schemas" @change="switchSchema()">
-              <option v-for="option in schemas" :value="option.url">{{ option.name }}</option>
-            </select>
           </div>
         </div>
       </div>
