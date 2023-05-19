@@ -15,15 +15,15 @@ Scenario('should display @patternProperties validation errors', ({ I }) => {
     I: 0
   }))
   I._click('#set-value')
-  I._scrollTo('[data-path="root"]')
-  I._waitForText('Must be: "test"', '[data-path="root"]')
-  I._waitForText('Must be: 21', '[data-path="root"]')
+  I._scrollTo('[data-path="#"]')
+  I._waitForText('Must be: "test"', '[data-path="#"]')
+  I._waitForText('Must be: 21', '[data-path="#"]')
   I.fillField('#editor-value', JSON.stringify({
     S: 'test',
     I: 21
   }))
   I._click('#set-value')
-  I._scrollTo('[data-path="root"]')
-  I.dontSee('Must be: "test"', '[data-path="root"]')
-  I.dontSee('Must be: 21', '[data-path="root"]')
+  I._scrollTo('[data-path="#"]')
+  I.dontSee('Must be: "test"', '[data-path="#"]')
+  I.dontSee('Must be: 21', '[data-path="#"]')
 })

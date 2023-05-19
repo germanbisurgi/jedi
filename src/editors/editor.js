@@ -58,7 +58,7 @@ class Editor extends EventEmitter {
 
     this.container = this.theme.getEditorContainer()
     this.propertiesSlot = this.theme.getPropertiesSlot({
-      id: 'properties-slot-' + this.instance.path.replace('.', '-')
+      id: 'properties-slot-' + this.instance.path.replace(this.instance.jedi.rootName, 'root')
     })
     this.controlSlot = this.theme.getControlSlot()
     this.messagesSlot = this.theme.getMessagesSlot()

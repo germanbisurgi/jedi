@@ -10,11 +10,11 @@ Scenario('should display @minProperties validation errors', ({ I }) => {
   I.fillField('#schemas', 'validator/minProperties')
   I.checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
-  I._waitForText('Must have at least 1 properties', '[data-path="root"]')
+  I._waitForText('Must have at least 1 properties', '[data-path="#"]')
   I.fillField('#editor-value', JSON.stringify({
     test: 'test'
   }))
   I._click('#set-value')
-  I._scrollTo('[data-path="root"]')
-  I.dontSee('Must have at least 1 properties', '[data-path="root"]')
+  I._scrollTo('[data-path="#"]')
+  I.dontSee('Must have at least 1 properties', '[data-path="#"]')
 })

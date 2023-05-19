@@ -169,12 +169,12 @@ class ThemeBootstrap3 extends ThemeBarebones {
 
       const radio = document.createElement('input')
       radio.setAttribute('type', 'radio')
-      radio.setAttribute('id', config.id + '.' + index)
+      radio.setAttribute('id', config.id + '/' + index)
       radio.setAttribute('value', value)
       inputs.push(radio)
 
       const label = document.createElement('label')
-      label.setAttribute('for', config.id + '.' + index)
+      label.setAttribute('for', config.id + '/' + index)
 
       const labelText = document.createElement('span')
 

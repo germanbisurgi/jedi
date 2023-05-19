@@ -8,7 +8,7 @@ class Instance extends EventEmitter {
     this.schema = config.schema
     this.value = config.value || undefined
     this.isActive = true
-    this.path = config.path || this.jedi.options.rootName
+    this.path = config.path || this.jedi.rootName
     this.parent = config.parent || null
     this.children = []
     this.ui = null
@@ -44,7 +44,7 @@ class Instance extends EventEmitter {
    * Return the last part of the instance path
    */
   getKey () {
-    return this.path.split('.').pop()
+    return this.path.split(this.jedi.pathSeparator).pop()
   }
 
   /**

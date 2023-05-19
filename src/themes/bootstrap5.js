@@ -168,13 +168,13 @@ class ThemeBootstrap5 extends ThemeBarebones {
 
       const radio = document.createElement('input')
       radio.setAttribute('type', 'radio')
-      radio.setAttribute('id', config.id + '.' + index)
+      radio.setAttribute('id', config.id + '/' + index)
       radio.setAttribute('value', value)
       radio.classList.add('form-check-input')
       inputs.push(radio)
 
       const label = document.createElement('label')
-      label.setAttribute('for', config.id + '.' + index)
+      label.setAttribute('for', config.id + '/' + index)
       label.classList.add('form-check-label')
 
       if (config.titles && config.titles[index]) {

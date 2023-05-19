@@ -8,7 +8,7 @@ Scenario('should display @type validation errors', ({ I }) => {
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/type')
   I._waitForElement('.jedi-ready')
-  I._scrollTo('[data-path="root"]')
+  I._scrollTo('[data-path="#"]')
   I.fillField('#editor-value', JSON.stringify({
     string: 1,
     number: 'test',
@@ -19,12 +19,12 @@ Scenario('should display @type validation errors', ({ I }) => {
     object: 'test'
   }))
   I._click('#set-value')
-  I._scrollTo('[data-path="root"]')
-  I._waitForText('Must be of type string', '[data-path="root.string"]')
-  I._waitForText('Must be of type number', '[data-path="root.number"]')
-  I._waitForText('Must be of type integer', '[data-path="root.integer"]')
-  I._waitForText('Must be of type boolean', '[data-path="root.boolean"]')
-  I._waitForText('Must be of type null', '[data-path="root.null"]')
-  I._waitForText('Must be of type array', '[data-path="root.array"]')
-  I._waitForText('Must be of type object', '[data-path="root.object"]')
+  I._scrollTo('[data-path="#"]')
+  I._waitForText('Must be of type string', '[data-path="#/string"]')
+  I._waitForText('Must be of type number', '[data-path="#/number"]')
+  I._waitForText('Must be of type integer', '[data-path="#/integer"]')
+  I._waitForText('Must be of type boolean', '[data-path="#/boolean"]')
+  I._waitForText('Must be of type null', '[data-path="#/null"]')
+  I._waitForText('Must be of type array', '[data-path="#/array"]')
+  I._waitForText('Must be of type object', '[data-path="#/object"]')
 })

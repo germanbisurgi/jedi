@@ -9,5 +9,5 @@ Scenario('should display @message validation error', ({ I }) => {
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/message')
   I.checkOption('[id="alwaysShowErrors"]')
-  I._waitForText('5 chars please.', '[data-path="root.string"]')
+  I._waitForText('5 chars please.', '[data-path="#/string"]')
 })

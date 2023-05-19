@@ -22,14 +22,14 @@ class ObjectEditor extends Editor {
 
     this.propertiesToggle = this.theme.getPropertiesToggle({
       textContent: 'Properties',
-      id: 'properties-slot-' + this.instance.path.replace('.', '-')
+      id: 'properties-slot-' + this.instance.path.replace(this.instance.jedi.rootName, 'root')
     })
 
     this.propertiesContainer = this.theme.getPropertiesActivators()
 
     this.addPropertyControl = this.theme.getInputControl({
       type: 'text',
-      id: 'jedi-add-property-input-' + this.instance.path,
+      id: 'jedi-add-property-input-' + this.instance.path.replace(this.instance.jedi.rootName, 'root'),
       label: 'Property'
     })
 

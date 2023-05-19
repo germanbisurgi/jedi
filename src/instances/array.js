@@ -25,7 +25,7 @@ class ArrayInstance extends Instance {
     const child = this.jedi.createInstance({
       jedi: this.jedi,
       schema: schema,
-      path: this.path + '.' + this.children.length,
+      path: this.path + this.jedi.pathSeparator + this.children.length,
       parent: this
     })
 

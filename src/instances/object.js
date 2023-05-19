@@ -58,7 +58,7 @@ class ObjectInstance extends Instance {
     const instance = this.jedi.createInstance({
       jedi: this.jedi,
       schema: schema,
-      path: this.path + '.' + key,
+      path: this.path + this.jedi.pathSeparator + key,
       parent: this
     })
 
@@ -88,7 +88,7 @@ class ObjectInstance extends Instance {
 
   getChild (key) {
     return this.children.find((instance) => {
-      return key === instance.getKey().split('.').pop()
+      return key === instance.getKey().split(this.jedi.pathSeparator).pop()
     })
   }
 

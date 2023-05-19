@@ -2,7 +2,6 @@
 
 - error messages texts
 - actions by type: array actions, object actions, etc
-- refactor path to look like '#/something/other'
 - ui required (not json required)
 - readonly
 - refactor description and titles (duplicated code)

@@ -21,7 +21,7 @@ Scenario('should display @additionalProperties validation errors', ({ I }) => {
     }
   }))
   I._click('#set-value')
-  I._scrollTo('[data-path="root"]')
-  I._waitForText('Property "additional" has not been defined and the schema does not allow additional properties.', '[data-path="root.boolean"]')
-  I._waitForText('Must be of type string', '[data-path="root.schema"]')
+  I._scrollTo('[data-path="#"]')
+  I._waitForText('Property "additional" has not been defined and the schema does not allow additional properties.', '[data-path="#/boolean"]')
+  I._waitForText('Must be of type string', '[data-path="#/schema"]')
 })

@@ -22,10 +22,11 @@ class Jedi extends EventEmitter {
       showRequiredOnly: false,
       schema: {},
       theme: 'barebones',
-      rootName: 'root',
       refParser: true
     }, options)
 
+    this.rootName = '#'
+    this.pathSeparator = '/'
     this.instances = {}
     this.root = null
     this.theme = null
