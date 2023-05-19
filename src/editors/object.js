@@ -3,7 +3,8 @@ import {
   equal,
   hasOwn,
   isObject,
-  isSet
+  isSet,
+  pathToAttribute
 } from '../utils'
 
 class ObjectEditor extends Editor {
@@ -22,14 +23,14 @@ class ObjectEditor extends Editor {
 
     this.propertiesToggle = this.theme.getPropertiesToggle({
       textContent: 'Properties',
-      id: 'properties-slot-' + this.instance.path.replace(this.instance.jedi.rootName, 'root')
+      id: 'properties-slot-' + pathToAttribute(this.instance.path)
     })
 
     this.propertiesContainer = this.theme.getPropertiesActivators()
 
     this.addPropertyControl = this.theme.getInputControl({
       type: 'text',
-      id: 'jedi-add-property-input-' + this.instance.path.replace(this.instance.jedi.rootName, 'root'),
+      id: 'jedi-add-property-input-' + pathToAttribute(this.instance.path),
       label: 'Property'
     })
 

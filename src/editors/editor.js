@@ -3,7 +3,7 @@ import ThemeBootstrap3 from '../themes/bootstrap3'
 import ThemeBootstrap4 from '../themes/bootstrap4'
 import ThemeBootstrap5 from '../themes/bootstrap5'
 import ThemeBarebones from '../themes/barebones'
-import { isSet } from '../utils'
+import { isSet, pathToAttribute } from '../utils'
 
 class Editor extends EventEmitter {
   constructor (instance) {
@@ -58,7 +58,7 @@ class Editor extends EventEmitter {
 
     this.container = this.theme.getEditorContainer()
     this.propertiesSlot = this.theme.getPropertiesSlot({
-      id: 'properties-slot-' + this.instance.path.replace(this.instance.jedi.rootName, 'root')
+      id: 'properties-slot-' + pathToAttribute(this.instance.path)
     })
     this.controlSlot = this.theme.getControlSlot()
     this.messagesSlot = this.theme.getMessagesSlot()

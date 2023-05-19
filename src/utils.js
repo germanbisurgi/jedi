@@ -8,6 +8,10 @@ export const fakeForEach = (array, callback) => {
   }
 }
 
+export const pathToAttribute = (path) => {
+  return path.replace('#', 'root').replace('/', '-')
+}
+
 export const hasOwn = (obj, key) => {
   return Object.prototype.hasOwnProperty.call(obj, key)
 }
