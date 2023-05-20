@@ -17,11 +17,6 @@ class BooleanEditor extends Editor {
       this.instance.setValue(this.input.checked)
     })
 
-    // description
-    this.description = this.theme.getDescription({
-      textContent: this.instance.schema.description()
-    })
-
     // appends
     this.container.appendChild(this.controlSlot)
     this.controlSlot.appendChild(this.control)

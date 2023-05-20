@@ -17,10 +17,6 @@ class ObjectEditor extends Editor {
       srOnly: this.instance.schema.option('hideTitle')
     })
 
-    this.description = this.theme.getDescription({
-      textContent: this.instance.schema.description()
-    })
-
     this.propertiesToggle = this.theme.getPropertiesToggle({
       textContent: 'Properties',
       id: 'properties-slot-' + pathToAttribute(this.instance.path)

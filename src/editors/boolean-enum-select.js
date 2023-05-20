@@ -21,11 +21,6 @@ class BooleanEnumSelectEditor extends BooleanEditor {
       this.instance.setValue(value)
     })
 
-    // description
-    this.description = this.theme.getDescription({
-      textContent: this.instance.schema.description()
-    })
-
     // appends
     this.container.appendChild(this.controlSlot)
     this.controlSlot.appendChild(this.control)

@@ -14,11 +14,6 @@ class ArrayEditor extends Editor {
       srOnly: this.instance.schema.option('hideTitle')
     })
 
-    // description
-    this.description = this.theme.getDescription({
-      textContent: this.instance.schema.description()
-    })
-
     // appends
     this.container.appendChild(this.fieldset)
     this.fieldset.appendChild(this.legend)

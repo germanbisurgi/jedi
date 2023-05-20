@@ -24,11 +24,6 @@ class StringEditor extends Editor {
     this.control = control.control
     this.input = control.input
 
-    // description
-    this.description = this.theme.getDescription({
-      textContent: this.instance.schema.description()
-    })
-
     // events
     this.input.addEventListener('change', () => {
       this.instance.setValue(this.input.value)
