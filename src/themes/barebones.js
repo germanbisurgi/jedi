@@ -123,7 +123,9 @@ class ThemeBarebones {
 
     const label = document.createElement('label')
     label.setAttribute('for', config.id)
-    label.textContent = config.label
+
+    const labelText = document.createElement('span')
+    labelText.textContent = config.label
 
     if (config.srOnly) {
       label.classList.add('sr-only')
@@ -131,8 +133,9 @@ class ThemeBarebones {
 
     control.appendChild(label)
     control.appendChild(input)
+    label.appendChild(labelText)
 
-    return { control, input }
+    return { control, input, label, labelText }
   }
 
   getInputControl (config) {
@@ -144,7 +147,9 @@ class ThemeBarebones {
 
     const label = document.createElement('label')
     label.setAttribute('for', config.id)
-    label.textContent = config.label
+
+    const labelText = document.createElement('label')
+    labelText.textContent = config.label
 
     if (config.srOnly) {
       label.classList.add('sr-only')
@@ -152,8 +157,9 @@ class ThemeBarebones {
 
     control.appendChild(label)
     control.appendChild(input)
+    label.appendChild(labelText)
 
-    return { control, input }
+    return { control, input, label, labelText }
   }
 
   getRadiosControl (config) {
@@ -204,7 +210,9 @@ class ThemeBarebones {
 
     const label = document.createElement('label')
     label.setAttribute('for', config.id)
-    label.textContent = config.label
+
+    const labelText = document.createElement('span')
+    labelText.textContent = config.label
 
     if (config.srOnly) {
       label.classList.add('sr-only')
@@ -212,8 +220,9 @@ class ThemeBarebones {
 
     control.appendChild(input)
     control.appendChild(label)
+    label.appendChild(labelText)
 
-    return { control, input }
+    return { control, input, label, labelText }
   }
 
   getSelectControl (config) {
@@ -235,7 +244,9 @@ class ThemeBarebones {
 
     const label = document.createElement('label')
     label.setAttribute('for', config.id)
-    label.textContent = config.label
+
+    const labelText = document.createElement('span')
+    labelText.textContent = config.label
 
     if (config.srOnly) {
       label.classList.add('sr-only')
@@ -243,39 +254,13 @@ class ThemeBarebones {
 
     control.appendChild(label)
     control.appendChild(input)
+    label.appendChild(labelText)
 
-    return { control, input }
+    return { control, input, label, labelText }
   }
 
   getSwitcher (config) {
-    const control = document.createElement('div')
-
-    const input = document.createElement('select')
-    input.setAttribute('id', config.id)
-
-    config.values.forEach((value, index) => {
-      const option = document.createElement('option')
-      option.setAttribute('value', value)
-
-      if (config.titles && config.titles[index]) {
-        option.textContent = config.titles[index]
-      }
-
-      input.appendChild(option)
-    })
-
-    const label = document.createElement('label')
-    label.setAttribute('for', config.id)
-    label.textContent = config.label
-
-    if (config.srOnly) {
-      label.classList.add('sr-only')
-    }
-
-    control.appendChild(label)
-    control.appendChild(input)
-
-    return { control, input, label }
+    return this.getSelectControl(config)
   }
 
   getAlert (config) {

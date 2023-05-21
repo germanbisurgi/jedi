@@ -9,9 +9,6 @@ class MultipleEditor extends Editor {
     })
     this.fieldsetBody = this.theme.getFieldsetBody()
 
-    // switcher buttons
-    this.switcherButtons = []
-
     this.switcher = this.theme.getSwitcher({
       values: this.instance.switcherOptionValues,
       titles: this.instance.switcherOptionsLabels,

@@ -100,48 +100,27 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 
   getTextareaControl (config) {
-    const control = document.createElement('div')
+    const { control, input, label, labelText } = super.getTextareaControl(config)
     control.classList.add('form-group')
-
-    const input = document.createElement('textarea')
-    input.setAttribute('id', config.id)
     input.classList.add('form-control')
-
-    const label = document.createElement('label')
-    label.setAttribute('for', config.id)
-    label.textContent = config.label
 
     if (config.srOnly) {
       label.classList.add('sr-only')
     }
 
-    control.appendChild(label)
-    control.appendChild(input)
-
-    return { control, input }
+    return { control, input, label, labelText }
   }
 
   getInputControl (config) {
-    const control = document.createElement('div')
+    const { control, input, label, labelText } = super.getInputControl(config)
     control.classList.add('form-group')
-
-    const input = document.createElement('input')
-    input.setAttribute('type', config.type)
-    input.setAttribute('id', config.id)
     input.classList.add('form-control')
-
-    const label = document.createElement('label')
-    label.setAttribute('for', config.id)
-    label.textContent = config.label
 
     if (config.srOnly) {
       label.classList.add('sr-only')
     }
 
-    control.appendChild(label)
-    control.appendChild(input)
-
-    return { control, input }
+    return { control, input, label, labelText }
   }
 
   getRadiosControl (config) {
@@ -187,27 +166,14 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 
   getCheckboxControl (config) {
-    const control = document.createElement('div')
+    const { control, input, label, labelText } = super.getCheckboxControl(config)
+    control.classList.add('form-group')
     control.classList.add('form-check')
-
-    const input = document.createElement('input')
-    input.setAttribute('type', 'checkbox')
-    input.setAttribute('id', config.id)
     input.classList.add('form-check-input')
-
-    const label = document.createElement('label')
-    label.setAttribute('for', config.id)
-    input.classList.add('form-check-label')
-    label.textContent = config.label
-
-    if (config.srOnly) {
-      label.classList.add('sr-only')
-    }
-
+    label.classList.add('form-check-label')
     control.appendChild(input)
     control.appendChild(label)
-
-    return { control, input }
+    return { control, input, label, labelText }
   }
 
   getSelectControl (config) {
@@ -218,7 +184,10 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 
   getSwitcher (config) {
-    return super.getSelectControl(config)
+    const { control, input, label, labelText } = super.getSwitcher(config)
+    control.classList.remove('form-group')
+    input.classList.remove('form-control')
+    return { control, input, label, labelText }
   }
 
   getAlert (config) {

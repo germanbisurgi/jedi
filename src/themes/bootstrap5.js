@@ -102,46 +102,27 @@ class ThemeBootstrap5 extends ThemeBarebones {
   }
 
   getTextareaControl (config) {
-    const control = document.createElement('div')
-
-    const input = document.createElement('textarea')
-    input.setAttribute('id', config.id)
+    const { control, input, label, labelText } = super.getTextareaControl(config)
+    control.classList.add('form-group')
     input.classList.add('form-control')
-
-    const label = document.createElement('label')
-    label.setAttribute('for', config.id)
-    label.textContent = config.label
 
     if (config.srOnly) {
       label.classList.add('visually-hidden')
     }
 
-    control.appendChild(label)
-    control.appendChild(input)
-
-    return { control, input }
+    return { control, input, label, labelText }
   }
 
   getInputControl (config) {
-    const control = document.createElement('div')
-
-    const input = document.createElement('input')
-    input.setAttribute('type', config.type)
-    input.setAttribute('id', config.id)
+    const { control, input, label, labelText } = super.getInputControl(config)
+    control.classList.add('form-group')
     input.classList.add('form-control')
-
-    const label = document.createElement('label')
-    label.setAttribute('for', config.id)
-    label.textContent = config.label
 
     if (config.srOnly) {
       label.classList.add('visually-hidden')
     }
 
-    control.appendChild(label)
-    control.appendChild(input)
-
-    return { control, input }
+    return { control, input, label, labelText }
   }
 
   getRadiosControl (config) {
@@ -186,27 +167,17 @@ class ThemeBootstrap5 extends ThemeBarebones {
   }
 
   getCheckboxControl (config) {
-    const control = document.createElement('div')
+    const { control, input, label, labelText } = super.getCheckboxControl(config)
     control.classList.add('form-check')
-
-    const input = document.createElement('input')
-    input.setAttribute('type', 'checkbox')
-    input.setAttribute('id', config.id)
     input.classList.add('form-check-input')
-
-    const label = document.createElement('label')
-    label.setAttribute('for', config.id)
-    input.classList.add('form-check-label')
-    label.textContent = config.label
+    label.classList.add('form-check-label')
 
     if (config.srOnly) {
       label.classList.add('visually-hidden')
     }
-
     control.appendChild(input)
     control.appendChild(label)
-
-    return { control, input }
+    return { control, input, label, labelText }
   }
 
   getSelectControl (config) {
@@ -216,9 +187,10 @@ class ThemeBootstrap5 extends ThemeBarebones {
   }
 
   getSwitcher (config) {
-    const control = super.getSwitcher(config)
-    control.label.classList.add('visually-hidden')
-    return control
+    const { control, input, label, labelText } = super.getSwitcher(config)
+    input.classList.remove('form-select')
+    label.classList.add('visually-hidden')
+    return { control, input, label, labelText }
   }
 
   getAlert (config) {
