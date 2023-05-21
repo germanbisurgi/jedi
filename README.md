@@ -1,6 +1,6 @@
 ## Todo
 
-- titles (duplicated code)
+- titles and descriptions created in control generators (use aria-described-by)
 - textarea standalone editor
 - error messages texts
 - actions by type: array actions, object actions, etc
