@@ -113,7 +113,7 @@ class ThemeBootstrap5 extends ThemeBarebones {
     label.textContent = config.label
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      label.classList.add('visually-hidden')
     }
 
     control.appendChild(label)
@@ -135,7 +135,7 @@ class ThemeBootstrap5 extends ThemeBarebones {
     label.textContent = config.label
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      label.classList.add('visually-hidden')
     }
 
     control.appendChild(label)
@@ -151,7 +151,7 @@ class ThemeBootstrap5 extends ThemeBarebones {
     legend.textContent = config.label
 
     if (config.srOnly) {
-      legend.classList.add('sr-only')
+      legend.classList.add('visually-hidden')
     }
 
     control.appendChild(legend)
@@ -200,7 +200,7 @@ class ThemeBootstrap5 extends ThemeBarebones {
     label.textContent = config.label
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      label.classList.add('visually-hidden')
     }
 
     control.appendChild(input)
@@ -212,6 +212,12 @@ class ThemeBootstrap5 extends ThemeBarebones {
   getSelectControl (config) {
     const control = super.getSelectControl(config)
     control.input.classList.add('form-select')
+    return control
+  }
+
+  getSwitcher (config) {
+    const control = super.getSwitcher(config)
+    control.label.classList.add('visually-hidden')
     return control
   }
 

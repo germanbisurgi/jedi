@@ -217,6 +217,10 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return control
   }
 
+  getSwitcher (config) {
+    return super.getSelectControl(config)
+  }
+
   getAlert (config) {
     const html = super.getAlert(config)
     html.classList.add('alert')

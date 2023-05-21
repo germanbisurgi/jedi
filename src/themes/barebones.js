@@ -247,6 +247,37 @@ class ThemeBarebones {
     return { control, input }
   }
 
+  getSwitcher (config) {
+    const control = document.createElement('div')
+
+    const input = document.createElement('select')
+    input.setAttribute('id', config.id)
+
+    config.values.forEach((value, index) => {
+      const option = document.createElement('option')
+      option.setAttribute('value', value)
+
+      if (config.titles && config.titles[index]) {
+        option.textContent = config.titles[index]
+      }
+
+      input.appendChild(option)
+    })
+
+    const label = document.createElement('label')
+    label.setAttribute('for', config.id)
+    label.textContent = config.label
+
+    if (config.srOnly) {
+      label.classList.add('sr-only')
+    }
+
+    control.appendChild(label)
+    control.appendChild(input)
+
+    return { control, input, label }
+  }
+
   getAlert (config) {
     const html = document.createElement('p')
     html.classList.add('jedi-error-message')

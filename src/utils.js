@@ -9,7 +9,7 @@ export const fakeForEach = (array, callback) => {
 }
 
 export const pathToAttribute = (path) => {
-  return path.replace('#', 'root').replace('/', '-')
+  return path.replaceAll('#', 'root').replaceAll('/', '-')
 }
 
 export const hasOwn = (obj, key) => {

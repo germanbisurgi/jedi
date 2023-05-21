@@ -1,5 +1,4 @@
 import Editor from './editor'
-import { pathToAttribute } from '../utils'
 
 class MultipleEditor extends Editor {
   build () {
@@ -11,20 +10,23 @@ class MultipleEditor extends Editor {
 
     // switcher buttons
     this.switcherButtons = []
+    this.switcher = this.theme.getBtnGroup()
+    this.switcher.classList.add('jedi-switcher')
 
-    this.switcher = this.theme.getSwitcher({
-      values: this.instance.switcherOptionValues,
-      titles: this.instance.switcherOptionsLabels,
-      id: pathToAttribute(this.instance.path) + '-switcher',
-      label: pathToAttribute(this.instance.path) + '-switcher',
-      srOnly: true
-    })
+    this.instance.switcherOptionValues.forEach((value, index) => {
+      // button
+      const button = this.theme.getButton({
+        textContent: this.instance.switcherOptionsLabels[index],
+        value: index
+      })
 
-    this.switcher.control.classList.add('jedi-switcher')
+      button.addEventListener('click', () => {
+        const index = Number(button.value)
+        this.instance.switchInstance(index)
+      })
 
-    this.switcher.input.addEventListener('change', () => {
-      const index = Number(this.switcher.input.value)
-      this.instance.switchInstance(index)
+      this.switcher.appendChild(button)
+      this.switcherButtons.push(button)
     })
 
     // appends
@@ -33,7 +35,7 @@ class MultipleEditor extends Editor {
     this.fieldset.appendChild(this.fieldsetBody)
     this.legend.appendChild(this.actionsSlot)
     this.container.appendChild(this.messagesSlot)
-    this.actionsSlot.appendChild(this.switcher.control)
+    this.actionsSlot.appendChild(this.switcher)
   }
 
   refreshUI () {
@@ -49,17 +51,23 @@ class MultipleEditor extends Editor {
 
     if (this.disabled) {
       this.instance.activeInstance.ui.disable()
-      this.switcher.input.setAttribute('disabled', 'disabled')
       buttons.forEach((button) => {
         button.disabled = true
       })
     } else {
       this.instance.activeInstance.ui.enable()
-      this.switcher.input.removeAttribute('disabled', 'disabled')
       buttons.forEach((button) => {
         button.disabled = false
       })
     }
+
+    this.switcherButtons.forEach((button) => {
+      if ((Number(button.value) === Number(this.instance.index))) {
+        button.classList.add(this.theme.getButtonActiveClass())
+      } else {
+        button.classList.remove(this.theme.getButtonActiveClass())
+      }
+    })
   }
 
   showValidationErrors () {

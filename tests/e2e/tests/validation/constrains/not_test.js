@@ -11,6 +11,6 @@ Scenario('should display @not validation errors', ({ I }) => {
   I.checkOption('[id="alwaysShowErrors"]')
   I._scrollTo('[data-path="#/test"]')
   I._waitForText('Must not validate against the provided schema {"type":"string"}', '[data-path="#/test"]')
-  I.click('Number')
+  I.fillField('root-test-switcher', 'Number')
   I.dontSee('Must not validate against the provided schema {"type":"string"}', '[data-path="#/test"]')
 })
