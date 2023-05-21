@@ -20,12 +20,10 @@ class BooleanEditor extends Editor {
     // appends
     this.container.appendChild(this.controlSlot)
     this.controlSlot.appendChild(this.control)
-    this.control.appendChild(this.descriptionSlot)
-    this.control.appendChild(this.messagesSlot)
-
     if (isSet(this.instance.schema.description())) {
-      this.descriptionSlot.appendChild(this.description)
+      this.control.appendChild(this.description)
     }
+    this.control.appendChild(this.messagesSlot)
   }
 
   sanitize (value) {

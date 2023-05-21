@@ -49,12 +49,6 @@ class ThemeBarebones {
     return html
   }
 
-  getDescriptionSlot () {
-    const html = document.createElement('div')
-    html.classList.add('jedi-description-slot')
-    return html
-  }
-
   getMessagesSlot () {
     const html = document.createElement('div')
     html.classList.add('jedi-messages-slot')

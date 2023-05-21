@@ -1,10 +1,11 @@
 ## Todo
 
+- titles (duplicated code)
+- textarea standalone editor
 - error messages texts
 - actions by type: array actions, object actions, etc
 - ui required (not json required)
 - readonly
-- refactor description and titles (duplicated code)
 - format categories
 - grid
 - plugins examples

@@ -19,13 +19,11 @@ class ArrayEditor extends Editor {
     this.fieldset.appendChild(this.legend)
     this.fieldset.appendChild(this.fieldsetBody)
     this.legend.appendChild(this.actionsSlot)
-    this.fieldsetBody.appendChild(this.descriptionSlot)
+    if (isSet(this.instance.schema.description())) {
+      this.fieldsetBody.appendChild(this.description)
+    }
     this.fieldsetBody.appendChild(this.messagesSlot)
     this.fieldsetBody.appendChild(this.childrenSlot)
-
-    if (isSet(this.instance.schema.description())) {
-      this.descriptionSlot.appendChild(this.description)
-    }
 
     // btn group
     const btnGroup = this.theme.getBtnGroup()

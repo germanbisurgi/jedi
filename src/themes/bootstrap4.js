@@ -48,10 +48,6 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return super.getChildrenSlot()
   }
 
-  getDescriptionSlot () {
-    return super.getDescriptionSlot()
-  }
-
   getMessagesSlot () {
     return super.getMessagesSlot()
   }

@@ -71,14 +71,14 @@ class ObjectEditor extends Editor {
     this.fieldset.appendChild(this.legend)
     this.fieldset.appendChild(this.fieldsetBody)
     this.legend.appendChild(this.actionsSlot)
-    this.fieldsetBody.appendChild(this.descriptionSlot)
+
+    if (isSet(this.instance.schema.description())) {
+      this.fieldsetBody.appendChild(this.description)
+    }
+
     this.fieldsetBody.appendChild(this.propertiesSlot)
     this.fieldsetBody.appendChild(this.messagesSlot)
     this.fieldsetBody.appendChild(this.childrenSlot)
-
-    if (isSet(this.instance.schema.description())) {
-      this.descriptionSlot.appendChild(this.description)
-    }
 
     if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {
       this.actionsSlot.appendChild(this.propertiesToggle)
