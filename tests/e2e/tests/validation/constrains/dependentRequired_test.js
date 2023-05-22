@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('dependentRequired')
 
-Scenario('should display @dependentRequired validation errors', ({ I }) => {
+Scenario('@dependentRequired should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/dependentRequired')

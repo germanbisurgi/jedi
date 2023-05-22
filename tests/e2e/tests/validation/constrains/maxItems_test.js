@@ -3,9 +3,8 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('maxItems')
 
-Scenario('should display @maxItems validation errors', ({ I }) => {
+Scenario('@maxItems should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
-
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/maxItems')
   I.checkOption('[id="alwaysShowErrors"]')

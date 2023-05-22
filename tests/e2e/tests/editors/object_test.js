@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('object')
 
-Scenario('should have @title and @description', ({ I }) => {
+Scenario('@description @title should have title and description', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')
@@ -11,7 +11,7 @@ Scenario('should have @title and @description', ({ I }) => {
   I._waitForText('Objects are the mapping type in JSON. They map “keys” to “values”. In JSON, the “keys” must always be strings. Each of these pairs is conventionally referred to as a “property”.')
 })
 
-Scenario('should add properties @editableProperties', ({ I }) => {
+Scenario('@pbject-editor @editableProperties should add properties', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')
@@ -27,7 +27,7 @@ Scenario('should add properties @editableProperties', ({ I }) => {
   I.dontSee('[id="#/test"]')
 })
 
-Scenario('should activate and deactivate properties @editableProperties', ({ I }) => {
+Scenario('@editableProperties should activate and deactivate properties', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')

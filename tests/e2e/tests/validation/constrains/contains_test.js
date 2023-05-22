@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('contains')
 
-Scenario('should display @contains validation errors', ({ I }) => {
+Scenario('@contains should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/contains')
@@ -14,7 +14,7 @@ Scenario('should display @contains validation errors', ({ I }) => {
   I.dontSee('No items match contains')
 })
 
-Scenario('should display @minContains validation errors', ({ I }) => {
+Scenario('@minContains should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/minContains')
@@ -30,7 +30,7 @@ Scenario('should display @minContains validation errors', ({ I }) => {
   I.dontSee('minimum contains count of 2')
 })
 
-Scenario('should display @maxContains validation errors', ({ I }) => {
+Scenario('@maxContains should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/maxContains')

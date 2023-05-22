@@ -3,9 +3,8 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('number')
 
-Scenario('should have @title and @description', ({ I }) => {
+Scenario('@number-editor @description @title should have title and description', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
-
   I.fillField('#schemas', 'editors/number')
   I._waitForElement('.jedi-ready')
   I._waitForText('Number', 'label')

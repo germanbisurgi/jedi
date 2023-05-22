@@ -12,7 +12,7 @@ const suites = [
   require('./test-suite/contains'),
   require('./test-suite/default'),
   require('./test-suite/dependentRequired'),
-  // require('./test-suite/dependentSchemas'),
+  require('./test-suite/dependentSchemas'),
   require('./test-suite/enum'),
   require('./test-suite/exclusiveMaximum'),
   require('./test-suite/exclusiveMinimum'),

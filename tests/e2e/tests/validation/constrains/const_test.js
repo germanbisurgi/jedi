@@ -3,9 +3,8 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('const')
 
-Scenario('should display @const validation errors', ({ I }) => {
+Scenario('@const should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
-
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/const')
   I.checkOption('[id="alwaysShowErrors"]')

@@ -3,9 +3,8 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('additionalProperties')
 
-Scenario('should display @additionalProperties validation errors', ({ I }) => {
+Scenario('@additionalProperties should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
-
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/additionalProperties')
   I.checkOption('[id="alwaysShowErrors"]')

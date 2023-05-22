@@ -3,9 +3,8 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('pattern')
 
-Scenario('should display @pattern validation errors', ({ I }) => {
+Scenario('@pattern should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
-
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/pattern')
   I.checkOption('[id="alwaysShowErrors"]')

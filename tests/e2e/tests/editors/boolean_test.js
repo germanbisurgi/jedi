@@ -3,9 +3,8 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('boolean')
 
-Scenario('should have @title and @description', ({ I }) => {
+Scenario('@boolean-editor @description @title should have title and description', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
-
   I.fillField('#schemas', 'editors/boolean')
   I._waitForElement('.jedi-ready')
   I._waitForText('Boolean', 'label')

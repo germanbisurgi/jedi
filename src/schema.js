@@ -37,6 +37,10 @@ class Schema {
     return isObject(this.schema.dependentRequired) ? this.schema.dependentRequired : undefined
   }
 
+  dependentSchemas () {
+    return isObject(this.schema.dependentSchemas) ? this.schema.dependentSchemas : undefined
+  }
+
   description () {
     return isString(this.schema.description) ? this.schema.description : undefined
   }

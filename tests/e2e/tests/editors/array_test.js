@@ -3,9 +3,8 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('array')
 
-Scenario('should have @title and @description', ({ I }) => {
+Scenario('@description @title should have title and description', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
-
   I.fillField('#schemas', 'editors/array')
   I._waitForElement('.jedi-ready')
   I._waitForText('Array', 'legend')

@@ -3,9 +3,8 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('minProperties')
 
-Scenario('should display @minProperties validation errors', ({ I }) => {
+Scenario('@minProperties should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
-
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/minProperties')
   I.checkOption('[id="alwaysShowErrors"]')

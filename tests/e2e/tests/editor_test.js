@@ -4,13 +4,13 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('editor')
 
-Scenario('should have class "jedi-ready" when ready @ready', ({ I }) => {
+Scenario('@ready should have class "jedi-ready" when ready', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
 })
 
-Scenario('Should create all kind of editors @create', ({ I }) => {
+Scenario('@create should create all kind of editors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
@@ -42,7 +42,7 @@ Scenario('Should create all kind of editors @create', ({ I }) => {
   I._waitForElement('[data-path="#/multiple/type-any"]')
 })
 
-Scenario('should destroy @destroy', ({ I }) => {
+Scenario('@destroy should destroy', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
@@ -51,7 +51,7 @@ Scenario('should destroy @destroy', ({ I }) => {
   I.dontSeeElement('[data-schemapath="root"]')
 })
 
-Scenario('Should disable and enable @disable', ({ I }) => {
+Scenario('@disable Should disable and enable', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
@@ -72,7 +72,7 @@ Scenario('Should disable and enable @disable', ({ I }) => {
   I.dontSeeElement('.jedi-ready button[disabled]')
 })
 
-Scenario('should set value @setValue', async ({ I }) => {
+Scenario('@setValue should set value', async ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')

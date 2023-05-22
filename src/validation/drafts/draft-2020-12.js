@@ -4,6 +4,7 @@ import { _const } from '../constrains/const'
 import { contains } from '../constrains/contains'
 import { anyOf } from '../constrains/anyOf'
 import { dependentRequired } from '../constrains/dependentRequired'
+import { dependentSchemas } from '../constrains/dependentSchemas'
 import { _enum } from '../constrains/enum'
 import { exclusiveMaximum } from '../constrains/exclusiveMaximum'
 import { exclusiveMinimum } from '../constrains/exclusiveMinimum'
@@ -33,6 +34,7 @@ export default {
   const: _const,
   contains: contains,
   dependentRequired: dependentRequired,
+  dependentSchemas: dependentSchemas,
   enum: _enum,
   exclusiveMaximum: exclusiveMaximum,
   exclusiveMinimum: exclusiveMinimum,

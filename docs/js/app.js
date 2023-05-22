@@ -83,6 +83,10 @@ window.addEventListener('DOMContentLoaded', () => {
             url: './json/validator/dependentRequired.json'
           },
           {
+            name: 'validator/dependentSchemas',
+            url: './json/validator/dependentSchemas.json'
+          },
+          {
             name: 'validator/enum',
             url: './json/validator/enum.json'
           },

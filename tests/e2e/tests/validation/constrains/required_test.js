@@ -3,9 +3,8 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('required')
 
-Scenario('should display @required validation errors', ({ I }) => {
+Scenario('@required should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
-
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/required')
   I.checkOption('[id="alwaysShowErrors"]')

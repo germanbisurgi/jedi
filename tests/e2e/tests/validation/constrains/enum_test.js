@@ -3,9 +3,8 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('enum')
 
-Scenario('should display @enum validation errors', ({ I }) => {
+Scenario('@enum should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
-
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/enum')
   I.checkOption('[id="alwaysShowErrors"]')
