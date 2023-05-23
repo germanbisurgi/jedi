@@ -9,7 +9,7 @@ Scenario('@enum should display validation errors', ({ I }) => {
   I.fillField('#schemas', 'validator/enum')
   I.checkOption('[id="alwaysShowErrors"]')
   I._waitForText('Must be one of the enumerated values: [{"string":"Albert"},{"string":"Betti"}]', '[data-path="#"]')
-  I.fillField('[id="#/string"]', 'Albert')
+  I.fillField('[id="root-string"]', 'Albert')
   I.pressKey('Tab')
   I.dontSee('Must be one of the enumerated values: [{"string":"Albert"},{"string":"Betti"}]', '[data-path="#"]')
 })

@@ -83,8 +83,8 @@ class ObjectEditor extends Editor {
     if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {
       this.actionsSlot.appendChild(this.propertiesToggle)
       this.propertiesSlot.appendChild(this.propertiesContainer)
-      this.propertiesSlot.appendChild(this.addPropertyControl.control)
-      this.addPropertyControl.control.appendChild(this.addPropertyBtn)
+      this.propertiesSlot.appendChild(this.addPropertyControl.container)
+      this.addPropertyControl.container.appendChild(this.addPropertyBtn)
     }
   }
 
@@ -109,7 +109,7 @@ class ObjectEditor extends Editor {
       }
 
       this.instance.children.forEach((child) => {
-        const id = child.path + '-activator'
+        const id = pathToAttribute(child.path) + '-activator'
 
         const checboxControl = this.theme.getCheckboxControl({
           id: id,
@@ -135,7 +135,7 @@ class ObjectEditor extends Editor {
         })
 
         // appends
-        this.propertiesContainer.appendChild(checboxControl.control)
+        this.propertiesContainer.appendChild(checboxControl.container)
       })
     }
   }

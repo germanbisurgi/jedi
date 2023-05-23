@@ -100,99 +100,76 @@ class ThemeBootstrap3 extends ThemeBarebones {
   }
 
   getTextareaControl (config) {
-    const { control, input, label, labelText, description } = super.getTextareaControl(config)
-    control.classList.add('form-group')
+    const { container, input, label, labelText, description } = super.getTextareaControl(config)
+    container.classList.add('form-group')
     input.classList.add('form-control')
 
     if (config.srOnly) {
       label.classList.add('sr-only')
     }
 
-    return { control, input, label, labelText, description }
+    return { container, input, label, labelText, description }
   }
 
   getInputControl (config) {
-    const { control, input, label, labelText } = super.getInputControl(config)
-    control.classList.add('form-group')
+    const { container, input, label, labelText, description } = super.getInputControl(config)
+    container.classList.add('form-group')
     input.classList.add('form-control')
 
     if (config.srOnly) {
       label.classList.add('sr-only')
     }
 
-    return { control, input, label, labelText }
+    return { container, input, label, labelText, description }
   }
 
   getRadiosControl (config) {
-    const control = document.createElement('div')
-    control.classList.add('form-group')
+    const { container, legend, radios, labels, labelTexts, radioControls, description } = super.getRadiosControl(config)
 
-    const legend = document.createElement('label')
-    legend.textContent = config.label
+    container.classList.add('form-group')
 
-    if (config.srOnly) {
-      legend.classList.add('sr-only')
-    }
-
-    control.appendChild(legend)
-
-    const inputs = []
-
-    config.values.forEach((value, index) => {
-      const radioControl = document.createElement('div')
+    radioControls.forEach((radioControl, index) => {
       radioControl.classList.add('radio')
 
-      const radio = document.createElement('input')
-      radio.setAttribute('type', 'radio')
-      radio.setAttribute('id', config.id + '/' + index)
-      radio.setAttribute('value', value)
-      inputs.push(radio)
-
-      const label = document.createElement('label')
-      label.setAttribute('for', config.id + '/' + index)
-
-      const labelText = document.createElement('span')
-
-      if (config.titles && config.titles[index]) {
-        labelText.textContent = config.titles[index]
-      }
-
-      control.appendChild(radioControl)
-      radioControl.appendChild(label)
-      label.appendChild(radio)
-      label.appendChild(labelText)
+      container.appendChild(radioControls[index])
+      radioControl.appendChild(labels[index])
+      labels[index].appendChild(radios[index])
+      labels[index].appendChild(labelTexts[index])
     })
 
-    return { control, inputs }
+    container.appendChild(description)
+
+    return { container, legend, radios, labels, labelTexts, radioControls, description }
   }
 
   getCheckboxControl (config) {
-    const { control, input, label, labelText } = super.getCheckboxControl(config)
-    control.classList.add('checkbox')
-    control.classList.add('form-group')
-    control.appendChild(label)
+    const { container, input, label, labelText, description } = super.getCheckboxControl(config)
+    container.classList.add('checkbox')
+    container.classList.add('form-group')
+    container.appendChild(label)
     label.appendChild(input)
     label.appendChild(labelText)
-    return { control, input, label, labelText }
+    container.appendChild(description)
+    return { container, input, label, labelText, description }
   }
 
   getSelectControl (config) {
-    const { control, input, label, labelText } = super.getSelectControl(config)
-    control.classList.add('form-group')
+    const { container, input, label, labelText, description } = super.getSelectControl(config)
+    container.classList.add('form-group')
     input.classList.add('form-control')
 
     if (config.srOnly) {
       label.classList.add('sr-only')
     }
 
-    return { control, input, label, labelText }
+    return { container, input, label, labelText, description }
   }
 
   getSwitcher (config) {
-    const { control, input, label, labelText } = super.getSwitcher(config)
-    control.classList.remove('form-group')
+    const { container, input, label, labelText, description } = super.getSwitcher(config)
+    container.classList.remove('form-group')
     input.classList.remove('form-control')
-    return { control, input, label, labelText }
+    return { container, input, label, labelText, description }
   }
 
   getAlert (config) {

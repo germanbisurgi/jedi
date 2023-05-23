@@ -10,7 +10,7 @@ Scenario('@uniqueItems should display validation errors', ({ I }) => {
   I.checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I.dontSee('Must be at least 5 characters long', '[data-path="#/array"]')
-  I.fillField('[id="#/array/1"]', 'Albert')
+  I.fillField('[id="root-array-1"]', 'Albert')
   I.pressKey('Tab')
   I._waitForText('Must have unique items', '[data-path="#/array"]')
 })

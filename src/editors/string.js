@@ -1,34 +1,30 @@
 import Editor from './editor'
-import { isSet } from '../utils'
+import { isSet, pathToAttribute } from '../utils'
 
 class StringEditor extends Editor {
   build () {
     const inputTypes = ['hidden', 'color', 'date', 'datetime-local', 'email', 'number', 'month', 'password', 'search', 'time', 'tel', 'text', 'textarea', 'url', 'week']
-    let control
 
     if (this.instance.schema.formatIs('textarea')) {
-      control = this.theme.getTextareaControl({
-        id: this.instance.path,
+      this.control = this.theme.getTextareaControl({
+        id: pathToAttribute(this.instance.path),
         label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
         srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden'),
         description: this.instance.schema.description()
       })
     } else {
-      control = this.theme.getInputControl({
+      this.control = this.theme.getInputControl({
         type: inputTypes.includes(this.instance.schema.format()) ? this.instance.schema.format() : 'text',
-        id: this.instance.path,
+        id: pathToAttribute(this.instance.path),
         label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
         srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden'),
         description: this.instance.schema.description()
       })
     }
 
-    this.control = control.control
-    this.input = control.input
-
     // events
-    this.input.addEventListener('change', () => {
-      this.instance.setValue(this.input.value)
+    this.control.input.addEventListener('change', () => {
+      this.instance.setValue(this.control.input.value)
     })
 
     // fix color picker bug
@@ -38,13 +34,8 @@ class StringEditor extends Editor {
 
     // appends
     this.container.appendChild(this.controlSlot)
-    this.controlSlot.appendChild(this.control)
-
-    if (isSet(this.instance.schema.description())) {
-      this.control.appendChild(this.description)
-    }
-
-    this.control.appendChild(this.messagesSlot)
+    this.controlSlot.appendChild(this.control.container)
+    this.control.container.appendChild(this.messagesSlot)
   }
 
   sanitize (value) {
@@ -52,12 +43,12 @@ class StringEditor extends Editor {
   }
 
   refreshUI () {
-    this.input.value = this.instance.getValue()
+    this.control.input.value = this.instance.getValue()
 
     if (this.disabled) {
-      this.input.setAttribute('disabled', 'disabled')
+      this.control.input.setAttribute('disabled', 'disabled')
     } else {
-      this.input.removeAttribute('disabled')
+      this.control.input.removeAttribute('disabled')
     }
   }
 }

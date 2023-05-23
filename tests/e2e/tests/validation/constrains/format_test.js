@@ -9,7 +9,7 @@ Scenario('@format should display validation error', ({ I }) => {
   I.fillField('#schemas', 'validator/format')
   I.checkOption('[id="alwaysShowErrors"]')
   I._waitForText('Must be a valid email address', '[data-path="#/email"]')
-  I.fillField('[id="#/email"]', 'some@email.com')
+  I.fillField('[id="root-email"]', 'some@email.com')
   I.pressKey('Tab')
   I.dontSee('Must be a valid email address', '[data-path="#/email"]')
 })

@@ -1,5 +1,3 @@
-import { pathToAttribute } from '../utils'
-
 class ThemeBarebones {
   getEditorContainer () {
     const html = document.createElement('div')
@@ -118,7 +116,7 @@ class ThemeBarebones {
   }
 
   getTextareaControl (config) {
-    const control = document.createElement('div')
+    const container = document.createElement('div')
 
     const input = document.createElement('textarea')
     input.setAttribute('id', config.id)
@@ -133,7 +131,7 @@ class ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    const descriptionId = pathToAttribute(config.id) + '-description'
+    const descriptionId = config.id + '-description'
     const description = document.createElement('div')
     description.setAttribute('id', descriptionId)
 
@@ -142,16 +140,16 @@ class ThemeBarebones {
       input.setAttribute('aria-describedby', descriptionId)
     }
 
-    control.appendChild(label)
-    control.appendChild(input)
-    control.appendChild(description)
+    container.appendChild(label)
+    container.appendChild(input)
+    container.appendChild(description)
     label.appendChild(labelText)
 
-    return { control, input, label, labelText, description }
+    return { container, input, label, labelText, description }
   }
 
   getInputControl (config) {
-    const control = document.createElement('div')
+    const container = document.createElement('div')
 
     const input = document.createElement('input')
     input.setAttribute('type', config.type)
@@ -167,15 +165,25 @@ class ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    control.appendChild(label)
-    control.appendChild(input)
+    const descriptionId = config.id + '-description'
+    const description = document.createElement('div')
+    description.setAttribute('id', descriptionId)
+
+    if (config.description) {
+      description.textContent = config.description
+      input.setAttribute('aria-describedby', descriptionId)
+    }
+
+    container.appendChild(label)
+    container.appendChild(input)
+    container.appendChild(description)
     label.appendChild(labelText)
 
-    return { control, input, label, labelText }
+    return { container, input, label, labelText, description }
   }
 
   getRadiosControl (config) {
-    const control = document.createElement('div')
+    const container = document.createElement('div')
 
     const legend = document.createElement('label')
     legend.textContent = config.label
@@ -184,37 +192,58 @@ class ThemeBarebones {
       legend.classList.add('sr-only')
     }
 
-    control.appendChild(legend)
+    container.appendChild(legend)
 
-    const inputs = []
+    const radioControls = []
+    const radios = []
+    const labels = []
+    const labelTexts = []
 
     config.values.forEach((value, index) => {
       const radioControl = document.createElement('div')
-      radioControl.classList.add('radio')
+      radioControls.push(radioControl)
 
       const radio = document.createElement('input')
       radio.setAttribute('type', 'radio')
-      radio.setAttribute('id', config.id + '/' + index)
+      radio.setAttribute('id', config.id + '-' + index)
       radio.setAttribute('value', value)
-      inputs.push(radio)
+      radios.push(radio)
 
       const label = document.createElement('label')
-      label.setAttribute('for', config.id + '/' + index)
+      label.setAttribute('for', config.id + '-' + index)
+
+      const labelText = document.createElement('span')
+      labelTexts.push(labelText)
 
       if (config.titles && config.titles[index]) {
-        label.textContent = config.titles[index]
+        labelText.textContent = config.titles[index]
       }
 
-      control.appendChild(radioControl)
-      radioControl.appendChild(radio)
-      radioControl.appendChild(label)
+      labels.push(label)
     })
 
-    return { control, inputs }
+    radioControls.forEach((radioControl, index) => {
+      container.appendChild(radioControls[index])
+      radioControl.appendChild(radios[index])
+      radioControl.appendChild(labels[index])
+      labels[index].appendChild(labelTexts[index])
+    })
+
+    const descriptionId = config.id + '-description'
+    const description = document.createElement('div')
+    description.setAttribute('id', descriptionId)
+
+    if (config.description) {
+      description.textContent = config.description
+    }
+
+    container.appendChild(description)
+
+    return { container, legend, radios, labels, labelTexts, radioControls, description }
   }
 
   getCheckboxControl (config) {
-    const control = document.createElement('div')
+    const container = document.createElement('div')
 
     const input = document.createElement('input')
     input.setAttribute('type', 'checkbox')
@@ -230,15 +259,25 @@ class ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    control.appendChild(input)
-    control.appendChild(label)
-    label.appendChild(labelText)
+    const descriptionId = config.id + '-description'
+    const description = document.createElement('div')
+    description.setAttribute('id', descriptionId)
 
-    return { control, input, label, labelText }
+    if (config.description) {
+      description.textContent = config.description
+      input.setAttribute('aria-describedby', descriptionId)
+    }
+
+    container.appendChild(input)
+    container.appendChild(label)
+    label.appendChild(labelText)
+    container.appendChild(description)
+
+    return { container, input, label, labelText, description }
   }
 
   getSelectControl (config) {
-    const control = document.createElement('div')
+    const container = document.createElement('div')
 
     const input = document.createElement('select')
     input.setAttribute('id', config.id)
@@ -264,11 +303,21 @@ class ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    control.appendChild(label)
-    control.appendChild(input)
-    label.appendChild(labelText)
+    const descriptionId = config.id + '-description'
+    const description = document.createElement('div')
+    description.setAttribute('id', descriptionId)
 
-    return { control, input, label, labelText }
+    if (config.description) {
+      description.textContent = config.description
+      input.setAttribute('aria-describedby', descriptionId)
+    }
+
+    container.appendChild(label)
+    container.appendChild(input)
+    label.appendChild(labelText)
+    container.appendChild(description)
+
+    return { container, input, label, labelText, description }
   }
 
   getSwitcher (config) {

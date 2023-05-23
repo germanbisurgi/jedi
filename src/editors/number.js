@@ -1,31 +1,26 @@
 import Editor from './editor'
-import { isNumber, isSet } from '../utils'
+import { isNumber, isSet, pathToAttribute } from '../utils'
 
 class NumberEditor extends Editor {
   build () {
-    const control = this.theme.getInputControl({
+    this.control = this.theme.getInputControl({
       type: 'number',
-      id: this.instance.path,
+      id: pathToAttribute(this.instance.path),
       label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden')
+      srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden'),
+      description: this.instance.schema.description()
     })
 
-    this.control = control.control
-    this.input = control.input
-
     // events
-    this.input.addEventListener('change', () => {
-      const value = this.sanitize(this.input.value)
+    this.control.input.addEventListener('change', () => {
+      const value = this.sanitize(this.control.input.value)
       this.instance.setValue(value)
     })
 
     // appends
     this.container.appendChild(this.controlSlot)
-    this.controlSlot.appendChild(this.control)
-    if (isSet(this.instance.schema.description())) {
-      this.control.appendChild(this.description)
-    }
-    this.control.appendChild(this.messagesSlot)
+    this.controlSlot.appendChild(this.control.container)
+    this.control.container.appendChild(this.messagesSlot)
   }
 
   sanitize (value) {
@@ -40,13 +35,13 @@ class NumberEditor extends Editor {
     const value = this.instance.getValue()
 
     if (isNumber(value)) {
-      this.input.value = this.instance.getValue()
+      this.control.input.value = this.instance.getValue()
     }
 
     if (this.disabled) {
-      this.input.setAttribute('disabled', 'disabled')
+      this.control.input.setAttribute('disabled', 'disabled')
     } else {
-      this.input.removeAttribute('disabled')
+      this.control.input.removeAttribute('disabled')
     }
   }
 }

@@ -1,29 +1,24 @@
 import Editor from './editor'
-import { isSet } from '../utils'
+import { isSet, pathToAttribute } from '../utils'
 
 class BooleanEditor extends Editor {
   build () {
-    const control = this.theme.getCheckboxControl({
-      id: this.instance.path,
+    this.control = this.theme.getCheckboxControl({
+      id: pathToAttribute(this.instance.path),
       label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle')
+      srOnly: this.instance.schema.option('hideTitle'),
+      description: this.instance.schema.description()
     })
 
-    this.control = control.control
-    this.input = control.input
-
     // events
-    this.input.addEventListener('change', () => {
-      this.instance.setValue(this.input.checked)
+    this.control.input.addEventListener('change', () => {
+      this.instance.setValue(this.control.input.checked)
     })
 
     // appends
     this.container.appendChild(this.controlSlot)
-    this.controlSlot.appendChild(this.control)
-    if (isSet(this.instance.schema.description())) {
-      this.control.appendChild(this.description)
-    }
-    this.control.appendChild(this.messagesSlot)
+    this.controlSlot.appendChild(this.control.container)
+    this.control.container.appendChild(this.messagesSlot)
   }
 
   sanitize (value) {
@@ -31,12 +26,12 @@ class BooleanEditor extends Editor {
   }
 
   refreshUI () {
-    this.input.checked = this.instance.getValue()
+    this.control.input.checked = this.instance.getValue()
 
     if (this.disabled) {
-      this.input.setAttribute('disabled', 'disabled')
+      this.control.input.setAttribute('disabled', 'disabled')
     } else {
-      this.input.removeAttribute('disabled')
+      this.control.input.removeAttribute('disabled')
     }
   }
 }

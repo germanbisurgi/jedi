@@ -1,42 +1,37 @@
 import BooleanEditor from './boolean'
-import { isSet } from '../utils'
+import { isSet, pathToAttribute } from '../utils'
 
 class BooleanEnumSelectEditor extends BooleanEditor {
   build () {
     // control
-    const control = this.theme.getSelectControl({
+    this.control = this.theme.getSelectControl({
       values: ['false', 'true'],
       titles: this.instance.schema.option('enumTitles') || ['false', 'true'],
-      id: this.instance.path,
+      id: pathToAttribute(this.instance.path),
       label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle')
+      srOnly: this.instance.schema.option('hideTitle'),
+      description: this.instance.schema.description()
     })
 
-    this.control = control.control
-    this.input = control.input
-
     // events
-    this.input.addEventListener('change', () => {
-      const value = this.input.value === 'true'
+    this.control.input.addEventListener('change', () => {
+      const value = this.control.input.value === 'true'
       this.instance.setValue(value)
     })
 
     // appends
     this.container.appendChild(this.controlSlot)
-    this.controlSlot.appendChild(this.control)
-    if (isSet(this.instance.schema.description())) {
-      this.control.appendChild(this.description)
-    }
-    this.control.appendChild(this.messagesSlot)
+    this.controlSlot.appendChild(this.control.container)
+    this.control.container.appendChild(this.messagesSlot)
   }
 
   refreshUI () {
-    this.input.value = this.instance.getValue() === true ? 'true' : 'false'
+    this.control.input.value = this.instance.getValue() === true ? 'true' : 'false'
 
     if (this.disabled) {
-      this.input.setAttribute('disabled', 'disabled')
+      this.control.input.setAttribute('disabled', 'disabled')
     } else {
-      this.input.removeAttribute('disabled')
+      this.control.input.removeAttribute('disabled')
     }
   }
 }

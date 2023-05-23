@@ -102,95 +102,76 @@ class ThemeBootstrap5 extends ThemeBarebones {
   }
 
   getTextareaControl (config) {
-    const { control, input, label, labelText, description } = super.getTextareaControl(config)
-    control.classList.add('form-group')
+    const { container, input, label, labelText, description } = super.getTextareaControl(config)
+    container.classList.add('form-group')
     input.classList.add('form-control')
 
     if (config.srOnly) {
       label.classList.add('visually-hidden')
     }
 
-    return { control, input, label, labelText, description }
+    return { container, input, label, labelText, description }
   }
 
   getInputControl (config) {
-    const { control, input, label, labelText } = super.getInputControl(config)
-    control.classList.add('form-group')
+    const { container, input, label, labelText, description } = super.getInputControl(config)
+    container.classList.add('form-group')
     input.classList.add('form-control')
 
     if (config.srOnly) {
       label.classList.add('visually-hidden')
     }
 
-    return { control, input, label, labelText }
+    return { container, input, label, labelText, description }
   }
 
   getRadiosControl (config) {
-    const control = document.createElement('div')
+    const { container, legend, radios, labels, labelTexts, radioControls, description } = super.getRadiosControl(config)
 
-    const legend = document.createElement('label')
-    legend.textContent = config.label
+    container.classList.add('form-group')
 
-    if (config.srOnly) {
-      legend.classList.add('visually-hidden')
-    }
-
-    control.appendChild(legend)
-
-    const inputs = []
-
-    config.values.forEach((value, index) => {
-      const radioControl = document.createElement('div')
+    radioControls.forEach((radioControl, index) => {
       radioControl.classList.add('form-check')
+      radios[index].classList.add('form-check-input')
+      labels[index].classList.add('form-check-label')
 
-      const radio = document.createElement('input')
-      radio.setAttribute('type', 'radio')
-      radio.setAttribute('id', config.id + '/' + index)
-      radio.setAttribute('value', value)
-      radio.classList.add('form-check-input')
-      inputs.push(radio)
-
-      const label = document.createElement('label')
-      label.setAttribute('for', config.id + '/' + index)
-      label.classList.add('form-check-label')
-
-      if (config.titles && config.titles[index]) {
-        label.textContent = config.titles[index]
-      }
-
-      control.appendChild(radioControl)
-      radioControl.appendChild(radio)
-      radioControl.appendChild(label)
+      container.appendChild(radioControls[index])
+      radioControl.appendChild(radios[index])
+      radioControl.appendChild(labels[index])
+      labels[index].appendChild(labelTexts[index])
     })
 
-    return { control, inputs }
+    container.appendChild(description)
+
+    return { container, legend, radios, labels, labelTexts, radioControls, description }
   }
 
   getCheckboxControl (config) {
-    const { control, input, label, labelText } = super.getCheckboxControl(config)
-    control.classList.add('form-check')
+    const { container, input, label, labelText, description } = super.getCheckboxControl(config)
+    container.classList.add('form-check')
     input.classList.add('form-check-input')
     label.classList.add('form-check-label')
 
     if (config.srOnly) {
       label.classList.add('visually-hidden')
     }
-    control.appendChild(input)
-    control.appendChild(label)
-    return { control, input, label, labelText }
+    container.appendChild(input)
+    container.appendChild(label)
+    container.appendChild(description)
+    return { container, input, label, labelText, description }
   }
 
   getSelectControl (config) {
-    const control = super.getSelectControl(config)
-    control.input.classList.add('form-select')
-    return control
+    const { container, input, label, labelText, description } = super.getSelectControl(config)
+    input.classList.add('form-select')
+    return { container, input, label, labelText, description }
   }
 
   getSwitcher (config) {
-    const { control, input, label, labelText } = super.getSwitcher(config)
+    const { container, input, label, labelText, description } = super.getSwitcher(config)
     input.classList.remove('form-select')
     label.classList.add('visually-hidden')
-    return { control, input, label, labelText }
+    return { container, input, label, labelText, description }
   }
 
   getAlert (config) {

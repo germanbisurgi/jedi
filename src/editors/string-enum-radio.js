@@ -1,22 +1,20 @@
 import StringEditor from './string'
-import { isSet } from '../utils'
+import { isSet, pathToAttribute } from '../utils'
 
 class StringEnumRadioEditor extends StringEditor {
   build () {
     // control
-    const control = this.theme.getRadiosControl({
+    this.control = this.theme.getRadiosControl({
       values: this.instance.schema.enum(),
       titles: this.instance.schema.option('enumTitles') || this.instance.schema.enum(),
-      id: this.instance.path,
+      id: pathToAttribute(this.instance.path),
       label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle')
+      srOnly: this.instance.schema.option('hideTitle'),
+      description: this.instance.schema.description()
     })
 
-    this.control = control.control
-    this.radioInputs = control.inputs
-
     // events
-    this.radioInputs.forEach((radio) => {
+    this.control.radios.forEach((radio) => {
       radio.addEventListener('change', () => {
         this.instance.setValue(radio.value)
       })
@@ -24,15 +22,12 @@ class StringEnumRadioEditor extends StringEditor {
 
     // appends
     this.container.appendChild(this.controlSlot)
-    this.controlSlot.appendChild(this.control)
-    if (isSet(this.instance.schema.description())) {
-      this.control.appendChild(this.description)
-    }
-    this.control.appendChild(this.messagesSlot)
+    this.controlSlot.appendChild(this.control.container)
+    this.control.container.appendChild(this.messagesSlot)
   }
 
   refreshUI () {
-    this.radioInputs.forEach((radio) => {
+    this.control.radios.forEach((radio) => {
       radio.checked = (radio.value === this.instance.getValue())
       radio.disabled = this.disabled
     })

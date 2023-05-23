@@ -17,7 +17,7 @@ class MultipleEditor extends Editor {
       srOnly: true
     })
 
-    this.switcher.control.classList.add('jedi-switcher')
+    this.switcher.container.classList.add('jedi-switcher')
 
     this.switcher.input.addEventListener('change', () => {
       const index = Number(this.switcher.input.value)
@@ -30,7 +30,7 @@ class MultipleEditor extends Editor {
     this.fieldset.appendChild(this.fieldsetBody)
     this.legend.appendChild(this.actionsSlot)
     this.container.appendChild(this.messagesSlot)
-    this.actionsSlot.appendChild(this.switcher.control)
+    this.actionsSlot.appendChild(this.switcher.container)
   }
 
   refreshUI () {

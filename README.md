@@ -1,10 +1,10 @@
 ## Todo
 
-- titles and descriptions created in control generators (use aria-described-by)
+- refactor array and object descriptions
 - all path to attributes
 - textarea standalone editor
 - error messages texts
-- use namse options
+- use names options
 - actions by type: array actions, object actions, etc
 - ui required (not json required)
 - readonly

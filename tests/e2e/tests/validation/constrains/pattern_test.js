@@ -10,7 +10,7 @@ Scenario('@pattern should display validation errors', ({ I }) => {
   I.checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I._waitForText('Must be the pattern: ^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$', '[data-path="#"]')
-  I.fillField('[id="#/string"]', 'test@test.com')
+  I.fillField('[id="root-string"]', 'test@test.com')
   I.pressKey('Tab')
   I.dontSee('Must be the pattern: ^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$', '[data-path="#"]')
 })
