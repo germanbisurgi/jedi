@@ -17,7 +17,6 @@ class Editor extends EventEmitter {
     this.actionsSlot = null
     this.arrayActionsSlot = null
     this.childrenSlot = null
-    this.description = null
     this.disabled = false
     this.init()
     this.build()
@@ -65,10 +64,6 @@ class Editor extends EventEmitter {
     this.actionsSlot = this.theme.getActionsSlot()
     this.arrayActionsSlot = this.theme.getArrayActionsSlot()
     this.childrenSlot = this.theme.getChildrenSlot()
-
-    this.description = this.theme.getDescription({
-      textContent: this.instance.schema.description()
-    })
   }
 
   setContainerAttributes () {

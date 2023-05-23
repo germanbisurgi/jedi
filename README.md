@@ -1,6 +1,5 @@
 ## Todo
 
-- refactor array and object descriptions
 - all path to attributes
 - textarea standalone editor
 - error messages texts

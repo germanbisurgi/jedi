@@ -72,6 +72,10 @@ class ObjectEditor extends Editor {
     this.fieldset.appendChild(this.fieldsetBody)
     this.legend.appendChild(this.actionsSlot)
 
+    this.description = this.theme.getDescription({
+      textContent: this.instance.schema.description()
+    })
+
     if (isSet(this.instance.schema.description())) {
       this.fieldsetBody.appendChild(this.description)
     }
