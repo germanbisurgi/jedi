@@ -1,3 +1,5 @@
+import { pathToAttribute } from '../utils'
+
 class ThemeBarebones {
   getEditorContainer () {
     const html = document.createElement('div')
@@ -131,11 +133,21 @@ class ThemeBarebones {
       label.classList.add('sr-only')
     }
 
+    const descriptionId = pathToAttribute(config.id) + '-description'
+    const description = document.createElement('div')
+    description.setAttribute('id', descriptionId)
+
+    if (config.description) {
+      description.textContent = config.description
+      input.setAttribute('aria-describedby', descriptionId)
+    }
+
     control.appendChild(label)
     control.appendChild(input)
+    control.appendChild(description)
     label.appendChild(labelText)
 
-    return { control, input, label, labelText }
+    return { control, input, label, labelText, description }
   }
 
   getInputControl (config) {

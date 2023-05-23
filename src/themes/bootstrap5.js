@@ -102,7 +102,7 @@ class ThemeBootstrap5 extends ThemeBarebones {
   }
 
   getTextareaControl (config) {
-    const { control, input, label, labelText } = super.getTextareaControl(config)
+    const { control, input, label, labelText, description } = super.getTextareaControl(config)
     control.classList.add('form-group')
     input.classList.add('form-control')
 
@@ -110,7 +110,7 @@ class ThemeBootstrap5 extends ThemeBarebones {
       label.classList.add('visually-hidden')
     }
 
-    return { control, input, label, labelText }
+    return { control, input, label, labelText, description }
   }
 
   getInputControl (config) {

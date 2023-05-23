@@ -10,14 +10,16 @@ class StringEditor extends Editor {
       control = this.theme.getTextareaControl({
         id: this.instance.path,
         label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-        srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden')
+        srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden'),
+        description: this.instance.schema.description()
       })
     } else {
       control = this.theme.getInputControl({
         type: inputTypes.includes(this.instance.schema.format()) ? this.instance.schema.format() : 'text',
         id: this.instance.path,
         label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-        srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden')
+        srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden'),
+        description: this.instance.schema.description()
       })
     }
 

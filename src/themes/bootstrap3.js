@@ -100,7 +100,7 @@ class ThemeBootstrap3 extends ThemeBarebones {
   }
 
   getTextareaControl (config) {
-    const { control, input, label, labelText } = super.getTextareaControl(config)
+    const { control, input, label, labelText, description } = super.getTextareaControl(config)
     control.classList.add('form-group')
     input.classList.add('form-control')
 
@@ -108,7 +108,7 @@ class ThemeBootstrap3 extends ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    return { control, input, label, labelText }
+    return { control, input, label, labelText, description }
   }
 
   getInputControl (config) {
