@@ -1,6 +1,5 @@
 ## Todo
 
-- all path to attributes
 - textarea standalone editor
 - error messages texts
 - use names options

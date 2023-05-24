@@ -9,8 +9,6 @@ window.addEventListener('DOMContentLoaded', () => {
           'bootstrap5',
           'bootstrap4',
           'bootstrap3',
-          'spectre',
-          'material',
           'barebones'
         ],
         schemas: [
