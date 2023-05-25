@@ -96,7 +96,7 @@ class ArrayEditor extends Editor {
       deleteBtn.classList.add('jedi-array-delete')
 
       deleteBtn.addEventListener('click', () => {
-        const itemIndex = Number(child.path.split(this.jedi.pathSeparator).pop())
+        const itemIndex = Number(child.path.split(this.instance.jedi.pathSeparator).pop())
         this.instance.deleteItem(itemIndex)
       })
 
