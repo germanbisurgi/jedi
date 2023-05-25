@@ -1,8 +1,8 @@
 ## Todo
 
-- arrays of objects
-- arrays of arrays
-- arrays of multiples
+- arrays of objects test
+- arrays of arrays test
+- arrays of multiples test
 - textarea standalone editor
 - error messages texts
 - use names options

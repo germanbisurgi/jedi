@@ -11,7 +11,7 @@
     "e2e:b4": "THEME='bootstrap4' npm run e2e",
     "e2e:b5": "THEME='bootstrap5' npm run e2e",
     "e2e:*": "npm run e2e && npm run e2e:b3 && npm run e2e:b4 && npm run e2e:b5",
-    "e2e:grep": "THEME='bootstrap3' codeceptjs run -c tests/e2e/codecept.conf.js --debug --grep '@if'",
+    "e2e:grep": "THEME='bootstrap3' codeceptjs run -c tests/e2e/codecept.conf.js --debug --grep '@enum'",
     "serve": "reload --port 8282 --browser --watch-dir ./docs --dir ./docs",
     "watch": "webpack --config config/webpack.config.js --watch",
     "webpack": "webpack",

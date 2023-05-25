@@ -79,8 +79,8 @@ class Instance extends EventEmitter {
   }
 
   setDefaultValue () {
-    // if (this.schema.enum()) {
-    //   value = this.schema.enum()[0]
+    // if (this.schema.enum() && isSet(this.schema.enum()[0])) {
+    //   this.value = this.schema.enum()[0]
     // }
 
     if (isSet(this.schema.default())) {
