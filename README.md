@@ -1,5 +1,8 @@
 ## Todo
 
+- arrays of objects
+- arrays of arrays
+- arrays of multiples
 - textarea standalone editor
 - error messages texts
 - use names options

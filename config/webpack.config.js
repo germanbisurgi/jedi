@@ -12,7 +12,7 @@ const jedi = {
     libraryTarget: 'umd',
     globalObject: 'this'
   },
-  mode: 'production',
+  mode: 'development',
   devtool: 'inline-source-map',
   module: {
     rules: [

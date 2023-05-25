@@ -175,6 +175,8 @@ class Instance extends EventEmitter {
     Object.keys(this).forEach((key) => {
       delete this[key]
     })
+
+    super.destroy()
   }
 }
 

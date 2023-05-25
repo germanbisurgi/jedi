@@ -18,7 +18,7 @@ const suites = [
   require('./test-suite/exclusiveMinimum'),
   require('./test-suite/format'),
   require('./test-suite/if-then-else'),
-  // require('./test-suite/items'), // 7
+  require('./test-suite/items'),
   require('./test-suite/maxContains'),
   require('./test-suite/maximum'),
   require('./test-suite/maxItems'),
@@ -34,11 +34,11 @@ const suites = [
   require('./test-suite/oneOf'),
   require('./test-suite/pattern'),
   require('./test-suite/patternProperties'),
-  // require('./test-suite/prefixItems'),
+  require('./test-suite/prefixItems'),
   require('./test-suite/properties'), // 1
   require('./test-suite/required'),
   require('./test-suite/type'),
-  // require('./test-suite/uniqueItems'), // 15
+  require('./test-suite/uniqueItems'),
 ]
 
 suites.forEach((suite) => {

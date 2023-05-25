@@ -86,7 +86,7 @@ class Schema {
   }
 
   items () {
-    return isObject(this.schema.items) ? this.schema.items : undefined
+    return isObject(this.schema.items) || isBoolean(this.schema.items) ? this.schema.items : undefined
   }
 
   maximum () {
@@ -183,6 +183,10 @@ class Schema {
 
   patternProperties () {
     return isObject(this.schema.patternProperties) ? this.schema.patternProperties : undefined
+  }
+
+  prefixItems () {
+    return isArray(this.schema.prefixItems) ? this.schema.prefixItems : undefined
   }
 
   properties () {
