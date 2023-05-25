@@ -74,6 +74,8 @@ class ArrayEditor extends Editor {
   }
 
   refreshUI () {
+    this.childrenSlot.innerHTML = ''
+
     this.instance.children.forEach((child) => {
       this.childrenSlot.appendChild(child.ui.container)
 

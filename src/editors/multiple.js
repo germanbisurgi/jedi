@@ -42,6 +42,8 @@ class MultipleEditor extends Editor {
 
     this.fieldsetBody.appendChild(this.instance.activeInstance.ui.container)
 
+    this.switcher.input.value = this.instance.index
+
     const buttons = this.container.querySelectorAll('button')
 
     if (this.disabled) {

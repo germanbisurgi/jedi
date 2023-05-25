@@ -8,6 +8,7 @@ class ArrayInstance extends Instance {
   }
 
   prepare () {
+    this.cache = {}
     this.refreshChildren()
 
     this.on('set-value', () => {
@@ -57,7 +58,8 @@ class ArrayInstance extends Instance {
     const tempEditor = this.createItemInstance()
     const value = clone(this.getValue())
     value.push(tempEditor.getValue())
-    tempEditor.destroy()
+    const cacheIndex = Object.keys(this.cache).length
+    this.cache[cacheIndex] = tempEditor
     this.setValue(value)
   }
 
@@ -78,10 +80,6 @@ class ArrayInstance extends Instance {
   }
 
   refreshChildren () {
-    this.children.forEach((child) => {
-      child.destroy()
-    })
-
     this.children = []
 
     const value = this.getValue()
@@ -90,8 +88,9 @@ class ArrayInstance extends Instance {
       return
     }
 
-    value.forEach((itemValue) => {
-      const child = this.createItemInstance(itemValue)
+    value.forEach((itemValue, index) => {
+      const child = isSet(this.cache[index]) ? this.cache[index] : this.createItemInstance(itemValue)
+      child.setValue(itemValue, false)
       this.children.push(child)
     })
   }

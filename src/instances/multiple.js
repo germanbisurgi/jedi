@@ -171,10 +171,10 @@ class MultipleInstance extends Instance {
     // instance that match the value.
     if (different(this.activeInstance.getValue(), value)) {
       const fittestIndex = this.getFittestIndex(value)
-      this.switchInstance(fittestIndex)
+      this.switchInstance(fittestIndex, false)
     }
 
-    this.activeInstance.setValue(value, true)
+    this.activeInstance.setValue(value, false)
   }
 
   getValue () {
