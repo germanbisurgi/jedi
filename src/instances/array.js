@@ -1,5 +1,5 @@
 import Instance from './instance'
-import { getType, isSet, clone, isArray, notSet, isBoolean } from '../utils'
+import { getType, isSet, clone, isArray, notSet, isObject } from '../utils'
 import ArrayEditor from '../editors/array'
 
 class ArrayInstance extends Instance {
@@ -27,11 +27,7 @@ class ArrayInstance extends Instance {
       schema = this.schema.prefixItems()[itemsCount]
     }
 
-    if (isBoolean(schema)) {
-      schema = {}
-    }
-
-    if (notSet(schema.type)) {
+    if (isObject(schema) && notSet(schema.type)) {
       schema.type = isSet(value) ? getType(value) : 'any'
     }
 

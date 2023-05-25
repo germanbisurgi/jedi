@@ -6,7 +6,7 @@ class NumberEnumSelectEditor extends NumberEditor {
     // control
     this.control = this.theme.getSelectControl({
       values: this.instance.schema.enum(),
-      titles: this.instance.schema.option('enumTitles') || this.optionValues,
+      titles: this.instance.schema.option('enumTitles') || this.instance.schema.enum(),
       id: pathToAttribute(this.instance.path),
       label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
       srOnly: this.instance.schema.option('hideTitle'),
