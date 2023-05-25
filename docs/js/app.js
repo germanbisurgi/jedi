@@ -101,8 +101,16 @@ window.addEventListener('DOMContentLoaded', () => {
             url: './json/validator/format.json'
           },
           {
-            name: 'validator/if',
-            url: './json/validator/if.json'
+            name: 'validator/if-then-else',
+            url: './json/validator/if-then-else.json'
+          },
+          {
+            name: 'validator/if-then',
+            url: './json/validator/if-then.json'
+          },
+          {
+            name: 'validator/if-else',
+            url: './json/validator/if-else.json'
           },
           {
             name: 'validator/maxItems',

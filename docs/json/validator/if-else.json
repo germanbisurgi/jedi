@@ -1,44 +1,30 @@
 {
-  "title": "if",
+  "title": "if-else",
   "type": "object",
-  "description": "The enum keyword is used to restrict a value to a fixed set of values. It must be an array with at least one element, where each element is unique.",
   "description": "The if, then and else keywords allow the application of a subschema based on the outcome of another schema, much like the if/then/else constructs you’ve probably seen in traditional programming languages. If if is valid, then must also be valid (and else is ignored.) If if is invalid, else must also be valid (and then is ignored). If then or else is not defined, if behaves as if they have a value of true. If then and/or else appear in a schema without if, then and else are ignored.",
   "properties": {
     "country": {
       "type": "string",
-      "default": "Canada",
+      "default": "America",
       "enum": [
-        "United States of America",
+        "America",
         "Canada"
       ]
     },
-    "postalCode": {
+    "postal_code": {
       "type": "string"
     }
   },
   "if": {
-    "type": "object",
     "properties": {
       "country": {
-        "type": "string",
-        "const": "United States of America"
-      }
-    }
-  },
-  "then": {
-    "type": "object",
-    "properties": {
-      "postalCode": {
-        "type": "string",
-        "pattern": "[0-9]{5}(-[0-9]{4})?"
+        "const": "America"
       }
     }
   },
   "else": {
-    "type": "object",
     "properties": {
-      "postalCode": {
-        "type": "string",
+      "postal_code": {
         "pattern": "[A-Z][0-9][A-Z] [0-9][A-Z][0-9]"
       }
     }
