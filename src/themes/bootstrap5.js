@@ -29,6 +29,12 @@ class ThemeBootstrap5 extends ThemeBarebones {
     return html
   }
 
+  getFieldsetFooter () {
+    const footer = super.getFieldsetFooter()
+    footer.classList.add('card-footer')
+    return footer
+  }
+
   getPropertiesSlot (config) {
     const html = super.getPropertiesSlot()
     html.classList.add('collapse')

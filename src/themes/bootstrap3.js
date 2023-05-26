@@ -25,6 +25,12 @@ class ThemeBootstrap3 extends ThemeBarebones {
     return html
   }
 
+  getFieldsetFooter () {
+    const footer = super.getFieldsetFooter()
+    footer.classList.add('panel-footer')
+    return footer
+  }
+
   getPropertiesSlot (config) {
     const html = super.getPropertiesSlot()
     html.classList.add('collapse')

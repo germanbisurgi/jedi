@@ -25,6 +25,10 @@ class ThemeBarebones {
     return html
   }
 
+  getFieldsetFooter () {
+    return document.createElement('div')
+  }
+
   getPropertiesSlot () {
     const html = document.createElement('div')
     html.classList.add('jedi-properties-slot')

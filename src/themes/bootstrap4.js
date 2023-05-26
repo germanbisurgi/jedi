@@ -29,6 +29,12 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return html
   }
 
+  getFieldsetFooter () {
+    const footer = super.getFieldsetFooter()
+    footer.classList.add('card-footer')
+    return footer
+  }
+
   getPropertiesSlot (config) {
     const html = super.getPropertiesSlot()
     html.classList.add('collapse')
@@ -76,6 +82,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
 
   getButton (config) {
     const html = super.getButton(config)
+    html.classList.add('btn')
     html.classList.add('btn')
     html.classList.add('btn-sm')
     return html
