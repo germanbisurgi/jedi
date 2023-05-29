@@ -48,7 +48,7 @@
         <div class="panel-heading card-header">Options</div>
         <div class="panel-body card-body">
           <div class="form-group">
-            <label for="theme"><code>theme</code></label>
+            <label for="theme">theme</label>
             <select class="form-control" id="theme" v-model="options.theme" @change="reload()">
               <option v-for="theme in themes" :value="theme">{{ theme }}</option>
             </select>
@@ -68,22 +68,22 @@
 
           <div class="form-group">
             <input type="checkbox" id="isEditor" v-model="options.isEditor" @change="initEditor()">
-            <label for="isEditor"><code>isEditor</code></label>
+            <label for="isEditor">isEditor</label>
           </div>
 
           <div class="form-group">
             <input type="checkbox" id="editableProperties" v-model="options.editableProperties" @change="initEditor()">
-            <label for="editableProperties"><code>editableProperties</code></label>
+            <label for="editableProperties">editableProperties</label>
           </div>
 
           <div class="form-group">
             <input type="checkbox" id="alwaysShowErrors" v-model="options.alwaysShowErrors" @change="initEditor()">
-            <label for="alwaysShowErrors"><code>alwaysShowErrors</code></label>
+            <label for="alwaysShowErrors">alwaysShowErrors</label>
           </div>
 
           <div class="form-group">
             <input type="checkbox" id="showRequiredOnly" v-model="options.showRequiredOnly" @change="initEditor()">
-            <label for="showRequiredOnly"><code>showRequiredOnly</code></label>
+            <label for="showRequiredOnly">showRequiredOnly</label>
           </div>
         </div>
       </div>
