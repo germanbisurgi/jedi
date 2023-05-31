@@ -9,37 +9,16 @@ import {
 
 class ObjectEditor extends Editor {
   build () {
-    this.fieldset = this.theme.getFieldset()
-    this.fieldsetBody = this.theme.getFieldsetBody()
-
-    this.legend = this.theme.getLegend({
-      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle')
+    this.control = this.theme.getObjectControl({
+      title: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
+      srOnly: this.instance.schema.option('hideTitle'),
+      id: pathToAttribute(this.instance.path),
+      description: this.instance.schema.description(),
+      editableProperties: equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)
     })
 
-    this.propertiesToggle = this.theme.getPropertiesToggle({
-      textContent: 'Properties',
-      id: 'properties-slot-' + pathToAttribute(this.instance.path)
-    })
-
-    this.propertiesContainer = this.theme.getPropertiesActivators()
-
-    this.addPropertyControl = this.theme.getInputControl({
-      type: 'text',
-      id: 'jedi-add-property-input-' + pathToAttribute(this.instance.path),
-      label: 'Property'
-    })
-
-    this.addPropertyInput = this.addPropertyControl.input
-
-    this.addPropertyBtn = this.theme.getButton({
-      textContent: 'Add property'
-    })
-
-    this.addPropertyBtn.classList.add('jedi-object-add')
-
-    this.addPropertyBtn.addEventListener('click', () => {
-      const key = this.addPropertyInput.value
+    this.control.addPropertyBtn.addEventListener('click', () => {
+      const key = this.control.addPropertyControl.input.value
 
       const propertyNameEmpty = key.length === 0
 
@@ -64,32 +43,10 @@ class ObjectEditor extends Editor {
       const child = this.instance.createChild(schema, key)
       child.activate()
       this.instance.setValue(this.instance.value)
-      this.addPropertyInput.value = ''
+      this.control.addPropertyControl.input.value = ''
     })
 
-    this.container.appendChild(this.fieldset)
-    this.fieldset.appendChild(this.legend)
-    this.fieldset.appendChild(this.fieldsetBody)
-    this.legend.appendChild(this.actionsSlot)
-
-    this.description = this.theme.getDescription({
-      textContent: this.instance.schema.description()
-    })
-
-    if (isSet(this.instance.schema.description())) {
-      this.fieldsetBody.appendChild(this.description)
-    }
-
-    this.fieldsetBody.appendChild(this.propertiesSlot)
-    this.fieldsetBody.appendChild(this.messagesSlot)
-    this.fieldsetBody.appendChild(this.childrenSlot)
-
-    if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {
-      this.actionsSlot.appendChild(this.propertiesToggle)
-      this.propertiesSlot.appendChild(this.propertiesContainer)
-      this.propertiesSlot.appendChild(this.addPropertyControl.container)
-      this.addPropertyControl.container.appendChild(this.addPropertyBtn)
-    }
+    this.container.appendChild(this.control.container)
   }
 
   sanitize (value) {
@@ -106,10 +63,21 @@ class ObjectEditor extends Editor {
     })
   }
 
+  showValidationErrors () {
+    const errors = this.instance.validate()
+
+    this.control.messages.innerHTML = ''
+
+    errors.forEach((error) => {
+      const invalidFeedback = this.getInvalidFeedback(error.message)
+      this.control.messages.appendChild(invalidFeedback)
+    })
+  }
+
   refreshPropertiesSlot () {
     if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {
-      while (this.propertiesContainer.firstChild) {
-        this.propertiesContainer.removeChild(this.propertiesContainer.lastChild)
+      while (this.control.propertiesActivators.firstChild) {
+        this.control.propertiesActivators.removeChild(this.control.propertiesActivators.lastChild)
       }
 
       this.instance.children.forEach((child) => {
@@ -139,19 +107,19 @@ class ObjectEditor extends Editor {
         })
 
         // appends
-        this.propertiesContainer.appendChild(checboxControl.container)
+        this.control.propertiesActivators.appendChild(checboxControl.container)
       })
     }
   }
 
   refreshEditors () {
-    while (this.childrenSlot.firstChild) {
-      this.childrenSlot.removeChild(this.childrenSlot.lastChild)
+    while (this.control.childrenSlot.firstChild) {
+      this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild)
     }
 
     this.instance.children.forEach((child) => {
       if (child.isActive) {
-        this.childrenSlot.appendChild(child.ui.container)
+        this.control.childrenSlot.appendChild(child.ui.container)
 
         if (this.disabled) {
           child.ui.disable()
@@ -167,13 +135,13 @@ class ObjectEditor extends Editor {
     this.refreshEditors()
 
     if (this.disabled) {
-      this.propertiesToggle.setAttribute('disabled', 'disabled')
-      this.addPropertyBtn.setAttribute('disabled', 'disabled')
-      this.addPropertyInput.setAttribute('disabled', 'disabled')
+      this.control.propertiesToggle.setAttribute('disabled', 'disabled')
+      this.control.addPropertyBtn.setAttribute('disabled', 'disabled')
+      this.control.addPropertyControl.input.setAttribute('disabled', 'disabled')
     } else {
-      this.propertiesToggle.removeAttribute('disabled')
-      this.addPropertyBtn.removeAttribute('disabled')
-      this.addPropertyInput.removeAttribute('disabled')
+      this.control.propertiesToggle.removeAttribute('disabled')
+      this.control.addPropertyBtn.removeAttribute('disabled')
+      this.control.addPropertyControl.input.removeAttribute('disabled')
     }
   }
 }

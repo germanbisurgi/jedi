@@ -119,6 +119,81 @@ class ThemeBarebones {
     return description
   }
 
+  getObjectControl (config) {
+    const container = document.createElement('div')
+    const fieldset = this.getFieldset()
+
+    const legend = this.getLegend({
+      textContent: config.title,
+      srOnly: config.srOnly
+    })
+
+    const actions = this.getActionsSlot()
+
+    const body = this.getFieldsetBody()
+
+    const propertiesToggle = this.getPropertiesToggle({
+      textContent: 'Properties',
+      id: 'properties-slot-' + config.id
+    })
+
+    const propertiesContainer = this.getPropertiesSlot({
+      id: 'properties-slot-' + config.id
+    })
+
+    const propertiesActivators = this.getPropertiesActivators()
+
+    const addPropertyControl = this.getInputControl({
+      type: 'text',
+      id: 'jedi-add-property-input-' + config.id,
+      label: 'Property'
+    })
+
+    const addPropertyBtn = this.getButton({
+      textContent: 'Add property'
+    })
+
+    addPropertyBtn.classList.add('jedi-object-add')
+
+    const description = this.getDescription({
+      textContent: config.description
+    })
+
+    const messages = this.getMessagesSlot()
+    const childrenSlot = this.getChildrenSlot()
+
+    container.appendChild(description)
+    container.appendChild(messages)
+    container.appendChild(fieldset)
+    fieldset.appendChild(legend)
+    fieldset.appendChild(body)
+    legend.appendChild(actions)
+    body.appendChild(propertiesContainer)
+    body.appendChild(childrenSlot)
+
+    if (config.editableProperties) {
+      actions.appendChild(propertiesToggle)
+      propertiesContainer.appendChild(propertiesActivators)
+      propertiesContainer.appendChild(addPropertyControl.container)
+      propertiesContainer.appendChild(addPropertyBtn)
+    }
+
+    return {
+      container,
+      fieldset,
+      legend,
+      body,
+      actions,
+      propertiesToggle,
+      propertiesContainer,
+      addPropertyControl,
+      addPropertyBtn,
+      messages,
+      childrenSlot,
+      propertiesActivators
+    }
+  }
+
   getTextareaControl (config) {
     const container = document.createElement('div')
 
