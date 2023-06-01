@@ -3,7 +3,7 @@ import ThemeBootstrap3 from '../themes/bootstrap3'
 import ThemeBootstrap4 from '../themes/bootstrap4'
 import ThemeBootstrap5 from '../themes/bootstrap5'
 import ThemeBarebones from '../themes/barebones'
-import { isSet, pathToAttribute } from '../utils'
+import { isSet } from '../utils'
 
 class Editor extends EventEmitter {
   constructor (instance) {
@@ -11,11 +11,7 @@ class Editor extends EventEmitter {
     this.instance = instance
     this.theme = null
     this.container = null
-    this.propertiesSlot = null
-    this.controlSlot = null
-    this.actionsSlot = null
-    this.arrayActionsSlot = null
-    this.childrenSlot = null
+    this.control = null
     this.disabled = false
     this.init()
     this.build()
@@ -55,15 +51,11 @@ class Editor extends EventEmitter {
     }
 
     this.container = this.theme.getEditorContainer()
-    this.propertiesSlot = this.theme.getPropertiesSlot({
-      id: 'properties-slot-' + pathToAttribute(this.instance.path)
-    })
-    this.controlSlot = this.theme.getControlSlot()
-    this.actionsSlot = this.theme.getActionsSlot()
-    this.arrayActionsSlot = this.theme.getArrayActionsSlot()
-    this.childrenSlot = this.theme.getChildrenSlot()
   }
 
+  /**
+   * Sets container attributes like data-path and data-type
+   */
   setContainerAttributes () {
     this.container.setAttribute('data-path', this.instance.path)
 
@@ -72,8 +64,14 @@ class Editor extends EventEmitter {
     }
   }
 
+  /**
+   * Builds the editor control
+   */
   build () {}
 
+  /**
+   * Updates control UI when its state changes
+   */
   refreshUI () {}
 
   /**
@@ -119,6 +117,9 @@ class Editor extends EventEmitter {
     return value
   }
 
+  /**
+   * Destroys the editor
+   */
   destroy () {
     if (this.container && this.container.parentNode) {
       this.container.parentNode.removeChild(this.container)

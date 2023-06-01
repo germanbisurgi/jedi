@@ -62,7 +62,7 @@ class Instance extends EventEmitter {
   }
 
   /**
-   * Sets the default value of the instance based on it'S schema
+   * Sets the default value of the instance based on it's type
    */
   setInitialValue () {
     let value

@@ -1,13 +1,14 @@
 ## Todo
 
+- theme getArrayItem 
 - use schema to evaluate annotations and options
 - arrays of objects test
 - arrays of arrays test
 - arrays of multiples test
+- aria attributes
 - textarea standalone editor
 - error messages texts
 - use names options
-- actions by type: array actions, object actions, etc
 - ui required (not json required)
 - readonly
 - format categories
@@ -16,15 +17,13 @@
 - array tabs
 - edit object values
 - edit array values
-- option exclude
 - filter by field
 - icons
 - form wizard
-- prefixItems
 - propertyNames
 - formats
 - array enums
-- array tuple 
+- translations
 
 ## Resources
 * [Understanding JSON Schema](http://json-schema.org/understanding-json-schema/index.html)

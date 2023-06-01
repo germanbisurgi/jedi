@@ -381,7 +381,7 @@ class ThemeBarebones {
     const label = document.createElement('label')
     label.setAttribute('for', config.id)
 
-    const labelText = document.createElement('label')
+    const labelText = document.createElement('span')
     labelText.textContent = config.label
 
     if (config.srOnly) {
