@@ -132,6 +132,13 @@ class ThemeBarebones {
 
     const body = this.getFieldsetBody()
 
+    const description = this.getDescription({
+      textContent: config.description
+    })
+
+    const messages = this.getMessagesSlot()
+    const childrenSlot = this.getChildrenSlot()
+
     const propertiesToggle = this.getPropertiesToggle({
       textContent: 'Properties',
       id: 'properties-slot-' + config.id
@@ -155,13 +162,6 @@ class ThemeBarebones {
 
     addPropertyBtn.classList.add('jedi-object-add')
 
-    const description = this.getDescription({
-      textContent: config.description
-    })
-
-    const messages = this.getMessagesSlot()
-    const childrenSlot = this.getChildrenSlot()
-
     container.appendChild(description)
     container.appendChild(messages)
     container.appendChild(fieldset)
@@ -184,13 +184,70 @@ class ThemeBarebones {
       legend,
       body,
       actions,
+      messages,
+      childrenSlot,
       propertiesToggle,
       propertiesContainer,
       addPropertyControl,
       addPropertyBtn,
+      propertiesActivators
+    }
+  }
+
+  getArrayControl (config) {
+    const container = document.createElement('div')
+
+    const fieldset = this.getFieldset()
+
+    const legend = this.getLegend({
+      textContent: config.title,
+      srOnly: config.srOnly
+    })
+
+    const actions = this.getActionsSlot()
+
+    const body = this.getFieldsetBody()
+
+    const description = this.getDescription({
+      textContent: config.description
+    })
+
+    const messages = this.getMessagesSlot()
+
+    const childrenSlot = this.getChildrenSlot()
+
+    const btnGroup = this.getBtnGroup()
+
+    const addBtn = this.getArrayBtnAdd({
+      textContent: 'Add item'
+    })
+
+    const deleteAllBtn = this.getArrayBtnDeleteAll({
+      textContent: 'Delete items'
+    })
+
+    container.appendChild(description)
+    container.appendChild(messages)
+    container.appendChild(fieldset)
+    fieldset.appendChild(legend)
+    fieldset.appendChild(body)
+    legend.appendChild(actions)
+    actions.appendChild(btnGroup)
+    btnGroup.appendChild(addBtn)
+    btnGroup.appendChild(deleteAllBtn)
+    body.appendChild(childrenSlot)
+
+    return {
+      container,
+      fieldset,
+      legend,
+      body,
+      actions,
       messages,
       childrenSlot,
-      propertiesActivators
+      btnGroup,
+      addBtn,
+      deleteAllBtn
     }
   }
 

@@ -1,5 +1,6 @@
 ## Todo
 
+- use schema to evaluate annotations and options
 - arrays of objects test
 - arrays of arrays test
 - arrays of multiples test

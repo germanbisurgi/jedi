@@ -1,62 +1,28 @@
 /* global confirm */
 
 import Editor from './editor'
-import { isArray, isSet } from '../utils'
+import { isArray, isSet, pathToAttribute } from '../utils'
 
 class ArrayEditor extends Editor {
   build () {
-    this.fieldset = this.theme.getFieldset()
-    this.fieldsetBody = this.theme.getFieldsetBody()
-
-    // title
-    this.legend = this.theme.getLegend({
-      textContent: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle')
+    this.control = this.theme.getArrayControl({
+      title: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
+      srOnly: this.instance.schema.option('hideTitle'),
+      id: pathToAttribute(this.instance.path),
+      description: this.instance.schema.description()
     })
 
-    // appends
-    this.container.appendChild(this.fieldset)
-    this.fieldset.appendChild(this.legend)
-    this.fieldset.appendChild(this.fieldsetBody)
-    this.legend.appendChild(this.actionsSlot)
-
-    this.description = this.theme.getDescription({
-      textContent: this.instance.schema.description()
-    })
-
-    if (isSet(this.instance.schema.description())) {
-      this.fieldsetBody.appendChild(this.description)
-    }
-
-    this.fieldsetBody.appendChild(this.messagesSlot)
-    this.fieldsetBody.appendChild(this.childrenSlot)
-
-    // btn group
-    const btnGroup = this.theme.getBtnGroup()
-
-    // addBtn
-    this.addBtn = this.theme.getArrayBtnAdd({
-      textContent: 'Add item'
-    })
-
-    this.addBtn.addEventListener('click', () => {
+    this.control.addBtn.addEventListener('click', () => {
       this.instance.addItem()
     })
 
-    // deleteAll
-    this.deleteAllBtn = this.theme.getArrayBtnDeleteAll({
-      textContent: 'Delete items'
-    })
-
-    this.deleteAllBtn.addEventListener('click', () => {
+    this.control.deleteAllBtn.addEventListener('click', () => {
       if (confirm('Confirm to delete all')) {
         this.instance.setValue([])
       }
     })
 
-    this.actionsSlot.appendChild(btnGroup)
-    btnGroup.appendChild(this.addBtn)
-    btnGroup.appendChild(this.deleteAllBtn)
+    this.container.appendChild(this.control.container)
   }
 
   getInvalidFeedback (message) {
@@ -73,8 +39,19 @@ class ArrayEditor extends Editor {
     return []
   }
 
+  showValidationErrors () {
+    const errors = this.instance.validate()
+
+    this.control.messages.innerHTML = ''
+
+    errors.forEach((error) => {
+      const invalidFeedback = this.getInvalidFeedback(error.message)
+      this.control.messages.appendChild(invalidFeedback)
+    })
+  }
+
   refreshUI () {
-    this.childrenSlot.innerHTML = ''
+    this.control.childrenSlot.innerHTML = ''
 
     this.instance.children.forEach((child) => {
       const arrayItem = this.theme.getFieldset()
@@ -82,7 +59,7 @@ class ArrayEditor extends Editor {
 
       arrayItem.appendChild(arrayItemBody)
 
-      this.childrenSlot.appendChild(arrayItem)
+      this.control.childrenSlot.appendChild(arrayItem)
 
       arrayItemBody.appendChild(child.ui.container)
 
@@ -137,7 +114,7 @@ class ArrayEditor extends Editor {
 
       arrayItemBody.appendChild(btnGroup)
 
-      const buttons = this.container.querySelectorAll('button')
+      const buttons = this.control.container.querySelectorAll('button')
 
       if (this.disabled) {
         child.ui.disable()
