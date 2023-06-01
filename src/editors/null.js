@@ -1,18 +1,16 @@
 import Editor from './editor'
-import { isSet } from '../utils'
+import { isSet, pathToAttribute } from '../utils'
 
 class NullEditor extends Editor {
   build () {
-    // appends
-    this.description = this.theme.getDescription({
-      textContent: this.instance.schema.description()
+    this.control = this.theme.getNullControl({
+      id: pathToAttribute(this.instance.path),
+      label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
+      srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden'),
+      description: this.instance.schema.description()
     })
 
-    if (isSet(this.instance.schema.description())) {
-      this.container.appendChild(this.description)
-    }
-    this.container.appendChild(this.messagesSlot)
-    this.container.appendChild(this.controlSlot)
+    this.container.appendChild(this.control.container)
   }
 
   sanitize (value) {

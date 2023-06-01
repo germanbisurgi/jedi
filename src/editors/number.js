@@ -11,16 +11,12 @@ class NumberEditor extends Editor {
       description: this.instance.schema.description()
     })
 
-    // events
     this.control.input.addEventListener('change', () => {
       const value = this.sanitize(this.control.input.value)
       this.instance.setValue(value)
     })
 
-    // appends
-    this.container.appendChild(this.controlSlot)
-    this.controlSlot.appendChild(this.control.container)
-    this.control.container.appendChild(this.messagesSlot)
+    this.container.appendChild(this.control.container)
   }
 
   sanitize (value) {

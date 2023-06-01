@@ -13,7 +13,6 @@ class NumberEnumRadioEditor extends NumberEditor {
       description: this.instance.schema.description()
     })
 
-    // events
     this.control.radios.forEach((radio) => {
       radio.addEventListener('change', () => {
         const value = this.sanitize(radio.value)
@@ -21,10 +20,7 @@ class NumberEnumRadioEditor extends NumberEditor {
       })
     })
 
-    // appends
-    this.container.appendChild(this.controlSlot)
-    this.controlSlot.appendChild(this.control.container)
-    this.control.container.appendChild(this.messagesSlot)
+    this.container.appendChild(this.control.container)
   }
 
   refreshUI () {

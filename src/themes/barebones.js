@@ -304,6 +304,37 @@ class ThemeBarebones {
     }
   }
 
+  getNullControl (config) {
+    const container = document.createElement('div')
+
+    const label = document.createElement('label')
+    label.setAttribute('for', config.id)
+
+    const labelText = document.createElement('span')
+    labelText.textContent = config.label
+
+    if (config.srOnly) {
+      label.classList.add('sr-only')
+    }
+
+    const descriptionId = config.id + '-description'
+    const description = document.createElement('div')
+    description.setAttribute('id', descriptionId)
+
+    if (config.description) {
+      description.textContent = config.description
+    }
+
+    const messages = this.getMessagesSlot()
+
+    container.appendChild(label)
+    container.appendChild(description)
+    container.appendChild(messages)
+    label.appendChild(labelText)
+
+    return { container, label, labelText, description, messages }
+  }
+
   getTextareaControl (config) {
     const container = document.createElement('div')
 
@@ -329,12 +360,15 @@ class ThemeBarebones {
       input.setAttribute('aria-describedby', descriptionId)
     }
 
+    const messages = this.getMessagesSlot()
+
     container.appendChild(label)
     container.appendChild(input)
     container.appendChild(description)
+    container.appendChild(messages)
     label.appendChild(labelText)
 
-    return { container, input, label, labelText, description }
+    return { container, input, label, labelText, description, messages }
   }
 
   getInputControl (config) {
@@ -363,12 +397,15 @@ class ThemeBarebones {
       input.setAttribute('aria-describedby', descriptionId)
     }
 
+    const messages = this.getMessagesSlot()
+
     container.appendChild(label)
     container.appendChild(input)
     container.appendChild(description)
+    container.appendChild(messages)
     label.appendChild(labelText)
 
-    return { container, input, label, labelText, description }
+    return { container, input, label, labelText, description, messages }
   }
 
   getRadiosControl (config) {
@@ -380,6 +417,8 @@ class ThemeBarebones {
     if (config.srOnly) {
       legend.classList.add('sr-only')
     }
+
+    const messages = this.getMessagesSlot()
 
     container.appendChild(legend)
 
@@ -427,8 +466,9 @@ class ThemeBarebones {
     }
 
     container.appendChild(description)
+    container.appendChild(messages)
 
-    return { container, legend, radios, labels, labelTexts, radioControls, description }
+    return { container, legend, radios, labels, labelTexts, radioControls, description, messages }
   }
 
   getCheckboxControl (config) {
@@ -457,12 +497,15 @@ class ThemeBarebones {
       input.setAttribute('aria-describedby', descriptionId)
     }
 
+    const messages = this.getMessagesSlot()
+
     container.appendChild(input)
     container.appendChild(label)
     label.appendChild(labelText)
     container.appendChild(description)
+    container.appendChild(messages)
 
-    return { container, input, label, labelText, description }
+    return { container, input, label, labelText, description, messages }
   }
 
   getSelectControl (config) {
@@ -501,12 +544,15 @@ class ThemeBarebones {
       input.setAttribute('aria-describedby', descriptionId)
     }
 
+    const messages = this.getMessagesSlot()
+
     container.appendChild(label)
     container.appendChild(input)
     label.appendChild(labelText)
     container.appendChild(description)
+    container.appendChild(messages)
 
-    return { container, input, label, labelText, description }
+    return { container, input, label, labelText, description, messages }
   }
 
   getSwitcher (config) {

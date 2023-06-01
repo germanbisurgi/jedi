@@ -13,7 +13,6 @@ class Editor extends EventEmitter {
     this.container = null
     this.propertiesSlot = null
     this.controlSlot = null
-    this.messagesSlot = null
     this.actionsSlot = null
     this.arrayActionsSlot = null
     this.childrenSlot = null
@@ -60,7 +59,6 @@ class Editor extends EventEmitter {
       id: 'properties-slot-' + pathToAttribute(this.instance.path)
     })
     this.controlSlot = this.theme.getControlSlot()
-    this.messagesSlot = this.theme.getMessagesSlot()
     this.actionsSlot = this.theme.getActionsSlot()
     this.arrayActionsSlot = this.theme.getArrayActionsSlot()
     this.childrenSlot = this.theme.getChildrenSlot()
@@ -84,11 +82,11 @@ class Editor extends EventEmitter {
   showValidationErrors () {
     const errors = this.instance.validate()
 
-    this.messagesSlot.innerHTML = ''
+    this.control.messages.innerHTML = ''
 
     errors.forEach((error) => {
       const invalidFeedback = this.getInvalidFeedback(error.message)
-      this.messagesSlot.appendChild(invalidFeedback)
+      this.control.messages.appendChild(invalidFeedback)
     })
   }
 

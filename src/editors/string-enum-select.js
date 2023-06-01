@@ -18,9 +18,7 @@ class StringEnumSelectEditor extends StringEditor {
       this.instance.setValue(this.control.input.value)
     })
 
-    this.container.appendChild(this.controlSlot)
-    this.controlSlot.appendChild(this.control.container)
-    this.control.container.appendChild(this.messagesSlot)
+    this.container.appendChild(this.control.container)
   }
 }
 

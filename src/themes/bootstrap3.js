@@ -106,7 +106,7 @@ class ThemeBootstrap3 extends ThemeBarebones {
   }
 
   getTextareaControl (config) {
-    const { container, input, label, labelText, description } = super.getTextareaControl(config)
+    const { container, input, label, labelText, description, messages } = super.getTextareaControl(config)
     container.classList.add('form-group')
     input.classList.add('form-control')
 
@@ -114,11 +114,11 @@ class ThemeBootstrap3 extends ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    return { container, input, label, labelText, description }
+    return { container, input, label, labelText, description, messages }
   }
 
   getInputControl (config) {
-    const { container, input, label, labelText, description } = super.getInputControl(config)
+    const { container, input, label, labelText, description, messages } = super.getInputControl(config)
     container.classList.add('form-group')
     input.classList.add('form-control')
 
@@ -126,11 +126,11 @@ class ThemeBootstrap3 extends ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    return { container, input, label, labelText, description }
+    return { container, input, label, labelText, description, messages }
   }
 
   getRadiosControl (config) {
-    const { container, legend, radios, labels, labelTexts, radioControls, description } = super.getRadiosControl(config)
+    const { container, legend, radios, labels, labelTexts, radioControls, description, messages } = super.getRadiosControl(config)
 
     container.classList.add('form-group')
 
@@ -144,23 +144,25 @@ class ThemeBootstrap3 extends ThemeBarebones {
     })
 
     container.appendChild(description)
+    container.appendChild(messages)
 
-    return { container, legend, radios, labels, labelTexts, radioControls, description }
+    return { container, legend, radios, labels, labelTexts, radioControls, description, messages }
   }
 
   getCheckboxControl (config) {
-    const { container, input, label, labelText, description } = super.getCheckboxControl(config)
+    const { container, input, label, labelText, description, messages } = super.getCheckboxControl(config)
     container.classList.add('checkbox')
     container.classList.add('form-group')
     container.appendChild(label)
     label.appendChild(input)
     label.appendChild(labelText)
     container.appendChild(description)
-    return { container, input, label, labelText, description }
+    container.appendChild(messages)
+    return { container, input, label, labelText, description, messages }
   }
 
   getSelectControl (config) {
-    const { container, input, label, labelText, description } = super.getSelectControl(config)
+    const { container, input, label, labelText, description, messages } = super.getSelectControl(config)
     container.classList.add('form-group')
     input.classList.add('form-control')
 
@@ -168,14 +170,14 @@ class ThemeBootstrap3 extends ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    return { container, input, label, labelText, description }
+    return { container, input, label, labelText, description, messages }
   }
 
   getSwitcher (config) {
-    const { container, input, label, labelText, description } = super.getSwitcher(config)
+    const { container, input, label, labelText, description, messages } = super.getSwitcher(config)
     container.classList.remove('form-group')
     input.classList.remove('form-control')
-    return { container, input, label, labelText, description }
+    return { container, input, label, labelText, description, messages }
   }
 
   getAlert (config) {

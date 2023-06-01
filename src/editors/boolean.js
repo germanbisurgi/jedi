@@ -10,15 +10,11 @@ class BooleanEditor extends Editor {
       description: this.instance.schema.description()
     })
 
-    // events
     this.control.input.addEventListener('change', () => {
       this.instance.setValue(this.control.input.checked)
     })
 
-    // appends
-    this.container.appendChild(this.controlSlot)
-    this.controlSlot.appendChild(this.control.container)
-    this.control.container.appendChild(this.messagesSlot)
+    this.container.appendChild(this.control.container)
   }
 
   sanitize (value) {
