@@ -251,6 +251,59 @@ class ThemeBarebones {
     }
   }
 
+  getMultipleControl (config) {
+    const container = document.createElement('div')
+
+    const fieldset = this.getFieldset()
+
+    const legend = this.getLegend({
+      textContent: config.title,
+      srOnly: config.srOnly
+    })
+
+    const actions = this.getActionsSlot()
+
+    const body = this.getFieldsetBody()
+
+    const description = this.getDescription({
+      textContent: config.description
+    })
+
+    const messages = this.getMessagesSlot()
+
+    const childrenSlot = this.getChildrenSlot()
+
+    const switcher = this.getSwitcher({
+      values: config.switcherOptionValues,
+      titles: config.switcherOptionsLabels,
+      id: config.id + '-switcher',
+      label: config.id + '-switcher',
+      srOnly: true
+    })
+
+    switcher.container.classList.add('jedi-switcher')
+
+    container.appendChild(description)
+    container.appendChild(messages)
+    container.appendChild(fieldset)
+    fieldset.appendChild(legend)
+    fieldset.appendChild(body)
+    legend.appendChild(actions)
+    actions.appendChild(switcher.container)
+    body.appendChild(childrenSlot)
+
+    return {
+      container,
+      fieldset,
+      legend,
+      body,
+      actions,
+      messages,
+      childrenSlot,
+      switcher
+    }
+  }
+
   getTextareaControl (config) {
     const container = document.createElement('div')
 

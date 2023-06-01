@@ -3,58 +3,45 @@ import { pathToAttribute } from '../utils'
 
 class MultipleEditor extends Editor {
   build () {
-    this.fieldset = this.theme.getFieldset()
-    this.legend = this.theme.getLegend({
-      textContent: 'Options'
-    })
-    this.fieldsetBody = this.theme.getFieldsetBody()
-
-    this.switcher = this.theme.getSwitcher({
-      values: this.instance.switcherOptionValues,
-      titles: this.instance.switcherOptionsLabels,
-      id: pathToAttribute(this.instance.path) + '-switcher',
-      label: pathToAttribute(this.instance.path) + '-switcher',
-      srOnly: true
+    this.control = this.theme.getMultipleControl({
+      title: 'Options',
+      srOnly: this.instance.schema.option('hideTitle'),
+      id: pathToAttribute(this.instance.path),
+      description: this.instance.schema.description(),
+      switcherOptionValues: this.instance.switcherOptionValues,
+      switcherOptionsLabels: this.instance.switcherOptionsLabels
     })
 
-    this.switcher.container.classList.add('jedi-switcher')
-
-    this.switcher.input.addEventListener('change', () => {
-      const index = Number(this.switcher.input.value)
+    this.control.switcher.input.addEventListener('change', () => {
+      const index = Number(this.control.switcher.input.value)
       this.instance.switchInstance(index)
     })
 
-    // appends
-    this.container.appendChild(this.fieldset)
-    this.fieldset.appendChild(this.legend)
-    this.fieldset.appendChild(this.fieldsetBody)
-    this.legend.appendChild(this.actionsSlot)
-    this.container.appendChild(this.messagesSlot)
-    this.actionsSlot.appendChild(this.switcher.container)
+    this.container.appendChild(this.control.container)
   }
 
   refreshUI () {
     const oldInstance = this.instance.instances[this.instance.lastIndex]
 
     if (oldInstance.ui.container.parentNode) {
-      this.fieldsetBody.removeChild(oldInstance.ui.container)
+      this.control.childrenSlot.removeChild(oldInstance.ui.container)
     }
 
-    this.fieldsetBody.appendChild(this.instance.activeInstance.ui.container)
+    this.control.childrenSlot.appendChild(this.instance.activeInstance.ui.container)
 
-    this.switcher.input.value = this.instance.index
+    this.control.switcher.input.value = this.instance.index
 
-    const buttons = this.container.querySelectorAll('button')
+    const buttons = this.control.container.querySelectorAll('button')
 
     if (this.disabled) {
       this.instance.activeInstance.ui.disable()
-      this.switcher.input.setAttribute('disabled', 'disabled')
+      this.control.switcher.input.setAttribute('disabled', 'disabled')
       buttons.forEach((button) => {
         button.disabled = true
       })
     } else {
       this.instance.activeInstance.ui.enable()
-      this.switcher.input.removeAttribute('disabled', 'disabled')
+      this.control.switcher.input.removeAttribute('disabled', 'disabled')
       buttons.forEach((button) => {
         button.disabled = false
       })
@@ -62,7 +49,15 @@ class MultipleEditor extends Editor {
   }
 
   showValidationErrors () {
-    super.showValidationErrors()
+    const errors = this.instance.validate()
+
+    this.control.messages.innerHTML = ''
+
+    errors.forEach((error) => {
+      const invalidFeedback = this.getInvalidFeedback(error.message)
+      this.control.messages.appendChild(invalidFeedback)
+    })
+
     this.instance.activeInstance.ui.showValidationErrors()
   }
 
