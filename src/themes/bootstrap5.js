@@ -1,10 +1,6 @@
 import ThemeBarebones from './barebones'
 
 class ThemeBootstrap5 extends ThemeBarebones {
-  getEditorContainer () {
-    return super.getEditorContainer()
-  }
-
   getFieldset () {
     const html = document.createElement('fieldset')
     html.classList.add('card')
@@ -42,22 +38,6 @@ class ThemeBootstrap5 extends ThemeBarebones {
     return html
   }
 
-  getActionsSlot () {
-    return super.getActionsSlot()
-  }
-
-  getArrayActionsSlot () {
-    return super.getArrayActionsSlot()
-  }
-
-  getChildrenSlot () {
-    return super.getChildrenSlot()
-  }
-
-  getMessagesSlot () {
-    return super.getMessagesSlot()
-  }
-
   getControlSlot () {
     const controlSlot = super.getControlSlot()
     controlSlot.classList.add('mb-3')
@@ -72,10 +52,6 @@ class ThemeBootstrap5 extends ThemeBarebones {
     return html
   }
 
-  getPropertiesActivators () {
-    return super.getPropertiesActivators()
-  }
-
   getBtnGroup () {
     const html = super.getBtnGroup()
     html.classList.add('btn-group')
@@ -87,14 +63,6 @@ class ThemeBootstrap5 extends ThemeBarebones {
     html.classList.add('btn')
     html.classList.add('btn-sm')
     return html
-  }
-
-  getArrayBtnAdd (config) {
-    return super.getArrayBtnAdd(config)
-  }
-
-  getArrayBtnDeleteAll (config) {
-    return super.getArrayBtnDeleteAll(config)
   }
 
   getButtonActiveClass () {

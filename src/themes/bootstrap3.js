@@ -1,10 +1,6 @@
 import ThemeBarebones from './barebones'
 
 class ThemeBootstrap3 extends ThemeBarebones {
-  getEditorContainer () {
-    return super.getEditorContainer()
-  }
-
   getFieldset () {
     const html = document.createElement('fieldset')
     html.classList.add('panel')
@@ -50,18 +46,6 @@ class ThemeBootstrap3 extends ThemeBarebones {
     return html
   }
 
-  getChildrenSlot () {
-    return super.getChildrenSlot()
-  }
-
-  getMessagesSlot () {
-    return super.getMessagesSlot()
-  }
-
-  getControlSlot () {
-    return super.getControlSlot()
-  }
-
   getPropertiesToggle (config) {
     const html = this.getButton(config)
     html.setAttribute('data-toggle', 'collapse')
@@ -69,10 +53,6 @@ class ThemeBootstrap3 extends ThemeBarebones {
     html.classList.add('jedi-properties-toggle')
     html.classList.add('pull-right')
     return html
-  }
-
-  getPropertiesActivators () {
-    return super.getPropertiesActivators()
   }
 
   getBtnGroup () {
@@ -89,20 +69,8 @@ class ThemeBootstrap3 extends ThemeBarebones {
     return html
   }
 
-  getArrayBtnAdd (config) {
-    return super.getArrayBtnAdd(config)
-  }
-
-  getArrayBtnDeleteAll (config) {
-    return super.getArrayBtnAdd(config)
-  }
-
   getButtonActiveClass () {
     return 'btn-primary'
-  }
-
-  getDescription (config) {
-    return super.getDescription(config)
   }
 
   getTextareaControl (config) {

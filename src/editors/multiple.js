@@ -49,15 +49,7 @@ class MultipleEditor extends Editor {
   }
 
   showValidationErrors () {
-    const errors = this.instance.validate()
-
-    this.control.messages.innerHTML = ''
-
-    errors.forEach((error) => {
-      const invalidFeedback = this.getInvalidFeedback(error.message)
-      this.control.messages.appendChild(invalidFeedback)
-    })
-
+    super.showValidationErrors()
     this.instance.activeInstance.ui.showValidationErrors()
   }
 

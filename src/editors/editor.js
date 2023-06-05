@@ -65,7 +65,7 @@ class Editor extends EventEmitter {
   }
 
   /**
-   * Builds the editor control
+   * Builds the editor control and appends it to the editor container
    */
   build () {}
 

@@ -251,6 +251,64 @@ class ThemeBarebones {
     }
   }
 
+  getArrayItem (config) {
+    const container = document.createElement('div')
+
+    const fieldset = this.getFieldset()
+
+    const legend = this.getLegend({
+      textContent: config.legend,
+      srOnly: config.srOnly
+    })
+
+    const actions = this.getActionsSlot()
+
+    const body = this.getFieldsetBody()
+
+    const btnGroup = this.getBtnGroup()
+
+    const deleteBtn = this.getButton({
+      textContent: 'Delete item'
+    })
+
+    deleteBtn.classList.add('jedi-array-delete')
+
+    const moveUpBtn = this.getButton({
+      textContent: 'Move up'
+    })
+
+    moveUpBtn.classList.add('jedi-array-move-up')
+
+    const moveDownBtn = this.getButton({
+      textContent: 'Move down'
+    })
+
+    moveDownBtn.classList.add('jedi-array-move-down')
+
+    const childrenSlot = this.getChildrenSlot()
+
+    container.appendChild(fieldset)
+    fieldset.appendChild(legend)
+    fieldset.appendChild(body)
+    legend.appendChild(actions)
+    body.appendChild(childrenSlot)
+    body.appendChild(btnGroup)
+    btnGroup.appendChild(deleteBtn)
+    btnGroup.appendChild(moveUpBtn)
+    btnGroup.appendChild(moveDownBtn)
+
+    return {
+      container,
+      fieldset,
+      legend,
+      body,
+      childrenSlot,
+      deleteBtn,
+      moveUpBtn,
+      moveDownBtn
+    }
+  }
+
   getMultipleControl (config) {
     const container = document.createElement('div')
 

@@ -63,17 +63,6 @@ class ObjectEditor extends Editor {
     })
   }
 
-  showValidationErrors () {
-    const errors = this.instance.validate()
-
-    this.control.messages.innerHTML = ''
-
-    errors.forEach((error) => {
-      const invalidFeedback = this.getInvalidFeedback(error.message)
-      this.control.messages.appendChild(invalidFeedback)
-    })
-  }
-
   refreshPropertiesSlot () {
     if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {
       while (this.control.propertiesActivators.firstChild) {
@@ -106,7 +95,6 @@ class ObjectEditor extends Editor {
           }
         })
 
-        // appends
         this.control.propertiesActivators.appendChild(checboxControl.container)
       })
     }

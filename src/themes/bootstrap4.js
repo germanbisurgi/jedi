@@ -1,10 +1,6 @@
 import ThemeBarebones from './barebones'
 
 class ThemeBootstrap4 extends ThemeBarebones {
-  getEditorContainer () {
-    return super.getEditorContainer()
-  }
-
   getFieldset () {
     const html = document.createElement('fieldset')
     html.classList.add('card')
@@ -42,36 +38,12 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return html
   }
 
-  getActionsSlot () {
-    return super.getActionsSlot()
-  }
-
-  getArrayActionsSlot () {
-    return super.getArrayActionsSlot()
-  }
-
-  getChildrenSlot () {
-    return super.getChildrenSlot()
-  }
-
-  getMessagesSlot () {
-    return super.getMessagesSlot()
-  }
-
-  getControlSlot () {
-    return super.getControlSlot()
-  }
-
   getPropertiesToggle (config) {
     const html = this.getButton(config)
     html.setAttribute('data-toggle', 'collapse')
     html.setAttribute('data-target', '#' + config.id)
     html.classList.add('jedi-properties-toggle')
     return html
-  }
-
-  getPropertiesActivators () {
-    return super.getPropertiesActivators()
   }
 
   getBtnGroup () {
@@ -86,14 +58,6 @@ class ThemeBootstrap4 extends ThemeBarebones {
     html.classList.add('btn')
     html.classList.add('btn-sm')
     return html
-  }
-
-  getArrayBtnAdd (config) {
-    return super.getArrayBtnAdd(config)
-  }
-
-  getArrayBtnDeleteAll (config) {
-    return super.getArrayBtnDeleteAll(config)
   }
 
   getButtonActiveClass () {

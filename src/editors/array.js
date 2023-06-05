@@ -39,80 +39,36 @@ class ArrayEditor extends Editor {
     return []
   }
 
-  showValidationErrors () {
-    const errors = this.instance.validate()
-
-    this.control.messages.innerHTML = ''
-
-    errors.forEach((error) => {
-      const invalidFeedback = this.getInvalidFeedback(error.message)
-      this.control.messages.appendChild(invalidFeedback)
-    })
-  }
-
   refreshUI () {
     this.control.childrenSlot.innerHTML = ''
 
     this.instance.children.forEach((child) => {
-      const arrayItem = this.theme.getFieldset()
-      const arrayItemBody = this.theme.getFieldsetBody()
-
-      arrayItem.appendChild(arrayItemBody)
-
-      this.control.childrenSlot.appendChild(arrayItem)
-
-      arrayItemBody.appendChild(child.ui.container)
-
-      const btnGroup = this.theme.getBtnGroup()
       const itemIndex = Number(child.getKey())
+      const childTitle = isSet(child.schema.title()) ? child.schema.title() : ''
 
-      // delete
-      const deleteBtn = this.theme.getButton({
-        textContent: 'Delete item'
+      const arrayItem = this.theme.getArrayItem({
+        legend: childTitle + ' ' + itemIndex,
+        srOnly: true
       })
 
-      deleteBtn.classList.add('jedi-array-delete')
+      arrayItem.childrenSlot.appendChild(child.ui.container)
 
-      deleteBtn.addEventListener('click', () => {
+      this.control.childrenSlot.appendChild(arrayItem.container)
+
+      arrayItem.deleteBtn.addEventListener('click', () => {
         const itemIndex = Number(child.path.split(this.instance.jedi.pathSeparator).pop())
         this.instance.deleteItem(itemIndex)
       })
 
-      btnGroup.appendChild(deleteBtn)
+      arrayItem.moveUpBtn.addEventListener('click', () => {
+        const toIndex = itemIndex - 1
+        this.instance.move(itemIndex, toIndex)
+      })
 
-      // move up
-      if (this.instance.children.length !== 0) {
-        const moveUpBtn = this.theme.getButton({
-          textContent: 'Move up'
-        })
-
-        moveUpBtn.classList.add('jedi-array-move-up')
-
-        moveUpBtn.addEventListener('click', () => {
-          const toIndex = itemIndex - 1
-          this.instance.move(itemIndex, toIndex)
-        })
-
-        btnGroup.appendChild(moveUpBtn)
-      }
-
-      // move down
-      if (this.instance.getValue().length - 1 !== itemIndex) {
-        const moveDownBtn = this.theme.getButton({
-          textContent: 'Move down'
-        })
-
-        moveDownBtn.classList.add('jedi-array-move-down')
-
-        moveDownBtn.addEventListener('click', () => {
-          const toIndex = itemIndex + 1
-          this.instance.move(itemIndex, toIndex)
-        })
-
-        btnGroup.appendChild(moveDownBtn)
-      }
-
-      arrayItemBody.appendChild(btnGroup)
+      arrayItem.moveDownBtn.addEventListener('click', () => {
+        const toIndex = itemIndex + 1
+        this.instance.move(itemIndex, toIndex)
+      })
 
       const buttons = this.control.container.querySelectorAll('button')
 

@@ -1,12 +1,15 @@
+# JEDI
+JSON Editing, Data Validation, and Integration
+
 ## Todo
 
-- theme getArrayItem 
 - use schema to evaluate annotations and options
 - arrays of objects test
 - arrays of arrays test
 - arrays of multiples test
 - aria attributes
 - textarea standalone editor
+- array accordion
 - error messages texts
 - use names options
 - ui required (not json required)
