@@ -9,7 +9,7 @@ export const dependentSchemas = (validator, value, schema, key, path) => {
       if (isSet(value[key])) {
         const dependentSchema = schema.dependentSchemas()[key]
         const tmpEditor = new Jedi({ schema: dependentSchema, startValue: value, refParser: false })
-        const tmpErrors = tmpEditor.validate()
+        const tmpErrors = tmpEditor.getErrors()
         tmpEditor.destroy()
         errors = [...errors, ...tmpErrors]
       }

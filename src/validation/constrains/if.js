@@ -10,7 +10,7 @@ export const _if = (validator, value, schema, key, path) => {
     }
 
     const ifEditor = new Jedi({ schema: schema.if(), startValue: value, refParser: false })
-    const ifErrors = ifEditor.validate()
+    const ifErrors = ifEditor.getErrors()
     ifEditor.destroy()
 
     let thenErrors = []
@@ -18,13 +18,13 @@ export const _if = (validator, value, schema, key, path) => {
 
     if (isSet(schema.then())) {
       const thenEditor = new Jedi({ schema: schema.then(), startValue: value, refParser: false })
-      thenErrors = thenEditor.validate()
+      thenErrors = thenEditor.getErrors()
       thenEditor.destroy()
     }
 
     if (isSet(schema.else())) {
       const elseEditor = new Jedi({ schema: schema.else(), startValue: value, refParser: false })
-      elseErrors = elseEditor.validate()
+      elseErrors = elseEditor.getErrors()
       elseEditor.destroy()
     }
 

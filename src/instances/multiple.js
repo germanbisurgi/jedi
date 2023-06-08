@@ -126,9 +126,8 @@ class MultipleInstance extends Instance {
       instance.unregister()
 
       instance.on('change', () => {
-        this.switchIf()
-
         this.emit('change')
+        this.switchIf()
       })
 
       this.instances.push(instance)
@@ -167,7 +166,7 @@ class MultipleInstance extends Instance {
 
   getIfIndex (value) {
     const ifEditor = new Jedi({ schema: this.schema.if(), startValue: value, refParser: false })
-    const ifErrors = ifEditor.validate()
+    const ifErrors = ifEditor.getErrors()
     ifEditor.destroy()
     return ifErrors.length === 0 ? 0 : 1
   }
@@ -182,7 +181,7 @@ class MultipleInstance extends Instance {
         instance.setValue(value)
       }
 
-      const instanceErrors = this.jedi.validator.validate(value, instance.schema, instance.getKey(), instance.path)
+      const instanceErrors = this.jedi.validator.getErrors(value, instance.schema, instance.getKey(), instance.path)
 
       if (notSet(fittestIndex) || notSet(championErrors)) {
         fittestIndex = index

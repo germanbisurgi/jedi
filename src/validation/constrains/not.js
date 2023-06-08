@@ -5,7 +5,7 @@ export const not = (validator, value, schema, key, path) => {
   const errors = []
 
   if (isSet(schema.not())) {
-    const notErrors = validator.validate(value, new Schema(schema.not()), key, path)
+    const notErrors = validator.getErrors(value, new Schema(schema.not()), key, path)
 
     const invalid = notErrors.length === 0
 

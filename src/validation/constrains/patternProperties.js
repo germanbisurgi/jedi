@@ -19,7 +19,7 @@ export const patternProperties = (validator, value, schema, path) => {
             refParser: false
           })
 
-          const editorErrors = editor.validate().map((error) => {
+          const editorErrors = editor.getErrors().map((error) => {
             return {
               message: error.message,
               path: path + '/' + propertyName

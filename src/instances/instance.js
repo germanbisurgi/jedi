@@ -88,7 +88,7 @@ class Instance extends EventEmitter {
         return
       }
 
-      const defaultErrors = this.jedi.validator.validate(this.schema.default(), this.schema, this.getKey(), this.path)
+      const defaultErrors = this.jedi.validator.getErrors(this.schema.default(), this.schema, this.getKey(), this.path)
       const validDefault = defaultErrors.length === 0
 
       if (validDefault) {
@@ -125,12 +125,12 @@ class Instance extends EventEmitter {
   /**
    * Returns an array of validation error messages
    */
-  validate () {
+  getErrors () {
     if (!this.isActive) {
       return []
     }
 
-    return this.jedi.validator.validate(this.getValue(), this.schema, this.getKey(), this.path)
+    return this.jedi.validator.getErrors(this.getValue(), this.schema, this.getKey(), this.path)
   }
 
   /**

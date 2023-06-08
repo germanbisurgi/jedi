@@ -78,7 +78,7 @@ class Editor extends EventEmitter {
    * Shows validation messages in the editor container.
    */
   showValidationErrors () {
-    const errors = this.instance.validate()
+    const errors = this.instance.getErrors()
 
     this.control.messages.innerHTML = ''
 

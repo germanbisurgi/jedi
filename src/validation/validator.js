@@ -9,7 +9,7 @@ class Validator {
   /**
    * Validates a value against it's schema
    */
-  validate (value, schema, key, path) {
+  getErrors (value, schema, key, path) {
     let schemaErrors = []
 
     const schemaClone = schema.clone()

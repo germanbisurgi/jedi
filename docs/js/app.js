@@ -234,11 +234,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
         this.editor.on('change', () => {
           this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
-          this.$refs.editorErrors.value = JSON.stringify(this.editor.validate(), null, 2)
+          this.$refs.editorErrors.value = JSON.stringify(this.editor.getErrors(), null, 2)
         })
 
         this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
-        this.$refs.editorErrors.value = JSON.stringify(this.editor.validate(), null, 2)
+        this.$refs.editorErrors.value = JSON.stringify(this.editor.getErrors(), null, 2)
       },
       destroyEditor() {
         this.editor.destroy()

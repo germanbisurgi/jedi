@@ -1,7 +1,6 @@
 import Schema from './schema'
 import Validator from './validation/validator'
 import EventEmitter from './event-emitter'
-import { getType, hasOwn, isArray, isSet, notSet } from './utils'
 import MultipleInstance from './instances/multiple'
 import BooleanInstance from './instances/boolean'
 import ObjectInstance from './instances/object'
@@ -10,6 +9,7 @@ import StringInstance from './instances/string'
 import NumberInstance from './instances/number'
 import NullInstance from './instances/null'
 import RefParser from './ref-parser'
+import { getType, hasOwn, isArray, isSet, notSet } from './utils'
 
 class Jedi extends EventEmitter {
   constructor (options) {
@@ -199,19 +199,19 @@ class Jedi extends EventEmitter {
   /**
    * Returns an array of validation error messages
    */
-  validate () {
+  getErrors () {
     let errors = []
 
     Object.keys(this.instances).forEach((key) => {
       const editor = this.instances[key]
-      errors = [...errors, ...editor.validate()]
+      errors = [...errors, ...editor.getErrors()]
     })
 
     return errors
   }
 
   /**
-   * Destroy the root instance and it'S children
+   * Destroy the root instance and it's children
    */
   destroy () {
     this.root.destroy()

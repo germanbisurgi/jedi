@@ -9,7 +9,7 @@ export const contains = (validator, value, schema, key, path) => {
 
     value.forEach((item) => {
       const containsEditor = new Jedi({ schema: schema.contains(), startValue: item, refParser: false })
-      const containsErrors = containsEditor.validate()
+      const containsErrors = containsEditor.getErrors()
 
       if (containsErrors.length === 0) {
         counter++

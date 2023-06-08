@@ -9,7 +9,7 @@ export const oneOf = (validator, value, schema, key, path) => {
 
     schema.oneOf().forEach((schema) => {
       const oneOfEditor = new Jedi({ schema: schema, startValue: value, refParser: false })
-      const oneOfErrors = oneOfEditor.validate()
+      const oneOfErrors = oneOfEditor.getErrors()
       oneOfEditor.destroy()
 
       if (oneOfErrors.length === 0) {

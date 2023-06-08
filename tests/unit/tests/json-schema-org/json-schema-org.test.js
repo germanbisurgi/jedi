@@ -51,7 +51,7 @@ suites.forEach((suite) => {
             XMLHttpRequest: XMLHttpRequest
           })
           jedi.setValue(test.data)
-          const errors = jedi.validate()
+          const errors = jedi.getErrors()
           const valid = (errors.length === 0)
           jedi.destroy()
           expect(valid).toStrictEqual(test.valid)

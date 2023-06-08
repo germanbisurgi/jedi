@@ -35,7 +35,7 @@ export const additionalProperties = (validator, value, schema, key, path) => {
             refParser: false
           })
 
-          const additionalPropertyErrors = editor.validate().map((error) => {
+          const additionalPropertyErrors = editor.getErrors().map((error) => {
             return {
               message: error.message,
               path: property

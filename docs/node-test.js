@@ -47,4 +47,4 @@ const jedi = new Jedi({
 
 console.log(JSON.stringify(jedi.schema, null, 2))
 console.log('value:', jedi.getValue())
-console.log('errors:', jedi.validate())
+console.log('errors:', jedi.getErrors())

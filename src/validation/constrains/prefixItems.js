@@ -10,8 +10,7 @@ export const prefixItems = (validator, value, schema, key, path) => {
 
       if (isSet(itemValue)) {
         const tmpEditor = new Jedi({ schema: itemSchema, startValue: itemValue, refParser: false })
-        // const tmpEditor = validator.validate()
-        const tmpErrors = tmpEditor.validate()
+        const tmpErrors = tmpEditor.getErrors()
         tmpEditor.destroy()
 
         if (tmpErrors.length > 0) {
