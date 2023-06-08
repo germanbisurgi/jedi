@@ -130,3 +130,13 @@ export const mergeDeep = (target, ...sources) => {
 
   return mergeDeep(target, ...sources)
 }
+
+export const overwriteExistingProperties = (obj1, obj2) => {
+  Object.keys(obj2).forEach(function (key) {
+    if (key in obj1) {
+      obj1[key] = obj2[key]
+    }
+  })
+
+  return obj1
+}

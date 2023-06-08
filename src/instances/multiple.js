@@ -6,8 +6,9 @@ import {
   isArray,
   different,
   isObject,
-  notSet
+  notSet, overwriteExistingProperties
 } from '../utils'
+import Jedi from '../jedi'
 
 class MultipleInstance extends Instance {
   setUI () {
@@ -27,7 +28,22 @@ class MultipleInstance extends Instance {
       this.onSetValue()
     })
 
-    if (isSet(this.schema.anyOf()) || isSet(this.schema.oneOf())) {
+    if (isSet(this.schema.if())) {
+      const schemaClone = this.schema.clone()
+      this.thenSchema = this.schema.then() ? mergeDeep({}, schemaClone, this.schema.then()) : mergeDeep({}, schemaClone)
+      this.elseSchema = this.schema.else() ? mergeDeep({}, schemaClone, this.schema.else()) : mergeDeep({}, schemaClone)
+      this.schemas.push(this.thenSchema)
+      this.schemas.push(this.elseSchema)
+
+      this.schemas.forEach((schema) => {
+        delete schema.if
+        delete schema.then
+        delete schema.else
+      })
+
+      this.switcherOptionValues = [0, 1]
+      this.switcherOptionsLabels = ['then', 'else']
+    } else if (isSet(this.schema.anyOf()) || isSet(this.schema.oneOf())) {
       const schemasOf = isSet(this.schema.anyOf()) ? this.schema.anyOf() : this.schema.oneOf()
       const cloneSchema = this.schema.clone()
       delete cloneSchema['anyOf']
@@ -110,6 +126,8 @@ class MultipleInstance extends Instance {
       instance.unregister()
 
       instance.on('change', () => {
+        this.switchIf()
+
         this.emit('change')
       })
 
@@ -134,6 +152,24 @@ class MultipleInstance extends Instance {
     if (setValue) {
       this.setValue(this.getValue(), triggersChange)
     }
+  }
+
+  switchIf () {
+    if (isSet(this.schema.if())) {
+      const ifIndex = this.getIfIndex(this.getValue())
+      const preValue = this.getValue()
+      this.switchInstance(ifIndex)
+      const currentValue = this.getValue()
+      const finalValue = overwriteExistingProperties(currentValue, preValue)
+      this.setValue(finalValue, false)
+    }
+  }
+
+  getIfIndex (value) {
+    const ifEditor = new Jedi({ schema: this.schema.if(), startValue: value, refParser: false })
+    const ifErrors = ifEditor.validate()
+    ifEditor.destroy()
+    return ifErrors.length === 0 ? 0 : 1
   }
 
   getFittestIndex (value) {
@@ -170,7 +206,14 @@ class MultipleInstance extends Instance {
     // if value matches the active instance type set the value. Else switch to the first
     // instance that match the value.
     if (different(this.activeInstance.getValue(), value)) {
-      const fittestIndex = this.getFittestIndex(value)
+      let fittestIndex
+
+      if (isSet(this.schema.if())) {
+        fittestIndex = this.getIfIndex(value)
+      } else {
+        fittestIndex = this.getFittestIndex(value)
+      }
+
       this.switchInstance(fittestIndex, false)
     }
 

@@ -142,7 +142,7 @@ class Jedi extends EventEmitter {
       instance = new NullInstance(config)
     }
 
-    if (isSet(config.schema.anyOf()) || isSet(config.schema.oneOf()) || config.schema.typeIs('any') || isArray(config.schema.type()) || notSet(config.schema.type())) {
+    if (isSet(config.schema.if()) || isSet(config.schema.anyOf()) || isSet(config.schema.oneOf()) || config.schema.typeIs('any') || isArray(config.schema.type()) || notSet(config.schema.type())) {
       if (notSet(config.schema.type()) && isSet(config.schema.default())) {
         const originalSchema = config.schema.clone()
         originalSchema.type = getType(config.schema.default())
