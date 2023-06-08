@@ -9,7 +9,7 @@ export const maxLength = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must be at most ' + schema.maxLength() + ' characters long',
+        messages: ['Must be at most ' + schema.maxLength() + ' characters long'],
         path: path
       })
     }

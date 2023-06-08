@@ -3,6 +3,7 @@ import { isSet } from '../../utils'
 
 export const anyOf = (validator, value, schema, key, path) => {
   const errors = []
+  let extraMessages = []
 
   if (isSet(schema.anyOf())) {
     const anyOf = schema.anyOf()
@@ -16,11 +17,16 @@ export const anyOf = (validator, value, schema, key, path) => {
       if (anyOfErrors.length === 0) {
         valid = true
       }
+
+      extraMessages = [...extraMessages, JSON.stringify(schema)]
     })
 
     if (!valid) {
       errors.push({
-        message: 'Must validate against at least one of the provided schemas',
+        messages: [
+          'Must validate against at least one of the provided schemas',
+          ...extraMessages
+        ],
         path: path
       })
     }

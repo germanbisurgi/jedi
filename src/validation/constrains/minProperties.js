@@ -9,7 +9,7 @@ export const minProperties = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must have at least ' + schema.minProperties() + ' properties',
+        messages: ['Must have at least ' + schema.minProperties() + ' properties'],
         path: path
       })
     }

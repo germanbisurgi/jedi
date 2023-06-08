@@ -25,14 +25,18 @@ export const contains = (validator, value, schema, key, path) => {
 
       if (minContainsInvalid) {
         errors.push({
-          message: `Contains match count ${counter} is less than minimum contains count of ${schema.minContains()}`,
+          messages: [
+            `Contains match count ${counter} is less than minimum contains count of ${schema.minContains()}`
+          ],
           path: path
         })
       }
     } else {
       if (containsInvalid) {
         errors.push({
-          message: 'No items match contains',
+          messages: [
+            'No items match contains'
+          ],
           path: path
         })
       }
@@ -43,7 +47,9 @@ export const contains = (validator, value, schema, key, path) => {
 
       if (maxContainsInvalid) {
         errors.push({
-          message: `Contains match count ${counter} exceeds maximum contains count of ${schema.maxContains()}`,
+          messages: [
+            `Contains match count ${counter} exceeds maximum contains count of ${schema.maxContains()}`
+          ],
           path: path
         })
       }

@@ -8,7 +8,9 @@ export const exclusiveMaximum = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must be less than ' + schema.exclusiveMaximum(),
+        messages: [
+          'Must be less than ' + schema.exclusiveMaximum()
+        ],
         path: path
       })
     }

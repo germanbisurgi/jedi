@@ -1,3 +1,5 @@
+const show = process.env.SHOW || false
+
 exports.config = {
   tests: './**/*_test.js',
   output: './output',
@@ -7,7 +9,7 @@ exports.config = {
   helpers: {
     Puppeteer: {
       url: 'http://localhost:8282/',
-      show: false,
+      show: show,
       waitForAction: 500,
       waitForTimeout: 10000,
       windowSize: '1200x600'

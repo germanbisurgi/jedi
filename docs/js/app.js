@@ -189,8 +189,8 @@ window.addEventListener('DOMContentLoaded', () => {
             url: './json/validator/uniqueItems.json'
           },
           {
-            name: 'validator/message',
-            url: './json/validator/message.json'
+            name: 'validator/messages',
+            url: './json/validator/messages.json'
           },
           {
             name: 'meta-schema',
@@ -207,8 +207,6 @@ window.addEventListener('DOMContentLoaded', () => {
           editableProperties: true,
           alwaysShowErrors: false,
           showRequiredOnly: false,
-          theme: 'wireframe',
-          rootName: 'root',
           schema: {}
         }
       }

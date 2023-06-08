@@ -9,7 +9,7 @@ export const pattern = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must be the pattern: ' + schema.pattern(),
+        messages: ['Must be the pattern: ' + schema.pattern()],
         path: path
       })
     }

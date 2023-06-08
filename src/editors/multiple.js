@@ -48,9 +48,11 @@ class MultipleEditor extends Editor {
     }
   }
 
-  showValidationErrors () {
-    super.showValidationErrors()
-    this.instance.activeInstance.ui.showValidationErrors()
+  showValidationErrors (errors) {
+    const multipleErrors = errors.filter((error) => error.path === this.path)
+    const activeInstanceErrors = errors.filter((error) => error.path !== this.path)
+    super.showValidationErrors(multipleErrors)
+    this.instance.activeInstance.ui.showValidationErrors(activeInstanceErrors)
   }
 
   getInvalidFeedback (message) {

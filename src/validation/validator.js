@@ -20,7 +20,7 @@ class Validator {
 
     if (isBoolean(schemaClone) && schemaClone === false) {
       return [{
-        message: schema.option('message') ? schema.option('message') : 'invalid',
+        messages: schema.option('messages') ? schema.option('messages') : ['invalid'],
         path: path
       }]
     }
@@ -36,10 +36,10 @@ class Validator {
       }
     })
 
-    if (schemaErrors.length > 0 && schema.option('message')) {
+    if (schemaErrors.length > 0 && schema.option('messages')) {
       schemaErrors = [
         {
-          message: schema.option('message'),
+          messages: schema.option('messages'),
           path: path
         }
       ]

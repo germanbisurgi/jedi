@@ -3,6 +3,7 @@ import Jedi from '../../jedi'
 
 export const oneOf = (validator, value, schema, key, path) => {
   const errors = []
+  let extraMessages = []
 
   if (isSet(schema.oneOf())) {
     let counter = 0
@@ -15,11 +16,16 @@ export const oneOf = (validator, value, schema, key, path) => {
       if (oneOfErrors.length === 0) {
         counter++
       }
+
+      extraMessages = [...extraMessages, JSON.stringify(schema)]
     })
 
     if (counter !== 1) {
       errors.push({
-        message: 'Must validate against exactly one of the provided schemas. It currently validates against ' + counter + ' of the schemas.',
+        messages: [
+          'Must validate against exactly one of the provided schemas. It currently validates against ' + counter + ' of the schemas.',
+          ...extraMessages
+        ],
         path: path
       })
     }

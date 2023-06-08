@@ -6,7 +6,7 @@
       "type": "string",
       "const": 5,
       "options": {
-        "message": "5 chars please."
+        "messages": ["5 chars please."]
       }
     }
   }

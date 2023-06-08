@@ -8,7 +8,7 @@ export const maxItems = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must have at most ' + schema.maxItems() + ' items',
+        messages: ['Must have at most ' + schema.maxItems() + ' items'],
         path: path
       })
     }

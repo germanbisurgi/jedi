@@ -19,16 +19,19 @@ class Editor extends EventEmitter {
     this.refreshUI()
 
     if (this.instance.jedi.options.alwaysShowErrors || this.instance.schema.option('alwaysShowErrors')) {
-      this.showValidationErrors()
+      const errors = this.instance.getErrors()
+      this.showValidationErrors(errors)
     }
 
     this.instance.on('set-value', () => {
       this.refreshUI()
-      this.showValidationErrors()
+      const errors = this.instance.getErrors()
+      this.showValidationErrors(errors)
     })
 
     this.instance.on('change', () => {
-      this.showValidationErrors()
+      const errors = this.instance.getErrors()
+      this.showValidationErrors(errors)
     })
   }
 
@@ -77,14 +80,14 @@ class Editor extends EventEmitter {
   /**
    * Shows validation messages in the editor container.
    */
-  showValidationErrors () {
-    const errors = this.instance.getErrors()
-
+  showValidationErrors (errors) {
     this.control.messages.innerHTML = ''
 
     errors.forEach((error) => {
-      const invalidFeedback = this.getInvalidFeedback(error.message)
-      this.control.messages.appendChild(invalidFeedback)
+      error.messages.forEach((message) => {
+        const invalidFeedback = this.getInvalidFeedback(message)
+        this.control.messages.appendChild(invalidFeedback)
+      })
     })
   }
 

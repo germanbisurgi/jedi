@@ -8,7 +8,9 @@ export const _const = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must be: ' + JSON.stringify(schema.const()),
+        messages: [
+          'Must be: ' + JSON.stringify(schema.const())
+        ],
         path: path
       })
     }

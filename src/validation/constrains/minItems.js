@@ -8,7 +8,7 @@ export const minItems = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must have at least ' + schema.minItems() + ' items',
+        messages: ['Must have at least ' + schema.minItems() + ' items'],
         path: path
       })
     }

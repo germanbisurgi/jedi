@@ -30,7 +30,7 @@ export const type = (validator, value, schema, key, path) => {
 
     if (!valid) {
       errors.push({
-        message: 'Must be of type ' + schema.type(),
+        messages: ['Must be of type ' + schema.type()],
         path: path
       })
     }

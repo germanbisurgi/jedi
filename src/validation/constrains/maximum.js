@@ -9,7 +9,7 @@ export const maximum = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must be less than ' + computedMaximum,
+        messages: ['Must be less than ' + computedMaximum],
         path: path
       })
     }

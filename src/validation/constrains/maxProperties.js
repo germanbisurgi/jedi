@@ -9,7 +9,7 @@ export const maxProperties = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must have at most ' + schema.maxProperties() + ' properties',
+        messages: ['Must have at most ' + schema.maxProperties() + ' properties'],
         path: path
       })
     }

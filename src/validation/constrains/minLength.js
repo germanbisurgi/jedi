@@ -9,7 +9,7 @@ export const minLength = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must be at least ' + schema.minLength() + ' characters long',
+        messages: ['Must be at least ' + schema.minLength() + ' characters long'],
         path: path
       })
     }

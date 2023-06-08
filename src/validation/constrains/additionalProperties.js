@@ -22,7 +22,9 @@ export const additionalProperties = (validator, value, schema, key, path) => {
 
         if (!definedInPatternProperty && additionalProperties === false && !hasOwn(properties, property)) {
           errors.push({
-            message: `Property "${property}" has not been defined and the schema does not allow additional properties.`,
+            messages: [
+              `Property "${property}" has not been defined and the schema does not allow additional properties.`
+            ],
             path: path
           })
         }
@@ -37,7 +39,7 @@ export const additionalProperties = (validator, value, schema, key, path) => {
 
           const additionalPropertyErrors = editor.getErrors().map((error) => {
             return {
-              message: error.message,
+              messages: error.messages,
               path: property
             }
           })

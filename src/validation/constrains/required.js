@@ -17,7 +17,7 @@ export const required = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must have the required properties: ' + missingProperties.join(', '),
+        messages: ['Must have the required properties: ' + missingProperties.join(', ')],
         path: path
       })
     }

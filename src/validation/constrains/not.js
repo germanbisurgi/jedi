@@ -11,7 +11,7 @@ export const not = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must not validate against the provided schema.',
+        messages: ['Must not validate against the provided schema.'],
         path: path
       })
     }

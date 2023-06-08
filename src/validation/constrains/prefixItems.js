@@ -15,7 +15,7 @@ export const prefixItems = (validator, value, schema, key, path) => {
 
         if (tmpErrors.length > 0) {
           errors.push({
-            message: `Item ${index} fails validation.`,
+            messages: [`Item ${index} fails validation.`],
             path: path
           })
         }

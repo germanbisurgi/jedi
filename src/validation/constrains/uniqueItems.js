@@ -28,7 +28,7 @@ export const uniqueItems = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must have unique items',
+        messages: ['Must have unique items'],
         path: path
       })
     }

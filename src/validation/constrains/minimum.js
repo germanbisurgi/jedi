@@ -9,7 +9,7 @@ export const minimum = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must be at least ' + computedMinimum,
+        messages: ['Must be at least ' + computedMinimum],
         path: path
       })
     }

@@ -7,7 +7,9 @@ export const _enum = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must be one of the enumerated values: ' + JSON.stringify(schema.enum()),
+        messages: [
+          'Must be one of the enumerated values: ' + JSON.stringify(schema.enum())
+        ],
         path: path
       })
     }

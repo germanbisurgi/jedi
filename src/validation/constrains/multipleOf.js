@@ -9,7 +9,7 @@ export const multipleOf = (validator, value, schema, key, path) => {
 
     if (invalid) {
       errors.push({
-        message: 'Must be multiple of ' + schema.multipleOf(),
+        messages: ['Must be multiple of ' + schema.multipleOf()],
         path: path
       })
     }

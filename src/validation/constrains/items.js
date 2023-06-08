@@ -9,7 +9,7 @@ export const items = (validator, value, schema, key, path) => {
 
     if (schema.items() === false && value.length > 0 && value.length > prefixItemsSchemasCount) {
       errors.push({
-        message: 'Schema always fails validation.',
+        messages: ['Schema always fails validation.'],
         path: path
       })
     }
