@@ -3,8 +3,6 @@ JSON Editing, Data Validation, and Integration
 
 ## Todo
 
-- fixtures folder
-- validate() -> getErrors() -> iterate errors -> compare paths display if paths match
 - use schema to evaluate annotations and options
 - arrays of objects test
 - arrays of arrays test
