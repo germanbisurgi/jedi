@@ -76,7 +76,8 @@ class ThemeBootstrap5 extends ThemeBarebones {
   }
 
   getTextareaControl (config) {
-    const { container, input, label, labelText, description, messages } = super.getTextareaControl(config)
+    const control = super.getTextareaControl(config)
+    const { container, input, label } = control
     container.classList.add('form-group')
     input.classList.add('form-control')
 
@@ -84,11 +85,12 @@ class ThemeBootstrap5 extends ThemeBarebones {
       label.classList.add('visually-hidden')
     }
 
-    return { container, input, label, labelText, description, messages }
+    return control
   }
 
   getInputControl (config) {
-    const { container, input, label, labelText, description, messages } = super.getInputControl(config)
+    const control = super.getInputControl(config)
+    const { container, input, label } = control
     container.classList.add('form-group')
     input.classList.add('form-control')
 
@@ -96,11 +98,12 @@ class ThemeBootstrap5 extends ThemeBarebones {
       label.classList.add('visually-hidden')
     }
 
-    return { container, input, label, labelText, description, messages }
+    return control
   }
 
   getRadiosControl (config) {
-    const { container, legend, radios, labels, labelTexts, radioControls, description, messages } = super.getRadiosControl(config)
+    const control = super.getRadiosControl(config)
+    const { container, radios, labels, labelTexts, radioControls, description, messages } = control
 
     container.classList.add('form-group')
 
@@ -118,11 +121,12 @@ class ThemeBootstrap5 extends ThemeBarebones {
     container.appendChild(description)
     container.appendChild(messages)
 
-    return { container, legend, radios, labels, labelTexts, radioControls, description, messages }
+    return control
   }
 
   getCheckboxControl (config) {
-    const { container, input, label, labelText, description, messages } = super.getCheckboxControl(config)
+    const control = super.getCheckboxControl(config)
+    const { container, input, label, description, messages } = control
     container.classList.add('form-check')
     input.classList.add('form-check-input')
     label.classList.add('form-check-label')
@@ -134,20 +138,22 @@ class ThemeBootstrap5 extends ThemeBarebones {
     container.appendChild(label)
     container.appendChild(description)
     container.appendChild(messages)
-    return { container, input, label, labelText, description, messages }
+    return control
   }
 
   getSelectControl (config) {
-    const { container, input, label, labelText, description, messages } = super.getSelectControl(config)
+    const control = super.getSelectControl(config)
+    const { input } = control
     input.classList.add('form-select')
-    return { container, input, label, labelText, description, messages }
+    return control
   }
 
   getSwitcher (config) {
-    const { container, input, label, labelText, description, messages } = super.getSwitcher(config)
+    const control = super.getSwitcher(config)
+    const { input, label } = control
     input.classList.remove('form-select')
     label.classList.add('visually-hidden')
-    return { container, input, label, labelText, description, messages }
+    return control
   }
 
   getAlert (config) {

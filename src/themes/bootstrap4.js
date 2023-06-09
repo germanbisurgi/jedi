@@ -71,7 +71,8 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 
   getTextareaControl (config) {
-    const { container, input, label, labelText, description, messages } = super.getTextareaControl(config)
+    const control = super.getTextareaControl(config)
+    const { container, input, label } = control
     container.classList.add('form-group')
     input.classList.add('form-control')
 
@@ -79,11 +80,12 @@ class ThemeBootstrap4 extends ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    return { container, input, label, labelText, description, messages }
+    return control
   }
 
   getInputControl (config) {
-    const { container, input, label, labelText, description, messages } = super.getInputControl(config)
+    const control = super.getInputControl(config)
+    const { container, input, label } = control
     container.classList.add('form-group')
     input.classList.add('form-control')
 
@@ -91,11 +93,12 @@ class ThemeBootstrap4 extends ThemeBarebones {
       label.classList.add('sr-only')
     }
 
-    return { container, input, label, labelText, description, messages }
+    return control
   }
 
   getRadiosControl (config) {
-    const { container, legend, radios, labels, labelTexts, radioControls, description, messages } = super.getRadiosControl(config)
+    const control = super.getRadiosControl(config)
+    const { container, radios, labels, labelTexts, radioControls, description, messages } = control
 
     container.classList.add('form-group')
 
@@ -113,7 +116,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
     container.appendChild(description)
     container.appendChild(messages)
 
-    return { container, legend, radios, labels, labelTexts, radioControls, description, messages }
+    return control
   }
 
   getCheckboxControl (config) {
