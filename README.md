@@ -3,8 +3,12 @@ JSON Editing, Data Validation, and Integration
 
 ## Todo
 
-- use schema to evaluate annotations and options
+- grid
+- icons
+- readonly
+- readOnly mode
 - arrays of objects test
+- showErrors options
 - arrays of arrays test
 - arrays of multiples test
 - aria attributes
@@ -13,20 +17,18 @@ JSON Editing, Data Validation, and Integration
 - error messages texts
 - use names options
 - ui required (not json required)
-- readonly
 - format categories
-- grid
 - plugins examples
 - array tabs
 - edit object values
 - edit array values
 - filter by field
-- icons
 - form wizard
 - propertyNames
 - formats
 - array enums
 - translations
+- use schema to evaluate annotations and options
 
 ## Resources
 * [Understanding JSON Schema](http://json-schema.org/understanding-json-schema/index.html)

@@ -46,6 +46,12 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return html
   }
 
+  getChildrenSlot () {
+    const html = super.getChildrenSlot()
+    html.classList.add('row')
+    return html
+  }
+
   getBtnGroup () {
     const html = super.getBtnGroup()
     html.classList.add('btn-group')
@@ -70,9 +76,45 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return description
   }
 
+  getObjectControl (config) {
+    const control = super.getObjectControl(config)
+    const { container } = control
+    container.classList.add('col-12')
+    return control
+  }
+
+  getArrayControl (config) {
+    const control = super.getArrayControl(config)
+    const { container } = control
+    container.classList.add('col-12')
+    return control
+  }
+
+  getArrayItem (config) {
+    const control = super.getArrayItem(config)
+    const { container } = control
+    container.classList.add('col-12')
+    return control
+  }
+
+  getMultipleControl (config) {
+    const control = super.getMultipleControl(config)
+    const { container } = control
+    container.classList.add('col-12')
+    return control
+  }
+
+  getNullControl (config) {
+    const control = super.getNullControl(config)
+    const { container } = control
+    container.classList.add('col-12')
+    return control
+  }
+
   getTextareaControl (config) {
     const control = super.getTextareaControl(config)
     const { container, input, label } = control
+    container.classList.add('col-12')
     container.classList.add('form-group')
     input.classList.add('form-control')
 
@@ -86,6 +128,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
   getInputControl (config) {
     const control = super.getInputControl(config)
     const { container, input, label } = control
+    container.classList.add('col-12')
     container.classList.add('form-group')
     input.classList.add('form-control')
 
@@ -100,6 +143,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
     const control = super.getRadiosControl(config)
     const { container, radios, labels, labelTexts, radioControls, description, messages } = control
 
+    container.classList.add('col-12')
     container.classList.add('form-group')
 
     radioControls.forEach((radioControl, index) => {
@@ -120,30 +164,36 @@ class ThemeBootstrap4 extends ThemeBarebones {
   }
 
   getCheckboxControl (config) {
-    const { container, input, label, labelText, description, messages } = super.getCheckboxControl(config)
-    container.classList.add('form-group')
-    container.classList.add('form-check')
+    const control = super.getCheckboxControl(config)
+    const { container, formGroup, input, label, description, messages } = control
+    container.classList.add('col-12')
+    formGroup.classList.add('form-check')
     input.classList.add('form-check-input')
     label.classList.add('form-check-label')
-    container.appendChild(input)
-    container.appendChild(label)
-    container.appendChild(description)
-    container.appendChild(messages)
-    return { container, input, label, labelText, description, messages }
+
+    container.appendChild(formGroup)
+    formGroup.appendChild(input)
+    formGroup.appendChild(label)
+    formGroup.appendChild(description)
+    formGroup.appendChild(messages)
+    return control
   }
 
   getSelectControl (config) {
-    const { container, input, label, labelText, description, messages } = super.getSelectControl(config)
+    const control = super.getSelectControl(config)
+    const { container, input } = control
+    container.classList.add('col-12')
     container.classList.add('form-group')
     input.classList.add('form-control')
-    return { container, input, label, labelText, description, messages }
+    return control
   }
 
   getSwitcher (config) {
-    const { container, input, label, labelText, description, messages } = super.getSwitcher(config)
+    const control = super.getSwitcher(config)
+    const { container, input } = control
     container.classList.remove('form-group')
     input.classList.remove('form-control')
-    return { container, input, label, labelText, description, messages }
+    return control
   }
 
   getAlert (config) {

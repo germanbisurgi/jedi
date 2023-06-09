@@ -532,6 +532,8 @@ class ThemeBarebones {
   getCheckboxControl (config) {
     const container = document.createElement('div')
 
+    const formGroup = document.createElement('div')
+
     const input = document.createElement('input')
     input.setAttribute('type', 'checkbox')
     input.setAttribute('id', config.id)
@@ -557,13 +559,14 @@ class ThemeBarebones {
 
     const messages = this.getMessagesSlot()
 
-    container.appendChild(input)
-    container.appendChild(label)
+    container.appendChild(formGroup)
+    formGroup.appendChild(input)
+    formGroup.appendChild(label)
     label.appendChild(labelText)
-    container.appendChild(description)
-    container.appendChild(messages)
+    formGroup.appendChild(description)
+    formGroup.appendChild(messages)
 
-    return { container, input, label, labelText, description, messages }
+    return { container, formGroup, input, label, labelText, description, messages }
   }
 
   getSelectControl (config) {
