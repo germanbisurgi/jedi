@@ -10,7 +10,6 @@ class Editor extends EventEmitter {
     super()
     this.instance = instance
     this.theme = null
-    this.container = null
     this.control = null
     this.disabled = false
     this.init()
@@ -52,18 +51,16 @@ class Editor extends EventEmitter {
       default:
         this.theme = new ThemeBarebones()
     }
-
-    this.container = this.theme.getEditorContainer()
   }
 
   /**
    * Sets container attributes like data-path and data-type
    */
   setContainerAttributes () {
-    this.container.setAttribute('data-path', this.instance.path)
+    this.control.container.setAttribute('data-path', this.instance.path)
 
     if (isSet(this.instance.schema.type())) {
-      this.container.setAttribute('data-type', this.instance.schema.type())
+      this.control.container.setAttribute('data-type', this.instance.schema.type())
     }
   }
 
@@ -124,8 +121,8 @@ class Editor extends EventEmitter {
    * Destroys the editor
    */
   destroy () {
-    if (this.container && this.container.parentNode) {
-      this.container.parentNode.removeChild(this.container)
+    if (this.control.container && this.control.container.parentNode) {
+      this.control.container.parentNode.removeChild(this.control.container)
     }
 
     Object.keys(this).forEach((key) => {

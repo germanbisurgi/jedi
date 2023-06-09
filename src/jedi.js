@@ -60,7 +60,7 @@ class Jedi extends EventEmitter {
     if (this.options.isEditor && this.options.container) {
       this.container = this.options.container
       this.appendHiddenInput()
-      this.container.appendChild(this.root.ui.container)
+      this.container.appendChild(this.root.ui.control.container)
       this.container.classList.add('jedi-ready')
     }
 

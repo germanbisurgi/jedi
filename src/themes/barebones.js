@@ -162,12 +162,12 @@ class ThemeBarebones {
 
     addPropertyBtn.classList.add('jedi-object-add')
 
-    container.appendChild(description)
-    container.appendChild(messages)
     container.appendChild(fieldset)
     fieldset.appendChild(legend)
     fieldset.appendChild(body)
     legend.appendChild(actions)
+    body.appendChild(description)
+    body.appendChild(messages)
     body.appendChild(propertiesContainer)
     body.appendChild(childrenSlot)
 
@@ -226,8 +226,6 @@ class ThemeBarebones {
       textContent: 'Delete items'
     })
 
-    container.appendChild(description)
-    container.appendChild(messages)
     container.appendChild(fieldset)
     fieldset.appendChild(legend)
     fieldset.appendChild(body)
@@ -235,6 +233,8 @@ class ThemeBarebones {
     actions.appendChild(btnGroup)
     btnGroup.appendChild(addBtn)
     btnGroup.appendChild(deleteAllBtn)
+    body.appendChild(description)
+    body.appendChild(messages)
     body.appendChild(childrenSlot)
 
     return {
@@ -341,13 +341,13 @@ class ThemeBarebones {
 
     switcher.container.classList.add('jedi-switcher')
 
-    container.appendChild(description)
-    container.appendChild(messages)
     container.appendChild(fieldset)
     fieldset.appendChild(legend)
     fieldset.appendChild(body)
     legend.appendChild(actions)
     actions.appendChild(switcher.container)
+    body.appendChild(description)
+    body.appendChild(messages)
     body.appendChild(childrenSlot)
 
     return {

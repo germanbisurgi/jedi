@@ -16,18 +16,16 @@ class MultipleEditor extends Editor {
       const index = Number(this.control.switcher.input.value)
       this.instance.switchInstance(index)
     })
-
-    this.container.appendChild(this.control.container)
   }
 
   refreshUI () {
     const oldInstance = this.instance.instances[this.instance.lastIndex]
 
-    if (oldInstance.ui.container.parentNode) {
-      this.control.childrenSlot.removeChild(oldInstance.ui.container)
+    if (oldInstance.ui.control.container.parentNode) {
+      this.control.childrenSlot.removeChild(oldInstance.ui.control.container)
     }
 
-    this.control.childrenSlot.appendChild(this.instance.activeInstance.ui.container)
+    this.control.childrenSlot.appendChild(this.instance.activeInstance.ui.control.container)
 
     this.control.switcher.input.value = this.instance.index
 

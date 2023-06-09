@@ -13,8 +13,6 @@ class BooleanEditor extends Editor {
     this.control.input.addEventListener('change', () => {
       this.instance.setValue(this.control.input.checked)
     })
-
-    this.container.appendChild(this.control.container)
   }
 
   sanitize (value) {

@@ -19,8 +19,6 @@ class BooleanEnumRadioEditor extends BooleanEditor {
         this.instance.setValue(radioValue)
       })
     })
-
-    this.container.appendChild(this.control.container)
   }
 
   refreshUI () {

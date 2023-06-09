@@ -19,8 +19,6 @@ class NumberEnumRadioEditor extends NumberEditor {
         this.instance.setValue(value)
       })
     })
-
-    this.container.appendChild(this.control.container)
   }
 
   refreshUI () {

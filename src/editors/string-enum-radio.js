@@ -18,8 +18,6 @@ class StringEnumRadioEditor extends StringEditor {
         this.instance.setValue(radio.value)
       })
     })
-
-    this.container.appendChild(this.control.container)
   }
 
   refreshUI () {

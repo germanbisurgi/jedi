@@ -17,8 +17,6 @@ class StringEnumSelectEditor extends StringEditor {
     this.control.input.addEventListener('change', () => {
       this.instance.setValue(this.control.input.value)
     })
-
-    this.container.appendChild(this.control.container)
   }
 }
 

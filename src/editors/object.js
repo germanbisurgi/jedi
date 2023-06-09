@@ -45,8 +45,6 @@ class ObjectEditor extends Editor {
       this.instance.setValue(this.instance.value)
       this.control.addPropertyControl.input.value = ''
     })
-
-    this.container.appendChild(this.control.container)
   }
 
   sanitize (value) {
@@ -107,7 +105,7 @@ class ObjectEditor extends Editor {
 
     this.instance.children.forEach((child) => {
       if (child.isActive) {
-        this.control.childrenSlot.appendChild(child.ui.container)
+        this.control.childrenSlot.appendChild(child.ui.control.container)
 
         if (this.disabled) {
           child.ui.disable()

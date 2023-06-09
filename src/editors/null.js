@@ -9,8 +9,6 @@ class NullEditor extends Editor {
       srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden'),
       description: this.instance.schema.description()
     })
-
-    this.container.appendChild(this.control.container)
   }
 
   sanitize (value) {

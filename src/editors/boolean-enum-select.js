@@ -17,8 +17,6 @@ class BooleanEnumSelectEditor extends BooleanEditor {
       const value = this.control.input.value === 'true'
       this.instance.setValue(value)
     })
-
-    this.container.appendChild(this.control.container)
   }
 
   refreshUI () {

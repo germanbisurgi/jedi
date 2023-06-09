@@ -31,8 +31,6 @@ class StringEditor extends Editor {
     if (this.instance.schema.formatIs('color') && this.instance.value.length === 0) {
       this.instance.setValue('#000000', false)
     }
-
-    this.container.appendChild(this.control.container)
   }
 
   sanitize (value) {

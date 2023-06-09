@@ -21,8 +21,6 @@ class ArrayEditor extends Editor {
         this.instance.setValue([])
       }
     })
-
-    this.container.appendChild(this.control.container)
   }
 
   getInvalidFeedback (message) {
@@ -51,7 +49,7 @@ class ArrayEditor extends Editor {
         srOnly: true
       })
 
-      arrayItem.childrenSlot.appendChild(child.ui.container)
+      arrayItem.childrenSlot.appendChild(child.ui.control.container)
 
       this.control.childrenSlot.appendChild(arrayItem.container)
 

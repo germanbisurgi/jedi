@@ -15,8 +15,6 @@ class NumberEditor extends Editor {
       const value = this.sanitize(this.control.input.value)
       this.instance.setValue(value)
     })
-
-    this.container.appendChild(this.control.container)
   }
 
   sanitize (value) {
