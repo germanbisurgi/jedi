@@ -633,6 +633,24 @@ class ThemeBarebones {
     html.textContent = config.message
     return html
   }
+
+  getRow () {
+    const row = document.createElement('div')
+    row.classList.add('jedi-row')
+    return row
+  }
+
+  getMobileColumnClass () {
+    return 'jedi-col-xs-12'
+  }
+
+  getDesktopColumnClass (cols) {
+    return 'jedi-col-md-' + cols
+  }
+
+  getDesktopOffsetClass (offset) {
+    return 'jedi-col-md-offset-' + offset
+  }
 }
 
 export default ThemeBarebones

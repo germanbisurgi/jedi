@@ -1,10 +1,17 @@
 import Instance from './instance'
 import { different, isSet, notSet, getType, isObject, hasOwn } from '../utils'
+import ObjectGridEditor from '../editors/object-grid'
 import ObjectEditor from '../editors/object'
 
 class ObjectInstance extends Instance {
   setUI () {
     this.ui = new ObjectEditor(this)
+
+    if (this.schema.typeIs('object') && this.schema.formatIs('grid')) {
+      this.ui = new ObjectGridEditor(this)
+    } else {
+      this.ui = new ObjectEditor(this)
+    }
   }
 
   prepare () {

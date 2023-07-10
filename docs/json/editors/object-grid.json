@@ -1,0 +1,198 @@
+{
+  "type": "object",
+  "title": "Grid",
+  "format": "grid",
+  "properties": {
+    "a": {
+      "title": "a",
+      "type": "string",
+      "options": {
+        "columns": 1
+      }
+    },
+    "b": {
+      "title": "b",
+      "type": "string",
+      "options": {
+        "columns": 2
+      }
+    },
+    "c": {
+      "title": "c",
+      "type": "string",
+      "options": {
+        "columns": 3
+      }
+    },
+    "d": {
+      "title": "d",
+      "type": "string",
+      "options": {
+        "columns": 4
+      }
+    },
+    "e": {
+      "title": "e",
+      "type": "string",
+      "options": {
+        "columns": 5
+      }
+    },
+    "f": {
+      "title": "f",
+      "type": "string",
+      "options": {
+        "columns": 6
+      }
+    },
+    "g": {
+      "title": "g",
+      "type": "string",
+      "options": {
+        "columns": 7
+      }
+    },
+    "h": {
+      "title": "h",
+      "type": "string",
+      "options": {
+        "columns": 8
+      }
+    },
+    "i": {
+      "title": "i",
+      "type": "string",
+      "options": {
+        "columns": 9
+      }
+    },
+    "j": {
+      "title": "j",
+      "type": "string",
+      "options": {
+        "columns": 10
+      }
+    },
+    "k": {
+      "title": "k",
+      "type": "string",
+      "options": {
+        "columns": 11
+      }
+    },
+    "l": {
+      "title": "l",
+      "type": "string",
+      "options": {
+        "columns": 12,
+        "newRow": true
+      }
+    },
+    "m": {
+      "title": "m",
+      "type": "string",
+      "options": {
+        "newRow": true,
+        "columns": 1
+      }
+    },
+    "n": {
+      "title": "n",
+      "type": "string",
+      "options": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 1
+      }
+    },
+    "o": {
+      "title": "o",
+      "type": "string",
+      "options": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 2
+      }
+    },
+    "p": {
+      "title": "p",
+      "type": "string",
+      "options": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 3
+      }
+    },
+    "q": {
+      "title": "q",
+      "type": "string",
+      "options": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 4
+      }
+    },
+    "r": {
+      "title": "r",
+      "type": "string",
+      "options": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 5
+      }
+    },
+    "s": {
+      "title": "s",
+      "type": "string",
+      "options": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 6
+      }
+    },
+    "t": {
+      "title": "t",
+      "type": "string",
+      "options": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 7
+      }
+    },
+    "u": {
+      "title": "u",
+      "type": "string",
+      "options": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 8
+      }
+    },
+    "v": {
+      "title": "v",
+      "type": "string",
+      "options": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 9
+      }
+    },
+    "w": {
+      "title": "w",
+      "type": "string",
+      "options": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 10
+      }
+    },
+    "x": {
+      "title": "x",
+      "type": "string",
+      "options": {
+        "columns": 1,
+        "offset": 11
+      }
+    }
+  }
+}

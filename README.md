@@ -3,9 +3,13 @@ JSON Editing, Data Validation, and Integration
 
 ## Todo
 
-- grid
+- schema helpers instead of schema object
+- nested if-then-else
+- allOf if-then-else
+- schema getter return undefined (options)
+- refresh disable state
 - icons
-- readonly
+- readonly, should not set value
 - readOnly mode
 - arrays of objects test
 - showErrors options
