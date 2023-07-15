@@ -106,7 +106,7 @@ class ThemeBootstrap3 extends ThemeBarebones {
 
   getRadiosControl (config) {
     const control = super.getRadiosControl(config)
-    const { container, fieldset, radios, labels, labelTexts, radioControls, description, messages } = control
+    const { fieldset, radios, labels, labelTexts, radioControls, description, messages } = control
 
     radioControls.forEach((radioControl, index) => {
       radioControl.classList.add('radio')
@@ -199,8 +199,10 @@ class ThemeBootstrap3 extends ThemeBarebones {
       tabList.classList.add('nav-pills')
     }
 
-    if (config.stacked) {
-      tabList.classList.add('nav-stacked')
+    tabList.classList.add('nav-stacked')
+
+    if (config.stacked === false) {
+      tabList.classList.remove('nav-stacked')
     }
 
     return tabList

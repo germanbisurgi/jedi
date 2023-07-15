@@ -210,8 +210,10 @@ class ThemeBootstrap5 extends ThemeBarebones {
       tabList.classList.add('nav-pills')
     }
 
-    if (config.stacked) {
-      tabList.classList.add('flex-column')
+    tabList.classList.add('flex-column')
+
+    if (config.stacked === false) {
+      tabList.classList.remove('flex-column')
     }
 
     return tabList

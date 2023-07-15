@@ -2,7 +2,7 @@ import Instance from './instance'
 import { different, isSet, notSet, getType, isObject, hasOwn } from '../utils'
 import ObjectGridEditor from '../editors/object-grid'
 import ObjectEditor from '../editors/object'
-import ObjectTabsEditor from '../editors/object-tabs'
+import ObjectNavEditor from '../editors/object-nav'
 
 class ObjectInstance extends Instance {
   setUI () {
@@ -11,7 +11,7 @@ class ObjectInstance extends Instance {
     if (this.schema.typeIs('object') && this.schema.formatIs('grid')) {
       this.ui = new ObjectGridEditor(this)
     } else if (this.schema.typeIs('object') && this.schema.formatIs('nav')) {
-      this.ui = new ObjectTabsEditor(this)
+      this.ui = new ObjectNavEditor(this)
     } else {
       this.ui = new ObjectEditor(this)
     }

@@ -1,10 +1,15 @@
 import Instance from './instance'
 import { getType, isSet, clone, isArray, notSet, isObject } from '../utils'
 import ArrayEditor from '../editors/array'
+import ArrayNavEditor from '../editors/array-nav'
 
 class ArrayInstance extends Instance {
   setUI () {
-    this.ui = new ArrayEditor(this)
+    if (this.schema.typeIs('array') && this.schema.formatIs('nav')) {
+      this.ui = new ArrayNavEditor(this)
+    } else {
+      this.ui = new ArrayEditor(this)
+    }
   }
 
   prepare () {

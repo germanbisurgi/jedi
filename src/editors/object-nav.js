@@ -1,7 +1,7 @@
 import ObjectEditor from './object'
 import { isSet, pathToAttribute } from '../utils'
 
-class ObjectTabsEditor extends ObjectEditor {
+class ObjectNavEditor extends ObjectEditor {
   init () {
     super.init()
     this.activeTabIndex = 0
@@ -58,4 +58,4 @@ class ObjectTabsEditor extends ObjectEditor {
   }
 }
 
-export default ObjectTabsEditor
+export default ObjectNavEditor

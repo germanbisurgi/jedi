@@ -6,8 +6,8 @@ JSON Editing, Data Validation, and Integration
 - jsdoc
 - private methods
 - properties as dropdown
-- array tabs
 - array grid
+- array table
 - remember saved page
 - card headers alternative
 - schema helpers instead of schema object

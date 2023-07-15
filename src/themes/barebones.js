@@ -19,10 +19,13 @@ class ThemeBarebones {
     return html
   }
 
-  getCardHeader (config) {
+  getCardHeader (config = {}) {
     const header = document.createElement('div')
     const title = document.createElement('span')
-    title.textContent = config.textContent
+
+    if (config.textContent) {
+      title.textContent = config.textContent
+    }
 
     if (config.srOnly) {
       title.classList.add('sr-only')
@@ -274,6 +277,7 @@ class ThemeBarebones {
     const container = this.getCard()
     const actions = this.getActionsSlot()
     const body = this.getCardBody()
+    const header = this.getCardHeader()
     const btnGroup = this.getBtnGroup()
 
     const deleteBtn = this.getButton({
@@ -296,10 +300,11 @@ class ThemeBarebones {
 
     const childrenSlot = this.getChildrenSlot()
 
+    container.appendChild(header)
     container.appendChild(body)
-    body.appendChild(actions)
+    header.appendChild(actions)
+    header.appendChild(btnGroup)
     body.appendChild(childrenSlot)
-    body.appendChild(btnGroup)
     btnGroup.appendChild(deleteBtn)
     btnGroup.appendChild(moveUpBtn)
     btnGroup.appendChild(moveDownBtn)

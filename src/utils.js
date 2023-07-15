@@ -140,3 +140,33 @@ export const overwriteExistingProperties = (obj1, obj2) => {
 
   return obj1
 }
+
+export const getValueFromJSON = (data, path) => {
+  const keys = path.split('.') // Split the path into individual keys
+
+  let value = data
+  for (const key of keys) {
+    if (Array.isArray(value) && /^\d+$/.test(key)) {
+      const index = parseInt(key)
+      if (index >= 0 && index < value.length) {
+        value = value[index]
+      } else {
+        return undefined // Index is out of bounds, return undefined
+      }
+    } else if (hasOwn(value, key)) {
+      value = value[key]
+    } else {
+      return undefined // Key doesn't exist, return undefined
+    }
+  }
+
+  return value
+}
+
+export const compileTemplate = (template, data) => {
+  return template.replace(/{{(.*?)}}/g, (match) => {
+    match = match.replace(/\s/g, '')
+    const path = match.split(/{{|}}/)[1]
+    return getValueFromJSON(data, path)
+  })
+}
