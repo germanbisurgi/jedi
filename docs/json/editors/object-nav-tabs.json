@@ -1,0 +1,370 @@
+{
+  "type": "object",
+  "title": "All Editors",
+  "format": "nav",
+  "options": {
+    "nav": {
+      "type": "tabs",
+      "cols": 12
+    }
+  },
+  "description": "Description",
+  "minProperties": 6,
+  "properties": {
+    "booleans": {
+      "type": "object",
+      "title": "Booleans",
+      "description": "Description",
+      "properties": {
+        "boolean-enum-select": {
+          "type": "boolean",
+          "title": "Boolean enum select",
+          "description": "Description",
+          "format": "select",
+          "const": true,
+          "options": {
+            "enumTitles": [
+              "No",
+              "Yes"
+            ]
+          }
+        },
+        "boolean-enum-radio": {
+          "type": "boolean",
+          "title": "Boolean enum radio",
+          "description": "Description",
+          "format": "radio",
+          "const": true,
+          "options": {
+            "enumTitles": [
+              "No",
+              "Yes"
+            ]
+          }
+        },
+        "boolean": {
+          "type": "boolean",
+          "title": "Boolean",
+          "description": "Description",
+          "const": true
+        }
+      }
+    },
+    "strings": {
+      "type": "object",
+      "title": "Strings",
+      "description": "Description",
+      "properties": {
+        "string": {
+          "type": "string",
+          "title": "String",
+          "description": "Description",
+          "minLength": 1
+        },
+        "string-textarea": {
+          "type": "string",
+          "title": "String textarea",
+          "description": "Description",
+          "format": "textarea",
+          "minLength": 1
+        },
+        "string-enum-select": {
+          "type": "string",
+          "title": "String enum select",
+          "description": "Description",
+          "enum": [
+            "albert",
+            "betti",
+            "carl"
+          ],
+          "options": {
+            "enumTitles": [
+              "Albert",
+              "Betti",
+              "Carl"
+            ]
+          }
+        },
+        "string-enum-radio": {
+          "type": "string",
+          "title": "String enum radio",
+          "description": "Description",
+          "format": "radio",
+          "enum": [
+            "albert",
+            "betti",
+            "carl"
+          ],
+          "options": {
+            "enumTitles": [
+              "Albert",
+              "Betti",
+              "Carl"
+            ]
+          }
+        }
+      }
+    },
+    "numbers": {
+      "type": "object",
+      "title": "Numbers",
+      "description": "Description",
+      "properties": {
+        "number": {
+          "type": "number",
+          "title": "Number",
+          "description": "Description",
+          "minimum": 1
+        },
+        "number-enum-select": {
+          "type": "number",
+          "title": "Number enum select",
+          "description": "Description",
+          "enum": [
+            1.5,
+            2.5,
+            3.5
+          ],
+          "options": {
+            "enumTitles": [
+              "small (1.5)",
+              "medium (2.5)",
+              "big (3.5)"
+            ]
+          }
+        },
+        "number-enum-radio": {
+          "type": "number",
+          "title": "Number enum radio",
+          "description": "Description",
+          "format": "radio",
+          "enum": [
+            1.5,
+            2.5,
+            3.5
+          ],
+          "options": {
+            "enumTitles": [
+              "small (1.5)",
+              "medium (2.5)",
+              "big (3.5)"
+            ]
+          }
+        }
+      }
+    },
+    "integers": {
+      "type": "object",
+      "title": "Integers",
+      "description": "Description",
+      "properties": {
+        "integer": {
+          "type": "integer",
+          "title": "Integer",
+          "description": "Description",
+          "minimum": 1
+        },
+        "integer-enum-select": {
+          "type": "integer",
+          "title": "Integer enum select",
+          "description": "Description",
+          "enum": [
+            1,
+            2,
+            3
+          ],
+          "options": {
+            "enumTitles": [
+              "small (1)",
+              "medium (2)",
+              "big (3)"
+            ]
+          }
+        },
+        "integer-enum-radio": {
+          "type": "number",
+          "title": "Integer enum radio",
+          "description": "Description",
+          "format": "radio",
+          "enum": [
+            1,
+            2,
+            3
+          ],
+          "options": {
+            "enumTitles": [
+              "small (1)",
+              "medium (2)",
+              "big (3)"
+            ]
+          }
+        }
+      }
+    },
+    "arrays": {
+      "type": "object",
+      "title": "Arrays",
+      "description": "Description",
+      "properties": {
+        "string-array": {
+          "type": "array",
+          "title": "Colors",
+          "description": "Description",
+          "items": {
+            "type": "string",
+            "title": "Color",
+            "description": "Description",
+            "format": "color",
+            "not": {
+              "const": "#000000"
+            }
+          },
+          "default": [
+            "#e8f3ee",
+            "#fff9e6",
+            "#ffffff"
+          ],
+          "minItems": 3
+        }
+      }
+    },
+    "multiple": {
+      "type": "object",
+      "title": "Multiple",
+      "description": "Description",
+      "properties": {
+        "nestedOf": {
+          "title": "Nested of",
+          "description": "Description",
+          "oneOf": [
+            {
+              "type": "string",
+              "options": {
+                "switcherTitle": "String"
+              }
+            },
+            {
+              "type": "boolean",
+              "options": {
+                "switcherTitle": "Boolean"
+              }
+            },
+            {
+              "title": "Any of",
+              "description": "Description",
+              "options": {
+                "switcherTitle": "Any of"
+              },
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "options": {
+                    "switcherTitle": "Integer"
+                  }
+                },
+                {
+                  "type": "number",
+                  "options": {
+                    "switcherTitle": "Number"
+                  }
+                },
+                {
+                  "title": "One of",
+                  "description": "Description",
+                  "options": {
+                    "switcherTitle": "One of"
+                  },
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "options": {
+                        "switcherTitle": "Object"
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "options": {
+                        "switcherTitle": "Array"
+                      }
+                    },
+                    {
+                      "type": "null",
+                      "options": {
+                        "switcherTitle": "Null"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "oneof": {
+          "title": "One of",
+          "description": "Description",
+          "oneOf": [
+            {
+              "type": "boolean",
+              "options": {
+                "switcherTitle": "Boolean"
+              }
+            },
+            {
+              "type": "string",
+              "options": {
+                "switcherTitle": "String"
+              }
+            },
+            {
+              "type": "integer",
+              "options": {
+                "switcherTitle": "Integer"
+              }
+            }
+          ]
+        },
+        "anyof": {
+          "title": "Any Of",
+          "description": "Description",
+          "anyOf": [
+            {
+              "type": "array",
+              "options": {
+                "switcherTitle": "Array"
+              }
+            },
+            {
+              "type": "object",
+              "options": {
+                "switcherTitle": "Object"
+              }
+            },
+            {
+              "type": "null",
+              "options": {
+                "switcherTitle": "Null"
+              }
+            }
+          ]
+        },
+        "type-array": {
+          "title": "Type string or boolean",
+          "description": "Description",
+          "type": [
+            "string",
+            "boolean"
+          ]
+        },
+        "type-undefined": {
+          "title": "Type is undefined",
+          "description": "Description"
+        },
+        "type-any": {
+          "type": "any",
+          "title": "Type: any",
+          "description": "Description"
+        }
+      }
+    }
+  }
+}
