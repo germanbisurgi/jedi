@@ -9,23 +9,35 @@ class ThemeBarebones {
     return document.createElement('fieldset')
   }
 
-  getFieldsetBody () {
+  getCard () {
     return document.createElement('div')
   }
 
   getLegend (config) {
     const html = document.createElement('legend')
     html.textContent = config.textContent
-    html.style.fontSize = 'inherit'
-
-    if (config.srOnly) {
-      html.classList.add('sr-only')
-    }
-
     return html
   }
 
-  getFieldsetFooter () {
+  getCardHeader (config) {
+    const header = document.createElement('div')
+    const title = document.createElement('span')
+    title.textContent = config.textContent
+
+    if (config.srOnly) {
+      title.classList.add('sr-only')
+    }
+
+    header.appendChild(title)
+
+    return header
+  }
+
+  getCardBody () {
+    return document.createElement('div')
+  }
+
+  getFooter () {
     return document.createElement('div')
   }
 
@@ -120,17 +132,15 @@ class ThemeBarebones {
   }
 
   getObjectControl (config) {
-    const container = document.createElement('div')
-    const fieldset = this.getFieldset()
+    const container = this.getCard()
+    const actions = this.getActionsSlot()
 
-    const legend = this.getLegend({
+    const header = this.getCardHeader({
       textContent: config.title,
       srOnly: config.srOnly
     })
 
-    const actions = this.getActionsSlot()
-
-    const body = this.getFieldsetBody()
+    const body = this.getCardBody()
 
     const description = this.getDescription({
       textContent: config.description
@@ -160,16 +170,22 @@ class ThemeBarebones {
       textContent: 'Add property'
     })
 
+    const fieldset = this.getFieldset()
+    const legend = this.getLegend({
+      textContent: config.title
+    })
+
     addPropertyBtn.classList.add('jedi-object-add')
 
-    container.appendChild(fieldset)
-    fieldset.appendChild(legend)
-    fieldset.appendChild(body)
-    legend.appendChild(actions)
+    container.appendChild(header)
+    container.appendChild(body)
+    header.appendChild(actions)
     body.appendChild(description)
-    body.appendChild(messages)
     body.appendChild(propertiesContainer)
-    body.appendChild(childrenSlot)
+    body.appendChild(messages)
+    body.appendChild(fieldset)
+    fieldset.appendChild(legend)
+    fieldset.appendChild(childrenSlot)
 
     if (config.editableProperties) {
       actions.appendChild(propertiesToggle)
@@ -180,8 +196,6 @@ class ThemeBarebones {
 
     return {
       container,
-      fieldset,
-      legend,
       body,
       actions,
       messages,
@@ -195,27 +209,22 @@ class ThemeBarebones {
   }
 
   getArrayControl (config) {
-    const container = document.createElement('div')
+    const container = this.getCard()
+    const actions = this.getActionsSlot()
 
-    const fieldset = this.getFieldset()
-
-    const legend = this.getLegend({
+    const header = this.getCardHeader({
       textContent: config.title,
       srOnly: config.srOnly
     })
 
-    const actions = this.getActionsSlot()
-
-    const body = this.getFieldsetBody()
+    const body = this.getCardBody()
 
     const description = this.getDescription({
       textContent: config.description
     })
 
     const messages = this.getMessagesSlot()
-
     const childrenSlot = this.getChildrenSlot()
-
     const btnGroup = this.getBtnGroup()
 
     const addBtn = this.getArrayBtnAdd({
@@ -226,21 +235,25 @@ class ThemeBarebones {
       textContent: 'Delete items'
     })
 
-    container.appendChild(fieldset)
-    fieldset.appendChild(legend)
-    fieldset.appendChild(body)
-    legend.appendChild(actions)
+    const fieldset = this.getFieldset()
+    const legend = this.getLegend({
+      textContent: config.title
+    })
+
+    container.appendChild(header)
+    container.appendChild(body)
+    header.appendChild(actions)
     actions.appendChild(btnGroup)
     btnGroup.appendChild(addBtn)
     btnGroup.appendChild(deleteAllBtn)
     body.appendChild(description)
     body.appendChild(messages)
-    body.appendChild(childrenSlot)
+    body.appendChild(fieldset)
+    fieldset.appendChild(legend)
+    fieldset.appendChild(childrenSlot)
 
     return {
       container,
-      fieldset,
-      legend,
       body,
       actions,
       messages,
@@ -252,19 +265,9 @@ class ThemeBarebones {
   }
 
   getArrayItem (config) {
-    const container = document.createElement('div')
-
-    const fieldset = this.getFieldset()
-
-    const legend = this.getLegend({
-      textContent: config.legend,
-      srOnly: config.srOnly
-    })
-
+    const container = this.getCard()
     const actions = this.getActionsSlot()
-
-    const body = this.getFieldsetBody()
-
+    const body = this.getCardBody()
     const btnGroup = this.getBtnGroup()
 
     const deleteBtn = this.getButton({
@@ -287,10 +290,8 @@ class ThemeBarebones {
 
     const childrenSlot = this.getChildrenSlot()
 
-    container.appendChild(fieldset)
-    fieldset.appendChild(legend)
-    fieldset.appendChild(body)
-    legend.appendChild(actions)
+    container.appendChild(body)
+    body.appendChild(actions)
     body.appendChild(childrenSlot)
     body.appendChild(btnGroup)
     btnGroup.appendChild(deleteBtn)
@@ -299,8 +300,6 @@ class ThemeBarebones {
 
     return {
       container,
-      fieldset,
-      legend,
       body,
       childrenSlot,
       deleteBtn,
@@ -310,18 +309,15 @@ class ThemeBarebones {
   }
 
   getMultipleControl (config) {
-    const container = document.createElement('div')
+    const container = this.getCard()
+    const actions = this.getActionsSlot()
 
-    const fieldset = this.getFieldset()
-
-    const legend = this.getLegend({
+    const header = this.getCardHeader({
       textContent: config.title,
       srOnly: config.srOnly
     })
 
-    const actions = this.getActionsSlot()
-
-    const body = this.getFieldsetBody()
+    const body = this.getCardBody()
 
     const description = this.getDescription({
       textContent: config.description
@@ -341,10 +337,9 @@ class ThemeBarebones {
 
     switcher.container.classList.add('jedi-switcher')
 
-    container.appendChild(fieldset)
-    fieldset.appendChild(legend)
-    fieldset.appendChild(body)
-    legend.appendChild(actions)
+    container.appendChild(header)
+    container.appendChild(body)
+    header.appendChild(actions)
     actions.appendChild(switcher.container)
     body.appendChild(description)
     body.appendChild(messages)
@@ -352,8 +347,6 @@ class ThemeBarebones {
 
     return {
       container,
-      fieldset,
-      legend,
       body,
       actions,
       messages,
@@ -469,16 +462,16 @@ class ThemeBarebones {
   getRadiosControl (config) {
     const container = document.createElement('div')
 
-    const legend = document.createElement('label')
-    legend.textContent = config.label
+    const label = document.createElement('label')
+    label.textContent = config.label
 
     if (config.srOnly) {
-      legend.classList.add('sr-only')
+      label.classList.add('sr-only')
     }
 
     const messages = this.getMessagesSlot()
 
-    container.appendChild(legend)
+    container.appendChild(label)
 
     const radioControls = []
     const radios = []
@@ -526,7 +519,7 @@ class ThemeBarebones {
     container.appendChild(description)
     container.appendChild(messages)
 
-    return { container, legend, radios, labels, labelTexts, radioControls, description, messages }
+    return { container, label, radios, labels, labelTexts, radioControls, description, messages }
   }
 
   getCheckboxControl (config) {
@@ -640,16 +633,42 @@ class ThemeBarebones {
     return row
   }
 
-  getMobileColumnClass () {
-    return 'jedi-col-xs-12'
+  getCol (xs, md, offsetMd) {
+    const col = document.createElement('div')
+    col.classList.add('jedi-col-xs-' + xs)
+    col.classList.add('jedi-col-md-' + md)
+
+    if (offsetMd) {
+      col.classList.add('jedi-col-md-offset-' + offsetMd)
+    }
+
+    return col
   }
 
-  getDesktopColumnClass (cols) {
-    return 'jedi-col-md-' + cols
+  getTabList (config) {
+    const tabList = document.createElement('ul')
+    tabList.classList.add('jedi-tab-list')
+    return tabList
   }
 
-  getDesktopOffsetClass (offset) {
-    return 'jedi-col-md-offset-' + offset
+  getTab (config) {
+    const list = document.createElement('li')
+    const link = document.createElement('a')
+    link.setAttribute('href', '#' + config.id)
+    link.textContent = config.title
+    list.appendChild(link)
+    return { list, link }
+  }
+
+  getTabContent () {
+    const tabContent = document.createElement('div')
+    tabContent.classList.add('tab-content')
+    return tabContent
+  }
+
+  setTabPaneAttributes (element, active, id) {
+    element.setAttribute('id', id)
+    element.classList.add('jedi-tab-pane')
   }
 }
 

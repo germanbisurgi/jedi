@@ -1,28 +1,33 @@
 import ThemeBarebones from './barebones'
 
 class ThemeBootstrap3 extends ThemeBarebones {
-  getFieldset () {
-    const html = document.createElement('fieldset')
-    html.classList.add('panel')
-    html.classList.add('panel-default')
+  getLegend (config) {
+    const html = super.getLegend(config)
+    html.classList.add('sr-only')
     return html
   }
 
-  getFieldsetBody () {
-    const html = super.getFieldsetBody()
+  getCard () {
+    const card = super.getCard()
+    card.classList.add('panel')
+    card.classList.add('panel-default')
+    return card
+  }
+
+  getCardHeader (config) {
+    const header = super.getCardHeader(config)
+    header.classList.add('panel-heading')
+    return header
+  }
+
+  getCardBody () {
+    const html = super.getCardBody()
     html.classList.add('panel-body')
     return html
   }
 
-  getLegend (config) {
-    const html = super.getLegend(config)
-    html.classList.add('panel-heading')
-    html.classList.add('pull-right')
-    return html
-  }
-
-  getFieldsetFooter () {
-    const footer = super.getFieldsetFooter()
+  getFooter () {
+    const footer = super.getFooter()
     footer.classList.add('panel-footer')
     return footer
   }
@@ -174,16 +179,55 @@ class ThemeBootstrap3 extends ThemeBarebones {
     return row
   }
 
-  getMobileColumnClass () {
-    return 'col-xs-12'
+  getCol (xs, md, offsetMd) {
+    const col = super.getRow()
+    col.classList.add('col-xs-' + xs)
+    col.classList.add('col-md-' + md)
+
+    if (offsetMd) {
+      col.classList.add('col-md-offset-' + offsetMd)
+    }
+
+    return col
   }
 
-  getDesktopColumnClass (cols) {
-    return 'col-md-' + cols
+  getTabList (config) {
+    const tabList = super.getTabList(config)
+    tabList.classList.add('nav')
+
+    if (config.type === 'tabs') {
+      tabList.classList.add('nav-tabs')
+    } else {
+      tabList.classList.add('nav-pills')
+    }
+
+    if (config.stacked) {
+      tabList.classList.add('nav-stacked')
+    }
+
+    return tabList
   }
 
-  getDesktopOffsetClass (cols) {
-    return 'col-md-offset-' + cols
+  getTab (config) {
+    const tab = super.getTab(config)
+
+    if (config.active) {
+      tab.list.classList.add('active')
+    }
+
+    tab.link.setAttribute('data-toggle', 'tab')
+    return tab
+  }
+
+  setTabPaneAttributes (element, active, id) {
+    super.setTabPaneAttributes(element, active, id)
+    element.classList.add('tab-pane')
+    element.classList.add('fade')
+
+    if (active) {
+      element.classList.add('in')
+      element.classList.add('active')
+    }
   }
 }
 

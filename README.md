@@ -3,6 +3,11 @@ JSON Editing, Data Validation, and Integration
 
 ## Todo
 
+- properties as dropdown
+- array tabs
+- array grid
+- remember saved page
+- card headers alternative
 - schema helpers instead of schema object
 - nested if-then-else
 - allOf if-then-else

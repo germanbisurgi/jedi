@@ -1,32 +1,36 @@
 import ThemeBarebones from './barebones'
 
 class ThemeBootstrap5 extends ThemeBarebones {
-  getFieldset () {
-    const html = document.createElement('fieldset')
-    html.classList.add('card')
-    html.classList.add('mb-3')
-    return html
-  }
-
-  getFieldsetBody () {
-    const html = super.getFieldsetBody()
-    html.classList.add('card-body')
-    return html
-  }
-
   getLegend (config) {
     const html = super.getLegend(config)
+    html.classList.add('visually-hidden')
+    return html
+  }
+
+  getCard () {
+    const card = super.getCard()
+    card.classList.add('card')
+    return card
+  }
+
+  getCardHeader (config) {
+    const html = super.getCardHeader(config)
     html.classList.add('card-header')
     html.classList.add('d-flex')
     html.classList.add('justify-content-between')
     html.classList.add('align-items-center')
     html.classList.add('py-1')
-    html.classList.add('float-right')
     return html
   }
 
-  getFieldsetFooter () {
-    const footer = super.getFieldsetFooter()
+  getCardBody () {
+    const html = super.getCardBody()
+    html.classList.add('card-body')
+    return html
+  }
+
+  getFooter () {
+    const footer = super.getFooter()
     footer.classList.add('card-footer')
     return footer
   }
@@ -179,20 +183,58 @@ class ThemeBootstrap5 extends ThemeBarebones {
     return row
   }
 
-  getColumnClass (size, cols) {
-    return 'col-' + size + '-' + cols
+  getCol (xs, md, offsetMd) {
+    const col = super.getRow(xs, md, offsetMd)
+    col.classList.add('col-' + xs)
+    col.classList.add('col-md-' + md)
+
+    if (offsetMd) {
+      col.classList.add('offset-md-' + offsetMd)
+    }
+
+    return col
   }
 
-  getMobileColumnClass () {
-    return 'col-12'
+  getTabList (config) {
+    const tabList = super.getTabList(config)
+    tabList.classList.add('nav')
+
+    if (config.type === 'tabs') {
+      tabList.classList.add('nav-tabs')
+    } else {
+      tabList.classList.add('nav-pills')
+    }
+
+    if (config.stacked) {
+      tabList.classList.add('flex-column')
+    }
+
+    return tabList
   }
 
-  getDesktopColumnClass (cols) {
-    return 'col-md-' + cols
+  getTab (config) {
+    const tab = super.getTab(config)
+    tab.list.classList.add('nav-item')
+
+    tab.link.classList.add('nav-link')
+    tab.link.setAttribute('data-bs-toggle', 'tab')
+
+    if (config.active) {
+      tab.link.classList.add('active')
+    }
+
+    return tab
   }
 
-  getDesktopOffsetClass (cols) {
-    return 'offset-md-' + cols
+  setTabPaneAttributes (element, active, id) {
+    super.setTabPaneAttributes(element, active, id)
+    element.classList.add('tab-pane')
+    element.classList.add('fade')
+
+    if (active) {
+      element.classList.add('active')
+      element.classList.remove('fade')
+    }
   }
 }
 
