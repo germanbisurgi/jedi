@@ -233,6 +233,11 @@ window.addEventListener('DOMContentLoaded', () => {
         this.options.theme = theme
       }
     },
+    computed: {
+      errorCount () {
+        return this.editor ? this.editor.getErrors().length : 0
+      }
+    },
     methods: {
       initEditor() {
         if (this.editor) {
@@ -242,11 +247,10 @@ window.addEventListener('DOMContentLoaded', () => {
         this.editor = new Jedi(this.options)
         window.editor = this.editor
 
-        this.editor.on('change', () => {
-          this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
-          this.$refs.editorErrors.value = JSON.stringify(this.editor.getErrors(), null, 2)
-        })
-
+        this.editor.on('change', this.update)
+        this.update()
+      },
+      update () {
         this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
         this.$refs.editorErrors.value = JSON.stringify(this.editor.getErrors(), null, 2)
       },

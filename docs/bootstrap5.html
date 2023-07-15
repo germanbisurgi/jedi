@@ -35,7 +35,10 @@
           <button class="btn btn-block" id="set-value" @click="setEditorValue()">Set Value</button>
 
           <div class="form-group">
-            <label for="editor-errors">Errors</label>
+            <label for="editor-errors">
+              <span>Errors</span>
+              <span>{{ errorCount }}</span>
+            </label>
             <textarea ref="editorErrors" class="form-control" id="editor-errors" style="font-family: monospace;height: 30vh;"></textarea>
           </div>
 
