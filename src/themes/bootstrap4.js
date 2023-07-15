@@ -10,6 +10,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
   getCard () {
     const card = super.getCard()
     card.classList.add('card')
+    card.classList.add('mb-3')
     return card
   }
 
@@ -26,6 +27,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
   getCardBody () {
     const html = super.getCardBody()
     html.classList.add('card-body')
+    html.classList.add('pb-0')
     return html
   }
 
@@ -126,6 +128,7 @@ class ThemeBootstrap4 extends ThemeBarebones {
   getCheckboxControl (config) {
     const control = super.getCheckboxControl(config)
     const { container, formGroup, input, label, description, messages } = control
+    formGroup.classList.add('form-group')
     formGroup.classList.add('form-check')
     input.classList.add('form-check-input')
     label.classList.add('form-check-label')
@@ -225,11 +228,9 @@ class ThemeBootstrap4 extends ThemeBarebones {
   setTabPaneAttributes (element, active, id) {
     super.setTabPaneAttributes(element, active, id)
     element.classList.add('tab-pane')
-    element.classList.add('fade')
 
     if (active) {
       element.classList.add('active')
-      element.classList.remove('fade')
     }
   }
 }

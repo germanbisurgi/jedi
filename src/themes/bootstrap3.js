@@ -108,8 +108,6 @@ class ThemeBootstrap3 extends ThemeBarebones {
     const control = super.getRadiosControl(config)
     const { container, fieldset, radios, labels, labelTexts, radioControls, description, messages } = control
 
-    container.classList.add('form-group')
-
     radioControls.forEach((radioControl, index) => {
       radioControl.classList.add('radio')
 
@@ -222,7 +220,6 @@ class ThemeBootstrap3 extends ThemeBarebones {
   setTabPaneAttributes (element, active, id) {
     super.setTabPaneAttributes(element, active, id)
     element.classList.add('tab-pane')
-    element.classList.add('fade')
 
     if (active) {
       element.classList.add('in')

@@ -10,6 +10,7 @@ class ThemeBootstrap5 extends ThemeBarebones {
   getCard () {
     const card = super.getCard()
     card.classList.add('card')
+    card.classList.add('mb-3')
     return card
   }
 
@@ -26,6 +27,7 @@ class ThemeBootstrap5 extends ThemeBarebones {
   getCardBody () {
     const html = super.getCardBody()
     html.classList.add('card-body')
+    html.classList.add('pb-0')
     return html
   }
 
@@ -82,7 +84,7 @@ class ThemeBootstrap5 extends ThemeBarebones {
   getTextareaControl (config) {
     const control = super.getTextareaControl(config)
     const { container, input, label } = control
-    container.classList.add('form-group')
+    container.classList.add('mb-3')
     input.classList.add('form-control')
 
     if (config.srOnly) {
@@ -95,7 +97,7 @@ class ThemeBootstrap5 extends ThemeBarebones {
   getInputControl (config) {
     const control = super.getInputControl(config)
     const { container, input, label } = control
-    container.classList.add('form-group')
+    container.classList.add('mb-3')
     input.classList.add('form-control')
 
     if (config.srOnly) {
@@ -109,7 +111,7 @@ class ThemeBootstrap5 extends ThemeBarebones {
     const control = super.getRadiosControl(config)
     const { container, fieldset, radios, labels, labelTexts, radioControls, description, messages } = control
 
-    container.classList.add('form-group')
+    container.classList.add('mb-3')
 
     radioControls.forEach((radioControl, index) => {
       radioControl.classList.add('form-check')
@@ -131,6 +133,7 @@ class ThemeBootstrap5 extends ThemeBarebones {
   getCheckboxControl (config) {
     const control = super.getCheckboxControl(config)
     const { container, formGroup, input, label, description, messages } = control
+    container.classList.add('mb-3')
     formGroup.classList.add('form-check')
     input.classList.add('form-check-input')
     label.classList.add('form-check-label')
@@ -149,14 +152,16 @@ class ThemeBootstrap5 extends ThemeBarebones {
 
   getSelectControl (config) {
     const control = super.getSelectControl(config)
-    const { input } = control
+    const { container, input } = control
+    container.classList.add('mb-3')
     input.classList.add('form-select')
     return control
   }
 
   getSwitcher (config) {
     const control = super.getSwitcher(config)
-    const { input, label } = control
+    const { container, input, label } = control
+    container.classList.remove('mb-3')
     input.classList.remove('form-select')
     label.classList.add('visually-hidden')
     return control
@@ -229,11 +234,9 @@ class ThemeBootstrap5 extends ThemeBarebones {
   setTabPaneAttributes (element, active, id) {
     super.setTabPaneAttributes(element, active, id)
     element.classList.add('tab-pane')
-    element.classList.add('fade')
 
     if (active) {
       element.classList.add('active')
-      element.classList.remove('fade')
     }
   }
 }

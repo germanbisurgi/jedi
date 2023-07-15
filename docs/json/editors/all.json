@@ -1,18 +1,15 @@
 {
   "type": "object",
   "title": "All Editors",
-  "description": "Description",
   "minProperties": 6,
   "properties": {
     "booleans": {
       "type": "object",
       "title": "Booleans",
-      "description": "Description",
       "properties": {
         "boolean-enum-select": {
           "type": "boolean",
           "title": "Boolean enum select",
-          "description": "Description",
           "format": "select",
           "const": true,
           "options": {
@@ -25,7 +22,6 @@
         "boolean-enum-radio": {
           "type": "boolean",
           "title": "Boolean enum radio",
-          "description": "Description",
           "format": "radio",
           "const": true,
           "options": {
@@ -38,7 +34,6 @@
         "boolean": {
           "type": "boolean",
           "title": "Boolean",
-          "description": "Description",
           "const": true
         }
       }
@@ -46,25 +41,21 @@
     "strings": {
       "type": "object",
       "title": "Strings",
-      "description": "Description",
       "properties": {
         "string": {
           "type": "string",
           "title": "String",
-          "description": "Description",
           "minLength": 1
         },
         "string-textarea": {
           "type": "string",
           "title": "String textarea",
-          "description": "Description",
           "format": "textarea",
           "minLength": 1
         },
         "string-enum-select": {
           "type": "string",
           "title": "String enum select",
-          "description": "Description",
           "enum": [
             "albert",
             "betti",
@@ -81,7 +72,6 @@
         "string-enum-radio": {
           "type": "string",
           "title": "String enum radio",
-          "description": "Description",
           "format": "radio",
           "enum": [
             "albert",
@@ -101,18 +91,15 @@
     "numbers": {
       "type": "object",
       "title": "Numbers",
-      "description": "Description",
       "properties": {
         "number": {
           "type": "number",
           "title": "Number",
-          "description": "Description",
           "minimum": 1
         },
         "number-enum-select": {
           "type": "number",
           "title": "Number enum select",
-          "description": "Description",
           "enum": [
             1.5,
             2.5,
@@ -129,7 +116,6 @@
         "number-enum-radio": {
           "type": "number",
           "title": "Number enum radio",
-          "description": "Description",
           "format": "radio",
           "enum": [
             1.5,
@@ -149,18 +135,15 @@
     "integers": {
       "type": "object",
       "title": "Integers",
-      "description": "Description",
       "properties": {
         "integer": {
           "type": "integer",
           "title": "Integer",
-          "description": "Description",
           "minimum": 1
         },
         "integer-enum-select": {
           "type": "integer",
           "title": "Integer enum select",
-          "description": "Description",
           "enum": [
             1,
             2,
@@ -177,7 +160,6 @@
         "integer-enum-radio": {
           "type": "number",
           "title": "Integer enum radio",
-          "description": "Description",
           "format": "radio",
           "enum": [
             1,
@@ -197,16 +179,13 @@
     "arrays": {
       "type": "object",
       "title": "Arrays",
-      "description": "Description",
       "properties": {
         "string-array": {
           "type": "array",
           "title": "Colors",
-          "description": "Description",
           "items": {
             "type": "string",
             "title": "Color",
-            "description": "Description",
             "format": "color",
             "not": {
               "const": "#000000"
@@ -224,11 +203,9 @@
     "multiple": {
       "type": "object",
       "title": "Multiple",
-      "description": "Description",
       "properties": {
         "nestedOf": {
           "title": "Nested of",
-          "description": "Description",
           "oneOf": [
             {
               "type": "string",
@@ -244,7 +221,6 @@
             },
             {
               "title": "Any of",
-              "description": "Description",
               "options": {
                 "switcherTitle": "Any of"
               },
@@ -263,7 +239,6 @@
                 },
                 {
                   "title": "One of",
-                  "description": "Description",
                   "options": {
                     "switcherTitle": "One of"
                   },
@@ -294,7 +269,6 @@
         },
         "oneof": {
           "title": "One of",
-          "description": "Description",
           "oneOf": [
             {
               "type": "boolean",
@@ -318,7 +292,6 @@
         },
         "anyof": {
           "title": "Any Of",
-          "description": "Description",
           "anyOf": [
             {
               "type": "array",
@@ -342,20 +315,17 @@
         },
         "type-array": {
           "title": "Type string or boolean",
-          "description": "Description",
           "type": [
             "string",
             "boolean"
           ]
         },
         "type-undefined": {
-          "title": "Type is undefined",
-          "description": "Description"
+          "title": "Type is undefined"
         },
         "type-any": {
           "type": "any",
-          "title": "Type: any",
-          "description": "Description"
+          "title": "Type: any"
         }
       }
     }

@@ -132,7 +132,8 @@ class ThemeBarebones {
   }
 
   getObjectControl (config) {
-    const container = this.getCard()
+    const container = document.createElement('div')
+    const card = this.getCard()
     const actions = this.getActionsSlot()
 
     const header = this.getCardHeader({
@@ -177,10 +178,11 @@ class ThemeBarebones {
 
     addPropertyBtn.classList.add('jedi-object-add')
 
-    container.appendChild(header)
-    container.appendChild(body)
+    container.appendChild(description)
+    container.appendChild(card)
+    card.appendChild(header)
+    card.appendChild(body)
     header.appendChild(actions)
-    body.appendChild(description)
     body.appendChild(propertiesContainer)
     body.appendChild(messages)
     body.appendChild(fieldset)
@@ -196,6 +198,7 @@ class ThemeBarebones {
 
     return {
       container,
+      card,
       body,
       actions,
       messages,
@@ -209,7 +212,8 @@ class ThemeBarebones {
   }
 
   getArrayControl (config) {
-    const container = this.getCard()
+    const container = document.createElement('div')
+    const card = this.getCard()
     const actions = this.getActionsSlot()
 
     const header = this.getCardHeader({
@@ -240,13 +244,14 @@ class ThemeBarebones {
       textContent: config.title
     })
 
-    container.appendChild(header)
-    container.appendChild(body)
+    container.appendChild(description)
+    container.appendChild(card)
+    card.appendChild(header)
+    card.appendChild(body)
     header.appendChild(actions)
     actions.appendChild(btnGroup)
     btnGroup.appendChild(addBtn)
     btnGroup.appendChild(deleteAllBtn)
-    body.appendChild(description)
     body.appendChild(messages)
     body.appendChild(fieldset)
     fieldset.appendChild(legend)
@@ -254,6 +259,7 @@ class ThemeBarebones {
 
     return {
       container,
+      card,
       body,
       actions,
       messages,
@@ -309,7 +315,8 @@ class ThemeBarebones {
   }
 
   getMultipleControl (config) {
-    const container = this.getCard()
+    const container = document.createElement('div')
+    const card = this.getCard()
     const actions = this.getActionsSlot()
 
     const header = this.getCardHeader({
@@ -337,16 +344,18 @@ class ThemeBarebones {
 
     switcher.container.classList.add('jedi-switcher')
 
-    container.appendChild(header)
-    container.appendChild(body)
+    container.appendChild(description)
+    container.appendChild(card)
+    card.appendChild(header)
+    card.appendChild(body)
     header.appendChild(actions)
     actions.appendChild(switcher.container)
-    body.appendChild(description)
     body.appendChild(messages)
     body.appendChild(childrenSlot)
 
     return {
       container,
+      card,
       body,
       actions,
       messages,
