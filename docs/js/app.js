@@ -45,6 +45,14 @@ window.addEventListener('DOMContentLoaded', () => {
             url: './json/editors/object-grid.json'
           },
           {
+            name: 'editors/object-nav-pills',
+            url: './json/editors/object-nav-pills.json'
+          },
+          {
+            name: 'editors/object-nav-tabs',
+            url: './json/editors/object-nav-tabs.json'
+          },
+          {
             name: 'editors/string',
             url: './json/editors/string.json'
           },

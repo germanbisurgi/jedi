@@ -106,21 +106,21 @@ class ThemeBootstrap3 extends ThemeBarebones {
 
   getRadiosControl (config) {
     const control = super.getRadiosControl(config)
-    const { container, radios, labels, labelTexts, radioControls, description, messages } = control
+    const { container, fieldset, radios, labels, labelTexts, radioControls, description, messages } = control
 
     container.classList.add('form-group')
 
     radioControls.forEach((radioControl, index) => {
       radioControl.classList.add('radio')
 
-      container.appendChild(radioControls[index])
+      fieldset.appendChild(radioControls[index])
       radioControl.appendChild(labels[index])
       labels[index].appendChild(radios[index])
       labels[index].appendChild(labelTexts[index])
     })
 
-    container.appendChild(description)
-    container.appendChild(messages)
+    fieldset.appendChild(description)
+    fieldset.appendChild(messages)
 
     return control
   }

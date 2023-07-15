@@ -128,3 +128,55 @@ Scenario('@object-editor @object-grid rows and columns', ({ I }) => {
     I.seeElement('.jedi-ready .col-md-1.offset-md-11')
   }
 })
+
+Scenario('@object-editor @object-nav-pills', ({ I }) => {
+  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.fillField('#schemas', 'editors/object-nav-pills')
+  I._waitForElement('.jedi-ready')
+
+  if (theme === 'barebones') {
+    I._waitForElement('.jedi-nav-list')
+    I.seeNumberOfVisibleElements('.jedi-nav-link', 6)
+    I._click('.jedi-nav-list [href="#root-arrays"]')
+    I._waitForText('Arrays', '#root-arrays legend')
+  }
+
+  if (theme === 'bootstrap3') {
+    I._waitForElement('.nav-pills')
+    I.seeNumberOfVisibleElements('.nav-pills li', 6)
+    I._click('.nav-pills [href="#root-arrays"]')
+    I._waitForText('Arrays', '#root-arrays .panel-heading')
+  }
+
+  if (theme === 'bootstrap4' || theme === 'bootstrap5') {
+    I._waitForElement('.nav-pills')
+    I.seeNumberOfVisibleElements('.nav-link', 6)
+    I._click('.nav-pills [href="#root-arrays"]')
+    I._waitForText('Arrays', '#root-arrays .card-header')  }
+})
+
+Scenario('@object-editor @object-nav-tabs', ({ I }) => {
+  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.fillField('#schemas', 'editors/object-nav-tabs')
+  I._waitForElement('.jedi-ready')
+
+  if (theme === 'barebones') {
+    I._waitForElement('.jedi-nav-list')
+    I.seeNumberOfVisibleElements('.jedi-nav-link', 6)
+    I._click('.jedi-nav-list [href="#root-arrays"]')
+    I._waitForText('Arrays', '#root-arrays legend')
+  }
+
+  if (theme === 'bootstrap3') {
+    I._waitForElement('.nav-tabs')
+    I.seeNumberOfVisibleElements('.nav-tabs li', 6)
+    I._click('.nav-tabs [href="#root-arrays"]')
+    I._waitForText('Arrays', '#root-arrays .panel-heading')
+  }
+
+  if (theme === 'bootstrap4' || theme === 'bootstrap5') {
+    I._waitForElement('.nav-tabs')
+    I.seeNumberOfVisibleElements('.nav-link', 6)
+    I._click('.nav-tabs [href="#root-arrays"]')
+    I._waitForText('Arrays', '#root-arrays .card-header')  }
+})

@@ -107,7 +107,7 @@ class ThemeBootstrap5 extends ThemeBarebones {
 
   getRadiosControl (config) {
     const control = super.getRadiosControl(config)
-    const { container, radios, labels, labelTexts, radioControls, description, messages } = control
+    const { container, fieldset, radios, labels, labelTexts, radioControls, description, messages } = control
 
     container.classList.add('form-group')
 
@@ -116,14 +116,14 @@ class ThemeBootstrap5 extends ThemeBarebones {
       radios[index].classList.add('form-check-input')
       labels[index].classList.add('form-check-label')
 
-      container.appendChild(radioControls[index])
+      fieldset.appendChild(radioControls[index])
       radioControl.appendChild(radios[index])
       radioControl.appendChild(labels[index])
       labels[index].appendChild(labelTexts[index])
     })
 
-    container.appendChild(description)
-    container.appendChild(messages)
+    fieldset.appendChild(description)
+    fieldset.appendChild(messages)
 
     return control
   }

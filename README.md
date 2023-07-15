@@ -3,6 +3,8 @@ JSON Editing, Data Validation, and Integration
 
 ## Todo
 
+- jsdoc
+- private methods
 - properties as dropdown
 - array tabs
 - array grid
@@ -32,7 +34,6 @@ JSON Editing, Data Validation, and Integration
 - edit object values
 - edit array values
 - filter by field
-- form wizard
 - propertyNames
 - formats
 - array enums

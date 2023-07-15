@@ -462,7 +462,15 @@ class ThemeBarebones {
   getRadiosControl (config) {
     const container = document.createElement('div')
 
-    const label = document.createElement('label')
+    const fieldset = this.getFieldset()
+
+    const legend = this.getLegend({
+      textContent: config.label
+    })
+
+    fieldset.appendChild(legend)
+
+    const label = document.createElement('span')
     label.textContent = config.label
 
     if (config.srOnly) {
@@ -471,7 +479,7 @@ class ThemeBarebones {
 
     const messages = this.getMessagesSlot()
 
-    container.appendChild(label)
+    fieldset.appendChild(label)
 
     const radioControls = []
     const radios = []
@@ -502,7 +510,7 @@ class ThemeBarebones {
     })
 
     radioControls.forEach((radioControl, index) => {
-      container.appendChild(radioControls[index])
+      fieldset.appendChild(radioControls[index])
       radioControl.appendChild(radios[index])
       radioControl.appendChild(labels[index])
       labels[index].appendChild(labelTexts[index])
@@ -516,10 +524,11 @@ class ThemeBarebones {
       description.textContent = config.description
     }
 
-    container.appendChild(description)
-    container.appendChild(messages)
+    container.appendChild(fieldset)
+    fieldset.appendChild(description)
+    fieldset.appendChild(messages)
 
-    return { container, label, radios, labels, labelTexts, radioControls, description, messages }
+    return { container, fieldset, legend, label, radios, labels, labelTexts, radioControls, description, messages }
   }
 
   getCheckboxControl (config) {
@@ -647,13 +656,14 @@ class ThemeBarebones {
 
   getTabList (config) {
     const tabList = document.createElement('ul')
-    tabList.classList.add('jedi-tab-list')
+    tabList.classList.add('jedi-nav-list')
     return tabList
   }
 
   getTab (config) {
     const list = document.createElement('li')
     const link = document.createElement('a')
+    link.classList.add('jedi-nav-link')
     link.setAttribute('href', '#' + config.id)
     link.textContent = config.title
     list.appendChild(link)
