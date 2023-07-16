@@ -1,0 +1,63 @@
+{
+  "type": "array",
+  "format": "nav",
+  "title": "Colors",
+  "options": {
+    "nav": {
+      "type": "tabs",
+      "cols": "12",
+      "stacked": false
+    },
+    "itemTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}"
+  },
+  "default": [
+    {
+      "name": "Albert",
+      "children": [
+        {
+          "name": "Child 1"
+        },
+        {
+          "name": "Child 2"
+        }
+      ]
+    },
+    {
+      "name": "Betti",
+      "children": [
+        {
+          "name": "Child 1"
+        },
+        {
+          "name": "Child 2"
+        }
+      ]
+    }
+  ],
+  "items": {
+    "type": "object",
+    "title": "Person",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "German"
+      },
+      "children": {
+        "title": "Children",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "Object",
+          "properties": {
+            "name": {
+              "title": "Name",
+              "type": "string",
+              "default": "German"
+            }
+          }
+        }
+      }
+    }
+  }
+}

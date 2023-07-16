@@ -152,7 +152,8 @@ Scenario('@object-editor @object-nav-pills', ({ I }) => {
     I._waitForElement('.nav-pills')
     I.seeNumberOfVisibleElements('.nav-link', 6)
     I._click('.nav-pills [href="#root-arrays"]')
-    I._waitForText('Arrays', '#root-arrays .card-header')  }
+    I._waitForText('Arrays', '#root-arrays .card-header')
+  }
 })
 
 Scenario('@object-editor @object-nav-tabs', ({ I }) => {
@@ -178,5 +179,6 @@ Scenario('@object-editor @object-nav-tabs', ({ I }) => {
     I._waitForElement('.nav-tabs')
     I.seeNumberOfVisibleElements('.nav-link', 6)
     I._click('.nav-tabs [href="#root-arrays"]')
-    I._waitForText('Arrays', '#root-arrays .card-header')  }
+    I._waitForText('Arrays', '#root-arrays .card-header')
+  }
 })

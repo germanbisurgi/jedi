@@ -28,9 +28,7 @@ JSON Editing, Data Validation, and Integration
 - error messages texts
 - use names options
 - ui required (not json required)
-- format categories
 - plugins examples
-- array tabs
 - edit object values
 - edit array values
 - filter by field

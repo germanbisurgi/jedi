@@ -21,6 +21,14 @@ window.addEventListener('DOMContentLoaded', () => {
             url: './json/editors/array.json'
           },
           {
+            name: 'editors/array-nav-pills',
+            url: './json/editors/array-nav-pills.json'
+          },
+          {
+            name: 'editors/array-nav-tabs',
+            url: './json/editors/array-nav-tabs.json'
+          },
+          {
             name: 'editors/boolean',
             url: './json/editors/boolean.json'
           },
