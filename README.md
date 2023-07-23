@@ -52,6 +52,9 @@ Jedi is released under the MIT License, making it free for commercial and non-co
 
 ## Todo
 
+- rename classes to prioritize sorting in documentation
+- rename ui to editor
+- setUI to setEditor
 - rename barebones to theme
 - collapse card
 - set first enum value as default in editor

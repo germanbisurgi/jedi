@@ -12,10 +12,35 @@ import { isSet } from '../utils'
 class Editor extends EventEmitter {
   constructor (instance) {
     super()
+
+    /**
+     * A reference to the Instance being controlled by this editor.
+     * @type {Instance}
+     * @private
+     */
     this.instance = instance
+
+    /**
+     * Theme instance used to build the Editor user interface.
+     * @type {Theme}
+     * @private
+     */
     this.theme = null
+
+    /**
+     * The user interface html for this editor
+     * @type {HTMLElement}
+     * @private
+     */
     this.control = null
+
+    /**
+     * Disabled status for this editor user interface
+     * @type {boolean}
+     * @private
+     */
     this.disabled = false
+
     this.init()
     this.build()
     this.setContainerAttributes()

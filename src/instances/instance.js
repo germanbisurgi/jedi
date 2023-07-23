@@ -7,14 +7,64 @@ import { isSet } from '../utils'
 class Instance extends EventEmitter {
   constructor (config) {
     super()
+
+    /**
+     * A reference to the Jedi instance to which this instance belongs.
+     * @type {Jedi}
+     * @private
+     */
     this.jedi = config.jedi
+
+    /**
+     * A JSON schema.
+     * @type {boolean|object}
+     * @private
+     */
     this.schema = config.schema
+
+    /**
+     * The json value of this instance.
+     * @type {*}
+     * @private
+     */
     this.value = config.value || undefined
+
+    /**
+     * The active state of this instance. If false the editor is not participating
+     * to the value.
+     * @type {boolean}
+     * @private
+     */
     this.isActive = true
+
+    /**
+     * The schema path of this instance.
+     * @type {string}
+     * @private
+     */
     this.path = config.path || this.jedi.rootName
+
+    /**
+     * The Parent instance of this instance.
+     * @type {Instance|null}
+     * @private
+     */
     this.parent = config.parent || null
+
+    /**
+     * Child instances of this instance.
+     * @type {Instance[]}
+     * @private
+     */
     this.children = []
+
+    /**
+     * The editor controlling this Instance if any
+     * @type {Editor|null}
+     * @private
+     */
     this.ui = null
+
     this.init()
   }
 
