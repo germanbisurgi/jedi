@@ -1,6 +1,10 @@
 import Editor from './editor'
 import { isSet, pathToAttribute } from '../utils'
 
+/**
+ * Represents a StringEditor instance.
+ * @extends Editor
+ */
 class StringEditor extends Editor {
   build () {
     const inputTypes = ['hidden', 'color', 'date', 'datetime-local', 'email', 'number', 'month', 'password', 'search', 'time', 'tel', 'text', 'textarea', 'url', 'week']

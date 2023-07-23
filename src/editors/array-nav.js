@@ -1,6 +1,10 @@
 import ArrayEditor from './array'
 import { compileTemplate, isSet, pathToAttribute } from '../utils'
 
+/**
+ * Represents an ArrayNavEditor instance.
+ * @extends ArrayEditor
+ */
 class ArrayNavEditor extends ArrayEditor {
   init () {
     super.init()
@@ -28,6 +32,16 @@ class ArrayNavEditor extends ArrayEditor {
 
     this.instance.children.forEach((child, index) => {
       const itemIndex = Number(child.getKey())
+      const deleteBtn = this.theme.getDeleteItemBtn()
+      const moveUpBtn = this.theme.getMoveUpItemBtn()
+      const moveDownBtn = this.theme.getMoveDownItemBtn()
+
+      child.ui.control.arrayActions.innerHTML = ''
+      child.ui.control.arrayActions.appendChild(deleteBtn)
+      child.ui.control.arrayActions.appendChild(moveUpBtn)
+      child.ui.control.arrayActions.appendChild(moveDownBtn)
+
+      this.control.childrenSlot.appendChild(child.ui.control.container)
 
       let childTitle
 
@@ -43,24 +57,17 @@ class ArrayNavEditor extends ArrayEditor {
         childTitle = isSet(child.schema.title()) ? child.schema.title() + ' ' + (index + 1) : child.getKey()
       }
 
-      const arrayItem = this.theme.getArrayItem({
-        legend: childTitle + ' ' + itemIndex,
-        srOnly: true
-      })
-
-      arrayItem.childrenSlot.appendChild(child.ui.control.container)
-
-      arrayItem.deleteBtn.addEventListener('click', () => {
+      deleteBtn.addEventListener('click', () => {
         const itemIndex = Number(child.path.split(this.instance.jedi.pathSeparator).pop())
         this.instance.deleteItem(itemIndex)
       })
 
-      arrayItem.moveUpBtn.addEventListener('click', () => {
+      moveUpBtn.addEventListener('click', () => {
         const toIndex = itemIndex - 1
         this.instance.move(itemIndex, toIndex)
       })
 
-      arrayItem.moveDownBtn.addEventListener('click', () => {
+      moveDownBtn.addEventListener('click', () => {
         const toIndex = itemIndex + 1
         this.instance.move(itemIndex, toIndex)
       })
@@ -80,9 +87,9 @@ class ArrayNavEditor extends ArrayEditor {
         this.activeTabIndex = index
       })
 
-      this.theme.setTabPaneAttributes(arrayItem.container, active, id)
+      this.theme.setTabPaneAttributes(child.ui.control.container, active, id)
       tabList.appendChild(tab.list)
-      tabContent.appendChild(arrayItem.container)
+      tabContent.appendChild(child.ui.control.container)
 
       if (this.disabled) {
         child.ui.disable()

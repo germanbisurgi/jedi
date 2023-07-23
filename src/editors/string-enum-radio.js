@@ -1,6 +1,10 @@
 import StringEditor from './string'
 import { isSet, pathToAttribute } from '../utils'
 
+/**
+ * Represents a StringEnumRadioEditor instance.
+ * @extends Editor
+ */
 class StringEnumRadioEditor extends StringEditor {
   build () {
     // control

@@ -4,6 +4,10 @@ import NumberEnumSelectEditor from '../editors/number-enum-select'
 import NumberEditor from '../editors/number'
 import { isSet } from '../utils'
 
+/**
+ * Represents a NumberInstance instance.
+ * @extends Instance
+ */
 class NumberInstance extends Instance {
   setUI () {
     if (this.schema.typeIsNumeric() && isSet(this.schema.enum()) && this.schema.formatIs('radio')) {

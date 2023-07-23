@@ -1,3 +1,7 @@
+/**
+ * constrains additionalProperties
+ */
+
 import { hasOwn, isObject, isSet } from '../../utils'
 import Jedi from '../../jedi'
 

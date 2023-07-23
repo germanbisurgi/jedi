@@ -1,6 +1,10 @@
 import BooleanEditor from './boolean'
 import { isSet, pathToAttribute } from '../utils'
 
+/**
+ * Represents an BooleanEnumRadioEditor instance.
+ * @extends BooleanEditor
+ */
 class BooleanEnumRadioEditor extends BooleanEditor {
   build () {
     // control

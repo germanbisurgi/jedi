@@ -10,6 +10,10 @@ import {
 } from '../utils'
 import Jedi from '../jedi'
 
+/**
+ * Represents a MultipleInstance instance.
+ * @extends Instance
+ */
 class MultipleInstance extends Instance {
   setUI () {
     this.ui = new MultipleEditor(this)

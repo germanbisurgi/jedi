@@ -1,4 +1,7 @@
-class ThemeBarebones {
+/**
+ * Represents a Theme instance.
+ */
+class Theme {
   getEditorContainer () {
     const html = document.createElement('div')
     html.classList.add('jedi-editor-container')
@@ -124,6 +127,36 @@ class ThemeBarebones {
     return html
   }
 
+  getDeleteItemBtn () {
+    const deleteItemBtn = this.getButton({
+      textContent: 'Delete item'
+    })
+
+    deleteItemBtn.classList.add('jedi-array-delete')
+
+    return deleteItemBtn
+  }
+
+  getMoveUpItemBtn () {
+    const moveUpItemBtn = this.getButton({
+      textContent: 'Move up'
+    })
+
+    moveUpItemBtn.classList.add('jedi-array-move-up')
+
+    return moveUpItemBtn
+  }
+
+  getMoveDownItemBtn () {
+    const moveDownItemBtn = this.getButton({
+      textContent: 'Move down'
+    })
+
+    moveDownItemBtn.classList.add('jedi-array-move-down')
+
+    return moveDownItemBtn
+  }
+
   getButtonActiveClass () {
     return 'jedi-active-btn'
   }
@@ -138,6 +171,7 @@ class ThemeBarebones {
     const container = document.createElement('div')
     const card = this.getCard()
     const actions = this.getActionsSlot()
+    const arrayActions = this.getArrayActionsSlot()
 
     const header = this.getCardHeader({
       textContent: config.title,
@@ -186,6 +220,7 @@ class ThemeBarebones {
     card.appendChild(header)
     card.appendChild(body)
     header.appendChild(actions)
+    actions.appendChild(arrayActions)
     body.appendChild(propertiesContainer)
     body.appendChild(messages)
     body.appendChild(fieldset)
@@ -210,7 +245,8 @@ class ThemeBarebones {
       propertiesContainer,
       addPropertyControl,
       addPropertyBtn,
-      propertiesActivators
+      propertiesActivators,
+      arrayActions
     }
   }
 
@@ -218,6 +254,7 @@ class ThemeBarebones {
     const container = document.createElement('div')
     const card = this.getCard()
     const actions = this.getActionsSlot()
+    const arrayActions = this.getArrayActionsSlot()
 
     const header = this.getCardHeader({
       textContent: config.title,
@@ -255,6 +292,7 @@ class ThemeBarebones {
     actions.appendChild(btnGroup)
     btnGroup.appendChild(addBtn)
     btnGroup.appendChild(deleteAllBtn)
+    actions.appendChild(arrayActions)
     body.appendChild(messages)
     body.appendChild(fieldset)
     fieldset.appendChild(legend)
@@ -269,7 +307,8 @@ class ThemeBarebones {
       childrenSlot,
       btnGroup,
       addBtn,
-      deleteAllBtn
+      deleteAllBtn,
+      arrayActions
     }
   }
 
@@ -280,24 +319,9 @@ class ThemeBarebones {
     const header = this.getCardHeader()
     const btnGroup = this.getBtnGroup()
 
-    const deleteBtn = this.getButton({
-      textContent: 'Delete item'
-    })
-
-    deleteBtn.classList.add('jedi-array-delete')
-
-    const moveUpBtn = this.getButton({
-      textContent: 'Move up'
-    })
-
-    moveUpBtn.classList.add('jedi-array-move-up')
-
-    const moveDownBtn = this.getButton({
-      textContent: 'Move down'
-    })
-
-    moveDownBtn.classList.add('jedi-array-move-down')
-
+    const deleteBtn = this.getDeleteItemBtn()
+    const moveUpBtn = this.getMoveUpItemBtn()
+    const moveDownBtn = this.getMoveDownItemBtn()
     const childrenSlot = this.getChildrenSlot()
 
     container.appendChild(header)
@@ -323,6 +347,7 @@ class ThemeBarebones {
     const container = document.createElement('div')
     const card = this.getCard()
     const actions = this.getActionsSlot()
+    const arrayActions = this.getArrayActionsSlot()
 
     const header = this.getCardHeader({
       textContent: config.title,
@@ -354,6 +379,7 @@ class ThemeBarebones {
     card.appendChild(header)
     card.appendChild(body)
     header.appendChild(actions)
+    actions.appendChild(arrayActions)
     actions.appendChild(switcher.container)
     body.appendChild(messages)
     body.appendChild(childrenSlot)
@@ -365,12 +391,15 @@ class ThemeBarebones {
       actions,
       messages,
       childrenSlot,
-      switcher
+      switcher,
+      arrayActions
     }
   }
 
   getNullControl (config) {
     const container = document.createElement('div')
+    const actions = this.getActionsSlot()
+    const arrayActions = this.getArrayActionsSlot()
 
     const label = document.createElement('label')
     label.setAttribute('for', config.id)
@@ -395,13 +424,17 @@ class ThemeBarebones {
     container.appendChild(label)
     container.appendChild(description)
     container.appendChild(messages)
+    container.appendChild(actions)
+    actions.appendChild(arrayActions)
     label.appendChild(labelText)
 
-    return { container, label, labelText, description, messages }
+    return { container, label, labelText, description, messages, actions, arrayActions }
   }
 
   getTextareaControl (config) {
     const container = document.createElement('div')
+    const actions = this.getActionsSlot()
+    const arrayActions = this.getArrayActionsSlot()
 
     const input = document.createElement('textarea')
     input.setAttribute('id', config.id)
@@ -431,13 +464,17 @@ class ThemeBarebones {
     container.appendChild(input)
     container.appendChild(description)
     container.appendChild(messages)
+    container.appendChild(actions)
+    actions.appendChild(arrayActions)
     label.appendChild(labelText)
 
-    return { container, input, label, labelText, description, messages }
+    return { container, input, label, labelText, description, messages, actions, arrayActions }
   }
 
   getInputControl (config) {
     const container = document.createElement('div')
+    const actions = this.getActionsSlot()
+    const arrayActions = this.getArrayActionsSlot()
 
     const input = document.createElement('input')
     input.setAttribute('type', config.type)
@@ -468,13 +505,17 @@ class ThemeBarebones {
     container.appendChild(input)
     container.appendChild(description)
     container.appendChild(messages)
+    container.appendChild(actions)
+    actions.appendChild(arrayActions)
     label.appendChild(labelText)
 
-    return { container, input, label, labelText, description, messages }
+    return { container, input, label, labelText, description, messages, actions, arrayActions }
   }
 
   getRadiosControl (config) {
     const container = document.createElement('div')
+    const actions = this.getActionsSlot()
+    const arrayActions = this.getArrayActionsSlot()
 
     const fieldset = this.getFieldset()
 
@@ -539,14 +580,18 @@ class ThemeBarebones {
     }
 
     container.appendChild(fieldset)
+    container.appendChild(actions)
+    actions.appendChild(arrayActions)
     fieldset.appendChild(description)
     fieldset.appendChild(messages)
 
-    return { container, fieldset, legend, label, radios, labels, labelTexts, radioControls, description, messages }
+    return { container, fieldset, legend, label, radios, labels, labelTexts, radioControls, description, messages, actions, arrayActions }
   }
 
   getCheckboxControl (config) {
     const container = document.createElement('div')
+    const actions = this.getActionsSlot()
+    const arrayActions = this.getArrayActionsSlot()
 
     const formGroup = document.createElement('div')
 
@@ -576,17 +621,21 @@ class ThemeBarebones {
     const messages = this.getMessagesSlot()
 
     container.appendChild(formGroup)
+    container.appendChild(actions)
+    actions.appendChild(arrayActions)
     formGroup.appendChild(input)
     formGroup.appendChild(label)
     label.appendChild(labelText)
     formGroup.appendChild(description)
     formGroup.appendChild(messages)
 
-    return { container, formGroup, input, label, labelText, description, messages }
+    return { container, formGroup, input, label, labelText, description, messages, actions, arrayActions }
   }
 
   getSelectControl (config) {
     const container = document.createElement('div')
+    const actions = this.getActionsSlot()
+    const arrayActions = this.getArrayActionsSlot()
 
     const input = document.createElement('select')
     input.setAttribute('id', config.id)
@@ -628,8 +677,10 @@ class ThemeBarebones {
     label.appendChild(labelText)
     container.appendChild(description)
     container.appendChild(messages)
+    container.appendChild(actions)
+    actions.appendChild(arrayActions)
 
-    return { container, input, label, labelText, description, messages }
+    return { container, input, label, labelText, description, messages, actions, arrayActions }
   }
 
   getSwitcher (config) {
@@ -696,4 +747,4 @@ class ThemeBarebones {
   }
 }
 
-export default ThemeBarebones
+export default Theme

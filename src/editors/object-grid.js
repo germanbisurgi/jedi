@@ -1,5 +1,9 @@
 import ObjectEditor from './object'
 
+/**
+ * Represents a ObjectGridEditor instance.
+ * @extends ObjectEditor
+ */
 class ObjectGridEditor extends ObjectEditor {
   refreshEditors () {
     while (this.control.childrenSlot.firstChild) {

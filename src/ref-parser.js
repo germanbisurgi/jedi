@@ -9,6 +9,9 @@ import {
   clone, equal
 } from './utils'
 
+/**
+ * Represents a RefParser instance.
+ */
 class RefParser {
   constructor (options) {
     if (notSet(options)) {

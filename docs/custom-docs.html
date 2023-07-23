@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Test page for jedi">
+  <link rel="icon" type="image/x-icon" href="./images/json-schema.svg">
+  <title>Docs</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/vue.js"></script>
+  <script src="js/docs.js"></script>
+</head>
+<body>
+
+<main id="app">
+  <div class="container">
+    <h1>Docs</h1>
+    <div class="row row-between">
+      <div class="col-12 col-md-3">
+        <h2>Classes</h2>
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item" v-for="(doc, index) in classes">
+            <a class="nav-link" :class="{ active: index === 0 }" :href="'#' + doc.name" data-bs-toggle="tab">
+              <code>{{ doc.name }}</code>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-12 col-md-9">
+        <div class="tab-content">
+          <div class="tab-pane" v-for="(doc, index) in classes" :id="doc.name" :class="{ active: index === 0 }">
+            <h2>Class: {{ doc.name }}</h2>
+            <p v-if="doc.augments">
+              <b>Inheritance:</b>
+              <a href="javascript:void(0)" @click="changeTab('#' + doc.name)"><code>{{ doc.name }}</code></a>
+              <span> > </span>
+              <span v-for="(className, index) in getInheritance(doc)">
+                <a href="javascript:void(0)" @click="changeTab('#' + className)"><code>{{ className }}</code></a>
+                <span v-if="index !== getInheritance(doc).length - 1"> > </span>
+              </span>
+            </p>
+
+            <div v-if="doc.params">
+              <h3>Params:</h3>
+
+              <table class="table table-striped table-bordered">
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Type</th>
+                </tr>
+
+                <tr v-for="param in doc.params">
+                  <td>{{ param.name }}</td>
+                  <td>{{ param.description }}</td>
+                  <td>{{ param.type.names.join(' | ') }}</td>
+                </tr>
+              </table>
+            </div>
+
+            <p>
+              <b>Description:</b>
+              <span>{{ doc.classdesc }}</span>
+            </p>
+
+            <div v-if="getProperties(doc.name).length">
+              <h3>Properties</h3>
+
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                  <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Defined By</th>
+                  </tr>
+
+                  <tr v-for="property in getProperties(doc.name)">
+                    <td><code>{{ property.name }}</code></td>
+                    <td>{{ property.description }}</td>
+                    <td>
+                      <a v-if="property.inherits" href="javascript:void(0)" @click="changeTab('#' + property.inherits.split('#')[0])">
+                        <code>{{ property.inherits.split('#')[0] }}</code>
+                      </a>
+                      <span v-else><code>{{ doc.name }}</code></span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <div v-if="getMethods(doc.name).length">
+              <h3>Methods</h3>
+
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                  <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                    <th>Defined By</th>
+                  </tr>
+
+                  <tr v-for="method in getMethods(doc.name)">
+                    <td><code>{{ method.name }}()</code></td>
+                    <td>{{ method.description }}</td>
+                    <td>
+                      <a v-if="method.inherits" href="javascript:void(0)" @click="changeTab('#' + method.inherits.split('#')[0])">
+                        <code>{{ method.inherits.split('#')[0] }}</code>
+                      </a>
+                      <span v-else><code>{{ doc.name }}</code></span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div v-if="debug">
+    <div v-for="doc in documented">
+      <div class="card mb-3">
+        <div class="card-header">{{ doc.name }}</div>
+        <div class="body">
+          <pre>{{ doc }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

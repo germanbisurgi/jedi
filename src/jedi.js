@@ -11,9 +11,21 @@ import NullInstance from './instances/null'
 import RefParser from './ref-parser'
 import { getType, hasOwn, isArray, isSet, notSet } from './utils'
 
+/**
+ * Represents a Jedi instance.
+ */
 class Jedi extends EventEmitter {
+  /**
+   * Creates a Jedi instance.
+   * @param {object} options - Options object
+   * @param {object|boolean} options.schema - A JSON schema
+   * @param {boolean} options.isEditor - Generates UI controls to edit the JSON value
+   * @param {boolean} options.container - Where the UI controls will be rendered
+   * @param {string} options.theme - How the UI controls will be rendered
+   */
   constructor (options) {
     super()
+
     this.options = Object.assign({
       container: null,
       isEditor: false,
@@ -25,17 +37,69 @@ class Jedi extends EventEmitter {
       refParser: true
     }, options)
 
+    /**
+     * Roots symbol used in paths
+     * @type {string}
+     * @private
+     */
     this.rootName = '#'
+
+    /**
+     * Separator symbol used in paths
+     * @type {string}
+     * @private
+     */
     this.pathSeparator = '/'
+
+    /**
+     * List of registered instances
+     * @type {object}
+     * @private
+     */
     this.instances = {}
+
+    /**
+     * The root editor
+     * @type {Instance}
+     * @private
+     */
     this.root = null
+
+    /**
+     * The Theme instance used to generate editors user interfaces
+     * @type {Theme}
+     * @private
+     */
     this.theme = null
+
+    /**
+     * The Validator instance used to validate instance values
+     * @type {Validator}
+     * @private
+     */
     this.validator = null
+
+    /**
+     * A json schema used
+     * @type {*}
+     * @private
+     */
     this.schema = null
+
+    /**
+     * A RefParser instance
+     * @type {RefParser}
+     * @private
+     */
     this.refParser = null
+
     this.init()
   }
 
+  /**
+   * Initializes instance properties
+   * @private
+   */
   init () {
     this.validator = new Validator()
     if (this.options.refParser) {
@@ -72,6 +136,7 @@ class Jedi extends EventEmitter {
   /**
    * Appends a hidden input to the root container who's value will be the value
    * of the root instance.
+   * @private
    */
   appendHiddenInput () {
     const hiddenControl = this.root.ui.theme.getInputControl({
@@ -92,6 +157,7 @@ class Jedi extends EventEmitter {
 
   /**
    * Adds a child instance pointer to the instances list
+   * @private
    */
   register (instance) {
     this.instances[instance.path] = instance
@@ -99,6 +165,7 @@ class Jedi extends EventEmitter {
 
   /**
    * Deletes a child instance pointer from the instances list
+   * @private
    */
   unregister (instance) {
     this.instances[instance.path] = null
@@ -107,6 +174,7 @@ class Jedi extends EventEmitter {
 
   /**
    * Creates an json instance
+   * @private
    */
   createInstance (config) {
     let instance
@@ -168,10 +236,9 @@ class Jedi extends EventEmitter {
 
   /**
    * Sets the value of the root instance
-   * @return {*}
    */
   setValue () {
-    return this.root.setValue(...arguments)
+    this.root.setValue(...arguments)
   }
 
   /**

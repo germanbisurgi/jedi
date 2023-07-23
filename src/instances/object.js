@@ -4,6 +4,10 @@ import ObjectGridEditor from '../editors/object-grid'
 import ObjectEditor from '../editors/object'
 import ObjectNavEditor from '../editors/object-nav'
 
+/**
+ * Represents an ObjectInstance instance.
+ * @extends Instance
+ */
 class ObjectInstance extends Instance {
   setUI () {
     this.ui = new ObjectEditor(this)

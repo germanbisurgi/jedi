@@ -1,6 +1,10 @@
 import ObjectEditor from './object'
 import { isSet, pathToAttribute } from '../utils'
 
+/**
+ * Represents a ObjectNavEditor instance.
+ * @extends ObjectEditor
+ */
 class ObjectNavEditor extends ObjectEditor {
   init () {
     super.init()

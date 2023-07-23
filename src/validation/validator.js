@@ -1,6 +1,9 @@
 import draft from './drafts/draft-2020-12'
 import { hasOwn, isBoolean } from '../utils'
 
+/**
+ * Represents a Validator instance.
+ */
 class Validator {
   constructor () {
     this.draft = draft

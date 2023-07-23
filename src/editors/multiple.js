@@ -1,6 +1,10 @@
 import Editor from './editor'
 import { pathToAttribute } from '../utils'
 
+/**
+ * Represents an MultipleEditor instance.
+ * @extends Editor
+ */
 class MultipleEditor extends Editor {
   build () {
     this.control = this.theme.getMultipleControl({

@@ -7,6 +7,10 @@ import {
   pathToAttribute
 } from '../utils'
 
+/**
+ * Represents an ObjectEditor instance.
+ * @extends Editor
+ */
 class ObjectEditor extends Editor {
   build () {
     this.control = this.theme.getObjectControl({

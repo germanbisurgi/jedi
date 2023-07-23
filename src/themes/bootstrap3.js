@@ -1,6 +1,10 @@
-import ThemeBarebones from './barebones'
+import Theme from './barebones'
 
-class ThemeBootstrap3 extends ThemeBarebones {
+/**
+ * Represents a ThemeBootstrap3 instance.
+ * @extends Theme
+ */
+class ThemeBootstrap3 extends Theme {
   getLegend (config) {
     const html = super.getLegend(config)
     html.classList.add('sr-only')
@@ -47,6 +51,7 @@ class ThemeBootstrap3 extends ThemeBarebones {
 
   getArrayActionsSlot () {
     const html = super.getArrayActionsSlot()
+    html.classList.add('btn-group')
     html.classList.add('pull-right')
     return html
   }

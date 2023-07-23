@@ -1,6 +1,10 @@
 import NumberEditor from './number'
 import { isSet, pathToAttribute } from '../utils'
 
+/**
+ * Represents an NumberEnumSelectEditor instance.
+ * @extends NumberEditor
+ */
 class NumberEnumSelectEditor extends NumberEditor {
   build () {
     // control

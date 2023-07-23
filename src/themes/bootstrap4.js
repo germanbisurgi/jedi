@@ -1,6 +1,10 @@
-import ThemeBarebones from './barebones'
+import Theme from './barebones'
 
-class ThemeBootstrap4 extends ThemeBarebones {
+/**
+ * Represents a ThemeBootstrap4 instance.
+ * @extends Theme
+ */
+class ThemeBootstrap4 extends Theme {
   getLegend (config) {
     const html = super.getLegend(config)
     html.classList.add('sr-only')
@@ -44,6 +48,13 @@ class ThemeBootstrap4 extends ThemeBarebones {
     return html
   }
 
+  getArrayActionsSlot () {
+    const html = super.getArrayActionsSlot()
+    html.classList.add('btn-group')
+    html.classList.add('float-right')
+    return html
+  }
+
   getPropertiesToggle (config) {
     const html = this.getButton(config)
     html.setAttribute('data-toggle', 'collapse')
@@ -60,7 +71,6 @@ class ThemeBootstrap4 extends ThemeBarebones {
 
   getButton (config) {
     const html = super.getButton(config)
-    html.classList.add('btn')
     html.classList.add('btn')
     html.classList.add('btn-sm')
     return html

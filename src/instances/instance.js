@@ -1,6 +1,9 @@
 import EventEmitter from '../event-emitter'
 import { isSet } from '../utils'
 
+/**
+ * Represents a JSON instance.
+ */
 class Instance extends EventEmitter {
   constructor (config) {
     super()

@@ -1,6 +1,10 @@
 import Editor from './editor'
 import { isSet, pathToAttribute } from '../utils'
 
+/**
+ * Represents a BooleanEditor instance.
+ * @extends Editor
+ */
 class BooleanEditor extends Editor {
   build () {
     this.control = this.theme.getCheckboxControl({

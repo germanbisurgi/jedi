@@ -3,6 +3,10 @@ import BooleanEnumRadioEditor from '../editors/boolean-enum-radio'
 import BooleanEnumSelectEditor from '../editors/boolean-enum-select'
 import BooleanEditor from '../editors/boolean'
 
+/**
+ * Represents a BooleanInstance instance.
+ * @extends Instance
+ */
 class BooleanInstance extends Instance {
   setUI () {
     if (this.schema.typeIs('boolean') && this.schema.formatIs('radio')) {

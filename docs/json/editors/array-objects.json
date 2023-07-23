@@ -1,0 +1,27 @@
+{
+  "type": "array",
+  "title": "Persons",
+  "format": "nav",
+  "options": {
+    "itemTemplate": "{{ i1 }}) {{ value.name }}"
+  },
+  "items": {
+    "type": "object",
+    "title": "Person",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "age": {
+        "title": "Age",
+        "type": "integer"
+      }
+    }
+  },
+  "default": [
+    { "name": "Albert", "age": 36 },
+    { "name": "Betti", "age": 33 },
+    { "name": "Carl", "age": 40 }
+  ]
+}

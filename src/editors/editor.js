@@ -2,9 +2,13 @@ import EventEmitter from '../event-emitter'
 import ThemeBootstrap3 from '../themes/bootstrap3'
 import ThemeBootstrap4 from '../themes/bootstrap4'
 import ThemeBootstrap5 from '../themes/bootstrap5'
-import ThemeBarebones from '../themes/barebones'
+import Theme from '../themes/barebones'
 import { isSet } from '../utils'
 
+/**
+ * Represents an Editor instance.
+ * @extends EventEmitter
+ */
 class Editor extends EventEmitter {
   constructor (instance) {
     super()
@@ -34,6 +38,10 @@ class Editor extends EventEmitter {
     })
   }
 
+  /**
+   * Initializes the editor
+   * @private
+   */
   init () {
     switch (this.instance.jedi.options.theme) {
       case 'bootstrap3':
@@ -46,15 +54,16 @@ class Editor extends EventEmitter {
         this.theme = new ThemeBootstrap5()
         break
       case 'barebones':
-        this.theme = new ThemeBarebones()
+        this.theme = new Theme()
         break
       default:
-        this.theme = new ThemeBarebones()
+        this.theme = new Theme()
     }
   }
 
   /**
    * Sets container attributes like data-path and data-type
+   * @private
    */
   setContainerAttributes () {
     this.control.container.setAttribute('data-path', this.instance.path)
@@ -66,16 +75,19 @@ class Editor extends EventEmitter {
 
   /**
    * Builds the editor control and appends it to the editor container
+   * @private
    */
   build () {}
 
   /**
    * Updates control UI when its state changes
+   * @private
    */
   refreshUI () {}
 
   /**
    * Shows validation messages in the editor container.
+   * @private
    */
   showValidationErrors (errors) {
     this.control.messages.innerHTML = ''
@@ -88,6 +100,9 @@ class Editor extends EventEmitter {
     })
   }
 
+  /**
+   * @private
+   */
   getInvalidFeedback (message) {
     return this.theme.getInvalidFeedback({
       message: message
@@ -112,6 +127,7 @@ class Editor extends EventEmitter {
 
   /**
    * Transforms the input value if necessary before value set
+   * @private
    */
   sanitize (value) {
     return value
@@ -119,6 +135,7 @@ class Editor extends EventEmitter {
 
   /**
    * Destroys the editor
+   * @private
    */
   destroy () {
     if (this.control.container && this.control.container.parentNode) {

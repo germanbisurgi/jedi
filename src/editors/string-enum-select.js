@@ -1,6 +1,10 @@
 import StringEditor from './string'
 import { isSet, pathToAttribute } from '../utils'
 
+/**
+ * Represents a StringEnumSelectEditor instance.
+ * @extends Editor
+ */
 class StringEnumSelectEditor extends StringEditor {
   build () {
     // control

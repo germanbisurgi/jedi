@@ -1,6 +1,10 @@
-import ThemeBarebones from './barebones'
+import Theme from './barebones'
 
-class ThemeBootstrap5 extends ThemeBarebones {
+/**
+ * Represents a ThemeBootstrap5 instance.
+ * @extends Theme
+ */
+class ThemeBootstrap5 extends Theme {
   getLegend (config) {
     const html = super.getLegend(config)
     html.classList.add('visually-hidden')
@@ -41,6 +45,13 @@ class ThemeBootstrap5 extends ThemeBarebones {
     const html = super.getPropertiesSlot()
     html.classList.add('collapse')
     html.setAttribute('id', config.id)
+    return html
+  }
+
+  getArrayActionsSlot () {
+    const html = super.getArrayActionsSlot()
+    html.classList.add('btn-group')
+    html.classList.add('float-end')
     return html
   }
 

@@ -3,6 +3,10 @@
 import Editor from './editor'
 import { isArray, isSet, pathToAttribute } from '../utils'
 
+/**
+ * Represents an ArrayEditor instance.
+ * @extends Editor
+ */
 class ArrayEditor extends Editor {
   build () {
     this.control = this.theme.getArrayControl({
@@ -42,28 +46,28 @@ class ArrayEditor extends Editor {
 
     this.instance.children.forEach((child) => {
       const itemIndex = Number(child.getKey())
-      const childTitle = isSet(child.schema.title()) ? child.schema.title() : ''
+      const deleteBtn = this.theme.getDeleteItemBtn()
+      const moveUpBtn = this.theme.getMoveUpItemBtn()
+      const moveDownBtn = this.theme.getMoveDownItemBtn()
 
-      const arrayItem = this.theme.getArrayItem({
-        legend: childTitle + ' ' + itemIndex,
-        srOnly: true
-      })
+      child.ui.control.arrayActions.innerHTML = ''
+      child.ui.control.arrayActions.appendChild(deleteBtn)
+      child.ui.control.arrayActions.appendChild(moveUpBtn)
+      child.ui.control.arrayActions.appendChild(moveDownBtn)
 
-      arrayItem.childrenSlot.appendChild(child.ui.control.container)
+      this.control.childrenSlot.appendChild(child.ui.control.container)
 
-      this.control.childrenSlot.appendChild(arrayItem.container)
-
-      arrayItem.deleteBtn.addEventListener('click', () => {
+      deleteBtn.addEventListener('click', () => {
         const itemIndex = Number(child.path.split(this.instance.jedi.pathSeparator).pop())
         this.instance.deleteItem(itemIndex)
       })
 
-      arrayItem.moveUpBtn.addEventListener('click', () => {
+      moveUpBtn.addEventListener('click', () => {
         const toIndex = itemIndex - 1
         this.instance.move(itemIndex, toIndex)
       })
 
-      arrayItem.moveDownBtn.addEventListener('click', () => {
+      moveDownBtn.addEventListener('click', () => {
         const toIndex = itemIndex + 1
         this.instance.move(itemIndex, toIndex)
       })

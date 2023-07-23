@@ -4,6 +4,10 @@ import StringEnumRadioEditor from '../editors/string-enum-radio'
 import StringEnumSelectEditor from '../editors/string-enum-select'
 import { isSet } from '../utils'
 
+/**
+ * Represents a StringInstance instance.
+ * @extends Instance
+ */
 class StringInstance extends Instance {
   setUI () {
     if (this.schema.typeIs('string') && isSet(this.schema.enum()) && this.schema.formatIs('radio')) {

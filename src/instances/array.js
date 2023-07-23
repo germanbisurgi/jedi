@@ -3,6 +3,10 @@ import { getType, isSet, clone, isArray, notSet, isObject } from '../utils'
 import ArrayEditor from '../editors/array'
 import ArrayNavEditor from '../editors/array-nav'
 
+/**
+ * Represents an ArrayInstance instance.
+ * @extends Instance
+ */
 class ArrayInstance extends Instance {
   setUI () {
     if (this.schema.typeIs('array') && this.schema.formatIs('nav')) {
@@ -13,7 +17,6 @@ class ArrayInstance extends Instance {
   }
 
   prepare () {
-    this.cache = {}
     this.refreshChildren()
 
     this.on('set-value', () => {
@@ -63,8 +66,7 @@ class ArrayInstance extends Instance {
     const tempEditor = this.createItemInstance()
     const value = clone(this.getValue())
     value.push(tempEditor.getValue())
-    const cacheIndex = Object.keys(this.cache).length
-    this.cache[cacheIndex] = tempEditor
+    tempEditor.destroy()
     this.setValue(value)
   }
 
@@ -94,7 +96,7 @@ class ArrayInstance extends Instance {
     }
 
     value.forEach((itemValue, index) => {
-      const child = isSet(this.cache[index]) ? this.cache[index] : this.createItemInstance(itemValue)
+      const child = this.createItemInstance(itemValue)
       child.setValue(itemValue, false)
       this.children.push(child)
     })

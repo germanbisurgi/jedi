@@ -3,13 +3,17 @@ JSON Editing, Data Validation, and Integration
 
 ## Todo
 
+- rename barebones to theme
+- collapse card
+- set first enum value as default in editor
 - jsdoc
 - private methods
 - properties as dropdown
 - array grid
 - array table
 - remember saved page
-- card headers alternative
+- header: false
+- title: false
 - schema helpers instead of schema object
 - nested if-then-else
 - allOf if-then-else
@@ -31,8 +35,7 @@ JSON Editing, Data Validation, and Integration
 - plugins examples
 - edit object values
 - edit array values
-- filter by field
-- propertyNames
+- filter by field (using tags)
 - formats
 - array enums
 - translations
