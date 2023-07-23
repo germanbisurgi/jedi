@@ -101,6 +101,7 @@ class Editor extends EventEmitter {
   }
 
   /**
+   * Get an error message container
    * @private
    */
   getInvalidFeedback (message) {

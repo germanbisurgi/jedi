@@ -34,10 +34,10 @@
             <h2>Class: {{ doc.name }}</h2>
             <p v-if="doc.augments">
               <b>Inheritance:</b>
-              <a href="javascript:void(0)" @click="changeTab('#' + doc.name)"><code>{{ doc.name }}</code></a>
+              <button class="btn btn-link" @click="changeTab('#' + doc.name)"><code>{{ doc.name }}</code></button>
               <span> > </span>
               <span v-for="(className, index) in getInheritance(doc)">
-                <a href="javascript:void(0)" @click="changeTab('#' + className)"><code>{{ className }}</code></a>
+                <button class="btn btn-link" @click="changeTab('#' + className)"><code>{{ className }}</code></button>
                 <span v-if="index !== getInheritance(doc).length - 1"> > </span>
               </span>
             </p>
@@ -80,9 +80,9 @@
                     <td><code>{{ property.name }}</code></td>
                     <td>{{ property.description }}</td>
                     <td>
-                      <a v-if="property.inherits" href="javascript:void(0)" @click="changeTab('#' + property.inherits.split('#')[0])">
+                      <button v-if="property.inherits" class="btn btn-link" @click="changeTab('#' + property.inherits.split('#')[0])">
                         <code>{{ property.inherits.split('#')[0] }}</code>
-                      </a>
+                      </button>
                       <span v-else><code>{{ doc.name }}</code></span>
                     </td>
                   </tr>
@@ -105,9 +105,9 @@
                     <td><code>{{ method.name }}()</code></td>
                     <td>{{ method.description }}</td>
                     <td>
-                      <a v-if="method.inherits" href="javascript:void(0)" @click="changeTab('#' + method.inherits.split('#')[0])">
+                      <button v-if="method.inherits" class="btn btn-link" @click="changeTab('#' + method.inherits.split('#')[0])">
                         <code>{{ method.inherits.split('#')[0] }}</code>
-                      </a>
+                      </button>
                       <span v-else><code>{{ doc.name }}</code></span>
                     </td>
                   </tr>

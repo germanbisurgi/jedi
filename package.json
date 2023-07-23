@@ -17,9 +17,7 @@
     "webpack": "webpack",
     "eslint": "eslint ./src",
     "eslint:fix": "eslint --fix ./src",
-    "jsdoc": "jsdoc ./src -c ./config/jsdoc.json",
-    "jsdoc:explain": "jsdoc -r -X ./src > ./docs/jsdoc.json",
-    "jsdoc:help": "jsdoc --help"
+    "jsdoc": "jsdoc -r -X ./src > ./docs/jsdoc.json"
   },
   "repository": {
     "type": "git",

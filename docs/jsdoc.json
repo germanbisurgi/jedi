@@ -2563,7 +2563,7 @@
         "meta": {
             "range": [
                 338,
-                3273
+                3309
             ],
             "filename": "editor.js",
             "lineno": 12,
@@ -2623,7 +2623,7 @@
         "meta": {
             "range": [
                 338,
-                3273
+                3309
             ],
             "filename": "editor.js",
             "lineno": 12,
@@ -3164,14 +3164,14 @@
         "params": []
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -3186,6 +3186,7 @@
                 "": null
             }
         },
+        "description": "Get an error message container",
         "access": "private",
         "name": "getInvalidFeedback",
         "longname": "Editor#getInvalidFeedback",
@@ -3198,11 +3199,11 @@
         "comment": "",
         "meta": {
             "range": [
-                2612,
-                2628
+                2648,
+                2664
             ],
             "filename": "editor.js",
-            "lineno": 108,
+            "lineno": 109,
             "columnno": 6,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -3222,11 +3223,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -3251,11 +3252,11 @@
         "comment": "",
         "meta": {
             "range": [
-                2697,
-                2717
+                2733,
+                2753
             ],
             "filename": "editor.js",
-            "lineno": 116,
+            "lineno": 117,
             "columnno": 4,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -3277,11 +3278,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -3306,11 +3307,11 @@
         "comment": "",
         "meta": {
             "range": [
-                2798,
-                2819
+                2834,
+                2855
             ],
             "filename": "editor.js",
-            "lineno": 124,
+            "lineno": 125,
             "columnno": 4,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -3332,11 +3333,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -3364,11 +3365,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -3395,11 +3396,11 @@
         "comment": "",
         "meta": {
             "range": [
-                3275,
-                3296
+                3311,
+                3332
             ],
             "filename": "editor.js",
-            "lineno": 151,
+            "lineno": 152,
             "columnno": 0,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -43814,14 +43815,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -43839,6 +43840,7 @@
         "name": "getInvalidFeedback",
         "longname": "ArrayEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "ArrayEditor",
         "scope": "instance",
@@ -43850,11 +43852,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -43880,11 +43882,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -43910,11 +43912,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -43944,11 +43946,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -44211,14 +44213,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -44236,6 +44238,7 @@
         "name": "getInvalidFeedback",
         "longname": "ArrayNavEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "ArrayNavEditor",
         "scope": "instance",
@@ -44246,11 +44249,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -44276,11 +44279,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -44306,11 +44309,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -44339,11 +44342,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -44606,14 +44609,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -44631,6 +44634,7 @@
         "name": "getInvalidFeedback",
         "longname": "BooleanEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "BooleanEditor",
         "scope": "instance",
@@ -44641,11 +44645,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -44671,11 +44675,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -44701,11 +44705,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -44735,11 +44739,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45002,14 +45006,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45027,6 +45031,7 @@
         "name": "getInvalidFeedback",
         "longname": "BooleanEnumRadioEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "BooleanEnumRadioEditor",
         "scope": "instance",
@@ -45037,11 +45042,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45067,11 +45072,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45097,11 +45102,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45130,11 +45135,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45397,14 +45402,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45422,6 +45427,7 @@
         "name": "getInvalidFeedback",
         "longname": "BooleanEnumSelectEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "BooleanEnumSelectEditor",
         "scope": "instance",
@@ -45432,11 +45438,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45462,11 +45468,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45492,11 +45498,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45525,11 +45531,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45793,14 +45799,14 @@
         "overrides": "Editor#showValidationErrors"
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45818,6 +45824,7 @@
         "name": "getInvalidFeedback",
         "longname": "MultipleEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "MultipleEditor",
         "scope": "instance",
@@ -45829,11 +45836,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45859,11 +45866,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45889,11 +45896,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -45922,11 +45929,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -46188,14 +46195,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -46213,6 +46220,7 @@
         "name": "getInvalidFeedback",
         "longname": "NullEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "NullEditor",
         "scope": "instance",
@@ -46223,11 +46231,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -46253,11 +46261,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -46283,11 +46291,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -46317,11 +46325,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -46584,14 +46592,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -46609,6 +46617,7 @@
         "name": "getInvalidFeedback",
         "longname": "NumberEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "NumberEditor",
         "scope": "instance",
@@ -46619,11 +46628,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -46649,11 +46658,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -46679,11 +46688,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -46713,11 +46722,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -46980,14 +46989,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -47005,6 +47014,7 @@
         "name": "getInvalidFeedback",
         "longname": "NumberEnumRadioEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "NumberEnumRadioEditor",
         "scope": "instance",
@@ -47015,11 +47025,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -47045,11 +47055,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -47075,11 +47085,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -47108,11 +47118,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -47374,14 +47384,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -47399,6 +47409,7 @@
         "name": "getInvalidFeedback",
         "longname": "NumberEnumSelectEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "NumberEnumSelectEditor",
         "scope": "instance",
@@ -47409,11 +47420,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -47439,11 +47450,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -47469,11 +47480,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -47502,11 +47513,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -47769,14 +47780,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -47794,6 +47805,7 @@
         "name": "getInvalidFeedback",
         "longname": "ObjectEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "ObjectEditor",
         "scope": "instance",
@@ -47805,11 +47817,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -47835,11 +47847,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -47865,11 +47877,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -47899,11 +47911,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -48164,14 +48176,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -48189,6 +48201,7 @@
         "name": "getInvalidFeedback",
         "longname": "ObjectGridEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "ObjectGridEditor",
         "scope": "instance",
@@ -48199,11 +48212,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -48229,11 +48242,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -48259,11 +48272,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -48292,11 +48305,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -48558,14 +48571,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -48583,6 +48596,7 @@
         "name": "getInvalidFeedback",
         "longname": "ObjectNavEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "ObjectNavEditor",
         "scope": "instance",
@@ -48593,11 +48607,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -48623,11 +48637,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -48653,11 +48667,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -48686,11 +48700,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -48953,14 +48967,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -48978,6 +48992,7 @@
         "name": "getInvalidFeedback",
         "longname": "StringEnumRadioEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "StringEnumRadioEditor",
         "scope": "instance",
@@ -48988,11 +49003,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -49018,11 +49033,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -49048,11 +49063,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -49081,11 +49096,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -49347,14 +49362,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -49372,6 +49387,7 @@
         "name": "getInvalidFeedback",
         "longname": "StringEnumSelectEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "StringEnumSelectEditor",
         "scope": "instance",
@@ -49382,11 +49398,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -49412,11 +49428,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -49442,11 +49458,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -49475,11 +49491,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -49742,14 +49758,14 @@
         "inherited": true
     },
     {
-        "comment": "/**\n   * @private\n   */",
+        "comment": "/**\n   * Get an error message container\n   * @private\n   */",
         "meta": {
             "range": [
-                2532,
-                2639
+                2568,
+                2675
             ],
             "filename": "editor.js",
-            "lineno": 106,
+            "lineno": 107,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -49767,6 +49783,7 @@
         "name": "getInvalidFeedback",
         "longname": "StringEditor#getInvalidFeedback",
         "kind": "function",
+        "description": "Get an error message container",
         "access": "private",
         "memberof": "StringEditor",
         "scope": "instance",
@@ -49777,11 +49794,11 @@
         "comment": "/**\n   * Disables the editor\n   */",
         "meta": {
             "range": [
-                2680,
-                2742
+                2716,
+                2778
             ],
             "filename": "editor.js",
-            "lineno": 115,
+            "lineno": 116,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -49807,11 +49824,11 @@
         "comment": "/**\n   * Enables the editor\n   */",
         "meta": {
             "range": [
-                2782,
-                2844
+                2818,
+                2880
             ],
             "filename": "editor.js",
-            "lineno": 123,
+            "lineno": 124,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -49837,11 +49854,11 @@
         "comment": "/**\n   * Transforms the input value if necessary before value set\n   * @private\n   */",
         "meta": {
             "range": [
-                2936,
-                2975
+                2972,
+                3011
             ],
             "filename": "editor.js",
-            "lineno": 132,
+            "lineno": 133,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
@@ -49871,11 +49888,11 @@
         "comment": "/**\n   * Destroys the editor\n   * @private\n   */",
         "meta": {
             "range": [
-                3030,
-                3271
+                3066,
+                3307
             ],
             "filename": "editor.js",
-            "lineno": 140,
+            "lineno": 141,
             "columnno": 2,
             "path": "/Users/gbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
