@@ -8,7 +8,7 @@ Jedi is a versatile JavaScript library that simplifies JSON data handling in web
 
 - JSON Editing: Generate accessible user-friendly forms for quick JSON editing.
 
-- CSS libraries Integration: Seamlessly integrates with Bootstrap 3, 4, and 5. Integration with other popular libraries coming soon
+- CSS libraries Integration: Seamlessly integrates with Bootstrap 3, 4, and 5. Integration with other popular libraries coming soon.
 
 
 ## Getting Started
@@ -43,6 +43,10 @@ const editor = new Jedi({
 ## License
 
 Jedi is released under the MIT License, making it free for commercial and non-commercial use.
+
+## Resources
+* [Understanding JSON Schema](http://json-schema.org/understanding-json-schema/index.html)
+* [JSON-Schema-Test-Suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite)
 
 ## Todo
 
@@ -84,6 +88,3 @@ Jedi is released under the MIT License, making it free for commercial and non-co
 - translations
 - use schema to evaluate annotations and options
 
-## Resources
-* [Understanding JSON Schema](http://json-schema.org/understanding-json-schema/index.html)
-* [JSON-Schema-Test-Suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite)
