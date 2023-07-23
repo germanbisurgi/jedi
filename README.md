@@ -1,6 +1,32 @@
 # JEDI
 JSON Editing, Data Validation, and Integration
 
+## As a Validator
+
+````javascript
+const editor = new Jedi({
+  schema: {
+    "type": "string"
+  }
+})
+
+editor.setValue(42)
+
+const errors = editor.getErrors()
+````
+
+## As an Editor
+
+````javascript
+const editor = new Jedi({
+  isEditor: true,
+  container: document.querySelector('#jedi-container'),
+  schema: {
+    "type": "string"
+  }
+})
+````
+
 ## Todo
 
 - rename barebones to theme
