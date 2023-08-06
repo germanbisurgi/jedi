@@ -3,22 +3,57 @@ window.addEventListener('DOMContentLoaded', () => {
     el: '#app',
     data() {
       return {
-        debug: false,
-        json: []
+        debug: true,
+        json: [],
+        filterslist: [
+          'access',
+          'kind'
+        ]
       }
     },
     computed: {
-      classes () {
+      filters() {
+        const filters = {}
+
+        this.json.forEach((doc) => {
+          Object.keys(doc).forEach((property) => {
+            if (this.filterslist.includes(property)) {
+
+              if (!filters[property]) {
+                filters[property] = []
+              }
+
+              filters[property].push(doc[property])
+
+              filters[property] = [...new Set(filters[property])]
+            }
+          })
+        })
+
+        return filters
+      },
+      docItems() {
+        return this.json
+      },
+      docs() {
+        return [...this.modules, ...this.classes]
+      },
+      classes() {
         return this.documented.filter((data) => {
           return data.kind === 'class'
         })
       },
-      documented () {
+      modules() {
+        return this.documented.filter((data) => {
+          return data.kind === 'module'
+        })
+      },
+      documented() {
         return this.json.filter((data) => {
           return !data.undocumented
         })
       },
-      undocumented () {
+      undocumented() {
         return this.json.filter((data) => {
           return data.undocumented
         })
@@ -27,31 +62,54 @@ window.addEventListener('DOMContentLoaded', () => {
     created() {
       this.loadJson()
     },
-    mounted() {},
     methods: {
-      changeTab (href) {
-        document.querySelector('[href="' + href + '"]').click()
+      changeTab(href) {
+        const navItems = document.querySelectorAll('[href="' + href + '"]')
+
+        navItems.forEach((navItem) => {
+          navItem.click()
+        })
       },
-      getProperties (className) {
+      getProperties(className) {
         return this.documented.filter((data) => {
           return data.memberof === className && data.kind === 'member'
         })
       },
-      getMethods (className) {
+      getMethods(className) {
         return this.documented.filter((data) => {
           return data.memberof === className && data.kind === 'function'
         })
       },
-      getClass (className) {
+      getModuleMembers(moduleName) {
+        return this.documented.filter((data) => {
+          return data.memberof === 'module:' + moduleName
+        })
+      },
+      getClass(className) {
         return this.classes.find((data) => {
           return data.name === className
         })
       },
-      getParentClass (doc) {
-        console.log(doc)
+      getParentClass(doc) {
         return doc.augments[0]
       },
-      getInheritance (doc, lastInheritance = []) {
+      getParamsNames (params) {
+        const reducer = (accumulator, currentValue) => {
+          accumulator.push(currentValue.name)
+          return accumulator
+        }
+
+        return params.reduce(reducer, [])
+      },
+      getReturnsNames (returns) {
+        const reducer = (accumulator, currentValue) => {
+          accumulator.push(currentValue.type.names)
+          return accumulator
+        }
+
+        return returns.reduce(reducer, [])
+      },
+      getInheritance(doc, lastInheritance = []) {
         const inheritance = [...lastInheritance]
 
         if (doc.augments) {

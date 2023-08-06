@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Test page for jedi">
+  <link rel="icon" type="image/x-icon" href="./images/json-schema.svg">
+  <title>Docs</title>
+  <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">-->
+  <link rel="stylesheet" href="./css/theme.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/vue.js"></script>
+  <script src="js/docs.js"></script>
+</head>
+<body>
+
+<main id="app">
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container">
+      <img src="./images/json-schema.svg" alt="Avatar Logo" style="width:40px;" class="rounded-pill bg-light">
+
+      <button class="btn btn-primary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#off-canvas">
+        Menu
+      </button>
+    </div>
+  </nav>
+
+
+  <div class="offcanvas offcanvas-start offcanvas-lg" id="off-canvas">
+    <div class="offcanvas-header">
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <h2>Classes</h2>
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item" v-for="(doc, index) in docs">
+          <a class="nav-link" :class="{ active: index === 0 }" :href="'#' + doc.name" data-bs-toggle="tab">
+            <code>{{ doc.name }}</code>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container">
+    <div v-if="debug">
+      <pre>{{ filters }}</pre>
+    </div>
+
+    <h1>Docs</h1>
+    <div class="row row-between">
+      <div class="col-12 col-lg-4 d-none d-lg-block">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item" v-for="(doc, index) in docs">
+            <a class="nav-link" :class="{ active: index === 0 }" :href="'#' + doc.name" data-bs-toggle="tab">
+              <span>{{ doc.kind }}:</span>
+              <code>{{ doc.name }}</code>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-12 col-lg-8">
+        <div class="tab-content">
+          <div class="tab-pane" v-for="(doc, index) in docs" :id="doc.name" :class="{ active: index === 0 }">
+
+            <!-------------------------------------------------------- class -->
+
+            <div v-if="doc.kind === 'class'">
+              <h2>Class: {{ doc.name }}</h2>
+              <p v-if="doc.augments">
+                <b>Inheritance:</b>
+                <button class="btn btn-link" @click="changeTab('#' + doc.name)"><code>{{ doc.name }}</code></button>
+                <span> > </span>
+                <span v-for="(className, index) in getInheritance(doc)">
+                <button class="btn btn-link" @click="changeTab('#' + className)"><code>{{ className }}</code></button>
+                <span v-if="index !== getInheritance(doc).length - 1"> > </span>
+              </span>
+              </p>
+
+              <div v-if="doc.params">
+                <h3>Params:</h3>
+
+                <div class="table-responsive">
+                  <table class="table table-striped table-bordered">
+                    <tr>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Type</th>
+                    </tr>
+
+                    <tr v-for="param in doc.params">
+                      <td>{{ param.name }}</td>
+                      <td>{{ param.description }}</td>
+                      <td>{{ param.type.names.join(' | ') }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+              <p>
+                <b>Description:</b>
+                <span>{{ doc.classdesc }}</span>
+              </p>
+
+              <div v-if="getProperties(doc.name).length">
+                <h3>Properties</h3>
+
+                <div class="table-responsive">
+                  <table class="table table-striped table-bordered">
+                    <tr>
+                      <th>Property</th>
+                      <th>Description</th>
+                      <th>Defined By</th>
+                    </tr>
+
+                    <tr v-for="property in getProperties(doc.name)">
+                      <td><code>{{ property.name }}</code></td>
+                      <td>{{ property.description }}</td>
+                      <td>
+                        <button v-if="property.inherits" class="btn btn-link" @click="changeTab('#' + property.inherits.split('#')[0])">
+                          <code>{{ property.inherits.split('#')[0] }}</code>
+                        </button>
+                        <span v-else><code>{{ doc.name }}</code></span>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+              <div v-if="getMethods(doc.name).length">
+                <h3>Methods</h3>
+
+                <div class="table-responsive">
+                  <table class="table table-striped table-bordered">
+                    <tr>
+                      <th>Method</th>
+                      <th>Description</th>
+                      <th>Defined By</th>
+                    </tr>
+
+                    <tr v-for="method in getMethods(doc.name)">
+                      <td><code>{{ method.name }}()</code></td>
+                      <td>{{ method.description }}</td>
+                      <td>
+                        <button v-if="method.inherits" class="btn btn-link" @click="changeTab('#' + method.inherits.split('#')[0])">
+                          <code>{{ method.inherits.split('#')[0] }}</code>
+                        </button>
+                        <span v-else><code>{{ doc.name }}</code></span>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!------------------------------------------------------- module -->
+
+            <div v-if="doc.kind === 'module'"></div>
+
+            <div v-if="getModuleMembers(doc.name).length">
+              <h2>Module: {{ doc.name }}</h2>
+
+              <p>
+                <b>Description:</b>
+                <span>{{ doc.description }}</span>
+              </p>
+
+              <h3>Members</h3>
+
+              <div v-for="member in getModuleMembers(doc.name)" class="card mb-3">
+                <div class="card-header">
+                  <code>{{ member.name }}({{ getParamsNames(member.params).join(', ') }})</code>
+                  <code v-if="member.returns">{{ getReturnsNames(member.returns).join('|') }}</code>
+                </div>
+
+                <div class="card-body">
+                  <p>{{ member.description }}</p>
+
+                  <div v-if="member.params.length">
+                    <div class="table-responsive">
+                      <table class="table table-striped table-bordered">
+                        <tr>
+                          <th>Param</th>
+                          <th>types</th>
+                          <th>Description</th>
+                        </tr>
+
+                        <tr v-for="param in member.params">
+                          <td><code>{{ param.name }}</code></td>
+                          <td>{{ param.type.names.join('|') }}</td>
+                          <td>{{ param.description }}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div v-if="debug">
+    <div v-for="doc in documented">
+      <div class="card mb-3">
+        <div class="card-header">{{ doc.name }}</div>
+        <div class="body">
+          <pre>{{ doc }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</main>
+</body>
+</html>
