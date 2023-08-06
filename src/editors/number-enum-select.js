@@ -1,11 +1,11 @@
-import NumberEditor from './number'
+import EditorNumber from './number'
 import { isSet, pathToAttribute } from '../utils'
 
 /**
- * Represents an NumberEnumSelectEditor instance.
- * @extends NumberEditor
+ * Represents an EditorNumberEnumSelect instance.
+ * @extends EditorNumber
  */
-class NumberEnumSelectEditor extends NumberEditor {
+class EditorNumberEnumSelect extends EditorNumber {
   build () {
     // control
     this.control = this.theme.getSelectControl({
@@ -24,4 +24,4 @@ class NumberEnumSelectEditor extends NumberEditor {
   }
 }
 
-export default NumberEnumSelectEditor
+export default EditorNumberEnumSelect

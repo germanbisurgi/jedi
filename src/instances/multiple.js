@@ -1,5 +1,5 @@
 import Instance from './instance'
-import MultipleEditor from '../editors/multiple'
+import EditorMultiple from '../editors/multiple'
 import {
   isSet,
   mergeDeep,
@@ -11,12 +11,12 @@ import {
 import Jedi from '../jedi'
 
 /**
- * Represents a MultipleInstance instance.
+ * Represents a InstanceMultiple instance.
  * @extends Instance
  */
-class MultipleInstance extends Instance {
+class InstanceMultiple extends Instance {
   setUI () {
-    this.ui = new MultipleEditor(this)
+    this.ui = new EditorMultiple(this)
   }
 
   prepare () {
@@ -240,4 +240,4 @@ class MultipleInstance extends Instance {
   }
 }
 
-export default MultipleInstance
+export default InstanceMultiple

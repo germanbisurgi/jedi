@@ -1,4 +1,4 @@
-import Theme from './barebones'
+import Theme from './theme'
 
 /**
  * Represents a ThemeBootstrap3 instance.
@@ -28,12 +28,6 @@ class ThemeBootstrap3 extends Theme {
     const html = super.getCardBody()
     html.classList.add('panel-body')
     return html
-  }
-
-  getFooter () {
-    const footer = super.getFooter()
-    footer.classList.add('panel-footer')
-    return footer
   }
 
   getPropertiesSlot (config) {
@@ -77,10 +71,6 @@ class ThemeBootstrap3 extends Theme {
     html.classList.add('btn-xs')
     html.classList.add('btn-default')
     return html
-  }
-
-  getButtonActiveClass () {
-    return 'btn-primary'
   }
 
   getTextareaControl (config) {

@@ -1,7 +1,7 @@
 import Schema from '../../schema'
 import { isSet } from '../../utils'
 
-export const not = (validator, value, schema, key, path) => {
+export function not (validator, value, schema, key, path) {
   const errors = []
 
   if (isSet(schema.not())) {

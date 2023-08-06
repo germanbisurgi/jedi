@@ -1,6 +1,6 @@
 import { isSet, different } from '../../utils'
 
-export const _const = (validator, value, schema, key, path) => {
+export function _const (validator, value, schema, key, path) {
   const errors = []
   if (isSet(schema.const())) {
     const valueIsNotEqualConst = different(value, schema.const())

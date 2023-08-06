@@ -1,11 +1,11 @@
-import BooleanEditor from './boolean'
+import EditorBoolean from './boolean'
 import { isSet, pathToAttribute } from '../utils'
 
 /**
- * Represents an BooleanEnumRadioEditor instance.
- * @extends BooleanEditor
+ * Represents an EditorBooleanEnumRadio instance.
+ * @extends EditorBoolean
  */
-class BooleanEnumRadioEditor extends BooleanEditor {
+class EditorBooleanEnumRadio extends EditorBoolean {
   build () {
     // control
     this.control = this.theme.getRadiosControl({
@@ -34,4 +34,4 @@ class BooleanEnumRadioEditor extends BooleanEditor {
   }
 }
 
-export default BooleanEnumRadioEditor
+export default EditorBooleanEnumRadio

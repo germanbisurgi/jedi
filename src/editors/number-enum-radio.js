@@ -1,11 +1,11 @@
-import NumberEditor from './number'
+import EditorNumber from './number'
 import { isSet, pathToAttribute } from '../utils'
 
 /**
- * Represents an NumberEnumRadioEditor instance.
- * @extends NumberEditor
+ * Represents an EditorNumberEnumRadio instance.
+ * @extends EditorNumber
  */
-class NumberEnumRadioEditor extends NumberEditor {
+class EditorNumberEnumRadio extends EditorNumber {
   build () {
     // control
     this.control = this.theme.getRadiosControl({
@@ -33,4 +33,4 @@ class NumberEnumRadioEditor extends NumberEditor {
   }
 }
 
-export default NumberEnumRadioEditor
+export default EditorNumberEnumRadio

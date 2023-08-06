@@ -1,7 +1,7 @@
 import { isArray, isSet } from '../../utils'
 import Jedi from '../../jedi'
 
-export const prefixItems = (validator, value, schema, key, path) => {
+export function prefixItems (validator, value, schema, key, path) {
   const errors = []
 
   if (isArray(value) && isSet(schema.prefixItems())) {

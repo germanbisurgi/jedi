@@ -1,7 +1,7 @@
 import { isObject, isSet } from '../../utils'
 import Jedi from '../../jedi'
 
-export const dependentSchemas = (validator, value, schema, key, path) => {
+export function dependentSchemas (validator, value, schema, key, path) {
   let errors = []
 
   if (isObject(value) && isSet(schema.dependentSchemas())) {

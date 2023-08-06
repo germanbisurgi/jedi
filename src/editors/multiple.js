@@ -2,10 +2,10 @@ import Editor from './editor'
 import { pathToAttribute } from '../utils'
 
 /**
- * Represents an MultipleEditor instance.
+ * Represents an EditorMultiple instance.
  * @extends Editor
  */
-class MultipleEditor extends Editor {
+class EditorMultiple extends Editor {
   build () {
     this.control = this.theme.getMultipleControl({
       title: 'Options',
@@ -64,4 +64,4 @@ class MultipleEditor extends Editor {
   }
 }
 
-export default MultipleEditor
+export default EditorMultiple

@@ -1,6 +1,6 @@
 import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isSet, isString } from '../../utils'
 
-export const type = (validator, value, schema, key, path) => {
+export function type (validator, value, schema, key, path) {
   const errors = []
 
   if (schema.typeIs('any')) {

@@ -5,7 +5,7 @@
 import { hasOwn, isObject, isSet } from '../../utils'
 import Jedi from '../../jedi'
 
-export const additionalProperties = (validator, value, schema, key, path) => {
+export function additionalProperties (validator, value, schema, key, path) {
   let errors = []
 
   if (isObject(value) && isSet(schema.additionalProperties())) {

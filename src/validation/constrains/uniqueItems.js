@@ -1,6 +1,6 @@
 import { isArray, isObject, isSet, sortObject } from '../../utils'
 
-export const uniqueItems = (validator, value, schema, key, path) => {
+export function uniqueItems (validator, value, schema, key, path) {
   const errors = []
 
   if (isArray(value) && isSet(schema.uniqueItems()) && schema.uniqueItems() === true) {

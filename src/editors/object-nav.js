@@ -1,11 +1,11 @@
-import ObjectEditor from './object'
+import EditorObject from './object'
 import { isSet, pathToAttribute } from '../utils'
 
 /**
- * Represents a ObjectNavEditor instance.
- * @extends ObjectEditor
+ * Represents a EditorObjectNav instance.
+ * @extends EditorObject
  */
-class ObjectNavEditor extends ObjectEditor {
+class EditorObjectNav extends EditorObject {
   init () {
     super.init()
     this.activeTabIndex = 0
@@ -62,4 +62,4 @@ class ObjectNavEditor extends ObjectEditor {
   }
 }
 
-export default ObjectNavEditor
+export default EditorObjectNav

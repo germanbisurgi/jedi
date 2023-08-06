@@ -1,6 +1,6 @@
 import { isArray, isSet } from '../../utils'
 
-export const items = (validator, value, schema, key, path) => {
+export function items (validator, value, schema, key, path) {
   const errors = []
 
   // todo if array length is > prefixItems.length

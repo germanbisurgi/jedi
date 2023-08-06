@@ -1,14 +1,14 @@
 import Instance from './instance'
-import NullEditor from '../editors/null'
+import EditorNull from '../editors/null'
 
 /**
- * Represents a NullInstance instance.
+ * Represents a InstanceNull instance.
  * @extends Instance
  */
-class NullInstance extends Instance {
+class InstanceNull extends Instance {
   setUI () {
-    this.ui = new NullEditor(this)
+    this.ui = new EditorNull(this)
   }
 }
 
-export default NullInstance
+export default InstanceNull

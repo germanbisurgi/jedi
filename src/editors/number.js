@@ -2,10 +2,10 @@ import Editor from './editor'
 import { isNumber, isSet, pathToAttribute } from '../utils'
 
 /**
- * Represents a NumberEditor instance.
+ * Represents a EditorNumber instance.
  * @extends Editor
  */
-class NumberEditor extends Editor {
+class EditorNumber extends Editor {
   build () {
     this.control = this.theme.getInputControl({
       type: 'number',
@@ -44,4 +44,4 @@ class NumberEditor extends Editor {
   }
 }
 
-export default NumberEditor
+export default EditorNumber

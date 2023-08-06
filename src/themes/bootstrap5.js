@@ -1,4 +1,4 @@
-import Theme from './barebones'
+import Theme from './theme'
 
 /**
  * Represents a ThemeBootstrap5 instance.
@@ -33,12 +33,6 @@ class ThemeBootstrap5 extends Theme {
     html.classList.add('card-body')
     html.classList.add('pb-0')
     return html
-  }
-
-  getFooter () {
-    const footer = super.getFooter()
-    footer.classList.add('card-footer')
-    return footer
   }
 
   getPropertiesSlot (config) {
@@ -80,10 +74,6 @@ class ThemeBootstrap5 extends Theme {
     html.classList.add('btn')
     html.classList.add('btn-sm')
     return html
-  }
-
-  getButtonActiveClass () {
-    return 'btn-primary'
   }
 
   getDescription (config) {

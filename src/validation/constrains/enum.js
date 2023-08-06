@@ -1,6 +1,6 @@
 import { isSet } from '../../utils'
 
-export const _enum = (validator, value, schema, key, path) => {
+export function _enum (validator, value, schema, key, path) {
   const errors = []
   if (isSet(schema.enum())) {
     const invalid = !schema.enum().some(e => JSON.stringify(value) === JSON.stringify(e))

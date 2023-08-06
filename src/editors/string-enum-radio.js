@@ -1,11 +1,11 @@
-import StringEditor from './string'
+import EditorString from './string'
 import { isSet, pathToAttribute } from '../utils'
 
 /**
- * Represents a StringEnumRadioEditor instance.
+ * Represents a EditorStringEnumRadio instance.
  * @extends Editor
  */
-class StringEnumRadioEditor extends StringEditor {
+class EditorStringEnumRadio extends EditorString {
   build () {
     // control
     this.control = this.theme.getRadiosControl({
@@ -32,4 +32,4 @@ class StringEnumRadioEditor extends StringEditor {
   }
 }
 
-export default StringEnumRadioEditor
+export default EditorStringEnumRadio

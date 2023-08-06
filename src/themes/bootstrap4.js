@@ -1,4 +1,4 @@
-import Theme from './barebones'
+import Theme from './theme'
 
 /**
  * Represents a ThemeBootstrap4 instance.
@@ -35,12 +35,6 @@ class ThemeBootstrap4 extends Theme {
     return html
   }
 
-  getFooter () {
-    const footer = super.getFooter()
-    footer.classList.add('card-footer')
-    return footer
-  }
-
   getPropertiesSlot (config) {
     const html = super.getPropertiesSlot()
     html.classList.add('collapse')
@@ -74,10 +68,6 @@ class ThemeBootstrap4 extends Theme {
     html.classList.add('btn')
     html.classList.add('btn-sm')
     return html
-  }
-
-  getButtonActiveClass () {
-    return 'btn-primary'
   }
 
   getDescription (config) {

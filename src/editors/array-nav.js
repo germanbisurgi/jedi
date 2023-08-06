@@ -1,11 +1,11 @@
-import ArrayEditor from './array'
+import EditorArray from './array'
 import { compileTemplate, isSet, pathToAttribute } from '../utils'
 
 /**
- * Represents an ArrayNavEditor instance.
- * @extends ArrayEditor
+ * Represents an EditorArrayNav instance.
+ * @extends EditorArray
  */
-class ArrayNavEditor extends ArrayEditor {
+class EditorArrayNav extends EditorArray {
   init () {
     super.init()
     this.activeTabIndex = 0
@@ -106,4 +106,4 @@ class ArrayNavEditor extends ArrayEditor {
   }
 }
 
-export default ArrayNavEditor
+export default EditorArrayNav

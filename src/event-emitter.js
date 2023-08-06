@@ -9,8 +9,8 @@ class EventEmitter {
   /**
    * Adds an named event listener
    * @public
-   * @param name
-   * @param callback
+   * @param {string} name - The name of the event
+   * @param {function} callback - A callback functions that will be executed whent this event is emitted
    */
   on (name, callback) {
     this.listeners.push({ name, callback })
@@ -19,7 +19,7 @@ class EventEmitter {
   /**
    * Triggers the callback function of a named event listener
    * @public
-   * @param name
+   * @param {string} name - The name of the event to be emitted
    */
   emit (name) {
     const listeners = this.listeners.filter(listener => listener.name === name)

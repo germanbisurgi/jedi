@@ -1,6 +1,6 @@
 import { isObject, isSet } from '../../utils'
 
-export const minProperties = (validator, value, schema, key, path) => {
+export function minProperties (validator, value, schema, key, path) {
   const errors = []
 
   if (isObject(value) && isSet(schema.minProperties())) {

@@ -1,11 +1,11 @@
-import StringEditor from './string'
+import EditorString from './string'
 import { isSet, pathToAttribute } from '../utils'
 
 /**
- * Represents a StringEnumSelectEditor instance.
+ * Represents a EditorStringEnumSelect instance.
  * @extends Editor
  */
-class StringEnumSelectEditor extends StringEditor {
+class EditorStringEnumSelect extends EditorString {
   build () {
     // control
     this.control = this.theme.getSelectControl({
@@ -24,4 +24,4 @@ class StringEnumSelectEditor extends StringEditor {
   }
 }
 
-export default StringEnumSelectEditor
+export default EditorStringEnumSelect

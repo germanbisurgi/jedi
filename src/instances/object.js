@@ -1,23 +1,23 @@
 import Instance from './instance'
 import { different, isSet, notSet, getType, isObject, hasOwn } from '../utils'
-import ObjectGridEditor from '../editors/object-grid'
-import ObjectEditor from '../editors/object'
-import ObjectNavEditor from '../editors/object-nav'
+import EditorObjectGrid from '../editors/object-grid'
+import EditorObject from '../editors/object'
+import EditorObjectNav from '../editors/object-nav'
 
 /**
- * Represents an ObjectInstance instance.
+ * Represents an InstanceObject instance.
  * @extends Instance
  */
-class ObjectInstance extends Instance {
+class InstanceObject extends Instance {
   setUI () {
-    this.ui = new ObjectEditor(this)
+    this.ui = new EditorObject(this)
 
     if (this.schema.typeIs('object') && this.schema.formatIs('grid')) {
-      this.ui = new ObjectGridEditor(this)
+      this.ui = new EditorObjectGrid(this)
     } else if (this.schema.typeIs('object') && this.schema.formatIs('nav')) {
-      this.ui = new ObjectNavEditor(this)
+      this.ui = new EditorObjectNav(this)
     } else {
-      this.ui = new ObjectEditor(this)
+      this.ui = new EditorObject(this)
     }
   }
 
@@ -166,4 +166,4 @@ class ObjectInstance extends Instance {
   }
 }
 
-export default ObjectInstance
+export default InstanceObject

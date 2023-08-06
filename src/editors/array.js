@@ -4,10 +4,10 @@ import Editor from './editor'
 import { isArray, isSet, pathToAttribute } from '../utils'
 
 /**
- * Represents an ArrayEditor instance.
+ * Represents an EditorArray instance.
  * @extends Editor
  */
-class ArrayEditor extends Editor {
+class EditorArray extends Editor {
   build () {
     this.control = this.theme.getArrayControl({
       title: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
@@ -89,4 +89,4 @@ class ArrayEditor extends Editor {
   }
 }
 
-export default ArrayEditor
+export default EditorArray

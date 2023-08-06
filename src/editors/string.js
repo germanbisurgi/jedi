@@ -2,10 +2,10 @@ import Editor from './editor'
 import { isSet, pathToAttribute } from '../utils'
 
 /**
- * Represents a StringEditor instance.
+ * Represents a EditorString instance.
  * @extends Editor
  */
-class StringEditor extends Editor {
+class EditorString extends Editor {
   build () {
     const inputTypes = ['hidden', 'color', 'date', 'datetime-local', 'email', 'number', 'month', 'password', 'search', 'time', 'tel', 'text', 'textarea', 'url', 'week']
 
@@ -52,4 +52,4 @@ class StringEditor extends Editor {
   }
 }
 
-export default StringEditor
+export default EditorString

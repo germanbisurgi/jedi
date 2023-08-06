@@ -1,6 +1,6 @@
 import { isNumber, isSet } from '../../utils'
 
-export const exclusiveMinimum = (validator, value, schema, key, path) => {
+export function exclusiveMinimum (validator, value, schema, key, path) {
   const errors = []
 
   if (isNumber(value) && isSet(schema.exclusiveMinimum())) {

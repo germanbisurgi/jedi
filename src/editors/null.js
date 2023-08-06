@@ -2,10 +2,10 @@ import Editor from './editor'
 import { isSet, pathToAttribute } from '../utils'
 
 /**
- * Represents a NullEditor instance.
+ * Represents a EditorNull instance.
  * @extends Editor
  */
-class NullEditor extends Editor {
+class EditorNull extends Editor {
   build () {
     this.control = this.theme.getNullControl({
       id: pathToAttribute(this.instance.path),
@@ -20,4 +20,4 @@ class NullEditor extends Editor {
   }
 }
 
-export default NullEditor
+export default EditorNull

@@ -1,6 +1,6 @@
 import { isNumber, isSet } from '../../utils'
 
-export const multipleOf = (validator, value, schema, key, path) => {
+export function multipleOf (validator, value, schema, key, path) {
   const errors = []
 
   if (isNumber(value) && isSet(schema.multipleOf())) {

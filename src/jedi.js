@@ -1,13 +1,13 @@
 import Schema from './schema'
 import Validator from './validation/validator'
 import EventEmitter from './event-emitter'
-import MultipleInstance from './instances/multiple'
-import BooleanInstance from './instances/boolean'
-import ObjectInstance from './instances/object'
-import ArrayInstance from './instances/array'
-import StringInstance from './instances/string'
-import NumberInstance from './instances/number'
-import NullInstance from './instances/null'
+import InstanceMultiple from './instances/multiple'
+import InstanceBoolean from './instances/boolean'
+import InstanceObject from './instances/object'
+import InstanceArray from './instances/array'
+import InstanceString from './instances/string'
+import InstanceNumber from './instances/number'
+import InstanceNull from './instances/null'
 import RefParser from './ref-parser'
 import { getType, hasOwn, isArray, isSet, notSet } from './utils'
 
@@ -33,7 +33,6 @@ class Jedi extends EventEmitter {
       alwaysShowErrors: false,
       showRequiredOnly: false,
       schema: {},
-      theme: 'barebones',
       refParser: true
     }, options)
 
@@ -180,6 +179,7 @@ class Jedi extends EventEmitter {
     let instance
 
     // circular $ref are not initially dereferenced and must be defined on creation
+    console.log(config)
     if (this.options.refParser && hasOwn(config.schema, '$ref')) {
       config.schema = this.refParser.define(config.schema['$ref'])
     }
@@ -187,27 +187,27 @@ class Jedi extends EventEmitter {
     config.schema = new Schema(config.schema)
 
     if (config.schema.typeIs('boolean')) {
-      instance = new BooleanInstance(config)
+      instance = new InstanceBoolean(config)
     }
 
     if (config.schema.typeIs('object')) {
-      instance = new ObjectInstance(config)
+      instance = new InstanceObject(config)
     }
 
     if (config.schema.typeIs('array')) {
-      instance = new ArrayInstance(config)
+      instance = new InstanceArray(config)
     }
 
     if (config.schema.typeIs('string')) {
-      instance = new StringInstance(config)
+      instance = new InstanceString(config)
     }
 
     if (config.schema.typeIsNumeric()) {
-      instance = new NumberInstance(config)
+      instance = new InstanceNumber(config)
     }
 
     if (config.schema.typeIs('null')) {
-      instance = new NullInstance(config)
+      instance = new InstanceNull(config)
     }
 
     if (isSet(config.schema.if()) || isSet(config.schema.anyOf()) || isSet(config.schema.oneOf()) || config.schema.typeIs('any') || isArray(config.schema.type()) || notSet(config.schema.type())) {
@@ -217,7 +217,7 @@ class Jedi extends EventEmitter {
         config.schema = schemaClone
         return this.createInstance(config)
       } else {
-        instance = new MultipleInstance(config)
+        instance = new InstanceMultiple(config)
       }
     }
 

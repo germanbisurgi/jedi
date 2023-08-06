@@ -2,26 +2,47 @@
  * Represents a Theme instance.
  */
 class Theme {
+  /**
+   * Returns a div used to wrap the editor UI elements
+   * @private
+   */
   getEditorContainer () {
     const html = document.createElement('div')
     html.classList.add('jedi-editor-container')
     return html
   }
 
+  /**
+   * Return a fieldset element.
+   * Used to wrap children slot and provide more semantic html
+   * @private
+   */
   getFieldset () {
     return document.createElement('fieldset')
   }
 
+  /**
+   * Container for complex editors like arrays, objects and multiple
+   * @private
+   */
   getCard () {
     return document.createElement('div')
   }
 
+  /**
+   * Legend element used in fieldsets
+   * @private
+   */
   getLegend (config) {
     const html = document.createElement('legend')
     html.textContent = config.textContent
     return html
   }
 
+  /**
+   * Header for cards
+   * @private
+   */
   getCardHeader (config = {}) {
     const header = document.createElement('div')
     const title = document.createElement('span')
@@ -39,66 +60,106 @@ class Theme {
     return header
   }
 
+  /**
+   * A body for the cards
+   * @private
+   */
   getCardBody () {
     return document.createElement('div')
   }
 
-  getFooter () {
-    return document.createElement('div')
-  }
-
+  /**
+   * Container for properties editing elements like property activators
+   * @private
+   */
   getPropertiesSlot () {
     const html = document.createElement('div')
     html.classList.add('jedi-properties-slot')
     return html
   }
 
+  /**
+   * Wrapper for editor actions buttons
+   * @private
+   */
   getActionsSlot () {
     const html = document.createElement('div')
     html.classList.add('jedi-actions-slot')
     return html
   }
 
+  /**
+   * Wrapper for editor array specific actions buttons
+   * @private
+   */
   getArrayActionsSlot () {
     const html = document.createElement('div')
     html.classList.add('jedi-array-actions-slot')
     return html
   }
 
+  /**
+   * Wrapper for child editors
+   * @private
+   */
   getChildrenSlot () {
     const html = document.createElement('div')
     html.classList.add('jedi-child-editors-slot')
     return html
   }
 
+  /**
+   * Wrapper for error messages
+   * @private
+   */
   getMessagesSlot () {
     const html = document.createElement('div')
     html.classList.add('jedi-messages-slot')
     return html
   }
 
+  /**
+   * Wrapper for editor controls
+   * @private
+   */
   getControlSlot () {
     const html = document.createElement('div')
     html.classList.add('jedi-control-slot')
     return html
   }
 
+  /**
+   * Toggles the ObjectEditor properties wrapper visibility
+   * @private
+   */
   getPropertiesToggle (config) {
     const html = this.getButton(config)
     html.classList.add('jedi-properties-toggle')
     return html
   }
 
+  /**
+   * Wrapper for property activators
+   * @private
+   */
   getPropertiesActivators () {
     const html = document.createElement('div')
     html.classList.add('jedi-properties-container')
     return html
   }
 
+  /**
+   * Wrapper buttons
+   * @private
+   */
   getBtnGroup () {
     return document.createElement('div')
   }
 
+  /**
+   * A button
+   * @private
+   */
   getButton (config) {
     const html = document.createElement('button')
     html.setAttribute('type', 'button')
@@ -115,18 +176,30 @@ class Theme {
     return html
   }
 
+  /**
+   * Array "add" item button
+   * @private
+   */
   getArrayBtnAdd (config) {
     const html = this.getButton(config)
     html.classList.add('jedi-array-add')
     return html
   }
 
+  /**
+   * Array "delete all" item button
+   * @private
+   */
   getArrayBtnDeleteAll (config) {
     const html = this.getButton(config)
     html.classList.add('jedi-array-delete-all')
     return html
   }
 
+  /**
+   * Array "delete" item button
+   * @private
+   */
   getDeleteItemBtn () {
     const deleteItemBtn = this.getButton({
       textContent: 'Delete item'
@@ -137,6 +210,10 @@ class Theme {
     return deleteItemBtn
   }
 
+  /**
+   * Array "move up" item button
+   * @private
+   */
   getMoveUpItemBtn () {
     const moveUpItemBtn = this.getButton({
       textContent: 'Move up'
@@ -147,6 +224,10 @@ class Theme {
     return moveUpItemBtn
   }
 
+  /**
+   * Array "move down" item button
+   * @private
+   */
   getMoveDownItemBtn () {
     const moveDownItemBtn = this.getButton({
       textContent: 'Move down'
@@ -157,16 +238,22 @@ class Theme {
     return moveDownItemBtn
   }
 
-  getButtonActiveClass () {
-    return 'jedi-active-btn'
-  }
-
+  /**
+   * Wrapper for the editor description
+   * @private
+   */
   getDescription (config) {
     const description = document.createElement('div')
     description.textContent = config.textContent
     return description
   }
 
+  /**
+   * Object control is a card containing multiple editors.
+   * Each editor is mapped to an object instance property.
+   * Properties can be added, activated and deactivated depending on configuration
+   * @private
+   */
   getObjectControl (config) {
     const container = document.createElement('div')
     const card = this.getCard()
@@ -250,6 +337,11 @@ class Theme {
     }
   }
 
+  /**
+   * Array control is a card containing multiple editors.
+   * Items can bve added, deleted or moved up or down.
+   * @private
+   */
   getArrayControl (config) {
     const container = document.createElement('div')
     const card = this.getCard()
@@ -312,37 +404,12 @@ class Theme {
     }
   }
 
-  getArrayItem (config) {
-    const container = this.getCard()
-    const actions = this.getActionsSlot()
-    const body = this.getCardBody()
-    const header = this.getCardHeader()
-    const btnGroup = this.getBtnGroup()
-
-    const deleteBtn = this.getDeleteItemBtn()
-    const moveUpBtn = this.getMoveUpItemBtn()
-    const moveDownBtn = this.getMoveDownItemBtn()
-    const childrenSlot = this.getChildrenSlot()
-
-    container.appendChild(header)
-    container.appendChild(body)
-    header.appendChild(actions)
-    header.appendChild(btnGroup)
-    body.appendChild(childrenSlot)
-    btnGroup.appendChild(deleteBtn)
-    btnGroup.appendChild(moveUpBtn)
-    btnGroup.appendChild(moveDownBtn)
-
-    return {
-      container,
-      body,
-      childrenSlot,
-      deleteBtn,
-      moveUpBtn,
-      moveDownBtn
-    }
-  }
-
+  /**
+   * Multiple control is a card containing multiple editors options that can be
+   * selected with a switcher control. Only one editor can be active/visible
+   * at a time
+   * @private
+   */
   getMultipleControl (config) {
     const container = document.createElement('div')
     const card = this.getCard()
@@ -396,6 +463,10 @@ class Theme {
     }
   }
 
+  /**
+   * Control for NullEditor
+   * @private
+   */
   getNullControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
@@ -431,6 +502,10 @@ class Theme {
     return { container, label, labelText, description, messages, actions, arrayActions }
   }
 
+  /**
+   * A Textarea
+   * @private
+   */
   getTextareaControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
@@ -471,6 +546,10 @@ class Theme {
     return { container, input, label, labelText, description, messages, actions, arrayActions }
   }
 
+  /**
+   * An Input control
+   * @private
+   */
   getInputControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
@@ -512,6 +591,10 @@ class Theme {
     return { container, input, label, labelText, description, messages, actions, arrayActions }
   }
 
+  /**
+   * A radio group control
+   * @private
+   */
   getRadiosControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
@@ -588,6 +671,10 @@ class Theme {
     return { container, fieldset, legend, label, radios, labels, labelTexts, radioControls, description, messages, actions, arrayActions }
   }
 
+  /**
+   * A checkbox control
+   * @private
+   */
   getCheckboxControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
@@ -632,6 +719,10 @@ class Theme {
     return { container, formGroup, input, label, labelText, description, messages, actions, arrayActions }
   }
 
+  /**
+   * A select control
+   * @private
+   */
   getSelectControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
@@ -683,10 +774,19 @@ class Theme {
     return { container, input, label, labelText, description, messages, actions, arrayActions }
   }
 
+  /**
+   * Control to switch between multiple editors options
+   * @private
+   */
   getSwitcher (config) {
     return this.getSelectControl(config)
   }
 
+  /**
+   * Another type of error message container used for more complex editors like
+   * object, array and multiple editors
+   * @private
+   */
   getAlert (config) {
     const html = document.createElement('p')
     html.classList.add('jedi-error-message')
@@ -694,6 +794,10 @@ class Theme {
     return html
   }
 
+  /**
+   * Error messages
+   * @private
+   */
   getInvalidFeedback (config) {
     const html = document.createElement('div')
     html.classList.add('jedi-error-message')
@@ -701,12 +805,20 @@ class Theme {
     return html
   }
 
+  /**
+   * Container for columns
+   * @private
+   */
   getRow () {
     const row = document.createElement('div')
     row.classList.add('jedi-row')
     return row
   }
 
+  /**
+   * A column to contain content to a specific width
+   * @private
+   */
   getCol (xs, md, offsetMd) {
     const col = document.createElement('div')
     col.classList.add('jedi-col-xs-' + xs)
@@ -719,12 +831,20 @@ class Theme {
     return col
   }
 
+  /**
+   * Tab list is a list of links that triggers tabs visibility ne at the time
+   * @private
+   */
   getTabList (config) {
     const tabList = document.createElement('ul')
     tabList.classList.add('jedi-nav-list')
     return tabList
   }
 
+  /**
+   * A Tab is a wrapper for content
+   * @private
+   */
   getTab (config) {
     const list = document.createElement('li')
     const link = document.createElement('a')
@@ -735,12 +855,20 @@ class Theme {
     return { list, link }
   }
 
+  /**
+   * Wrapper for tabs
+   * @private
+   */
   getTabContent () {
     const tabContent = document.createElement('div')
     tabContent.classList.add('tab-content')
     return tabContent
   }
 
+  /**
+   * Set tab attributes to make it toggleable
+   * @private
+   */
   setTabPaneAttributes (element, active, id) {
     element.setAttribute('id', id)
     element.classList.add('jedi-tab-pane')

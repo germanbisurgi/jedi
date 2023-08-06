@@ -1,7 +1,7 @@
 import Jedi from '../../jedi'
 import { isSet } from '../../utils'
 
-export const anyOf = (validator, value, schema, key, path) => {
+export function anyOf (validator, value, schema, key, path) {
   const errors = []
   let extraMessages = []
 

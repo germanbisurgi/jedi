@@ -1,7 +1,7 @@
 import { isArray, isSet } from '../../utils'
 import Jedi from '../../jedi'
 
-export const contains = (validator, value, schema, key, path) => {
+export function contains (validator, value, schema, key, path) {
   const errors = []
 
   if (isArray(value) && isSet(schema.contains())) {

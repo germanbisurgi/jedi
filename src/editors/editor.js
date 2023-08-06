@@ -2,7 +2,7 @@ import EventEmitter from '../event-emitter'
 import ThemeBootstrap3 from '../themes/bootstrap3'
 import ThemeBootstrap4 from '../themes/bootstrap4'
 import ThemeBootstrap5 from '../themes/bootstrap5'
-import Theme from '../themes/barebones'
+import Theme from '../themes/theme'
 import { isSet } from '../utils'
 
 /**
@@ -77,9 +77,6 @@ class Editor extends EventEmitter {
         break
       case 'bootstrap5':
         this.theme = new ThemeBootstrap5()
-        break
-      case 'barebones':
-        this.theme = new Theme()
         break
       default:
         this.theme = new Theme()

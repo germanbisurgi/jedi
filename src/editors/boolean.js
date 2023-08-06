@@ -2,10 +2,10 @@ import Editor from './editor'
 import { isSet, pathToAttribute } from '../utils'
 
 /**
- * Represents a BooleanEditor instance.
+ * Represents a EditorBoolean instance.
  * @extends Editor
  */
-class BooleanEditor extends Editor {
+class EditorBoolean extends Editor {
   build () {
     this.control = this.theme.getCheckboxControl({
       id: pathToAttribute(this.instance.path),
@@ -34,4 +34,4 @@ class BooleanEditor extends Editor {
   }
 }
 
-export default BooleanEditor
+export default EditorBoolean

@@ -1,6 +1,6 @@
 import { isSet, isString } from '../../utils'
 
-export const format = (validator, value, schema, key, path) => {
+export function format (validator, value, schema, key, path) {
   const errors = []
 
   if (isSet(schema.format()) && isString(value)) {

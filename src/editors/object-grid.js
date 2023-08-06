@@ -1,10 +1,10 @@
-import ObjectEditor from './object'
+import EditorObject from './object'
 
 /**
- * Represents a ObjectGridEditor instance.
- * @extends ObjectEditor
+ * Represents a EditorObjectGrid instance.
+ * @extends EditorObject
  */
-class ObjectGridEditor extends ObjectEditor {
+class EditorObjectGrid extends EditorObject {
   refreshEditors () {
     while (this.control.childrenSlot.firstChild) {
       this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild)
@@ -37,4 +37,4 @@ class ObjectGridEditor extends ObjectEditor {
   }
 }
 
-export default ObjectGridEditor
+export default EditorObjectGrid

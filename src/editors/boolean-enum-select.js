@@ -1,11 +1,11 @@
-import BooleanEditor from './boolean'
+import EditorBoolean from './boolean'
 import { isSet, pathToAttribute } from '../utils'
 
 /**
- * Represents an BooleanEnumSelectEditor instance.
- * @extends BooleanEditor
+ * Represents an EditorBooleanEnumSelect instance.
+ * @extends EditorBoolean
  */
-class BooleanEnumSelectEditor extends BooleanEditor {
+class EditorBooleanEnumSelect extends EditorBoolean {
   build () {
     // control
     this.control = this.theme.getSelectControl({
@@ -34,4 +34,4 @@ class BooleanEnumSelectEditor extends BooleanEditor {
   }
 }
 
-export default BooleanEnumSelectEditor
+export default EditorBooleanEnumSelect

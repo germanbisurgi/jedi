@@ -8,10 +8,10 @@ import {
 } from '../utils'
 
 /**
- * Represents an ObjectEditor instance.
+ * Represents an EditorObject instance.
  * @extends Editor
  */
-class ObjectEditor extends Editor {
+class EditorObject extends Editor {
   build () {
     this.control = this.theme.getObjectControl({
       title: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
@@ -136,4 +136,4 @@ class ObjectEditor extends Editor {
   }
 }
 
-export default ObjectEditor
+export default EditorObject
