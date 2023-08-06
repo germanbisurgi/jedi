@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('format')
 
-Scenario('@format should display validation error', ({ I }) => {
+Scenario('@constrain-format should display validation error', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/format')

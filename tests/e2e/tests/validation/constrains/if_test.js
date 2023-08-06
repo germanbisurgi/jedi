@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('if')
 
-Scenario('@if-then-else validate agaist if-then-else ', async ({ I }) => {
+Scenario('@constrain-if-then-else validate agaist if-then-else ', async ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/if-then-else')
@@ -30,7 +30,7 @@ Scenario('@if-then-else validate agaist if-then-else ', async ({ I }) => {
   I.dontSee('.invalid-feedback')
 })
 
-Scenario('@if-then-else validate agaist if-then', async ({ I }) => {
+Scenario('@constrain-if-then-else validate agaist if-then', async ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/if-then')
@@ -57,7 +57,7 @@ Scenario('@if-then-else validate agaist if-then', async ({ I }) => {
   I.dontSee('.invalid-feedback')
 })
 
-Scenario('@if-then-else validate agaist if-else', async ({ I }) => {
+Scenario('@constrain-if-then-else validate agaist if-else', async ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/if-else')

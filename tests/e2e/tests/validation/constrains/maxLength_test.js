@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('maxLength')
 
-Scenario('@maxLength should display validation errors', ({ I }) => {
+Scenario('@constrain-maxLength should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/maxLength')

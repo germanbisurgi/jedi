@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('exclusiveMaximum')
 
-Scenario('@exclusiveMaximum should display validation errors', ({ I }) => {
+Scenario('@constrain-exclusiveMaximum should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/exclusiveMaximum')

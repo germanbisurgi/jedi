@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('minLength')
 
-Scenario('@minLength should display validation errors', ({ I }) => {
+Scenario('@constrain-minLength should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/minLength')

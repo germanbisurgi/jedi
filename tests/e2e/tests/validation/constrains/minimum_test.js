@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('minimum')
 
-Scenario('@minimum should display validation errors', ({ I }) => {
+Scenario('@constrain-minimum should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/minimum')

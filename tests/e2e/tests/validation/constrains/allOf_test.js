@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('allOf')
 
-Scenario('@allOf should display validation errors', ({ I }) => {
+Scenario('@constrain-allOf should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/allOf')

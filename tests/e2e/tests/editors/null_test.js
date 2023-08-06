@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('null')
 
-Scenario('@null-editor @description @title should have title and description', ({ I }) => {
+Scenario('@editor-null @description @title should have title and description', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/null')
   I._waitForElement('.jedi-ready')

@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('object')
 
-Scenario('@object-editor @description @title should have title and description', ({ I }) => {
+Scenario('@editor-object @description @title should have title and description', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')
@@ -11,7 +11,7 @@ Scenario('@object-editor @description @title should have title and description',
   I._waitForText('Objects are the mapping type in JSON. They map “keys” to “values”. In JSON, the “keys” must always be strings. Each of these pairs is conventionally referred to as a “property”.')
 })
 
-Scenario('@object-editor @editableProperties should add properties', ({ I }) => {
+Scenario('@editor-object @editableProperties should add properties', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')
@@ -27,7 +27,7 @@ Scenario('@object-editor @editableProperties should add properties', ({ I }) => 
   I.dontSee('[id="root-test"]')
 })
 
-Scenario('@object-editor @editableProperties should activate and deactivate properties', ({ I }) => {
+Scenario('@editor-object @editableProperties should activate and deactivate properties', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')
@@ -42,7 +42,7 @@ Scenario('@object-editor @editableProperties should activate and deactivate prop
   I._waitForElement('[id="root-notRequired"]')
 })
 
-Scenario('@object-editor @object-grid rows and columns', ({ I }) => {
+Scenario('@editor-object @object-grid rows and columns', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object-grid')
   I._waitForElement('.jedi-ready')
@@ -129,7 +129,7 @@ Scenario('@object-editor @object-grid rows and columns', ({ I }) => {
   }
 })
 
-Scenario('@object-editor @object-nav-pills', ({ I }) => {
+Scenario('@editor-object @object-nav-pills', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object-nav-pills')
   I._waitForElement('.jedi-ready')
@@ -156,7 +156,7 @@ Scenario('@object-editor @object-nav-pills', ({ I }) => {
   }
 })
 
-Scenario('@object-editor @object-nav-tabs', ({ I }) => {
+Scenario('@editor-object @object-nav-tabs', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object-nav-tabs')
   I._waitForElement('.jedi-ready')

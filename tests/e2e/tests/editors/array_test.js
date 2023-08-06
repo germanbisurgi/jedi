@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('array')
 
-Scenario('@array-editor @description @title should have title and description', ({ I }) => {
+Scenario('@editor-array @description @title should have title and description', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/array')
   I._waitForElement('.jedi-ready')
@@ -12,7 +12,7 @@ Scenario('@array-editor @description @title should have title and description', 
   I._waitForText('Arrays are used for ordered elements. In JSON, each element in an array may be of a different type.')
 })
 
-Scenario('@array-editor @items should items that validate against item', ({ I }) => {
+Scenario('@editor-array @items should items that validate against item', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/array')
   I._waitForElement('.jedi-ready')
@@ -21,7 +21,7 @@ Scenario('@array-editor @items should items that validate against item', ({ I })
   I._waitForText('This is a number editor', '[data-path="#/items"] [data-type="number"]')
 })
 
-Scenario('@array-editor @prefixItems should items that validate against prefixItems', ({ I }) => {
+Scenario('@editor-array @prefixItems should items that validate against prefixItems', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/array')
   I._waitForElement('.jedi-ready')
@@ -36,7 +36,7 @@ Scenario('@array-editor @prefixItems should items that validate against prefixIt
   I._waitForElement('[data-path="#/prefixItems/3"][data-type="any"]')
 })
 
-Scenario('@array-editor @array-nav-pills', ({ I }) => {
+Scenario('@editor-array @array-nav-pills', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/array-nav-pills')
   I._waitForElement('.jedi-ready')
@@ -63,7 +63,7 @@ Scenario('@array-editor @array-nav-pills', ({ I }) => {
   }
 })
 
-Scenario('@array-editor @array-nav-tabs', ({ I }) => {
+Scenario('@editor-array @array-nav-tabs', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/array-nav-tabs')
   I._waitForElement('.jedi-ready')

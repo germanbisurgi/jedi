@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('const')
 
-Scenario('@const should display validation errors', ({ I }) => {
+Scenario('@constrain-const should display validation errors', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/const')
