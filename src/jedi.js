@@ -179,7 +179,6 @@ class Jedi extends EventEmitter {
     let instance
 
     // circular $ref are not initially dereferenced and must be defined on creation
-    console.log(config)
     if (this.options.refParser && hasOwn(config.schema, '$ref')) {
       config.schema = this.refParser.define(config.schema['$ref'])
     }

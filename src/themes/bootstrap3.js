@@ -5,10 +5,14 @@ import Theme from './theme'
  * @extends Theme
  */
 class ThemeBootstrap3 extends Theme {
+  init () {
+    this.useToggleEvents = false
+  }
+
   getLegend (config) {
-    const html = super.getLegend(config)
-    html.classList.add('sr-only')
-    return html
+    const legend = super.getLegend(config)
+    this.hideElement(legend)
+    return legend
   }
 
   getCard () {
@@ -27,13 +31,6 @@ class ThemeBootstrap3 extends Theme {
   getCardBody () {
     const html = super.getCardBody()
     html.classList.add('panel-body')
-    return html
-  }
-
-  getPropertiesSlot (config) {
-    const html = super.getPropertiesSlot()
-    html.classList.add('collapse')
-    html.setAttribute('id', config.id)
     return html
   }
 
@@ -59,6 +56,13 @@ class ThemeBootstrap3 extends Theme {
     return html
   }
 
+  getPropertiesSlot (config) {
+    const html = super.getPropertiesSlot(config)
+    html.classList.add('collapse')
+    html.setAttribute('id', config.id)
+    return html
+  }
+
   getBtnGroup () {
     const html = super.getBtnGroup()
     html.classList.add('btn-group')
@@ -80,7 +84,7 @@ class ThemeBootstrap3 extends Theme {
     input.classList.add('form-control')
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      this.hideElement(label)
     }
 
     return control
@@ -93,7 +97,7 @@ class ThemeBootstrap3 extends Theme {
     input.classList.add('form-control')
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      this.hideElement(label)
     }
 
     return control
@@ -139,7 +143,7 @@ class ThemeBootstrap3 extends Theme {
     input.classList.add('form-control')
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      this.hideElement(label)
     }
 
     return control
@@ -222,6 +226,14 @@ class ThemeBootstrap3 extends Theme {
       element.classList.add('in')
       element.classList.add('active')
     }
+  }
+
+  hideElement (element) {
+    element.classList.add('sr-only')
+  }
+
+  showElement (element) {
+    element.classList.remove('sr-only')
   }
 }
 

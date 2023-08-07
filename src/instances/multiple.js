@@ -57,17 +57,6 @@ class InstanceMultiple extends Instance {
       schemasOf.forEach((schema, index) => {
         schema = { ...cloneSchema, ...schema }
 
-        // merge allOf
-        if (isSet(schema.allOf) && schema.options?.mergeAllOf) {
-          let merged = {}
-
-          schema.allOf.forEach((allOfSchema) => {
-            merged = mergeDeep(merged, allOfSchema)
-          })
-
-          schema = merged
-        }
-
         if (isSet(cloneSchema.title)) {
           schema.title = cloneSchema.title
         }

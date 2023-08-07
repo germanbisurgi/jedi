@@ -5,10 +5,14 @@ import Theme from './theme'
  * @extends Theme
  */
 class ThemeBootstrap5 extends Theme {
+  init () {
+    this.useToggleEvents = false
+  }
+
   getLegend (config) {
-    const html = super.getLegend(config)
-    html.classList.add('visually-hidden')
-    return html
+    const legend = super.getLegend(config)
+    this.hideElement(legend)
+    return legend
   }
 
   getCard () {
@@ -36,7 +40,7 @@ class ThemeBootstrap5 extends Theme {
   }
 
   getPropertiesSlot (config) {
-    const html = super.getPropertiesSlot()
+    const html = super.getPropertiesSlot(config)
     html.classList.add('collapse')
     html.setAttribute('id', config.id)
     return html
@@ -72,7 +76,6 @@ class ThemeBootstrap5 extends Theme {
   getButton (config) {
     const html = super.getButton(config)
     html.classList.add('btn')
-    html.classList.add('btn-sm')
     return html
   }
 
@@ -89,7 +92,7 @@ class ThemeBootstrap5 extends Theme {
     input.classList.add('form-control')
 
     if (config.srOnly) {
-      label.classList.add('visually-hidden')
+      this.hideElement(label)
     }
 
     return control
@@ -102,7 +105,7 @@ class ThemeBootstrap5 extends Theme {
     input.classList.add('form-control')
 
     if (config.srOnly) {
-      label.classList.add('visually-hidden')
+      this.hideElement(label)
     }
 
     return control
@@ -140,7 +143,7 @@ class ThemeBootstrap5 extends Theme {
     label.classList.add('form-check-label')
 
     if (config.srOnly) {
-      label.classList.add('visually-hidden')
+      this.hideElement(label)
     }
 
     container.appendChild(formGroup)
@@ -164,7 +167,7 @@ class ThemeBootstrap5 extends Theme {
     const { container, input, label } = control
     container.classList.remove('mb-3')
     input.classList.remove('form-select')
-    label.classList.add('visually-hidden')
+    this.hideElement(label)
     return control
   }
 
@@ -241,6 +244,14 @@ class ThemeBootstrap5 extends Theme {
     if (active) {
       element.classList.add('active')
     }
+  }
+
+  hideElement (element) {
+    element.classList.add('visually-hidden')
+  }
+
+  showElement (element) {
+    element.classList.remove('visually-hidden')
   }
 }
 

@@ -1,4 +1,8 @@
-import draft from './drafts/draft-2020-12'
+import draft04 from './drafts/draft-04'
+import draft06 from './drafts/draft-06'
+import draft07 from './drafts/draft-07'
+import draft201909 from './drafts/draft-2019-09'
+import draft202012 from './drafts/draft-2020-12'
 import { hasOwn, isBoolean } from '../utils'
 
 /**
@@ -6,15 +10,15 @@ import { hasOwn, isBoolean } from '../utils'
  */
 class Validator {
   constructor () {
-    this.draft = draft
+    this.draft = draft202012
 
-    this.jsonSchemaDrafts = [
-      'http://json-schema.org/draft-04/schema#',
-      'http://json-schema.org/draft-06/schema#',
-      'http://json-schema.org/draft-07/schema#',
-      'https://json-schema.org/draft/2019-09/schema',
-      'https://json-schema.org/draft/2020-12/schema'
-    ]
+    this.jsonSchemaDrafts = {
+      'http://json-schema.org/draft-04/schema#': draft04,
+      'http://json-schema.org/draft-06/schema#': draft06,
+      'http://json-schema.org/draft-07/schema#': draft07,
+      'https://json-schema.org/draft/2019-09/schema': draft201909,
+      'https://json-schema.org/draft/2020-12/schema': draft202012
+    }
   }
 
   /**

@@ -1,5 +1,17 @@
 ## Todo
 
+- If-Then-Else (7)
+- dependencies (4) and dependentRequired / dependentSchemas (19)
+- const (6)
+- contains, minContains, maxContains (19)
+- items in v4 behaves like prefixItems (19)
+- propertyNames (6)
+- Unevaluated Properties (19)
+- In JSON Schema Draft 4, exclusiveMinimum and exclusiveMaximum 
+- $schema
+- id (4) and $id (6)
+
+- dialects support tables
 - validation without Jedi creation
 - allOf, oneOf and anyOf combination
 - drafts

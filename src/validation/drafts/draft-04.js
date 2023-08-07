@@ -1,15 +1,10 @@
 import { allOf } from '../constrains/allOf'
 import { minLength } from '../constrains/minLength'
-import { _const } from '../constrains/const'
-import { contains } from '../constrains/contains'
 import { anyOf } from '../constrains/anyOf'
-import { dependentRequired } from '../constrains/dependentRequired'
-import { dependentSchemas } from '../constrains/dependentSchemas'
 import { _enum } from '../constrains/enum'
 import { exclusiveMaximum } from '../constrains/exclusiveMaximum'
 import { exclusiveMinimum } from '../constrains/exclusiveMinimum'
 import { format } from '../constrains/format'
-import { _if } from '../constrains/if'
 import { items } from '../constrains/items'
 import { maxItems } from '../constrains/maxItems'
 import { maxLength } from '../constrains/maxLength'
@@ -22,7 +17,6 @@ import { not } from '../constrains/not'
 import { oneOf } from '../constrains/oneOf'
 import { pattern } from '../constrains/pattern'
 import { patternProperties } from '../constrains/patternProperties'
-import { prefixItems } from '../constrains/prefixItems'
 import { required } from '../constrains/required'
 import { type } from '../constrains/type'
 import { maximum } from '../constrains/maximum'
@@ -33,15 +27,10 @@ export default {
   additionalProperties: additionalProperties,
   allOf: allOf,
   anyOf: anyOf,
-  const: _const,
-  contains: contains,
-  dependentRequired: dependentRequired,
-  dependentSchemas: dependentSchemas,
   enum: _enum,
   exclusiveMaximum: exclusiveMaximum,
   exclusiveMinimum: exclusiveMinimum,
   format: format,
-  if: _if,
   items: items,
   maximum: maximum,
   maxItems: maxItems,
@@ -56,7 +45,6 @@ export default {
   oneOf: oneOf,
   pattern: pattern,
   patternProperties: patternProperties,
-  prefixItems: prefixItems,
   required: required,
   type: type,
   uniqueItems: uniqueItems

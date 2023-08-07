@@ -1,50 +1,50 @@
 import { isString, isArray, isNumber, isInteger, isBoolean, isObject, isSet } from './utils'
 
-export function additionalProperties (schema) {
+export function getSchema (schema) {
+  return isString(schema.$schema) ? schema.$schema : undefined
+}
+
+export function getAdditionalProperties (schema) {
   return isObject(schema.additionalProperties) || isBoolean(schema.additionalProperties) ? schema.additionalProperties : true
 }
 
-export function allOf (schema) {
+export function getAllOf (schema) {
   return isArray(schema.allOf) ? schema.allOf : undefined
 }
 
-export function anyOf (schema) {
+export function getAnyOf (schema) {
   return isArray(schema.anyOf) ? schema.anyOf : undefined
 }
 
-export function _const (schema) {
+export function getConst (schema) {
   return schema.const
 }
 
-export function contains (schema) {
+export function getContains (schema) {
   return (isObject(schema.contains) || isBoolean(schema.contains)) ? schema.contains : undefined
 }
 
-export function clone (schema) {
-  return JSON.parse(JSON.stringify(schema))
-}
-
-export function _default (schema) {
+export function getDefault (schema) {
   return schema.default
 }
 
-export function dependentRequired (schema) {
+export function getDependentRequired (schema) {
   return isObject(schema.dependentRequired) ? schema.dependentRequired : undefined
 }
 
-export function dependentSchemas (schema) {
+export function getDependentSchemas (schema) {
   return isObject(schema.dependentSchemas) ? schema.dependentSchemas : undefined
 }
 
-export function description (schema) {
+export function getDescription (schema) {
   return isString(schema.description) ? schema.description : undefined
 }
 
-export function _else (schema) {
+export function getElse (schema) {
   return (isObject(schema.else) || isBoolean(schema.else)) ? schema.else : undefined
 }
 
-export function _enum (schema) {
+export function getEnum (schema) {
   if (isArray(schema.enum) && schema.enum.length > 0) {
     return schema.enum
   }
@@ -52,23 +52,23 @@ export function _enum (schema) {
   return undefined
 }
 
-export function exclusiveMaximum (schema) {
+export function getExclusiveMaximum (schema) {
   return isNumber(schema.exclusiveMaximum) ? schema.exclusiveMaximum : undefined
 }
 
-export function exclusiveMinimum (schema) {
+export function getExclusiveMinimum (schema) {
   return isNumber(schema.exclusiveMinimum) ? schema.exclusiveMinimum : undefined
 }
 
-export function format (schema) {
+export function getFormat (schema) {
   return isString(schema.format) ? schema.format : undefined
 }
 
-export function formatIs (value) {
+export function getFormatIs (value) {
   return (isSet(this.format(schema)) && this.format(schema) === value)
 }
 
-export function _if (schema) {
+export function getIf (schema) {
   if (isObject(schema.if)) {
     return schema.if
   }
@@ -80,15 +80,15 @@ export function _if (schema) {
   return undefined
 }
 
-export function items (schema) {
+export function getItems (schema) {
   return isObject(schema.items) || isBoolean(schema.items) ? schema.items : undefined
 }
 
-export function maximum (schema) {
+export function getMaximum (schema) {
   return isNumber(schema.maximum) ? schema.maximum : undefined
 }
 
-export function maxContains (schema) {
+export function getMaxContains (schema) {
   if (isInteger(schema.maxContains) && schema.maxContains >= 0) {
     return schema.maxContains
   }
@@ -96,7 +96,7 @@ export function maxContains (schema) {
   return undefined
 }
 
-export function maxItems (schema) {
+export function getMaxItems (schema) {
   if (isInteger(schema.maxItems) && schema.maxItems >= 0) {
     return schema.maxItems
   }
@@ -104,7 +104,7 @@ export function maxItems (schema) {
   return undefined
 }
 
-export function maxLength (schema) {
+export function getMaxLength (schema) {
   if (isInteger(schema.maxLength) && schema.maxLength >= 0) {
     return schema.maxLength
   }
@@ -112,7 +112,7 @@ export function maxLength (schema) {
   return undefined
 }
 
-export function maxProperties (schema) {
+export function getMaxProperties (schema) {
   if (isInteger(schema.maxProperties)) {
     return schema.maxProperties
   }
@@ -120,11 +120,11 @@ export function maxProperties (schema) {
   return undefined
 }
 
-export function minimum (schema) {
+export function getMinimum (schema) {
   return isNumber(schema.minimum) ? schema.minimum : undefined
 }
 
-export function minContains (schema) {
+export function getMinContains (schema) {
   if (isInteger(schema.minContains) && schema.minContains >= 0) {
     return schema.minContains
   }
@@ -132,7 +132,7 @@ export function minContains (schema) {
   return undefined
 }
 
-export function minItems (schema) {
+export function getMinItems (schema) {
   if (isInteger(schema.minItems) && schema.minItems >= 0) {
     return schema.minItems
   }
@@ -140,7 +140,7 @@ export function minItems (schema) {
   return undefined
 }
 
-export function minLength (schema) {
+export function getMinLength (schema) {
   if (isInteger(schema.minLength) && schema.minLength >= 0) {
     return schema.minLength
   }
@@ -148,7 +148,7 @@ export function minLength (schema) {
   return undefined
 }
 
-export function minProperties (schema) {
+export function getMinProperties (schema) {
   if (isInteger(schema.minProperties) && schema.minProperties >= 0) {
     return schema.minProperties
   }
@@ -156,7 +156,7 @@ export function minProperties (schema) {
   return undefined
 }
 
-export function multipleOf (schema) {
+export function getMultipleOf (schema) {
   if (isNumber(schema.multipleOf) && schema.multipleOf >= 0) {
     return schema.multipleOf
   }
@@ -164,47 +164,47 @@ export function multipleOf (schema) {
   return undefined
 }
 
-export function not (schema) {
+export function getNot (schema) {
   return (isObject(schema.not) || isBoolean(schema.not)) ? schema.not : undefined
 }
 
-export function option (option) {
+export function getOption (option) {
   return (schema.options && schema.options[option]) ? schema.options[option] : false
 }
 
-export function pattern (schema) {
+export function getPattern (schema) {
   return isString(schema.pattern) ? schema.pattern : undefined
 }
 
-export function patternProperties (schema) {
+export function getPatternProperties (schema) {
   return isObject(schema.patternProperties) ? schema.patternProperties : undefined
 }
 
-export function prefixItems (schema) {
+export function getPrefixItems (schema) {
   return isArray(schema.prefixItems) ? schema.prefixItems : undefined
 }
 
-export function properties (schema) {
+export function getProperties (schema) {
   return isObject(schema.properties) ? schema.properties : undefined
 }
 
-export function readOnly (schema) {
+export function getReadOnly (schema) {
   return isBoolean(schema.readOnly) ? schema.readOnly : undefined
 }
 
-export function required (schema) {
+export function getRequired (schema) {
   return isArray(schema.required) ? [...new Set(schema.required)] : undefined
 }
 
-export function then (schema) {
+export function getThen (schema) {
   return (isObject(schema.then) || isBoolean(schema.then)) ? schema.then : undefined
 }
 
-export function title (schema) {
+export function getTitle (schema) {
   return isString(schema.title) ? schema.title : undefined
 }
 
-export function type (schema) {
+export function getType (schema) {
   if (isString(schema.type) || isArray(schema.type)) {
     return schema.type
   }
@@ -212,24 +212,18 @@ export function type (schema) {
   return undefined
 }
 
-export function typeIs (value) {
+export function getTypeIs (value) {
   return (isSet(this.type(schema)) && this.type(schema) === value)
 }
 
-export function typeIsNumeric (schema) {
+export function getTypeIsNumeric () {
   return this.typeIs('number') || this.typeIs('integer')
 }
 
-export function oneOf (schema) {
+export function getOneOf (schema) {
   return isArray(schema.oneOf) ? schema.oneOf : undefined
 }
 
-export function uniqueItems (schema) {
+export function getUniqueItems (schema) {
   return isBoolean(schema.uniqueItems) ? schema.uniqueItems : undefined
-}
-
-export function destroy (schema) {
-  Object.keys(this).forEach((key) => {
-    delete this[key]
-  })
 }

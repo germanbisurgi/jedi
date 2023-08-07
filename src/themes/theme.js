@@ -2,6 +2,37 @@
  * Represents a Theme instance.
  */
 class Theme {
+  constructor (icons) {
+    this.icons = icons
+    this.useToggleEvents = true
+    this.init()
+  }
+
+  /**
+   * Inits some instance properties
+   * @private
+   */
+  init (name) {
+    this.useToggleEvents = true
+  }
+
+  /**
+   * Returns a icon element
+   * @private
+   */
+  getIcon (name) {
+    const icon = document.createElement('i')
+    const iconClasses = this.icons[name].split(' ')
+
+    if (iconClasses.length > 0) {
+      iconClasses.forEach((className) => {
+        icon.classList.add(className)
+      })
+    }
+
+    return icon
+  }
+
   /**
    * Returns a div used to wrap the editor UI elements
    * @private
@@ -34,9 +65,10 @@ class Theme {
    * @private
    */
   getLegend (config) {
-    const html = document.createElement('legend')
-    html.textContent = config.textContent
-    return html
+    const legend = document.createElement('legend')
+    legend.textContent = config.textContent
+    this.hideElement(legend)
+    return legend
   }
 
   /**
@@ -52,7 +84,7 @@ class Theme {
     }
 
     if (config.srOnly) {
-      title.classList.add('sr-only')
+      this.hideElement(title)
     }
 
     header.appendChild(title)
@@ -66,16 +98,6 @@ class Theme {
    */
   getCardBody () {
     return document.createElement('div')
-  }
-
-  /**
-   * Container for properties editing elements like property activators
-   * @private
-   */
-  getPropertiesSlot () {
-    const html = document.createElement('div')
-    html.classList.add('jedi-properties-slot')
-    return html
   }
 
   /**
@@ -129,13 +151,40 @@ class Theme {
   }
 
   /**
+   * Container for properties editing elements like property activators
+   * @private
+   */
+  getPropertiesSlot (config) {
+    const html = document.createElement('div')
+    html.classList.add('jedi-properties-slot')
+    html.setAttribute('id', config.id)
+
+    if (this.useToggleEvents) {
+      html.style.display = 'none'
+    }
+
+    return html
+  }
+
+  /**
    * Toggles the ObjectEditor properties wrapper visibility
    * @private
    */
   getPropertiesToggle (config) {
-    const html = this.getButton(config)
-    html.classList.add('jedi-properties-toggle')
-    return html
+    const toggle = this.getButton(config)
+    toggle.classList.add('jedi-properties-toggle')
+
+    if (this.useToggleEvents) {
+      toggle.addEventListener('click', () => {
+        if (config.propertiesContainer.style.display === 'none') {
+          this.showElement(config.propertiesContainer)
+        } else {
+          this.hideElement(config.propertiesContainer)
+        }
+      })
+    }
+
+    return toggle
   }
 
   /**
@@ -161,19 +210,30 @@ class Theme {
    * @private
    */
   getButton (config) {
-    const html = document.createElement('button')
-    html.setAttribute('type', 'button')
+    const button = document.createElement('button')
+    button.setAttribute('type', 'button')
 
     if (config.value) {
-      html.value = config.value
+      button.value = config.value
     }
 
     if (config.id) {
-      html.setAttribute('id', config.value)
+      button.setAttribute('id', config.value)
     }
 
-    html.textContent = config.textContent
-    return html
+    const text = document.createElement('span')
+    text.textContent = config.textContent
+
+    if (config.icon) {
+      const icon = this.getIcon(config.icon)
+      icon.setAttribute('title', config.textContent)
+      button.appendChild(icon)
+      this.hideElement(text)
+    }
+
+    button.appendChild(text)
+
+    return button
   }
 
   /**
@@ -202,7 +262,8 @@ class Theme {
    */
   getDeleteItemBtn () {
     const deleteItemBtn = this.getButton({
-      textContent: 'Delete item'
+      textContent: 'Delete item',
+      icon: 'delete'
     })
 
     deleteItemBtn.classList.add('jedi-array-delete')
@@ -216,7 +277,8 @@ class Theme {
    */
   getMoveUpItemBtn () {
     const moveUpItemBtn = this.getButton({
-      textContent: 'Move up'
+      textContent: 'Move up',
+      icon: 'moveUp'
     })
 
     moveUpItemBtn.classList.add('jedi-array-move-up')
@@ -230,7 +292,8 @@ class Theme {
    */
   getMoveDownItemBtn () {
     const moveDownItemBtn = this.getButton({
-      textContent: 'Move down'
+      textContent: 'Move down',
+      icon: 'moveDown'
     })
 
     moveDownItemBtn.classList.add('jedi-array-move-down')
@@ -274,13 +337,15 @@ class Theme {
     const messages = this.getMessagesSlot()
     const childrenSlot = this.getChildrenSlot()
 
-    const propertiesToggle = this.getPropertiesToggle({
-      textContent: 'Properties',
+    const propertiesContainer = this.getPropertiesSlot({
       id: 'properties-slot-' + config.id
     })
 
-    const propertiesContainer = this.getPropertiesSlot({
-      id: 'properties-slot-' + config.id
+    const propertiesToggle = this.getPropertiesToggle({
+      textContent: 'Properties',
+      id: 'properties-slot-' + config.id,
+      icon: 'properties',
+      propertiesContainer: propertiesContainer
     })
 
     const propertiesActivators = this.getPropertiesActivators()
@@ -364,11 +429,13 @@ class Theme {
     const btnGroup = this.getBtnGroup()
 
     const addBtn = this.getArrayBtnAdd({
-      textContent: 'Add item'
+      textContent: 'Add item',
+      icon: 'add'
     })
 
     const deleteAllBtn = this.getArrayBtnDeleteAll({
-      textContent: 'Delete items'
+      textContent: 'Delete items',
+      icon: 'deleteAll'
     })
 
     const fieldset = this.getFieldset()
@@ -479,7 +546,7 @@ class Theme {
     labelText.textContent = config.label
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      this.hideElement(label)
     }
 
     const descriptionId = config.id + '-description'
@@ -521,7 +588,7 @@ class Theme {
     labelText.textContent = config.label
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      this.hideElement(label)
     }
 
     const descriptionId = config.id + '-description'
@@ -566,7 +633,7 @@ class Theme {
     labelText.textContent = config.label
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      this.hideElement(label)
     }
 
     const descriptionId = config.id + '-description'
@@ -612,7 +679,7 @@ class Theme {
     label.textContent = config.label
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      this.hideElement(label)
     }
 
     const messages = this.getMessagesSlot()
@@ -693,7 +760,7 @@ class Theme {
     labelText.textContent = config.label
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      this.hideElement(label)
     }
 
     const descriptionId = config.id + '-description'
@@ -749,7 +816,7 @@ class Theme {
     labelText.textContent = config.label
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      this.hideElement(label)
     }
 
     const descriptionId = config.id + '-description'
@@ -872,6 +939,22 @@ class Theme {
   setTabPaneAttributes (element, active, id) {
     element.setAttribute('id', id)
     element.classList.add('jedi-tab-pane')
+  }
+
+  /**
+   * Makes an element visually hidden
+   * @private
+   */
+  hideElement (element) {
+    element.style.display = 'none'
+  }
+
+  /**
+   * Reveals a visually hidden element
+   * @private
+   */
+  showElement (element) {
+    element.style.display = 'block'
   }
 }
 

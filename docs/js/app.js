@@ -227,7 +227,12 @@ window.addEventListener('DOMContentLoaded', () => {
           editableProperties: true,
           alwaysShowErrors: false,
           showRequiredOnly: false,
-          schema: {}
+          schema: {},
+          // iconLib: 'glyphicons'
+          iconLib: 'bootstrap-icons'
+          // iconLib: 'font-awesome-3'
+          // iconLib: 'font-awesome-4'
+          // iconLib: 'font-awesome-5'
         }
       }
     },

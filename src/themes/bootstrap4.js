@@ -5,10 +5,14 @@ import Theme from './theme'
  * @extends Theme
  */
 class ThemeBootstrap4 extends Theme {
+  init () {
+    this.useToggleEvents = false
+  }
+
   getLegend (config) {
-    const html = super.getLegend(config)
-    html.classList.add('sr-only')
-    return html
+    const legend = super.getLegend(config)
+    this.hideElement(legend)
+    return legend
   }
 
   getCard () {
@@ -36,7 +40,7 @@ class ThemeBootstrap4 extends Theme {
   }
 
   getPropertiesSlot (config) {
-    const html = super.getPropertiesSlot()
+    const html = super.getPropertiesSlot(config)
     html.classList.add('collapse')
     html.setAttribute('id', config.id)
     return html
@@ -66,7 +70,6 @@ class ThemeBootstrap4 extends Theme {
   getButton (config) {
     const html = super.getButton(config)
     html.classList.add('btn')
-    html.classList.add('btn-sm')
     return html
   }
 
@@ -83,7 +86,7 @@ class ThemeBootstrap4 extends Theme {
     input.classList.add('form-control')
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      this.hideElement(label)
     }
 
     return control
@@ -96,7 +99,7 @@ class ThemeBootstrap4 extends Theme {
     input.classList.add('form-control')
 
     if (config.srOnly) {
-      label.classList.add('sr-only')
+      this.hideElement(label)
     }
 
     return control
@@ -234,6 +237,14 @@ class ThemeBootstrap4 extends Theme {
     if (active) {
       element.classList.add('active')
     }
+  }
+
+  hideElement (element) {
+    element.classList.add('sr-only')
+  }
+
+  showElement (element) {
+    element.classList.remove('sr-only')
   }
 }
 

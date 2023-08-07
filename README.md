@@ -1,4 +1,4 @@
-# Jedi - JavaScript Library for JSON Validation and Editing
+# Jedi - JSON Editing and Data Inspection
 
 Jedi is a versatile JavaScript library that simplifies JSON data handling in web applications.
 Validate JSON data effortlessly with custom schemas or generate dynamic forms for seamless JSON editing. 
