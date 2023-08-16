@@ -12,7 +12,7 @@ Scenario('@editor-array @description @title should have title and description', 
   I._waitForText('Arrays are used for ordered elements. In JSON, each element in an array may be of a different type.')
 })
 
-Scenario('@editor-array @items should items that validate against item', ({ I }) => {
+Scenario('@editor-array @items should validate against items', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/array')
   I._waitForElement('.jedi-ready')
@@ -21,7 +21,7 @@ Scenario('@editor-array @items should items that validate against item', ({ I })
   I._waitForText('This is a number editor', '[data-path="#/items"] [data-type="number"]')
 })
 
-Scenario('@editor-array @prefixItems should items that validate against prefixItems', ({ I }) => {
+Scenario('@editor-array @prefixItems should validate against prefixItems', ({ I }) => {
   I.amOnPage(`${theme}.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/array')
   I._waitForElement('.jedi-ready')
