@@ -1,7 +1,8 @@
 /* global confirm */
 
 import Editor from './editor'
-import { isArray, isSet, pathToAttribute } from '../utils'
+import { isArray, pathToAttribute } from '../helpers/utils'
+import { getSchemaDescription, getSchemaOption, getSchemaTitle } from '../helpers/schema'
 
 /**
  * Represents an EditorArray instance.
@@ -10,10 +11,10 @@ import { isArray, isSet, pathToAttribute } from '../utils'
 class EditorArray extends Editor {
   build () {
     this.control = this.theme.getArrayControl({
-      title: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle'),
+      title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
+      srOnly: getSchemaOption(this.instance.schema, 'hideTitle'),
       id: pathToAttribute(this.instance.path),
-      description: this.instance.schema.description()
+      description: getSchemaDescription(this.instance.schema)
     })
 
     this.control.addBtn.addEventListener('click', () => {
@@ -42,6 +43,7 @@ class EditorArray extends Editor {
   }
 
   refreshUI () {
+    this.refreshInteractiveElements()
     this.control.childrenSlot.innerHTML = ''
 
     this.instance.children.forEach((child) => {
@@ -72,18 +74,10 @@ class EditorArray extends Editor {
         this.instance.move(itemIndex, toIndex)
       })
 
-      const buttons = this.control.container.querySelectorAll('button')
-
-      if (this.disabled) {
+      if (this.disabled || this.instance.isReadOnly()) {
         child.ui.disable()
-        buttons.forEach((button) => {
-          button.setAttribute('disabled', 'disabled')
-        })
       } else {
         child.ui.enable()
-        buttons.forEach((button) => {
-          button.removeAttribute('disabled')
-        })
       }
     })
   }

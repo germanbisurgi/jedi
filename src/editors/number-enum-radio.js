@@ -1,5 +1,6 @@
 import EditorNumber from './number'
-import { isSet, pathToAttribute } from '../utils'
+import { isSet, pathToAttribute } from '../helpers/utils'
+import { getSchemaDescription, getSchemaEnum, getSchemaOption, getSchemaTitle } from '../helpers/schema'
 
 /**
  * Represents an EditorNumberEnumRadio instance.
@@ -7,14 +8,19 @@ import { isSet, pathToAttribute } from '../utils'
  */
 class EditorNumberEnumRadio extends EditorNumber {
   build () {
-    // control
+    const schemaTitle = getSchemaTitle(this.instance.schema)
+    const schemaDescription = getSchemaDescription(this.instance.schema)
+    const schemaEnum = getSchemaEnum(this.instance.schema)
+    const schemaOptionHideTitle = getSchemaOption(this.instance.schema, 'hideTitle')
+    const schemaOptionEnumTitles = getSchemaOption(this.instance.schema, 'enumTitles')
+
     this.control = this.theme.getRadiosControl({
-      values: this.instance.schema.enum(),
-      titles: this.instance.schema.option('enumTitles') || this.instance.schema.enum(),
+      values: schemaEnum,
+      titles: schemaOptionEnumTitles || schemaEnum,
       id: pathToAttribute(this.instance.path),
-      label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle'),
-      description: this.instance.schema.description()
+      label: isSet(schemaTitle) ? schemaTitle : this.instance.getKey(),
+      srOnly: schemaOptionHideTitle,
+      description: schemaDescription
     })
 
     this.control.radios.forEach((radio) => {
@@ -26,9 +32,9 @@ class EditorNumberEnumRadio extends EditorNumber {
   }
 
   refreshUI () {
+    this.refreshInteractiveElements()
     this.control.radios.forEach((radio) => {
       radio.checked = (Number(radio.value) === Number(this.instance.getValue()))
-      radio.disabled = this.disabled
     })
   }
 }

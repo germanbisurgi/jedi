@@ -1,13 +1,15 @@
-import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isSet, isString } from '../../utils'
+import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isSet, isString } from '../../helpers/utils'
+import { getSchemaType } from '../../helpers/schema'
 
 export function type (validator, value, schema, key, path) {
   const errors = []
+  const schemaType = getSchemaType(schema)
 
-  if (schema.typeIs('any')) {
+  if (schemaType === 'any') {
     return errors
   }
 
-  if (isSet(schema.type())) {
+  if (isSet(schemaType)) {
     const types = {
       string: value => isString(value),
       number: value => isNumber(value),
@@ -20,17 +22,17 @@ export function type (validator, value, schema, key, path) {
 
     let valid = true
 
-    if (isArray(schema.type())) {
-      valid = schema.type().some((type) => {
+    if (isArray(schemaType)) {
+      valid = schemaType.some((type) => {
         return types[type](value)
       })
     } else {
-      valid = types[schema.type()](value)
+      valid = types[schemaType](value)
     }
 
     if (!valid) {
       errors.push({
-        messages: ['Must be of type ' + schema.type()],
+        messages: ['Must be of type ' + schemaType],
         path: path
       })
     }

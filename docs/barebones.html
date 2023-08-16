@@ -63,7 +63,7 @@
 
           <div class="form-group" v-if="editor">
             <label for="schema">Schema</label>
-            <textarea class="form-control" id="schema" style="font-family: monospace; height: 200px;">{{ JSON.stringify(editor.schema.clone(), null, 2) }}</textarea>
+            <textarea class="form-control" id="schema" style="font-family: monospace; height: 200px;">{{ JSON.stringify(editor.schema, null, 2) }}</textarea>
           </div>
 
           <div class="form-group">

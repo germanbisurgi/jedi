@@ -1,8 +1,15 @@
 import Instance from './instance'
-import { different, isSet, notSet, getType, isObject, hasOwn } from '../utils'
+import { different, isSet, notSet, getType, isObject, hasOwn } from '../helpers/utils'
 import EditorObjectGrid from '../editors/object-grid'
 import EditorObject from '../editors/object'
 import EditorObjectNav from '../editors/object-nav'
+import {
+  getSchemaDependentRequired,
+  getSchemaFormat, getSchemaOption,
+  getSchemaProperties,
+  getSchemaRequired,
+  getSchemaType
+} from '../helpers/schema'
 
 /**
  * Represents an InstanceObject instance.
@@ -10,11 +17,14 @@ import EditorObjectNav from '../editors/object-nav'
  */
 class InstanceObject extends Instance {
   setUI () {
+    const schemaType = getSchemaType(this.schema)
+    const schemaFormat = getSchemaFormat(this.schema)
+
     this.ui = new EditorObject(this)
 
-    if (this.schema.typeIs('object') && this.schema.formatIs('grid')) {
+    if (schemaType === 'object' && schemaFormat === 'grid') {
       this.ui = new EditorObjectGrid(this)
-    } else if (this.schema.typeIs('object') && this.schema.formatIs('nav')) {
+    } else if (schemaType === 'object' && schemaFormat === 'nav') {
       this.ui = new EditorObjectNav(this)
     } else {
       this.ui = new EditorObject(this)
@@ -22,9 +32,10 @@ class InstanceObject extends Instance {
   }
 
   prepare () {
-    if (isSet(this.schema.properties())) {
-      Object.keys(this.schema.properties()).forEach((key) => {
-        const schema = this.schema.properties()[key]
+    const schemaProperties = getSchemaProperties(this.schema)
+    if (isSet(schemaProperties)) {
+      Object.keys(schemaProperties).forEach((key) => {
+        const schema = schemaProperties[key]
         this.createChild(schema, key)
       })
     }
@@ -40,14 +51,16 @@ class InstanceObject extends Instance {
    * Returns true if the property is required
    */
   isRequired (property) {
-    return isSet(this.schema.required()) && this.schema.required().includes(property)
+    const schemaRequired = getSchemaRequired(this.schema)
+
+    return isSet(schemaRequired) && schemaRequired.includes(property)
   }
 
   /**
    * Returns true if the property is dependent required
    */
   isDependentRequired (property) {
-    const dependentRequired = this.schema.dependentRequired()
+    const dependentRequired = getSchemaDependentRequired(this.schema)
 
     if (isSet(dependentRequired)) {
       let missingProperties = []
@@ -80,7 +93,7 @@ class InstanceObject extends Instance {
     this.value[key] = instance.getValue()
 
     const isNotRequired = !this.isRequired(key)
-    const shouldStartDeactivated = this.jedi.options.deactivateProperties || this.schema.option('deactivateProperties')
+    const shouldStartDeactivated = this.jedi.options.deactivateProperties || getSchemaOption(this.schema, 'deactivateProperties')
 
     if (isNotRequired && shouldStartDeactivated) {
       instance.deactivate()

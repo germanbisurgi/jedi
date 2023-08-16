@@ -503,7 +503,8 @@ class Theme {
       titles: config.switcherOptionsLabels,
       id: config.id + '-switcher',
       label: config.id + '-switcher',
-      srOnly: true
+      srOnly: true,
+      readOnly: config.readOnly
     })
 
     switcher.container.classList.add('jedi-switcher')
@@ -863,7 +864,7 @@ class Theme {
 
   /**
    * Error messages
-   * @private
+   * @public
    */
   getInvalidFeedback (config) {
     const html = document.createElement('div')

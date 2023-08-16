@@ -1,5 +1,6 @@
 import EventEmitter from '../event-emitter'
-import { isSet } from '../utils'
+import { isSet } from '../helpers/utils'
+import { getSchemaDefault, getSchemaEnum, getSchemaReadOnly, getSchemaType } from '../helpers/schema'
 
 /**
  * Represents a JSON instance.
@@ -119,33 +120,33 @@ class Instance extends EventEmitter {
    */
   setInitialValue () {
     let value
+    const schemaType = getSchemaType(this.schema)
 
-    if (this.schema.type() === 'boolean') value = false
-    if (this.schema.type() === 'number') value = 0.0
-    if (this.schema.type() === 'integer') value = 0
-    if (this.schema.type() === 'string') value = ''
-    if (this.schema.type() === 'array') value = []
-    if (this.schema.type() === 'object') value = {}
-    if (this.schema.type() === 'null') value = null
+    if (schemaType === 'boolean') value = false
+    if (schemaType === 'number') value = 0.0
+    if (schemaType === 'integer') value = 0
+    if (schemaType === 'string') value = ''
+    if (schemaType === 'array') value = []
+    if (schemaType === 'object') value = {}
+    if (schemaType === 'null') value = null
 
     this.value = value
   }
 
   setDefaultValue () {
-    // if (this.schema.enum() && isSet(this.schema.enum()[0])) {
-    //   this.value = this.schema.enum()[0]
-    // }
+    const schemaDefault = getSchemaDefault(this.schema)
+    const schemaEnum = getSchemaEnum(this.schema)
 
-    if (isSet(this.schema.default())) {
-      if (isSet(this.schema.enum()) && !this.schema.enum().includes(this.schema.default())) {
+    if (isSet(schemaDefault)) {
+      if (isSet(schemaEnum) && !schemaEnum.includes(schemaDefault)) {
         return
       }
 
-      const defaultErrors = this.jedi.validator.getErrors(this.schema.default(), this.schema, this.getKey(), this.path)
+      const defaultErrors = this.jedi.validator.getErrors(schemaDefault, this.schema, this.getKey(), this.path)
       const validDefault = defaultErrors.length === 0
 
       if (validDefault) {
-        this.setValue(this.schema.default(), false)
+        this.setValue(schemaDefault, false)
       }
     }
   }
@@ -209,6 +210,23 @@ class Instance extends EventEmitter {
       this.isActive = false
       this.emit('change')
     }
+  }
+
+  /**
+   * Returns true if this instance is read only
+   */
+  isReadOnly () {
+    let readOnly = false
+
+    if (getSchemaReadOnly(this.schema) === true) {
+      readOnly = true
+    }
+
+    if (this.parent && getSchemaReadOnly(this.parent.schema) === true) {
+      readOnly = true
+    }
+
+    return readOnly
   }
 
   /**

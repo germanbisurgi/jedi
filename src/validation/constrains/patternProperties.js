@@ -1,11 +1,13 @@
-import { isObject, isSet } from '../../utils'
+import { isObject, isSet } from '../../helpers/utils'
 import Jedi from '../../jedi'
+import { getSchemaPatternProperties } from '../../helpers/schema'
 
 export function patternProperties (validator, value, schema, path) {
   let errors = []
+  const schemaPatternProperties = getSchemaPatternProperties(schema)
 
-  if (isObject(value) && isSet(schema.patternProperties())) {
-    const patternProperties = schema.patternProperties()
+  if (isObject(value) && isSet(schemaPatternProperties)) {
+    const patternProperties = schemaPatternProperties
 
     Object.keys(value).forEach((propertyName) => {
       Object.keys(patternProperties).forEach((pattern) => {

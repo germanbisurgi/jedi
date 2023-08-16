@@ -1,5 +1,6 @@
 import EditorObject from './object'
-import { isSet, pathToAttribute } from '../utils'
+import { isSet, pathToAttribute } from '../helpers/utils'
+import { getSchemaOption, getSchemaTitle } from '../helpers/schema'
 
 /**
  * Represents a EditorObjectNav instance.
@@ -17,13 +18,13 @@ class EditorObjectNav extends EditorObject {
     }
 
     const row = this.theme.getRow()
-    const cols = this.instance.schema.option('nav').cols || 3
+    const cols = getSchemaOption(this.instance.schema, 'nav').cols || 3
     const tabListCol = this.theme.getCol(12, cols)
     const tabContentCol = this.theme.getCol(12, (12 - cols))
     const tabContent = this.theme.getTabContent()
     const tabList = this.theme.getTabList({
-      stacked: this.instance.schema.option('nav').stacked,
-      type: this.instance.schema.option('nav').type
+      stacked: getSchemaOption(this.instance.schema, 'nav').stacked,
+      type: getSchemaOption(this.instance.schema, 'nav').type
     })
 
     this.control.childrenSlot.appendChild(row)
@@ -36,9 +37,10 @@ class EditorObjectNav extends EditorObject {
       if (child.isActive) {
         const active = index === this.activeTabIndex
         const id = pathToAttribute(child.path)
+        const schemaTitle = getSchemaTitle(child.schema)
 
         const tab = this.theme.getTab({
-          title: isSet(child.schema.title()) ? child.schema.title() : child.getKey(),
+          title: isSet(schemaTitle) ? schemaTitle : child.getKey(),
           id: id,
           active: active
         })
@@ -52,7 +54,7 @@ class EditorObjectNav extends EditorObject {
         tabList.appendChild(tab.list)
         tabContent.appendChild(child.ui.control.container)
 
-        if (this.disabled) {
+        if (this.disabled || this.instance.isReadOnly()) {
           child.ui.disable()
         } else {
           child.ui.enable()

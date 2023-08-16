@@ -1,15 +1,17 @@
-import { isNumber, isSet } from '../../utils'
+import { isNumber, isSet } from '../../helpers/utils'
+import { getSchemaMultipleOf } from '../../helpers/schema'
 
 export function multipleOf (validator, value, schema, key, path) {
   const errors = []
+  const schemaMultipleOf = getSchemaMultipleOf(schema)
 
-  if (isNumber(value) && isSet(schema.multipleOf())) {
-    const isMultipleOf = (value / schema.multipleOf() === Math.floor(value / schema.multipleOf()))
+  if (isNumber(value) && isSet(schemaMultipleOf)) {
+    const isMultipleOf = (value / schemaMultipleOf === Math.floor(value / schemaMultipleOf))
     const invalid = (!isMultipleOf || value.toString().includes('e'))
 
     if (invalid) {
       errors.push({
-        messages: ['Must be multiple of ' + schema.multipleOf()],
+        messages: ['Must be multiple of ' + schemaMultipleOf],
         path: path
       })
     }

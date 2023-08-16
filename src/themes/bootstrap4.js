@@ -75,7 +75,7 @@ class ThemeBootstrap4 extends Theme {
 
   getDescription (config) {
     const description = super.getDescription(config)
-    description.classList.add('form-text')
+    description.classList.add('text-muted')
     return description
   }
 

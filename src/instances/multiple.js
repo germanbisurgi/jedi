@@ -5,10 +5,13 @@ import {
   mergeDeep,
   isArray,
   different,
+  notSet,
+  clone,
   isObject,
-  notSet, overwriteExistingProperties
-} from '../utils'
+  overwriteExistingProperties
+} from '../helpers/utils'
 import Jedi from '../jedi'
+import { getSchemaAnyOf, getSchemaElse, getSchemaIf, getSchemaOneOf, getSchemaOption, getSchemaThen, getSchemaTitle, getSchemaType } from '../helpers/schema'
 
 /**
  * Represents a InstanceMultiple instance.
@@ -32,24 +35,29 @@ class InstanceMultiple extends Instance {
       this.onSetValue()
     })
 
-    if (isSet(this.schema.if())) {
-      const schemaClone = this.schema.clone()
-      this.thenSchema = this.schema.then() ? mergeDeep({}, schemaClone, this.schema.then()) : mergeDeep({}, schemaClone)
-      this.elseSchema = this.schema.else() ? mergeDeep({}, schemaClone, this.schema.else()) : mergeDeep({}, schemaClone)
-      this.schemas.push(this.thenSchema)
-      this.schemas.push(this.elseSchema)
+    const schemaType = getSchemaType(this.schema)
 
-      this.schemas.forEach((schema) => {
-        delete schema.if
-        delete schema.then
-        delete schema.else
-      })
+    if (isSet(getSchemaIf(this.schema))) {
+      const schemaClone = clone(this.schema)
+      this.if = clone(getSchemaIf(this.schema))
+      const schemaThen = clone(getSchemaThen(this.schema))
+      const schemaElse = clone(getSchemaElse(this.schema))
+
+      delete schemaClone.if
+      delete schemaClone.then
+      delete schemaClone.else
+
+      const thenSchema = schemaThen ? mergeDeep({}, schemaClone, schemaThen) : mergeDeep({}, schemaClone)
+      const elseSchema = schemaElse ? mergeDeep({}, schemaClone, schemaElse) : mergeDeep({}, schemaClone)
+
+      this.schemas.push(thenSchema)
+      this.schemas.push(elseSchema)
 
       this.switcherOptionValues = [0, 1]
       this.switcherOptionsLabels = ['then', 'else']
-    } else if (isSet(this.schema.anyOf()) || isSet(this.schema.oneOf())) {
-      const schemasOf = isSet(this.schema.anyOf()) ? this.schema.anyOf() : this.schema.oneOf()
-      const cloneSchema = this.schema.clone()
+    } else if (isSet(getSchemaAnyOf(this.schema)) || isSet(getSchemaOneOf(this.schema))) {
+      const schemasOf = isSet(getSchemaAnyOf(this.schema)) ? getSchemaAnyOf(this.schema) : getSchemaOneOf(this.schema)
+      const cloneSchema = clone(this.schema)
       delete cloneSchema['anyOf']
       delete cloneSchema['oneOf']
       delete cloneSchema['options']
@@ -57,19 +65,21 @@ class InstanceMultiple extends Instance {
       schemasOf.forEach((schema, index) => {
         schema = { ...cloneSchema, ...schema }
 
-        if (isSet(cloneSchema.title)) {
-          schema.title = cloneSchema.title
+        const schemaTitle = getSchemaTitle(cloneSchema)
+
+        if (isSet(schemaTitle)) {
+          schema.title = schemaTitle
         }
 
-        const switcherOptionsLabel = schema.options?.switcherTitle || 'Option-' + (index + 1)
+        const switcherOptionsLabel = getSchemaOption(schema, 'switcherTitle') || 'Option-' + (index + 1)
         this.switcherOptionValues.push(index)
         this.switcherOptionsLabels.push(switcherOptionsLabel)
 
         this.schemas.push(schema)
       })
-    } else if (isArray(this.schema.type())) {
-      this.schema.type().forEach((type, index) => {
-        const schemaClone = this.schema.clone()
+    } else if (isArray(schemaType)) {
+      schemaType.forEach((type, index) => {
+        const schemaClone = clone(this.schema)
 
         const schema = {
           ...schemaClone,
@@ -85,8 +95,8 @@ class InstanceMultiple extends Instance {
 
         this.schemas.push(schema)
       })
-    } else if (this.schema.typeIs('any') || !this.schema.type()) {
-      const schemaClone = this.schema.clone()
+    } else if (schemaType === 'any' || !schemaType) {
+      const schemaClone = clone(this.schema)
 
       this.schemas = [
         { ...schemaClone, ...{ type: 'string' } },
@@ -119,6 +129,7 @@ class InstanceMultiple extends Instance {
       instance.unregister()
 
       instance.on('change', () => {
+        this.value = this.activeInstance.getValue()
         this.emit('change')
         this.switchIf()
       })
@@ -128,42 +139,53 @@ class InstanceMultiple extends Instance {
       this.register()
     })
 
-    const schemaClone = this.schema.clone()
-    const setValue = isObject(schemaClone)
-
     if (isSet(this.instances[0])) {
-      this.switchInstance(0, false, setValue)
+      if (this.if) {
+        this.switchIf()
+      } else {
+        this.switchInstance(0)
+      }
     }
   }
 
-  switchInstance (newIndex, triggersChange = true, setValue = true) {
+  switchInstance (index, value) {
     this.lastIndex = this.index
-    this.index = newIndex
-    this.activeInstance = this.instances[this.index]
+    this.index = index
+    this.activeInstance = this.instances[index]
 
-    if (setValue) {
-      this.setValue(this.getValue(), triggersChange)
+    if (isSet(value)) {
+      this.activeInstance.setValue(value, false)
     }
+
+    const lastInstanceValue = this.instances[this.lastIndex].getValue()
+    const currentInstanceValue = this.activeInstance.getValue()
+
+    if (isObject(lastInstanceValue) && isObject(currentInstanceValue)) {
+      const mergedValue = overwriteExistingProperties(currentInstanceValue, lastInstanceValue)
+      this.activeInstance.setValue(mergedValue, false)
+    }
+
+    this.value = this.activeInstance.getValue()
+    this.emit('change')
   }
 
   switchIf () {
-    if (isSet(this.schema.if())) {
+    if (isSet(this.if)) {
       const ifIndex = this.getIfIndex(this.getValue())
-      const preValue = this.getValue()
       this.switchInstance(ifIndex)
-      const currentValue = this.getValue()
-      const finalValue = overwriteExistingProperties(currentValue, preValue)
-      this.setValue(finalValue, false)
     }
   }
 
   getIfIndex (value) {
-    const ifEditor = new Jedi({ schema: this.schema.if(), startValue: value, refParser: false })
+    const ifEditor = new Jedi({ schema: this.if, startValue: value, refParser: false })
     const ifErrors = ifEditor.getErrors()
     ifEditor.destroy()
     return ifErrors.length === 0 ? 0 : 1
   }
 
+  /**
+   * Returns the index of the instance that has less validation errors
+   */
   getFittestIndex (value) {
     let index = 0
     let fittestIndex
@@ -171,7 +193,7 @@ class InstanceMultiple extends Instance {
 
     for (const instance of this.instances) {
       if (instance.instances) {
-        instance.setValue(value)
+        instance.setValue(value, false)
       }
 
       const instanceErrors = this.jedi.validator.getErrors(value, instance.schema, instance.getKey(), instance.path)
@@ -193,23 +215,17 @@ class InstanceMultiple extends Instance {
   }
 
   onSetValue () {
-    const value = this.value
+    const newValue = this.value
 
     // if value matches the active instance type set the value. Else switch to the first
     // instance that match the value.
-    if (different(this.activeInstance.getValue(), value)) {
-      let fittestIndex
-
-      if (isSet(this.schema.if())) {
-        fittestIndex = this.getIfIndex(value)
-      } else {
-        fittestIndex = this.getFittestIndex(value)
-      }
-
-      this.switchInstance(fittestIndex, false)
+    if (different(this.activeInstance.getValue(), newValue)) {
+      const fittestIndex = isSet(this.if) ? this.getIfIndex(newValue) : this.getFittestIndex(newValue)
+      this.switchInstance(fittestIndex, newValue)
     }
 
-    this.activeInstance.setValue(value, false)
+    this.activeInstance.setValue(newValue, false)
+    this.value = this.activeInstance.getValue()
   }
 
   getValue () {

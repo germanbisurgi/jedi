@@ -2,7 +2,8 @@ import Instance from './instance'
 import EditorNumberEnumRadio from '../editors/number-enum-radio'
 import EditorNumberEnumSelect from '../editors/number-enum-select'
 import EditorNumber from '../editors/number'
-import { isSet } from '../utils'
+import { isSet } from '../helpers/utils'
+import { getSchemaEnum, getSchemaFormat, getSchemaType } from '../helpers/schema'
 
 /**
  * Represents a InstanceNumber instance.
@@ -10,11 +11,16 @@ import { isSet } from '../utils'
  */
 class InstanceNumber extends Instance {
   setUI () {
-    if (this.schema.typeIsNumeric() && isSet(this.schema.enum()) && this.schema.formatIs('radio')) {
+    const schemaType = getSchemaType(this.schema)
+    const schemaEnum = getSchemaEnum(this.schema)
+    const schemaFormat = getSchemaFormat(this.schema)
+    const typeIsNumeric = schemaType === 'number' || schemaType === 'integer'
+
+    if (typeIsNumeric && isSet(schemaEnum) && schemaFormat === 'radio') {
       this.ui = new EditorNumberEnumRadio(this)
-    } else if (this.schema.typeIsNumeric() && isSet(this.schema.enum())) {
+    } else if (typeIsNumeric && isSet(schemaEnum)) {
       this.ui = new EditorNumberEnumSelect(this)
-    } else if (this.schema.typeIsNumeric()) {
+    } else if (typeIsNumeric) {
       this.ui = new EditorNumber(this)
     }
   }

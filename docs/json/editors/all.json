@@ -1,333 +1,40 @@
 {
   "type": "object",
-  "title": "All Editors",
-  "minProperties": 6,
   "properties": {
-    "booleans": {
-      "type": "object",
-      "title": "Booleans",
-      "properties": {
-        "boolean-enum-select": {
-          "type": "boolean",
-          "title": "Boolean enum select",
-          "format": "select",
-          "const": true,
-          "options": {
-            "enumTitles": [
-              "No",
-              "Yes"
-            ]
-          }
-        },
-        "boolean-enum-radio": {
-          "type": "boolean",
-          "title": "Boolean enum radio",
-          "format": "radio",
-          "const": true,
-          "options": {
-            "enumTitles": [
-              "No",
-              "Yes"
-            ]
-          }
-        },
-        "boolean": {
-          "type": "boolean",
-          "title": "Boolean",
-          "const": true
-        }
+    "street_address": {
+      "type": "string"
+    },
+    "country": {
+      "default": "United States of America",
+      "enum": ["United States of America", "Canada", "Netherlands"]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "country": { "const": "United States of America" } }
+      },
+      "then": {
+        "properties": { "postal_code": { "pattern": "[0-9]{5}(-[0-9]{4})?" } }
       }
     },
-    "strings": {
-      "type": "object",
-      "title": "Strings",
-      "properties": {
-        "string": {
-          "type": "string",
-          "title": "String",
-          "minLength": 1
-        },
-        "string-textarea": {
-          "type": "string",
-          "title": "String textarea",
-          "format": "textarea",
-          "minLength": 1
-        },
-        "string-enum-select": {
-          "type": "string",
-          "title": "String enum select",
-          "enum": [
-            "albert",
-            "betti",
-            "carl"
-          ],
-          "options": {
-            "enumTitles": [
-              "Albert",
-              "Betti",
-              "Carl"
-            ]
-          }
-        },
-        "string-enum-radio": {
-          "type": "string",
-          "title": "String enum radio",
-          "format": "radio",
-          "enum": [
-            "albert",
-            "betti",
-            "carl"
-          ],
-          "options": {
-            "enumTitles": [
-              "Albert",
-              "Betti",
-              "Carl"
-            ]
-          }
-        }
+    {
+      "if": {
+        "properties": { "country": { "const": "Canada" } },
+        "required": ["country"]
+      },
+      "then": {
+        "properties": { "postal_code": { "pattern": "[A-Z][0-9][A-Z] [0-9][A-Z][0-9]" } }
       }
     },
-    "numbers": {
-      "type": "object",
-      "title": "Numbers",
-      "properties": {
-        "number": {
-          "type": "number",
-          "title": "Number",
-          "minimum": 1
-        },
-        "number-enum-select": {
-          "type": "number",
-          "title": "Number enum select",
-          "enum": [
-            1.5,
-            2.5,
-            3.5
-          ],
-          "options": {
-            "enumTitles": [
-              "small (1.5)",
-              "medium (2.5)",
-              "big (3.5)"
-            ]
-          }
-        },
-        "number-enum-radio": {
-          "type": "number",
-          "title": "Number enum radio",
-          "format": "radio",
-          "enum": [
-            1.5,
-            2.5,
-            3.5
-          ],
-          "options": {
-            "enumTitles": [
-              "small (1.5)",
-              "medium (2.5)",
-              "big (3.5)"
-            ]
-          }
-        }
-      }
-    },
-    "integers": {
-      "type": "object",
-      "title": "Integers",
-      "properties": {
-        "integer": {
-          "type": "integer",
-          "title": "Integer",
-          "minimum": 1
-        },
-        "integer-enum-select": {
-          "type": "integer",
-          "title": "Integer enum select",
-          "enum": [
-            1,
-            2,
-            3
-          ],
-          "options": {
-            "enumTitles": [
-              "small (1)",
-              "medium (2)",
-              "big (3)"
-            ]
-          }
-        },
-        "integer-enum-radio": {
-          "type": "number",
-          "title": "Integer enum radio",
-          "format": "radio",
-          "enum": [
-            1,
-            2,
-            3
-          ],
-          "options": {
-            "enumTitles": [
-              "small (1)",
-              "medium (2)",
-              "big (3)"
-            ]
-          }
-        }
-      }
-    },
-    "arrays": {
-      "type": "object",
-      "title": "Arrays",
-      "properties": {
-        "string-array": {
-          "type": "array",
-          "title": "Colors",
-          "items": {
-            "type": "string",
-            "title": "Color",
-            "format": "color",
-            "not": {
-              "const": "#000000"
-            }
-          },
-          "default": [
-            "#e8f3ee",
-            "#fff9e6",
-            "#ffffff"
-          ],
-          "minItems": 3
-        }
-      }
-    },
-    "multiple": {
-      "type": "object",
-      "title": "Multiple",
-      "properties": {
-        "nestedOf": {
-          "title": "Nested of",
-          "oneOf": [
-            {
-              "type": "string",
-              "options": {
-                "switcherTitle": "String"
-              }
-            },
-            {
-              "type": "boolean",
-              "options": {
-                "switcherTitle": "Boolean"
-              }
-            },
-            {
-              "title": "Any of",
-              "options": {
-                "switcherTitle": "Any of"
-              },
-              "anyOf": [
-                {
-                  "type": "integer",
-                  "options": {
-                    "switcherTitle": "Integer"
-                  }
-                },
-                {
-                  "type": "number",
-                  "options": {
-                    "switcherTitle": "Number"
-                  }
-                },
-                {
-                  "title": "One of",
-                  "options": {
-                    "switcherTitle": "One of"
-                  },
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "options": {
-                        "switcherTitle": "Object"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "options": {
-                        "switcherTitle": "Array"
-                      }
-                    },
-                    {
-                      "type": "null",
-                      "options": {
-                        "switcherTitle": "Null"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        "oneof": {
-          "title": "One of",
-          "oneOf": [
-            {
-              "type": "boolean",
-              "options": {
-                "switcherTitle": "Boolean"
-              }
-            },
-            {
-              "type": "string",
-              "options": {
-                "switcherTitle": "String"
-              }
-            },
-            {
-              "type": "integer",
-              "options": {
-                "switcherTitle": "Integer"
-              }
-            }
-          ]
-        },
-        "anyof": {
-          "title": "Any Of",
-          "anyOf": [
-            {
-              "type": "array",
-              "options": {
-                "switcherTitle": "Array"
-              }
-            },
-            {
-              "type": "object",
-              "options": {
-                "switcherTitle": "Object"
-              }
-            },
-            {
-              "type": "null",
-              "options": {
-                "switcherTitle": "Null"
-              }
-            }
-          ]
-        },
-        "type-array": {
-          "title": "Type string or boolean",
-          "type": [
-            "string",
-            "boolean"
-          ]
-        },
-        "type-undefined": {
-          "title": "Type is undefined"
-        },
-        "type-any": {
-          "type": "any",
-          "title": "Type: any"
-        }
+    {
+      "if": {
+        "properties": { "country": { "const": "Netherlands" } },
+        "required": ["country"]
+      },
+      "then": {
+        "properties": { "postal_code": { "pattern": "[0-9]{4} [A-Z]{2}" } }
       }
     }
-  }
+  ]
 }

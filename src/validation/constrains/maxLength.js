@@ -1,15 +1,17 @@
-import { isSet, isString } from '../../utils'
+import { isSet, isString } from '../../helpers/utils'
+import { getSchemaMaxLength } from '../../helpers/schema'
 
 export function maxLength (validator, value, schema, key, path) {
   const errors = []
+  const schemaMaxLength = getSchemaMaxLength(schema)
 
-  if (isString(value) && isSet(schema.maxLength())) {
+  if (isString(value) && isSet(schemaMaxLength)) {
     value = value.replace(/[\uDCA9]/g, '') // remove Unicode code points
-    const invalid = (value.length > schema.maxLength())
+    const invalid = (value.length > schemaMaxLength)
 
     if (invalid) {
       errors.push({
-        messages: ['Must be at most ' + schema.maxLength() + ' characters long'],
+        messages: ['Must be at most ' + schemaMaxLength + ' characters long'],
         path: path
       })
     }

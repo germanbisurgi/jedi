@@ -5,7 +5,13 @@ import {
   isObject,
   isSet,
   pathToAttribute
-} from '../utils'
+} from '../helpers/utils'
+import {
+  getSchemaAdditionalProperties,
+  getSchemaDescription,
+  getSchemaOption,
+  getSchemaTitle
+} from '../helpers/schema'
 
 /**
  * Represents an EditorObject instance.
@@ -13,12 +19,19 @@ import {
  */
 class EditorObject extends Editor {
   build () {
+    const schema = this.instance.schema
+    const schemaTitle = getSchemaTitle(schema)
+    const schemaDescription = getSchemaDescription(schema)
+    const schemaAdditionalProperties = getSchemaAdditionalProperties(schema)
+    const hideTitle = getSchemaOption(schema, 'hideTitle')
+    const editableProperties = getSchemaOption(schema, 'editableProperties')
+
     this.control = this.theme.getObjectControl({
-      title: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle'),
+      title: isSet(schemaTitle) ? schemaTitle : this.instance.getKey(),
+      srOnly: hideTitle,
       id: pathToAttribute(this.instance.path),
-      description: this.instance.schema.description(),
-      editableProperties: equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)
+      description: schemaDescription,
+      editableProperties: equal(this.instance.jedi.options.editableProperties, true) || equal(editableProperties, true)
     })
 
     this.control.addPropertyBtn.addEventListener('click', () => {
@@ -38,10 +51,8 @@ class EditorObject extends Editor {
 
       let schema = { type: 'any' }
 
-      const additionalProperties = this.instance.schema.additionalProperties()
-
-      if (isSet(additionalProperties)) {
-        schema = additionalProperties
+      if (isSet(schemaAdditionalProperties)) {
+        schema = schemaAdditionalProperties
       }
 
       const child = this.instance.createChild(schema, key)
@@ -66,21 +77,24 @@ class EditorObject extends Editor {
   }
 
   refreshPropertiesSlot () {
-    if (equal(this.instance.jedi.options.editableProperties, true) || equal(this.instance.schema.option('editableProperties'), true)) {
+    const schemaOptionEditableProperties = getSchemaOption(this.instance.schema, 'editableProperties')
+
+    if (equal(this.instance.jedi.options.editableProperties, true) || equal(schemaOptionEditableProperties, true)) {
       while (this.control.propertiesActivators.firstChild) {
         this.control.propertiesActivators.removeChild(this.control.propertiesActivators.lastChild)
       }
 
       this.instance.children.forEach((child) => {
+        const schemaTitle = getSchemaTitle(child.schema)
         const id = pathToAttribute(child.path) + '-activator'
 
-        const checboxControl = this.theme.getCheckboxControl({
+        const checkboxControl = this.theme.getCheckboxControl({
           id: id,
-          label: isSet(child.schema.title()) ? child.schema.title() : child.getKey(),
+          label: isSet(schemaTitle) ? schemaTitle : child.getKey(),
           srOnly: false
         })
 
-        const checkbox = checboxControl.input
+        const checkbox = checkboxControl.input
 
         checkbox.checked = hasOwn(this.instance.getValue(), child.getKey())
 
@@ -97,7 +111,7 @@ class EditorObject extends Editor {
           }
         })
 
-        this.control.propertiesActivators.appendChild(checboxControl.container)
+        this.control.propertiesActivators.appendChild(checkboxControl.container)
       })
     }
   }
@@ -111,7 +125,7 @@ class EditorObject extends Editor {
       if (child.isActive) {
         this.control.childrenSlot.appendChild(child.ui.control.container)
 
-        if (this.disabled) {
+        if (this.disabled || this.instance.isReadOnly()) {
           child.ui.disable()
         } else {
           child.ui.enable()
@@ -121,18 +135,9 @@ class EditorObject extends Editor {
   }
 
   refreshUI () {
+    this.refreshInteractiveElements()
     this.refreshPropertiesSlot()
     this.refreshEditors()
-
-    if (this.disabled) {
-      this.control.propertiesToggle.setAttribute('disabled', 'disabled')
-      this.control.addPropertyBtn.setAttribute('disabled', 'disabled')
-      this.control.addPropertyControl.input.setAttribute('disabled', 'disabled')
-    } else {
-      this.control.propertiesToggle.removeAttribute('disabled')
-      this.control.addPropertyBtn.removeAttribute('disabled')
-      this.control.addPropertyControl.input.removeAttribute('disabled')
-    }
   }
 }
 

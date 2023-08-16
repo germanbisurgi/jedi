@@ -77,6 +77,12 @@ class ThemeBootstrap3 extends Theme {
     return html
   }
 
+  getDescription (config) {
+    const description = super.getDescription(config)
+    description.classList.add('text-muted')
+    return description
+  }
+
   getTextareaControl (config) {
     const control = super.getTextareaControl(config)
     const { container, input, label } = control

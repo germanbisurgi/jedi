@@ -2,6 +2,7 @@ import Instance from './instance'
 import EditorBooleanEnumRadio from '../editors/boolean-enum-radio'
 import EditorBooleanEnumSelect from '../editors/boolean-enum-select'
 import EditorBoolean from '../editors/boolean'
+import { getSchemaFormat, getSchemaType } from '../helpers/schema'
 
 /**
  * Represents a InstanceBoolean instance.
@@ -9,11 +10,14 @@ import EditorBoolean from '../editors/boolean'
  */
 class InstanceBoolean extends Instance {
   setUI () {
-    if (this.schema.typeIs('boolean') && this.schema.formatIs('radio')) {
+    const schemaType = getSchemaType(this.schema)
+    const schemaFormat = getSchemaFormat(this.schema)
+
+    if (schemaType === 'boolean' && schemaFormat === 'radio') {
       this.ui = new EditorBooleanEnumRadio(this)
-    } else if (this.schema.typeIs('boolean') && this.schema.formatIs('select')) {
+    } else if (schemaType === 'boolean' && schemaFormat === 'select') {
       this.ui = new EditorBooleanEnumSelect(this)
-    } else if (this.schema.typeIs('boolean')) {
+    } else if (schemaType === 'boolean') {
       this.ui = new EditorBoolean(this)
     }
   }

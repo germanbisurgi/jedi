@@ -1,14 +1,16 @@
-import { isSet } from '../../utils'
+import { isSet } from '../../helpers/utils'
 import Jedi from '../../jedi'
+import { getSchemaOneOf } from '../../helpers/schema'
 
 export function oneOf (validator, value, schema, key, path) {
   const errors = []
+  const schemaOneOf = getSchemaOneOf(schema)
   let extraMessages = []
 
-  if (isSet(schema.oneOf())) {
+  if (isSet(schemaOneOf)) {
     let counter = 0
 
-    schema.oneOf().forEach((schema) => {
+    schemaOneOf.forEach((schema) => {
       const oneOfEditor = new Jedi({ schema: schema, startValue: value, refParser: false })
       const oneOfErrors = oneOfEditor.getErrors()
       oneOfEditor.destroy()

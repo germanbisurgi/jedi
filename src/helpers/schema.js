@@ -1,50 +1,50 @@
-import { isString, isArray, isNumber, isInteger, isBoolean, isObject, isSet } from './utils'
+import { isString, isArray, isNumber, isInteger, isBoolean, isObject } from './utils'
 
-export function getSchema (schema) {
+export function getSchemaSchema (schema) {
   return isString(schema.$schema) ? schema.$schema : undefined
 }
 
-export function getAdditionalProperties (schema) {
-  return isObject(schema.additionalProperties) || isBoolean(schema.additionalProperties) ? schema.additionalProperties : true
+export function getSchemaAdditionalProperties (schema) {
+  return isObject(schema.additionalProperties) || isBoolean(schema.additionalProperties) ? schema.additionalProperties : undefined
 }
 
-export function getAllOf (schema) {
+export function getSchemaAllOf (schema) {
   return isArray(schema.allOf) ? schema.allOf : undefined
 }
 
-export function getAnyOf (schema) {
+export function getSchemaAnyOf (schema) {
   return isArray(schema.anyOf) ? schema.anyOf : undefined
 }
 
-export function getConst (schema) {
+export function getSchemaConst (schema) {
   return schema.const
 }
 
-export function getContains (schema) {
+export function getSchemaContains (schema) {
   return (isObject(schema.contains) || isBoolean(schema.contains)) ? schema.contains : undefined
 }
 
-export function getDefault (schema) {
+export function getSchemaDefault (schema) {
   return schema.default
 }
 
-export function getDependentRequired (schema) {
+export function getSchemaDependentRequired (schema) {
   return isObject(schema.dependentRequired) ? schema.dependentRequired : undefined
 }
 
-export function getDependentSchemas (schema) {
+export function getSchemaDependentSchemas (schema) {
   return isObject(schema.dependentSchemas) ? schema.dependentSchemas : undefined
 }
 
-export function getDescription (schema) {
+export function getSchemaDescription (schema) {
   return isString(schema.description) ? schema.description : undefined
 }
 
-export function getElse (schema) {
+export function getSchemaElse (schema) {
   return (isObject(schema.else) || isBoolean(schema.else)) ? schema.else : undefined
 }
 
-export function getEnum (schema) {
+export function getSchemaEnum (schema) {
   if (isArray(schema.enum) && schema.enum.length > 0) {
     return schema.enum
   }
@@ -52,23 +52,19 @@ export function getEnum (schema) {
   return undefined
 }
 
-export function getExclusiveMaximum (schema) {
+export function getSchemaExclusiveMaximum (schema) {
   return isNumber(schema.exclusiveMaximum) ? schema.exclusiveMaximum : undefined
 }
 
-export function getExclusiveMinimum (schema) {
+export function getSchemaExclusiveMinimum (schema) {
   return isNumber(schema.exclusiveMinimum) ? schema.exclusiveMinimum : undefined
 }
 
-export function getFormat (schema) {
+export function getSchemaFormat (schema) {
   return isString(schema.format) ? schema.format : undefined
 }
 
-export function getFormatIs (value) {
-  return (isSet(this.format(schema)) && this.format(schema) === value)
-}
-
-export function getIf (schema) {
+export function getSchemaIf (schema) {
   if (isObject(schema.if)) {
     return schema.if
   }
@@ -80,15 +76,15 @@ export function getIf (schema) {
   return undefined
 }
 
-export function getItems (schema) {
+export function getSchemaItems (schema) {
   return isObject(schema.items) || isBoolean(schema.items) ? schema.items : undefined
 }
 
-export function getMaximum (schema) {
+export function getSchemaMaximum (schema) {
   return isNumber(schema.maximum) ? schema.maximum : undefined
 }
 
-export function getMaxContains (schema) {
+export function getSchemaMaxContains (schema) {
   if (isInteger(schema.maxContains) && schema.maxContains >= 0) {
     return schema.maxContains
   }
@@ -96,7 +92,7 @@ export function getMaxContains (schema) {
   return undefined
 }
 
-export function getMaxItems (schema) {
+export function getSchemaMaxItems (schema) {
   if (isInteger(schema.maxItems) && schema.maxItems >= 0) {
     return schema.maxItems
   }
@@ -104,7 +100,7 @@ export function getMaxItems (schema) {
   return undefined
 }
 
-export function getMaxLength (schema) {
+export function getSchemaMaxLength (schema) {
   if (isInteger(schema.maxLength) && schema.maxLength >= 0) {
     return schema.maxLength
   }
@@ -112,7 +108,7 @@ export function getMaxLength (schema) {
   return undefined
 }
 
-export function getMaxProperties (schema) {
+export function getSchemaMaxProperties (schema) {
   if (isInteger(schema.maxProperties)) {
     return schema.maxProperties
   }
@@ -120,11 +116,11 @@ export function getMaxProperties (schema) {
   return undefined
 }
 
-export function getMinimum (schema) {
+export function getSchemaMinimum (schema) {
   return isNumber(schema.minimum) ? schema.minimum : undefined
 }
 
-export function getMinContains (schema) {
+export function getSchemaMinContains (schema) {
   if (isInteger(schema.minContains) && schema.minContains >= 0) {
     return schema.minContains
   }
@@ -132,7 +128,7 @@ export function getMinContains (schema) {
   return undefined
 }
 
-export function getMinItems (schema) {
+export function getSchemaMinItems (schema) {
   if (isInteger(schema.minItems) && schema.minItems >= 0) {
     return schema.minItems
   }
@@ -140,7 +136,7 @@ export function getMinItems (schema) {
   return undefined
 }
 
-export function getMinLength (schema) {
+export function getSchemaMinLength (schema) {
   if (isInteger(schema.minLength) && schema.minLength >= 0) {
     return schema.minLength
   }
@@ -148,7 +144,7 @@ export function getMinLength (schema) {
   return undefined
 }
 
-export function getMinProperties (schema) {
+export function getSchemaMinProperties (schema) {
   if (isInteger(schema.minProperties) && schema.minProperties >= 0) {
     return schema.minProperties
   }
@@ -156,7 +152,7 @@ export function getMinProperties (schema) {
   return undefined
 }
 
-export function getMultipleOf (schema) {
+export function getSchemaMultipleOf (schema) {
   if (isNumber(schema.multipleOf) && schema.multipleOf >= 0) {
     return schema.multipleOf
   }
@@ -164,47 +160,47 @@ export function getMultipleOf (schema) {
   return undefined
 }
 
-export function getNot (schema) {
+export function getSchemaNot (schema) {
   return (isObject(schema.not) || isBoolean(schema.not)) ? schema.not : undefined
 }
 
-export function getOption (option) {
+export function getSchemaOption (schema, option) {
   return (schema.options && schema.options[option]) ? schema.options[option] : false
 }
 
-export function getPattern (schema) {
+export function getSchemaPattern (schema) {
   return isString(schema.pattern) ? schema.pattern : undefined
 }
 
-export function getPatternProperties (schema) {
+export function getSchemaPatternProperties (schema) {
   return isObject(schema.patternProperties) ? schema.patternProperties : undefined
 }
 
-export function getPrefixItems (schema) {
+export function getSchemaPrefixItems (schema) {
   return isArray(schema.prefixItems) ? schema.prefixItems : undefined
 }
 
-export function getProperties (schema) {
+export function getSchemaProperties (schema) {
   return isObject(schema.properties) ? schema.properties : undefined
 }
 
-export function getReadOnly (schema) {
+export function getSchemaReadOnly (schema) {
   return isBoolean(schema.readOnly) ? schema.readOnly : undefined
 }
 
-export function getRequired (schema) {
+export function getSchemaRequired (schema) {
   return isArray(schema.required) ? [...new Set(schema.required)] : undefined
 }
 
-export function getThen (schema) {
+export function getSchemaThen (schema) {
   return (isObject(schema.then) || isBoolean(schema.then)) ? schema.then : undefined
 }
 
-export function getTitle (schema) {
+export function getSchemaTitle (schema) {
   return isString(schema.title) ? schema.title : undefined
 }
 
-export function getType (schema) {
+export function getSchemaType (schema) {
   if (isString(schema.type) || isArray(schema.type)) {
     return schema.type
   }
@@ -212,18 +208,10 @@ export function getType (schema) {
   return undefined
 }
 
-export function getTypeIs (value) {
-  return (isSet(this.type(schema)) && this.type(schema) === value)
-}
-
-export function getTypeIsNumeric () {
-  return this.typeIs('number') || this.typeIs('integer')
-}
-
-export function getOneOf (schema) {
+export function getSchemaOneOf (schema) {
   return isArray(schema.oneOf) ? schema.oneOf : undefined
 }
 
-export function getUniqueItems (schema) {
+export function getSchemaUniqueItems (schema) {
   return isBoolean(schema.uniqueItems) ? schema.uniqueItems : undefined
 }

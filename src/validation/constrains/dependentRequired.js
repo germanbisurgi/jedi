@@ -1,14 +1,16 @@
-import { hasOwn, isObject, isSet } from '../../utils'
+import { hasOwn, isObject, isSet } from '../../helpers/utils'
+import { getSchemaDependentRequired } from '../../helpers/schema'
 
 export function dependentRequired (validator, value, schema, key, path) {
   const errors = []
+  const schemaDependentRequired = getSchemaDependentRequired(schema)
 
-  if (isObject(value) && isSet(schema.dependentRequired())) {
+  if (isObject(value) && isSet(schemaDependentRequired)) {
     let missingProperties = []
 
-    Object.keys(schema.dependentRequired()).forEach((key) => {
+    Object.keys(schemaDependentRequired).forEach((key) => {
       if (isSet(value[key])) {
-        const requiredProperties = schema.dependentRequired()[key]
+        const requiredProperties = schemaDependentRequired[key]
 
         missingProperties = requiredProperties.filter((property) => {
           return !hasOwn(value, property)

@@ -1,5 +1,6 @@
 import EditorBoolean from './boolean'
-import { isSet, pathToAttribute } from '../utils'
+import { isSet, pathToAttribute } from '../helpers/utils'
+import { getSchemaDescription, getSchemaOption, getSchemaTitle } from '../helpers/schema'
 
 /**
  * Represents an EditorBooleanEnumRadio instance.
@@ -7,14 +8,18 @@ import { isSet, pathToAttribute } from '../utils'
  */
 class EditorBooleanEnumRadio extends EditorBoolean {
   build () {
-    // control
+    const schemaTitle = getSchemaTitle(this.instance.schema)
+    const schemaDescription = getSchemaDescription(this.instance.schema)
+    const schemaOptionHideTitle = getSchemaOption(this.instance.schema, 'hideTitle')
+    const schemaOptionEnumTitles = getSchemaOption(this.instance.schema, 'enumTitles')
+
     this.control = this.theme.getRadiosControl({
       values: ['false', 'true'],
-      titles: this.instance.schema.option('enumTitles') || ['false', 'true'],
+      titles: schemaOptionEnumTitles || ['false', 'true'],
       id: pathToAttribute(this.instance.path),
-      label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle'),
-      description: this.instance.schema.description()
+      label: isSet(schemaTitle) ? schemaTitle : this.instance.getKey(),
+      srOnly: schemaOptionHideTitle,
+      description: schemaDescription
     })
 
     this.control.radios.forEach((radio) => {
@@ -26,10 +31,10 @@ class EditorBooleanEnumRadio extends EditorBoolean {
   }
 
   refreshUI () {
+    this.refreshInteractiveElements()
     this.control.radios.forEach((radio) => {
       const radioValue = radio.value === 'true'
       radio.checked = radioValue === this.instance.getValue()
-      radio.disabled = this.disabled
     })
   }
 }

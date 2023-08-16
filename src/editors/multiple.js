@@ -1,5 +1,6 @@
 import Editor from './editor'
-import { pathToAttribute } from '../utils'
+import { pathToAttribute } from '../helpers/utils'
+import { getSchemaDescription, getSchemaOption } from '../helpers/schema'
 
 /**
  * Represents an EditorMultiple instance.
@@ -7,11 +8,14 @@ import { pathToAttribute } from '../utils'
  */
 class EditorMultiple extends Editor {
   build () {
+    const schemaDescription = getSchemaDescription(this.instance.schema)
+    const schemaOptionHideTitle = getSchemaOption(this.instance.schema, 'hideTitle')
+
     this.control = this.theme.getMultipleControl({
       title: 'Options',
-      srOnly: this.instance.schema.option('hideTitle'),
+      srOnly: schemaOptionHideTitle,
       id: pathToAttribute(this.instance.path),
-      description: this.instance.schema.description(),
+      description: schemaDescription,
       switcherOptionValues: this.instance.switcherOptionValues,
       switcherOptionsLabels: this.instance.switcherOptionsLabels
     })
@@ -23,30 +27,15 @@ class EditorMultiple extends Editor {
   }
 
   refreshUI () {
-    const oldInstance = this.instance.instances[this.instance.lastIndex]
-
-    if (oldInstance.ui.control.container.parentNode) {
-      this.control.childrenSlot.removeChild(oldInstance.ui.control.container)
-    }
-
+    this.refreshInteractiveElements()
+    this.control.childrenSlot.innerHTML = ''
     this.control.childrenSlot.appendChild(this.instance.activeInstance.ui.control.container)
-
     this.control.switcher.input.value = this.instance.index
 
-    const buttons = this.control.container.querySelectorAll('button')
-
-    if (this.disabled) {
+    if (this.disabled || this.instance.isReadOnly()) {
       this.instance.activeInstance.ui.disable()
-      this.control.switcher.input.setAttribute('disabled', 'disabled')
-      buttons.forEach((button) => {
-        button.disabled = true
-      })
     } else {
       this.instance.activeInstance.ui.enable()
-      this.control.switcher.input.removeAttribute('disabled', 'disabled')
-      buttons.forEach((button) => {
-        button.disabled = false
-      })
     }
   }
 

@@ -1,13 +1,15 @@
-import { isObject, isSet } from '../../utils'
+import { isObject, isSet } from '../../helpers/utils'
+import { getSchemaRequired } from '../../helpers/schema'
 
 export function required (validator, value, schema, key, path) {
   const errors = []
+  const schemaRequired = getSchemaRequired(schema)
 
-  if (isObject(value) && isSet(schema.required())) {
+  if (isObject(value) && isSet(schemaRequired)) {
     const missingProperties = []
     const keys = Object.keys(value)
 
-    schema.required().forEach((key) => {
+    schemaRequired.forEach((key) => {
       if (!keys.includes(key)) {
         missingProperties.push(key)
       }

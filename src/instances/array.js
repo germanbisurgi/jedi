@@ -1,7 +1,8 @@
 import Instance from './instance'
-import { getType, isSet, clone, isArray, notSet, isObject } from '../utils'
+import { getType, isSet, clone, isArray, notSet, isObject } from '../helpers/utils'
 import EditorArray from '../editors/array'
 import EditorArrayNav from '../editors/array-nav'
+import { getSchemaFormat, getSchemaItems, getSchemaPrefixItems, getSchemaType } from '../helpers/schema'
 
 /**
  * Represents an InstanceArray instance.
@@ -9,7 +10,10 @@ import EditorArrayNav from '../editors/array-nav'
  */
 class InstanceArray extends Instance {
   setUI () {
-    if (this.schema.typeIs('array') && this.schema.formatIs('nav')) {
+    const schemaType = getSchemaType(this.schema)
+    const schemaFormat = getSchemaFormat(this.schema)
+
+    if (schemaType === 'array' && schemaFormat === 'nav') {
       this.ui = new EditorArrayNav(this)
     } else {
       this.ui = new EditorArray(this)
@@ -25,18 +29,20 @@ class InstanceArray extends Instance {
   }
 
   createItemInstance (value) {
-    const itemsCount = this.children.length
     let schema
+    const itemsCount = this.children.length
+    const schemaItems = getSchemaItems(this.schema)
+    const schemaPrefixItems = getSchemaPrefixItems(this.schema)
 
-    schema = isSet(this.schema.items()) ? this.schema.items() : {}
+    schema = isSet(schemaItems) ? schemaItems : {}
 
-    const hasPrefixItemsSchema = isSet(this.schema.prefixItems()) && isSet(this.schema.prefixItems()[itemsCount])
+    const hasPrefixItemsSchema = isSet(schemaPrefixItems) && isSet(schemaPrefixItems[itemsCount])
 
     if (hasPrefixItemsSchema) {
-      schema = this.schema.prefixItems()[itemsCount]
+      schema = schemaPrefixItems[itemsCount]
     }
 
-    if (isObject(schema) && notSet(schema.type)) {
+    if (isObject(schema) && notSet(getSchemaType(schema))) {
       schema.type = isSet(value) ? getType(value) : 'any'
     }
 
@@ -95,7 +101,7 @@ class InstanceArray extends Instance {
       return
     }
 
-    value.forEach((itemValue, index) => {
+    value.forEach((itemValue) => {
       const child = this.createItemInstance(itemValue)
       child.setValue(itemValue, false)
       this.children.push(child)

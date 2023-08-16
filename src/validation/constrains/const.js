@@ -1,15 +1,18 @@
-import { isSet, different } from '../../utils'
+import { isSet, different } from '../../helpers/utils'
+import { getSchemaConst } from '../../helpers/schema'
 
 export function _const (validator, value, schema, key, path) {
   const errors = []
-  if (isSet(schema.const())) {
-    const valueIsNotEqualConst = different(value, schema.const())
+  const schemaConst = getSchemaConst(schema)
+
+  if (isSet(schemaConst)) {
+    const valueIsNotEqualConst = different(value, schemaConst)
     const invalid = (valueIsNotEqualConst)
 
     if (invalid) {
       errors.push({
         messages: [
-          'Must be: ' + JSON.stringify(schema.const())
+          'Must be: ' + JSON.stringify(schemaConst)
         ],
         path: path
       })

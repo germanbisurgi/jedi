@@ -1,14 +1,18 @@
-import { isArray, isSet } from '../../utils'
+import { isArray, isSet } from '../../helpers/utils'
 import Jedi from '../../jedi'
+import { getSchemaContains, getSchemaMaxContains, getSchemaMinContains } from '../../helpers/schema'
 
 export function contains (validator, value, schema, key, path) {
   const errors = []
+  const schemaContains = getSchemaContains(schema)
+  const schemaMinContains = getSchemaMinContains(schema)
+  const schemaMaxContains = getSchemaMaxContains(schema)
 
-  if (isArray(value) && isSet(schema.contains())) {
+  if (isArray(value) && isSet(schemaContains)) {
     let counter = 0
 
     value.forEach((item) => {
-      const containsEditor = new Jedi({ schema: schema.contains(), startValue: item, refParser: false })
+      const containsEditor = new Jedi({ schema: schemaContains, startValue: item, refParser: false })
       const containsErrors = containsEditor.getErrors()
 
       if (containsErrors.length === 0) {
@@ -20,13 +24,13 @@ export function contains (validator, value, schema, key, path) {
 
     const containsInvalid = (counter === 0)
 
-    if (isSet(schema.minContains())) {
-      const minContainsInvalid = (counter < schema.minContains())
+    if (isSet(schemaMinContains)) {
+      const minContainsInvalid = (counter < schemaMinContains)
 
       if (minContainsInvalid) {
         errors.push({
           messages: [
-            `Contains match count ${counter} is less than minimum contains count of ${schema.minContains()}`
+            `Contains match count ${counter} is less than minimum contains count of ${schemaMinContains}`
           ],
           path: path
         })
@@ -42,13 +46,13 @@ export function contains (validator, value, schema, key, path) {
       }
     }
 
-    if (isSet(schema.maxContains())) {
-      const maxContainsInvalid = (counter > schema.maxContains())
+    if (isSet(schemaMaxContains)) {
+      const maxContainsInvalid = (counter > schemaMaxContains)
 
       if (maxContainsInvalid) {
         errors.push({
           messages: [
-            `Contains match count ${counter} exceeds maximum contains count of ${schema.maxContains()}`
+            `Contains match count ${counter} exceeds maximum contains count of ${schemaMaxContains}`
           ],
           path: path
         })

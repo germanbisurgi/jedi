@@ -2,7 +2,9 @@ import Instance from './instance'
 import EditorString from '../editors/string'
 import EditorStringEnumRadio from '../editors/string-enum-radio'
 import EditorStringEnumSelect from '../editors/string-enum-select'
-import { isSet } from '../utils'
+import EditorStringTextarea from '../editors/string-textarea'
+import { isSet } from '../helpers/utils'
+import { getSchemaEnum, getSchemaFormat, getSchemaType } from '../helpers/schema'
 
 /**
  * Represents a InstanceString instance.
@@ -10,11 +12,17 @@ import { isSet } from '../utils'
  */
 class InstanceString extends Instance {
   setUI () {
-    if (this.schema.typeIs('string') && isSet(this.schema.enum()) && this.schema.formatIs('radio')) {
+    const schemaType = getSchemaType(this.schema)
+    const schemaEnum = getSchemaEnum(this.schema)
+    const schemaFormat = getSchemaFormat(this.schema)
+
+    if (schemaType === 'string' && isSet(schemaEnum) && schemaFormat === 'radio') {
       this.ui = new EditorStringEnumRadio(this)
-    } else if (this.schema.typeIs('string') && isSet(this.schema.enum())) {
+    } else if (schemaType === 'string' && schemaFormat === 'textarea') {
+      this.ui = new EditorStringTextarea(this)
+    } else if (schemaType === 'string' && isSet(schemaEnum)) {
       this.ui = new EditorStringEnumSelect(this)
-    } else if (this.schema.typeIs('string')) {
+    } else if (schemaType === 'string') {
       this.ui = new EditorString(this)
     }
   }

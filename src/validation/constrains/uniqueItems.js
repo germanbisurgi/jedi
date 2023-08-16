@@ -1,9 +1,11 @@
-import { isArray, isObject, isSet, sortObject } from '../../utils'
+import { isArray, isObject, isSet, sortObject } from '../../helpers/utils'
+import { getSchemaUniqueItems } from '../../helpers/schema'
 
 export function uniqueItems (validator, value, schema, key, path) {
   const errors = []
+  const schemaUniqueItems = getSchemaUniqueItems(schema)
 
-  if (isArray(value) && isSet(schema.uniqueItems()) && schema.uniqueItems() === true) {
+  if (isArray(value) && isSet(schemaUniqueItems) && schemaUniqueItems === true) {
     const seen = []
     let hasDuplicatedItems = false
 

@@ -1,5 +1,11 @@
 import Editor from './editor'
-import { isNumber, isSet, pathToAttribute } from '../utils'
+import { isNumber, isSet, pathToAttribute } from '../helpers/utils'
+import {
+  getSchemaDescription,
+  getSchemaFormat,
+  getSchemaOption,
+  getSchemaTitle, getSchemaType
+} from '../helpers/schema'
 
 /**
  * Represents a EditorNumber instance.
@@ -7,12 +13,17 @@ import { isNumber, isSet, pathToAttribute } from '../utils'
  */
 class EditorNumber extends Editor {
   build () {
+    const schemaTitle = getSchemaTitle(this.instance.schema)
+    const schemaDescription = getSchemaDescription(this.instance.schema)
+    const schemaFormat = getSchemaFormat(this.instance.schema)
+    const schemaOptionHideTitle = getSchemaOption(this.instance.schema, 'hideTitle')
+
     this.control = this.theme.getInputControl({
       type: 'number',
       id: pathToAttribute(this.instance.path),
-      label: isSet(this.instance.schema.title()) ? this.instance.schema.title() : this.instance.getKey(),
-      srOnly: this.instance.schema.option('hideTitle') || this.instance.schema.formatIs('hidden'),
-      description: this.instance.schema.description()
+      label: isSet(schemaTitle) ? schemaTitle : this.instance.getKey(),
+      srOnly: schemaOptionHideTitle || schemaFormat === 'hidden',
+      description: schemaDescription
     })
 
     this.control.input.addEventListener('change', () => {
@@ -22,7 +33,7 @@ class EditorNumber extends Editor {
   }
 
   sanitize (value) {
-    if (this.instance.schema.typeIs('integer')) {
+    if (getSchemaType(this.instance.schema) === 'integer') {
       return Math.floor(Number(value))
     } else {
       return Number(value)
@@ -30,16 +41,11 @@ class EditorNumber extends Editor {
   }
 
   refreshUI () {
+    this.refreshInteractiveElements()
     const value = this.instance.getValue()
 
     if (isNumber(value)) {
       this.control.input.value = this.instance.getValue()
-    }
-
-    if (this.disabled) {
-      this.control.input.setAttribute('disabled', 'disabled')
-    } else {
-      this.control.input.removeAttribute('disabled')
     }
   }
 }

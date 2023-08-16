@@ -1,14 +1,17 @@
-import { isSet } from '../../utils'
+import { isSet } from '../../helpers/utils'
+import { getSchemaEnum } from '../../helpers/schema'
 
 export function _enum (validator, value, schema, key, path) {
   const errors = []
-  if (isSet(schema.enum())) {
-    const invalid = !schema.enum().some(e => JSON.stringify(value) === JSON.stringify(e))
+  const schemaEnum = getSchemaEnum(schema)
+
+  if (isSet(schemaEnum)) {
+    const invalid = !schemaEnum.some(e => JSON.stringify(value) === JSON.stringify(e))
 
     if (invalid) {
       errors.push({
         messages: [
-          'Must be one of the enumerated values: ' + JSON.stringify(schema.enum())
+          'Must be one of the enumerated values: ' + JSON.stringify(schemaEnum)
         ],
         path: path
       })

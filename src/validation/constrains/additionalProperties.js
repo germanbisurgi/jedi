@@ -2,16 +2,20 @@
  * constrains additionalProperties
  */
 
-import { hasOwn, isObject, isSet } from '../../utils'
+import { hasOwn, isObject, isSet } from '../../helpers/utils'
 import Jedi from '../../jedi'
+import { getSchemaAdditionalProperties, getSchemaPatternProperties, getSchemaProperties } from '../../helpers/schema'
 
 export function additionalProperties (validator, value, schema, key, path) {
   let errors = []
+  const schemaAdditionalProperties = getSchemaAdditionalProperties(schema)
+  const schemaPatternProperties = getSchemaPatternProperties(schema)
+  const schemaProperties = getSchemaProperties(schema)
 
-  if (isObject(value) && isSet(schema.additionalProperties())) {
-    const properties = isSet(schema.properties()) ? schema.properties() : {}
-    const additionalProperties = schema.additionalProperties()
-    const patternProperties = schema.patternProperties()
+  if (isObject(value) && isSet(schemaAdditionalProperties)) {
+    const properties = isSet(schemaProperties) ? schemaProperties : {}
+    const additionalProperties = schemaAdditionalProperties
+    const patternProperties = schemaPatternProperties
 
     if (properties) {
       Object.keys(value).forEach((property) => {

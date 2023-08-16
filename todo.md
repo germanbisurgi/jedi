@@ -1,5 +1,12 @@
 ## Todo
 
+- option to hide and edit (icons and text) ui elements
+- better editor type detection with specialized keywords
+- fix destroy whole editor console error
+- themes should be nested into editors and have resolver
+- refactor editors (init function)
+- refactor getSchemaOption return
+
 - If-Then-Else (7)
 - dependencies (4) and dependentRequired / dependentSchemas (19)
 - const (6)
@@ -10,8 +17,8 @@
 - In JSON Schema Draft 4, exclusiveMinimum and exclusiveMaximum 
 - $schema
 - id (4) and $id (6)
-
 - dialects support tables
+
 - validation without Jedi creation
 - allOf, oneOf and anyOf combination
 - drafts
@@ -29,10 +36,11 @@
 - nested if-then-else
 - allOf if-then-else
 - schema getter return undefined (options)
-- refresh disable state
-- icons
-- readonly, should not set value
-- readOnly mode
+
+- readonly, should not set value?
+
+- documentation mode
+
 - arrays of objects test
 - showErrors options
 - arrays of arrays test

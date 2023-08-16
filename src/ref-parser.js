@@ -7,7 +7,7 @@ import {
   isString,
   notSet,
   clone, equal
-} from './utils'
+} from './helpers/utils'
 
 /**
  * Represents a RefParser instance.

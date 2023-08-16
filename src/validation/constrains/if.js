@@ -1,38 +1,42 @@
 import Jedi from '../../jedi'
-import { isSet, notSet } from '../../utils'
+import { isSet, notSet } from '../../helpers/utils'
+import { getSchemaElse, getSchemaIf, getSchemaThen } from '../../helpers/schema'
 
 export function _if (validator, value, schema, key, path) {
   const errors = []
+  const schemaIf = getSchemaIf(schema)
+  const schemaThen = getSchemaThen(schema)
+  const schemaElse = getSchemaElse(schema)
 
-  if (isSet(schema.if())) {
-    if (notSet(schema.then()) && notSet(schema.else())) {
+  if (isSet(schemaIf)) {
+    if (notSet(schemaThen) && notSet(schemaElse)) {
       return errors
     }
 
-    const ifEditor = new Jedi({ schema: schema.if(), startValue: value, refParser: false })
+    const ifEditor = new Jedi({ schema: schemaIf, startValue: value, refParser: false })
     const ifErrors = ifEditor.getErrors()
     ifEditor.destroy()
 
     let thenErrors = []
     let elseErrors = []
 
-    if (isSet(schema.then())) {
-      const thenEditor = new Jedi({ schema: schema.then(), startValue: value, refParser: false })
+    if (isSet(schemaThen)) {
+      const thenEditor = new Jedi({ schema: schemaThen, startValue: value, refParser: false })
       thenErrors = thenEditor.getErrors()
       thenEditor.destroy()
     }
 
-    if (isSet(schema.else())) {
-      const elseEditor = new Jedi({ schema: schema.else(), startValue: value, refParser: false })
+    if (isSet(schemaElse)) {
+      const elseEditor = new Jedi({ schema: schemaElse, startValue: value, refParser: false })
       elseErrors = elseEditor.getErrors()
       elseEditor.destroy()
     }
 
-    if (schema.if() === true) {
+    if (schemaIf === true) {
       return thenErrors
     }
 
-    if (schema.if() === false) {
+    if (schemaIf === false) {
       return elseErrors
     }
 

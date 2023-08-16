@@ -4,7 +4,8 @@ import ThemeBootstrap3 from '../themes/bootstrap3'
 import ThemeBootstrap4 from '../themes/bootstrap4'
 import ThemeBootstrap5 from '../themes/bootstrap5'
 import Theme from '../themes/theme'
-import { isSet } from '../utils'
+import { isSet } from '../helpers/utils'
+import { getSchemaOption, getSchemaType } from '../helpers/schema'
 
 /**
  * Represents an Editor instance.
@@ -42,12 +43,19 @@ class Editor extends EventEmitter {
      */
     this.disabled = false
 
+    /**
+     * Read only status for this editor user interface
+     * @type {boolean}
+     * @private
+     */
+    this.readOnly = this.instance.isReadOnly()
+
     this.init()
     this.build()
     this.setContainerAttributes()
     this.refreshUI()
 
-    if (this.instance.jedi.options.alwaysShowErrors || this.instance.schema.option('alwaysShowErrors')) {
+    if (this.instance.jedi.options.alwaysShowErrors || getSchemaOption(this.instance.schema, 'alwaysShowErrors')) {
       const errors = this.instance.getErrors()
       this.showValidationErrors(errors)
     }
@@ -59,6 +67,7 @@ class Editor extends EventEmitter {
     })
 
     this.instance.on('change', () => {
+      this.refreshUI()
       const errors = this.instance.getErrors()
       this.showValidationErrors(errors)
     })
@@ -111,8 +120,10 @@ class Editor extends EventEmitter {
   setContainerAttributes () {
     this.control.container.setAttribute('data-path', this.instance.path)
 
-    if (isSet(this.instance.schema.type())) {
-      this.control.container.setAttribute('data-type', this.instance.schema.type())
+    const schemaType = getSchemaType(this.instance.schema)
+
+    if (isSet(schemaType)) {
+      this.control.container.setAttribute('data-type', schemaType)
     }
   }
 
@@ -121,12 +132,6 @@ class Editor extends EventEmitter {
    * @private
    */
   build () {}
-
-  /**
-   * Updates control UI when its state changes
-   * @private
-   */
-  refreshUI () {}
 
   /**
    * Shows validation messages in the editor container.
@@ -167,6 +172,26 @@ class Editor extends EventEmitter {
   enable () {
     this.disabled = false
     this.refreshUI()
+  }
+
+  /**
+   * Updates control UI when its state changes
+   * @private
+   */
+  refreshUI () {
+    this.refreshInteractiveElements()
+  }
+
+  refreshInteractiveElements () {
+    const interactiveElements = this.control.container.querySelectorAll('button, input, select, textarea')
+
+    interactiveElements.forEach((element) => {
+      if (this.disabled || this.readOnly) {
+        element.setAttribute('disabled', '')
+      } else {
+        element.removeAttribute('disabled', '')
+      }
+    })
   }
 
   /**

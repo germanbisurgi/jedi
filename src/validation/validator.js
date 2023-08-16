@@ -3,7 +3,8 @@ import draft06 from './drafts/draft-06'
 import draft07 from './drafts/draft-07'
 import draft201909 from './drafts/draft-2019-09'
 import draft202012 from './drafts/draft-2020-12'
-import { hasOwn, isBoolean } from '../utils'
+import { hasOwn, isBoolean, clone } from '../helpers/utils'
+import { getSchemaOption } from '../helpers/schema'
 
 /**
  * Represents a Validator instance.
@@ -26,8 +27,9 @@ class Validator {
    */
   getErrors (value, schema, key, path) {
     let schemaErrors = []
+    const schemaOptionsMessages = getSchemaOption(schema, 'messages')
 
-    const schemaClone = schema.clone()
+    const schemaClone = clone(schema)
 
     if (isBoolean(schemaClone) && schemaClone === true) {
       return schemaErrors
@@ -35,7 +37,7 @@ class Validator {
 
     if (isBoolean(schemaClone) && schemaClone === false) {
       return [{
-        messages: schema.option('messages') ? schema.option('messages') : ['invalid'],
+        messages: schemaOptionsMessages || ['invalid'],
         path: path
       }]
     }
@@ -51,10 +53,10 @@ class Validator {
       }
     })
 
-    if (schemaErrors.length > 0 && schema.option('messages')) {
+    if (schemaErrors.length > 0 && schemaOptionsMessages) {
       schemaErrors = [
         {
-          messages: schema.option('messages'),
+          messages: schemaOptionsMessages,
           path: path
         }
       ]

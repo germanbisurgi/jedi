@@ -1,17 +1,18 @@
-import Schema from '../../schema'
-import { isSet } from '../../utils'
+import { isSet } from '../../helpers/utils'
+import { getSchemaNot } from '../../helpers/schema'
 
 export function not (validator, value, schema, key, path) {
   const errors = []
+  const schemaNot = getSchemaNot(schema)
 
-  if (isSet(schema.not())) {
-    const notErrors = validator.getErrors(value, new Schema(schema.not()), key, path)
+  if (isSet(schemaNot)) {
+    const notErrors = validator.getErrors(value, schemaNot, key, path)
 
     const invalid = notErrors.length === 0
 
     if (invalid) {
       errors.push({
-        messages: ['Must not validate against the provided schema.'],
+        messages: ['Must not validate against the provided schema'],
         path: path
       })
     }

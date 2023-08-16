@@ -1,5 +1,6 @@
 import EditorArray from './array'
-import { compileTemplate, isSet, pathToAttribute } from '../utils'
+import { compileTemplate, isSet, pathToAttribute } from '../helpers/utils'
+import { getSchemaOption, getSchemaTitle } from '../helpers/schema'
 
 /**
  * Represents an EditorArrayNav instance.
@@ -12,16 +13,17 @@ class EditorArrayNav extends EditorArray {
   }
 
   refreshUI () {
+    this.refreshInteractiveElements()
     this.control.childrenSlot.innerHTML = ''
 
     const row = this.theme.getRow()
-    const cols = this.instance.schema.option('nav').cols || 3
+    const cols = getSchemaOption(this.instance.schema, 'nav').cols || 3
     const tabListCol = this.theme.getCol(12, cols)
     const tabContentCol = this.theme.getCol(12, (12 - cols))
     const tabContent = this.theme.getTabContent()
     const tabList = this.theme.getTabList({
-      stacked: this.instance.schema.option('nav').stacked,
-      type: this.instance.schema.option('nav').type
+      stacked: getSchemaOption(this.instance.schema, 'nav').stacked,
+      type: getSchemaOption(this.instance.schema, 'nav').type
     })
 
     this.control.childrenSlot.appendChild(row)
@@ -44,9 +46,10 @@ class EditorArrayNav extends EditorArray {
       this.control.childrenSlot.appendChild(child.ui.control.container)
 
       let childTitle
+      const schemaOptionItemTemplate = getSchemaOption(this.instance.schema, 'itemTemplate')
 
-      if (this.instance.schema.option('itemTemplate')) {
-        const template = this.instance.schema.option('itemTemplate')
+      if (schemaOptionItemTemplate) {
+        const template = schemaOptionItemTemplate
         const data = {
           i0: index,
           i1: (index + 1),
@@ -54,7 +57,8 @@ class EditorArrayNav extends EditorArray {
         }
         childTitle = compileTemplate(template, data)
       } else {
-        childTitle = isSet(child.schema.title()) ? child.schema.title() + ' ' + (index + 1) : child.getKey()
+        const schemaTitle = getSchemaTitle(child.schema)
+        childTitle = isSet(schemaTitle) ? schemaTitle + ' ' + (index + 1) : child.getKey()
       }
 
       deleteBtn.addEventListener('click', () => {
@@ -71,8 +75,6 @@ class EditorArrayNav extends EditorArray {
         const toIndex = itemIndex + 1
         this.instance.move(itemIndex, toIndex)
       })
-
-      const buttons = this.control.container.querySelectorAll('button')
 
       const active = index === this.activeTabIndex
       const id = pathToAttribute(child.path)
@@ -91,16 +93,10 @@ class EditorArrayNav extends EditorArray {
       tabList.appendChild(tab.list)
       tabContent.appendChild(child.ui.control.container)
 
-      if (this.disabled) {
+      if (this.disabled || this.instance.isReadOnly()) {
         child.ui.disable()
-        buttons.forEach((button) => {
-          button.setAttribute('disabled', 'disabled')
-        })
       } else {
         child.ui.enable()
-        buttons.forEach((button) => {
-          button.removeAttribute('disabled')
-        })
       }
     })
   }

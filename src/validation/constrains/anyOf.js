@@ -1,12 +1,15 @@
 import Jedi from '../../jedi'
-import { isSet } from '../../utils'
+import { isSet } from '../../helpers/utils'
+import { getSchemaAnyOf } from '../../helpers/schema'
 
 export function anyOf (validator, value, schema, key, path) {
   const errors = []
+  const schemaOneOf = getSchemaAnyOf(schema)
+
   let extraMessages = []
 
-  if (isSet(schema.anyOf())) {
-    const anyOf = schema.anyOf()
+  if (isSet(schemaOneOf)) {
+    const anyOf = schemaOneOf
     let valid = false
 
     anyOf.forEach((schema) => {

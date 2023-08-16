@@ -9,6 +9,10 @@
  * @return {*} The clone of the thing
  */
 export function clone (thing) {
+  if (typeof thing === 'undefined') {
+    return undefined
+  }
+
   return JSON.parse(JSON.stringify(thing))
 }
 
@@ -224,7 +228,8 @@ export function mergeDeep (target, ...sources) {
 }
 
 /**
- * Merges objects
+ * Merges objects but only the properties that exists in boths objects
+ * if they are the same type of value
  * @param {object} obj1 - The target object
  * @param {object[]} obj2 - Objects who's properties are the overrides
  * @return {object} The overwritten object
@@ -232,7 +237,9 @@ export function mergeDeep (target, ...sources) {
 export function overwriteExistingProperties (obj1, obj2) {
   Object.keys(obj2).forEach(function (key) {
     if (key in obj1) {
-      obj1[key] = obj2[key]
+      if (typeof obj1[key] === typeof obj2[key]) {
+        obj1[key] = obj2[key]
+      }
     }
   })
 
