@@ -2,7 +2,7 @@
  * Represents a Theme instance.
  */
 class Theme {
-  constructor (icons) {
+  constructor (icons = null) {
     this.icons = icons
     this.useToggleEvents = true
     this.init()
@@ -224,7 +224,8 @@ class Theme {
     const text = document.createElement('span')
     text.textContent = config.textContent
 
-    if (config.icon) {
+    if (this.icons && config.icon) {
+      console.log('test')
       const icon = this.getIcon(config.icon)
       icon.setAttribute('title', config.textContent)
       button.appendChild(icon)

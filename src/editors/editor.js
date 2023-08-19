@@ -1,5 +1,5 @@
 import EventEmitter from '../event-emitter'
-import { iconsDefault, glyphicons, bootstrapIcons, fontAwesome3, fontAwesome4, fontAwesome5 } from '../themes/icons/icons'
+import { glyphicons, bootstrapIcons, fontAwesome3, fontAwesome4, fontAwesome5 } from '../themes/icons/icons'
 import ThemeBootstrap3 from '../themes/bootstrap3'
 import ThemeBootstrap4 from '../themes/bootstrap4'
 import ThemeBootstrap5 from '../themes/bootstrap5'
@@ -78,24 +78,26 @@ class Editor extends EventEmitter {
    * @private
    */
   init () {
-    let icons = iconsDefault
+    let icons = null
 
-    switch (this.instance.jedi.options.iconLib) {
-      case 'glyphicons':
-        icons = glyphicons
-        break
-      case 'bootstrap-icons':
-        icons = bootstrapIcons
-        break
-      case 'font-awesome-3':
-        icons = fontAwesome3
-        break
-      case 'font-awesome-4':
-        icons = fontAwesome4
-        break
-      case 'font-awesome-5':
-        icons = fontAwesome5
-        break
+    if (isSet(this.instance.jedi.options.iconLib)) {
+      switch (this.instance.jedi.options.iconLib) {
+        case 'glyphicons':
+          icons = glyphicons
+          break
+        case 'bootstrap-icons':
+          icons = bootstrapIcons
+          break
+        case 'font-awesome-3':
+          icons = fontAwesome3
+          break
+        case 'font-awesome-4':
+          icons = fontAwesome4
+          break
+        case 'font-awesome-5':
+          icons = fontAwesome5
+          break
+      }
     }
 
     switch (this.instance.jedi.options.theme) {
@@ -131,7 +133,8 @@ class Editor extends EventEmitter {
    * Builds the editor control and appends it to the editor container
    * @private
    */
-  build () {}
+  build () {
+  }
 
   /**
    * Shows validation messages in the editor container.

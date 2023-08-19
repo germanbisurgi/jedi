@@ -1,5 +1,6 @@
 ## Todo
 
+- array copy
 - resolvers in editor
 - option onlyIcon
 - better editor type detection with specialized keywords

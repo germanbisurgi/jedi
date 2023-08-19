@@ -4,19 +4,6 @@
  */
 
 /**
- * HTML classes for default icons
- * @type {object}
- */
-export const iconsDefault = {
-  properties: '',
-  deleteAll: '',
-  delete: '',
-  add: '',
-  moveUp: '',
-  moveDown: ''
-}
-
-/**
  * HTML classes for glyphicons icons
  * @type {object}
  */

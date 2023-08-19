@@ -220,6 +220,7 @@ window.addEventListener('DOMContentLoaded', () => {
           'barebones'
         ],
         iconLibs: [
+          'none',
           'glyphicons',
           'bootstrap-icons',
           'font-awesome-3',
@@ -292,7 +293,7 @@ window.addEventListener('DOMContentLoaded', () => {
           container: document.querySelector('#jedi-container'),
           editableProperties: this.editableProperties,
           isEditor: true,
-          iconLib: this.iconLib,
+          // iconLib: this.iconLib,
           showRequiredOnly: this.showRequiredOnly,
           schema: this.schema,
           theme: this.theme
