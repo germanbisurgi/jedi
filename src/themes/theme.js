@@ -225,7 +225,6 @@ class Theme {
     text.textContent = config.textContent
 
     if (this.icons && config.icon) {
-      console.log('test')
       const icon = this.getIcon(config.icon)
       icon.setAttribute('title', config.textContent)
       button.appendChild(icon)

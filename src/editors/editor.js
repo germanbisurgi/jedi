@@ -1,5 +1,5 @@
 import EventEmitter from '../event-emitter'
-import { glyphicons, bootstrapIcons, fontAwesome3, fontAwesome4, fontAwesome5 } from '../themes/icons/icons'
+import { glyphicons, bootstrapIcons, fontAwesome3, fontAwesome4, fontAwesome5, fontAwesome6 } from '../themes/icons/icons'
 import ThemeBootstrap3 from '../themes/bootstrap3'
 import ThemeBootstrap4 from '../themes/bootstrap4'
 import ThemeBootstrap5 from '../themes/bootstrap5'
@@ -96,6 +96,9 @@ class Editor extends EventEmitter {
           break
         case 'font-awesome-5':
           icons = fontAwesome5
+          break
+        case 'font-awesome-6':
+          icons = fontAwesome6
           break
       }
     }

@@ -225,7 +225,8 @@ window.addEventListener('DOMContentLoaded', () => {
           'bootstrap-icons',
           'font-awesome-3',
           'font-awesome-4',
-          'font-awesome-5'
+          'font-awesome-5',
+          'font-awesome-6'
         ],
         alwaysShowErrors: false,
         editableProperties: true,
@@ -293,7 +294,7 @@ window.addEventListener('DOMContentLoaded', () => {
           container: document.querySelector('#jedi-container'),
           editableProperties: this.editableProperties,
           isEditor: true,
-          // iconLib: this.iconLib,
+          iconLib: this.iconLib,
           showRequiredOnly: this.showRequiredOnly,
           schema: this.schema,
           theme: this.theme

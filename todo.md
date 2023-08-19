@@ -1,8 +1,10 @@
 ## Todo
 
+- active item after array add/move/etc
+- iconLib names all lowercase without separators
 - array copy
 - resolvers in editor
-- option onlyIcon
+- option hideButton labels
 - better editor type detection with specialized keywords
 - fix destroy whole editor console error
 - themes should be nested into editors and have resolver

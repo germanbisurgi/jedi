@@ -67,3 +67,16 @@ export const fontAwesome5 = {
   moveUp: 'fas fa-arrow-up',
   moveDown: 'fas fa-arrow-down'
 }
+
+/**
+ * HTML classes for font-awesome-6 icons
+ * @type {object}
+ */
+export const fontAwesome6 = {
+  properties: 'fa-solid fa-list',
+  deleteAll: 'fa-solid fa-trash',
+  delete: 'fa-solid fa-minus',
+  add: 'fa-solid fa-plus',
+  moveUp: 'fa-solid fa-arrow-up',
+  moveDown: 'fa-solid fa-arrow-down'
+}
