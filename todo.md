@@ -1,5 +1,6 @@
 ## Todo
 
+- dynamically register icon libs in playground
 - active item after array add/move/etc
 - iconLib names all lowercase without separators
 - array copy
