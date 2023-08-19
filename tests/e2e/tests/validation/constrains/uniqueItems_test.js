@@ -4,10 +4,10 @@ const theme = process.env.THEME || 'barebones'
 Feature('uniqueItems')
 
 Scenario('@constrain-uniqueItems should display validation errors', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/uniqueItems')
-  I.checkOption('[id="alwaysShowErrors"]')
+  I._checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I.dontSee('Must be at least 5 characters long', '[data-path="#/array"]')
   I.fillField('[id="root-array-1"]', 'Albert')

@@ -4,10 +4,10 @@ const theme = process.env.THEME || 'barebones'
 Feature('dependentSchemas')
 
 Scenario('@constrain-dependentSchemas should display validation errors', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/dependentSchemas')
-  I.checkOption('[id="alwaysShowErrors"]')
+  I._checkOption('[id="alwaysShowErrors"]')
   I._scrollTo('[data-path="#"]')
   I._waitForElement('.jedi-ready')
   I._waitForText('Must have the required properties: billing_address')

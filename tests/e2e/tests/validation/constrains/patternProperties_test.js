@@ -4,10 +4,10 @@ const theme = process.env.THEME || 'barebones'
 Feature('patternProperties')
 
 Scenario('@constrain-patternProperties should display validation errors', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/patternProperties')
-  I.checkOption('[id="alwaysShowErrors"]')
+  I._checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I.fillField('#editor-value', JSON.stringify({
     S: '',

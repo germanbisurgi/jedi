@@ -4,10 +4,10 @@ const theme = process.env.THEME || 'barebones'
 Feature('maxLength')
 
 Scenario('@constrain-maxLength should display validation errors', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/maxLength')
-  I.checkOption('[id="alwaysShowErrors"]')
+  I._checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I.dontSee('Must be at most 5 characters long', '[data-path="#/string"]')
   I.fillField('[id="root-string"]', 'string')

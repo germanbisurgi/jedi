@@ -4,10 +4,10 @@ const theme = process.env.THEME || 'barebones'
 Feature('not')
 
 Scenario('@constrain-not should display validation errors', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/not')
-  I.checkOption('[id="alwaysShowErrors"]')
+  I._checkOption('[id="alwaysShowErrors"]')
   I._scrollTo('[data-path="#/test"]')
   I._waitForText('Must not validate against the provided schema', '[data-path="#/test"]')
   I.fillField('root-test-switcher', 'Number')

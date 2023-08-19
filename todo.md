@@ -1,10 +1,10 @@
 ## Todo
 
-- option to hide and edit (icons and text) ui elements
+- resolvers in editor
+- option onlyIcon
 - better editor type detection with specialized keywords
 - fix destroy whole editor console error
 - themes should be nested into editors and have resolver
-- refactor editors (init function)
 - refactor getSchemaOption return
 
 - If-Then-Else (7)
@@ -19,8 +19,7 @@
 - id (4) and $id (6)
 - dialects support tables
 
-- validation without Jedi creation
-- allOf, oneOf and anyOf combination
+
 - drafts
 - collapse card
 - set first enum value as default in editor
@@ -35,7 +34,6 @@
 - schema helpers instead of schema object
 - nested if-then-else
 - allOf if-then-else
-- schema getter return undefined (options)
 
 - readonly, should not set value?
 
@@ -59,6 +57,8 @@
 - array enums
 - translations
 - use schema to evaluate annotations and options
+- validation without Jedi creation
+- allOf, oneOf and anyOf combination
 
 
 ```javascript

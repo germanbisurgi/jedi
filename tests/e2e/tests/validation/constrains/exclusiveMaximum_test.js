@@ -4,10 +4,10 @@ const theme = process.env.THEME || 'barebones'
 Feature('exclusiveMaximum')
 
 Scenario('@constrain-exclusiveMaximum should display validation errors', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/exclusiveMaximum')
-  I.checkOption('[id="alwaysShowErrors"]')
+  I._checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I.dontSee('Must be less than 100', '[data-path="#/number"]')
   I.dontSee('Must be less than 100', '[data-path="#/integer"]')

@@ -99,12 +99,12 @@ class InstanceMultiple extends Instance {
       const schemaClone = clone(this.schema)
 
       this.schemas = [
+        { ...schemaClone, ...{ type: 'object' } },
+        { ...schemaClone, ...{ type: 'array' } },
         { ...schemaClone, ...{ type: 'string' } },
         { ...schemaClone, ...{ type: 'number' } },
         { ...schemaClone, ...{ type: 'integer' } },
         { ...schemaClone, ...{ type: 'boolean' } },
-        { ...schemaClone, ...{ type: 'array' } },
-        { ...schemaClone, ...{ type: 'object' } },
         { ...schemaClone, ...{ type: 'null' } }
       ]
 
@@ -113,7 +113,7 @@ class InstanceMultiple extends Instance {
       })
 
       this.switcherOptionsLabels = [
-        'String', 'Number', 'Integer', 'Boolean', 'Array', 'Object', 'Null'
+        'Object', 'Array', 'String', 'Number', 'Integer', 'Boolean', 'Null'
       ]
     }
 

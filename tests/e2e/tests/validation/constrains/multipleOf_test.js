@@ -4,10 +4,10 @@ const theme = process.env.THEME || 'barebones'
 Feature('multipleOf')
 
 Scenario('@constrain-multipleOf should display validation errors', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/multipleOf')
-  I.checkOption('[id="alwaysShowErrors"]')
+  I._checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I.dontSee('Must be multiple of 10', '[data-path="#/number"]')
   I.dontSee('Must be multiple of 10', '[data-path="#/integer"]')

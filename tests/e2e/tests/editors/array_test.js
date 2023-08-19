@@ -4,7 +4,7 @@ const theme = process.env.THEME || 'barebones'
 Feature('array')
 
 Scenario('@editor-array @description @title should have title and description', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/array')
   I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
@@ -13,7 +13,7 @@ Scenario('@editor-array @description @title should have title and description', 
 })
 
 Scenario('@editor-array @items should validate against items', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/array')
   I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
@@ -22,7 +22,7 @@ Scenario('@editor-array @items should validate against items', ({ I }) => {
 })
 
 Scenario('@editor-array @prefixItems should validate against prefixItems', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/array')
   I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
@@ -37,7 +37,7 @@ Scenario('@editor-array @prefixItems should validate against prefixItems', ({ I 
 })
 
 Scenario('@editor-array @array-nav-pills', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/array-nav-pills')
   I._waitForElement('.jedi-ready')
 
@@ -64,7 +64,7 @@ Scenario('@editor-array @array-nav-pills', ({ I }) => {
 })
 
 Scenario('@editor-array @array-nav-tabs', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/array-nav-tabs')
   I._waitForElement('.jedi-ready')
 

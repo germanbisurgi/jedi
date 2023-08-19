@@ -4,10 +4,10 @@ const theme = process.env.THEME || 'barebones'
 Feature('minimum')
 
 Scenario('@constrain-minimum should display validation errors', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/minimum')
-  I.checkOption('[id="alwaysShowErrors"]')
+  I._checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I._waitForText('Must be at least 100', '[data-path="#/number"]')
   I._waitForText('Must be at least 100', '[data-path="#/integer"]')

@@ -4,7 +4,7 @@ const theme = process.env.THEME || 'barebones'
 Feature('object')
 
 Scenario('@editor-object @description @title should have title and description', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')
   I._waitForText('Object', 'legend')
@@ -12,23 +12,20 @@ Scenario('@editor-object @description @title should have title and description',
 })
 
 Scenario('@editor-object @editableProperties should add properties', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')
   I._click('.jedi-properties-toggle')
-  I._click('.jedi-object-add')
-  I.dontSee('[id="root-test"]')
   I.fillField('#jedi-add-property-input-root', 'test')
   I.pressKey('Tab')
   I._click('.jedi-object-add')
-  I._waitForElement('[id="root-test"]')
-  I._waitForElement('[id="root-test"]')
+  I._waitForElement('[data-path="#/test"')
   I._click('[id="root-test-activator"]')
-  I.dontSee('[id="root-test"]')
+  I.dontSee('[data-path="#/test"')
 })
 
 Scenario('@editor-object @editableProperties should activate and deactivate properties', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object')
   I._waitForElement('.jedi-ready')
   I._click('.jedi-properties-toggle')
@@ -37,13 +34,13 @@ Scenario('@editor-object @editableProperties should activate and deactivate prop
   I._waitForElement('[id="root-required"]')
   I._waitForElement('[id="root-notRequired"]')
   I._click('[id="root-notRequired-activator"]')
-  I.dontSee('[id="root-notRequired"]')
+  I.dontSee('[data-path="#/notRequired"]')
   I._click('[id="root-notRequired-activator"]')
-  I._waitForElement('[id="root-notRequired"]')
+  I._waitForElement('[data-path="#/notRequired"]')
 })
 
 Scenario('@editor-object @object-grid rows and columns', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object-grid')
   I._waitForElement('.jedi-ready')
 
@@ -130,7 +127,7 @@ Scenario('@editor-object @object-grid rows and columns', ({ I }) => {
 })
 
 Scenario('@editor-object @object-nav-pills', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object-nav-pills')
   I._waitForElement('.jedi-ready')
 
@@ -157,7 +154,7 @@ Scenario('@editor-object @object-nav-pills', ({ I }) => {
 })
 
 Scenario('@editor-object @object-nav-tabs', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/object-nav-tabs')
   I._waitForElement('.jedi-ready')
 

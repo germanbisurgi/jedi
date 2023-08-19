@@ -5,7 +5,7 @@
   "properties": {
     "test": {
       "not": {
-        "type": "string"
+        "type": "object"
       }
     }
   }

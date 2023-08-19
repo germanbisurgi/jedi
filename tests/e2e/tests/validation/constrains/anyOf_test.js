@@ -4,10 +4,10 @@ const theme = process.env.THEME || 'barebones'
 Feature('anyOf')
 
 Scenario('@constrain-anyOf should display validation errors', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/anyOf')
-  I.checkOption('[id="alwaysShowErrors"]')
+  I._checkOption('[id="alwaysShowErrors"]')
   I._waitForText('Must validate against at least one of the provided schemas', '[data-path="#/string"]')
   I.fillField('[id="root-string"]', 'Albert')
   I.pressKey('Tab')

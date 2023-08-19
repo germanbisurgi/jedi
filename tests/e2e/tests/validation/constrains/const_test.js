@@ -4,10 +4,10 @@ const theme = process.env.THEME || 'barebones'
 Feature('const')
 
 Scenario('@constrain-const should display validation errors', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/const')
-  I.checkOption('[id="alwaysShowErrors"]')
+  I._checkOption('[id="alwaysShowErrors"]')
 
   // string
   I._scrollTo('[data-path="#/string"]')
@@ -33,7 +33,7 @@ Scenario('@constrain-const should display validation errors', ({ I }) => {
   // boolean
   I._scrollTo('[data-path="#/boolean"]')
   I._waitForText('Must be: true', '[data-path="#/boolean"]')
-  I.checkOption('[id="root-boolean"]')
+  I._checkOption('[id="root-boolean"]')
   I.pressKey('Tab')
   I.dontSee('Must be: true', '[data-path="#/boolean"]')
 
@@ -55,6 +55,7 @@ Scenario('@constrain-const should display validation errors', ({ I }) => {
   // multiple
   I._scrollTo('[data-path="#/multiple"]')
   I._waitForText('Must be: "test"', '[data-path="#/multiple"]')
+  I.selectOption('[id="root-multiple-switcher"]', 'String')
   I.fillField('[id="root-multiple"]', 'test')
   I.pressKey('Tab')
   I.dontSee('Must be: "test"', '[data-path="#/multiple"]')

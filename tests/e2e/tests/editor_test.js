@@ -5,13 +5,13 @@ const theme = process.env.THEME || 'barebones'
 Feature('editor')
 
 Scenario('@editor-ready should have class "jedi-ready" when ready', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
 })
 
 Scenario('@editor-create should create all kind of editors', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
   I._waitForElement('[data-path="#"]')
@@ -43,7 +43,7 @@ Scenario('@editor-create should create all kind of editors', ({ I }) => {
 })
 
 Scenario('@editor-destroy should destroy', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
   I._scrollTo('#destroy-editor')
@@ -52,10 +52,10 @@ Scenario('@editor-destroy should destroy', ({ I }) => {
 })
 
 Scenario('@editor-disable Should disable and enable', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
-  I.checkOption('[id="editableProperties"]')
+  I._checkOption('[id="editableProperties"]')
   I._waitForElement('.jedi-ready')
   I._waitForElement('#disable-editor')
   I._scrollTo('#disable-editor')
@@ -72,12 +72,11 @@ Scenario('@editor-disable Should disable and enable', ({ I }) => {
   I.dontSeeElement('.jedi-ready button[disabled]')
 })
 
-Scenario('@editor-setValue should set value', async ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+Scenario('@editor-setValue() should set value', async ({ I }) => {
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/all')
   I._waitForElement('.jedi-ready')
   I._scrollTo('#editor-value')
-  I._click('#editor-value')
   I.fillField('#editor-value', JSON.stringify(jsonData))
   I._scrollTo('#set-value')
   I._click('#set-value')

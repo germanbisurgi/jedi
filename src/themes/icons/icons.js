@@ -1,5 +1,5 @@
 /**
- * Lists of classes used for icons.
+ * Lists of html classes used for icons.
  * @module icons
  */
 

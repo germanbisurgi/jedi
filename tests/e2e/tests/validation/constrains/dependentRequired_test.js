@@ -4,11 +4,11 @@ const theme = process.env.THEME || 'barebones'
 Feature('dependentRequired')
 
 Scenario('@constrain-dependentRequired should display validation errors', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/dependentRequired')
-  I.checkOption('[id="alwaysShowErrors"]')
-  I.checkOption('[id="showRequiredOnly"]')
+  I._checkOption('[id="alwaysShowErrors"]')
+  I._checkOption('[id="showRequiredOnly"]')
   I._scrollTo('[data-path="#"]')
   I._waitForElement('.jedi-ready')
   I.dontSee('Must have the required properties: address, telephone', '[data-path="#"]')

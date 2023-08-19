@@ -4,7 +4,7 @@ const theme = process.env.THEME || 'barebones'
 Feature('if')
 
 Scenario('@constrain-if-then-else validate agaist @if-then-else ', async ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/if-then-else')
   I._scrollTo('[data-path="#"]')
@@ -31,7 +31,7 @@ Scenario('@constrain-if-then-else validate agaist @if-then-else ', async ({ I })
 })
 
 Scenario('@constrain-if-then-else validate agaist @if-then', async ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/if-then')
   I._scrollTo('[data-path="#"]')
@@ -58,7 +58,7 @@ Scenario('@constrain-if-then-else validate agaist @if-then', async ({ I }) => {
 })
 
 Scenario('@constrain-if-then-else validate agaist @if-else', async ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/if-else')
   I._scrollTo('[data-path="#"]')

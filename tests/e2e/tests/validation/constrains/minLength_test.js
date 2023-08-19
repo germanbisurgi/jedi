@@ -4,10 +4,10 @@ const theme = process.env.THEME || 'barebones'
 Feature('minLength')
 
 Scenario('@constrain-minLength should display validation errors', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/minLength')
-  I.checkOption('[id="alwaysShowErrors"]')
+  I._checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I._waitForText('Must be at least 5 characters long', '[data-path="#/string"]')
   I.fillField('[id="root-string"]', 'string')

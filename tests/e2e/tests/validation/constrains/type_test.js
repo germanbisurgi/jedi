@@ -4,7 +4,7 @@ const theme = process.env.THEME || 'barebones'
 Feature('type')
 
 Scenario('@constrain-type should display validation errors', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.fillField('#schemas', 'validator/type')
   I._waitForElement('.jedi-ready')

@@ -4,7 +4,7 @@ const theme = process.env.THEME || 'barebones'
 Feature('number')
 
 Scenario('@editor-number @description @title should have title and description', ({ I }) => {
-  I.amOnPage(`${theme}.html?theme=${theme}`)
+  I.amOnPage(`playground.html?theme=${theme}`)
   I.fillField('#schemas', 'editors/number')
   I._waitForElement('.jedi-ready')
   I._waitForText('Number', 'label')
