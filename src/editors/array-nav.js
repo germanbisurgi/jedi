@@ -1,5 +1,5 @@
 import EditorArray from './array'
-import { compileTemplate, isSet, pathToAttribute } from '../helpers/utils'
+import { clamp, compileTemplate, isSet, pathToAttribute } from '../helpers/utils'
 import { getSchemaOption, getSchemaTitle } from '../helpers/schema'
 
 /**
@@ -10,6 +10,13 @@ class EditorArrayNav extends EditorArray {
   init () {
     super.init()
     this.activeTabIndex = 0
+  }
+
+  addEventListeners () {
+    this.control.addBtn.addEventListener('click', () => {
+      this.activeTabIndex = this.instance.value.length
+      this.instance.addItem()
+    })
   }
 
   refreshUI () {
@@ -33,7 +40,6 @@ class EditorArrayNav extends EditorArray {
     tabContentCol.appendChild(tabContent)
 
     this.instance.children.forEach((child, index) => {
-      const itemIndex = Number(child.getKey())
       const deleteBtn = this.theme.getDeleteItemBtn()
       const moveUpBtn = this.theme.getMoveUpItemBtn()
       const moveDownBtn = this.theme.getMoveDownItemBtn()
@@ -62,18 +68,20 @@ class EditorArrayNav extends EditorArray {
       }
 
       deleteBtn.addEventListener('click', () => {
-        const itemIndex = Number(child.path.split(this.instance.jedi.pathSeparator).pop())
-        this.instance.deleteItem(itemIndex)
+        this.activeTabIndex = clamp((index - 1), 0, (this.instance.value.length - 1))
+        this.instance.deleteItem(index)
       })
 
       moveUpBtn.addEventListener('click', () => {
-        const toIndex = itemIndex - 1
-        this.instance.move(itemIndex, toIndex)
+        const toIndex = index - 1
+        this.activeTabIndex = toIndex
+        this.instance.move(index, toIndex)
       })
 
       moveDownBtn.addEventListener('click', () => {
-        const toIndex = itemIndex + 1
-        this.instance.move(itemIndex, toIndex)
+        const toIndex = index + 1
+        this.activeTabIndex = toIndex
+        this.instance.move(index, toIndex)
       })
 
       const active = index === this.activeTabIndex
@@ -97,6 +105,14 @@ class EditorArrayNav extends EditorArray {
         child.ui.disable()
       } else {
         child.ui.enable()
+      }
+
+      if (index === 0) {
+        moveUpBtn.setAttribute('disabled', '')
+      }
+
+      if ((this.instance.value.length - 1) === index) {
+        moveDownBtn.setAttribute('disabled', '')
       }
     })
   }

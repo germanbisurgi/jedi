@@ -247,16 +247,6 @@ class Theme {
   }
 
   /**
-   * Array "delete all" item button
-   * @private
-   */
-  getArrayBtnDeleteAll (config) {
-    const html = this.getButton(config)
-    html.classList.add('jedi-array-delete-all')
-    return html
-  }
-
-  /**
    * Array "delete" item button
    * @private
    */
@@ -433,11 +423,6 @@ class Theme {
       icon: 'add'
     })
 
-    const deleteAllBtn = this.getArrayBtnDeleteAll({
-      textContent: 'Delete items',
-      icon: 'deleteAll'
-    })
-
     const fieldset = this.getFieldset()
     const legend = this.getLegend({
       textContent: config.title
@@ -450,7 +435,6 @@ class Theme {
     header.appendChild(actions)
     actions.appendChild(btnGroup)
     btnGroup.appendChild(addBtn)
-    btnGroup.appendChild(deleteAllBtn)
     actions.appendChild(arrayActions)
     body.appendChild(messages)
     body.appendChild(fieldset)
@@ -466,7 +450,6 @@ class Theme {
       childrenSlot,
       btnGroup,
       addBtn,
-      deleteAllBtn,
       arrayActions
     }
   }

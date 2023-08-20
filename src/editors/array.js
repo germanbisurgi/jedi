@@ -1,5 +1,3 @@
-/* global confirm */
-
 import Editor from './editor'
 import { isArray, pathToAttribute } from '../helpers/utils'
 import { getSchemaDescription, getSchemaOption, getSchemaTitle } from '../helpers/schema'
@@ -16,15 +14,11 @@ class EditorArray extends Editor {
       id: pathToAttribute(this.instance.path),
       description: getSchemaDescription(this.instance.schema)
     })
+  }
 
+  addEventListeners () {
     this.control.addBtn.addEventListener('click', () => {
       this.instance.addItem()
-    })
-
-    this.control.deleteAllBtn.addEventListener('click', () => {
-      if (confirm('Confirm to delete all')) {
-        this.instance.setValue([])
-      }
     })
   }
 

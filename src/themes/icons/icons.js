@@ -9,8 +9,7 @@
  */
 export const glyphicons = {
   properties: 'glyphicon glyphicon-list',
-  deleteAll: 'glyphicon glyphicon-trash',
-  delete: 'glyphicon glyphicon-minus',
+  delete: 'glyphicon glyphicon-trash',
   add: 'glyphicon glyphicon-plus',
   moveUp: 'glyphicon glyphicon-arrow-up',
   moveDown: 'glyphicon glyphicon-arrow-down'
@@ -22,8 +21,7 @@ export const glyphicons = {
  */
 export const bootstrapIcons = {
   properties: 'bi bi-card-list',
-  deleteAll: 'bi bi-trash2',
-  delete: 'bi bi-trash',
+  delete: 'bi bi-trash2',
   add: 'bi bi-plus',
   moveUp: 'bi bi-arrow-up',
   moveDown: 'bi bi-arrow-down'
@@ -35,8 +33,7 @@ export const bootstrapIcons = {
  */
 export const fontAwesome3 = {
   properties: 'icon-list',
-  deleteAll: 'icon-trash',
-  delete: 'icon-minus',
+  delete: 'icon-trash',
   add: 'icon-plus',
   moveUp: 'icon-arrow-up',
   moveDown: 'icon-arrow-down'
@@ -48,8 +45,7 @@ export const fontAwesome3 = {
  */
 export const fontAwesome4 = {
   properties: 'fa fa-list',
-  deleteAll: 'fa fa-trash',
-  delete: 'fa fa-minus',
+  delete: 'fa fa-trash',
   add: 'fa fa-plus',
   moveUp: 'fa fa-arrow-up',
   moveDown: 'fa fa-arrow-down'
@@ -61,8 +57,7 @@ export const fontAwesome4 = {
  */
 export const fontAwesome5 = {
   properties: 'fas fa-list',
-  deleteAll: 'fas fa-trash',
-  delete: 'fas fa-minus',
+  delete: 'fas fa-trash',
   add: 'fas fa-plus',
   moveUp: 'fas fa-arrow-up',
   moveDown: 'fas fa-arrow-down'
@@ -74,8 +69,7 @@ export const fontAwesome5 = {
  */
 export const fontAwesome6 = {
   properties: 'fa-solid fa-list',
-  deleteAll: 'fa-solid fa-trash',
-  delete: 'fa-solid fa-minus',
+  delete: 'fa-solid fa-trash',
   add: 'fa-solid fa-plus',
   moveUp: 'fa-solid fa-arrow-up',
   moveDown: 'fa-solid fa-arrow-down'

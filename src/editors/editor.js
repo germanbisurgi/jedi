@@ -52,6 +52,7 @@ class Editor extends EventEmitter {
 
     this.init()
     this.build()
+    this.addEventListeners()
     this.setContainerAttributes()
     this.refreshUI()
 
@@ -137,6 +138,13 @@ class Editor extends EventEmitter {
    * @private
    */
   build () {
+  }
+
+  /**
+   * Add event listeners to ui elements
+   * @private
+   */
+  addEventListeners () {
   }
 
   /**

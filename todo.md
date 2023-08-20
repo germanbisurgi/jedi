@@ -1,7 +1,8 @@
 ## Todo
 
+- leverage editor addEventListeners method
 - dynamically register icon libs in playground
-- active item after array add/move/etc
+- active item after array add/move/etc (min an max items) + test
 - iconLib names all lowercase without separators
 - array copy
 - resolvers in editor
