@@ -6,13 +6,13 @@ Feature('editor')
 
 Scenario('@editor-ready should have class "jedi-ready" when ready', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/all')
+  I.selectOption('#examples', '../json/editors/all.json')
   I._waitForElement('.jedi-ready')
 })
 
 Scenario('@editor-create should create all kind of editors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/all')
+  I.selectOption('#examples', '../json/editors/all.json')
   I._waitForElement('.jedi-ready')
   I._waitForElement('[data-path="#"]')
   I._waitForElement('[data-path="#/booleans"]')
@@ -44,7 +44,7 @@ Scenario('@editor-create should create all kind of editors', ({ I }) => {
 
 Scenario('@editor-destroy should destroy', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/all')
+  I.selectOption('#examples', '../json/editors/all.json')
   I._waitForElement('.jedi-ready')
   I._scrollTo('#destroy-editor')
   I._click('#destroy-editor')
@@ -53,7 +53,7 @@ Scenario('@editor-destroy should destroy', ({ I }) => {
 
 Scenario('@editor-disable Should disable and enable', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/all')
+  I.selectOption('#examples', '../json/editors/all.json')
   I._waitForElement('.jedi-ready')
   I._checkOption('[id="editableProperties"]')
   I._waitForElement('.jedi-ready')
@@ -74,7 +74,7 @@ Scenario('@editor-disable Should disable and enable', ({ I }) => {
 
 Scenario('@editor-setValue() should set value', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/all')
+  I.selectOption('#examples', '../json/editors/all.json')
   I._waitForElement('.jedi-ready')
   I._scrollTo('#editor-value')
   I.fillField('#editor-value', JSON.stringify(jsonData))

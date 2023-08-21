@@ -6,7 +6,7 @@ Feature('oneOf')
 Scenario('@constrain-oneOf should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'validator/oneOf')
+  I.selectOption('#examples', '../json/validator/oneOf.json')
   I._checkOption('[id="alwaysShowErrors"]')
   I._waitForText('Must validate against exactly one of the provided schemas. It currently validates against 2 of the schemas.', '[data-path="#/number"]')
   I.fillField('[id="root-number"]', 3)

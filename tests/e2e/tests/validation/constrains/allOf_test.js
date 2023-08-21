@@ -6,7 +6,7 @@ Feature('allOf')
 Scenario('@constrain-allOf should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'validator/allOf')
+  I.selectOption('#examples', '../json/validator/allOf.json')
   I._checkOption('[id="alwaysShowErrors"]')
   I._waitForText('Must be at least 1 characters long', '[data-path="#/string"]')
   I._waitForText('Must be: "test"', '[data-path="#/string"]')

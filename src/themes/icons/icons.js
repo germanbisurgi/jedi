@@ -28,7 +28,7 @@ export const bootstrapIcons = {
 }
 
 /**
- * HTML classes for font-awesome-3 icons
+ * HTML classes for fontawesome3 icons
  * @type {object}
  */
 export const fontAwesome3 = {
@@ -40,7 +40,7 @@ export const fontAwesome3 = {
 }
 
 /**
- * HTML classes for font-awesome-4 icons
+ * HTML classes for fontawesome4 icons
  * @type {object}
  */
 export const fontAwesome4 = {
@@ -52,7 +52,7 @@ export const fontAwesome4 = {
 }
 
 /**
- * HTML classes for font-awesome-5 icons
+ * HTML classes for fontawesome5 icons
  * @type {object}
  */
 export const fontAwesome5 = {
@@ -64,7 +64,7 @@ export const fontAwesome5 = {
 }
 
 /**
- * HTML classes for font-awesome-6 icons
+ * HTML classes for fontawesome6 icons
  * @type {object}
  */
 export const fontAwesome6 = {

@@ -1,16 +1,14 @@
 ## Todo
 
-- leverage editor addEventListeners method
-- dynamically register icon libs in playground
-- active item after array add/move/etc (min an max items) + test
-- iconLib names all lowercase without separators
-- array copy
+- scope switcher options and titles in editors and not in instances
 - resolvers in editor
+- additionalProperties and properties button logic + test
+- template / titles / descriptions as html with xss lib option
+- active item after array add/move/etc (min an max items) + test
 - option hideButton labels
 - better editor type detection with specialized keywords
 - fix destroy whole editor console error
 - themes should be nested into editors and have resolver
-- refactor getSchemaOption return
 
 - If-Then-Else (7)
 - dependencies (4) and dependentRequired / dependentSchemas (19)
@@ -26,34 +24,19 @@
 
 
 - drafts
-- collapse card
 - set first enum value as default in editor
-- jsdoc
-- private methods
-- properties as dropdown
 - array grid
 - array table
-- remember saved page
 - header: false
 - title: false
-- schema helpers instead of schema object
 - nested if-then-else
 - allOf if-then-else
-
 - readonly, should not set value?
-
 - documentation mode
-
-- arrays of objects test
-- showErrors options
-- arrays of arrays test
-- arrays of multiples test
+- showErrors options as string enum
 - aria attributes
-- textarea standalone editor
-- array accordion
 - error messages texts
 - use names options
-- ui required (not json required)
 - plugins examples
 - edit object values
 - edit array values
@@ -62,8 +45,6 @@
 - array enums
 - translations
 - use schema to evaluate annotations and options
-- validation without Jedi creation
-- allOf, oneOf and anyOf combination
 
 
 ```javascript

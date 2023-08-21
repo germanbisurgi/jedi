@@ -6,7 +6,7 @@ Feature('contains')
 Scenario('@constrain-contains should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'validator/contains')
+  I.selectOption('#examples', '../json/validator/contains.json')
   I._checkOption('[id="alwaysShowErrors"]')
   I._scrollTo('[data-path="#"]')
   I._waitForText('No items match contains')
@@ -17,7 +17,7 @@ Scenario('@constrain-contains should display validation errors', ({ I }) => {
 Scenario('@constrain-minContains should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'validator/minContains')
+  I.selectOption('#examples', '../json/validator/minContains.json')
   I._checkOption('[id="alwaysShowErrors"]')
   I._scrollTo('[data-path="#"]')
   I.dontSee('No items match contains')
@@ -33,7 +33,7 @@ Scenario('@constrain-minContains should display validation errors', ({ I }) => {
 Scenario('@constrain-maxContains should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'validator/maxContains')
+  I.selectOption('#examples', '../json/validator/maxContains.json')
   I._checkOption('[id="alwaysShowErrors"]')
   I._scrollTo('[data-path="#"]')
   I._waitForText('No items match contains')

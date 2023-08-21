@@ -5,7 +5,7 @@ Feature('null')
 
 Scenario('@editor-null @description @title should have title and description', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/null')
+  I.selectOption('#examples', '../json/editors/null.json')
   I._waitForElement('.jedi-ready')
   I._waitForText('When a schema specifies a type of null, it has only one acceptable value: null.')
 })

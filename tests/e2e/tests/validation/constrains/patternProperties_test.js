@@ -6,7 +6,7 @@ Feature('patternProperties')
 Scenario('@constrain-patternProperties should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'validator/patternProperties')
+  I.selectOption('#examples', '../json/validator/patternProperties.json')
   I._checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I.fillField('#editor-value', JSON.stringify({

@@ -1,6 +1,12 @@
 {
   "type": "object",
   "title": "Login",
+  "required": [
+    "email",
+    "password",
+    "keep",
+    "csfr"
+  ],
   "properties": {
     "email": {
       "title": "E-Mail",

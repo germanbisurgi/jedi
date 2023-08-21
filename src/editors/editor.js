@@ -89,16 +89,16 @@ class Editor extends EventEmitter {
         case 'bootstrap-icons':
           icons = bootstrapIcons
           break
-        case 'font-awesome-3':
+        case 'fontawesome3':
           icons = fontAwesome3
           break
-        case 'font-awesome-4':
+        case 'fontawesome4':
           icons = fontAwesome4
           break
-        case 'font-awesome-5':
+        case 'fontawesome5':
           icons = fontAwesome5
           break
-        case 'font-awesome-6':
+        case 'fontawesome6':
           icons = fontAwesome6
           break
       }

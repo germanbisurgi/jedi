@@ -1,5 +1,5 @@
 import EditorString from './string'
-import { isSet, pathToAttribute } from '../helpers/utils'
+import { pathToAttribute } from '../helpers/utils'
 import { getSchemaDescription, getSchemaEnum, getSchemaOption, getSchemaTitle } from '../helpers/schema'
 
 /**
@@ -8,19 +8,13 @@ import { getSchemaDescription, getSchemaEnum, getSchemaOption, getSchemaTitle } 
  */
 class EditorStringEnumSelect extends EditorString {
   build () {
-    const schemaTitle = getSchemaTitle(this.instance.schema)
-    const schemaDescription = getSchemaDescription(this.instance.schema)
-    const schemaEnum = getSchemaEnum(this.instance.schema)
-    const schemaOptionHideTitle = getSchemaOption(this.instance.schema, 'hideTitle')
-    const schemaOptionEnumTitles = getSchemaOption(this.instance.schema, 'enumTitles')
-
     this.control = this.theme.getSelectControl({
-      values: schemaEnum,
-      titles: schemaOptionEnumTitles || schemaEnum,
+      values: getSchemaEnum(this.instance.schema),
+      titles: getSchemaOption(this.instance.schema, 'enumTitles') || getSchemaEnum(this.instance.schema),
       id: pathToAttribute(this.instance.path),
-      label: isSet(schemaTitle) ? schemaTitle : this.instance.getKey(),
-      srOnly: schemaOptionHideTitle,
-      description: schemaDescription
+      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
+      srOnly: getSchemaOption(this.instance.schema, 'hideTitle'),
+      description: getSchemaDescription(this.instance.schema)
     })
 
     this.control.input.addEventListener('change', () => {

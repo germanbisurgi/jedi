@@ -6,7 +6,7 @@ Feature('minItems')
 Scenario('@constrain-minItems should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'validator/minItems')
+  I.selectOption('#examples', '../json/validator/minItems.json')
   I._checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I._waitForText('Must have at least 1 items', '[data-path="#/array"]')

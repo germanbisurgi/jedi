@@ -5,7 +5,7 @@ Feature('object')
 
 Scenario('@editor-object @description @title should have title and description', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/object')
+  I.selectOption('#examples', '../json/editors/object.json')
   I._waitForElement('.jedi-ready')
   I._waitForText('Object', 'legend')
   I._waitForText('Objects are the mapping type in JSON. They map “keys” to “values”. In JSON, the “keys” must always be strings. Each of these pairs is conventionally referred to as a “property”.')
@@ -13,7 +13,7 @@ Scenario('@editor-object @description @title should have title and description',
 
 Scenario('@editor-object @editableProperties should add properties', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/object')
+  I.selectOption('#examples', '../json/editors/object.json')
   I._waitForElement('.jedi-ready')
   I._click('.jedi-properties-toggle')
   I.fillField('#jedi-add-property-input-root', 'test')
@@ -26,12 +26,10 @@ Scenario('@editor-object @editableProperties should add properties', ({ I }) => 
 
 Scenario('@editor-object @editableProperties should activate and deactivate properties', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/object')
+  I.selectOption('#examples', '../json/editors/object.json')
   I._waitForElement('.jedi-ready')
   I._click('.jedi-properties-toggle')
-  I._waitForElement('[id="root-required-activator"]:disabled')
   I._waitForElement('[id="root-notRequired-activator"]:not(:disabled)')
-  I._waitForElement('[id="root-required"]')
   I._waitForElement('[id="root-notRequired"]')
   I._click('[id="root-notRequired-activator"]')
   I.dontSee('[data-path="#/notRequired"]')
@@ -41,7 +39,7 @@ Scenario('@editor-object @editableProperties should activate and deactivate prop
 
 Scenario('@editor-object @object-grid rows and columns', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/object-grid')
+  I.selectOption('#examples', '../json/editors/object-grid.json')
   I._waitForElement('.jedi-ready')
 
   if (theme === 'barebones') {
@@ -128,7 +126,7 @@ Scenario('@editor-object @object-grid rows and columns', ({ I }) => {
 
 Scenario('@editor-object @object-nav-pills', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/object-nav-pills')
+  I.selectOption('#examples', '../json/editors/object-nav-pills.json')
   I._waitForElement('.jedi-ready')
 
   if (theme === 'barebones') {
@@ -155,7 +153,7 @@ Scenario('@editor-object @object-nav-pills', ({ I }) => {
 
 Scenario('@editor-object @object-nav-tabs', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/object-nav-tabs')
+  I.selectOption('#examples', '../json/editors/object-nav-tabs.json')
   I._waitForElement('.jedi-ready')
 
   if (theme === 'barebones') {

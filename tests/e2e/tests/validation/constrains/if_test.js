@@ -6,7 +6,7 @@ Feature('if')
 Scenario('@constrain-if-then-else validate agaist @if-then-else ', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'validator/if-then-else')
+  I.selectOption('#examples', '../json/validator/if-then-else.json')
   I._scrollTo('[data-path="#"]')
 
   I.selectOption('[id="root-country"]', 'America')
@@ -33,7 +33,7 @@ Scenario('@constrain-if-then-else validate agaist @if-then-else ', async ({ I })
 Scenario('@constrain-if-then-else validate agaist @if-then', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'validator/if-then')
+  I.selectOption('#examples', '../json/validator/if-then.json')
   I._scrollTo('[data-path="#"]')
 
   I.selectOption('[id="root-country"]', 'America')
@@ -60,7 +60,7 @@ Scenario('@constrain-if-then-else validate agaist @if-then', async ({ I }) => {
 Scenario('@constrain-if-then-else validate agaist @if-else', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'validator/if-else')
+  I.selectOption('#examples', '../json/validator/if-else.json')
   I._scrollTo('[data-path="#"]')
 
   I.selectOption('[id="root-country"]', 'America')

@@ -6,7 +6,7 @@ Feature('maxProperties')
 Scenario('@constrain-maxProperties should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'validator/maxProperties')
+  I.selectOption('#examples', '../json/validator/maxProperties.json')
   I._checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I._waitForText('Must have at most 1 properties', '[data-path="#"]')

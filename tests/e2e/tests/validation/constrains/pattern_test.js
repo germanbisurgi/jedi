@@ -6,7 +6,7 @@ Feature('pattern')
 Scenario('@constrain-pattern should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'validator/pattern')
+  I.selectOption('#examples', '../json/validator/pattern.json')
   I._checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I._waitForText('Must be the pattern: ^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$', '[data-path="#"]')

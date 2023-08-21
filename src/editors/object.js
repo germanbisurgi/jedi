@@ -19,21 +19,16 @@ import {
  */
 class EditorObject extends Editor {
   build () {
-    const schema = this.instance.schema
-    const schemaTitle = getSchemaTitle(schema)
-    const schemaDescription = getSchemaDescription(schema)
-    const schemaAdditionalProperties = getSchemaAdditionalProperties(schema)
-    const hideTitle = getSchemaOption(schema, 'hideTitle')
-    const editableProperties = getSchemaOption(schema, 'editableProperties')
-
     this.control = this.theme.getObjectControl({
-      title: isSet(schemaTitle) ? schemaTitle : this.instance.getKey(),
-      srOnly: hideTitle,
+      title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
+      srOnly: getSchemaOption(this.instance.schema, 'hideTitle'),
       id: pathToAttribute(this.instance.path),
-      description: schemaDescription,
-      editableProperties: equal(this.instance.jedi.options.editableProperties, true) || equal(editableProperties, true)
+      description: getSchemaDescription(this.instance.schema),
+      editableProperties: equal(this.instance.jedi.options.editableProperties, true) || equal(getSchemaOption(this.instance.schema, 'editableProperties'), true)
     })
+  }
 
+  addEventListeners () {
     this.control.addPropertyBtn.addEventListener('click', () => {
       const key = this.control.addPropertyControl.input.value
 
@@ -50,6 +45,8 @@ class EditorObject extends Editor {
       }
 
       let schema = { type: 'any' }
+
+      const schemaAdditionalProperties = getSchemaAdditionalProperties(schema)
 
       if (isSet(schemaAdditionalProperties)) {
         schema = schemaAdditionalProperties
@@ -85,33 +82,35 @@ class EditorObject extends Editor {
       }
 
       this.instance.children.forEach((child) => {
-        const schemaTitle = getSchemaTitle(child.schema)
-        const id = pathToAttribute(child.path) + '-activator'
-
-        const checkboxControl = this.theme.getCheckboxControl({
-          id: id,
-          label: isSet(schemaTitle) ? schemaTitle : child.getKey(),
-          srOnly: false
-        })
-
-        const checkbox = checkboxControl.input
-
-        checkbox.checked = hasOwn(this.instance.getValue(), child.getKey())
-
         const isRequired = this.instance.isRequired(child.getKey())
         const isDependentRequired = this.instance.isDependentRequired(child.getKey())
-        const disabled = this.disabled
-        checkbox.disabled = isRequired || isDependentRequired || disabled
+        const notRequired = !isRequired && !isDependentRequired
 
-        checkbox.addEventListener('change', () => {
-          if (checkbox.checked) {
-            child.activate()
-          } else {
-            child.deactivate()
-          }
-        })
+        if (notRequired) {
+          const schemaTitle = getSchemaTitle(child.schema)
+          const id = pathToAttribute(child.path) + '-activator'
 
-        this.control.propertiesActivators.appendChild(checkboxControl.container)
+          const checkboxControl = this.theme.getCheckboxControl({
+            id: id,
+            label: isSet(schemaTitle) ? schemaTitle : child.getKey(),
+            srOnly: false
+          })
+
+          const checkbox = checkboxControl.input
+
+          checkbox.disabled = this.disabled
+          checkbox.checked = hasOwn(this.instance.getValue(), child.getKey())
+
+          checkbox.addEventListener('change', () => {
+            if (checkbox.checked) {
+              child.activate()
+            } else {
+              child.deactivate()
+            }
+          })
+
+          this.control.propertiesActivators.appendChild(checkboxControl.container)
+        }
       })
     }
   }

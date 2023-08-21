@@ -6,7 +6,7 @@ Feature('maximum')
 Scenario('@constrain-maximum should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'validator/maximum')
+  I.selectOption('#examples', '../json/validator/maximum.json')
   I._checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I.dontSee('Must be less than 100', '[data-path="#/number"]')

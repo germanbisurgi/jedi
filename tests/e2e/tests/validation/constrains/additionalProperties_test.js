@@ -6,7 +6,7 @@ Feature('additionalProperties')
 Scenario('@constrain-additionalProperties should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.fillField('#schemas', 'validator/additionalProperties')
+  I.selectOption('#examples', '../json/validator/additionalProperties.json')
   I._checkOption('[id="alwaysShowErrors"]')
   I._waitForElement('.jedi-ready')
   I.fillField('#editor-value', JSON.stringify({

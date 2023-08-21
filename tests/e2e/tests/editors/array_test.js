@@ -5,7 +5,7 @@ Feature('array')
 
 Scenario('@editor-array @description @title should have title and description', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/array')
+  I.selectOption('#examples', '../json/editors/array.json')
   I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
   I._waitForText('Array', '[data-type="array"] legend')
@@ -14,7 +14,7 @@ Scenario('@editor-array @description @title should have title and description', 
 
 Scenario('@editor-array @items should validate against items', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/array')
+  I.selectOption('#examples', '../json/editors/array.json')
   I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
   I._click('[data-path="#/items"] .jedi-array-add')
@@ -23,7 +23,7 @@ Scenario('@editor-array @items should validate against items', ({ I }) => {
 
 Scenario('@editor-array @prefixItems should validate against prefixItems', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/array')
+  I.selectOption('#examples', '../json/editors/array.json')
   I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
   I._click('[data-path="#/prefixItems"] .jedi-array-add')
@@ -38,7 +38,7 @@ Scenario('@editor-array @prefixItems should validate against prefixItems', ({ I 
 
 Scenario('@editor-array @array-nav-pills', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/array-nav-pills')
+  I.selectOption('#examples', '../json/editors/array-nav-pills.json')
   I._waitForElement('.jedi-ready')
 
   if (theme === 'barebones') {
@@ -65,7 +65,7 @@ Scenario('@editor-array @array-nav-pills', ({ I }) => {
 
 Scenario('@editor-array @array-nav-tabs', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.fillField('#schemas', 'editors/array-nav-tabs')
+  I.selectOption('#examples', '../json/editors/array-nav-tabs.json')
   I._waitForElement('.jedi-ready')
 
   if (theme === 'barebones') {

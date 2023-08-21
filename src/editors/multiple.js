@@ -8,18 +8,17 @@ import { getSchemaDescription, getSchemaOption } from '../helpers/schema'
  */
 class EditorMultiple extends Editor {
   build () {
-    const schemaDescription = getSchemaDescription(this.instance.schema)
-    const schemaOptionHideTitle = getSchemaOption(this.instance.schema, 'hideTitle')
-
     this.control = this.theme.getMultipleControl({
       title: 'Options',
-      srOnly: schemaOptionHideTitle,
+      srOnly: getSchemaOption(this.instance.schema, 'hideTitle'),
       id: pathToAttribute(this.instance.path),
-      description: schemaDescription,
+      description: getSchemaDescription(this.instance.schema),
       switcherOptionValues: this.instance.switcherOptionValues,
       switcherOptionsLabels: this.instance.switcherOptionsLabels
     })
+  }
 
+  addEventListeners () {
     this.control.switcher.input.addEventListener('change', () => {
       const index = Number(this.control.switcher.input.value)
       this.instance.switchInstance(index)
