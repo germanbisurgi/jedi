@@ -43,8 +43,7 @@
         "$ref": "#/$defs/schema"
       },
       "options": {
-        "editableProperties": true,
-        "deactivateProperties": true
+        "editableProperties": true
       }
     }
   }
