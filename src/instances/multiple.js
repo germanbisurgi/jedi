@@ -11,7 +11,16 @@ import {
   overwriteExistingProperties
 } from '../helpers/utils'
 import Jedi from '../jedi'
-import { getSchemaAnyOf, getSchemaElse, getSchemaIf, getSchemaOneOf, getSchemaOption, getSchemaThen, getSchemaTitle, getSchemaType } from '../helpers/schema'
+import {
+  getSchemaAnyOf,
+  getSchemaElse,
+  getSchemaIf,
+  getSchemaOneOf,
+  getSchemaOption,
+  getSchemaThen,
+  getSchemaTitle,
+  getSchemaType
+} from '../helpers/schema'
 
 /**
  * Represents a InstanceMultiple instance.
@@ -131,7 +140,6 @@ class InstanceMultiple extends Instance {
       instance.on('change', () => {
         this.value = this.activeInstance.getValue()
         this.emit('change')
-        this.switchIf()
       })
 
       this.instances.push(instance)
@@ -157,6 +165,18 @@ class InstanceMultiple extends Instance {
       this.activeInstance.setValue(value, false)
     }
 
+    this.value = this.activeInstance.getValue()
+    this.emit('change')
+  }
+
+  onSetValue () {
+    if (different(this.activeInstance.getValue(), this.value)) {
+      const fittestIndex = this.getFittestIndex(this.value)
+      this.switchInstance(fittestIndex, this.value)
+    }
+  }
+
+  reassignValues () {
     const lastInstanceValue = this.instances[this.lastIndex].getValue()
     const currentInstanceValue = this.activeInstance.getValue()
 
@@ -164,9 +184,6 @@ class InstanceMultiple extends Instance {
       const mergedValue = overwriteExistingProperties(currentInstanceValue, lastInstanceValue)
       this.activeInstance.setValue(mergedValue, false)
     }
-
-    this.value = this.activeInstance.getValue()
-    this.emit('change')
   }
 
   switchIf () {
@@ -192,10 +209,6 @@ class InstanceMultiple extends Instance {
     let championErrors
 
     for (const instance of this.instances) {
-      if (instance.instances) {
-        instance.setValue(value, false)
-      }
-
       const instanceErrors = this.jedi.validator.getErrors(value, instance.schema, instance.getKey(), instance.path)
 
       if (notSet(fittestIndex) || notSet(championErrors)) {
@@ -212,28 +225,6 @@ class InstanceMultiple extends Instance {
     }
 
     return fittestIndex
-  }
-
-  onSetValue () {
-    const newValue = this.value
-
-    // if value matches the active instance type set the value. Else switch to the first
-    // instance that match the value.
-    if (different(this.activeInstance.getValue(), newValue)) {
-      const fittestIndex = isSet(this.if) ? this.getIfIndex(newValue) : this.getFittestIndex(newValue)
-      this.switchInstance(fittestIndex, newValue)
-    }
-
-    this.activeInstance.setValue(newValue, false)
-    this.value = this.activeInstance.getValue()
-  }
-
-  getValue () {
-    if (!this.activeInstance) {
-      return
-    }
-
-    return this.activeInstance.getValue()
   }
 
   destroy () {
