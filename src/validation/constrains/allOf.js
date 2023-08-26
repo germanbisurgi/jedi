@@ -1,4 +1,4 @@
-import { isSet } from '../../helpers/utils'
+import { isSet, removeDuplicatesFromArray } from '../../helpers/utils'
 import Jedi from '../../jedi'
 import { getSchemaAllOf } from '../../helpers/schema'
 
@@ -12,6 +12,7 @@ export function allOf (validator, value, schema, key, path) {
       const subSchemaErrors = subSchemaEditor.getErrors()
       subSchemaEditor.destroy()
       errors = [...errors, ...subSchemaErrors]
+      errors = removeDuplicatesFromArray(errors)
     })
   }
 

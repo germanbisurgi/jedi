@@ -291,3 +291,18 @@ export function compileTemplate (template, data) {
 export function clamp (number, min, max) {
   return Math.max(min, Math.min(number, max))
 }
+
+export function removeDuplicatesFromArray (arr) {
+  const uniqueObjects = []
+  const uniqueValues = new Set()
+
+  for (const obj of arr) {
+    const objString = JSON.stringify(obj)
+    if (!uniqueValues.has(objString)) {
+      uniqueValues.add(objString)
+      uniqueObjects.push(obj)
+    }
+  }
+
+  return uniqueObjects
+}
