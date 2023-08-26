@@ -76,7 +76,7 @@ window.addEventListener('DOMContentLoaded', () => {
           'fontawesome5',
           'fontawesome6'
         ],
-        alwaysShowErrors: false,
+        alwaysShowErrors: true,
         editableProperties: true,
         showRequiredOnly: false,
         schema: {},

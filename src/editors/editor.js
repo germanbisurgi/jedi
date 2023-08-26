@@ -168,8 +168,6 @@ class Editor extends EventEmitter {
 
     errors.forEach((error) => {
       error.messages.forEach((message) => {
-        const field = getSchemaTitle(this.instance.schema) || this.instance.getKey()
-        message = field + ' ' + message
         const invalidFeedback = this.getInvalidFeedback(message)
         this.control.messages.appendChild(invalidFeedback)
       })
