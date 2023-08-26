@@ -5,7 +5,7 @@ import ThemeBootstrap4 from '../themes/bootstrap4'
 import ThemeBootstrap5 from '../themes/bootstrap5'
 import Theme from '../themes/theme'
 import { isSet } from '../helpers/utils'
-import { getSchemaOption, getSchemaType } from '../helpers/schema'
+import { getSchemaEnum, getSchemaOption, getSchemaType } from '../helpers/schema'
 
 /**
  * Represents an Editor instance.
@@ -52,6 +52,7 @@ class Editor extends EventEmitter {
 
     this.init()
     this.build()
+    this.coerceValue()
     this.addEventListeners()
     this.setContainerAttributes()
     this.refreshUI()
@@ -138,6 +139,17 @@ class Editor extends EventEmitter {
    * @private
    */
   build () {
+  }
+
+  /**
+   * Updates the value of the instance by making assumptions based on constrains
+   */
+  coerceValue () {
+    const schemaEnum = getSchemaEnum(this.instance.schema)
+
+    if (isSet(schemaEnum) && !schemaEnum.includes(this.instance.getValue()) && isSet(schemaEnum[0])) {
+      this.instance.setValue(schemaEnum[0], false)
+    }
   }
 
   /**

@@ -9,6 +9,8 @@ Scenario('@constrain-enum should display validation errors', ({ I }) => {
   I.selectOption('#examples', '../json/validator/enum.json')
   I._checkOption('[id="alwaysShowErrors"]')
   I._scrollTo('[data-path="#"]')
+  I.fillField('[id="root-string"]', 'not in enum')
+  I.pressKey('Tab')
   I._waitForText('Must be one of the enumerated values: [{"string":"Albert"},{"string":"Betti"}]', '[data-path="#"]')
   I.fillField('[id="root-string"]', 'Albert')
   I.pressKey('Tab')
