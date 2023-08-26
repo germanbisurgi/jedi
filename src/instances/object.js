@@ -5,7 +5,7 @@ import EditorObject from '../editors/object'
 import EditorObjectNav from '../editors/object-nav'
 import {
   getSchemaDependentRequired,
-  getSchemaFormat, getSchemaOption,
+  getSchemaFormat,
   getSchemaProperties,
   getSchemaRequired,
   getSchemaType
@@ -92,13 +92,6 @@ class InstanceObject extends Instance {
     this.children.push(instance)
     this.value[key] = instance.getValue()
 
-    const isNotRequired = !this.isRequired(key)
-    const shouldStartDeactivated = this.jedi.options.deactivateProperties || getSchemaOption(this.schema, 'deactivateProperties')
-
-    if (isNotRequired && shouldStartDeactivated) {
-      instance.deactivate()
-    }
-
     return instance
   }
 
@@ -134,19 +127,6 @@ class InstanceObject extends Instance {
   refreshInstances () {
     const value = this.getValue()
 
-    // remove any children that are not included in the value
-    for (let i = this.children.length - 1; i >= 0; i--) {
-      const instance = this.children[i]
-      const key = instance.getKey()
-      if (notSet(value[key])) {
-        if (this.getChild(key)) {
-          instance.deactivate()
-        } else {
-          this.deleteChild(key)
-        }
-      }
-    }
-
     if (!isObject(value)) {
       return
     }
@@ -156,6 +136,7 @@ class InstanceObject extends Instance {
 
       // If a value has a already a child instance
       if (child) {
+        child.activate()
         const oldValue = child.getValue()
         const newValue = value[child.getKey()]
 
@@ -176,6 +157,19 @@ class InstanceObject extends Instance {
         this.createChild(schema, key)
       }
     })
+
+    // remove any children that are not included in the value
+    for (let i = this.children.length - 1; i >= 0; i--) {
+      const instance = this.children[i]
+      const key = instance.getKey()
+      if (notSet(value[key])) {
+        if (this.getChild(key)) {
+          instance.deactivate()
+        } else {
+          this.deleteChild(key)
+        }
+      }
+    }
   }
 }
 
