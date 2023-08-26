@@ -1,17 +1,18 @@
 import { isArray, isSet } from '../../helpers/utils'
 import { getSchemaItems, getSchemaPrefixItems } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function items (validator, value, schema, key, path) {
   const errors = []
-  const schemaItems = getSchemaItems(schema)
-  const schemaPrefixItems = getSchemaPrefixItems(schema)
+  const items = getSchemaItems(schema)
+  const prefixItems = getSchemaPrefixItems(schema)
 
-  if (isArray(value) && isSet(schemaItems)) {
-    const prefixItemsSchemasCount = isSet(schemaPrefixItems) ? schemaPrefixItems.length : 0
+  if (isArray(value) && isSet(items)) {
+    const prefixItemsSchemasCount = isSet(prefixItems) ? prefixItems.length : 0
 
-    if (schemaItems === false && value.length > 0 && value.length > prefixItemsSchemasCount) {
+    if (items === false && value.length > 0 && value.length > prefixItemsSchemasCount) {
       errors.push({
-        messages: ['Schema always fails validation.'],
+        messages: [i18n.errorMaxProperties],
         path: path
       })
     }

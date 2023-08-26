@@ -1,11 +1,12 @@
 import { isArray, isObject, isSet, sortObject } from '../../helpers/utils'
 import { getSchemaUniqueItems } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function uniqueItems (validator, value, schema, key, path) {
   const errors = []
-  const schemaUniqueItems = getSchemaUniqueItems(schema)
+  const uniqueItems = getSchemaUniqueItems(schema)
 
-  if (isArray(value) && isSet(schemaUniqueItems) && schemaUniqueItems === true) {
+  if (isArray(value) && isSet(uniqueItems) && uniqueItems === true) {
     const seen = []
     let hasDuplicatedItems = false
 
@@ -30,7 +31,9 @@ export function uniqueItems (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
-        messages: ['Must have unique items'],
+        messages: [
+          i18n.errorUniqueItems
+        ],
         path: path
       })
     }

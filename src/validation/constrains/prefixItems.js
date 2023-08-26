@@ -1,13 +1,14 @@
-import { isArray, isSet } from '../../helpers/utils'
+import { compileTemplate, isArray, isSet } from '../../helpers/utils'
 import Jedi from '../../jedi'
 import { getSchemaPrefixItems } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function prefixItems (validator, value, schema, key, path) {
   const errors = []
-  const schemaPrefixItems = getSchemaPrefixItems(schema)
+  const prefixItems = getSchemaPrefixItems(schema)
 
-  if (isArray(value) && isSet(schemaPrefixItems)) {
-    schemaPrefixItems.forEach((itemSchema, index) => {
+  if (isArray(value) && isSet(prefixItems)) {
+    prefixItems.forEach((itemSchema, index) => {
       const itemValue = value[index]
 
       if (isSet(itemValue)) {
@@ -17,7 +18,11 @@ export function prefixItems (validator, value, schema, key, path) {
 
         if (tmpErrors.length > 0) {
           errors.push({
-            messages: [`Item ${index} fails validation.`],
+            messages: [
+              compileTemplate(i18n.errorPrefixItems, {
+                index: index
+              })
+            ],
             path: path
           })
         }

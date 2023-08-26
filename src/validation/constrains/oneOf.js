@@ -1,16 +1,16 @@
-import { isSet } from '../../helpers/utils'
+import { compileTemplate, isSet } from '../../helpers/utils'
 import Jedi from '../../jedi'
 import { getSchemaOneOf } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function oneOf (validator, value, schema, key, path) {
   const errors = []
-  const schemaOneOf = getSchemaOneOf(schema)
-  let extraMessages = []
+  const oneOf = getSchemaOneOf(schema)
 
-  if (isSet(schemaOneOf)) {
+  if (isSet(oneOf)) {
     let counter = 0
 
-    schemaOneOf.forEach((schema) => {
+    oneOf.forEach((schema) => {
       const oneOfEditor = new Jedi({ schema: schema, startValue: value, refParser: false })
       const oneOfErrors = oneOfEditor.getErrors()
       oneOfEditor.destroy()
@@ -18,15 +18,14 @@ export function oneOf (validator, value, schema, key, path) {
       if (oneOfErrors.length === 0) {
         counter++
       }
-
-      extraMessages = [...extraMessages, JSON.stringify(schema)]
     })
 
     if (counter !== 1) {
       errors.push({
         messages: [
-          'Must validate against exactly one of the provided schemas. It currently validates against ' + counter + ' of the schemas.',
-          ...extraMessages
+          compileTemplate(i18n.errorOneOf, {
+            counter: counter
+          })
         ],
         path: path
       })

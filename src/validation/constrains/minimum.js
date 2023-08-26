@@ -1,17 +1,21 @@
-import { isNumber, isSet } from '../../helpers/utils'
+import { compileTemplate, isNumber, isSet } from '../../helpers/utils'
 import { getSchemaMinimum } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function minimum (validator, value, schema, key, path) {
   const errors = []
-  const schemaMinimum = getSchemaMinimum(schema)
+  const minimum = getSchemaMinimum(schema)
 
-  if (isNumber(value) && isSet(schemaMinimum)) {
-    const computedMinimum = schemaMinimum
-    const invalid = (value < computedMinimum)
+  if (isNumber(value) && isSet(minimum)) {
+    const invalid = (value < minimum)
 
     if (invalid) {
       errors.push({
-        messages: ['Must be at least ' + computedMinimum],
+        messages: [
+          compileTemplate(i18n.errorMinimum, {
+            minimum: minimum
+          })
+        ],
         path: path
       })
     }

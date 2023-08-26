@@ -1,5 +1,6 @@
-import { isSet } from '../../helpers/utils'
+import { compileTemplate, isSet } from '../../helpers/utils'
 import { getSchemaEnum } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function _enum (validator, value, schema, key, path) {
   const errors = []
@@ -11,7 +12,9 @@ export function _enum (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         messages: [
-          'Must be one of the enumerated values: ' + JSON.stringify(schemaEnum)
+          compileTemplate(i18n.errorEnum, {
+            enum: JSON.stringify(schemaEnum)
+          })
         ],
         path: path
       })

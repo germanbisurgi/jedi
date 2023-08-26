@@ -1,15 +1,13 @@
 import Jedi from '../../jedi'
 import { isSet } from '../../helpers/utils'
 import { getSchemaAnyOf } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function anyOf (validator, value, schema, key, path) {
   const errors = []
-  const schemaOneOf = getSchemaAnyOf(schema)
+  const anyOf = getSchemaAnyOf(schema)
 
-  let extraMessages = []
-
-  if (isSet(schemaOneOf)) {
-    const anyOf = schemaOneOf
+  if (isSet(anyOf)) {
     let valid = false
 
     anyOf.forEach((schema) => {
@@ -20,15 +18,12 @@ export function anyOf (validator, value, schema, key, path) {
       if (anyOfErrors.length === 0) {
         valid = true
       }
-
-      extraMessages = [...extraMessages, JSON.stringify(schema)]
     })
 
     if (!valid) {
       errors.push({
         messages: [
-          'Must validate against at least one of the provided schemas',
-          ...extraMessages
+          i18n.errorAnyOf
         ],
         path: path
       })

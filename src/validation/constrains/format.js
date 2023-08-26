@@ -1,34 +1,35 @@
-import { isSet, isString } from '../../helpers/utils'
+import { compileTemplate, isSet, isString } from '../../helpers/utils'
 import { getSchemaFormat } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function format (validator, value, schema, key, path) {
   const errors = []
-  const schemaFormat = getSchemaFormat(schema)
+  const format = getSchemaFormat(schema)
 
-  if (isSet(schemaFormat) && isString(value)) {
-    let messages
+  if (isSet(format) && isString(value)) {
     let regexp
 
-    if (schemaFormat === 'email') {
+    if (format === 'email') {
       regexp = new RegExp(/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i)
-      messages = ['Must be a valid email address']
     }
 
-    if (schemaFormat === 'url') {
+    if (format === 'url') {
       regexp = new RegExp(/^(?:https?|ftp):\/\/(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u{00a1}-\u{ffff}]+-)*[a-z0-9\u{00a1}-\u{ffff}]+)(?:\.(?:[a-z0-9\u{00a1}-\u{ffff}]+-)*[a-z0-9\u{00a1}-\u{ffff}]+)*(?:\.(?:[a-z\u{00a1}-\u{ffff}]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/iu)
-      messages = ['Must be a valid email url']
     }
 
-    if (schemaFormat === 'uuid') {
+    if (format === 'uuid') {
       regexp = new RegExp(/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i)
-      messages = ['Must be a valid email uuid']
     }
 
     const invalid = isSet(regexp) && !regexp.test(value)
 
     if (invalid) {
       errors.push({
-        messages: messages,
+        messages: [
+          compileTemplate(i18n.errorFormat, {
+            format: format
+          })
+        ],
         path: path
       })
     }

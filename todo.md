@@ -1,21 +1,21 @@
 ## Todo
- 
-- properties active by default?
+
+- fix if-then-else
+- i18n ad jedi property
+- integrate examples and tests
+- multiple error messages (oneOf, anyOf, not, any, type undefined, etc)
+- prefixItems test and error messages
+- properties active by default option
 - additionalProperties in array items
 - actions activate / deactivate
-- playground: custom css and collapsible menu
-- playground on input but if valid json
 - do not guess schemas by value type or at leas make it configurable
 - multiple + array buttons
-- translations
-- update messages texts
 - scope switcher options and titles in editors and not in instances
 - resolvers in editor
 - additionalProperties and properties button logic + test
 - template / titles / descriptions as html with xss lib option
 - active item after array add/move/etc (min an max items) + test
 - option hideButton labels
-- better editor type detection with specialized keywords
 - fix destroy whole editor console error
 
 - If-Then-Else (7)

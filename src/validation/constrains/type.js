@@ -1,15 +1,26 @@
-import { isArray, isBoolean, isInteger, isNull, isNumber, isObject, isSet, isString } from '../../helpers/utils'
+import {
+  compileTemplate, getType,
+  isArray,
+  isBoolean,
+  isInteger,
+  isNull,
+  isNumber,
+  isObject,
+  isSet,
+  isString
+} from '../../helpers/utils'
 import { getSchemaType } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function type (validator, value, schema, key, path) {
   const errors = []
-  const schemaType = getSchemaType(schema)
+  const type = getSchemaType(schema)
 
-  if (schemaType === 'any') {
+  if (type === 'any') {
     return errors
   }
 
-  if (isSet(schemaType)) {
+  if (isSet(type)) {
     const types = {
       string: value => isString(value),
       number: value => isNumber(value),
@@ -22,17 +33,22 @@ export function type (validator, value, schema, key, path) {
 
     let valid = true
 
-    if (isArray(schemaType)) {
-      valid = schemaType.some((type) => {
+    if (isArray(type)) {
+      valid = type.some((type) => {
         return types[type](value)
       })
     } else {
-      valid = types[schemaType](value)
+      valid = types[type](value)
     }
 
     if (!valid) {
       errors.push({
-        messages: ['Must be of type ' + schemaType],
+        messages: [
+          compileTemplate(i18n.errorType, {
+            type: type,
+            valueType: getType(value)
+          })
+        ],
         path: path
       })
     }

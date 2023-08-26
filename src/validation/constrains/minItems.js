@@ -1,16 +1,21 @@
-import { isArray, isSet } from '../../helpers/utils'
+import { compileTemplate, isArray, isSet } from '../../helpers/utils'
 import { getSchemaMinItems } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function minItems (validator, value, schema, key, path) {
   const errors = []
-  const schemaMinItems = getSchemaMinItems(schema)
+  const minItems = getSchemaMinItems(schema)
 
-  if (isArray(value) && isSet(schemaMinItems)) {
-    const invalid = (value.length < schemaMinItems)
+  if (isArray(value) && isSet(minItems)) {
+    const invalid = (value.length < minItems)
 
     if (invalid) {
       errors.push({
-        messages: ['Must have at least ' + schemaMinItems + ' items'],
+        messages: [
+          compileTemplate(i18n.errorMinItems, {
+            minItems: minItems
+          })
+        ],
         path: path
       })
     }

@@ -1,18 +1,19 @@
-import { isArray, isSet } from '../../helpers/utils'
+import { compileTemplate, isArray, isSet } from '../../helpers/utils'
 import Jedi from '../../jedi'
 import { getSchemaContains, getSchemaMaxContains, getSchemaMinContains } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function contains (validator, value, schema, key, path) {
   const errors = []
-  const schemaContains = getSchemaContains(schema)
-  const schemaMinContains = getSchemaMinContains(schema)
-  const schemaMaxContains = getSchemaMaxContains(schema)
+  const contains = getSchemaContains(schema)
+  const minContains = getSchemaMinContains(schema)
+  const maxContains = getSchemaMaxContains(schema)
 
-  if (isArray(value) && isSet(schemaContains)) {
+  if (isArray(value) && isSet(contains)) {
     let counter = 0
 
     value.forEach((item) => {
-      const containsEditor = new Jedi({ schema: schemaContains, startValue: item, refParser: false })
+      const containsEditor = new Jedi({ schema: contains, startValue: item, refParser: false })
       const containsErrors = containsEditor.getErrors()
 
       if (containsErrors.length === 0) {
@@ -24,13 +25,16 @@ export function contains (validator, value, schema, key, path) {
 
     const containsInvalid = (counter === 0)
 
-    if (isSet(schemaMinContains)) {
-      const minContainsInvalid = (counter < schemaMinContains)
+    if (isSet(minContains)) {
+      const minContainsInvalid = (counter < minContains)
 
       if (minContainsInvalid) {
         errors.push({
           messages: [
-            `Contains match count ${counter} is less than minimum contains count of ${schemaMinContains}`
+            compileTemplate(i18n.errorMinContains, {
+              counter: counter,
+              minContains: minContains
+            })
           ],
           path: path
         })
@@ -38,21 +42,22 @@ export function contains (validator, value, schema, key, path) {
     } else {
       if (containsInvalid) {
         errors.push({
-          messages: [
-            'No items match contains'
-          ],
+          messages: [i18n.errorContains],
           path: path
         })
       }
     }
 
-    if (isSet(schemaMaxContains)) {
-      const maxContainsInvalid = (counter > schemaMaxContains)
+    if (isSet(maxContains)) {
+      const maxContainsInvalid = (counter > maxContains)
 
       if (maxContainsInvalid) {
         errors.push({
           messages: [
-            `Contains match count ${counter} exceeds maximum contains count of ${schemaMaxContains}`
+            compileTemplate(i18n.errorMaxContains, {
+              counter: counter,
+              maxContains: maxContains
+            })
           ],
           path: path
         })

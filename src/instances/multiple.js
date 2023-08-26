@@ -126,7 +126,6 @@ class InstanceMultiple extends Instance {
       ]
     }
 
-    // Instances
     this.schemas.forEach((schema) => {
       const instance = this.jedi.createInstance({
         jedi: this.jedi,

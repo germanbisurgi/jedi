@@ -5,7 +5,7 @@ import ThemeBootstrap4 from '../themes/bootstrap4'
 import ThemeBootstrap5 from '../themes/bootstrap5'
 import Theme from '../themes/theme'
 import { isSet } from '../helpers/utils'
-import { getSchemaEnum, getSchemaOption, getSchemaType } from '../helpers/schema'
+import { getSchemaEnum, getSchemaOption, getSchemaTitle, getSchemaType } from '../helpers/schema'
 
 /**
  * Represents an Editor instance.
@@ -168,6 +168,8 @@ class Editor extends EventEmitter {
 
     errors.forEach((error) => {
       error.messages.forEach((message) => {
+        const field = getSchemaTitle(this.instance.schema) || this.instance.getKey()
+        message = field + ' ' + message
         const invalidFeedback = this.getInvalidFeedback(message)
         this.control.messages.appendChild(invalidFeedback)
       })

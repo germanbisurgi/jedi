@@ -1,17 +1,20 @@
-import { isNumber, isSet } from '../../helpers/utils'
+import { compileTemplate, isNumber, isSet } from '../../helpers/utils'
 import { getSchemaExclusiveMinimum } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function exclusiveMinimum (validator, value, schema, key, path) {
   const errors = []
-  const schemaExclusiveMinimum = getSchemaExclusiveMinimum(schema)
+  const exclusiveMinimum = getSchemaExclusiveMinimum(schema)
 
-  if (isNumber(value) && isSet(schemaExclusiveMinimum)) {
-    const invalid = (value <= schemaExclusiveMinimum)
+  if (isNumber(value) && isSet(exclusiveMinimum)) {
+    const invalid = (value <= exclusiveMinimum)
 
     if (invalid) {
       errors.push({
         messages: [
-          'Must be greater than ' + schemaExclusiveMinimum
+          compileTemplate(i18n.errorExclusiveMinimum, {
+            exclusiveMinimum: exclusiveMinimum
+          })
         ],
         path: path
       })

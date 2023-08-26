@@ -2,9 +2,10 @@
  * constrains additionalProperties
  */
 
-import { hasOwn, isObject, isSet } from '../../helpers/utils'
+import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils'
 import Jedi from '../../jedi'
 import { getSchemaAdditionalProperties, getSchemaPatternProperties, getSchemaProperties } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function additionalProperties (validator, value, schema, key, path) {
   let errors = []
@@ -31,7 +32,9 @@ export function additionalProperties (validator, value, schema, key, path) {
         if (!definedInPatternProperty && additionalProperties === false && !hasOwn(properties, property)) {
           errors.push({
             messages: [
-              `Property "${property}" has not been defined and the schema does not allow additional properties.`
+              compileTemplate(i18n.errorAdditionalProperties, {
+                property: property
+              })
             ],
             path: path
           })

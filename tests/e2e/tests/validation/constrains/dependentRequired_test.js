@@ -11,15 +11,15 @@ Scenario('@constrain-dependentRequired should display validation errors', ({ I }
   I._checkOption('[id="showRequiredOnly"]')
   I._scrollTo('[data-path="#"]')
   I._waitForElement('.jedi-ready')
-  I.dontSee('Must have the required properties: address, telephone', '[data-path="#"]')
+  I.dontSee('must have the required properties: address, telephone', '[data-path="#"]')
   I.fillField('#editor-value', JSON.stringify({
     creditCard: 0
   }))
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I._waitForText('Must have the required properties: address, telephone', '[data-path="#"]')
+  I._waitForText('must have the required properties: address, telephone', '[data-path="#"]')
   I.fillField('#editor-value', JSON.stringify({}))
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I._waitForText('Must have the required properties: creditCard', '[data-path="#"]')
+  I._waitForText('must have the required properties: creditCard', '[data-path="#"]')
 })

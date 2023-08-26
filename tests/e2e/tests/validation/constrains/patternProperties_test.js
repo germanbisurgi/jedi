@@ -15,14 +15,14 @@ Scenario('@constrain-patternProperties should display validation errors', ({ I }
   }))
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I._waitForText('Must be: "test"', '[data-path="#"]')
-  I._waitForText('Must be: 21', '[data-path="#"]')
+  I._waitForText('must have value of: "test"', '[data-path="#"]')
+  I._waitForText('must have value of: 21', '[data-path="#"]')
   I.fillField('#editor-value', JSON.stringify({
     S: 'test',
     I: 21
   }))
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I.dontSee('Must be: "test"', '[data-path="#"]')
-  I.dontSee('Must be: 21', '[data-path="#"]')
+  I.dontSee('must have value of: "test"', '[data-path="#"]')
+  I.dontSee('must have value of: 21', '[data-path="#"]')
 })

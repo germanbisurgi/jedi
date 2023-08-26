@@ -4,12 +4,12 @@ import { getSchemaDependentSchemas } from '../../helpers/schema'
 
 export function dependentSchemas (validator, value, schema, key, path) {
   let errors = []
-  const schemaDependentSchemas = getSchemaDependentSchemas(schema)
+  const dependentSchemas = getSchemaDependentSchemas(schema)
 
-  if (isObject(value) && isSet(schemaDependentSchemas)) {
-    Object.keys(schemaDependentSchemas).forEach((key) => {
+  if (isObject(value) && isSet(dependentSchemas)) {
+    Object.keys(dependentSchemas).forEach((key) => {
       if (isSet(value[key])) {
-        const dependentSchema = schemaDependentSchemas[key]
+        const dependentSchema = dependentSchemas[key]
         const tmpEditor = new Jedi({ schema: dependentSchema, startValue: value, refParser: false })
         const tmpErrors = tmpEditor.getErrors()
         tmpEditor.destroy()

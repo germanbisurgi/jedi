@@ -1,16 +1,17 @@
-import { hasOwn, isObject, isSet } from '../../helpers/utils'
+import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils'
 import { getSchemaDependentRequired } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function dependentRequired (validator, value, schema, key, path) {
   const errors = []
-  const schemaDependentRequired = getSchemaDependentRequired(schema)
+  const dependentRequired = getSchemaDependentRequired(schema)
 
-  if (isObject(value) && isSet(schemaDependentRequired)) {
+  if (isObject(value) && isSet(dependentRequired)) {
     let missingProperties = []
 
-    Object.keys(schemaDependentRequired).forEach((key) => {
+    Object.keys(dependentRequired).forEach((key) => {
       if (isSet(value[key])) {
-        const requiredProperties = schemaDependentRequired[key]
+        const requiredProperties = dependentRequired[key]
 
         missingProperties = requiredProperties.filter((property) => {
           return !hasOwn(value, property)
@@ -23,7 +24,9 @@ export function dependentRequired (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         messages: [
-          'Must have the required properties: ' + missingProperties.join(', ')
+          compileTemplate(i18n.errorDependentRequired, {
+            dependentRequired: missingProperties.join(', ')
+          })
         ],
         path: path
       })

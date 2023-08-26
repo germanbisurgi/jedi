@@ -4,10 +4,10 @@ import { getSchemaPatternProperties } from '../../helpers/schema'
 
 export function patternProperties (validator, value, schema, path) {
   let errors = []
-  const schemaPatternProperties = getSchemaPatternProperties(schema)
+  const atternProperties = getSchemaPatternProperties(schema)
 
-  if (isObject(value) && isSet(schemaPatternProperties)) {
-    const patternProperties = schemaPatternProperties
+  if (isObject(value) && isSet(atternProperties)) {
+    const patternProperties = atternProperties
 
     Object.keys(value).forEach((propertyName) => {
       Object.keys(patternProperties).forEach((pattern) => {

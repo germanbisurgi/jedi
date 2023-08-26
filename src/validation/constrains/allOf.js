@@ -4,10 +4,10 @@ import { getSchemaAllOf } from '../../helpers/schema'
 
 export function allOf (validator, value, schema, key, path) {
   let errors = []
-  const schemaAllOf = getSchemaAllOf(schema)
+  const allOf = getSchemaAllOf(schema)
 
-  if (isSet(schemaAllOf)) {
-    schemaAllOf.forEach((schema) => {
+  if (isSet(allOf)) {
+    allOf.forEach((schema) => {
       const subSchemaEditor = new Jedi({ schema: schema, startValue: value, rootName: key, refParser: false })
       const subSchemaErrors = subSchemaEditor.getErrors()
       subSchemaEditor.destroy()

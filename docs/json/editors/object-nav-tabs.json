@@ -5,7 +5,8 @@
   "options": {
     "nav": {
       "type": "tabs",
-      "cols": 12
+      "cols": 12,
+      "stacked": false
     }
   },
   "description": "Description",

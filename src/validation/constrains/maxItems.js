@@ -1,16 +1,21 @@
-import { isArray, isSet } from '../../helpers/utils'
+import { compileTemplate, isArray, isSet } from '../../helpers/utils'
 import { getSchemaMaxItems } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function maxItems (validator, value, schema, key, path) {
   const errors = []
-  const schemaMaxItems = getSchemaMaxItems(schema)
+  const maxItems = getSchemaMaxItems(schema)
 
-  if (isArray(value) && isSet(schemaMaxItems)) {
-    const invalid = (value.length > schemaMaxItems)
+  if (isArray(value) && isSet(maxItems)) {
+    const invalid = (value.length > maxItems)
 
     if (invalid) {
       errors.push({
-        messages: ['Must have at most ' + schemaMaxItems + ' items'],
+        messages: [
+          compileTemplate(i18n.errorMaxItems, {
+            maxItems: maxItems
+          })
+        ],
         path: path
       })
     }

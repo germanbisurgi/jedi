@@ -1,15 +1,16 @@
-import { isObject, isSet } from '../../helpers/utils'
+import { compileTemplate, isObject, isSet } from '../../helpers/utils'
 import { getSchemaRequired } from '../../helpers/schema'
+import { i18n } from '../../i18n'
 
 export function required (validator, value, schema, key, path) {
   const errors = []
-  const schemaRequired = getSchemaRequired(schema)
+  const required = getSchemaRequired(schema)
 
-  if (isObject(value) && isSet(schemaRequired)) {
+  if (isObject(value) && isSet(required)) {
     const missingProperties = []
     const keys = Object.keys(value)
 
-    schemaRequired.forEach((key) => {
+    required.forEach((key) => {
       if (!keys.includes(key)) {
         missingProperties.push(key)
       }
@@ -19,7 +20,11 @@ export function required (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
-        messages: ['Must have the required properties: ' + missingProperties.join(', ')],
+        messages: [
+          compileTemplate(i18n.errorRequired, {
+            required: missingProperties.join(', ')
+          })
+        ],
         path: path
       })
     }
