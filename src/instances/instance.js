@@ -1,6 +1,6 @@
 import EventEmitter from '../event-emitter'
 import { isSet } from '../helpers/utils'
-import { getSchemaDefault, getSchemaEnum, getSchemaReadOnly, getSchemaType } from '../helpers/schema'
+import { getSchemaDefault, getSchemaReadOnly, getSchemaType } from '../helpers/schema'
 
 /**
  * Represents a JSON instance.
@@ -135,19 +135,9 @@ class Instance extends EventEmitter {
 
   setDefaultValue () {
     const schemaDefault = getSchemaDefault(this.schema)
-    const schemaEnum = getSchemaEnum(this.schema)
 
     if (isSet(schemaDefault)) {
-      if (isSet(schemaEnum) && !schemaEnum.includes(schemaDefault)) {
-        return
-      }
-
-      const defaultErrors = this.jedi.validator.getErrors(schemaDefault, this.schema, this.getKey(), this.path)
-      const validDefault = defaultErrors.length === 0
-
-      if (validDefault) {
-        this.setValue(schemaDefault, false)
-      }
+      this.setValue(schemaDefault, false)
     }
   }
 
