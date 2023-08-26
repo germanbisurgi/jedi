@@ -123,7 +123,7 @@ class Jedi extends EventEmitter {
     })
 
     if (isSet(this.options.startValue)) {
-      this.root.setValue(this.options.startValue)
+      this.root.setValue(this.options.startValue, false)
     }
 
     if (this.options.isEditor && this.options.container) {
