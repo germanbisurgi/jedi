@@ -6,6 +6,10 @@ export function multipleOf (validator, value, schema, key, path) {
   const schemaMultipleOf = getSchemaMultipleOf(schema)
 
   if (isNumber(value) && isSet(schemaMultipleOf)) {
+    if (value === 0) {
+      return errors
+    }
+
     const isMultipleOf = (value / schemaMultipleOf === Math.floor(value / schemaMultipleOf))
     const invalid = (!isMultipleOf || value.toString().includes('e'))
 
