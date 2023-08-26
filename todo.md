@@ -1,5 +1,14 @@
 ## Todo
-
+ 
+- properties active by default?
+- additionalProperties in array items
+- actions activate / deactivate
+- playground: custom css and collapsible menu
+- playground on input but if valid json
+- do not guess schemas by value type or at leas make it configurable
+- multiple + array buttons
+- translations
+- update messages texts
 - scope switcher options and titles in editors and not in instances
 - resolvers in editor
 - additionalProperties and properties button logic + test
@@ -8,7 +17,6 @@
 - option hideButton labels
 - better editor type detection with specialized keywords
 - fix destroy whole editor console error
-- themes should be nested into editors and have resolver
 
 - If-Then-Else (7)
 - dependencies (4) and dependentRequired / dependentSchemas (19)
@@ -24,7 +32,6 @@
 
 
 - drafts
-- set first enum value as default in editor
 - array grid
 - array table
 - header: false
@@ -35,15 +42,12 @@
 - documentation mode
 - showErrors options as string enum
 - aria attributes
-- error messages texts
 - use names options
 - plugins examples
 - edit object values
 - edit array values
 - filter by field (using tags)
 - formats
-- array enums
-- translations
 - use schema to evaluate annotations and options
 
 
