@@ -1,6 +1,12 @@
 import Editor from './editor'
-import { isArray, pathToAttribute } from '../helpers/utils'
-import { getSchemaDescription, getSchemaOption, getSchemaTitle } from '../helpers/schema'
+import { isArray, isSet, pathToAttribute } from '../helpers/utils'
+import {
+  getSchemaDescription,
+  getSchemaMaxItems,
+  getSchemaMinItems,
+  getSchemaOption,
+  getSchemaTitle
+} from '../helpers/schema'
 
 /**
  * Represents an EditorArray instance.
@@ -38,6 +44,14 @@ class EditorArray extends Editor {
 
   refreshUI () {
     this.refreshInteractiveElements()
+
+    const maxItems = getSchemaMaxItems(this.instance.schema)
+    const minItems = getSchemaMinItems(this.instance.schema)
+
+    if (isSet(maxItems) && maxItems === this.instance.value.length) {
+      this.control.addBtn.setAttribute('disabled', '')
+    }
+
     this.control.childrenSlot.innerHTML = ''
 
     this.instance.children.forEach((child) => {
@@ -72,6 +86,10 @@ class EditorArray extends Editor {
         child.ui.disable()
       } else {
         child.ui.enable()
+      }
+
+      if (isSet(minItems) && this.instance.value.length <= minItems) {
+        deleteBtn.setAttribute('disabled', '')
       }
     })
   }

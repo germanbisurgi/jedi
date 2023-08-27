@@ -37,7 +37,6 @@ class Jedi extends EventEmitter {
       isEditor: false,
       editableProperties: false,
       alwaysShowErrors: false,
-      showRequiredOnly: false,
       schema: {},
       refParser: true
     }, options)

@@ -196,7 +196,7 @@
             "#fff9e6",
             "#ffffff"
           ],
-          "minItems": 3
+          "minItems": 2
         }
       }
     },

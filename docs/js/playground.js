@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', () => {
           'validator/exclusiveMaximum': '../json/validator/exclusiveMaximum.json',
           'validator/exclusiveMinimum': '../json/validator/exclusiveMinimum.json',
           'validator/format': '../json/validator/format.json',
-          // 'validator/if-then-else-allOf': '../json/validator/if-then-else-allOf.json',
+          'validator/if-then-else-allOf': '../json/validator/if-then-else-allOf.json',
           'validator/if-then-else': '../json/validator/if-then-else.json',
           'validator/if-then': '../json/validator/if-then.json',
           'validator/if-else': '../json/validator/if-else.json',
@@ -78,7 +78,6 @@ window.addEventListener('DOMContentLoaded', () => {
         ],
         alwaysShowErrors: true,
         editableProperties: true,
-        showRequiredOnly: false,
         schema: {},
         editor: null,
         isEditor: true,
@@ -172,7 +171,6 @@ window.addEventListener('DOMContentLoaded', () => {
           editableProperties: this.editableProperties,
           isEditor: this.isEditor,
           iconLib: this.iconLib,
-          showRequiredOnly: this.showRequiredOnly,
           schema: this.schema,
           theme: this.theme
         }

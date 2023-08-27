@@ -5,7 +5,7 @@ import ThemeBootstrap4 from '../themes/bootstrap4'
 import ThemeBootstrap5 from '../themes/bootstrap5'
 import Theme from '../themes/theme'
 import { isSet } from '../helpers/utils'
-import { getSchemaEnum, getSchemaOption, getSchemaTitle, getSchemaType } from '../helpers/schema'
+import { getSchemaEnum, getSchemaOption, getSchemaType } from '../helpers/schema'
 
 /**
  * Represents an Editor instance.

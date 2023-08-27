@@ -11,5 +11,15 @@ Scenario('@constrain-maxItems should display validation errors', ({ I }) => {
   I._waitForElement('.jedi-ready')
   I.dontSee('must have at most 3 items', '[data-path="#/array"]')
   I._click('.jedi-array-add')
+  I.dontSee('must have at most 3 items', '[data-path="#/array"]')
+  I.fillField('#editor-value', JSON.stringify({
+    "array": [
+      "Albert",
+      "Betti",
+      "Carl",
+      "Daniel"
+    ]
+  }))
+  I._click('#set-value')
   I._waitForText('must have at most 3 items', '[data-path="#/array"]')
 })

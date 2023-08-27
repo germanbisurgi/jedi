@@ -5,6 +5,7 @@
   "required": [
     "required"
   ],
+  "additionalProperties": true,
   "properties": {
     "required": {
       "title": "Required",
@@ -14,8 +15,5 @@
       "title": "Not required",
       "type": "string"
     }
-  },
-  "options": {
-    "editableProperties": true
   }
 }

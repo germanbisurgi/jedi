@@ -1,18 +1,16 @@
 ## Todo
 
 - fix if-then-else
-- i18n ad jedi property
-- integrate examples and tests
+- i18n add jedi property
 - multiple error messages (oneOf, anyOf, not, any, type undefined, etc)
 - prefixItems test and error messages
 - properties active by default option
-- additionalProperties in array items
+- additionalProperties false by default in UI
 - actions activate / deactivate
 - do not guess schemas by value type or at leas make it configurable
-- multiple + array buttons
+- avoid floating elements (actions)
 - scope switcher options and titles in editors and not in instances
 - resolvers in editor
-- additionalProperties and properties button logic + test
 - template / titles / descriptions as html with xss lib option
 - active item after array add/move/etc (min an max items) + test
 - option hideButton labels

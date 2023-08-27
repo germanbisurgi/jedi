@@ -372,6 +372,9 @@ class Theme {
     if (config.editableProperties) {
       actions.appendChild(propertiesToggle)
       propertiesContainer.appendChild(propertiesActivators)
+    }
+
+    if (config.addProperty) {
       propertiesContainer.appendChild(addPropertyControl.container)
       propertiesContainer.appendChild(addPropertyBtn)
     }
