@@ -1,5 +1,6 @@
 ## Todo
 
+- showErrors: always, change, never
 - fix if-then-else
 - i18n add jedi property
 - multiple error messages (oneOf, anyOf, not, any, type undefined, etc)
