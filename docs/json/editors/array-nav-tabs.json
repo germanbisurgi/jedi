@@ -1,7 +1,7 @@
 {
   "type": "array",
   "format": "nav",
-  "title": "Colors",
+  "title": "array-nav-tabs",
   "options": {
     "nav": {
       "type": "tabs",
