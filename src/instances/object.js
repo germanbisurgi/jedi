@@ -5,7 +5,7 @@ import EditorObject from '../editors/object'
 import EditorObjectNav from '../editors/object-nav'
 import {
   getSchemaDependentRequired,
-  getSchemaFormat,
+  getSchemaFormat, getSchemaOption,
   getSchemaProperties,
   getSchemaRequired,
   getSchemaType
@@ -33,6 +33,7 @@ class InstanceObject extends Instance {
 
   prepare () {
     const schemaProperties = getSchemaProperties(this.schema)
+
     if (isSet(schemaProperties)) {
       Object.keys(schemaProperties).forEach((key) => {
         const schema = schemaProperties[key]
@@ -93,7 +94,17 @@ class InstanceObject extends Instance {
     this.children.push(instance)
     this.value[key] = instance.getValue()
 
+    const deactivateNonRequired = getSchemaOption(this.schema, 'deactivateNonRequired')
+
+    if (this.isNotRequired(key) && deactivateNonRequired === true) {
+      instance.deactivate()
+    }
+
     return instance
+  }
+
+  isNotRequired (property) {
+    return !this.isRequired(property) && !this.isDependentRequired(property)
   }
 
   deleteChild (key) {

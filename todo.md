@@ -1,19 +1,19 @@
 ## Todo
 
-- showErrors: always, change, never
-- fix if-then-else
-- i18n add jedi property
+- fix recursive problem with meta schema
+- option for properties "active": false/true
+- option "showErrors": "always", "change", "never"
+- Configurable i18n via options
 - multiple error messages (oneOf, anyOf, not, any, type undefined, etc)
 - prefixItems test and error messages
-- properties active by default option
 - additionalProperties false by default in UI
 - actions activate / deactivate
-- do not guess schemas by value type or at leas make it configurable
 - avoid floating elements (actions)
 - scope switcher options and titles in editors and not in instances
 - resolvers in editor
 - template / titles / descriptions as html with xss lib option
 - active item after array add/move/etc (min an max items) + test
+- active item after object add/
 - option hideButton labels
 - fix destroy whole editor console error
 

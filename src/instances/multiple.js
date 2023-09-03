@@ -2,7 +2,7 @@ import Instance from './instance'
 import EditorMultiple from '../editors/multiple'
 import {
   isSet,
-  mergeDeep,
+  // mergeDeep,
   isArray,
   different,
   notSet,
@@ -13,11 +13,11 @@ import {
 import Jedi from '../jedi'
 import {
   getSchemaAnyOf,
-  getSchemaElse,
-  getSchemaIf,
+  // getSchemaElse,
+  // getSchemaIf,
   getSchemaOneOf,
   getSchemaOption,
-  getSchemaThen,
+  // getSchemaThen,
   getSchemaTitle,
   getSchemaType
 } from '../helpers/schema'
@@ -47,7 +47,7 @@ class InstanceMultiple extends Instance {
 
     const schemaType = getSchemaType(this.schema)
 
-    if (isSet(getSchemaIf(this.schema))) {
+    /* if (isSet(getSchemaIf(this.schema))) {
       const schemaClone = clone(this.schema)
       this.if = clone(getSchemaIf(this.schema))
       const schemaThen = clone(getSchemaThen(this.schema))
@@ -65,7 +65,7 @@ class InstanceMultiple extends Instance {
 
       this.switcherOptionValues = [0, 1]
       this.switcherOptionsLabels = ['then', 'else']
-    } else if (isSet(getSchemaAnyOf(this.schema)) || isSet(getSchemaOneOf(this.schema))) {
+    } else */ if (isSet(getSchemaAnyOf(this.schema)) || isSet(getSchemaOneOf(this.schema))) {
       const schemasOf = isSet(getSchemaAnyOf(this.schema)) ? getSchemaAnyOf(this.schema) : getSchemaOneOf(this.schema)
       const cloneSchema = clone(this.schema)
       delete cloneSchema['anyOf']
