@@ -34,6 +34,7 @@ class InstanceMultiple extends Instance {
   prepare () {
     this.instances = []
     this.activeInstance = null
+    this.activeInstanceChanged = true
     this.lastIndex = 0
     this.index = 0
     this.schemas = []
@@ -131,14 +132,19 @@ class InstanceMultiple extends Instance {
         jedi: this.jedi,
         schema: schema,
         path: this.path,
-        parent: this.parent
+        parent: this.parent,
+        value: clone(this.value)
       })
+
+      if (isSet(this.value)) {
+        instance.setValue(this.value, false)
+      }
 
       instance.unregister()
 
       instance.on('change', () => {
-        this.value = this.activeInstance.getValue()
-        this.emit('change')
+        this.activeInstanceChanged = true
+        this.setValue(this.activeInstance.getValue())
       })
 
       this.instances.push(instance)
@@ -146,13 +152,8 @@ class InstanceMultiple extends Instance {
       this.register()
     })
 
-    if (isSet(this.instances[0])) {
-      if (this.if) {
-        this.switchIf()
-      } else {
-        this.switchInstance(0)
-      }
-    }
+    const fittestIndex = isSet(this.if) ? this.getIfIndex(this.value) : this.getFittestIndex(this.value)
+    this.switchInstance(fittestIndex, this.value)
   }
 
   switchInstance (index, value) {
@@ -164,13 +165,13 @@ class InstanceMultiple extends Instance {
       this.activeInstance.setValue(value, false)
     }
 
-    this.value = this.activeInstance.getValue()
-    this.emit('change')
+    this.setValue(this.activeInstance.getValue())
   }
 
   onSetValue () {
-    if (different(this.activeInstance.getValue(), this.value)) {
-      const fittestIndex = this.getFittestIndex(this.value)
+    if (different(this.activeInstance.getValue(), this.value) || this.activeInstanceChanged) {
+      this.activeInstanceChanged = false
+      const fittestIndex = isSet(this.if) ? this.getIfIndex(this.value) : this.getFittestIndex(this.value)
       this.switchInstance(fittestIndex, this.value)
     }
   }
@@ -182,13 +183,6 @@ class InstanceMultiple extends Instance {
     if (isObject(lastInstanceValue) && isObject(currentInstanceValue)) {
       const mergedValue = overwriteExistingProperties(currentInstanceValue, lastInstanceValue)
       this.activeInstance.setValue(mergedValue, false)
-    }
-  }
-
-  switchIf () {
-    if (isSet(this.if)) {
-      const ifIndex = this.getIfIndex(this.getValue())
-      this.switchInstance(ifIndex)
     }
   }
 

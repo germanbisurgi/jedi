@@ -1,5 +1,5 @@
 import Instance from './instance'
-import { different, isSet, notSet, getType, isObject, hasOwn } from '../helpers/utils'
+import { different, isSet, notSet, isObject, hasOwn, clone } from '../helpers/utils'
 import EditorObjectGrid from '../editors/object-grid'
 import EditorObject from '../editors/object'
 import EditorObjectNav from '../editors/object-nav'
@@ -81,12 +81,13 @@ class InstanceObject extends Instance {
     return false
   }
 
-  createChild (schema, key) {
+  createChild (schema, key, value) {
     const instance = this.jedi.createInstance({
       jedi: this.jedi,
       schema: schema,
       path: this.path + this.jedi.pathSeparator + key,
-      parent: this
+      parent: this,
+      value: clone(value)
     })
 
     this.children.push(instance)
@@ -146,15 +147,7 @@ class InstanceObject extends Instance {
         }
       } else {
         // create new child instance for the new value entry having the value as default
-        const initialValue = value[key]
-        const type = getType(initialValue)
-
-        const schema = {
-          type: type,
-          default: initialValue
-        }
-
-        this.createChild(schema, key)
+        this.createChild({}, key, value[key])
       }
     })
 

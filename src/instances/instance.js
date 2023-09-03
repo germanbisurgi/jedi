@@ -1,5 +1,5 @@
 import EventEmitter from '../event-emitter'
-import { isSet } from '../helpers/utils'
+import { isSet, notSet, removeDuplicatesFromArray } from '../helpers/utils'
 import { getSchemaDefault, getSchemaReadOnly, getSchemaType } from '../helpers/schema'
 
 /**
@@ -28,7 +28,7 @@ class Instance extends EventEmitter {
      * @type {*}
      * @private
      */
-    this.value = config.value || undefined
+    this.value = isSet(config.value) ? config.value : undefined
 
     /**
      * The active state of this instance. If false the editor is not participating
@@ -92,7 +92,8 @@ class Instance extends EventEmitter {
   /**
    * Sets the instance ui property. UI can be an editor instance or similar
    */
-  setUI () {}
+  setUI () {
+  }
 
   /**
    * Return the last part of the instance path
@@ -119,18 +120,20 @@ class Instance extends EventEmitter {
    * Sets the default value of the instance based on it's type
    */
   setInitialValue () {
-    let value
-    const schemaType = getSchemaType(this.schema)
+    if (notSet(this.value)) {
+      let value
+      const schemaType = getSchemaType(this.schema)
 
-    if (schemaType === 'boolean') value = false
-    if (schemaType === 'number') value = 0.0
-    if (schemaType === 'integer') value = 0
-    if (schemaType === 'string') value = ''
-    if (schemaType === 'array') value = []
-    if (schemaType === 'object') value = {}
-    if (schemaType === 'null') value = null
+      if (schemaType === 'boolean') value = false
+      if (schemaType === 'number') value = 0.0
+      if (schemaType === 'integer') value = 0
+      if (schemaType === 'string') value = ''
+      if (schemaType === 'array') value = []
+      if (schemaType === 'object') value = {}
+      if (schemaType === 'null') value = null
 
-    this.value = value
+      this.value = value
+    }
   }
 
   setDefaultValue () {
@@ -174,13 +177,16 @@ class Instance extends EventEmitter {
       return []
     }
 
-    return this.jedi.validator.getErrors(this.getValue(), this.schema, this.getKey(), this.path)
+    const errors = this.jedi.validator.getErrors(this.getValue(), this.schema, this.getKey(), this.path)
+
+    return removeDuplicatesFromArray(errors)
   }
 
   /**
    * Prepare data before building the editor
    */
-  prepare () {}
+  prepare () {
+  }
 
   /**
    * Activates the instance

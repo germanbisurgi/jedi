@@ -126,12 +126,7 @@ class Editor extends EventEmitter {
    */
   setContainerAttributes () {
     this.control.container.setAttribute('data-path', this.instance.path)
-
-    const schemaType = getSchemaType(this.instance.schema)
-
-    if (isSet(schemaType)) {
-      this.control.container.setAttribute('data-type', schemaType)
-    }
+    this.control.container.setAttribute('data-type', getSchemaType(this.instance.schema))
   }
 
   /**

@@ -1,5 +1,5 @@
 import Instance from './instance'
-import { getType, isSet, clone, isArray, notSet, isObject } from '../helpers/utils'
+import { isSet, clone, isArray } from '../helpers/utils'
 import EditorArray from '../editors/array'
 import EditorArrayNav from '../editors/array-nav'
 import { getSchemaFormat, getSchemaItems, getSchemaPrefixItems, getSchemaType } from '../helpers/schema'
@@ -33,7 +33,6 @@ class InstanceArray extends Instance {
     const itemsCount = this.children.length
     const schemaItems = getSchemaItems(this.schema)
     const schemaPrefixItems = getSchemaPrefixItems(this.schema)
-
     schema = isSet(schemaItems) ? schemaItems : {}
 
     const hasPrefixItemsSchema = isSet(schemaPrefixItems) && isSet(schemaPrefixItems[itemsCount])
@@ -42,15 +41,12 @@ class InstanceArray extends Instance {
       schema = schemaPrefixItems[itemsCount]
     }
 
-    if (isObject(schema) && notSet(getSchemaType(schema))) {
-      schema.type = isSet(value) ? getType(value) : 'any'
-    }
-
     const child = this.jedi.createInstance({
       jedi: this.jedi,
       schema: schema,
       path: this.path + this.jedi.pathSeparator + itemsCount,
-      parent: this
+      parent: this,
+      value: clone(value)
     })
 
     if (isSet(value)) {
@@ -103,7 +99,6 @@ class InstanceArray extends Instance {
 
     value.forEach((itemValue) => {
       const child = this.createItemInstance(itemValue)
-      child.setValue(itemValue, false)
       this.children.push(child)
     })
   }

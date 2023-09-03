@@ -8,11 +8,9 @@ import InstanceString from './instances/string'
 import InstanceNumber from './instances/number'
 import InstanceNull from './instances/null'
 import RefParser from './ref-parser'
-import { getType, hasOwn, isArray, isSet, notSet, clone } from './helpers/utils'
+import { hasOwn, isArray, isSet, notSet } from './helpers/utils'
 import {
   getSchemaAnyOf,
-  getSchemaDefault,
-  getSchemaIf,
   getSchemaOneOf,
   getSchemaType
 } from './helpers/schema'
@@ -181,55 +179,40 @@ class Jedi extends EventEmitter {
    * @private
    */
   createInstance (config) {
-    let instance
-
     if (this.options.refParser && hasOwn(config.schema, '$ref')) {
       config.schema = this.refParser.define(config.schema['$ref'])
     }
 
     const schemaType = getSchemaType(config.schema)
-    const schemaDefault = getSchemaDefault(config.schema)
-    const schemaIf = getSchemaIf(config.schema)
     const schemaOneOf = getSchemaOneOf(config.schema)
     const schemaAnyOf = getSchemaAnyOf(config.schema)
 
+    if (isSet(schemaAnyOf) || isSet(schemaOneOf) || schemaType === 'any' || isArray(schemaType) || notSet(schemaType)) {
+      return new InstanceMultiple(config)
+    }
+
     if (schemaType === 'object') {
-      instance = new InstanceObject(config)
+      return new InstanceObject(config)
     }
 
     if (schemaType === 'array') {
-      instance = new InstanceArray(config)
+      return new InstanceArray(config)
     }
 
     if (schemaType === 'string') {
-      instance = new InstanceString(config)
+      return new InstanceString(config)
     }
 
     if (schemaType === 'number' || schemaType === 'integer') {
-      instance = new InstanceNumber(config)
+      return new InstanceNumber(config)
     }
 
     if (schemaType === 'boolean') {
-      instance = new InstanceBoolean(config)
+      return new InstanceBoolean(config)
     }
 
     if (schemaType === 'null') {
-      instance = new InstanceNull(config)
-    }
-
-    if (isSet(schemaIf) || isSet(schemaAnyOf) || isSet(schemaOneOf) || schemaType === 'any' || isArray(schemaType) || notSet(schemaType)) {
-      if (notSet(schemaType) && isSet(schemaDefault)) {
-        const schemaClone = clone(config.schema)
-        schemaClone.type = getType(schemaDefault)
-        config.schema = schemaClone
-        return this.createInstance(config)
-      } else {
-        instance = new InstanceMultiple(config)
-      }
-    }
-
-    if (isSet(instance)) {
-      return instance
+      return new InstanceNull(config)
     }
   }
 
