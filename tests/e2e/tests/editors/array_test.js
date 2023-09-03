@@ -32,8 +32,8 @@ Scenario('@editor-array @prefixItems should validate against prefixItems', ({ I 
   I._click('[data-path="#/prefixItems"] .jedi-array-add')
   I._waitForElement('[data-path="#/prefixItems/0"][data-type="number"]')
   I._waitForElement('[data-path="#/prefixItems/1"][data-type="string"]')
-  I._waitForElement('[data-path="#/prefixItems/2"][data-type="any"]')
-  I._waitForElement('[data-path="#/prefixItems/3"][data-type="any"]')
+  I._waitForElement('[data-path="#/prefixItems/2"][data-type="undefined"]')
+  I._waitForElement('[data-path="#/prefixItems/3"][data-type="undefined"]')
 })
 
 Scenario('@editor-array @array-nav-pills', ({ I }) => {

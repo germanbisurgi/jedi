@@ -42,7 +42,6 @@ export function additionalProperties (validator, value, schema, key, path) {
 
         if (!definedInPatternProperty && isObject(additionalProperties) && !hasOwn(properties, property)) {
           const editor = new Jedi({
-            rootName: property,
             schema: additionalProperties,
             startValue: value[property],
             refParser: false

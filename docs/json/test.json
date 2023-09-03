@@ -1,9 +1,35 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "X",
+  "type": "object",
   "properties": {
-    "foo": {"type": "array", "maxItems": 3},
-    "bar": {"type": "array"}
+    "cat": {
+      "$ref": "#/definitions/Category"
+    }
   },
-  "patternProperties": {"f.o": {"minItems": 2}},
-  "additionalProperties": {"type": "integer"}
+  "required": [
+    "cat"
+  ],
+  "definitions": {
+    "Category": {
+      "title": "Category",
+      "type": "object",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "parent": {
+          "$ref": "#/definitions/Category"
+        }
+      },
+      "required": [
+        "name",
+        "code"
+      ]
+    }
+  }
 }

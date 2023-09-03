@@ -34,6 +34,6 @@ export const i18n = {
   errorPattern: 'must match the pattern: "{{ pattern }}"',
   errorPrefixItems: 'Item {{ index }} fails validation',
   errorRequired: 'must have the required properties: {{ required }}',
-  errorType: 'must be of type {{ type }} but got type {{ valueType }}',
+  errorType: 'must be of type {{ type }}',
   errorUniqueItems: 'must have unique items'
 }
