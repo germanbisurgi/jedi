@@ -2,7 +2,6 @@
 
 - fix recursive problem with meta schema
 - option for properties "active": false/true
-- option "showErrors": "always", "change", "never"
 - Configurable i18n via options
 - multiple error messages (oneOf, anyOf, not, any, type undefined, etc)
 - prefixItems test and error messages

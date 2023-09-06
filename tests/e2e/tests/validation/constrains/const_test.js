@@ -7,7 +7,7 @@ Scenario('@constrain-const should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', '../json/validator/const.json')
-  I._checkOption('[id="alwaysShowErrors"]')
+  I.selectOption('#show-errors', 'always')
 
   // string
   I._scrollTo('[data-path="#/string"]')

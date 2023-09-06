@@ -76,19 +76,25 @@ window.addEventListener('DOMContentLoaded', () => {
           'fontawesome5',
           'fontawesome6'
         ],
-        alwaysShowErrors: true,
+        showErrorsOptions: [
+          'never',
+          'change',
+          'always'
+        ],
         editableProperties: true,
         schema: {},
         editor: null,
         isEditor: true,
         theme: 'barebones',
-        iconLib: 'bootstrap-icons'
+        iconLib: 'bootstrap-icons',
+        showErrors: 'always'
       }
     },
     created() {
       this.theme = this.getQueryParam('theme') || 'bootstrap5'
       this.iconLib = this.getQueryParam('iconLib') || 'fontawesome5'
       this.example = this.getQueryParam('example') || '../json/editors/all.json'
+      this.showErrors = this.getQueryParam('showErrors') || 'always'
     },
     mounted() {
       switch (this.theme) {
@@ -166,11 +172,11 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         const options = {
-          alwaysShowErrors: this.alwaysShowErrors,
           container: document.querySelector('#jedi-container'),
           editableProperties: this.editableProperties,
           isEditor: this.isEditor,
           iconLib: this.iconLib,
+          showErrors: this.showErrors,
           schema: this.schema,
           theme: this.theme
         }
@@ -207,6 +213,7 @@ window.addEventListener('DOMContentLoaded', () => {
         newUrl += "?theme=" + this.theme
         newUrl += "&iconLib=" + this.iconLib
         newUrl += "&example=" + this.example
+        newUrl += "&showErrors=" + this.showErrors
 
         window.open(newUrl, '_self')
       },

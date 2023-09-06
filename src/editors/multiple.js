@@ -38,13 +38,6 @@ class EditorMultiple extends Editor {
     }
   }
 
-  // showValidationErrors (errors) {
-  //   const multipleErrors = errors.filter((error) => error.path === this.path)
-  //   const activeInstanceErrors = errors.filter((error) => error.path !== this.path)
-  //   super.showValidationErrors(multipleErrors)
-  //   this.instance.activeInstance.ui.showValidationErrors(activeInstanceErrors)
-  // }
-
   getInvalidFeedback (message) {
     return this.theme.getAlert({
       message: message

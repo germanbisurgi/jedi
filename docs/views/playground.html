@@ -78,6 +78,15 @@
       <br>
 
       <div class="form-group">
+        <label for="show-errors">showErrors</label>
+        <select class="form-control" id="show-errors" v-model="showErrors" @change="reload()">
+          <option v-for="showErrors in showErrorsOptions" :value="showErrors">{{ showErrors }}</option>
+        </select>
+      </div>
+
+      <br>
+
+      <div class="form-group">
         <input type="checkbox" id="isEditor" v-model="isEditor" @change="reload()">
         <label for="isEditor">isEditor</label>
       </div>
@@ -85,11 +94,6 @@
       <div class="form-group">
         <input type="checkbox" id="editableProperties" v-model="editableProperties" @change="initEditor()">
         <label for="editableProperties">editableProperties</label>
-      </div>
-
-      <div class="form-group">
-        <input type="checkbox" id="alwaysShowErrors" v-model="alwaysShowErrors" @change="initEditor()">
-        <label for="alwaysShowErrors">alwaysShowErrors</label>
       </div>
 
       <br>

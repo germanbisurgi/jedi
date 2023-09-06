@@ -7,7 +7,7 @@ Scenario('@constrain-uniqueItems should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', '../json/validator/uniqueItems.json')
-  I._checkOption('[id="alwaysShowErrors"]')
+  I.selectOption('#show-errors', 'always')
   I._waitForElement('.jedi-ready')
   I.dontSee('must be at least 5 characters long', '[data-path="#/array"]')
   I.fillField('[id="root-array-1"]', 'Albert')

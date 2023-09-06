@@ -7,7 +7,7 @@ Scenario('@constrain-multipleOf should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', '../json/validator/multipleOf.json')
-  I._checkOption('[id="alwaysShowErrors"]')
+  I.selectOption('#show-errors', 'always')
   I._waitForElement('.jedi-ready')
   I.dontSee('must be multiple of 10', '[data-path="#/number"]')
   I.dontSee('must be multiple of 10', '[data-path="#/integer"]')

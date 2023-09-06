@@ -7,7 +7,7 @@ Scenario('@constrain-dependentRequired should display validation errors', ({ I }
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', '../json/validator/dependentRequired.json')
-  I._checkOption('[id="alwaysShowErrors"]')
+  I.selectOption('#show-errors', 'always')
   I._scrollTo('[data-path="#"]')
   I._waitForElement('.jedi-ready')
   I.dontSee('must have the required properties: address, telephone', '[data-path="#"]')

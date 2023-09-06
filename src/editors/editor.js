@@ -57,7 +57,9 @@ class Editor extends EventEmitter {
     this.setContainerAttributes()
     this.refreshUI()
 
-    if (this.instance.jedi.options.alwaysShowErrors || getSchemaOption(this.instance.schema, 'alwaysShowErrors')) {
+    const alwaysShowErrors = this.instance.jedi.options.showErrors === 'always' || getSchemaOption(this.instance.schema, 'showErrors') === 'always'
+
+    if (alwaysShowErrors) {
       const errors = this.instance.getErrors()
       this.showValidationErrors(errors)
     }
@@ -159,6 +161,12 @@ class Editor extends EventEmitter {
    * @private
    */
   showValidationErrors (errors) {
+    const neverShowErrors = this.instance.jedi.options.showErrors === 'never' || getSchemaOption(this.instance.schema, 'showErrors') === 'never'
+
+    if (neverShowErrors) {
+      return
+    }
+
     this.control.messages.innerHTML = ''
 
     errors.forEach((error) => {
