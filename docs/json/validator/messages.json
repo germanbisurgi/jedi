@@ -4,7 +4,7 @@
   "properties": {
     "string": {
       "type": "string",
-      "const": 5,
+      "minLength": 5,
       "options": {
         "messages": ["5 chars please."]
       }

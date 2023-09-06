@@ -1,7 +1,12 @@
 ## Todo
 
-- fix recursive problem with meta schema
 - option for properties "active": false/true
+- position and dry of errors (not, patternProperties)
+- multiple switch if no error
+- disabled states with classes too
+- items validation message
+- option "multiple": true/false for schemas with anyOf and oneOf, if-then-else, allOf
+- fix recursive problem with meta schema
 - Configurable i18n via options
 - multiple error messages (oneOf, anyOf, not, any, type undefined, etc)
 - prefixItems test and error messages
