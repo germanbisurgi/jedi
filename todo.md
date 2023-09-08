@@ -1,8 +1,9 @@
 ## Todo
 
+- async loading of schemas with fetch. Also to make it cross platform (node and browser). Or make interface
 - option for properties "active": false/true
 - position and dry of errors (not, patternProperties)
-- multiple switch if no error
+- multiple: switch only if fittest editor has no errors?
 - disabled states with classes too
 - items validation message
 - option "multiple": true/false for schemas with anyOf and oneOf, if-then-else, allOf

@@ -30,12 +30,12 @@ const suites = [
   require('./test-suite/minLength'),
   require('./test-suite/minProperties'),
   require('./test-suite/multipleOf'),
-  // require('./test-suite/not'), // 2
+  require('./test-suite/not'), // 4
   require('./test-suite/oneOf'),
   require('./test-suite/pattern'),
   require('./test-suite/patternProperties'),
   require('./test-suite/prefixItems'),
-  require('./test-suite/properties'), // 1
+  require('./test-suite/properties'),
   require('./test-suite/required'),
   require('./test-suite/type'),
   require('./test-suite/uniqueItems'),
