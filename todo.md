@@ -1,7 +1,8 @@
 ## Todo
 
+- whether or not to create properties by default
+- instances active state should be tracked only in object instances (activeProperties?)
 - async loading of schemas with fetch. Also to make it cross platform (node and browser). Or make interface
-- option for properties "active": false/true
 - position and dry of errors (not, patternProperties)
 - multiple: switch only if fittest editor has no errors?
 - disabled states with classes too
