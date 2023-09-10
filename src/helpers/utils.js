@@ -247,6 +247,28 @@ export function mergeDeep (target, ...sources) {
   return mergeDeep(target, ...sources)
 }
 
+export function deepCopy (obj) {
+  if (typeof obj !== 'object' || obj === null) {
+    return obj
+  }
+
+  if (Array.isArray(obj)) {
+    const copy = []
+    for (let i = 0; i < obj.length; i++) {
+      copy[i] = deepCopy(obj[i])
+    }
+    return copy
+  }
+
+  const copy = {}
+  for (const key in obj) {
+    if (hasOwn(obj, key)) {
+      copy[key] = deepCopy(obj[key])
+    }
+  }
+  return copy
+}
+
 /**
  * Merges objects but only the properties that exists in boths objects
  * if they are the same type of value

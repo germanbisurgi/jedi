@@ -2,23 +2,18 @@ import Instance from './instance'
 import EditorMultiple from '../editors/multiple'
 import {
   isSet,
-  // mergeDeep,
   isArray,
   different,
   notSet,
   clone,
   isObject,
-  overwriteExistingProperties
+  overwriteExistingProperties, mergeDeep, deepCopy
 } from '../helpers/utils'
 import Jedi from '../jedi'
 import {
   getSchemaAnyOf,
-  // getSchemaElse,
-  // getSchemaIf,
   getSchemaOneOf,
   getSchemaOption,
-  // getSchemaThen,
-  getSchemaTitle,
   getSchemaType
 } from '../helpers/schema'
 
@@ -47,49 +42,23 @@ class InstanceMultiple extends Instance {
 
     const schemaType = getSchemaType(this.schema)
 
-    /* if (isSet(getSchemaIf(this.schema))) {
-      const schemaClone = clone(this.schema)
-      this.if = clone(getSchemaIf(this.schema))
-      const schemaThen = clone(getSchemaThen(this.schema))
-      const schemaElse = clone(getSchemaElse(this.schema))
-
-      delete schemaClone.if
-      delete schemaClone.then
-      delete schemaClone.else
-
-      const thenSchema = schemaThen ? mergeDeep({}, schemaClone, schemaThen) : mergeDeep({}, schemaClone)
-      const elseSchema = schemaElse ? mergeDeep({}, schemaClone, schemaElse) : mergeDeep({}, schemaClone)
-
-      this.schemas.push(thenSchema)
-      this.schemas.push(elseSchema)
-
-      this.switcherOptionValues = [0, 1]
-      this.switcherOptionsLabels = ['then', 'else']
-    } else */ if (isSet(getSchemaAnyOf(this.schema)) || isSet(getSchemaOneOf(this.schema))) {
+    if (isSet(getSchemaAnyOf(this.schema)) || isSet(getSchemaOneOf(this.schema))) {
       const schemasOf = isSet(getSchemaAnyOf(this.schema)) ? getSchemaAnyOf(this.schema) : getSchemaOneOf(this.schema)
-      const cloneSchema = clone(this.schema)
-      delete cloneSchema['anyOf']
-      delete cloneSchema['oneOf']
-      delete cloneSchema['options']
+      const schemaCopy = deepCopy(this.schema)
+      delete schemaCopy['anyOf']
+      delete schemaCopy['oneOf']
+      delete schemaCopy['options']
 
       schemasOf.forEach((schema, index) => {
-        schema = { ...cloneSchema, ...schema }
-
-        const schemaTitle = getSchemaTitle(cloneSchema)
-
-        if (isSet(schemaTitle)) {
-          schema.title = schemaTitle
-        }
-
+        schema = { ...schemaCopy, ...schema }
         const switcherOptionsLabel = getSchemaOption(schema, 'switcherTitle') || 'Option-' + (index + 1)
         this.switcherOptionValues.push(index)
         this.switcherOptionsLabels.push(switcherOptionsLabel)
-
         this.schemas.push(schema)
       })
     } else if (isArray(schemaType)) {
       schemaType.forEach((type, index) => {
-        const schemaClone = clone(this.schema)
+        const schemaClone = mergeDeep(this.schema)
 
         const schema = {
           ...schemaClone,
@@ -106,7 +75,7 @@ class InstanceMultiple extends Instance {
         this.schemas.push(schema)
       })
     } else if (schemaType === 'any' || !schemaType) {
-      const schemaClone = clone(this.schema)
+      const schemaClone = deepCopy(this.schema)
 
       this.schemas = [
         { ...schemaClone, ...{ type: 'object' } },
