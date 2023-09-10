@@ -8,7 +8,7 @@ import InstanceString from './instances/string'
 import InstanceNumber from './instances/number'
 import InstanceNull from './instances/null'
 import RefParser from './ref-parser'
-import { hasOwn, isArray, isSet, notSet } from './helpers/utils'
+import { isArray, isSet, notSet } from './helpers/utils'
 import {
   getSchemaAnyOf,
   getSchemaOneOf,
@@ -179,8 +179,8 @@ class Jedi extends EventEmitter {
    * @private
    */
   createInstance (config) {
-    if (this.options.refParser && hasOwn(config.schema, '$ref')) {
-      config.schema = this.refParser.define(config.schema['$ref'])
+    if (this.options.refParser) {
+      config.schema = this.refParser.expand(config.schema)
     }
 
     const schemaType = getSchemaType(config.schema)
