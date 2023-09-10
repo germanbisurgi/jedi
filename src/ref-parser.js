@@ -4,10 +4,14 @@ import {
   isArray,
   isObject,
   isSet,
-  isString,
-  notSet,
-  clone, equal
+  notSet
 } from './helpers/utils'
+import {
+  getSchemaAllOf,
+  getSchemaAnyOf,
+  getSchemaOneOf,
+  getSchemaPrefixItems
+} from './helpers/schema'
 
 /**
  * Represents a RefParser instance.
@@ -18,97 +22,88 @@ class RefParser {
       options = {}
     }
 
-    this.iterations = options.iterations || 7
+    this.iterations = options.iterations || 1
     this.XMLHttpRequest = options.XMLHttpRequest || XMLHttpRequest
-    this.definitions = {}
+    this.refDefinitions = {}
   }
 
   dereference (schema) {
-    for (let i = 0; i < this.iterations; i++) {
-      // register definitions as long as they are not references
-      this.traverse({
-        value: schema,
-        callback: (args) => {
-          if (args.key !== '$ref') {
-            this.definitions[args.path] = args.value
-          }
+    this.traverse({
+      value: schema,
+      callback: (args) => {
+        if (args.key === '$ref') {
+          this.refDefinitions[args.value] = null
         }
-      })
+      }
+    })
 
-      // dereference
-      this.traverse({
-        value: schema,
-        callback: (args) => {
-          if (!isObject(args.value)) {
-            return
-          }
+    // define external refs
+    Object.keys(this.refDefinitions).forEach((ref) => {
+      if (ref.startsWith('http') || ref.startsWith('https')) {
+        const request = new this.XMLHttpRequest()
+        request.open('GET', ref, false) // `false` makes the request synchronous
+        request.send(null)
 
-          const refOwner = args.prevValue
-          const ref = args.value['$ref']
-
-          if (isSet(refOwner) && isSet(ref)) {
-            if (this.isCircularPath(args.path)) {
-              console.log('circular', args.path)
-              return
-            }
-
-            refOwner[args.key] = this.define(ref)
-          }
+        if (request.status === 200) {
+          this.refDefinitions[ref] = JSON.parse(request.responseText)
+        } else {
+          console.error('can not load', ref)
         }
-      })
-    }
+      }
+    })
+
+    // define internal refs
+    this.traverse({
+      value: schema,
+      callback: (args) => {
+        if (isSet(this.refDefinitions[args.path])) {
+          this.refDefinitions[args.path] = args.value
+        }
+      }
+    })
+
+    // console.log(JSON.stringify(this.refDefinitions, null, 2))
+    // console.log(JSON.stringify(schema, null, 2))
 
     return schema
   }
 
-  isCircularPath (path) {
-    let output = false
-
-    Object.keys(this.definitions).forEach((key) => {
-      // remove #
-      path = path.substring(1)
-
-      if (path.length === 0) {
-        return output
-      }
-
-      const half = Math.ceil(path.length / 2)
-      const firstHalf = path.slice(0, half)
-      const secondHalf = path.slice(half)
-
-      if (equal(firstHalf, secondHalf)) {
-        output = true
-      }
-    })
-
-    return output
-  }
-
-  define (ref) {
-    if (!isString(ref)) {
-      return ref
+  expand (schema) {
+    // console.log('EXPAND', JSON.stringify(schema, null, 2))
+    if (isSet(schema['$ref'])) {
+      return this.refDefinitions[schema['$ref']]
     }
 
-    // definitions
-    if (ref.startsWith('#')) {
-      if (isSet(this.definitions[ref])) {
-        return clone(this.definitions[ref])
-      }
+    const anyOf = getSchemaAnyOf(schema)
+    const oneOf = getSchemaOneOf(schema)
+    const allOf = getSchemaAllOf(schema)
+    const prefixItems = getSchemaPrefixItems(schema)
+
+    if (isSet(anyOf)) {
+      Object.entries(anyOf).forEach(([key, value]) => {
+        schema.anyOf[key] = this.expand(value)
+      })
     }
 
-    if (ref.startsWith('http') || ref.startsWith('https')) {
-      const request = new this.XMLHttpRequest()
-      request.open('GET', ref, false) // `false` makes the request synchronous
-      request.send(null)
-
-      if (request.status === 200) {
-        return JSON.parse(request.responseText)
-      } else {
-        console.error('can not load', ref)
-      }
+    if (isSet(oneOf)) {
+      Object.entries(oneOf).forEach(([key, value]) => {
+        schema.oneOf[key] = this.expand(value)
+      })
     }
 
-    return undefined
+    if (isSet(allOf)) {
+      Object.entries(allOf).forEach(([key, value]) => {
+        schema.allOf[key] = this.expand(value)
+      })
+    }
+
+    if (isSet(prefixItems)) {
+      Object.entries(prefixItems).forEach(([key, value]) => {
+        schema.prefixItems[key] = this.expand(value)
+      })
+    }
+
+    return schema
   }
 
   traverse (args) {
