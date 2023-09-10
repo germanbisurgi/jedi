@@ -52,9 +52,9 @@ class EditorObject extends Editor {
         return
       }
 
-      let schema = { type: 'any' }
+      let schema = {}
 
-      const schemaAdditionalProperties = getSchemaAdditionalProperties(schema)
+      const schemaAdditionalProperties = getSchemaAdditionalProperties(this.instance.schema)
 
       if (isSet(schemaAdditionalProperties)) {
         schema = schemaAdditionalProperties
