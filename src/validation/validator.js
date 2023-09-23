@@ -3,7 +3,7 @@ import draft06 from './drafts/draft-06'
 import draft07 from './drafts/draft-07'
 import draft201909 from './drafts/draft-2019-09'
 import draft202012 from './drafts/draft-2020-12'
-import { hasOwn, isBoolean, clone } from '../helpers/utils'
+import { hasOwn, isBoolean, clone, isSet } from '../helpers/utils'
 import { getSchemaOption } from '../helpers/schema'
 
 /**
@@ -37,7 +37,7 @@ class Validator {
 
     if (isBoolean(schemaClone) && schemaClone === false) {
       return [{
-        messages: schemaOptionsMessages || ['invalid'],
+        messages: isSet(schemaOptionsMessages) ? schemaOptionsMessages : ['invalid'],
         path: path
       }]
     }

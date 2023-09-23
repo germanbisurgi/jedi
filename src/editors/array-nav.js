@@ -23,14 +23,18 @@ class EditorArrayNav extends EditorArray {
     this.refreshInteractiveElements()
     this.control.childrenSlot.innerHTML = ''
 
+    const navCols = getSchemaOption(this.instance.schema, 'navCols')
+    const navStacked = getSchemaOption(this.instance.schema, 'navStacked')
+    const navType = getSchemaOption(this.instance.schema, 'navType')
+
     const row = this.theme.getRow()
-    const cols = getSchemaOption(this.instance.schema, 'nav').cols || 3
+    const cols = isSet(navCols) ? navCols : 3
     const tabListCol = this.theme.getCol(12, cols)
     const tabContentCol = this.theme.getCol(12, (12 - cols))
     const tabContent = this.theme.getTabContent()
     const tabList = this.theme.getTabList({
-      stacked: getSchemaOption(this.instance.schema, 'nav').stacked,
-      type: getSchemaOption(this.instance.schema, 'nav').type
+      stacked: isSet(navStacked) ? navStacked : false,
+      type: isSet(navType) ? navType : 'pils'
     })
 
     this.control.childrenSlot.appendChild(row)

@@ -165,7 +165,7 @@ export function getSchemaNot (schema) {
 }
 
 export function getSchemaOption (schema, option) {
-  return (schema.options && schema.options[option]) ? schema.options[option] : false
+  return (schema.options && schema.options[option]) ? schema.options[option] : undefined
 }
 
 export function getSchemaPattern (schema) {

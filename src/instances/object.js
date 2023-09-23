@@ -96,7 +96,7 @@ class InstanceObject extends Instance {
 
     const deactivateNonRequired = getSchemaOption(this.schema, 'deactivateNonRequired')
 
-    if (this.isNotRequired(key) && deactivateNonRequired === true) {
+    if (this.isNotRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true) {
       instance.deactivate()
     }
 

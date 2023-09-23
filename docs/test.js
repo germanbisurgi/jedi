@@ -62,11 +62,9 @@ const mySchema = {
         "$ref": "#/$defs/schema"
       },
       "options": {
-        "nav": {
-          "type": "tabs",
-          "cols": 12,
-          "stacked": false
-        },
+        "navType": "tabs",
+        "navCols": 12,
+        "navStacked": false,
         "editableProperties": true,
         "switcherTitle": "schema (object)",
         "deactivateNonRequired": true

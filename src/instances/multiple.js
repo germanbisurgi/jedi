@@ -51,7 +51,8 @@ class InstanceMultiple extends Instance {
 
       schemasOf.forEach((schema, index) => {
         schema = { ...schemaCopy, ...schema }
-        const switcherOptionsLabel = getSchemaOption(schema, 'switcherTitle') || 'Option-' + (index + 1)
+        const switcherTitle = getSchemaOption(schema, 'switcherTitle')
+        const switcherOptionsLabel = isSet(switcherTitle) ? switcherTitle : 'Option-' + (index + 1)
         this.switcherOptionValues.push(index)
         this.switcherOptionsLabels.push(switcherOptionsLabel)
         this.schemas.push(schema)

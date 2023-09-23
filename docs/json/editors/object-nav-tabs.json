@@ -3,11 +3,9 @@
   "title": "All Editors",
   "format": "nav",
   "options": {
-    "nav": {
-      "type": "tabs",
-      "cols": 12,
-      "stacked": false
-    }
+    "navType": "tabs",
+    "navCols": 12,
+    "navStacked": false
   },
   "description": "Description",
   "minProperties": 6,
