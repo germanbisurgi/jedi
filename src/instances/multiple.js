@@ -13,7 +13,7 @@ import Jedi from '../jedi'
 import {
   getSchemaAnyOf,
   getSchemaOneOf,
-  getSchemaOption,
+  getSchemaOption, getSchemaTitle,
   getSchemaType
 } from '../helpers/schema'
 
@@ -51,8 +51,19 @@ class InstanceMultiple extends Instance {
 
       schemasOf.forEach((schema, index) => {
         schema = { ...schemaCopy, ...schema }
+        let switcherOptionsLabel = 'Option-' + (index + 1)
+
         const switcherTitle = getSchemaOption(schema, 'switcherTitle')
-        const switcherOptionsLabel = isSet(switcherTitle) ? switcherTitle : 'Option-' + (index + 1)
+        const schemaTitle = getSchemaTitle(schema)
+
+        if (isSet(schemaTitle)) {
+          switcherOptionsLabel = schemaTitle
+        }
+
+        if (isSet(switcherTitle)) {
+          switcherOptionsLabel = switcherTitle
+        }
+
         this.switcherOptionValues.push(index)
         this.switcherOptionsLabels.push(switcherOptionsLabel)
         this.schemas.push(schema)
@@ -157,7 +168,7 @@ class InstanceMultiple extends Instance {
   }
 
   getIfIndex (value) {
-    const ifEditor = new Jedi({ schema: this.if, startValue: value, refParser: false })
+    const ifEditor = new Jedi({ schema: this.if, data: value })
     const ifErrors = ifEditor.getErrors()
     ifEditor.destroy()
     return ifErrors.length === 0 ? 0 : 1
