@@ -1,5 +1,10 @@
 import { isString, isArray, isNumber, isInteger, isBoolean, isObject } from './utils'
 
+export function getSchemaX (schema, keyword) {
+  const key = 'x-' + keyword
+  return schema[key]
+}
+
 export function getSchemaSchema (schema) {
   return isString(schema.$schema) ? schema.$schema : undefined
 }

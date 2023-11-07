@@ -5,7 +5,8 @@ import EditorObject from '../editors/object'
 import EditorObjectNav from '../editors/object-nav'
 import {
   getSchemaDependentRequired,
-  getSchemaFormat, getSchemaOption,
+  getSchemaFormat,
+  getSchemaOption,
   getSchemaProperties,
   getSchemaRequired,
   getSchemaType
@@ -19,12 +20,13 @@ class InstanceObject extends Instance {
   setUI () {
     const schemaType = getSchemaType(this.schema)
     const schemaFormat = getSchemaFormat(this.schema)
+    const schemaControl = this.schema['x-control']
 
     this.ui = new EditorObject(this)
 
     if (schemaType === 'object' && schemaFormat === 'grid') {
       this.ui = new EditorObjectGrid(this)
-    } else if (schemaType === 'object' && schemaFormat === 'nav') {
+    } else if (schemaType === 'object' && schemaControl === 'nav') {
       this.ui = new EditorObjectNav(this)
     } else {
       this.ui = new EditorObject(this)

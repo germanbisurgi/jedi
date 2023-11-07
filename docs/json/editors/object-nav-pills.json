@@ -1,7 +1,7 @@
 {
   "type": "object",
   "title": "All Editors",
-  "format": "nav",
+  "x-control": "nav",
   "description": "Description",
   "minProperties": 6,
   "properties": {

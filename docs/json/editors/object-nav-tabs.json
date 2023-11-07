@@ -1,12 +1,10 @@
 {
   "type": "object",
   "title": "All Editors",
-  "format": "nav",
-  "options": {
-    "navType": "tabs",
-    "navCols": 12,
-    "navStacked": false
-  },
+  "x-control": "nav",
+  "x-control-variant": "tabs",
+  "x-control-cols": 12,
+  "x-control-stacked": false,
   "description": "Description",
   "minProperties": 6,
   "properties": {
