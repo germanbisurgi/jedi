@@ -35,8 +35,9 @@ class Jedi extends EventEmitter {
       isEditor: false,
       editableProperties: false,
       schema: {},
-      refParser: true,
-      showErrors: 'change'
+      showErrors: 'change',
+      data: undefined,
+      XMLHttpRequest: undefined
     }, options)
 
     /**
@@ -103,24 +104,18 @@ class Jedi extends EventEmitter {
    * @private
    */
   init () {
-    this.validator = new Validator()
-    if (this.options.refParser) {
-      this.refParser = new RefParser({
-        XMLHttpRequest: this.options.XMLHttpRequest
-      })
-
-      this.options.schema = this.refParser.dereference(this.options.schema)
-    }
-
     this.schema = this.options.schema
+    this.validator = new Validator()
+    this.refParser = new RefParser({ XMLHttpRequest: this.options.XMLHttpRequest })
+    this.refParser.dereference(this.options.schema)
 
     this.root = this.createInstance({
       jedi: this,
       schema: this.options.schema
     })
 
-    if (isSet(this.options.startValue)) {
-      this.root.setValue(this.options.startValue, false)
+    if (isSet(this.options.data)) {
+      this.root.setValue(this.options.data, false)
     }
 
     if (this.options.isEditor && this.options.container) {
@@ -175,14 +170,11 @@ class Jedi extends EventEmitter {
   }
 
   /**
-   * Creates an json instance and dereference schema on the fly if needed.
+   * Creates a json instance and dereference schema on the fly if needed.
    * @private
    */
   createInstance (config) {
-    if (this.options.refParser) {
-      config.schema = this.refParser.expand(config.schema)
-    }
-
+    config.schema = this.refParser.expand(config.schema)
     const schemaType = getSchemaType(config.schema)
     const schemaOneOf = getSchemaOneOf(config.schema)
     const schemaAnyOf = getSchemaAnyOf(config.schema)

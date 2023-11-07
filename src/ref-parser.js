@@ -3,8 +3,7 @@
 import {
   isArray,
   isObject,
-  isSet,
-  notSet
+  isSet
 } from './helpers/utils'
 import {
   getSchemaAllOf,
@@ -18,10 +17,6 @@ import {
  */
 class RefParser {
   constructor (options) {
-    if (notSet(options)) {
-      options = {}
-    }
-
     this.iterations = options.iterations || 1
     this.XMLHttpRequest = options.XMLHttpRequest || XMLHttpRequest
     this.refDefinitions = {}
@@ -61,15 +56,9 @@ class RefParser {
         }
       }
     })
-
-    // console.log(JSON.stringify(this.refDefinitions, null, 2))
-    // console.log(JSON.stringify(schema, null, 2))
-
-    return schema
   }
 
   expand (schema) {
-    // console.log('EXPAND', JSON.stringify(schema, null, 2))
     if (isSet(schema['$ref'])) {
       return this.refDefinitions[schema['$ref']]
     }

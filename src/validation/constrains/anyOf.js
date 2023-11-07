@@ -11,7 +11,7 @@ export function anyOf (validator, value, schema, key, path) {
     let valid = false
 
     anyOf.forEach((schema) => {
-      const anyOfEditor = new Jedi({ schema: schema, startValue: value, refParser: false })
+      const anyOfEditor = new Jedi({ schema: schema, data: value })
       const anyOfErrors = anyOfEditor.getErrors()
       anyOfEditor.destroy()
 

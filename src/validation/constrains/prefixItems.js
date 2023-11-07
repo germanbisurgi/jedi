@@ -12,7 +12,7 @@ export function prefixItems (validator, value, schema, key, path) {
       const itemValue = value[index]
 
       if (isSet(itemValue)) {
-        const tmpEditor = new Jedi({ schema: itemSchema, startValue: itemValue, refParser: false })
+        const tmpEditor = new Jedi({ schema: itemSchema, data: itemValue })
         const tmpErrors = tmpEditor.getErrors()
         tmpEditor.destroy()
 

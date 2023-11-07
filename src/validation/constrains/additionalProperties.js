@@ -43,8 +43,7 @@ export function additionalProperties (validator, value, schema, key, path) {
         if (!definedInPatternProperty && isObject(additionalProperties) && !hasOwn(properties, property)) {
           const editor = new Jedi({
             schema: additionalProperties,
-            startValue: value[property],
-            refParser: false
+            data: value[property]
           })
 
           const additionalPropertyErrors = editor.getErrors().map((error) => {

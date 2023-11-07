@@ -13,7 +13,7 @@ export function _if (validator, value, schema, key, path) {
       return errors
     }
 
-    const ifEditor = new Jedi({ schema: schemaIf, startValue: value, refParser: false })
+    const ifEditor = new Jedi({ schema: schemaIf, data: value })
     const ifErrors = ifEditor.getErrors()
     ifEditor.destroy()
 
@@ -21,13 +21,13 @@ export function _if (validator, value, schema, key, path) {
     let elseErrors = []
 
     if (isSet(schemaThen)) {
-      const thenEditor = new Jedi({ schema: schemaThen, startValue: value, refParser: false })
+      const thenEditor = new Jedi({ schema: schemaThen, data: value })
       thenErrors = thenEditor.getErrors()
       thenEditor.destroy()
     }
 
     if (isSet(schemaElse)) {
-      const elseEditor = new Jedi({ schema: schemaElse, startValue: value, refParser: false })
+      const elseEditor = new Jedi({ schema: schemaElse, data: value })
       elseErrors = elseEditor.getErrors()
       elseEditor.destroy()
     }

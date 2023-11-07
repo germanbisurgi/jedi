@@ -11,7 +11,7 @@ export function oneOf (validator, value, schema, key, path) {
     let counter = 0
 
     oneOf.forEach((schema) => {
-      const oneOfEditor = new Jedi({ schema: schema, startValue: value, refParser: false })
+      const oneOfEditor = new Jedi({ schema: schema, data: value })
       const oneOfErrors = oneOfEditor.getErrors()
       oneOfEditor.destroy()
 

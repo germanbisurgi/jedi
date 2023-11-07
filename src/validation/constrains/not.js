@@ -8,7 +8,7 @@ export function not (validator, value, schema, key, path) {
   const not = getSchemaNot(schema)
 
   if (isSet(not)) {
-    const notEditor = new Jedi({ schema: not, startValue: value, refParser: false })
+    const notEditor = new Jedi({ schema: not, data: value })
     const notErrors = notEditor.getErrors()
     notEditor.destroy()
 

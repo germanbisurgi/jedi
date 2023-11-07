@@ -17,8 +17,7 @@ export function patternProperties (validator, value, schema, path) {
 
           const editor = new Jedi({
             schema: schema,
-            startValue: value[propertyName],
-            refParser: false
+            data: value[propertyName]
           })
 
           const editorErrors = editor.getErrors().map((error) => {
