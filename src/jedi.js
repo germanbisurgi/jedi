@@ -7,7 +7,7 @@ import InstanceArray from './instances/array'
 import InstanceString from './instances/string'
 import InstanceNumber from './instances/number'
 import InstanceNull from './instances/null'
-import RefParser from './ref-parser'
+import RefParser from './ref-parser/ref-parser'
 import { isArray, isSet, notSet } from './helpers/utils'
 import {
   getSchemaAnyOf,

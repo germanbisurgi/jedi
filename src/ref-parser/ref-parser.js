@@ -4,13 +4,13 @@ import {
   isArray,
   isObject,
   isSet
-} from './helpers/utils'
+} from '../helpers/utils'
 import {
   getSchemaAllOf,
   getSchemaAnyOf,
   getSchemaOneOf,
   getSchemaPrefixItems
-} from './helpers/schema'
+} from '../helpers/schema'
 
 /**
  * Represents a RefParser instance.
