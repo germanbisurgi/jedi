@@ -10,6 +10,7 @@
         "boolean-enum-select": {
           "type": "boolean",
           "title": "Boolean enum select",
+          "description": "A boolean editor using select input",
           "format": "select",
           "const": true,
           "options": {
@@ -22,6 +23,7 @@
         "boolean-enum-radio": {
           "type": "boolean",
           "title": "Boolean enum radio",
+          "description": "A boolean editor using radios",
           "format": "radio",
           "const": true,
           "options": {
@@ -34,6 +36,7 @@
         "boolean": {
           "type": "boolean",
           "title": "Boolean",
+          "description": "A boolean editor checkbox",
           "const": true
         }
       }
@@ -45,17 +48,20 @@
         "string": {
           "type": "string",
           "title": "String",
+          "description": "A string editor",
           "minLength": 1
         },
         "string-textarea": {
           "type": "string",
           "title": "String textarea",
+          "description": "A string editor using textarea",
           "format": "textarea",
           "minLength": 1
         },
         "string-enum-select": {
           "type": "string",
           "title": "String enum select",
+          "description": "A string editor using select",
           "enum": [
             "albert",
             "betti",
@@ -72,6 +78,7 @@
         "string-enum-radio": {
           "type": "string",
           "title": "String enum radio",
+          "description": "A string editor using radios",
           "format": "radio",
           "enum": [
             "albert",
@@ -95,11 +102,13 @@
         "number": {
           "type": "number",
           "title": "Number",
+          "description": "A number editor",
           "minimum": 1
         },
         "number-enum-select": {
           "type": "number",
           "title": "Number enum select",
+          "description": "A number editor using select",
           "enum": [
             1.5,
             2.5,
@@ -116,6 +125,7 @@
         "number-enum-radio": {
           "type": "number",
           "title": "Number enum radio",
+          "description": "A number editor using radios",
           "format": "radio",
           "enum": [
             1.5,
@@ -139,11 +149,13 @@
         "integer": {
           "type": "integer",
           "title": "Integer",
+          "description": "A integer editor",
           "minimum": 1
         },
         "integer-enum-select": {
           "type": "integer",
           "title": "Integer enum select",
+          "description": "A integer editor using select",
           "enum": [
             1,
             2,
@@ -160,6 +172,7 @@
         "integer-enum-radio": {
           "type": "number",
           "title": "Integer enum radio",
+          "description": "A integer editor using radios",
           "format": "radio",
           "enum": [
             1,
@@ -186,6 +199,7 @@
           "items": {
             "type": "string",
             "title": "Color",
+            "description": "A string editor using color input",
             "format": "color",
             "not": {
               "const": "#000000"
