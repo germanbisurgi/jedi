@@ -42,6 +42,7 @@ export function additionalProperties (validator, value, schema, key, path) {
 
         if (!definedInPatternProperty && isObject(additionalProperties) && !hasOwn(properties, property)) {
           const editor = new Jedi({
+            XMLHttpRequest: validator.refParser.XMLHttpRequest,
             schema: additionalProperties,
             data: value[property]
           })

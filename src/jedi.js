@@ -105,9 +105,9 @@ class Jedi extends EventEmitter {
    */
   init () {
     this.schema = this.options.schema
-    this.validator = new Validator()
     this.refParser = new RefParser({ XMLHttpRequest: this.options.XMLHttpRequest })
     this.refParser.dereference(this.options.schema)
+    this.validator = new Validator(this.refParser)
 
     this.root = this.createInstance({
       jedi: this,

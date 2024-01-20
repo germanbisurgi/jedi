@@ -16,6 +16,7 @@ export function patternProperties (validator, value, schema, path) {
           const schema = patternProperties[pattern]
 
           const editor = new Jedi({
+            XMLHttpRequest: validator.refParser.XMLHttpRequest,
             schema: schema,
             data: value[propertyName]
           })

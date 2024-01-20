@@ -10,7 +10,8 @@ import { getSchemaOption } from '../helpers/schema'
  * Represents a Validator instance.
  */
 class Validator {
-  constructor () {
+  constructor (refParser) {
+    this.refParser = refParser
     this.draft = draft202012
 
     this.jsonSchemaDrafts = {
