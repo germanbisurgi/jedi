@@ -10,7 +10,7 @@ Scenario('@constrain-dependentSchemas should display validation errors', ({ I })
   I.selectOption('#show-errors', 'always')
   I._scrollTo('[data-path="#"]')
   I._waitForElement('.jedi-ready')
-  I._waitForText('must have the required properties: billing_address')
+  I._waitForText('Must have the required properties: billing_address')
 
   I.fillField('#editor-value', JSON.stringify({
     "name": "John Doe",
@@ -19,7 +19,7 @@ Scenario('@constrain-dependentSchemas should display validation errors', ({ I })
   }))
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I.dontSee('must have the required properties: billing_address')
+  I.dontSee('Must have the required properties: billing_address')
 
   I.fillField('#editor-value', JSON.stringify({
     "name": "John Doe",
@@ -27,7 +27,7 @@ Scenario('@constrain-dependentSchemas should display validation errors', ({ I })
   }))
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I._waitForText('must have the required properties: billing_address')
+  I._waitForText('Must have the required properties: billing_address')
 
   I.fillField('#editor-value', JSON.stringify({
     "name": "John Doe",
@@ -35,5 +35,5 @@ Scenario('@constrain-dependentSchemas should display validation errors', ({ I })
   }))
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I.dontSee('must have the required properties: billing_address')
+  I.dontSee('Must have the required properties: billing_address')
 })

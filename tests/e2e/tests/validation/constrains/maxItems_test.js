@@ -9,9 +9,9 @@ Scenario('@constrain-maxItems should display validation errors', ({ I }) => {
   I.selectOption('#examples', '../json/validator/maxItems.json')
   I.selectOption('#show-errors', 'always')
   I._waitForElement('.jedi-ready')
-  I.dontSee('must have at most 3 items', '[data-path="#/array"]')
+  I.dontSee('Must have at most 3 items', '[data-path="#/array"]')
   I._click('.jedi-array-add')
-  I.dontSee('must have at most 3 items', '[data-path="#/array"]')
+  I.dontSee('Must have at most 3 items', '[data-path="#/array"]')
   I.fillField('#editor-value', JSON.stringify({
     "array": [
       "Albert",
@@ -21,5 +21,5 @@ Scenario('@constrain-maxItems should display validation errors', ({ I }) => {
     ]
   }))
   I._click('#set-value')
-  I._waitForText('must have at most 3 items', '[data-path="#/array"]')
+  I._waitForText('Must have at most 3 items', '[data-path="#/array"]')
 })

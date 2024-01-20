@@ -9,11 +9,11 @@ Scenario('@constrain-maxProperties should display validation errors', ({ I }) =>
   I.selectOption('#examples', '../json/validator/maxProperties.json')
   I.selectOption('#show-errors', 'always')
   I._waitForElement('.jedi-ready')
-  I._waitForText('must have at most 1 properties', '[data-path="#"]')
+  I._waitForText('Must have at most 1 properties', '[data-path="#"]')
   I.fillField('#editor-value', JSON.stringify({
     prop1: ''
   }))
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I.dontSee('must have at most 1 properties', '[data-path="#"]')
+  I.dontSee('Must have at most 1 properties', '[data-path="#"]')
 })

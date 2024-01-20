@@ -10,18 +10,18 @@ Scenario('@constrain-required should display validation errors', ({ I }) => {
   I.selectOption('#show-errors', 'always')
   I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
-  I.dontSee('must have the required properties: required', '[data-path="#"]')
+  I.dontSee('Must have the required properties: required', '[data-path="#"]')
   I.fillField('#editor-value', JSON.stringify({
     optional: ''
   }))
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I._waitForText('must have the required properties: required', '[data-path="#"]')
+  I._waitForText('Must have the required properties: required', '[data-path="#"]')
   I.fillField('#editor-value', JSON.stringify({
     optional: '',
     required: ''
   }))
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I.dontSee('must have the required properties: required', '[data-path="#"]')
+  I.dontSee('Must have the required properties: required', '[data-path="#"]')
 })
