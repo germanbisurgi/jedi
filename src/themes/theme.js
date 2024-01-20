@@ -578,20 +578,20 @@ class Theme {
       this.hideElement(label)
     }
 
-    const descriptionId = config.id + '-description'
     const description = document.createElement('div')
+    const descriptionId = config.id + '-description'
     description.setAttribute('id', descriptionId)
 
     if (config.description) {
       description.textContent = config.description
-      input.setAttribute('aria-description', descriptionId)
     }
 
     const messages = this.getMessagesSlot()
     const messagesId = config.id + '-messages'
     messages.setAttribute('id', messagesId)
 
-    input.setAttribute('aria-describedby', messagesId)
+    const describedBy = descriptionId + ' ' + messagesId
+    input.setAttribute('aria-describedby', describedBy)
 
     container.appendChild(label)
     container.appendChild(input)
@@ -627,20 +627,20 @@ class Theme {
       this.hideElement(label)
     }
 
-    const descriptionId = config.id + '-description'
     const description = document.createElement('div')
+    const descriptionId = config.id + '-description'
     description.setAttribute('id', descriptionId)
 
     if (config.description) {
       description.textContent = config.description
-      input.setAttribute('aria-description', descriptionId)
     }
 
     const messages = this.getMessagesSlot()
     const messagesId = config.id + '-messages'
     messages.setAttribute('id', messagesId)
 
-    input.setAttribute('aria-describedby', messagesId)
+    const describedBy = descriptionId + ' ' + messagesId
+    input.setAttribute('aria-describedby', describedBy)
 
     container.appendChild(label)
     container.appendChild(input)
@@ -671,8 +671,8 @@ class Theme {
     const messagesId = config.id + '-messages'
     messages.setAttribute('id', messagesId)
 
-    const descriptionId = config.id + '-description'
     const description = document.createElement('div')
+    const descriptionId = config.id + '-description'
     description.setAttribute('id', descriptionId)
 
     if (config.srOnly) {
@@ -694,11 +694,8 @@ class Theme {
       radio.setAttribute('value', value)
       radios.push(radio)
 
-      if (config.description) {
-        radio.setAttribute('aria-description', descriptionId)
-      }
-
-      radio.setAttribute('aria-describedby', messagesId)
+      const describedBy = descriptionId + ' ' + messagesId
+      radio.setAttribute('aria-describedby', describedBy)
 
       const label = document.createElement('label')
       label.setAttribute('for', config.id + '-' + index)
@@ -765,20 +762,20 @@ class Theme {
       this.hideElement(label)
     }
 
-    const descriptionId = config.id + '-description'
     const description = document.createElement('div')
+    const descriptionId = config.id + '-description'
     description.setAttribute('id', descriptionId)
 
     if (config.description) {
       description.textContent = config.description
-      input.setAttribute('aria-description', descriptionId)
     }
 
     const messages = this.getMessagesSlot()
     const messagesId = config.id + '-messages'
     messages.setAttribute('id', messagesId)
 
-    input.setAttribute('aria-describedby', messagesId)
+    const describedBy = descriptionId + ' ' + messagesId
+    input.setAttribute('aria-describedby', describedBy)
 
     container.appendChild(formGroup)
     container.appendChild(actions)
@@ -825,20 +822,20 @@ class Theme {
       this.hideElement(label)
     }
 
-    const descriptionId = config.id + '-description'
     const description = document.createElement('div')
+    const descriptionId = config.id + '-description'
     description.setAttribute('id', descriptionId)
 
     if (config.description) {
       description.textContent = config.description
-      input.setAttribute('aria-description', descriptionId)
     }
 
     const messages = this.getMessagesSlot()
     const messagesId = config.id + '-messages'
     messages.setAttribute('id', messagesId)
 
-    input.setAttribute('aria-describedby', messagesId)
+    const describedBy = descriptionId + ' ' + messagesId
+    input.setAttribute('aria-describedby', describedBy)
 
     container.appendChild(label)
     container.appendChild(input)
