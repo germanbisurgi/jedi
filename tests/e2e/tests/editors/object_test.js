@@ -140,14 +140,14 @@ Scenario('@editor-object @object-nav-pills', ({ I }) => {
     I._waitForElement('.nav-pills')
     I.seeNumberOfVisibleElements('.nav-pills li', 6)
     I._click('.nav-pills [href="#root-arrays"]')
-    I._waitForText('Arrays', '#root-arrays .panel-heading')
+    I._waitForText('Arrays', '#root-arrays fieldset')
   }
 
   if (theme === 'bootstrap4' || theme === 'bootstrap5') {
     I._waitForElement('.nav-pills')
     I.seeNumberOfVisibleElements('.nav-link', 6)
     I._click('.nav-pills [href="#root-arrays"]')
-    I._waitForText('Arrays', '#root-arrays .card-header')
+    I._waitForText('Arrays', '#root-arrays fieldset')
   }
 })
 
@@ -167,13 +167,13 @@ Scenario('@editor-object @object-nav-tabs', ({ I }) => {
     I._waitForElement('.nav-tabs')
     I.seeNumberOfVisibleElements('.nav-tabs li', 6)
     I._click('.nav-tabs [href="#root-arrays"]')
-    I._waitForText('Arrays', '#root-arrays .panel-heading')
+    I._waitForText('Arrays', '#root-arrays fieldset')
   }
 
   if (theme === 'bootstrap4' || theme === 'bootstrap5') {
     I._waitForElement('.nav-tabs')
     I.seeNumberOfVisibleElements('.nav-link', 6)
     I._click('.nav-tabs [href="#root-arrays"]')
-    I._waitForText('Arrays', '#root-arrays .card-header')
+    I._waitForText('Arrays', '#root-arrays fieldset')
   }
 })

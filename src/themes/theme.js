@@ -67,7 +67,6 @@ class Theme {
   getLegend (config) {
     const legend = document.createElement('legend')
     legend.textContent = config.textContent
-    this.hideElement(legend)
     return legend
   }
 
@@ -76,20 +75,7 @@ class Theme {
    * @private
    */
   getCardHeader (config = {}) {
-    const header = document.createElement('div')
-    const title = document.createElement('span')
-
-    if (config.textContent) {
-      title.textContent = config.textContent
-    }
-
-    if (config.srOnly) {
-      this.hideElement(title)
-    }
-
-    header.appendChild(title)
-
-    return header
+    return document.createElement('div')
   }
 
   /**
@@ -332,7 +318,7 @@ class Theme {
     })
 
     const propertiesToggle = this.getPropertiesToggle({
-      textContent: 'Properties',
+      textContent: config.title + ' ' + 'properties',
       id: 'properties-slot-toggle-' + config.id,
       icon: 'properties',
       propertiesContainer: propertiesContainer
@@ -357,17 +343,17 @@ class Theme {
 
     addPropertyBtn.classList.add('jedi-object-add')
 
-    container.appendChild(description)
-    container.appendChild(card)
+    container.appendChild(fieldset)
+    fieldset.appendChild(legend)
+    fieldset.appendChild(description)
+    fieldset.appendChild(card)
     card.appendChild(header)
     card.appendChild(body)
     header.appendChild(actions)
     actions.appendChild(arrayActions)
     body.appendChild(propertiesContainer)
+    body.appendChild(childrenSlot)
     body.appendChild(messages)
-    body.appendChild(fieldset)
-    fieldset.appendChild(legend)
-    fieldset.appendChild(childrenSlot)
 
     if (config.editableProperties) {
       actions.appendChild(propertiesToggle)
@@ -422,7 +408,7 @@ class Theme {
     const btnGroup = this.getBtnGroup()
 
     const addBtn = this.getArrayBtnAdd({
-      textContent: 'Add item',
+      textContent: 'Add item into' + ' ' + config.title,
       icon: 'add'
     })
 
@@ -431,18 +417,18 @@ class Theme {
       textContent: config.title
     })
 
-    container.appendChild(description)
-    container.appendChild(card)
+    container.appendChild(fieldset)
+    fieldset.appendChild(legend)
+    fieldset.appendChild(description)
+    fieldset.appendChild(card)
     card.appendChild(header)
     card.appendChild(body)
     header.appendChild(actions)
     actions.appendChild(btnGroup)
     btnGroup.appendChild(addBtn)
     actions.appendChild(arrayActions)
+    body.appendChild(childrenSlot)
     body.appendChild(messages)
-    body.appendChild(fieldset)
-    fieldset.appendChild(legend)
-    fieldset.appendChild(childrenSlot)
 
     return {
       container,
@@ -661,7 +647,6 @@ class Theme {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
     const arrayActions = this.getArrayActionsSlot()
-    const label = document.createElement('span')
     const fieldset = this.getFieldset()
     const messages = this.getMessagesSlot()
     const legend = this.getLegend({
@@ -676,7 +661,7 @@ class Theme {
     description.setAttribute('id', descriptionId)
 
     if (config.srOnly) {
-      this.hideElement(label)
+      this.hideElement(legend)
     }
 
     const radioControls = []
@@ -715,10 +700,9 @@ class Theme {
     }
 
     if (config.label) {
-      label.textContent = config.label
+      legend.textContent = config.label
     }
 
-    fieldset.appendChild(label)
     container.appendChild(fieldset)
     container.appendChild(actions)
     fieldset.appendChild(legend)
@@ -734,7 +718,7 @@ class Theme {
     fieldset.appendChild(description)
     fieldset.appendChild(messages)
 
-    return { container, fieldset, legend, label, radios, labels, labelTexts, radioControls, description, messages, actions, arrayActions }
+    return { container, fieldset, legend, radios, labels, labelTexts, radioControls, description, messages, actions, arrayActions }
   }
 
   /**
@@ -864,6 +848,7 @@ class Theme {
   getAlert (config) {
     const html = document.createElement('p')
     html.classList.add('jedi-error-message')
+    html.setAttribute('role', 'alert')
     html.textContent = config.message
     return html
   }
@@ -875,6 +860,7 @@ class Theme {
   getInvalidFeedback (config) {
     const html = document.createElement('div')
     html.classList.add('jedi-error-message')
+    html.setAttribute('role', 'alert')
     html.textContent = config.message
     return html
   }

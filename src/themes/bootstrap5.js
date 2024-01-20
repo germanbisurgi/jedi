@@ -11,7 +11,7 @@ class ThemeBootstrap5 extends Theme {
 
   getLegend (config) {
     const legend = super.getLegend(config)
-    this.hideElement(legend)
+    legend.classList.add('h6')
     return legend
   }
 
@@ -26,7 +26,7 @@ class ThemeBootstrap5 extends Theme {
     const html = super.getCardHeader(config)
     html.classList.add('card-header')
     html.classList.add('d-flex')
-    html.classList.add('justify-content-between')
+    html.classList.add('justify-content-end')
     html.classList.add('align-items-center')
     html.classList.add('py-1')
     return html

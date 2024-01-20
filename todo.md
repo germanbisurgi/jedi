@@ -1,5 +1,8 @@
 ## Todo
 
+- conditional appends
+- array button accessibility for screan reader
+- anyOf, oneOf accessibility switcher (radios are better)
 - whether or not to create properties by default
 - instances active state should be tracked only in object instances (activeProperties?)
 - async loading of schemas with fetch. Also to make it cross platform (node and browser). Or make interface

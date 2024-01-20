@@ -7,6 +7,9 @@
     "keep",
     "csfr"
   ],
+  "options": {
+    "editableProperties": false
+  },
   "properties": {
     "email": {
       "title": "E-Mail",

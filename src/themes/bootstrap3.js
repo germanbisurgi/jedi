@@ -11,7 +11,8 @@ class ThemeBootstrap3 extends Theme {
 
   getLegend (config) {
     const legend = super.getLegend(config)
-    this.hideElement(legend)
+    legend.classList.add('h5')
+    legend.setAttribute('style', 'border-bottom: none;')
     return legend
   }
 
@@ -25,6 +26,7 @@ class ThemeBootstrap3 extends Theme {
   getCardHeader (config) {
     const header = super.getCardHeader(config)
     header.classList.add('panel-heading')
+    header.classList.add('text-right')
     return header
   }
 
@@ -34,16 +36,10 @@ class ThemeBootstrap3 extends Theme {
     return html
   }
 
-  getActionsSlot () {
-    const html = super.getActionsSlot()
-    html.classList.add('pull-right')
-    return html
-  }
-
   getArrayActionsSlot () {
     const html = super.getArrayActionsSlot()
     html.classList.add('btn-group')
-    html.classList.add('pull-right')
+    // html.classList.add('pull-right')
     return html
   }
 
@@ -52,7 +48,7 @@ class ThemeBootstrap3 extends Theme {
     html.setAttribute('data-toggle', 'collapse')
     html.setAttribute('data-target', '#' + config.propertiesContainer.id)
     html.classList.add('jedi-properties-toggle')
-    html.classList.add('pull-right')
+    // html.classList.add('pull-right')
     return html
   }
 
