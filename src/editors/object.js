@@ -19,6 +19,7 @@ import {
  */
 class EditorObject extends Editor {
   build () {
+    const schemaOptions = this.instance.schema.options || {}
     let addProperty = true
     const additionalProperties = getSchemaAdditionalProperties(this.instance.schema)
 
@@ -26,12 +27,22 @@ class EditorObject extends Editor {
       addProperty = false
     }
 
+    let editableProperties = false
+
+    if (isSet(this.instance.jedi.options.editableProperties)) {
+      editableProperties = this.instance.jedi.options.editableProperties
+    }
+
+    if (isSet(schemaOptions.editableProperties)) {
+      editableProperties = schemaOptions.editableProperties
+    }
+
     this.control = this.theme.getObjectControl({
       title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       srOnly: getSchemaOption(this.instance.schema, 'hideTitle'),
       id: pathToAttribute(this.instance.path),
       description: getSchemaDescription(this.instance.schema),
-      editableProperties: equal(this.instance.jedi.options.editableProperties, true) || equal(getSchemaOption(this.instance.schema, 'editableProperties'), true),
+      editableProperties: editableProperties,
       addProperty: addProperty
     })
   }
