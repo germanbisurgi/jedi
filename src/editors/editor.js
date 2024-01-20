@@ -171,7 +171,7 @@ class Editor extends EventEmitter {
 
     errors.forEach((error) => {
       error.messages.forEach((message) => {
-        const invalidFeedback = this.getInvalidFeedback(message)
+        const invalidFeedback = this.getInvalidFeedback({ message })
         this.control.messages.appendChild(invalidFeedback)
       })
     })
@@ -181,10 +181,8 @@ class Editor extends EventEmitter {
    * Get an error message container
    * @private
    */
-  getInvalidFeedback (message) {
-    return this.theme.getInvalidFeedback({
-      message: message
-    })
+  getInvalidFeedback (config) {
+    return this.theme.getInvalidFeedback(config)
   }
 
   /**

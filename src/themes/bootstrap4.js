@@ -56,7 +56,7 @@ class ThemeBootstrap4 extends Theme {
   getPropertiesToggle (config) {
     const html = this.getButton(config)
     html.setAttribute('data-toggle', 'collapse')
-    html.setAttribute('data-target', '#' + config.id)
+    html.setAttribute('data-target', '#' + config.propertiesContainer.id)
     html.classList.add('jedi-properties-toggle')
     return html
   }

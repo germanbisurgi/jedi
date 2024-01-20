@@ -143,6 +143,7 @@ class Jedi extends EventEmitter {
     this.hiddenInput = hiddenControl.input
 
     this.hiddenInput.setAttribute('name', 'json')
+    this.hiddenInput.removeAttribute('aria-describedby')
 
     this.container.appendChild(this.hiddenInput)
     this.hiddenInput.value = JSON.stringify(this.getValue())

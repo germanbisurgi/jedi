@@ -176,7 +176,7 @@ class Theme {
 
     if (this.useToggleEvents) {
       toggle.addEventListener('click', () => {
-        if (config.propertiesContainer.style.display === 'none') {
+        if (config.propertiesContainer.hasAttribute('style')) {
           this.showElement(config.propertiesContainer)
         } else {
           this.hideElement(config.propertiesContainer)
@@ -218,7 +218,7 @@ class Theme {
     }
 
     if (config.id) {
-      button.setAttribute('id', config.value)
+      button.setAttribute('id', config.id)
     }
 
     const text = document.createElement('span')
@@ -333,7 +333,7 @@ class Theme {
 
     const propertiesToggle = this.getPropertiesToggle({
       textContent: 'Properties',
-      id: 'properties-slot-' + config.id,
+      id: 'properties-slot-toggle-' + config.id,
       icon: 'properties',
       propertiesContainer: propertiesContainer
     })
@@ -584,10 +584,14 @@ class Theme {
 
     if (config.description) {
       description.textContent = config.description
-      input.setAttribute('aria-describedby', descriptionId)
+      input.setAttribute('aria-description', descriptionId)
     }
 
     const messages = this.getMessagesSlot()
+    const messagesId = config.id + '-messages'
+    messages.setAttribute('id', messagesId)
+
+    input.setAttribute('aria-describedby', messagesId)
 
     container.appendChild(label)
     container.appendChild(input)
@@ -629,10 +633,14 @@ class Theme {
 
     if (config.description) {
       description.textContent = config.description
-      input.setAttribute('aria-describedby', descriptionId)
+      input.setAttribute('aria-description', descriptionId)
     }
 
     const messages = this.getMessagesSlot()
+    const messagesId = config.id + '-messages'
+    messages.setAttribute('id', messagesId)
+
+    input.setAttribute('aria-describedby', messagesId)
 
     container.appendChild(label)
     container.appendChild(input)
@@ -653,25 +661,23 @@ class Theme {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
     const arrayActions = this.getArrayActionsSlot()
-
+    const label = document.createElement('span')
     const fieldset = this.getFieldset()
-
+    const messages = this.getMessagesSlot()
     const legend = this.getLegend({
       textContent: config.label
     })
 
-    fieldset.appendChild(legend)
+    const messagesId = config.id + '-messages'
+    messages.setAttribute('id', messagesId)
 
-    const label = document.createElement('span')
-    label.textContent = config.label
+    const descriptionId = config.id + '-description'
+    const description = document.createElement('div')
+    description.setAttribute('id', descriptionId)
 
     if (config.srOnly) {
       this.hideElement(label)
     }
-
-    const messages = this.getMessagesSlot()
-
-    fieldset.appendChild(label)
 
     const radioControls = []
     const radios = []
@@ -688,6 +694,12 @@ class Theme {
       radio.setAttribute('value', value)
       radios.push(radio)
 
+      if (config.description) {
+        radio.setAttribute('aria-description', descriptionId)
+      }
+
+      radio.setAttribute('aria-describedby', messagesId)
+
       const label = document.createElement('label')
       label.setAttribute('for', config.id + '-' + index)
 
@@ -701,6 +713,20 @@ class Theme {
       labels.push(label)
     })
 
+    if (config.description) {
+      description.textContent = config.description
+    }
+
+    if (config.label) {
+      label.textContent = config.label
+    }
+
+    fieldset.appendChild(label)
+    container.appendChild(fieldset)
+    container.appendChild(actions)
+    fieldset.appendChild(legend)
+    actions.appendChild(arrayActions)
+
     radioControls.forEach((radioControl, index) => {
       fieldset.appendChild(radioControls[index])
       radioControl.appendChild(radios[index])
@@ -708,17 +734,6 @@ class Theme {
       labels[index].appendChild(labelTexts[index])
     })
 
-    const descriptionId = config.id + '-description'
-    const description = document.createElement('div')
-    description.setAttribute('id', descriptionId)
-
-    if (config.description) {
-      description.textContent = config.description
-    }
-
-    container.appendChild(fieldset)
-    container.appendChild(actions)
-    actions.appendChild(arrayActions)
     fieldset.appendChild(description)
     fieldset.appendChild(messages)
 
@@ -756,10 +771,14 @@ class Theme {
 
     if (config.description) {
       description.textContent = config.description
-      input.setAttribute('aria-describedby', descriptionId)
+      input.setAttribute('aria-description', descriptionId)
     }
 
     const messages = this.getMessagesSlot()
+    const messagesId = config.id + '-messages'
+    messages.setAttribute('id', messagesId)
+
+    input.setAttribute('aria-describedby', messagesId)
 
     container.appendChild(formGroup)
     container.appendChild(actions)
@@ -812,10 +831,14 @@ class Theme {
 
     if (config.description) {
       description.textContent = config.description
-      input.setAttribute('aria-describedby', descriptionId)
+      input.setAttribute('aria-description', descriptionId)
     }
 
     const messages = this.getMessagesSlot()
+    const messagesId = config.id + '-messages'
+    messages.setAttribute('id', messagesId)
+
+    input.setAttribute('aria-describedby', messagesId)
 
     container.appendChild(label)
     container.appendChild(input)
@@ -933,7 +956,7 @@ class Theme {
    * @private
    */
   hideElement (element) {
-    element.style.display = 'none'
+    element.setAttribute('style', 'position: absolute;width: 1px;height: 1px;padding: 0;margin: -1px;overflow: hidden;clip: rect(0,0,0,0);border: 0;')
   }
 
   /**
@@ -941,7 +964,7 @@ class Theme {
    * @private
    */
   showElement (element) {
-    element.style.display = 'block'
+    element.removeAttribute('style')
   }
 }
 

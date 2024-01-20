@@ -38,10 +38,8 @@ class EditorMultiple extends Editor {
     }
   }
 
-  getInvalidFeedback (message) {
-    return this.theme.getAlert({
-      message: message
-    })
+  getInvalidFeedback (config) {
+    return this.theme.getAlert(config)
   }
 }
 

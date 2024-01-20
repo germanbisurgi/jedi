@@ -75,10 +75,8 @@ class EditorObject extends Editor {
     return {}
   }
 
-  getInvalidFeedback (message) {
-    return this.theme.getAlert({
-      message: message
-    })
+  getInvalidFeedback (config) {
+    return this.theme.getAlert(config)
   }
 
   refreshPropertiesSlot () {
