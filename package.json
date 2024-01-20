@@ -49,6 +49,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^29.4.1",
     "jsdoc": "^4.0.2",
+    "json-schema-test-suite": "https://github.com/json-schema-org/JSON-Schema-Test-Suite.git",
     "less": "^4.1.2",
     "less-watch-compiler": "^1.16.3",
     "node-sass": "^9.0.0",
