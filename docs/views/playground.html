@@ -1,108 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Test page for jedi">
-  <link rel="icon" type="image/x-icon" href="../images/json-schema.svg">
-  <title>Playground</title>
-  <script src="../js/vue.js"></script>
-  <script src="../js/jedi.js"></script>
-  <script src="../js/playground.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Test page for jedi">
+    <link rel="icon" type="image/x-icon" href="../images/json-schema.svg">
+    <title>Playground</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/jedi.js"></script>
+    <script src="../js/playground.js"></script>
 </head>
 <body>
 
-<main id="app" class="container">
-  <h1>Playground</h1>
 
-  <div class="row">
-    <div class="col-xs-12 col-sm-6">
-      <form action="" method="POST">
-        <div ref="jediContainer" id="jedi-container"></div>
-        <input v-if="isEditor" class="btn btn-primary btn-block" type="submit" value="Submit">
-      </form>
+<div id="app" class="container">
+    <header>
+        <h1>Playground</h1>
+    </header>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <main>
+                <form action="" method="POST">
+                    <div ref="jediContainer" id="jedi-container"></div>
+                    <input v-if="isEditor" class="btn btn-primary btn-block" type="submit" value="Submit">
+                </form>
+            </main>
+        </div>
+
+        <div class="col-xs-12 col-sm-6">
+            <aside>
+                <div class="form-group">
+                    <label for="examples">Examples</label>
+                    <select class="form-control" id="examples" v-model="example" @change="reload">
+                        <option v-for="(option, key) in examples" :value="option">{{ key }}</option>
+                    </select>
+                </div>
+
+                <br>
+
+                <div class="form-group">
+                    <label for="schema">Schema</label>
+                    <textarea ref="schema" class="form-control" id="schema"
+                              style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
+                    <button class="btn btn-primary btn-block" id="set-schema" @click="setSchema()">Set schema</button>
+                </div>
+
+                <br>
+
+                <div class="form-group">
+                    <label for="editor-value">Value</label>
+                    <textarea ref="editorValue" class="form-control" id="editor-value"
+                              style="font-size: 14px; font-family: monospace;height: 200px;"></textarea>
+                    <button class="btn btn-primary btn-block" id="set-value" @click="setEditorValue()">Set value
+                    </button>
+                </div>
+
+                <br>
+
+                <div class="form-group">
+                    <label for="editor-errors">
+                        <span>Errors</span>
+                        <span>{{ errorCount }}</span>
+                    </label>
+                    <textarea ref="editorErrors" class="form-control" id="editor-errors"
+                              style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
+                </div>
+
+                <br>
+
+                <div class="form-group">
+                    <label for="theme">theme</label>
+                    <select class="form-control" id="theme" v-model="theme" @change="reload()">
+                        <option v-for="theme in themes" :value="theme">{{ theme }}</option>
+                    </select>
+                </div>
+
+                <br>
+
+                <div class="form-group">
+                    <label for="icon-lib">iconLib</label>
+                    <select class="form-control" id="icon-lib" v-model="iconLib" @change="reload()">
+                        <option v-for="iconLib in iconLibs" :value="iconLib">{{ iconLib }}</option>
+                    </select>
+                </div>
+
+                <br>
+
+                <div class="form-group">
+                    <label for="show-errors">showErrors</label>
+                    <select class="form-control" id="show-errors" v-model="showErrors" @change="reload()">
+                        <option v-for="showErrors in showErrorsOptions" :value="showErrors">{{ showErrors }}</option>
+                    </select>
+                </div>
+
+                <br>
+
+                <div class="form-group">
+                    <input type="checkbox" id="isEditor" v-model="isEditor" @change="reload()">
+                    <label for="isEditor">isEditor</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="editableProperties" v-model="editableProperties" @change="initEditor()">
+                    <label for="editableProperties">editableProperties</label>
+                </div>
+
+                <br>
+
+                <button class="btn btn-primary btn-block" id="disable-editor" @click="disableEditor()">Disable editor
+                </button>
+                <button class="btn btn-primary btn-block" id="enable-editor" @click="enableEditor()">Enable editor
+                </button>
+                <button class="btn btn-primary btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor
+                </button>
+            </aside>
+        </div>
     </div>
-
-    <div class="col-xs-12 col-sm-6">
-      <div class="form-group">
-        <label for="examples">Examples</label>
-        <select class="form-control" id="examples" v-model="example" @change="reload">
-          <option v-for="(option, key) in examples" :value="option">{{ key }}</option>
-        </select>
-      </div>
-
-      <br>
-
-      <div class="form-group">
-        <label for="schema">Schema</label>
-        <textarea ref="schema" class="form-control" id="schema" style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
-        <button class="btn btn-primary btn-block" id="set-schema" @click="setSchema()">Set schema</button>
-      </div>
-
-      <br>
-
-      <div class="form-group">
-        <label for="editor-value">Value</label>
-        <textarea ref="editorValue" class="form-control" id="editor-value" style="font-size: 14px; font-family: monospace;height: 200px;"></textarea>
-        <button class="btn btn-primary btn-block" id="set-value" @click="setEditorValue()">Set value</button>
-      </div>
-
-      <br>
-
-      <div class="form-group">
-        <label for="editor-errors">
-          <span>Errors</span>
-          <span>{{ errorCount }}</span>
-        </label>
-        <textarea ref="editorErrors" class="form-control" id="editor-errors" style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
-      </div>
-
-      <br>
-
-      <div class="form-group">
-        <label for="theme">theme</label>
-        <select class="form-control" id="theme" v-model="theme" @change="reload()">
-          <option v-for="theme in themes" :value="theme">{{ theme }}</option>
-        </select>
-      </div>
-
-      <br>
-
-      <div class="form-group">
-        <label for="icon-lib">iconLib</label>
-        <select class="form-control" id="icon-lib" v-model="iconLib" @change="reload()">
-          <option v-for="iconLib in iconLibs" :value="iconLib">{{ iconLib }}</option>
-        </select>
-      </div>
-
-      <br>
-
-      <div class="form-group">
-        <label for="show-errors">showErrors</label>
-        <select class="form-control" id="show-errors" v-model="showErrors" @change="reload()">
-          <option v-for="showErrors in showErrorsOptions" :value="showErrors">{{ showErrors }}</option>
-        </select>
-      </div>
-
-      <br>
-
-      <div class="form-group">
-        <input type="checkbox" id="isEditor" v-model="isEditor" @change="reload()">
-        <label for="isEditor">isEditor</label>
-      </div>
-
-      <div class="form-group">
-        <input type="checkbox" id="editableProperties" v-model="editableProperties" @change="initEditor()">
-        <label for="editableProperties">editableProperties</label>
-      </div>
-
-      <br>
-
-      <button class="btn btn-primary btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
-      <button class="btn btn-primary btn-block" id="enable-editor" @click="enableEditor()">Enable editor</button>
-      <button class="btn btn-primary btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
-    </div>
-  </div>
-</main>
+</div>
 </body>
 </html>

@@ -123,6 +123,7 @@ class Theme {
   getMessagesSlot () {
     const html = document.createElement('div')
     html.classList.add('jedi-messages-slot')
+    html.setAttribute('role', 'alert')
     return html
   }
 
@@ -848,7 +849,6 @@ class Theme {
   getAlert (config) {
     const html = document.createElement('p')
     html.classList.add('jedi-error-message')
-    html.setAttribute('role', 'alert')
     html.textContent = config.message
     return html
   }
@@ -860,7 +860,6 @@ class Theme {
   getInvalidFeedback (config) {
     const html = document.createElement('div')
     html.classList.add('jedi-error-message')
-    html.setAttribute('role', 'alert')
     html.textContent = config.message
     return html
   }

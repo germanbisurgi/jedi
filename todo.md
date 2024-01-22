@@ -1,5 +1,6 @@
 ## Todo
 
+- more descritive alerts messages: "The X field "
 - conditional appends
 - array button accessibility for screan reader
 - anyOf, oneOf accessibility switcher (radios are better)
