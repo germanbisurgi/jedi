@@ -37,6 +37,7 @@ class Jedi extends EventEmitter {
       schema: {},
       showErrors: 'change',
       data: undefined,
+      validateFormat: false,
       XMLHttpRequest: undefined
     }, options)
 
@@ -107,7 +108,7 @@ class Jedi extends EventEmitter {
     this.schema = this.options.schema
     this.refParser = new RefParser({ XMLHttpRequest: this.options.XMLHttpRequest })
     this.refParser.dereference(this.options.schema)
-    this.validator = new Validator(this.refParser)
+    this.validator = new Validator({ refParser: this.refParser, validateFormat: this.options.validateFormat })
 
     this.root = this.createInstance({
       jedi: this,

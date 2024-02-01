@@ -320,7 +320,7 @@ export function getValueByJSONPath (data, path) {
  * Compiles a template by search and replace
  * @param {string} template - The template string
  * @param {object} data - Where template data lives
- * @return {void}
+ * @return {string}
  */
 export function compileTemplate (template, data) {
   return template.replace(/{{(.*?)}}/g, (match) => {

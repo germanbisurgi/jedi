@@ -1,12 +1,17 @@
 import { compileTemplate, isSet, isString } from '../../helpers/utils'
-import { getSchemaFormat } from '../../helpers/schema'
+import { getSchemaFormat, getSchemaOption } from '../../helpers/schema'
 import { i18n } from '../../i18n'
 
 export function format (validator, value, schema, key, path) {
   const errors = []
   const format = getSchemaFormat(schema)
+  let validateFormat = validator.validateFormat
 
-  if (isSet(format) && isString(value)) {
+  if (getSchemaOption(schema, 'validateFormat')) {
+    validateFormat = schema.options.validateFormat
+  }
+
+  if (isSet(format) && isString(value) && validateFormat) {
     let regexp
 
     if (format === 'email') {
@@ -26,9 +31,7 @@ export function format (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         messages: [
-          compileTemplate(i18n.errorFormat, {
-            format: format
-          })
+          compileTemplate(i18n.errorFormat, { format: format })
         ],
         path: path
       })
