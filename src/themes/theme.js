@@ -347,6 +347,7 @@ class Theme {
     container.appendChild(fieldset)
     fieldset.appendChild(legend)
     fieldset.appendChild(description)
+    fieldset.appendChild(messages)
     fieldset.appendChild(card)
     card.appendChild(header)
     card.appendChild(body)
@@ -354,7 +355,6 @@ class Theme {
     actions.appendChild(arrayActions)
     body.appendChild(propertiesContainer)
     body.appendChild(childrenSlot)
-    body.appendChild(messages)
 
     if (config.editableProperties) {
       actions.appendChild(propertiesToggle)
@@ -421,6 +421,7 @@ class Theme {
     container.appendChild(fieldset)
     fieldset.appendChild(legend)
     fieldset.appendChild(description)
+    fieldset.appendChild(messages)
     fieldset.appendChild(card)
     card.appendChild(header)
     card.appendChild(body)
@@ -429,7 +430,6 @@ class Theme {
     btnGroup.appendChild(addBtn)
     actions.appendChild(arrayActions)
     body.appendChild(childrenSlot)
-    body.appendChild(messages)
 
     return {
       container,
@@ -849,7 +849,7 @@ class Theme {
   getAlert (config) {
     const html = document.createElement('p')
     html.classList.add('jedi-error-message')
-    html.textContent = config.message
+    html.textContent = '❌ ' + config.message
     return html
   }
 
@@ -860,7 +860,7 @@ class Theme {
   getInvalidFeedback (config) {
     const html = document.createElement('div')
     html.classList.add('jedi-error-message')
-    html.textContent = config.message
+    html.textContent = '❌ ' + config.message
     return html
   }
 
