@@ -123,7 +123,8 @@ class Theme {
   getMessagesSlot () {
     const html = document.createElement('div')
     html.classList.add('jedi-messages-slot')
-    html.setAttribute('role', 'alert')
+    html.setAttribute('aria-atomic', 'false')
+    html.setAttribute('aria-live', 'polite')
     return html
   }
 
@@ -847,10 +848,7 @@ class Theme {
    * @private
    */
   getAlert (config) {
-    const html = document.createElement('p')
-    html.classList.add('jedi-error-message')
-    html.textContent = '❌ ' + config.message
-    return html
+    return this.getInvalidFeedback(config)
   }
 
   /**
@@ -859,8 +857,15 @@ class Theme {
    */
   getInvalidFeedback (config) {
     const html = document.createElement('div')
+    const invalidFeedbackText = document.createElement('span')
+    const invalidFeedbackIcon = document.createElement('span')
+    invalidFeedbackText.textContent = config.message
+    invalidFeedbackIcon.textContent = '❌ '
+    invalidFeedbackIcon.classList.add('jedi-error-message')
+    invalidFeedbackIcon.setAttribute('aria-hidden', 'true')
     html.classList.add('jedi-error-message')
-    html.textContent = '❌ ' + config.message
+    html.appendChild(invalidFeedbackIcon)
+    html.appendChild(invalidFeedbackText)
     return html
   }
 
