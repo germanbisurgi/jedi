@@ -22,8 +22,6 @@ class InstanceObject extends Instance {
     const schemaFormat = getSchemaFormat(this.schema)
     const schemaControl = this.schema['x-control']
 
-    this.ui = new EditorObject(this)
-
     if (schemaType === 'object' && schemaFormat === 'grid') {
       this.ui = new EditorObjectGrid(this)
     } else if (schemaType === 'object' && schemaControl === 'nav') {
