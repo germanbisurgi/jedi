@@ -103,6 +103,11 @@
                     <label for="editableProperties">editableProperties</label>
                 </div>
 
+                <div class="form-group">
+                    <input type="checkbox" id="validateFormat" v-model="validateFormat" @change="initEditor()">
+                    <label for="validateFormat">validateFormat</label>
+                </div>
+
                 <br>
 
                 <button class="btn btn-primary btn-block" id="disable-editor" @click="disableEditor()">Disable editor

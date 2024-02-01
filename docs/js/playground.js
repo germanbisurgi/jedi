@@ -87,7 +87,8 @@ window.addEventListener('DOMContentLoaded', () => {
         isEditor: true,
         theme: 'barebones',
         iconLib: 'bootstrap-icons',
-        showErrors: 'always'
+        showErrors: 'always',
+        validateFormat: false
       }
     },
     created() {
@@ -95,6 +96,7 @@ window.addEventListener('DOMContentLoaded', () => {
       this.iconLib = this.getQueryParam('iconLib') || 'fontawesome5'
       this.example = this.getQueryParam('example') || '../json/editors/all.json'
       this.showErrors = this.getQueryParam('showErrors') || 'always'
+      this.validateFormat = this.getQueryParam('validateFormat') === 'true' ? true : false
     },
     mounted() {
       switch (this.theme) {
@@ -177,6 +179,7 @@ window.addEventListener('DOMContentLoaded', () => {
           isEditor: this.isEditor,
           iconLib: this.iconLib,
           showErrors: this.showErrors,
+          validateFormat: this.validateFormat,
           schema: this.schema,
           theme: this.theme
         }
@@ -214,6 +217,7 @@ window.addEventListener('DOMContentLoaded', () => {
         newUrl += "&iconLib=" + this.iconLib
         newUrl += "&example=" + this.example
         newUrl += "&showErrors=" + this.showErrors
+        newUrl += "&validateFormat=" + this.validateFormat
 
         window.open(newUrl, '_self')
       },
