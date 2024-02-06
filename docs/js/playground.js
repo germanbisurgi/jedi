@@ -52,6 +52,7 @@ window.addEventListener('DOMContentLoaded', () => {
           'validator/pattern': '../json/validator/pattern.json',
           'validator/patternProperties': '../json/validator/patternProperties.json',
           'validator/prefixItems': '../json/validator/prefixItems.json',
+          'validator/propertyNames': '../json/validator/propertyNames.json',
           'validator/required': '../json/validator/required.json',
           'validator/type': '../json/validator/type.json',
           'validator/uniqueItems': '../json/validator/uniqueItems.json',

@@ -13,6 +13,10 @@ export function getSchemaAdditionalProperties (schema) {
   return isObject(schema.additionalProperties) || isBoolean(schema.additionalProperties) ? schema.additionalProperties : undefined
 }
 
+export function getSchemaPropertyNames (schema) {
+  return isObject(schema.propertyNames) || isBoolean(schema.propertyNames) ? schema.propertyNames : undefined
+}
+
 export function getSchemaAllOf (schema) {
   return isArray(schema.allOf) ? schema.allOf : undefined
 }

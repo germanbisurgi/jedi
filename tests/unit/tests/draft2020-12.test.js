@@ -11,6 +11,7 @@ const suites = [
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/boolean_schema'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/const'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/contains'),
+  // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/content.json'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/default'),
   // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/defs'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/dependentRequired'),
@@ -41,7 +42,7 @@ const suites = [
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/patternProperties'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/prefixItems'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/properties'),
-  // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/propertyNames'),
+  require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/propertyNames'),
   // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/ref'),
   // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/refRemote'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/required'),
@@ -49,7 +50,6 @@ const suites = [
   // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/unevaluatedItems'),
   // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/unevaluatedProperties'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/uniqueItems'),
-  // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/unknownKeyword'),
   // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/vocabulary'),
 ]
 

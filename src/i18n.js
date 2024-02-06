@@ -33,6 +33,7 @@ export const i18n = {
   errorOneOf: 'Must validate against exactly one of the provided schemas. It currently validates against {{ counter }} of the schemas.',
   errorPattern: 'Must match the pattern: "{{ pattern }}".',
   errorPrefixItems: 'Item {{ index }} fails validation.',
+  errorPropertyNames: 'Property name "{{ propertyName }}" fails validation.',
   errorRequired: 'Must have the required properties: {{ required }}.',
   errorType: 'Must be of type {{ type }}.',
   errorUniqueItems: 'Must have unique items.'

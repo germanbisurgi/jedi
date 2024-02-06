@@ -23,6 +23,7 @@ import { oneOf } from '../constrains/oneOf'
 import { pattern } from '../constrains/pattern'
 import { patternProperties } from '../constrains/patternProperties'
 import { prefixItems } from '../constrains/prefixItems'
+import { propertyNames } from '../constrains/propertyNames'
 import { required } from '../constrains/required'
 import { type } from '../constrains/type'
 import { maximum } from '../constrains/maximum'
@@ -57,6 +58,7 @@ export default {
   pattern: pattern,
   patternProperties: patternProperties,
   prefixItems: prefixItems,
+  propertyNames: propertyNames,
   required: required,
   type: type,
   uniqueItems: uniqueItems
