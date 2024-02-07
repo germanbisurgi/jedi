@@ -93,6 +93,8 @@ class Theme {
   getActionsSlot () {
     const html = document.createElement('div')
     html.classList.add('jedi-actions-slot')
+    html.style.textAlign = 'right'
+    html.setAttribute('aria-hidden', 'true')
     return html
   }
 
@@ -231,6 +233,7 @@ class Theme {
   getArrayBtnAdd (config) {
     const html = this.getButton(config)
     html.classList.add('jedi-array-add')
+    html.classList.add('p-0')
     return html
   }
 
@@ -297,15 +300,8 @@ class Theme {
    */
   getObjectControl (config) {
     const container = document.createElement('div')
-    const card = this.getCard()
     const actions = this.getActionsSlot()
     const arrayActions = this.getArrayActionsSlot()
-
-    const header = this.getCardHeader({
-      textContent: config.title,
-      srOnly: config.srOnly
-    })
-
     const body = this.getCardBody()
 
     const description = this.getDescription({
@@ -347,12 +343,10 @@ class Theme {
 
     container.appendChild(fieldset)
     fieldset.appendChild(legend)
-    fieldset.appendChild(description)
-    fieldset.appendChild(messages)
-    fieldset.appendChild(card)
-    card.appendChild(header)
-    card.appendChild(body)
-    header.appendChild(actions)
+    fieldset.appendChild(body)
+    body.appendChild(description)
+    body.appendChild(messages)
+    legend.appendChild(actions)
     actions.appendChild(arrayActions)
     body.appendChild(propertiesContainer)
     body.appendChild(childrenSlot)
@@ -369,7 +363,6 @@ class Theme {
 
     return {
       container,
-      card,
       body,
       actions,
       messages,
@@ -390,15 +383,8 @@ class Theme {
    */
   getArrayControl (config) {
     const container = document.createElement('div')
-    const card = this.getCard()
     const actions = this.getActionsSlot()
     const arrayActions = this.getArrayActionsSlot()
-
-    const header = this.getCardHeader({
-      textContent: config.title,
-      srOnly: config.srOnly
-    })
-
     const body = this.getCardBody()
 
     const description = this.getDescription({
@@ -421,12 +407,10 @@ class Theme {
 
     container.appendChild(fieldset)
     fieldset.appendChild(legend)
-    fieldset.appendChild(description)
-    fieldset.appendChild(messages)
-    fieldset.appendChild(card)
-    card.appendChild(header)
-    card.appendChild(body)
-    header.appendChild(actions)
+    fieldset.appendChild(body)
+    body.appendChild(description)
+    body.appendChild(messages)
+    legend.appendChild(actions)
     actions.appendChild(btnGroup)
     btnGroup.appendChild(addBtn)
     actions.appendChild(arrayActions)
@@ -434,7 +418,6 @@ class Theme {
 
     return {
       container,
-      card,
       body,
       actions,
       messages,
@@ -651,6 +634,7 @@ class Theme {
     const arrayActions = this.getArrayActionsSlot()
     const fieldset = this.getFieldset()
     const messages = this.getMessagesSlot()
+    const body = this.getCardBody()
     const legend = this.getLegend({
       textContent: config.label
     })
@@ -708,10 +692,11 @@ class Theme {
     container.appendChild(fieldset)
     container.appendChild(actions)
     fieldset.appendChild(legend)
+    fieldset.appendChild(body)
     actions.appendChild(arrayActions)
 
     radioControls.forEach((radioControl, index) => {
-      fieldset.appendChild(radioControls[index])
+      body.appendChild(radioControls[index])
       radioControl.appendChild(radios[index])
       radioControl.appendChild(labels[index])
       labels[index].appendChild(labelTexts[index])
@@ -720,7 +705,7 @@ class Theme {
     fieldset.appendChild(description)
     fieldset.appendChild(messages)
 
-    return { container, fieldset, legend, radios, labels, labelTexts, radioControls, description, messages, actions, arrayActions }
+    return { container, fieldset, legend, body, radios, labels, labelTexts, radioControls, description, messages, actions, arrayActions }
   }
 
   /**
@@ -858,7 +843,7 @@ class Theme {
   getInvalidFeedback (config) {
     const html = document.createElement('div')
     const invalidFeedbackText = document.createElement('span')
-    const invalidFeedbackIcon = document.createElement('span')
+    const invalidFeedbackIcon = document.createElement('small')
     invalidFeedbackText.textContent = config.message
     invalidFeedbackIcon.textContent = '❌ '
     invalidFeedbackIcon.classList.add('jedi-error-message')

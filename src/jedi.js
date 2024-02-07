@@ -132,7 +132,7 @@ class Jedi extends EventEmitter {
   }
 
   /**
-   * Appends a hidden input to the root container who's value will be the value
+   * Appends a hidden input to the root container whose value will be the value
    * of the root instance.
    * @private
    */
@@ -226,7 +226,7 @@ class Jedi extends EventEmitter {
   }
 
   /**
-   * Returns a instance by path
+   * Returns an instance by path
    * @return {*}
    */
   getInstance (path) {

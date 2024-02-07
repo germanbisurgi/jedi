@@ -45,7 +45,7 @@ export const fontAwesome3 = {
  */
 export const fontAwesome4 = {
   properties: 'fa fa-list',
-  delete: 'fa fa-trash',
+  delete: 'fa fa-trash-o',
   add: 'fa fa-plus',
   moveUp: 'fa fa-arrow-up',
   moveDown: 'fa fa-arrow-down'

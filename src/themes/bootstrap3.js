@@ -9,10 +9,19 @@ class ThemeBootstrap3 extends Theme {
     this.useToggleEvents = false
   }
 
+  getFieldset () {
+    const fieldset = document.createElement('fieldset')
+    fieldset.classList.add('panel')
+    fieldset.classList.add('panel-default')
+    return fieldset
+  }
+
   getLegend (config) {
     const legend = super.getLegend(config)
     legend.classList.add('h5')
-    legend.setAttribute('style', 'border-bottom: none;')
+    legend.classList.add('panel-heading')
+    legend.classList.add('pull-left')
+    legend.setAttribute('style', 'margin-top: 0; display: flex; justify-content: space-between; align-items: center;')
     return legend
   }
 
@@ -39,7 +48,10 @@ class ThemeBootstrap3 extends Theme {
   getArrayActionsSlot () {
     const html = super.getArrayActionsSlot()
     html.classList.add('btn-group')
-    // html.classList.add('pull-right')
+    // html.classList.add('visible-xs-inline')
+    // html.classList.add('visible-sm-inline')
+    // html.classList.add('visible-md-inline')
+    // html.classList.add('visible-lg-inline')
     return html
   }
 
@@ -48,7 +60,6 @@ class ThemeBootstrap3 extends Theme {
     html.setAttribute('data-toggle', 'collapse')
     html.setAttribute('data-target', '#' + config.propertiesContainer.id)
     html.classList.add('jedi-properties-toggle')
-    // html.classList.add('pull-right')
     return html
   }
 
@@ -107,19 +118,19 @@ class ThemeBootstrap3 extends Theme {
 
   getRadiosControl (config) {
     const control = super.getRadiosControl(config)
-    const { fieldset, radios, labels, labelTexts, radioControls, description, messages } = control
+    const { body, radios, labels, labelTexts, radioControls, description, messages } = control
 
     radioControls.forEach((radioControl, index) => {
       radioControl.classList.add('radio')
 
-      fieldset.appendChild(radioControls[index])
+      body.appendChild(radioControls[index])
       radioControl.appendChild(labels[index])
       labels[index].appendChild(radios[index])
       labels[index].appendChild(labelTexts[index])
     })
 
-    fieldset.appendChild(description)
-    fieldset.appendChild(messages)
+    body.appendChild(description)
+    body.appendChild(messages)
 
     return control
   }

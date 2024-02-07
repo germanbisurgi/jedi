@@ -1,15 +1,13 @@
 ## Todo
 
+- when setting multiple value, check if the current editor valid is. If it is valid there is no need to make a fitness test
 - editor method refreshDisableState() to avoid calling refreshUI when enabling / disabling editor (to avoid re-appending editors)
 - remove display none
 - array button accessibility for screen reader
 - anyOf, oneOf accessibility switcher (radios are better)
-- create properties by default?
-- instances active state should be tracked only in object instances (activeProperties?)
 - async loading of schemas with fetch. Also, to make it cross-platform (node and browser). Or make interface
 - position and dry of errors (not, patternProperties)
 - multiple: switch only if fittest editor has no errors?
-- disabled states with classes too
 - items validation message
 - option "multiple": true/false for schemas with anyOf and oneOf, if-then-else, allOf
 - fix recursive problem with meta schema
@@ -17,8 +15,6 @@
 - multiple error messages (oneOf, anyOf, not, any, type undefined, etc.)
 - prefixItems test and error messages
 - additionalProperties false by default in UI
-- actions activate / deactivate
-- avoid floating elements (actions)
 - scope switcher options and titles in editors and not in instances
 - resolvers in editor
 - template / titles / descriptions as html with xss lib option
@@ -31,16 +27,10 @@
 - array table
 - header: false
 - title: false
-- nested if-then-else
-- allOf if-then-else
-- readonly, should not set value?
+- readonly, should not set value
 - documentation mode
-- showErrors options as string enum
-- aria attributes
 - use names options
 - plugins examples
 - edit object values
 - edit array values
-- filter by field (using tags)
 - formats
-- use schema to evaluate annotations and options

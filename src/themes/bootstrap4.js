@@ -9,9 +9,21 @@ class ThemeBootstrap4 extends Theme {
     this.useToggleEvents = false
   }
 
+  getFieldset () {
+    const fieldset = document.createElement('fieldset')
+    fieldset.classList.add('card')
+    fieldset.classList.add('mb-3')
+    return fieldset
+  }
+
   getLegend (config) {
     const legend = super.getLegend(config)
     legend.classList.add('h6')
+    legend.classList.add('card-header')
+    legend.classList.add('d-flex')
+    legend.classList.add('justify-content-between')
+    legend.classList.add('align-items-center')
+    legend.classList.add('float-left')
     return legend
   }
 
@@ -35,7 +47,6 @@ class ThemeBootstrap4 extends Theme {
   getCardBody () {
     const html = super.getCardBody()
     html.classList.add('card-body')
-    html.classList.add('pb-0')
     return html
   }
 
@@ -49,7 +60,6 @@ class ThemeBootstrap4 extends Theme {
   getArrayActionsSlot () {
     const html = super.getArrayActionsSlot()
     html.classList.add('btn-group')
-    html.classList.add('float-right')
     return html
   }
 
@@ -58,6 +68,7 @@ class ThemeBootstrap4 extends Theme {
     html.setAttribute('data-toggle', 'collapse')
     html.setAttribute('data-target', '#' + config.propertiesContainer.id)
     html.classList.add('jedi-properties-toggle')
+    html.classList.add('p-0')
     return html
   }
 
@@ -107,7 +118,7 @@ class ThemeBootstrap4 extends Theme {
 
   getRadiosControl (config) {
     const control = super.getRadiosControl(config)
-    const { container, fieldset, radios, labels, labelTexts, radioControls, description, messages } = control
+    const { container, body, radios, labels, labelTexts, radioControls, description, messages } = control
 
     container.classList.add('form-group')
 
@@ -116,14 +127,14 @@ class ThemeBootstrap4 extends Theme {
       radios[index].classList.add('form-check-input')
       labels[index].classList.add('form-check-label')
 
-      fieldset.appendChild(radioControls[index])
+      body.appendChild(radioControls[index])
       radioControl.appendChild(radios[index])
       radioControl.appendChild(labels[index])
       labels[index].appendChild(labelTexts[index])
     })
 
-    fieldset.appendChild(description)
-    fieldset.appendChild(messages)
+    body.appendChild(description)
+    body.appendChild(messages)
 
     return control
   }
