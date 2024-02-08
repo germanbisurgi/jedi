@@ -1,5 +1,11 @@
 ## Todo
 
+- close on escape
+- compact descriptions
+- aria live for multiple
+- aria live for arrays
+- empty jedi-actions-slot weird margins (.btn-group)
+- use same invalid feedback (no alerts)
 - when setting multiple value, check if the current editor valid is. If it is valid there is no need to make a fitness test
 - editor method refreshDisableState() to avoid calling refreshUI when enabling / disabling editor (to avoid re-appending editors)
 - remove display none
