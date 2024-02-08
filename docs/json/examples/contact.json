@@ -1,12 +1,6 @@
 {
   "title": "Contact",
   "type": "object",
-  "required": [
-    "name",
-    "email",
-    "message",
-    "gdpr"
-  ],
   "properties": {
     "name": {
       "title": "Name",
