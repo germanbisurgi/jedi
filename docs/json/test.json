@@ -1,68 +1,31 @@
 {
-  "anyOf": [
-    {
-      "$ref": "#/$defs/objectSchema"
-    },
-    {
-      "$ref": "#/$defs/booleanSchema"
+  "type": "object",
+  "properties": {
+    "isStudent": {
+      "type": "boolean"
     }
-  ],
-  "$defs": {
-    "schema": {
-      "anyOf": [
-        {
-          "$ref": "#/$defs/objectSchema"
-        },
-        {
-          "$ref": "#/$defs/booleanSchema"
-        }
-      ]
-    },
-    "booleanSchema": {
-      "title": "schema (boolean)",
-      "type": "boolean",
-      "options": {
-        "switcherTitle": "schema (boolean)"
-      }
-    },
-    "objectSchema": {
-      "title": "schema (object)",
-      "type": "object",
-      "properties": {
-        "additionalProperties": {
-          "$ref": "#/$defs/schema"
-        },
-        "type": {
-          "type": "string",
-          "enum": [
-            "string",
-            "integer",
-            "number",
-            "boolean",
-            "array",
-            "object",
-            "null",
-            "any"
-          ],
-          "default": "string"
-        },
-        "uniqueItems": {
-          "type": "boolean"
-        }
-      },
-      "additionalProperties": {
-        "$ref": "#/$defs/schema"
-      },
-      "options": {
-        "nav": {
-          "type": "tabs",
-          "cols": 12,
-          "stacked": false
-        },
-        "editableProperties": true,
-        "switcherTitle": "schema (object)",
-        "deactivateNonRequired": true
+  },
+  "if": {
+    "properties": {
+      "isStudent": {
+        "const": true
       }
     }
+  },
+  "then": {
+    "properties": {
+      "schoolName": {
+        "type": "string"
+      }
+    },
+    "required": ["schoolName"]
+  },
+  "else": {
+    "properties": {
+      "jobTitle": {
+        "type": "string"
+      }
+    },
+    "required": ["jobTitle"]
   }
 }

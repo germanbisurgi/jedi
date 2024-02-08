@@ -1,6 +1,17 @@
 import EventEmitter from '../event-emitter'
-import { isSet, notSet, removeDuplicatesFromArray } from '../helpers/utils'
-import { getSchemaDefault, getSchemaReadOnly, getSchemaType } from '../helpers/schema'
+import {
+  clone, equal,
+  isSet, mergeDeep, notSet, removeDuplicatesFromArray
+} from '../helpers/utils'
+import {
+  getSchemaDefault,
+  getSchemaElse,
+  getSchemaIf,
+  getSchemaReadOnly,
+  getSchemaThen,
+  getSchemaType
+} from '../helpers/schema'
+import Jedi from '../jedi'
 
 /**
  * Represents a JSON instance.
@@ -15,6 +26,20 @@ class Instance extends EventEmitter {
      * @private
      */
     this.jedi = config.jedi
+
+    /**
+     * The schema path of this instance.
+     * @type {string}
+     * @private
+     */
+    this.path = config.path || this.jedi.rootName
+
+    /**
+     * A JSON schema.
+     * @type {boolean|object}
+     * @private
+     */
+    this.originalSchema = config.schema
 
     /**
      * A JSON schema.
@@ -32,18 +57,11 @@ class Instance extends EventEmitter {
 
     /**
      * The active state of this instance. If false the editor is not participating
-     * to the value.
+     * in the value.
      * @type {boolean}
      * @private
      */
     this.isActive = true
-
-    /**
-     * The schema path of this instance.
-     * @type {string}
-     * @private
-     */
-    this.path = config.path || this.jedi.rootName
 
     /**
      * The Parent instance of this instance.
@@ -86,7 +104,55 @@ class Instance extends EventEmitter {
       if (this.parent) {
         this.parent.onChildChange()
       }
+
+      // if (this.jedi?.options?.isEditor) {
+      //   this.mutate()
+      // }
     })
+  }
+
+  mutate () {
+    if (!isSet(this.schema)) {
+      return
+    }
+
+    const schemaIf = getSchemaIf(this.schema)
+
+    if (isSet(schemaIf)) {
+      this.unregister()
+      const jedi = this.jedi
+      const path = this.path
+      const parent = this.parent
+      const container = this.ui.control.container.parentNode
+      const originalSchema = this.originalSchema
+      const oldValue = clone(this.getValue())
+      const schemaThen = getSchemaThen(this.schema)
+      const schemaElse = getSchemaElse(this.schema)
+      const ifEditor = new Jedi({ schema: schemaIf, data: oldValue })
+      const valid = ifEditor.getErrors().length === 0
+      ifEditor.destroy()
+
+      const schemaDelta = valid ? schemaThen : schemaElse
+      const newSchema = mergeDeep({}, originalSchema, schemaDelta)
+      const schemaUnchanged = equal(originalSchema, newSchema)
+
+      if (schemaUnchanged) {
+        return
+      }
+
+      this.destroy()
+
+      const newInstance = jedi.createInstance({
+        jedi: jedi,
+        schema: newSchema,
+        path: path,
+        parent: parent
+      })
+
+      newInstance.setValue(mergeDeep(newInstance.getValue(), oldValue), false)
+
+      container.appendChild(newInstance.ui.control.container)
+    }
   }
 
   /**
@@ -229,6 +295,8 @@ class Instance extends EventEmitter {
    * Destroy the instance and it's children
    */
   destroy () {
+    this.listeners = []
+
     this.children.forEach((child) => {
       child.destroy()
     })
