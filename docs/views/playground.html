@@ -34,46 +34,12 @@
                     </select>
                 </div>
 
-                <br>
-
-                <div class="form-group">
-                    <label for="schema">Schema</label>
-                    <textarea ref="schema" class="form-control" id="schema"
-                              style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
-                    <button class="btn btn-primary btn-block" id="set-schema" @click="setSchema()">Set schema</button>
-                </div>
-
-                <br>
-
-                <div class="form-group">
-                    <label for="editor-value">Value</label>
-                    <textarea ref="editorValue" class="form-control" id="editor-value"
-                              style="font-size: 14px; font-family: monospace;height: 200px;"></textarea>
-                    <button class="btn btn-primary btn-block" id="set-value" @click="setEditorValue()">Set value
-                    </button>
-                </div>
-
-                <br>
-
-                <div class="form-group">
-                    <label for="editor-errors">
-                        <span>Errors</span>
-                        <span>{{ errorCount }}</span>
-                    </label>
-                    <textarea ref="editorErrors" class="form-control" id="editor-errors"
-                              style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
-                </div>
-
-                <br>
-
                 <div class="form-group">
                     <label for="theme">theme</label>
                     <select class="form-control" id="theme" v-model="theme" @change="reload()">
                         <option v-for="theme in themes" :value="theme">{{ theme }}</option>
                     </select>
                 </div>
-
-                <br>
 
                 <div class="form-group">
                     <label for="icon-lib">iconLib</label>
@@ -82,8 +48,6 @@
                     </select>
                 </div>
 
-                <br>
-
                 <div class="form-group">
                     <label for="show-errors">showErrors</label>
                     <select class="form-control" id="show-errors" v-model="showErrors" @change="reload()">
@@ -91,7 +55,26 @@
                     </select>
                 </div>
 
-                <br>
+                <div class="form-group">
+                    <label for="schema">Schema</label>
+                    <textarea ref="schema" class="form-control" id="schema" style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
+                    <button class="btn btn-primary btn-block" id="set-schema" @click="setSchema()">Set schema</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="editor-value">Value</label>
+                    <textarea ref="editorValue" class="form-control" id="editor-value" style="font-size: 14px; font-family: monospace;height: 200px;"></textarea>
+                    <button class="btn btn-primary btn-block" id="set-value" @click="setEditorValue()">Set value
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label for="editor-errors">
+                        <span>Errors</span>
+                        <span>{{ errorCount }}</span>
+                    </label>
+                    <textarea ref="editorErrors" class="form-control" id="editor-errors" style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
+                </div>
 
                 <div class="form-group">
                     <input type="checkbox" id="isEditor" v-model="isEditor" @change="reload()">
@@ -108,14 +91,9 @@
                     <label for="validateFormat">validateFormat</label>
                 </div>
 
-                <br>
-
-                <button class="btn btn-primary btn-block" id="disable-editor" @click="disableEditor()">Disable editor
-                </button>
-                <button class="btn btn-primary btn-block" id="enable-editor" @click="enableEditor()">Enable editor
-                </button>
-                <button class="btn btn-primary btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor
-                </button>
+                <button class="btn btn-primary btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
+                <button class="btn btn-primary btn-block" id="enable-editor" @click="enableEditor()">Enable editor</button>
+                <button class="btn btn-primary btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
             </aside>
         </div>
     </div>
