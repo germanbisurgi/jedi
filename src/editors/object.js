@@ -19,6 +19,7 @@ import {
  */
 class EditorObject extends Editor {
   build () {
+    this.propertyActivators = {}
     const schemaOptions = this.instance.schema.options || {}
     let addProperty = true
     const additionalProperties = getSchemaAdditionalProperties(this.instance.schema)
@@ -75,6 +76,14 @@ class EditorObject extends Editor {
       child.activate()
       this.instance.setValue(this.instance.value)
       this.control.addPropertyControl.input.value = ''
+
+      const ariaLive = this.control.ariaLive
+      ariaLive.innerHTML = ''
+      const schemaTitle = getSchemaTitle(child.schema)
+      const label = isSet(schemaTitle) ? schemaTitle : key
+      const ariaLiveMessage = this.theme.getAriaLiveMessage()
+      ariaLiveMessage.textContent = label + ' field was added to the form'
+      ariaLive.appendChild(ariaLiveMessage)
     })
   }
 
@@ -94,57 +103,69 @@ class EditorObject extends Editor {
     const schemaOptionEditableProperties = getSchemaOption(this.instance.schema, 'editableProperties')
 
     if (equal(this.instance.jedi.options.editableProperties, true) || equal(schemaOptionEditableProperties, true)) {
-      while (this.control.propertiesActivators.firstChild) {
-        this.control.propertiesActivators.removeChild(this.control.propertiesActivators.lastChild)
-      }
-
       this.instance.children.forEach((child) => {
-        const isRequired = this.instance.isRequired(child.getKey())
-        const isDependentRequired = this.instance.isDependentRequired(child.getKey())
+        const childKey = child.getKey()
+        const isRequired = this.instance.isRequired(childKey)
+        const isDependentRequired = this.instance.isDependentRequired(childKey)
         const notRequired = !isRequired && !isDependentRequired
+        const activatorInDom = this.propertyActivators[childKey]
+        const ariaLive = this.control.ariaLive
+        const schemaTitle = getSchemaTitle(child.schema)
+        const id = pathToAttribute(child.path) + '-activator'
+        const label = isSet(schemaTitle) ? schemaTitle : childKey
 
-        if (notRequired) {
-          const schemaTitle = getSchemaTitle(child.schema)
-          const id = pathToAttribute(child.path) + '-activator'
-
+        if (notRequired && !activatorInDom) {
           const checkboxControl = this.theme.getCheckboxControl({
             id: id,
-            label: isSet(schemaTitle) ? schemaTitle : child.getKey(),
+            label: label,
             srOnly: false
           })
 
           const checkbox = checkboxControl.input
-
-          checkbox.disabled = this.disabled
-          checkbox.checked = hasOwn(this.instance.getValue(), child.getKey())
+          this.propertyActivators[childKey] = checkbox
 
           checkbox.addEventListener('change', () => {
+            ariaLive.innerHTML = ''
+            const ariaLiveMessage = this.theme.getAriaLiveMessage()
+
             if (checkbox.checked) {
               child.activate()
+              ariaLiveMessage.textContent = label + ' field was added to the form'
+              ariaLive.appendChild(ariaLiveMessage)
             } else {
               child.deactivate()
+              ariaLiveMessage.textContent = label + ' field was removed from the form'
+              ariaLive.appendChild(ariaLiveMessage)
             }
           })
 
           this.control.propertiesActivators.appendChild(checkboxControl.container)
+        }
+
+        const checkbox = this.propertyActivators[childKey]
+        if (checkbox) {
+          checkbox.disabled = this.disabled
+          checkbox.checked = hasOwn(this.instance.getValue(), childKey)
         }
       })
     }
   }
 
   refreshEditors () {
-    while (this.control.childrenSlot.firstChild) {
-      this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild)
-    }
-
     this.instance.children.forEach((child) => {
       if (child.isActive) {
-        this.control.childrenSlot.appendChild(child.ui.control.container)
+        if (child.ui.control.container.parentNode === null) {
+          this.control.childrenSlot.appendChild(child.ui.control.container)
+        }
 
         if (this.disabled || this.instance.isReadOnly()) {
           child.ui.disable()
         } else {
           child.ui.enable()
+        }
+      } else {
+        if (child.ui.control.container.parentNode) {
+          child.ui.control.container.parentNode.removeChild(child.ui.control.container)
         }
       }
     })

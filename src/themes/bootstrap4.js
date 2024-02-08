@@ -24,6 +24,7 @@ class ThemeBootstrap4 extends Theme {
     legend.classList.add('justify-content-between')
     legend.classList.add('align-items-center')
     legend.classList.add('float-left')
+    legend.classList.add('py-2')
     return legend
   }
 
@@ -57,18 +58,11 @@ class ThemeBootstrap4 extends Theme {
     return html
   }
 
-  getArrayActionsSlot () {
-    const html = super.getArrayActionsSlot()
-    html.classList.add('btn-group')
-    return html
-  }
-
   getPropertiesToggle (config) {
     const html = this.getButton(config)
     html.setAttribute('data-toggle', 'collapse')
     html.setAttribute('data-target', '#' + config.propertiesContainer.id)
     html.classList.add('jedi-properties-toggle')
-    html.classList.add('p-0')
     return html
   }
 
@@ -81,6 +75,7 @@ class ThemeBootstrap4 extends Theme {
   getButton (config) {
     const html = super.getButton(config)
     html.classList.add('btn')
+    html.classList.add('btn-sm')
     return html
   }
 
@@ -97,7 +92,7 @@ class ThemeBootstrap4 extends Theme {
     input.classList.add('form-control')
 
     if (config.srOnly) {
-      this.hideElement(label)
+      this.visuallyHidden(label)
     }
 
     return control
@@ -110,7 +105,7 @@ class ThemeBootstrap4 extends Theme {
     input.classList.add('form-control')
 
     if (config.srOnly) {
-      this.hideElement(label)
+      this.visuallyHidden(label)
     }
 
     return control
@@ -250,11 +245,11 @@ class ThemeBootstrap4 extends Theme {
     }
   }
 
-  hideElement (element) {
+  visuallyHidden (element) {
     element.classList.add('sr-only')
   }
 
-  showElement (element) {
+  visuallyVisible (element) {
     element.classList.remove('sr-only')
   }
 }

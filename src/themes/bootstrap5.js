@@ -23,7 +23,7 @@ class ThemeBootstrap5 extends Theme {
     legend.classList.add('d-flex')
     legend.classList.add('justify-content-between')
     legend.classList.add('align-items-center')
-
+    legend.classList.add('py-2')
     return legend
   }
 
@@ -57,12 +57,6 @@ class ThemeBootstrap5 extends Theme {
     return html
   }
 
-  getArrayActionsSlot () {
-    const html = super.getArrayActionsSlot()
-    html.classList.add('btn-group')
-    return html
-  }
-
   getControlSlot () {
     const controlSlot = super.getControlSlot()
     controlSlot.classList.add('mb-3')
@@ -74,7 +68,6 @@ class ThemeBootstrap5 extends Theme {
     html.setAttribute('data-bs-toggle', 'collapse')
     html.setAttribute('data-bs-target', '#' + config.propertiesContainer.id)
     html.classList.add('jedi-properties-toggle')
-    html.classList.add('p-0')
     return html
   }
 
@@ -87,6 +80,7 @@ class ThemeBootstrap5 extends Theme {
   getButton (config) {
     const html = super.getButton(config)
     html.classList.add('btn')
+    html.classList.add('btn-sm')
     return html
   }
 
@@ -103,7 +97,7 @@ class ThemeBootstrap5 extends Theme {
     input.classList.add('form-control')
 
     if (config.srOnly) {
-      this.hideElement(label)
+      this.visuallyHidden(label)
     }
 
     return control
@@ -116,7 +110,7 @@ class ThemeBootstrap5 extends Theme {
     input.classList.add('form-control')
 
     if (config.srOnly) {
-      this.hideElement(label)
+      this.visuallyHidden(label)
     }
 
     return control
@@ -154,7 +148,7 @@ class ThemeBootstrap5 extends Theme {
     label.classList.add('form-check-label')
 
     if (config.srOnly) {
-      this.hideElement(label)
+      this.visuallyHidden(label)
     }
 
     container.appendChild(formGroup)
@@ -178,7 +172,7 @@ class ThemeBootstrap5 extends Theme {
     const { container, input, label } = control
     container.classList.remove('mb-3')
     input.classList.remove('form-select')
-    this.hideElement(label)
+    this.visuallyHidden(label)
     return control
   }
 
@@ -258,11 +252,11 @@ class ThemeBootstrap5 extends Theme {
     }
   }
 
-  hideElement (element) {
+  visuallyHidden (element) {
     element.classList.add('visually-hidden')
   }
 
-  showElement (element) {
+  visuallyVisible (element) {
     element.classList.remove('visually-hidden')
   }
 }

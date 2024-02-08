@@ -21,7 +21,7 @@ class ThemeBootstrap3 extends Theme {
     legend.classList.add('h5')
     legend.classList.add('panel-heading')
     legend.classList.add('pull-left')
-    legend.setAttribute('style', 'margin-top: 0; display: flex; justify-content: space-between; align-items: center;')
+    legend.setAttribute('style', 'margin: 0; display: flex; justify-content: space-between; align-items: center;')
     return legend
   }
 
@@ -42,16 +42,7 @@ class ThemeBootstrap3 extends Theme {
   getCardBody () {
     const html = super.getCardBody()
     html.classList.add('panel-body')
-    return html
-  }
-
-  getArrayActionsSlot () {
-    const html = super.getArrayActionsSlot()
-    html.classList.add('btn-group')
-    // html.classList.add('visible-xs-inline')
-    // html.classList.add('visible-sm-inline')
-    // html.classList.add('visible-md-inline')
-    // html.classList.add('visible-lg-inline')
+    html.style.clear = 'both'
     return html
   }
 
@@ -97,7 +88,7 @@ class ThemeBootstrap3 extends Theme {
     input.classList.add('form-control')
 
     if (config.srOnly) {
-      this.hideElement(label)
+      this.visuallyHidden(label)
     }
 
     return control
@@ -110,7 +101,7 @@ class ThemeBootstrap3 extends Theme {
     input.classList.add('form-control')
 
     if (config.srOnly) {
-      this.hideElement(label)
+      this.visuallyHidden(label)
     }
 
     return control
@@ -156,7 +147,7 @@ class ThemeBootstrap3 extends Theme {
     input.classList.add('form-control')
 
     if (config.srOnly) {
-      this.hideElement(label)
+      this.visuallyHidden(label)
     }
 
     return control
@@ -241,11 +232,11 @@ class ThemeBootstrap3 extends Theme {
     }
   }
 
-  hideElement (element) {
+  visuallyHidden (element) {
     element.classList.add('sr-only')
   }
 
-  showElement (element) {
+  visuallyVisible (element) {
     element.classList.remove('sr-only')
   }
 }

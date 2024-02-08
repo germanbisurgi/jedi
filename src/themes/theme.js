@@ -34,7 +34,7 @@ class Theme {
   }
 
   /**
-   * Returns a div used to wrap the editor UI elements
+   * Used to wrap the editor UI elements
    * @private
    */
   getEditorContainer () {
@@ -44,12 +44,25 @@ class Theme {
   }
 
   /**
-   * Return a fieldset element.
-   * Used to wrap children slot and provide more semantic html
+   * Used to group several controls
    * @private
    */
   getFieldset () {
     return document.createElement('fieldset')
+  }
+
+  /**
+   * Represents a caption for the content of its parent fieldset
+   * @private
+   */
+  getLegend (config) {
+    const legend = document.createElement('legend')
+    const legendText = document.createElement('span')
+    legend.setAttribute('aria-labelledby', '#legend-' + config.id)
+    legendText.textContent = config.textContent
+    legendText.setAttribute('id', '#legend-' + config.id)
+    legend.appendChild(legendText)
+    return legend
   }
 
   /**
@@ -58,16 +71,6 @@ class Theme {
    */
   getCard () {
     return document.createElement('div')
-  }
-
-  /**
-   * Legend element used in fieldsets
-   * @private
-   */
-  getLegend (config) {
-    const legend = document.createElement('legend')
-    legend.textContent = config.textContent
-    return legend
   }
 
   /**
@@ -93,8 +96,6 @@ class Theme {
   getActionsSlot () {
     const html = document.createElement('div')
     html.classList.add('jedi-actions-slot')
-    html.style.textAlign = 'right'
-    html.setAttribute('aria-hidden', 'true')
     return html
   }
 
@@ -103,7 +104,7 @@ class Theme {
    * @private
    */
   getArrayActionsSlot () {
-    const html = document.createElement('div')
+    const html = this.getBtnGroup()
     html.classList.add('jedi-array-actions-slot')
     return html
   }
@@ -157,6 +158,28 @@ class Theme {
   }
 
   /**
+   * Container for screen reader announced messages
+   * @private
+   */
+  getPropertiesAriaLive (message) {
+    const html = document.createElement('div')
+    html.setAttribute('role', 'status')
+    html.setAttribute('aria-live', 'polite')
+    return html
+  }
+
+  /**
+   * A message that will be announced by screen reader
+   * @private
+   */
+  getAriaLiveMessage (message) {
+    const html = document.createElement('p')
+    html.textContent = message
+    this.visuallyHidden(html)
+    return html
+  }
+
+  /**
    * Toggles the ObjectEditor properties wrapper visibility
    * @private
    */
@@ -167,9 +190,9 @@ class Theme {
     if (this.useToggleEvents) {
       toggle.addEventListener('click', () => {
         if (config.propertiesContainer.hasAttribute('style')) {
-          this.showElement(config.propertiesContainer)
+          this.visuallyVisible(config.propertiesContainer)
         } else {
-          this.hideElement(config.propertiesContainer)
+          this.visuallyHidden(config.propertiesContainer)
         }
       })
     }
@@ -192,7 +215,9 @@ class Theme {
    * @private
    */
   getBtnGroup () {
-    return document.createElement('div')
+    const html = document.createElement('span')
+    html.style.display = 'initial'
+    return html
   }
 
   /**
@@ -218,7 +243,7 @@ class Theme {
       const icon = this.getIcon(config.icon)
       icon.setAttribute('title', config.textContent)
       button.appendChild(icon)
-      this.hideElement(text)
+      this.visuallyHidden(text)
     }
 
     button.appendChild(text)
@@ -230,10 +255,20 @@ class Theme {
    * Array "add" item button
    * @private
    */
-  getArrayBtnAdd (config) {
-    const html = this.getButton(config)
+  getArrayBtnAdd () {
+    const html = this.getButton({
+      textContent: 'Add item into',
+      icon: 'add'
+    })
     html.classList.add('jedi-array-add')
-    html.classList.add('p-0')
+    return html
+  }
+
+  getAddPropertyButton () {
+    const html = this.getButton({
+      textContent: 'Add property'
+    })
+    html.classList.add('jedi-add-property-btn')
     return html
   }
 
@@ -287,7 +322,7 @@ class Theme {
    * @private
    */
   getDescription (config) {
-    const description = document.createElement('div')
+    const description = document.createElement('small')
     description.textContent = config.textContent
     return description
   }
@@ -303,6 +338,7 @@ class Theme {
     const actions = this.getActionsSlot()
     const arrayActions = this.getArrayActionsSlot()
     const body = this.getCardBody()
+    const ariaLive = this.getPropertiesAriaLive()
 
     const description = this.getDescription({
       textContent: config.description
@@ -330,13 +366,12 @@ class Theme {
       label: 'Property'
     })
 
-    const addPropertyBtn = this.getButton({
-      textContent: 'Add property'
-    })
+    const addPropertyBtn = this.getAddPropertyButton()
 
     const fieldset = this.getFieldset()
     const legend = this.getLegend({
-      textContent: config.title
+      textContent: config.title,
+      id: config.id
     })
 
     addPropertyBtn.classList.add('jedi-object-add')
@@ -353,6 +388,7 @@ class Theme {
 
     if (config.editableProperties) {
       actions.appendChild(propertiesToggle)
+      propertiesContainer.appendChild(ariaLive)
       propertiesContainer.appendChild(propertiesActivators)
     }
 
@@ -371,6 +407,7 @@ class Theme {
       propertiesContainer,
       addPropertyControl,
       addPropertyBtn,
+      ariaLive,
       propertiesActivators,
       arrayActions
     }
@@ -394,15 +431,11 @@ class Theme {
     const messages = this.getMessagesSlot()
     const childrenSlot = this.getChildrenSlot()
     const btnGroup = this.getBtnGroup()
-
-    const addBtn = this.getArrayBtnAdd({
-      textContent: 'Add item into' + ' ' + config.title,
-      icon: 'add'
-    })
-
+    const addBtn = this.getArrayBtnAdd()
     const fieldset = this.getFieldset()
     const legend = this.getLegend({
-      textContent: config.title
+      textContent: config.title,
+      id: config.id
     })
 
     container.appendChild(fieldset)
@@ -504,7 +537,7 @@ class Theme {
     labelText.textContent = config.label
 
     if (config.srOnly) {
-      this.hideElement(label)
+      this.visuallyHidden(label)
     }
 
     const descriptionId = config.id + '-description'
@@ -546,7 +579,7 @@ class Theme {
     labelText.textContent = config.label
 
     if (config.srOnly) {
-      this.hideElement(label)
+      this.visuallyHidden(label)
     }
 
     const description = document.createElement('div')
@@ -561,7 +594,7 @@ class Theme {
     const messagesId = config.id + '-messages'
     messages.setAttribute('id', messagesId)
 
-    const describedBy = descriptionId + ' ' + messagesId
+    const describedBy = messagesId + ' ' + descriptionId
     input.setAttribute('aria-describedby', describedBy)
 
     container.appendChild(label)
@@ -595,7 +628,7 @@ class Theme {
     labelText.textContent = config.label
 
     if (config.srOnly) {
-      this.hideElement(label)
+      this.visuallyHidden(label)
     }
 
     const description = document.createElement('div')
@@ -610,7 +643,7 @@ class Theme {
     const messagesId = config.id + '-messages'
     messages.setAttribute('id', messagesId)
 
-    const describedBy = descriptionId + ' ' + messagesId
+    const describedBy = messagesId + ' ' + descriptionId
     input.setAttribute('aria-describedby', describedBy)
 
     container.appendChild(label)
@@ -636,7 +669,7 @@ class Theme {
     const messages = this.getMessagesSlot()
     const body = this.getCardBody()
     const legend = this.getLegend({
-      textContent: config.label
+      id: config.label
     })
 
     const messagesId = config.id + '-messages'
@@ -647,7 +680,7 @@ class Theme {
     description.setAttribute('id', descriptionId)
 
     if (config.srOnly) {
-      this.hideElement(legend)
+      this.visuallyHidden(legend)
     }
 
     const radioControls = []
@@ -665,7 +698,7 @@ class Theme {
       radio.setAttribute('value', value)
       radios.push(radio)
 
-      const describedBy = descriptionId + ' ' + messagesId
+      const describedBy = messagesId + ' ' + descriptionId
       radio.setAttribute('aria-describedby', describedBy)
 
       const label = document.createElement('label')
@@ -730,7 +763,7 @@ class Theme {
     labelText.textContent = config.label
 
     if (config.srOnly) {
-      this.hideElement(label)
+      this.visuallyHidden(label)
     }
 
     const description = document.createElement('div')
@@ -745,7 +778,7 @@ class Theme {
     const messagesId = config.id + '-messages'
     messages.setAttribute('id', messagesId)
 
-    const describedBy = descriptionId + ' ' + messagesId
+    const describedBy = messagesId + ' ' + descriptionId
     input.setAttribute('aria-describedby', describedBy)
 
     container.appendChild(formGroup)
@@ -790,7 +823,7 @@ class Theme {
     labelText.textContent = config.label
 
     if (config.srOnly) {
-      this.hideElement(label)
+      this.visuallyHidden(label)
     }
 
     const description = document.createElement('div')
@@ -805,7 +838,7 @@ class Theme {
     const messagesId = config.id + '-messages'
     messages.setAttribute('id', messagesId)
 
-    const describedBy = descriptionId + ' ' + messagesId
+    const describedBy = messagesId + ' ' + descriptionId
     input.setAttribute('aria-describedby', describedBy)
 
     container.appendChild(label)
@@ -927,7 +960,7 @@ class Theme {
    * Makes an element visually hidden
    * @private
    */
-  hideElement (element) {
+  visuallyHidden (element) {
     element.setAttribute('style', 'position: absolute;width: 1px;height: 1px;padding: 0;margin: -1px;overflow: hidden;clip: rect(0,0,0,0);border: 0;')
   }
 
@@ -935,7 +968,7 @@ class Theme {
    * Reveals a visually hidden element
    * @private
    */
-  showElement (element) {
+  visuallyVisible (element) {
     element.removeAttribute('style')
   }
 }
