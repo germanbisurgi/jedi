@@ -7,10 +7,10 @@ class EventEmitter {
   }
 
   /**
-   * Adds an named event listener
+   * Adds a named event listener
    * @public
    * @param {string} name - The name of the event
-   * @param {function} callback - A callback functions that will be executed whent this event is emitted
+   * @param {function} callback - A callback functions that will be executed when this event is emitted
    */
   on (name, callback) {
     this.listeners.push({ name, callback })
