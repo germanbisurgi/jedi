@@ -1,5 +1,7 @@
 ## Todo
 
+- try to guess type from constrains and build switcher schemas from most likely to less likely type
+- add property constrain to error messages to filter multiple errors
 - close on escape
 - compact descriptions
 - aria live for multiple

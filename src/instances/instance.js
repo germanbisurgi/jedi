@@ -39,7 +39,7 @@ class Instance extends EventEmitter {
      * @type {boolean|object}
      * @private
      */
-    this.originalSchema = config.schema
+    this.originalSchema = config.originalSchema ? config.originalSchema : config.schema
 
     /**
      * A JSON schema.
@@ -47,6 +47,13 @@ class Instance extends EventEmitter {
      * @private
      */
     this.schema = config.schema
+
+    /**
+     * A JSON schema.
+     * @type {boolean|object}
+     * @private
+     */
+    this.lastSchema = config.lastSchema ? config.lastSchema : config.schema
 
     /**
      * The json value of this instance.
@@ -105,9 +112,9 @@ class Instance extends EventEmitter {
         this.parent.onChildChange()
       }
 
-      // if (this.jedi?.options?.isEditor) {
-      //   this.mutate()
-      // }
+      if (this.jedi?.options?.isEditor) {
+        this.mutate()
+      }
     })
   }
 
@@ -116,42 +123,78 @@ class Instance extends EventEmitter {
       return
     }
 
-    const schemaIf = getSchemaIf(this.schema)
+    const schemaIf = getSchemaIf(this.originalSchema)
 
     if (isSet(schemaIf)) {
-      this.unregister()
       const jedi = this.jedi
-      const path = this.path
-      const parent = this.parent
-      const container = this.ui.control.container.parentNode
-      const originalSchema = this.originalSchema
-      const oldValue = clone(this.getValue())
-      const schemaThen = getSchemaThen(this.schema)
-      const schemaElse = getSchemaElse(this.schema)
-      const ifEditor = new Jedi({ schema: schemaIf, data: oldValue })
-      const valid = ifEditor.getErrors().length === 0
-      ifEditor.destroy()
+      const instance = this.jedi.getInstance(this.path)
+      const path = instance.path
+      const parent = instance.parent
+      const container = instance.ui.control.container.parentNode
+      const lastSchema = instance.lastSchema
+      const originalSchema = instance.originalSchema
+      const oldValue = clone(instance.getValue())
 
-      const schemaDelta = valid ? schemaThen : schemaElse
+      const getDeltaSchema = (schema, data) => {
+        const schemaIf = getSchemaIf(schema)
+        const schemaThen = getSchemaThen(schema)
+        const schemaElse = getSchemaElse(schema)
+
+        const ifValidator = new Jedi({ schema: schemaIf, data: data })
+        const valid = ifValidator.getErrors().length === 0
+        ifValidator.destroy()
+
+        if (!schemaIf) {
+          return schema
+        }
+
+        if (valid) {
+          if (schemaThen && typeof schemaThen.if !== 'undefined') {
+            return getDeltaSchema(schemaThen, data)
+          } else {
+            return schemaThen
+          }
+        } else {
+          if (schemaElse && typeof schemaElse.if !== 'undefined') {
+            return getDeltaSchema(schemaElse, data)
+          } else {
+            return schemaElse
+          }
+        }
+      }
+
+      const schemaDelta = getDeltaSchema(originalSchema, oldValue)
       const newSchema = mergeDeep({}, originalSchema, schemaDelta)
-      const schemaUnchanged = equal(originalSchema, newSchema)
+      const sameSchema = equal(lastSchema, newSchema)
 
-      if (schemaUnchanged) {
+      // console.log('schemaDelta', JSON.stringify(schemaDelta, null, 2))
+      // console.log('newSchema', JSON.stringify(newSchema, null, 2))
+      // console.log('lastSchema', JSON.stringify(lastSchema, null, 2))
+      // console.log('sameSchema', sameSchema)
+
+      if (sameSchema) {
         return
       }
 
-      this.destroy()
+      instance.destroy()
 
       const newInstance = jedi.createInstance({
         jedi: jedi,
+        lastSchema: newSchema,
+        originalSchema: originalSchema,
         schema: newSchema,
         path: path,
         parent: parent
       })
 
-      newInstance.setValue(mergeDeep(newInstance.getValue(), oldValue), false)
+      if (path === jedi.rootName) {
+        jedi.root = newInstance
+        jedi.bindEventListeners()
+      }
 
       container.appendChild(newInstance.ui.control.container)
+
+      newInstance.setValue(oldValue, false)
     }
   }
 

@@ -1,20 +1,17 @@
-import EventEmitter from '../event-emitter'
 import { glyphicons, bootstrapIcons, fontAwesome3, fontAwesome4, fontAwesome5, fontAwesome6 } from '../themes/icons/icons'
 import ThemeBootstrap3 from '../themes/bootstrap3'
 import ThemeBootstrap4 from '../themes/bootstrap4'
 import ThemeBootstrap5 from '../themes/bootstrap5'
 import Theme from '../themes/theme'
 import { isSet } from '../helpers/utils'
-import { getSchemaEnum, getSchemaOption, getSchemaType } from '../helpers/schema'
+import { getSchemaEnum, getSchemaOption, getSchemaTitle, getSchemaType } from '../helpers/schema'
 
 /**
  * Represents an Editor instance.
  * @extends EventEmitter
  */
-class Editor extends EventEmitter {
+class Editor {
   constructor (instance) {
-    super()
-
     /**
      * A reference to the Instance being controlled by this editor.
      * @type {Instance}
@@ -169,9 +166,13 @@ class Editor extends EventEmitter {
 
     this.control.messages.innerHTML = ''
 
+    const label = getSchemaTitle(this.instance.schema) || this.instance.getKey()
+
     errors.forEach((error) => {
       error.messages.forEach((message) => {
-        const invalidFeedback = this.getInvalidFeedback({ message })
+        const invalidFeedback = this.getInvalidFeedback({
+          message: label + ': ' + message
+        })
         this.control.messages.appendChild(invalidFeedback)
       })
     })

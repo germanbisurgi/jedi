@@ -112,7 +112,8 @@ class Jedi extends EventEmitter {
 
     this.root = this.createInstance({
       jedi: this,
-      schema: this.options.schema
+      schema: this.options.schema,
+      path: this.rootName
     })
 
     if (isSet(this.options.data)) {
@@ -126,9 +127,21 @@ class Jedi extends EventEmitter {
       this.container.classList.add('jedi-ready')
     }
 
-    this.root.on('change', () => {
-      this.emit('change')
-    })
+    this.bindEventListeners()
+  }
+
+  bindEventListeners () {
+    if (this.root) {
+      this.root.on('change', () => {
+        this.emit('change')
+      })
+    }
+
+    if (this.hiddenInput) {
+      this.on('change', () => {
+        this.hiddenInput.value = JSON.stringify(this.getValue())
+      })
+    }
   }
 
   /**
@@ -141,17 +154,12 @@ class Jedi extends EventEmitter {
       type: 'hidden',
       id: 'jedi-hidden-input'
     })
-    this.hiddenInput = hiddenControl.input
 
+    this.hiddenInput = hiddenControl.input
     this.hiddenInput.setAttribute('name', 'json')
     this.hiddenInput.removeAttribute('aria-describedby')
-
     this.container.appendChild(this.hiddenInput)
     this.hiddenInput.value = JSON.stringify(this.getValue())
-
-    this.on('change', () => {
-      this.hiddenInput.value = JSON.stringify(this.getValue())
-    })
   }
 
   /**
