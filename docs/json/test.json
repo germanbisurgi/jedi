@@ -1,31 +1,27 @@
 {
   "type": "object",
   "properties": {
-    "isStudent": {
-      "type": "boolean"
+    "shape": {
+      "type": "string",
+      "enum": ["circle", "square"]
     }
   },
   "if": {
     "properties": {
-      "isStudent": {
-        "const": true
-      }
+      "shape": { "const": "circle" }
     }
   },
   "then": {
     "properties": {
-      "schoolName": {
-        "type": "string"
-      }
+      "radius": { "type": "number", "minimum": 0 }
     },
-    "required": ["schoolName"]
+    "required": ["radius"]
   },
   "else": {
     "properties": {
-      "jobTitle": {
-        "type": "string"
-      }
+      "length": { "type": "number", "minimum": 0 },
+      "width": { "type": "number", "minimum": 0 }
     },
-    "required": ["jobTitle"]
+    "required": ["length", "width"]
   }
 }

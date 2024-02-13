@@ -1,5 +1,6 @@
 import Validator from './validation/validator'
 import EventEmitter from './event-emitter'
+import InstanceIfThenElse from './instances/if-then-else'
 import InstanceMultiple from './instances/multiple'
 import InstanceBoolean from './instances/boolean'
 import InstanceObject from './instances/object'
@@ -10,7 +11,7 @@ import InstanceNull from './instances/null'
 import RefParser from './ref-parser/ref-parser'
 import { isArray, isSet, notSet } from './helpers/utils'
 import {
-  getSchemaAnyOf,
+  getSchemaAnyOf, getSchemaIf,
   getSchemaOneOf,
   getSchemaType
 } from './helpers/schema'
@@ -188,6 +189,11 @@ class Jedi extends EventEmitter {
     const schemaType = getSchemaType(config.schema)
     const schemaOneOf = getSchemaOneOf(config.schema)
     const schemaAnyOf = getSchemaAnyOf(config.schema)
+    const schemaIf = getSchemaIf(config.schema)
+
+    if (isSet(schemaIf)) {
+      return new InstanceIfThenElse(config)
+    }
 
     if (isSet(schemaAnyOf) || isSet(schemaOneOf) || schemaType === 'any' || isArray(schemaType) || notSet(schemaType)) {
       return new InstanceMultiple(config)
