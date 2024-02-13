@@ -88,7 +88,7 @@ window.addEventListener('DOMContentLoaded', () => {
         isEditor: true,
         theme: 'barebones',
         iconLib: 'bootstrap-icons',
-        showErrors: 'always',
+        showErrors: 'change',
         validateFormat: false
       }
     },
@@ -96,8 +96,9 @@ window.addEventListener('DOMContentLoaded', () => {
       this.theme = this.getQueryParam('theme') || 'bootstrap5'
       this.iconLib = this.getQueryParam('iconLib') || 'fontawesome5'
       this.example = this.getQueryParam('example') || '../json/editors/all.json'
-      this.showErrors = this.getQueryParam('showErrors') || 'always'
-      this.validateFormat = this.getQueryParam('validateFormat') === 'true' ? true : false
+      this.showErrors = this.getQueryParam('showErrors') || 'change'
+      this.validateFormat = this.getQueryParam('validateFormat') ? this.parseBooleanString(this.getQueryParam('validateFormat')) : false
+      this.isEditor = this.getQueryParam('isEditor') ? this.parseBooleanString(this.getQueryParam('isEditor')) : true
     },
     mounted() {
       switch (this.theme) {
@@ -219,6 +220,7 @@ window.addEventListener('DOMContentLoaded', () => {
         newUrl += "&example=" + this.example
         newUrl += "&showErrors=" + this.showErrors
         newUrl += "&validateFormat=" + this.validateFormat
+        newUrl += "&isEditor=" + this.isEditor
 
         window.open(newUrl, '_self')
       },
@@ -231,6 +233,9 @@ window.addEventListener('DOMContentLoaded', () => {
       getQueryParam(name) {
         const match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search)
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '))
+      },
+      parseBooleanString (string) {
+        return string === 'true'
       },
       loadStylesheets(resources) {
         const head = document.head;
