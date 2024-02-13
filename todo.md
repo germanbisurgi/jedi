@@ -1,5 +1,9 @@
 ## Todo
 
+- ?if is editor try to guess type, for ui and performance improvements? or make it optional
+- array copy button
+- ?can not set value if enum and not in enum?
+- if property is required create property
 - try to guess type from constrains and build switcher schemas from most likely to less likely type
 - add property constrain to error messages to filter multiple errors
 - close on escape
