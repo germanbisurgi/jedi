@@ -3,7 +3,8 @@
   "properties": {
     "shape": {
       "type": "string",
-      "enum": ["circle", "square"]
+      "enum": ["circle", "square", "rectangle"],
+      "default": "square"
     }
   },
   "if": {
@@ -18,10 +19,23 @@
     "required": ["radius"]
   },
   "else": {
-    "properties": {
-      "length": { "type": "number", "minimum": 0 },
-      "width": { "type": "number", "minimum": 0 }
+    "if": {
+      "properties": {
+        "shape": { "const": "square" }
+      }
     },
-    "required": ["length", "width"]
+    "then": {
+      "properties": {
+        "sideLength": { "type": "number", "minimum": 0 }
+      },
+      "required": ["sideLength"]
+    },
+    "else": {
+      "properties": {
+        "length": { "type": "number", "minimum": 0 },
+        "width": { "type": "number", "minimum": 0 }
+      },
+      "required": ["length", "width"]
+    }
   }
 }

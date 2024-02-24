@@ -512,6 +512,7 @@ class Theme {
     return {
       container,
       card,
+      header,
       body,
       actions,
       messages,
@@ -571,6 +572,7 @@ class Theme {
 
     const input = document.createElement('textarea')
     input.setAttribute('id', config.id)
+    input.style.width = '100%'
 
     const label = document.createElement('label')
     label.setAttribute('for', config.id)
@@ -620,6 +622,7 @@ class Theme {
     const input = document.createElement('input')
     input.setAttribute('type', config.type)
     input.setAttribute('id', config.id)
+    input.style.width = '100%'
 
     const label = document.createElement('label')
     label.setAttribute('for', config.id)
@@ -804,6 +807,7 @@ class Theme {
 
     const input = document.createElement('select')
     input.setAttribute('id', config.id)
+    input.style.width = '100%'
 
     config.values.forEach((value, index) => {
       const option = document.createElement('option')
