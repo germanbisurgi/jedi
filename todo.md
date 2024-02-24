@@ -1,5 +1,7 @@
 ## Todo
 
+- check for unused properties
+- destroy instanceWithoutIf in if-then-else
 - placeholderOption
 - remember values with local storage?
 - ?if is editor try to guess type, for ui and performance improvements? or make it optional

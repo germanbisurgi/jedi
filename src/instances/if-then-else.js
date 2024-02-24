@@ -2,10 +2,10 @@ import Instance from './instance'
 import EditorMultiple from '../editors/multiple'
 import {
   isSet,
-  isObject,
-  overwriteExistingProperties,
   mergeDeep,
-  clone
+  clone,
+  isObject,
+  overwriteExistingProperties
 } from '../helpers/utils'
 import {
   getSchemaElse,
@@ -79,14 +79,12 @@ class InstanceIfThenElse extends Instance {
       instance.unregister()
 
       instance.on('change', () => {
-        const lastValue = this.value
-        const valueBeforeSwitch = this.activeInstance.getValue()
-        const fittestIndex = this.getFittestIndex(valueBeforeSwitch)
+        const afterChangeValue = this.activeInstance.getValue()
+        const fittestIndex = this.getFittestIndex(afterChangeValue)
         const mustSwitch = fittestIndex !== this.index
 
         if (mustSwitch) {
-          this.value = this.activeInstance.getValue()
-          this.emit('set-value', { lastValue })
+          this.jedi.getInstance(this.path).setValue(afterChangeValue)
         } else {
           this.value = this.activeInstance.getValue()
           this.emit('change')
@@ -98,35 +96,25 @@ class InstanceIfThenElse extends Instance {
       this.register()
     })
 
-    this.on('set-value', (payload = {}) => {
-      const valueBeforeSwitch = this.value
-      const lastInstance = this.activeInstance
-      const fittestIndex = this.getFittestIndex(valueBeforeSwitch)
+    this.on('before-set-value', (newValue) => {
+      const fittestIndex = this.getFittestIndex(newValue)
       const mustSwitch = fittestIndex !== this.index
-
-      console.log('HEY', mustSwitch)
 
       if (mustSwitch) {
         this.switchInstance(fittestIndex)
-
-        if (payload.lastValue) {
-          console.log('before', JSON.stringify(payload.lastValue))
-          lastInstance.setValue(payload.lastValue, false, false)
-          console.log('after', JSON.stringify(lastInstance.getValue()))
-        }
-
-        let newValue = this.activeInstance.getValue()
-
-        if (isObject(valueBeforeSwitch) && isObject(newValue)) {
-          newValue = overwriteExistingProperties(newValue, valueBeforeSwitch)
-        }
-
-        this.activeInstance.setValue(newValue)
-      } else {
-        this.activeInstance.setValue(valueBeforeSwitch)
-        this.value = this.activeInstance.getValue()
-        this.emit('change')
       }
+    })
+
+    this.on('set-value', () => {
+      const valueBefore = this.activeInstance.getValue()
+      let newValue = this.value
+
+      if (isObject(valueBefore) && isObject(newValue)) {
+        newValue = overwriteExistingProperties(valueBefore, newValue)
+      }
+
+      this.activeInstance.setValue(newValue)
+      this.emit('change')
     })
 
     // initial value and active instance
@@ -138,7 +126,7 @@ class InstanceIfThenElse extends Instance {
   switchInstance (index) {
     this.index = index
     this.activeInstance = this.instances[this.index]
-    this.value = this.activeInstance.value
+    this.value = this.activeInstance.getValue()
     this.emit('change')
   }
 
