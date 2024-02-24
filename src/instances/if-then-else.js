@@ -160,7 +160,7 @@ class InstanceIfThenElse extends Instance {
     let fittestIndex = this.index
 
     this.ifThenElseShemas.forEach((schema, index) => {
-      const ifValidator = new Jedi({ schema: schema.if, data: value })
+      const ifValidator = new Jedi({ XMLHttpRequest: this.jedi.validator.refParser.XMLHttpRequest, schema: schema.if, data: value })
       const ifErrors = ifValidator.getErrors()
       ifValidator.destroy()
 

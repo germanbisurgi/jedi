@@ -160,14 +160,12 @@ class Instance extends EventEmitter {
   /**
    * Sets the instance value
    */
-  setValue (newValue, triggersChange = true, triggersSetValue = true) {
+  setValue (newValue, triggersChange = true) {
     this.emit('before-set-value', newValue)
 
     this.value = newValue
 
-    if (triggersSetValue) {
-      this.emit('set-value')
-    }
+    this.emit('set-value')
 
     if (triggersChange) {
       this.emit('change')
