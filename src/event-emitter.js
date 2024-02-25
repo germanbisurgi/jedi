@@ -20,7 +20,7 @@ class EventEmitter {
    * Triggers the callback function of a named event listener
    * @public
    * @param {string} name - The name of the event to be emitted
-   * @param {object} payload - Payload containing data that is passed along with the callback function
+   * @param {*} payload - Payload containing data that is passed along with the callback function
    */
   emit (name, payload) {
     const listeners = this.listeners.filter(listener => listener.name === name)

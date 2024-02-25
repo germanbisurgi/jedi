@@ -18,7 +18,7 @@ class Instance extends EventEmitter {
     /**
      * A reference to the Jedi instance to which this instance belongs.
      * @type {Jedi}
-     * @private
+     * @protected
      */
     this.jedi = config.jedi
 
@@ -39,7 +39,7 @@ class Instance extends EventEmitter {
     /**
      * The json value of this instance.
      * @type {*}
-     * @private
+     * @protected
      */
     this.value = isSet(config.value) ? config.value : undefined
 
@@ -161,11 +161,9 @@ class Instance extends EventEmitter {
    * Sets the instance value
    */
   setValue (newValue, triggersChange = true) {
-    this.emit('before-set-value', newValue)
-
     this.value = newValue
 
-    this.emit('set-value')
+    this.emit('set-value', newValue)
 
     if (triggersChange) {
       this.emit('change')
