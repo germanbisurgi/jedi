@@ -11,8 +11,8 @@ import InstanceNull from './instances/null'
 import RefParser from './ref-parser/ref-parser'
 import { isArray, isSet, notSet } from './helpers/utils'
 import {
-  getSchemaAnyOf, getSchemaIf,
-  getSchemaOneOf,
+  getSchemaAnyOf, getSchemaElse, getSchemaIf,
+  getSchemaOneOf, getSchemaThen,
   getSchemaType
 } from './helpers/schema'
 
@@ -190,13 +190,15 @@ class Jedi extends EventEmitter {
     const schemaOneOf = getSchemaOneOf(config.schema)
     const schemaAnyOf = getSchemaAnyOf(config.schema)
     const schemaIf = getSchemaIf(config.schema)
-
-    if (isSet(schemaIf)) {
-      return new InstanceIfThenElse(config)
-    }
+    const schemaThen = getSchemaThen(config.schema)
+    const schemaElse = getSchemaElse(config.schema)
 
     if (isSet(schemaAnyOf) || isSet(schemaOneOf) || schemaType === 'any' || isArray(schemaType) || notSet(schemaType)) {
       return new InstanceMultiple(config)
+    }
+
+    if (isSet(schemaIf) && (isSet(schemaThen) || isSet(schemaElse))) {
+      return new InstanceIfThenElse(config)
     }
 
     if (schemaType === 'object') {
@@ -268,8 +270,8 @@ class Jedi extends EventEmitter {
     let errors = []
 
     Object.keys(this.instances).forEach((key) => {
-      const editor = this.instances[key]
-      errors = [...errors, ...editor.getErrors()]
+      const instance = this.instances[key]
+      errors = [...errors, ...instance.getErrors()]
     })
 
     return errors
