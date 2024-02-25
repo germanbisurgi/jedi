@@ -84,7 +84,7 @@ class InstanceIfThenElse extends Instance {
         const mustSwitch = fittestIndex !== this.index
 
         if (mustSwitch) {
-          this.jedi.getInstance(this.path).setValue(afterChangeValue)
+          this.setValue(afterChangeValue)
         } else {
           this.value = this.activeInstance.getValue()
           this.emit('change')
@@ -96,25 +96,25 @@ class InstanceIfThenElse extends Instance {
       this.register()
     })
 
-    this.on('before-set-value', (newValue) => {
+    this.on('set-value', (newValue) => {
+      this.instances.forEach((instance) => {
+        const valueBefore = instance.getValue()
+        let futureValue = newValue
+
+        if (isObject(valueBefore) && isObject(futureValue)) {
+          futureValue = overwriteExistingProperties(valueBefore, futureValue)
+        }
+
+        instance.setValue(futureValue, false)
+      })
+
       const fittestIndex = this.getFittestIndex(newValue)
       const mustSwitch = fittestIndex !== this.index
 
       if (mustSwitch) {
         this.switchInstance(fittestIndex)
+        this.emit('change')
       }
-    })
-
-    this.on('set-value', () => {
-      const valueBefore = this.activeInstance.getValue()
-      let newValue = this.value
-
-      if (isObject(valueBefore) && isObject(newValue)) {
-        newValue = overwriteExistingProperties(valueBefore, newValue)
-      }
-
-      this.activeInstance.setValue(newValue)
-      this.emit('change')
     })
 
     // initial value and active instance
@@ -160,7 +160,12 @@ class InstanceIfThenElse extends Instance {
     let fittestIndex = this.index
 
     this.ifThenElseShemas.forEach((schema, index) => {
-      const ifValidator = new Jedi({ XMLHttpRequest: this.jedi.validator.refParser.XMLHttpRequest, schema: schema.if, data: value })
+      const ifValidator = new Jedi({
+        XMLHttpRequest: this.jedi.validator.refParser.XMLHttpRequest,
+        schema: schema.if,
+        data: value
+      })
+
       const ifErrors = ifValidator.getErrors()
       ifValidator.destroy()
 
