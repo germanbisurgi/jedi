@@ -34,6 +34,7 @@ class InstanceIfThenElse extends Instance {
     this.ifThenElseShemas = []
 
     this.traverseSchema(this.schema)
+
     delete this.schema.if
     delete this.schema.then
     delete this.schema.else
@@ -119,6 +120,7 @@ class InstanceIfThenElse extends Instance {
 
     // initial value and active instance
     this.value = instanceWithoutIf.getValue()
+    instanceWithoutIf.destroy()
     const fittestIndex = this.getFittestIndex(this.value)
     this.switchInstance(fittestIndex)
   }
@@ -137,19 +139,15 @@ class InstanceIfThenElse extends Instance {
       const schemaThen = getSchemaThen(schema)
       const schemaElse = getSchemaElse(schema)
 
-      if (isSet(schemaThen)) {
-        this.ifThenElseShemas.push({
-          if: schemaIf,
-          then: schemaThen
-        })
-      }
+      this.ifThenElseShemas.push({
+        if: schemaIf,
+        then: isSet(schemaThen) ? schemaThen : {}
+      })
 
-      if (isSet(schemaElse)) {
-        this.ifThenElseShemas.push({
-          if: schemaIf,
-          else: schemaElse
-        })
-      }
+      this.ifThenElseShemas.push({
+        if: schemaIf,
+        else: isSet(schemaElse) ? schemaElse : {}
+      })
     }
   }
 
