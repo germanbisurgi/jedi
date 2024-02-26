@@ -34,7 +34,8 @@ export function uniqueItems (validator, value, schema, key, path) {
         messages: [
           i18n.errorUniqueItems
         ],
-        path: path
+        path: path,
+        constrain: 'uniqueItems'
       })
     }
   }

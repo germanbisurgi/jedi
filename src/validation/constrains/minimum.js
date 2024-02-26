@@ -16,7 +16,8 @@ export function minimum (validator, value, schema, key, path) {
             minimum: minimum
           })
         ],
-        path: path
+        path: path,
+        constrain: 'minimum'
       })
     }
   }

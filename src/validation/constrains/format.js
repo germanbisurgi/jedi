@@ -33,7 +33,8 @@ export function format (validator, value, schema, key, path) {
         messages: [
           compileTemplate(i18n.errorFormat, { format: format })
         ],
-        path: path
+        path: path,
+        constrain: 'format'
       })
     }
   }

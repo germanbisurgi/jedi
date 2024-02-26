@@ -17,7 +17,8 @@ export function minLength (validator, value, schema, key, path) {
             minLength: minLength
           })
         ],
-        path: path
+        path: path,
+        constrain: 'minLength'
       })
     }
   }

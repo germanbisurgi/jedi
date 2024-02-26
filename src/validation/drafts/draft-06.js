@@ -9,7 +9,7 @@ import { _enum } from '../constrains/enum'
 import { exclusiveMaximum } from '../constrains/exclusiveMaximum'
 import { exclusiveMinimum } from '../constrains/exclusiveMinimum'
 import { format } from '../constrains/format'
-import { _if } from '../constrains/if'
+import { ifThenElse } from '../constrains/if-then-else'
 import { items } from '../constrains/items'
 import { maxItems } from '../constrains/maxItems'
 import { maxLength } from '../constrains/maxLength'
@@ -41,7 +41,7 @@ export default {
   exclusiveMaximum: exclusiveMaximum,
   exclusiveMinimum: exclusiveMinimum,
   format: format,
-  if: _if,
+  if: ifThenElse,
   items: items,
   maximum: maximum,
   maxItems: maxItems,

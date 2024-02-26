@@ -16,7 +16,8 @@ export function _enum (validator, value, schema, key, path) {
             enum: JSON.stringify(schemaEnum)
           })
         ],
-        path: path
+        path: path,
+        constrain: 'enum'
       })
     }
   }

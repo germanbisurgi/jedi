@@ -4,11 +4,9 @@ import { getSchemaPatternProperties } from '../../helpers/schema'
 
 export function patternProperties (validator, value, schema, path) {
   let errors = []
-  const atternProperties = getSchemaPatternProperties(schema)
+  const patternProperties = getSchemaPatternProperties(schema)
 
-  if (isObject(value) && isSet(atternProperties)) {
-    const patternProperties = atternProperties
-
+  if (isObject(value) && isSet(patternProperties)) {
     Object.keys(value).forEach((propertyName) => {
       Object.keys(patternProperties).forEach((pattern) => {
         const regexp = new RegExp(pattern)
@@ -24,7 +22,8 @@ export function patternProperties (validator, value, schema, path) {
           const editorErrors = editor.getErrors().map((error) => {
             return {
               messages: error.messages,
-              path: path + '/' + propertyName
+              path: path + '/' + propertyName,
+              constrain: 'patternProperties'
             }
           })
 

@@ -17,7 +17,8 @@ export function minProperties (validator, value, schema, key, path) {
             minProperties: minProperties
           })
         ],
-        path: path
+        path: path,
+        constrain: 'minProperties'
       })
     }
   }

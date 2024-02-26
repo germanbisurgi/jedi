@@ -36,14 +36,16 @@ export function contains (validator, value, schema, key, path) {
               minContains: minContains
             })
           ],
-          path: path
+          path: path,
+          constrain: 'minContains'
         })
       }
     } else {
       if (containsInvalid) {
         errors.push({
           messages: [i18n.errorContains],
-          path: path
+          path: path,
+          constrain: 'contains'
         })
       }
     }
@@ -59,7 +61,8 @@ export function contains (validator, value, schema, key, path) {
               maxContains: maxContains
             })
           ],
-          path: path
+          path: path,
+          constrain: 'maxContains'
         })
       }
     }

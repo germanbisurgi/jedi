@@ -36,7 +36,8 @@ export function additionalProperties (validator, value, schema, key, path) {
                 property: property
               })
             ],
-            path: path
+            path: path,
+            constrain: 'additionalProperties'
           })
         }
 
@@ -50,7 +51,8 @@ export function additionalProperties (validator, value, schema, key, path) {
           const additionalPropertyErrors = editor.getErrors().map((error) => {
             return {
               messages: error.messages,
-              path: property
+              path: property,
+              constrain: 'additionalProperties'
             }
           })
 

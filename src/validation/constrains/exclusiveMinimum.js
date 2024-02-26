@@ -16,7 +16,8 @@ export function exclusiveMinimum (validator, value, schema, key, path) {
             exclusiveMinimum: exclusiveMinimum
           })
         ],
-        path: path
+        path: path,
+        constrain: 'exclusiveMinimum'
       })
     }
   }

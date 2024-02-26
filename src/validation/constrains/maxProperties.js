@@ -17,7 +17,8 @@ export function maxProperties (validator, value, schema, key, path) {
             maxProperties: maxProperties
           })
         ],
-        path: path
+        path: path,
+        constrain: 'maxProperties'
       })
     }
   }

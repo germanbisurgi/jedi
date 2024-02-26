@@ -16,8 +16,8 @@ export function maximum (validator, value, schema, key, path) {
             maximum: maximum
           })
         ],
-
-        path: path
+        path: path,
+        constrain: 'maximum'
       })
     }
   }

@@ -23,7 +23,8 @@ export function prefixItems (validator, value, schema, key, path) {
                 index: index
               })
             ],
-            path: path
+            path: path,
+            constrain: 'prefixItems'
           })
         }
       }

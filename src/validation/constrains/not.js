@@ -19,7 +19,8 @@ export function not (validator, value, schema, key, path) {
         messages: [
           compileTemplate(i18n.errorNot)
         ],
-        path: path
+        path: path,
+        constrain: 'not'
       })
     }
   }

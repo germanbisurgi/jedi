@@ -17,7 +17,8 @@ export function _const (validator, value, schema, key, path) {
             const: JSON.stringify(schemaConst)
           })
         ],
-        path: path
+        path: path,
+        constrain: 'const'
       })
     }
   }

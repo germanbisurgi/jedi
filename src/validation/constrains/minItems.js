@@ -16,7 +16,8 @@ export function minItems (validator, value, schema, key, path) {
             minItems: minItems
           })
         ],
-        path: path
+        path: path,
+        constrain: 'minItems'
       })
     }
   }

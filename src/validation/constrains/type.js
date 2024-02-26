@@ -49,7 +49,8 @@ export function type (validator, value, schema, key, path) {
             valueType: getType(value)
           })
         ],
-        path: path
+        path: path,
+        constrain: 'type'
       })
     }
   }

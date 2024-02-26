@@ -27,7 +27,8 @@ export function oneOf (validator, value, schema, key, path) {
             counter: counter
           })
         ],
-        path: path
+        path: path,
+        constrain: 'oneOf'
       })
     }
   }

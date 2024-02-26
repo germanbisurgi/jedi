@@ -16,7 +16,8 @@ export function exclusiveMaximum (validator, value, schema, key, path) {
             exclusiveMaximum: exclusiveMaximum
           })
         ],
-        path: path
+        path: path,
+        constrain: 'exclusiveMaximum'
       })
     }
   }

@@ -28,7 +28,8 @@ export function propertyNames (validator, value, schema, key, path) {
           messages: [
             compileTemplate(i18n.errorPropertyNames, { propertyName: propertyName })
           ],
-          path: path
+          path: path,
+          constrain: 'propertyNames'
         })
       }
     })

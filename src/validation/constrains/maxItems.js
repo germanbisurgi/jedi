@@ -16,7 +16,8 @@ export function maxItems (validator, value, schema, key, path) {
             maxItems: maxItems
           })
         ],
-        path: path
+        path: path,
+        constrain: 'maxItems'
       })
     }
   }

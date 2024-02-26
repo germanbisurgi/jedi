@@ -21,7 +21,8 @@ export function multipleOf (validator, value, schema, key, path) {
             multipleOf: multipleOf
           })
         ],
-        path: path
+        path: path,
+        constrain: 'multipleOf'
       })
     }
   }

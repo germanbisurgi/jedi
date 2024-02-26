@@ -2,7 +2,7 @@ import Jedi from '../../jedi'
 import { isSet, notSet } from '../../helpers/utils'
 import { getSchemaElse, getSchemaIf, getSchemaThen } from '../../helpers/schema'
 
-export function _if (validator, value, schema, key, path) {
+export function ifThenElse (validator, value, schema, key, path) {
   const errors = []
   const schemaIf = getSchemaIf(schema)
   const schemaThen = getSchemaThen(schema)

@@ -28,7 +28,8 @@ export function dependentRequired (validator, value, schema, key, path) {
             dependentRequired: missingProperties.join(', ')
           })
         ],
-        path: path
+        path: path,
+        constrain: 'dependentRequired'
       })
     }
   }

@@ -25,7 +25,8 @@ export function anyOf (validator, value, schema, key, path) {
         messages: [
           i18n.errorAnyOf
         ],
-        path: path
+        path: path,
+        constrain: 'anyOf'
       })
     }
   }

@@ -17,7 +17,8 @@ export function maxLength (validator, value, schema, key, path) {
             maxLength: maxLength
           })
         ],
-        path: path
+        path: path,
+        constrain: 'maxLength'
       })
     }
   }

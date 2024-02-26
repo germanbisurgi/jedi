@@ -17,7 +17,8 @@ export function pattern (validator, value, schema, key, path) {
             pattern: pattern
           })
         ],
-        path: path
+        path: path,
+        constrain: 'pattern'
       })
     }
   }

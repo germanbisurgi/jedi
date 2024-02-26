@@ -25,7 +25,8 @@ export function required (validator, value, schema, key, path) {
             required: missingProperties.join(', ')
           })
         ],
-        path: path
+        path: path,
+        constrain: 'required'
       })
     }
   }
