@@ -1,7 +1,9 @@
 ## Todo
 
+- fix/check items constrain
+- error constrain property: allOf, dependentSchemas, if-then-else
+- complete if then else tests
 - check for unused properties
-- destroy instanceWithoutIf in if-then-else
 - placeholderOption
 - remember values with local storage?
 - ?if is editor try to guess type, for ui and performance improvements? or make it optional
@@ -9,7 +11,6 @@
 - ?can not set value if enum and not in enum?
 - if property is required create property
 - try to guess type from constrains and build switcher schemas from most likely to less likely type
-- add property constrain to error messages to filter multiple errors
 - close on escape
 - compact descriptions
 - aria live for multiple
@@ -49,4 +50,4 @@
 - plugins examples
 - edit object values
 - edit array values
-- formats
+- formats: https://json-schema.org/understanding-json-schema/reference/string#format
