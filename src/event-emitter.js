@@ -22,7 +22,7 @@ class EventEmitter {
    * @param {string} name - The name of the event to be emitted
    * @param {*} payload - Payload containing data that is passed along with the callback function
    */
-  emit (name, payload) {
+  emit (name, payload = undefined) {
     const listeners = this.listeners.filter(listener => listener.name === name)
 
     listeners.forEach((listener) => {
