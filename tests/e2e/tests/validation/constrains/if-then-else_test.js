@@ -1,9 +1,36 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'barebones'
 
-Feature('if')
+Feature('if-then-else')
 
-Scenario('@constrain-if-then-else validate agaist @if-then-else ', async ({ I }) => {
+Scenario('@constrain-if-then-else validate against @if-then-else-nested', async ({ I }) => {
+  I.amOnPage(`playground.html?theme=${theme}`)
+  I._waitForElement('.jedi-ready')
+  I.selectOption('#examples', '../json/validator/if-then-else-nested.json')
+  I._scrollTo('[data-path="#"]')
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "vehicleType": "motorcycle",
+    "numWheels": 0
+  }))
+  I.selectOption('[id="root-vehicleType"]', 'car')
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "vehicleType": "car",
+    "numDoors": 0
+  }))
+  I.selectOption('[id="root-vehicleType"]', 'bicycle')
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "vehicleType": "bicycle",
+    "numPedals": 0
+  }))
+  I.selectOption('[id="root-vehicleType"]', 'other')
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "vehicleType": "other",
+    "make": "",
+    "model": ""
+  }))
+})
+
+Scenario('@constrain-if-then-else validate against @if-then-else ', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', '../json/validator/if-then-else.json')
@@ -30,7 +57,7 @@ Scenario('@constrain-if-then-else validate agaist @if-then-else ', async ({ I })
   I.dontSee('.invalid-feedback')
 })
 
-Scenario('@constrain-if-then-else validate agaist @if-then', async ({ I }) => {
+Scenario('@constrain-if-then-else validate against @if-then', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', '../json/validator/if-then.json')
@@ -57,7 +84,7 @@ Scenario('@constrain-if-then-else validate agaist @if-then', async ({ I }) => {
   I.dontSee('.invalid-feedback')
 })
 
-Scenario('@constrain-if-then-else validate agaist @if-else', async ({ I }) => {
+Scenario('@constrain-if-then-else validate against @if-else', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', '../json/validator/if-else.json')
