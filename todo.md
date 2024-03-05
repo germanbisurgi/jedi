@@ -2,11 +2,8 @@
 
 - fix/check items constrain
 - error constrain property: allOf, dependentSchemas, if-then-else
-- complete if then else tests
 - check for unused properties
 - placeholderOption
-- remember values with local storage?
-- ?if is editor try to guess type, for ui and performance improvements? or make it optional
 - array copy button
 - ?can not set value if enum and not in enum?
 - if property is required create property

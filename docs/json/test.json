@@ -1,41 +1,36 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "shape": {
+    "vehicleType": {
       "type": "string",
-      "enum": ["circle", "square", "rectangle"],
-      "default": "square"
+      "enum": ["car", "bicycle"]
     }
   },
-  "if": {
-    "properties": {
-      "shape": { "const": "circle" }
-    }
-  },
-  "then": {
-    "properties": {
-      "radius": { "type": "number", "minimum": 0 }
-    },
-    "required": ["radius"]
-  },
-  "else": {
-    "if": {
-      "properties": {
-        "shape": { "const": "square" }
+  "allOf": [
+    {
+      "if": {
+        "properties": { "vehicleType": { "const": "car" } }
+      },
+      "then": {
+        "properties": {
+          "model": { "type": "string" },
+          "fuelType": { "enum": ["gasoline", "electric"] }
+        },
+        "required": ["model", "fuelType"]
       }
     },
-    "then": {
-      "properties": {
-        "sideLength": { "type": "number", "minimum": 0 }
+    {
+      "if": {
+        "properties": { "vehicleType": { "const": "bicycle" } }
       },
-      "required": ["sideLength"]
-    },
-    "else": {
-      "properties": {
-        "length": { "type": "number", "minimum": 0 },
-        "width": { "type": "number", "minimum": 0 }
-      },
-      "required": ["length", "width"]
+      "then": {
+        "properties": {
+          "brand": { "type": "string" },
+          "type": { "enum": ["road", "mountain"] }
+        },
+        "required": ["brand", "type"]
+      }
     }
-  }
+  ]
 }
