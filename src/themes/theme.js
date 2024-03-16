@@ -386,15 +386,15 @@ class Theme {
     body.appendChild(propertiesContainer)
     body.appendChild(childrenSlot)
 
+    if (config.addProperty) {
+      propertiesContainer.appendChild(addPropertyControl.container)
+      propertiesContainer.appendChild(addPropertyBtn)
+    }
+
     if (config.editableProperties) {
       actions.appendChild(propertiesToggle)
       propertiesContainer.appendChild(ariaLive)
       propertiesContainer.appendChild(propertiesActivators)
-    }
-
-    if (config.addProperty) {
-      propertiesContainer.appendChild(addPropertyControl.container)
-      propertiesContainer.appendChild(addPropertyBtn)
     }
 
     return {
