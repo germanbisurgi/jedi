@@ -50,7 +50,7 @@ class EditorObject extends Editor {
 
   addEventListeners () {
     this.control.addPropertyBtn.addEventListener('click', () => {
-      const key = this.control.addPropertyControl.input.value
+      const key = this.control.addPropertyControl.input.value.split(' ').join('')
 
       const propertyNameEmpty = key.length === 0
 
