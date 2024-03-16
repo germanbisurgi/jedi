@@ -1,5 +1,9 @@
 ## Todo
 
+- do not create property instances unless is required
+- type circular
+- use dropdown instead of collapse
+- minimize dependencies and overhead (webpack, sass, less, and stuff)
 - fix/check items constrain
 - error constrain property: allOf, dependentSchemas, if-then-else
 - check for unused properties

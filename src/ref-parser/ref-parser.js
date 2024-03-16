@@ -1,128 +1,184 @@
-/* global XMLHttpRequest */
+import {isObject} from "../helpers/utils";
 
-import {
-  isArray,
-  isObject,
-  isSet
-} from '../helpers/utils'
-import {
-  getSchemaAllOf,
-  getSchemaAnyOf,
-  getSchemaOneOf,
-  getSchemaPrefixItems
-} from '../helpers/schema'
-
-/**
- * Represents a RefParser instance.
- */
 class RefParser {
-  constructor (options) {
-    this.iterations = options.iterations || 1
-    this.XMLHttpRequest = options.XMLHttpRequest || XMLHttpRequest
-    this.refDefinitions = {}
+  constructor(config = {}) {
+    this.XMLHttpRequest = config.XMLHttpRequest
+    this.maxDepths = 3
+    this.refs = {}
+    this.circularRefs = {}
   }
 
-  dereference (schema) {
-    this.traverse({
-      value: schema,
-      callback: (args) => {
-        if (args.key === '$ref') {
-          this.refDefinitions[args.value] = null
+  dereference(schema) {
+    this.traverseExternal(schema)
+    this.traverseLocal(schema)
+    this.populateCircularRefs()
+  }
+
+  /**
+   * Traverses the given schema recursively and for each schema with $ref
+   * add a new property in the this.refs object with key being the json path to that schema.
+   * Initially the added properties will habe a value of null. This value will be later
+   * replaced with the resolved schema for that json path using resolveExternal() and resolveLocal().
+   *
+   * It also adds a new property in the this.refs object with key being the json path to that schema
+   * and value being the schema.
+   * @param schema
+   * @param path
+   */
+  traverseExternal(schema, path = '#') {
+    if (typeof schema !== 'object' || schema === null) {
+      return
+    }
+
+    for (const [key, value] of Object.entries(schema)) {
+      const nextPath = path ? `${path}/${key}` : `/${key}`
+
+      if (this.hasRef(schema)) {
+        const ref = schema['$ref']
+
+        if (this.refs[ref]) {
+          // console.log('Skipped $ref', ref)
+          return
+        }
+
+        this.refs[ref] = null
+
+        if (this.hasExternalRef(schema)) {
+          const resolvedSchema = this.resolveExternal(schema)
+          this.traverseExternal(resolvedSchema, nextPath)
+        }
+      }
+
+      this.refs[path] = schema
+
+      this.traverseExternal(value, nextPath)
+    }
+  }
+
+  traverseLocal(schema, path = '#') {
+    if (typeof schema !== 'object' || schema === null) {
+      return
+    }
+
+    for (const [key, value] of Object.entries(schema)) {
+      const nextPath = path ? `${path}/${key}` : `/${key}`
+
+      if (this.hasRef(schema)) {
+        const ref = schema['$ref']
+
+        if (this.refs[ref]) {
+          // console.log('Skipped $ref', ref)
+          return
+        }
+
+        if (!this.hasExternalRef(schema)) {
+          const resolvedSchema = this.resolveLocal(schema)
+          this.traverseLocal(resolvedSchema, nextPath)
+        }
+      }
+
+      this.traverseLocal(value, nextPath)
+    }
+  }
+
+  populateCircularRefs() {
+    Object.keys(this.refs).forEach((ref) => {
+      if (this.isCircularRef(ref)) {
+        this.circularRefs[ref] = {
+          schema: schema,
+          pathDepths: []
         }
       }
     })
-
-    // define external refs
-    Object.keys(this.refDefinitions).forEach((ref) => {
-      if (ref.startsWith('http') || ref.startsWith('https')) {
-        const request = new this.XMLHttpRequest()
-        request.open('GET', ref, false) // `false` makes the request synchronous
-        request.send(null)
-
-        if (request.status === 200) {
-          this.refDefinitions[ref] = JSON.parse(request.responseText)
-        } else {
-          console.error('can not load', ref)
-        }
-      }
-    })
-
-    // define internal refs
-    this.traverse({
-      value: schema,
-      callback: (args) => {
-        if (isSet(this.refDefinitions[args.path])) {
-          this.refDefinitions[args.path] = args.value
-        }
-      }
-    })
   }
 
-  expand (schema) {
-    if (isSet(schema['$ref'])) {
-      return this.refDefinitions[schema['$ref']]
-    }
-
-    const anyOf = getSchemaAnyOf(schema)
-    const oneOf = getSchemaOneOf(schema)
-    const allOf = getSchemaAllOf(schema)
-    const prefixItems = getSchemaPrefixItems(schema)
-
-    if (isSet(anyOf)) {
-      Object.entries(anyOf).forEach(([key, value]) => {
-        schema.anyOf[key] = this.expand(value)
-      })
-    }
-
-    if (isSet(oneOf)) {
-      Object.entries(oneOf).forEach(([key, value]) => {
-        schema.oneOf[key] = this.expand(value)
-      })
-    }
-
-    if (isSet(allOf)) {
-      Object.entries(allOf).forEach(([key, value]) => {
-        schema.allOf[key] = this.expand(value)
-      })
-    }
-
-    if (isSet(prefixItems)) {
-      Object.entries(prefixItems).forEach(([key, value]) => {
-        schema.prefixItems[key] = this.expand(value)
-      })
-    }
-
-    return schema
+  /**
+   * Iterates through the this.refs object keys. If the key is an uri containing "http" or "https" then
+   * uses that key as the url in a http request to retrieve the external schema. The retrieved schema
+   * will be used for the value of that property
+   */
+  resolveExternal(schema) {
+    const ref = schema['$ref']
+    const resolvedSchema = this.load(ref)
+    this.refs[ref] = resolvedSchema
+    return resolvedSchema
   }
 
-  traverse (args) {
-    const value = args.value
-    const callback = args.callback
-    const path = isSet(args.path) ? args.path + '/' + args.key : '#'
-    args.path = path
+  /**
+   * Iterates through the this.refs object keys and resolve all schemas that can be found in this.refs object
+   */
+  resolveLocal(schema) {
+    const ref = schema['$ref']
 
-    if (isSet(callback)) {
-      callback(args)
+    let resolvedSchema = null
+
+    if (this.refs[ref]) {
+      resolvedSchema = this.refs[ref]
+      this.refs[ref] = this.refs[ref]
     }
 
-    if (isObject(value)) {
-      Object.keys(value).forEach((key) => {
-        args.value = value[key]
-        args.key = key
-        args.path = path
-        args.prevValue = value
-        this.traverse(args)
-      })
+    return resolvedSchema
+  }
+
+  hasRef(schema) {
+    return typeof schema['$ref'] !== 'undefined'
+  }
+
+  hasExternalRef(schema) {
+    const ref = schema['$ref']
+
+    if (typeof ref !== 'string') {
+      return false
     }
 
-    if (isArray(value)) {
-      value.forEach((newValue, key) => {
-        args.value = newValue
-        args.key = key
-        args.path = path
-        args.prevValue = value
-        this.traverse(args)
-      })
+    return ref.startsWith('http') || ref.startsWith('https')
+  }
+
+  isCircularRef(ref) {
+    const test = `"$ref":"${ref}"`
+    return JSON.stringify(this.refs[ref]).includes(test)
+  }
+
+  expand(schema, path) {
+    const cloneSchema = JSON.parse(JSON.stringify(schema))
+
+    if (isObject(cloneSchema) && '$ref' in cloneSchema) {
+      const ref = cloneSchema.$ref
+
+      if (this.circularRefs[ref]) {
+        const pathDepth = path.split('/').length
+        this.circularRefs[ref].pathDepths.push(pathDepth)
+        this.circularRefs[ref].pathDepths = Array.from(new Set(this.circularRefs[ref].pathDepths))
+        this.circularRefs[ref].pathDepths.splice(this.maxDepths)
+
+        if (!this.circularRefs[ref].pathDepths.includes(pathDepth)) {
+          return {
+            type: 'null'
+          }
+        }
+      }
+
+      delete cloneSchema['$ref']
+      return Object.assign({}, this.refs[ref], cloneSchema)
+    }
+
+    return cloneSchema
+  }
+
+  /**
+   * Loads a schema with a synchronous http request
+   * @param uri
+   * @returns {any}
+   */
+  load(uri) {
+    const request = this.XMLHttpRequest ? new this.XMLHttpRequest() : new XMLHttpRequest()
+    request.open('GET', uri, false) // `false` makes the request synchronous
+    request.send(null)
+
+    if (request.status === 200) {
+      return JSON.parse(request.responseText)
+    } else {
+      console.error('can not load', uri)
     }
   }
 }

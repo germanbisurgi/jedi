@@ -185,7 +185,7 @@ class Jedi extends EventEmitter {
    * @private
    */
   createInstance (config) {
-    config.schema = this.refParser.expand(config.schema)
+    config.schema = this.refParser.expand(config.schema, config.path)
     const schemaType = getSchemaType(config.schema)
     const schemaOneOf = getSchemaOneOf(config.schema)
     const schemaAnyOf = getSchemaAnyOf(config.schema)
