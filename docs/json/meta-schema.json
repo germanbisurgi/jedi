@@ -1,12 +1,5 @@
 {
-  "anyOf": [
-    {
-      "$ref": "#/$defs/objectSchema"
-    },
-    {
-      "$ref": "#/$defs/booleanSchema"
-    }
-  ],
+  "$ref": "#/$defs/schema",
   "$defs": {
     "schema": {
       "anyOf": [
@@ -30,10 +23,14 @@
       "type": "object",
       "properties": {
         "additionalProperties": {
-          "type": "boolean"
+          "title": "additionalProperties",
+          "$ref": "#/$defs/schema"
         },
         "allOf": {
-          "type": "boolean"
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          }
         },
         "const": {
           "type": "boolean"

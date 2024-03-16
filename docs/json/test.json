@@ -1,36 +1,14 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "vehicleType": {
-      "type": "string",
-      "enum": ["car", "bicycle"]
-    }
-  },
-  "allOf": [
-    {
-      "if": {
-        "properties": { "vehicleType": { "const": "car" } }
-      },
-      "then": {
-        "properties": {
-          "model": { "type": "string" },
-          "fuelType": { "enum": ["gasoline", "electric"] }
-        },
-        "required": ["model", "fuelType"]
-      }
+    "name": {
+      "type": "string"
     },
-    {
-      "if": {
-        "properties": { "vehicleType": { "const": "bicycle" } }
-      },
-      "then": {
-        "properties": {
-          "brand": { "type": "string" },
-          "type": { "enum": ["road", "mountain"] }
-        },
-        "required": ["brand", "type"]
+    "children": {
+      "type": "array",
+      "items": {
+        "$ref": "#"
       }
     }
-  ]
+  }
 }
