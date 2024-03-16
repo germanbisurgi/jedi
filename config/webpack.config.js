@@ -14,30 +14,19 @@ const jedi = {
   },
   mode: 'development',
   devtool: 'inline-source-map',
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
-        options: {
-          configFile: path.resolve(__dirname, '.eslintrc.json'),
-          cache: false,
-          fix: true
-        }
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env'],
-          plugins: ['@babel/plugin-transform-runtime']
-        }
-      }
-    ]
-  },
+  // module: {
+  //   rules: [
+  //     {
+  //       test: /\.js$/,
+  //       exclude: /node_modules/,
+  //       loader: 'babel-loader',
+  //       options: {
+  //         presets: ['@babel/preset-env'],
+  //         plugins: ['@babel/plugin-transform-runtime']
+  //       }
+  //     }
+  //   ]
+  // },
   optimization: {
     minimize: false
   },
