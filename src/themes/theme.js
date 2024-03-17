@@ -526,6 +526,27 @@ class Theme {
    * Control for NullEditor
    * @private
    */
+  getCircularControl () {
+    const container = document.createElement('div')
+    const actions = this.getActionsSlot()
+    const arrayActions = this.getArrayActionsSlot()
+    const description = document.createElement('div')
+    const messages = this.getMessagesSlot()
+
+    description.textContent = 'CIRCULAR'
+
+    container.appendChild(description)
+    container.appendChild(messages)
+    container.appendChild(actions)
+    actions.appendChild(arrayActions)
+
+    return { container, description, messages, actions, arrayActions }
+  }
+
+  /**
+   * Control for NullEditor
+   * @private
+   */
   getNullControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()

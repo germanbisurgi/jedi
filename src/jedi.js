@@ -8,11 +8,20 @@ import InstanceArray from './instances/array'
 import InstanceString from './instances/string'
 import InstanceNumber from './instances/number'
 import InstanceNull from './instances/null'
+import InstanceCircular from './instances/circular'
 import RefParser from './ref-parser/ref-parser'
-import { isArray, isSet, notSet } from './helpers/utils'
 import {
-  getSchemaAnyOf, getSchemaElse, getSchemaIf,
-  getSchemaOneOf, getSchemaThen,
+  isArray,
+  isSet,
+  notSet
+} from './helpers/utils'
+import {
+  getSchemaAnyOf,
+  getSchemaElse,
+  getSchemaFormat,
+  getSchemaIf,
+  getSchemaOneOf,
+  getSchemaThen,
   getSchemaType
 } from './helpers/schema'
 
@@ -192,6 +201,11 @@ class Jedi extends EventEmitter {
     const schemaIf = getSchemaIf(config.schema)
     const schemaThen = getSchemaThen(config.schema)
     const schemaElse = getSchemaElse(config.schema)
+    const schemaFormat = getSchemaFormat(config.schema)
+
+    if (isSet(schemaFormat) && schemaFormat === 'circular') {
+      return new InstanceCircular(config)
+    }
 
     if (isSet(schemaAnyOf) || isSet(schemaOneOf) || schemaType === 'any' || isArray(schemaType) || notSet(schemaType)) {
       return new InstanceMultiple(config)

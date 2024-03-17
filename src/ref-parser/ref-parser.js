@@ -140,7 +140,7 @@ class RefParser {
   }
 
   expand(schema, path) {
-    const cloneSchema = JSON.parse(JSON.stringify(schema))
+    const cloneSchema = structuredClone(schema)
 
     if (isObject(cloneSchema) && '$ref' in cloneSchema) {
       const ref = cloneSchema.$ref
@@ -152,9 +152,9 @@ class RefParser {
         this.circularRefs[ref].pathDepths.splice(this.maxDepths)
 
         if (!this.circularRefs[ref].pathDepths.includes(pathDepth)) {
-          return {
-            type: 'null'
-          }
+          const stopSchema = Object.assign({}, cloneSchema, { format: 'circular' })
+          delete stopSchema.$ref
+          return stopSchema
         }
       }
 
