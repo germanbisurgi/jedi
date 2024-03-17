@@ -9,6 +9,10 @@ class InstanceCircular extends Instance {
   setUI () {
     this.ui = new EditorCircular(this)
   }
+
+  getValue() {
+    return '[CIRCULAR]'
+  }
 }
 
 export default InstanceCircular
