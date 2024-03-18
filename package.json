@@ -17,7 +17,7 @@
     "watch": "webpack --config config/webpack.config.js --watch",
     "webpack": "webpack",
     "eslint": "eslint -c ./config/.eslintrc.json ./src",
-    "eslint:fix": "eslint --fix ./src",
+    "eslint:fix": "eslint --fix -c ./config/.eslintrc.json ./src",
     "jsdoc": "jsdoc -r -X ./src > ./docs/jsdoc.json"
   },
   "repository": {
