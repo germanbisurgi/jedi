@@ -1,5 +1,8 @@
 ## Todo
 
+- pass refParser to child instances
+- option maxDepth
+- property already exist message box or disable add button
 - do not create property instances unless is required
 - type circular
 - use dropdown instead of collapse
