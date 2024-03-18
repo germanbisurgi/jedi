@@ -32,12 +32,26 @@ class InstanceObject extends Instance {
   }
 
   prepare () {
+    this.properties = {}
     const schemaProperties = getSchemaProperties(this.schema)
 
     if (isSet(schemaProperties)) {
       Object.keys(schemaProperties).forEach((key) => {
         const schema = schemaProperties[key]
-        this.createChild(schema, key)
+        this.properties[key] = { schema }
+
+        let musstCreateChild = true
+
+        const deactivateNonRequired = getSchemaOption(this.schema, 'deactivateNonRequired')
+        // const schemaDeactivateNonRequired = getSchemaOption(schema, 'deactivateNonRequired')
+
+        if (this.isNotRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true) {
+          musstCreateChild = false
+        }
+
+        if (musstCreateChild) {
+          this.createChild(schema, key)
+        }
       })
     }
 

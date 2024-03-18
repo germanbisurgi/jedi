@@ -51,8 +51,9 @@ class InstanceMultiple extends Instance {
 
       schemasOf.forEach((schema, index) => {
         schema = { ...schemaCopy, ...schema }
-        let switcherOptionsLabel = 'Option-' + (index + 1)
+        schema = this.jedi.refParser.expand(schema)
 
+        let switcherOptionsLabel = 'Option-' + (index + 1)
         const switcherTitle = getSchemaOption(schema, 'switcherTitle')
         const schemaTitle = getSchemaTitle(schema)
 

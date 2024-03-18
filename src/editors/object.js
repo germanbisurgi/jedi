@@ -74,6 +74,7 @@ class EditorObject extends Editor {
 
       const child = this.instance.createChild(schema, key)
       child.activate()
+      this.instance.properties[key] = { schema }
       this.instance.setValue(this.instance.value)
       this.control.addPropertyControl.input.value = ''
 
@@ -103,16 +104,19 @@ class EditorObject extends Editor {
     const schemaOptionEditableProperties = getSchemaOption(this.instance.schema, 'editableProperties')
 
     if (equal(this.instance.jedi.options.editableProperties, true) || equal(schemaOptionEditableProperties, true)) {
-      this.instance.children.forEach((child) => {
-        const childKey = child.getKey()
-        const isRequired = this.instance.isRequired(childKey)
-        const isDependentRequired = this.instance.isDependentRequired(childKey)
+      Object.keys(this.instance.properties).forEach((property) => {
+        // refactor with isNotRequired
+        const isRequired = this.instance.isRequired(property)
+        const isDependentRequired = this.instance.isDependentRequired(property)
         const notRequired = !isRequired && !isDependentRequired
-        const activatorInDom = this.propertyActivators[childKey]
+
+        const activatorInDom = this.propertyActivators[property]
         const ariaLive = this.control.ariaLive
-        const schemaTitle = getSchemaTitle(child.schema)
-        const id = pathToAttribute(child.path) + '-activator'
-        const label = isSet(schemaTitle) ? schemaTitle : childKey
+        const schema = this.instance.properties[property].schema
+        const schemaTitle = getSchemaTitle(schema)
+        const path = this.instance.path + this.instance.jedi.pathSeparator + property
+        const id = pathToAttribute(path) + '-activator'
+        const label = isSet(schemaTitle) ? schemaTitle : property
 
         if (notRequired && !activatorInDom) {
           const checkboxControl = this.theme.getCheckboxControl({
@@ -122,18 +126,24 @@ class EditorObject extends Editor {
           })
 
           const checkbox = checkboxControl.input
-          this.propertyActivators[childKey] = checkbox
+          this.propertyActivators[property] = checkbox
 
           checkbox.addEventListener('change', () => {
             ariaLive.innerHTML = ''
             const ariaLiveMessage = this.theme.getAriaLiveMessage()
 
             if (checkbox.checked) {
-              child.activate()
+              const child = this.instance.getChild(property)
+
+              if (!child) {
+                this.instance.createChild(schema, property)
+              }
+
+              this.instance.getChild(property).activate()
               ariaLiveMessage.textContent = label + ' field was added to the form'
               ariaLive.appendChild(ariaLiveMessage)
             } else {
-              child.deactivate()
+              this.instance.getChild(property).deactivate()
               ariaLiveMessage.textContent = label + ' field was removed from the form'
               ariaLive.appendChild(ariaLiveMessage)
             }
@@ -142,10 +152,10 @@ class EditorObject extends Editor {
           this.control.propertiesActivators.appendChild(checkboxControl.container)
         }
 
-        const checkbox = this.propertyActivators[childKey]
+        const checkbox = this.propertyActivators[property]
         if (checkbox) {
           checkbox.disabled = this.disabled
-          checkbox.checked = hasOwn(this.instance.getValue(), childKey)
+          checkbox.checked = hasOwn(this.instance.getValue(), property)
         }
       })
     }

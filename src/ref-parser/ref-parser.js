@@ -1,14 +1,16 @@
-import {isObject} from "../helpers/utils";
+/* global XMLHttpRequest */
+
+import { isObject } from '../helpers/utils'
 
 class RefParser {
-  constructor(config = {}) {
+  constructor (config = {}) {
     this.XMLHttpRequest = config.XMLHttpRequest
     this.maxDepths = 3
     this.refs = {}
     this.circularRefs = {}
   }
 
-  dereference(schema) {
+  dereference (schema) {
     this.traverseExternal(schema)
     this.traverseLocal(schema)
     this.populateCircularRefs()
@@ -25,7 +27,7 @@ class RefParser {
    * @param schema
    * @param path
    */
-  traverseExternal(schema, path = '#') {
+  traverseExternal (schema, path = '#') {
     if (typeof schema !== 'object' || schema === null) {
       return
     }
@@ -55,7 +57,7 @@ class RefParser {
     }
   }
 
-  traverseLocal(schema, path = '#') {
+  traverseLocal (schema, path = '#') {
     if (typeof schema !== 'object' || schema === null) {
       return
     }
@@ -81,11 +83,10 @@ class RefParser {
     }
   }
 
-  populateCircularRefs() {
+  populateCircularRefs () {
     Object.keys(this.refs).forEach((ref) => {
       if (this.isCircularRef(ref)) {
         this.circularRefs[ref] = {
-          schema: schema,
           pathDepths: []
         }
       }
@@ -97,7 +98,7 @@ class RefParser {
    * uses that key as the url in a http request to retrieve the external schema. The retrieved schema
    * will be used for the value of that property
    */
-  resolveExternal(schema) {
+  resolveExternal (schema) {
     const ref = schema['$ref']
     const resolvedSchema = this.load(ref)
     this.refs[ref] = resolvedSchema
@@ -107,24 +108,24 @@ class RefParser {
   /**
    * Iterates through the this.refs object keys and resolve all schemas that can be found in this.refs object
    */
-  resolveLocal(schema) {
+  resolveLocal (schema) {
     const ref = schema['$ref']
 
     let resolvedSchema = null
 
     if (this.refs[ref]) {
       resolvedSchema = this.refs[ref]
-      this.refs[ref] = this.refs[ref]
+      this.refs[ref] = resolvedSchema
     }
 
     return resolvedSchema
   }
 
-  hasRef(schema) {
+  hasRef (schema) {
     return typeof schema['$ref'] !== 'undefined'
   }
 
-  hasExternalRef(schema) {
+  hasExternalRef (schema) {
     const ref = schema['$ref']
 
     if (typeof ref !== 'string') {
@@ -134,29 +135,35 @@ class RefParser {
     return ref.startsWith('http') || ref.startsWith('https')
   }
 
-  isCircularRef(ref) {
+  isCircularRef (ref) {
     const test = `"$ref":"${ref}"`
-    return JSON.stringify(this.refs[ref]).includes(test)
+    const refSchema = this.refs[ref]
+    const schemaString = JSON.stringify(refSchema)
+    return schemaString.includes(test)
   }
 
-  expand(schema, path) {
-    const cloneSchema = structuredClone(schema)
+  expand (schema, path) {
+    const cloneSchema = JSON.parse(JSON.stringify(schema))
 
     if (isObject(cloneSchema) && '$ref' in cloneSchema) {
       const ref = cloneSchema.$ref
 
-      if (this.circularRefs[ref]) {
-        const pathDepth = path.split('/').length
-        this.circularRefs[ref].pathDepths.push(pathDepth)
-        this.circularRefs[ref].pathDepths = Array.from(new Set(this.circularRefs[ref].pathDepths))
-        this.circularRefs[ref].pathDepths.splice(this.maxDepths)
-
-        if (!this.circularRefs[ref].pathDepths.includes(pathDepth)) {
-          const stopSchema = Object.assign({}, cloneSchema, { format: 'circular' })
-          delete stopSchema.$ref
-          return stopSchema
-        }
-      }
+      // if (this.circularRefs[ref]) {
+      //   const pathDepth = path.split('/').length
+      //   this.circularRefs[ref].pathDepths.push(pathDepth)
+      //   this.circularRefs[ref].pathDepths = Array.from(new Set(this.circularRefs[ref].pathDepths))
+      //   this.circularRefs[ref].pathDepths.splice(this.maxDepths)
+      //
+      //   if (!this.circularRefs[ref].pathDepths.includes(pathDepth)) {
+      //     console.log('circular', JSON.stringify(cloneSchema))
+      //
+      //     // const stopSchema = Object.({}, cloneSchema, { format: 'circular' })
+      //     // delete stopSchema.$ref
+      //     // return stopSchema
+      //     const refSchema = structuredClone(this.refs[ref])
+      //     return JSON.parse(JSON.stringify(refSchema).replace(`"{$ref":"${ref}}"`, '{}'))
+      //   }
+      // }
 
       delete cloneSchema['$ref']
       return Object.assign({}, this.refs[ref], cloneSchema)
@@ -170,7 +177,7 @@ class RefParser {
    * @param uri
    * @returns {any}
    */
-  load(uri) {
+  load (uri) {
     const request = this.XMLHttpRequest ? new this.XMLHttpRequest() : new XMLHttpRequest()
     request.open('GET', uri, false) // `false` makes the request synchronous
     request.send(null)
