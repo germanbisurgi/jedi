@@ -7,7 +7,7 @@ import {
   notSet,
   clone,
   isObject,
-  overwriteExistingProperties, mergeDeep, deepCopy
+  overwriteExistingProperties, mergeDeep
 } from '../helpers/utils'
 import Jedi from '../jedi'
 import {
@@ -44,7 +44,7 @@ class InstanceMultiple extends Instance {
 
     if (isSet(getSchemaAnyOf(this.schema)) || isSet(getSchemaOneOf(this.schema))) {
       const schemasOf = isSet(getSchemaAnyOf(this.schema)) ? getSchemaAnyOf(this.schema) : getSchemaOneOf(this.schema)
-      const schemaCopy = deepCopy(this.schema)
+      const schemaCopy = clone(this.schema)
       delete schemaCopy['anyOf']
       delete schemaCopy['oneOf']
       delete schemaCopy['options']
@@ -88,7 +88,7 @@ class InstanceMultiple extends Instance {
         this.schemas.push(schema)
       })
     } else if (schemaType === 'any' || !schemaType) {
-      const schemaClone = deepCopy(this.schema)
+      const schemaClone = clone(this.schema)
 
       this.schemas = [
         { ...schemaClone, ...{ type: 'object' } },
