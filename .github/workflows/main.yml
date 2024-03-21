@@ -21,7 +21,7 @@ jobs:
         run: yarn install
       - name: Test
         run: yarn serve & yarn e2e
-  e2e-bootstrap-3:
+  e2e-bootstrap3:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -31,7 +31,7 @@ jobs:
         run: yarn install
       - name: Test
         run: yarn serve & yarn e2e:b3
-  e2e-bootstrap-4:
+  e2e-bootstrap4:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -41,7 +41,7 @@ jobs:
         run: yarn install
       - name: Test
         run: yarn serve & yarn e2e:b4
-  e2e-bootstrap-5:
+  e2e-bootstrap5:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
