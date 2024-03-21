@@ -221,6 +221,10 @@ export function getSchemaOneOf (schema) {
   return isArray(schema.oneOf) ? schema.oneOf : undefined
 }
 
+export function getSchemaUnevaluatedProperties (schema) {
+  return isBoolean(schema.unevaluatedProperties) ? schema.unevaluatedProperties : undefined
+}
+
 export function getSchemaUniqueItems (schema) {
   return isBoolean(schema.uniqueItems) ? schema.uniqueItems : undefined
 }

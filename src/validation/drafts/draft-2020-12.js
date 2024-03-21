@@ -29,6 +29,7 @@ import { type } from '../constrains/type'
 import { maximum } from '../constrains/maximum'
 import { uniqueItems } from '../constrains/uniqueItems'
 import { additionalProperties } from '../constrains/additionalProperties'
+import { unevaluatedProperties } from '../constrains/unevaluatedProperties'
 
 export default {
   additionalProperties: additionalProperties,
@@ -61,5 +62,6 @@ export default {
   propertyNames: propertyNames,
   required: required,
   type: type,
+  unevaluatedProperties: unevaluatedProperties,
   uniqueItems: uniqueItems
 }

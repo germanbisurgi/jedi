@@ -36,5 +36,6 @@ export const i18n = {
   errorPropertyNames: 'Property name "{{ propertyName }}" fails validation.',
   errorRequired: 'Must have the required properties: {{ required }}.',
   errorType: 'Must be of type {{ type }}.',
+  errorUnevaluatedProperties: 'Has invalid unevaluated property "{{ property }}"',
   errorUniqueItems: 'Must have unique items.'
 }
