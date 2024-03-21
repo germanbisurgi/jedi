@@ -1,13 +1,23 @@
 name: Tests
 on: [push, pull_request]
 jobs:
-  unit-test:
+#  unit:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v1
+#      - name: Node version
+#        run: node -v
+#      - name: Install
+#        run: yarn install
+#      - name: Test
+#        run: yarn unit
+  e2e:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - name: Node version
         run: node -v
       - name: Install
         run: yarn install
       - name: Test
-        run: yarn unit
+        run: yarn e2e:*
