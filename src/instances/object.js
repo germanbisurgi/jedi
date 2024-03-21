@@ -43,9 +43,13 @@ class InstanceObject extends Instance {
         let musstCreateChild = true
 
         const deactivateNonRequired = getSchemaOption(this.schema, 'deactivateNonRequired')
-        // const schemaDeactivateNonRequired = getSchemaOption(schema, 'deactivateNonRequired')
+        const schemaDeactivateNonRequired = getSchemaOption(schema, 'deactivateNonRequired')
 
         if (this.isNotRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true) {
+          musstCreateChild = false
+        }
+
+        if (this.isNotRequired(key) && isSet(schemaDeactivateNonRequired) && schemaDeactivateNonRequired === true) {
           musstCreateChild = false
         }
 
