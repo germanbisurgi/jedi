@@ -1,19 +1,20 @@
 ## Todo
 
+- integrate unevaluatedProperties "see through"
+- better NOT error messages
+- options can be global or scoped in schemas
+- resolvers system
+- collapsed options and arrays
 - pass refParser to child instances
-- option maxDepth
 - property already exist message box or disable add button
-- do not create property instances unless is required
-- type circular
 - use dropdown instead of collapse
 - minimize dependencies and overhead (webpack, sass, less, and stuff)
 - fix/check items constrain
 - error constrain property: allOf, dependentSchemas, if-then-else
-- check for unused properties
+- check for unused properties in code
 - placeholderOption
 - array copy button
 - ?can not set value if enum and not in enum?
-- if property is required create property
 - try to guess type from constrains and build switcher schemas from most likely to less likely type
 - close on escape
 - compact descriptions
@@ -26,23 +27,18 @@
 - remove display none
 - array button accessibility for screen reader
 - anyOf, oneOf accessibility switcher (radios are better)
-- async loading of schemas with fetch. Also, to make it cross-platform (node and browser). Or make interface
+- isomorphic external schema loader
 - position and dry of errors (not, patternProperties)
-- multiple: switch only if fittest editor has no errors?
 - items validation message
-- option "multiple": true/false for schemas with anyOf and oneOf, if-then-else, allOf
-- fix recursive problem with meta schema
 - Configurable i18n via options
 - multiple error messages (oneOf, anyOf, not, any, type undefined, etc.)
 - prefixItems test and error messages
 - additionalProperties false by default in UI
 - scope switcher options and titles in editors and not in instances
-- resolvers in editor
 - template / titles / descriptions as html with xss lib option
 - active item after array add/move/etc. (min and max items) + test
 - active item after object add/
 - option hideButton labels
-- fix destroy whole editor console error
 - drafts
 - array grid
 - array table
@@ -51,7 +47,7 @@
 - readonly, should not set value
 - documentation mode
 - use names options
-- plugins examples
+- plugins examples (flatpickr)
 - edit object values
 - edit array values
 - formats: https://json-schema.org/understanding-json-schema/reference/string#format
