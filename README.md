@@ -1,3 +1,5 @@
+[![Tests](https://github.com/germanbisurgi/jedi/actions/workflows/main.yml/badge.svg)](https://github.com/germanbisurgi/jedi/actions/workflows/main.yml)
+
 # Jedi - JSON Editing and Data Inspection
 
 Jedi is a versatile JavaScript library that simplifies JSON data handling in web applications.
