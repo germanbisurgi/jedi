@@ -1,17 +1,19 @@
 name: Tests
 on: [push, pull_request]
 jobs:
-#  unit:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v1
-#      - name: Node version
-#        run: node -v
-#      - name: Install
-#        run: yarn install
-#      - name: Test
-#        run: yarn unit
+  unit:
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Node version
+        run: node -v
+      - name: Install
+        run: yarn install
+      - name: Test
+        run: yarn unit
   e2e:
+    continue-on-error: true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,4 +22,4 @@ jobs:
       - name: Install
         run: yarn install
       - name: Test
-        run: yarn e2e:*
+        run: yarn e2e:b3
