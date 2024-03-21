@@ -5,7 +5,7 @@ import { isObject } from '../helpers/utils'
 class RefParser {
   constructor (config = {}) {
     this.XMLHttpRequest = config.XMLHttpRequest
-    this.maxDepths = 3
+    // this.maxDepths = 3
     this.refs = {}
     this.circularRefs = {}
   }
@@ -39,7 +39,6 @@ class RefParser {
         const ref = schema['$ref']
 
         if (this.refs[ref]) {
-          // console.log('Skipped $ref', ref)
           return
         }
 
@@ -69,7 +68,6 @@ class RefParser {
         const ref = schema['$ref']
 
         if (this.refs[ref]) {
-          // console.log('Skipped $ref', ref)
           return
         }
 
