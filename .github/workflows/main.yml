@@ -1,0 +1,13 @@
+name: Tests
+on: [push, pull_request]
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Node version
+        run: node -v
+      - name: Install
+        run: yarn install
+      - name: Test
+        run: yarn unit
