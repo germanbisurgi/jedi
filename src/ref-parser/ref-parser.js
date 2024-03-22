@@ -7,13 +7,14 @@ class RefParser {
     this.XMLHttpRequest = config.XMLHttpRequest
     // this.maxDepths = 3
     this.refs = {}
-    this.circularRefs = {}
+    // this.circularRefs = {}
   }
 
   dereference (schema) {
     this.traverseExternal(schema)
     this.traverseLocal(schema)
-    this.populateCircularRefs()
+    // this.populateCircularRefs()
+
   }
 
   /**
@@ -81,15 +82,15 @@ class RefParser {
     }
   }
 
-  populateCircularRefs () {
-    Object.keys(this.refs).forEach((ref) => {
-      if (this.isCircularRef(ref)) {
-        this.circularRefs[ref] = {
-          pathDepths: []
-        }
-      }
-    })
-  }
+  // populateCircularRefs () {
+  //   Object.keys(this.refs).forEach((ref) => {
+  //     if (this.isCircularRef(ref)) {
+  //       this.circularRefs[ref] = {
+  //         pathDepths: []
+  //       }
+  //     }
+  //   })
+  // }
 
   /**
    * Iterates through the this.refs object keys. If the key is an uri containing "http" or "https" then

@@ -40,6 +40,7 @@ class Jedi extends EventEmitter {
 
     this.options = Object.assign({
       container: null,
+      refParser: null,
       isEditor: false,
       editableProperties: false,
       schema: {},
@@ -114,7 +115,7 @@ class Jedi extends EventEmitter {
    */
   init () {
     this.schema = this.options.schema
-    this.refParser = new RefParser({ XMLHttpRequest: this.options.XMLHttpRequest })
+    this.refParser = this.options.refParser ? this.options.refParser : new RefParser({ XMLHttpRequest: this.options.XMLHttpRequest })
     this.refParser.dereference(this.options.schema)
     this.validator = new Validator({ refParser: this.refParser, validateFormat: this.options.validateFormat })
 
