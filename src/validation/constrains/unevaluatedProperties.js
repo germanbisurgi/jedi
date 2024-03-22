@@ -70,6 +70,7 @@ export function unevaluatedProperties (validator, value, schema, key, path) {
 
         if (!definedInPatternProperty && isObject(unevaluatedProperties) && !hasOwn(properties, property)) {
           const editor = new Jedi({
+            refParser: validator.refParser,
             XMLHttpRequest: validator.refParser.XMLHttpRequest,
             schema: unevaluatedProperties,
             data: value[property]

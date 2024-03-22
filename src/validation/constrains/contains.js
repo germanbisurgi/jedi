@@ -13,7 +13,7 @@ export function contains (validator, value, schema, key, path) {
     let counter = 0
 
     value.forEach((item) => {
-      const containsEditor = new Jedi({ XMLHttpRequest: validator.refParser.XMLHttpRequest, schema: contains, data: item })
+      const containsEditor = new Jedi({ refParser: validator.refParser,  XMLHttpRequest: validator.refParser.XMLHttpRequest, schema: contains, data: item })
       const containsErrors = containsEditor.getErrors()
 
       if (containsErrors.length === 0) {

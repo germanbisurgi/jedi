@@ -16,6 +16,7 @@ export function propertyNames (validator, value, schema, key, path) {
   if (isObject(value) && isSet(schemaPropertyNames)) {
     Object.keys(value).forEach((propertyName) => {
       const editor = new Jedi({
+        refParser: validator.refParser,
         XMLHttpRequest: validator.refParser.XMLHttpRequest,
         schema: schemaPropertyNames,
         data: propertyName

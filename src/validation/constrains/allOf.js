@@ -8,7 +8,7 @@ export function allOf (validator, value, schema, key, path) {
 
   if (isSet(allOf)) {
     allOf.forEach((schema) => {
-      const subSchemaEditor = new Jedi({ XMLHttpRequest: validator.refParser.XMLHttpRequest, schema: schema, data: value, rootName: key })
+      const subSchemaEditor = new Jedi({ refParser: validator.refParser, XMLHttpRequest: validator.refParser.XMLHttpRequest, schema: schema, data: value, rootName: key })
       const subSchemaErrors = subSchemaEditor.getErrors()
       subSchemaEditor.destroy()
       errors = [...errors, ...subSchemaErrors]
