@@ -23,7 +23,7 @@ const suites = [
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/format'),
   // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/id'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/if-then-else'),
-  // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/infinite-loop-detection'),
+  require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/infinite-loop-detection'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/items'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/maxContains'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/maximum'),
