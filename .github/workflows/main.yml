@@ -53,7 +53,7 @@ jobs:
         run: yarn serve & yarn e2e:b5
       - name: Test Artifacts
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: codeceptjs-output
           path: tests/e2e/output
