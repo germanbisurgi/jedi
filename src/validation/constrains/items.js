@@ -1,6 +1,6 @@
-import { isArray, isSet } from '../../helpers/utils'
-import { getSchemaItems, getSchemaPrefixItems } from '../../helpers/schema'
-import { i18n } from '../../i18n'
+import { isArray, isSet } from '../../helpers/utils.js'
+import { getSchemaItems, getSchemaPrefixItems } from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function items (validator, value, schema, key, path) {
   const errors = []

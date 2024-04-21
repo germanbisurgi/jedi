@@ -1,10 +1,10 @@
-import draft04 from './drafts/draft-04'
-import draft06 from './drafts/draft-06'
-import draft07 from './drafts/draft-07'
-import draft201909 from './drafts/draft-2019-09'
-import draft202012 from './drafts/draft-2020-12'
-import { hasOwn, isBoolean, clone, isSet } from '../helpers/utils'
-import { getSchemaOption } from '../helpers/schema'
+import draft04 from './drafts/draft-04.js'
+import draft06 from './drafts/draft-06.js'
+import draft07 from './drafts/draft-07.js'
+import draft201909 from './drafts/draft-2019-09.js'
+import draft202012 from './drafts/draft-2020-12.js'
+import { hasOwn, isBoolean, clone, isSet } from '../helpers/utils.js'
+import { getSchemaOption } from '../helpers/schema.js'
 
 /**
  * Represents a Validator instance.

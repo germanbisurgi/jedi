@@ -1,11 +1,11 @@
-import Editor from './editor'
-import { isNumber, pathToAttribute } from '../helpers/utils'
+import Editor from './editor.js'
+import { isNumber, pathToAttribute } from '../helpers/utils.js'
 import {
   getSchemaDescription,
   getSchemaFormat,
   getSchemaOption,
   getSchemaTitle, getSchemaType
-} from '../helpers/schema'
+} from '../helpers/schema.js'
 
 /**
  * Represents a EditorNumber instance.

@@ -1,17 +1,17 @@
-import Editor from './editor'
+import Editor from './editor.js'
 import {
   equal,
   hasOwn,
   isObject,
   isSet,
   pathToAttribute
-} from '../helpers/utils'
+} from '../helpers/utils.js'
 import {
   getSchemaAdditionalProperties,
   getSchemaDescription,
   getSchemaOption,
   getSchemaTitle
-} from '../helpers/schema'
+} from '../helpers/schema.js'
 
 /**
  * Represents an EditorObject instance.

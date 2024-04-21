@@ -1,6 +1,6 @@
-import Editor from './editor'
-import { pathToAttribute } from '../helpers/utils'
-import { getSchemaDescription, getSchemaFormat, getSchemaOption, getSchemaTitle } from '../helpers/schema'
+import Editor from './editor.js'
+import { pathToAttribute } from '../helpers/utils.js'
+import { getSchemaDescription, getSchemaFormat, getSchemaOption, getSchemaTitle } from '../helpers/schema.js'
 
 /**
  * Represents a EditorString instance.

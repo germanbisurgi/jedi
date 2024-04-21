@@ -1,6 +1,6 @@
-import { compileTemplate, isNumber, isSet } from '../../helpers/utils'
-import { getSchemaExclusiveMinimum } from '../../helpers/schema'
-import { i18n } from '../../i18n'
+import { compileTemplate, isNumber, isSet } from '../../helpers/utils.js'
+import { getSchemaExclusiveMinimum } from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function exclusiveMinimum (validator, value, schema, key, path) {
   const errors = []

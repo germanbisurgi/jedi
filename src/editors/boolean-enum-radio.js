@@ -1,6 +1,6 @@
-import EditorBoolean from './boolean'
-import { pathToAttribute } from '../helpers/utils'
-import { getSchemaDescription, getSchemaOption, getSchemaTitle } from '../helpers/schema'
+import EditorBoolean from './boolean.js'
+import { pathToAttribute } from '../helpers/utils.js'
+import { getSchemaDescription, getSchemaOption, getSchemaTitle } from '../helpers/schema.js'
 
 /**
  * Represents an EditorBooleanEnumRadio instance.

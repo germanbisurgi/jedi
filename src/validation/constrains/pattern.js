@@ -1,6 +1,6 @@
-import { compileTemplate, isSet, isString } from '../../helpers/utils'
-import { getSchemaPattern } from '../../helpers/schema'
-import { i18n } from '../../i18n'
+import { compileTemplate, isSet, isString } from '../../helpers/utils.js'
+import { getSchemaPattern } from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function pattern (validator, value, schema, key, path) {
   const errors = []

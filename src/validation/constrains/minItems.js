@@ -1,6 +1,6 @@
-import { compileTemplate, isArray, isSet } from '../../helpers/utils'
-import { getSchemaMinItems } from '../../helpers/schema'
-import { i18n } from '../../i18n'
+import { compileTemplate, isArray, isSet } from '../../helpers/utils.js'
+import { getSchemaMinItems } from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function minItems (validator, value, schema, key, path) {
   const errors = []

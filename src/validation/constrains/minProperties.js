@@ -1,6 +1,6 @@
-import { compileTemplate, isObject, isSet } from '../../helpers/utils'
-import { getSchemaMinProperties } from '../../helpers/schema'
-import { i18n } from '../../i18n'
+import { compileTemplate, isObject, isSet } from '../../helpers/utils.js'
+import { getSchemaMinProperties } from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function minProperties (validator, value, schema, key, path) {
   const errors = []

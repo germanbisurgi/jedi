@@ -1,10 +1,10 @@
-import Instance from './instance'
-import EditorString from '../editors/string'
-import EditorStringEnumRadio from '../editors/string-enum-radio'
-import EditorStringEnumSelect from '../editors/string-enum-select'
-import EditorStringTextarea from '../editors/string-textarea'
-import { isSet } from '../helpers/utils'
-import { getSchemaEnum, getSchemaFormat, getSchemaType } from '../helpers/schema'
+import Instance from './instance.js'
+import EditorString from '../editors/string.js'
+import EditorStringEnumRadio from '../editors/string-enum-radio.js'
+import EditorStringEnumSelect from '../editors/string-enum-select.js'
+import EditorStringTextarea from '../editors/string-textarea.js'
+import { isSet } from '../helpers/utils.js'
+import { getSchemaEnum, getSchemaFormat, getSchemaType } from '../helpers/schema.js'
 
 /**
  * Represents a InstanceString instance.

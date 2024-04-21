@@ -1,6 +1,6 @@
-import { isSet, different, compileTemplate } from '../../helpers/utils'
-import { getSchemaConst } from '../../helpers/schema'
-import { i18n } from '../../i18n'
+import { isSet, different, compileTemplate } from '../../helpers/utils.js'
+import { getSchemaConst } from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function _const (validator, value, schema, key, path) {
   const errors = []

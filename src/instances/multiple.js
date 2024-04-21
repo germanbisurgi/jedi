@@ -1,5 +1,5 @@
-import Instance from './instance'
-import EditorMultiple from '../editors/multiple'
+import Instance from './instance.js'
+import EditorMultiple from '../editors/multiple.js'
 import {
   isSet,
   isArray,
@@ -8,14 +8,14 @@ import {
   clone,
   isObject,
   overwriteExistingProperties, mergeDeep
-} from '../helpers/utils'
-import Jedi from '../jedi'
+} from '../helpers/utils.js'
+import Jedi from '../jedi.js'
 import {
   getSchemaAnyOf,
   getSchemaOneOf,
   getSchemaOption, getSchemaTitle,
   getSchemaType
-} from '../helpers/schema'
+} from '../helpers/schema.js'
 
 /**
  * Represents a InstanceMultiple instance.
@@ -51,7 +51,10 @@ class InstanceMultiple extends Instance {
 
       schemasOf.forEach((schema, index) => {
         schema = { ...schemaCopy, ...schema }
-        schema = this.jedi.refParser.expand(schema)
+
+        if (this.jedi.refParser) {
+          schema = this.jedi.refParser.expand(schema)
+        }
 
         let switcherOptionsLabel = 'Option-' + (index + 1)
         const switcherTitle = getSchemaOption(schema, 'switcherTitle')

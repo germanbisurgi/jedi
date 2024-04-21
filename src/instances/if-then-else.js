@@ -1,18 +1,18 @@
-import Instance from './instance'
-import EditorMultiple from '../editors/multiple'
+import Instance from './instance.js'
+import EditorMultiple from '../editors/multiple.js'
 import {
   isSet,
   mergeDeep,
   clone,
   isObject,
   overwriteExistingProperties
-} from '../helpers/utils'
+} from '../helpers/utils.js'
 import {
   getSchemaElse,
   getSchemaIf,
   getSchemaThen
-} from '../helpers/schema'
-import Jedi from '../jedi'
+} from '../helpers/schema.js'
+import Jedi from '../jedi.js'
 
 /**
  * Represents a InstanceMultiple instance.
@@ -159,7 +159,6 @@ class InstanceIfThenElse extends Instance {
 
     this.ifThenElseShemas.forEach((schema, index) => {
       const ifValidator = new Jedi({
-        XMLHttpRequest: this.jedi.validator.refParser.XMLHttpRequest,
         schema: schema.if,
         data: value
       })

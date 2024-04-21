@@ -1,10 +1,10 @@
-import { glyphicons, bootstrapIcons, fontAwesome3, fontAwesome4, fontAwesome5, fontAwesome6 } from '../themes/icons/icons'
-import ThemeBootstrap3 from '../themes/bootstrap3'
-import ThemeBootstrap4 from '../themes/bootstrap4'
-import ThemeBootstrap5 from '../themes/bootstrap5'
-import Theme from '../themes/theme'
-import { isSet } from '../helpers/utils'
-import { getSchemaEnum, getSchemaOption, getSchemaTitle, getSchemaType } from '../helpers/schema'
+import { glyphicons, bootstrapIcons, fontAwesome3, fontAwesome4, fontAwesome5, fontAwesome6 } from '../themes/icons/icons.js'
+import ThemeBootstrap3 from '../themes/bootstrap3.js'
+import ThemeBootstrap4 from '../themes/bootstrap4.js'
+import ThemeBootstrap5 from '../themes/bootstrap5.js'
+import Theme from '../themes/theme.js'
+import { isSet } from '../helpers/utils.js'
+import { getSchemaEnum, getSchemaOption, getSchemaTitle, getSchemaType } from '../helpers/schema.js'
 
 /**
  * Represents an Editor instance.

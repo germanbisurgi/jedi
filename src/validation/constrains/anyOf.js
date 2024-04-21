@@ -1,7 +1,7 @@
-import Jedi from '../../jedi'
-import { isSet } from '../../helpers/utils'
-import { getSchemaAnyOf } from '../../helpers/schema'
-import { i18n } from '../../i18n'
+import Jedi from '../../jedi.js'
+import { isSet } from '../../helpers/utils.js'
+import { getSchemaAnyOf } from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function anyOf (validator, value, schema, key, path) {
   const errors = []
@@ -11,7 +11,7 @@ export function anyOf (validator, value, schema, key, path) {
     let valid = false
 
     anyOf.forEach((schema) => {
-      const anyOfEditor = new Jedi({ refParser: validator.refParser,  XMLHttpRequest: validator.refParser.XMLHttpRequest, schema: schema, data: value })
+      const anyOfEditor = new Jedi({ refParser: validator.refParser, schema: schema, data: value })
       const anyOfErrors = anyOfEditor.getErrors()
       anyOfEditor.destroy()
 

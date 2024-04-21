@@ -12,7 +12,7 @@ class Theme {
    * Inits some instance properties
    * @private
    */
-  init (name) {
+  init () {
     this.useToggleEvents = true
   }
 
@@ -77,7 +77,7 @@ class Theme {
    * Header for cards
    * @private
    */
-  getCardHeader (config = {}) {
+  getCardHeader () {
     return document.createElement('div')
   }
 
@@ -161,7 +161,7 @@ class Theme {
    * Container for screen reader announced messages
    * @private
    */
-  getPropertiesAriaLive (message) {
+  getPropertiesAriaLive () {
     const html = document.createElement('div')
     html.setAttribute('role', 'status')
     html.setAttribute('aria-live', 'polite')
@@ -942,7 +942,7 @@ class Theme {
    * Tab list is a list of links that triggers tabs visibility ne at the time
    * @private
    */
-  getTabList (config) {
+  getTabList () {
     const tabList = document.createElement('ul')
     tabList.classList.add('jedi-nav-list')
     return tabList

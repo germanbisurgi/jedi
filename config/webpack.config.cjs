@@ -3,7 +3,7 @@ const merge = require('deepmerge')
 
 const jedi = {
   entry: {
-    jedi: path.resolve(__dirname, '../src/jedi.js')
+    jedi: path.resolve(__dirname, '../src/index.js')
   },
   output: {
     filename: '[name].js',
@@ -11,22 +11,10 @@ const jedi = {
     library: 'Jedi',
     libraryTarget: 'umd',
     globalObject: 'this'
+
   },
   mode: 'development',
   devtool: 'inline-source-map',
-  // module: {
-  //   rules: [
-  //     {
-  //       test: /\.js$/,
-  //       exclude: /node_modules/,
-  //       loader: 'babel-loader',
-  //       options: {
-  //         presets: ['@babel/preset-env'],
-  //         plugins: ['@babel/plugin-transform-runtime']
-  //       }
-  //     }
-  //   ]
-  // },
   optimization: {
     minimize: false
   },

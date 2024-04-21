@@ -1,8 +1,8 @@
-import Instance from './instance'
-import EditorBooleanEnumRadio from '../editors/boolean-enum-radio'
-import EditorBooleanEnumSelect from '../editors/boolean-enum-select'
-import EditorBoolean from '../editors/boolean'
-import { getSchemaFormat, getSchemaType } from '../helpers/schema'
+import Instance from './instance.js'
+import EditorBooleanEnumRadio from '../editors/boolean-enum-radio.js'
+import EditorBooleanEnumSelect from '../editors/boolean-enum-select.js'
+import EditorBoolean from '../editors/boolean.js'
+import { getSchemaFormat, getSchemaType } from '../helpers/schema.js'
 
 /**
  * Represents a InstanceBoolean instance.

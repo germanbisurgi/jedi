@@ -1,5 +1,5 @@
-import Instance from './instance'
-import EditorNull from '../editors/null'
+import Instance from './instance.js'
+import EditorNull from '../editors/null.js'
 
 /**
  * Represents a InstanceNull instance.

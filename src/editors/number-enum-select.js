@@ -1,6 +1,6 @@
-import EditorNumber from './number'
-import { pathToAttribute } from '../helpers/utils'
-import { getSchemaDescription, getSchemaEnum, getSchemaOption, getSchemaTitle } from '../helpers/schema'
+import EditorNumber from './number.js'
+import { pathToAttribute } from '../helpers/utils.js'
+import { getSchemaDescription, getSchemaEnum, getSchemaOption, getSchemaTitle } from '../helpers/schema.js'
 
 /**
  * Represents an EditorNumberEnumSelect instance.

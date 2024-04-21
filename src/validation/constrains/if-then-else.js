@@ -1,8 +1,8 @@
-import Jedi from '../../jedi'
-import { isSet, notSet } from '../../helpers/utils'
-import { getSchemaElse, getSchemaIf, getSchemaThen } from '../../helpers/schema'
+import Jedi from '../../jedi.js'
+import { isSet, notSet } from '../../helpers/utils.js'
+import { getSchemaElse, getSchemaIf, getSchemaThen } from '../../helpers/schema.js'
 
-export function ifThenElse (validator, value, schema, key, path) {
+export function ifThenElse (validator, value, schema) {
   const errors = []
   const schemaIf = getSchemaIf(schema)
   const schemaThen = getSchemaThen(schema)
@@ -13,7 +13,7 @@ export function ifThenElse (validator, value, schema, key, path) {
       return errors
     }
 
-    const ifEditor = new Jedi({ refParser: validator.refParser,  XMLHttpRequest: validator.refParser.XMLHttpRequest, schema: schemaIf, data: value })
+    const ifEditor = new Jedi({ refParser: validator.refParser, schema: schemaIf, data: value })
     const ifErrors = ifEditor.getErrors()
     ifEditor.destroy()
 
@@ -21,13 +21,13 @@ export function ifThenElse (validator, value, schema, key, path) {
     let elseErrors = []
 
     if (isSet(schemaThen)) {
-      const thenEditor = new Jedi({ refParser: validator.refParser,  XMLHttpRequest: validator.refParser.XMLHttpRequest, schema: schemaThen, data: value })
+      const thenEditor = new Jedi({ refParser: validator.refParser, schema: schemaThen, data: value })
       thenErrors = thenEditor.getErrors()
       thenEditor.destroy()
     }
 
     if (isSet(schemaElse)) {
-      const elseEditor = new Jedi({ refParser: validator.refParser,  XMLHttpRequest: validator.refParser.XMLHttpRequest, schema: schemaElse, data: value })
+      const elseEditor = new Jedi({ refParser: validator.refParser, schema: schemaElse, data: value })
       elseErrors = elseEditor.getErrors()
       elseEditor.destroy()
     }

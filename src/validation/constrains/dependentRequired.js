@@ -1,6 +1,6 @@
-import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils'
-import { getSchemaDependentRequired } from '../../helpers/schema'
-import { i18n } from '../../i18n'
+import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils.js'
+import { getSchemaDependentRequired } from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function dependentRequired (validator, value, schema, key, path) {
   const errors = []

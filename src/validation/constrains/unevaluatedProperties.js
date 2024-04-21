@@ -2,15 +2,15 @@
  * constrains unevaluatedProperties
  */
 
-import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils'
-import Jedi from '../../jedi'
+import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils.js'
+import Jedi from '../../jedi.js'
 import {
   getSchemaUnevaluatedProperties,
   getSchemaPatternProperties,
   getSchemaProperties,
   getSchemaAnyOf, getSchemaAllOf, getSchemaOneOf
-} from '../../helpers/schema'
-import { i18n } from '../../i18n'
+} from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function unevaluatedProperties (validator, value, schema, key, path) {
   let errors = []
@@ -22,7 +22,6 @@ export function unevaluatedProperties (validator, value, schema, key, path) {
   const schemaOneOf = getSchemaOneOf(schema)
 
   if (isObject(value) && isSet(schemaUnevaluatedProperties)) {
-
     let properties = isSet(schemaProperties) ? schemaProperties : {}
     const unevaluatedProperties = schemaUnevaluatedProperties
     const patternProperties = schemaPatternProperties
@@ -31,19 +30,18 @@ export function unevaluatedProperties (validator, value, schema, key, path) {
     const ofSchemas = [
       schemaAllOf,
       schemaAnyOf,
-      schemaOneOf,
+      schemaOneOf
     ]
 
     ofSchemas.forEach((subSchema) => {
       if (isSet(subSchema)) {
         subSchema.forEach((subschema) => {
           if (isSet(subschema['properties'])) {
-            properties = {...properties, ...subschema['properties']}
+            properties = { ...properties, ...subschema['properties'] }
           }
         })
       }
     })
-
 
     if (properties) {
       Object.keys(value).forEach((property) => {
@@ -71,7 +69,6 @@ export function unevaluatedProperties (validator, value, schema, key, path) {
         if (!definedInPatternProperty && isObject(unevaluatedProperties) && !hasOwn(properties, property)) {
           const editor = new Jedi({
             refParser: validator.refParser,
-            XMLHttpRequest: validator.refParser.XMLHttpRequest,
             schema: unevaluatedProperties,
             data: value[property]
           })

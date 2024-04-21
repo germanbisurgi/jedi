@@ -1,8 +1,8 @@
-import Instance from './instance'
-import { different, isSet, notSet, isObject, hasOwn, clone } from '../helpers/utils'
-import EditorObjectGrid from '../editors/object-grid'
-import EditorObject from '../editors/object'
-import EditorObjectNav from '../editors/object-nav'
+import Instance from './instance.js'
+import { different, isSet, notSet, isObject, hasOwn, clone } from '../helpers/utils.js'
+import EditorObjectGrid from '../editors/object-grid.js'
+import EditorObject from '../editors/object.js'
+import EditorObjectNav from '../editors/object-nav.js'
 import {
   getSchemaDependentRequired,
   getSchemaFormat,
@@ -10,7 +10,7 @@ import {
   getSchemaProperties,
   getSchemaRequired,
   getSchemaType
-} from '../helpers/schema'
+} from '../helpers/schema.js'
 
 /**
  * Represents an InstanceObject instance.

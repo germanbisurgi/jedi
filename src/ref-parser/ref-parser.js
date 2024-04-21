@@ -1,20 +1,11 @@
-/* global XMLHttpRequest */
-
-import { isObject } from '../helpers/utils'
-
 class RefParser {
-  constructor (config = {}) {
-    this.XMLHttpRequest = config.XMLHttpRequest
-    // this.maxDepths = 3
+  constructor () {
     this.refs = {}
-    // this.circularRefs = {}
   }
 
-  dereference (schema) {
-    this.traverseExternal(schema)
+  async dereference (schema) {
+    await this.traverseExternal(schema)
     this.traverseLocal(schema)
-    // this.populateCircularRefs()
-
   }
 
   /**
@@ -28,7 +19,7 @@ class RefParser {
    * @param schema
    * @param path
    */
-  traverseExternal (schema, path = '#') {
+  async traverseExternal (schema, path = '#') {
     if (typeof schema !== 'object' || schema === null) {
       return
     }
@@ -46,14 +37,14 @@ class RefParser {
         this.refs[ref] = null
 
         if (this.hasExternalRef(schema)) {
-          const resolvedSchema = this.resolveExternal(schema)
-          this.traverseExternal(resolvedSchema, nextPath)
+          const resolvedSchema = await this.resolveExternal(schema)
+          await this.traverseExternal(resolvedSchema, nextPath)
         }
       }
 
       this.refs[path] = schema
 
-      this.traverseExternal(value, nextPath)
+      await this.traverseExternal(value, nextPath)
     }
   }
 
@@ -82,24 +73,14 @@ class RefParser {
     }
   }
 
-  // populateCircularRefs () {
-  //   Object.keys(this.refs).forEach((ref) => {
-  //     if (this.isCircularRef(ref)) {
-  //       this.circularRefs[ref] = {
-  //         pathDepths: []
-  //       }
-  //     }
-  //   })
-  // }
-
   /**
    * Iterates through the this.refs object keys. If the key is an uri containing "http" or "https" then
    * uses that key as the url in a http request to retrieve the external schema. The retrieved schema
    * will be used for the value of that property
    */
-  resolveExternal (schema) {
+  async resolveExternal (schema) {
     const ref = schema['$ref']
-    const resolvedSchema = this.load(ref)
+    const resolvedSchema = await this.load(ref)
     this.refs[ref] = resolvedSchema
     return resolvedSchema
   }
@@ -141,29 +122,15 @@ class RefParser {
     return schemaString.includes(test)
   }
 
-  expand (schema, path) {
+  isObject (value) {
+    return value !== null && typeof value === 'object'
+  }
+
+  expand (schema) {
     const cloneSchema = JSON.parse(JSON.stringify(schema))
 
-    if (isObject(cloneSchema) && '$ref' in cloneSchema) {
+    if (this.isObject(cloneSchema) && '$ref' in cloneSchema) {
       const ref = cloneSchema.$ref
-
-      // if (this.circularRefs[ref]) {
-      //   const pathDepth = path.split('/').length
-      //   this.circularRefs[ref].pathDepths.push(pathDepth)
-      //   this.circularRefs[ref].pathDepths = Array.from(new Set(this.circularRefs[ref].pathDepths))
-      //   this.circularRefs[ref].pathDepths.splice(this.maxDepths)
-      //
-      //   if (!this.circularRefs[ref].pathDepths.includes(pathDepth)) {
-      //     console.log('circular', JSON.stringify(cloneSchema))
-      //
-      //     // const stopSchema = Object.({}, cloneSchema, { format: 'circular' })
-      //     // delete stopSchema.$ref
-      //     // return stopSchema
-      //     const refSchema = structuredClone(this.refs[ref])
-      //     return JSON.parse(JSON.stringify(refSchema).replace(`"{$ref":"${ref}}"`, '{}'))
-      //   }
-      // }
-
       delete cloneSchema['$ref']
       return Object.assign({}, this.refs[ref], cloneSchema)
     }
@@ -176,15 +143,16 @@ class RefParser {
    * @param uri
    * @returns {any}
    */
-  load (uri) {
-    const request = this.XMLHttpRequest ? new this.XMLHttpRequest() : new XMLHttpRequest()
-    request.open('GET', uri, false) // `false` makes the request synchronous
-    request.send(null)
-
-    if (request.status === 200) {
-      return JSON.parse(request.responseText)
-    } else {
-      console.error('can not load', uri)
+  async load (uri) {
+    try {
+      const response = await fetch(uri)
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      return await response.json()
+    } catch (error) {
+      console.error('Error loading', uri, error)
+      throw error
     }
   }
 }

@@ -1,6 +1,6 @@
-import EditorArray from './array'
-import { clamp, compileTemplate, isSet, pathToAttribute } from '../helpers/utils'
-import { getSchemaOption, getSchemaTitle } from '../helpers/schema'
+import EditorArray from './array.js'
+import { clamp, compileTemplate, isSet, pathToAttribute } from '../helpers/utils.js'
+import { getSchemaOption, getSchemaTitle } from '../helpers/schema.js'
 
 /**
  * Represents an EditorArrayNav instance.

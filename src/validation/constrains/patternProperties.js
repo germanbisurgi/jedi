@@ -1,6 +1,6 @@
-import { isObject, isSet } from '../../helpers/utils'
-import Jedi from '../../jedi'
-import { getSchemaPatternProperties } from '../../helpers/schema'
+import { isObject, isSet } from '../../helpers/utils.js'
+import Jedi from '../../jedi.js'
+import { getSchemaPatternProperties } from '../../helpers/schema.js'
 
 export function patternProperties (validator, value, schema, path) {
   let errors = []
@@ -15,7 +15,6 @@ export function patternProperties (validator, value, schema, path) {
 
           const editor = new Jedi({
             refParser: validator.refParser,
-            XMLHttpRequest: validator.refParser.XMLHttpRequest,
             schema: schema,
             data: value[propertyName]
           })

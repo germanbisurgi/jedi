@@ -1,9 +1,9 @@
-import Instance from './instance'
-import EditorNumberEnumRadio from '../editors/number-enum-radio'
-import EditorNumberEnumSelect from '../editors/number-enum-select'
-import EditorNumber from '../editors/number'
-import { isSet } from '../helpers/utils'
-import { getSchemaEnum, getSchemaFormat, getSchemaType } from '../helpers/schema'
+import Instance from './instance.js'
+import EditorNumberEnumRadio from '../editors/number-enum-radio.js'
+import EditorNumberEnumSelect from '../editors/number-enum-select.js'
+import EditorNumber from '../editors/number.js'
+import { isSet } from '../helpers/utils.js'
+import { getSchemaEnum, getSchemaFormat, getSchemaType } from '../helpers/schema.js'
 
 /**
  * Represents a InstanceNumber instance.

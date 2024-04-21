@@ -1,10 +1,17 @@
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
 const Jedi = require('../dist/jedi')
+const metaSchema = require('./json/meta-schema.json')
+const schema = { "$ref": "https://json.schemastore.org/jsdoc-1.0.0.json" }
 
-const schema = {
-  "$ref": "https://json.schemastore.org/jsdoc-1.0.0.json"
+const start = async () => {
+  const refParser = new Jedi.RefParser()
+  await refParser.dereference(metaSchema)
+  const jedi = new Jedi.Jedi({
+    refParser,
+    schema
+  })
+
+  console.log(jedi)
 }
 
-const editor = new Jedi({ schema, XMLHttpRequest })
+start()
 
-console.log('ready', JSON.stringify(editor.refParser, null, 2))

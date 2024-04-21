@@ -1,6 +1,6 @@
-import { compileTemplate, isNumber, isSet } from '../../helpers/utils'
-import { getSchemaExclusiveMaximum } from '../../helpers/schema'
-import { i18n } from '../../i18n'
+import { compileTemplate, isNumber, isSet } from '../../helpers/utils.js'
+import { getSchemaExclusiveMaximum } from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function exclusiveMaximum (validator, value, schema, key, path) {
   const errors = []

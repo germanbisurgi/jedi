@@ -1,12 +1,12 @@
-import Editor from './editor'
-import { isArray, isSet, pathToAttribute } from '../helpers/utils'
+import Editor from './editor.js'
+import { isArray, isSet, pathToAttribute } from '../helpers/utils.js'
 import {
   getSchemaDescription,
   getSchemaMaxItems,
   getSchemaMinItems,
   getSchemaOption,
   getSchemaTitle
-} from '../helpers/schema'
+} from '../helpers/schema.js'
 
 /**
  * Represents an EditorArray instance.

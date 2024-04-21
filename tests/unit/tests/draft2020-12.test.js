@@ -1,6 +1,4 @@
 /* global describe it expect */
-
-const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
 const Jedi = require('../../../dist/jedi')
 
 const suites = [
@@ -53,22 +51,30 @@ const suites = [
   // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/vocabulary'),
 ]
 
-suites.forEach((suite) => {
-  suite.forEach((scenario) => {
-    describe(scenario.description, function () {
-      scenario.tests.forEach((test) => {
-        it(test.description, function () {
-          const jedi = new Jedi({
+for (let i = 0; i < suites.length; i++) {
+  const suite = suites[i];
+  for (let j = 0; j < suite.length; j++) {
+    const scenario = suite[j];
+    describe(scenario.description, () => {
+      for (let k = 0; k < scenario.tests.length; k++) {
+        const test = scenario.tests[k];
+        it(test.description, async () => {
+          const refParser = new Jedi.RefParser()
+          await refParser.dereference(scenario.schema)
+
+          const jedi = new Jedi.Jedi({
             schema: scenario.schema,
-            XMLHttpRequest: XMLHttpRequest
-          })
-          jedi.setValue(test.data)
-          const errors = jedi.getErrors()
-          const valid = (errors.length === 0)
-          jedi.destroy()
-          expect(valid).toStrictEqual(test.valid)
-        })
-      })
-    })
-  })
-})
+            refParser
+          });
+
+          jedi.setValue(test.data);
+          const errors = jedi.getErrors();
+          const valid = errors.length === 0;
+          jedi.destroy();
+          expect(valid).toStrictEqual(test.valid);
+        });
+      }
+    });
+  }
+}
+

@@ -2,10 +2,10 @@
  * constrains additionalProperties
  */
 
-import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils'
-import Jedi from '../../jedi'
-import { getSchemaAdditionalProperties, getSchemaPatternProperties, getSchemaProperties } from '../../helpers/schema'
-import { i18n } from '../../i18n'
+import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils.js'
+import Jedi from '../../jedi.js'
+import { getSchemaAdditionalProperties, getSchemaPatternProperties, getSchemaProperties } from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function additionalProperties (validator, value, schema, key, path) {
   let errors = []
@@ -44,7 +44,6 @@ export function additionalProperties (validator, value, schema, key, path) {
         if (!definedInPatternProperty && isObject(additionalProperties) && !hasOwn(properties, property)) {
           const editor = new Jedi({
             refParser: validator.refParser,
-            XMLHttpRequest: validator.refParser.XMLHttpRequest,
             schema: additionalProperties,
             data: value[property]
           })

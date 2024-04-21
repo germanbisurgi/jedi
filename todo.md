@@ -1,5 +1,8 @@
 ## Todo
 
+- move actions on top of cards
+- multiple in fieldsets
+- ionic theme
 - integrate unevaluatedProperties "see through"
 - better NOT error messages
 - options can be global or scoped in schemas

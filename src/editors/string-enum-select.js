@@ -1,6 +1,6 @@
-import EditorString from './string'
-import { pathToAttribute } from '../helpers/utils'
-import { getSchemaDescription, getSchemaEnum, getSchemaOption, getSchemaTitle } from '../helpers/schema'
+import EditorString from './string.js'
+import { pathToAttribute } from '../helpers/utils.js'
+import { getSchemaDescription, getSchemaEnum, getSchemaOption, getSchemaTitle } from '../helpers/schema.js'
 
 /**
  * Represents a EditorStringEnumSelect instance.

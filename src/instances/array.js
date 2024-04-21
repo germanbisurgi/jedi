@@ -1,8 +1,8 @@
-import Instance from './instance'
-import { isSet, clone, isArray } from '../helpers/utils'
-import EditorArray from '../editors/array'
-import EditorArrayNav from '../editors/array-nav'
-import { getSchemaFormat, getSchemaItems, getSchemaPrefixItems, getSchemaType } from '../helpers/schema'
+import Instance from './instance.js'
+import { isSet, clone, isArray } from '../helpers/utils.js'
+import EditorArray from '../editors/array.js'
+import EditorArrayNav from '../editors/array-nav.js'
+import { getSchemaFormat, getSchemaItems, getSchemaPrefixItems, getSchemaType } from '../helpers/schema.js'
 
 /**
  * Represents an InstanceArray instance.

@@ -171,10 +171,13 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     },
     methods: {
-      initEditor() {
+      async initEditor() {
         if (this.editor) {
           this.editor.destroy()
         }
+
+        const refParser = new Jedi.RefParser()
+        await refParser.dereference(this.schema)
 
         const options = {
           container: document.querySelector('#jedi-container'),
@@ -184,14 +187,13 @@ window.addEventListener('DOMContentLoaded', () => {
           showErrors: this.showErrors,
           validateFormat: this.validateFormat,
           schema: this.schema,
-          theme: this.theme
+          theme: this.theme,
+          refParser
         }
 
-        this.editor = new Jedi(options)
-        window.editor = this.editor
-
-        this.editor.on('change', this.editorChangeHandler)
+        this.editor = new Jedi.Jedi(options)
         this.editorChangeHandler()
+        this.editor.on('change', this.editorChangeHandler)
       },
       editorChangeHandler() {
         this.$refs.editorErrors.value = JSON.stringify(this.editor.getErrors(), null, 2)

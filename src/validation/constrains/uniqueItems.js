@@ -1,6 +1,6 @@
-import { isArray, isObject, isSet, sortObject } from '../../helpers/utils'
-import { getSchemaUniqueItems } from '../../helpers/schema'
-import { i18n } from '../../i18n'
+import { isArray, isObject, isSet, sortObject } from '../../helpers/utils.js'
+import { getSchemaUniqueItems } from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function uniqueItems (validator, value, schema, key, path) {
   const errors = []

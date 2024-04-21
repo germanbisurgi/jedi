@@ -1,6 +1,6 @@
-import EditorObject from './object'
-import { isSet, pathToAttribute } from '../helpers/utils'
-import { getSchemaTitle } from '../helpers/schema'
+import EditorObject from './object.js'
+import { isSet, pathToAttribute } from '../helpers/utils.js'
+import { getSchemaTitle } from '../helpers/schema.js'
 
 /**
  * Represents a EditorObjectNav instance.

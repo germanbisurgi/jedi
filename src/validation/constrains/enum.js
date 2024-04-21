@@ -1,6 +1,6 @@
-import { compileTemplate, isSet } from '../../helpers/utils'
-import { getSchemaEnum } from '../../helpers/schema'
-import { i18n } from '../../i18n'
+import { compileTemplate, isSet } from '../../helpers/utils.js'
+import { getSchemaEnum } from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function _enum (validator, value, schema, key, path) {
   const errors = []

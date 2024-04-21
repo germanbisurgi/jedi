@@ -1,7 +1,7 @@
-import { compileTemplate, isSet } from '../../helpers/utils'
-import Jedi from '../../jedi'
-import { getSchemaOneOf } from '../../helpers/schema'
-import { i18n } from '../../i18n'
+import { compileTemplate, isSet } from '../../helpers/utils.js'
+import Jedi from '../../jedi.js'
+import { getSchemaOneOf } from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function oneOf (validator, value, schema, key, path) {
   const errors = []
@@ -11,7 +11,7 @@ export function oneOf (validator, value, schema, key, path) {
     let counter = 0
 
     oneOf.forEach((schema) => {
-      const oneOfEditor = new Jedi({ refParser: validator.refParser,  XMLHttpRequest: validator.refParser.XMLHttpRequest, schema: schema, data: value })
+      const oneOfEditor = new Jedi({ refParser: validator.refParser, schema: schema, data: value })
       const oneOfErrors = oneOfEditor.getErrors()
       oneOfEditor.destroy()
 

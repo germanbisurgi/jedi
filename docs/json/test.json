@@ -1,14 +1,3 @@
 {
-  "type": "object",
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "children": {
-      "type": "array",
-      "items": {
-        "$ref": "#"
-      }
-    }
-  }
+  "$ref": "https://json.schemastore.org/jsdoc-1.0.0.json"
 }

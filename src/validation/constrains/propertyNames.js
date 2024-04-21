@@ -2,12 +2,12 @@
  * constrains propertyNames
  */
 
-import { compileTemplate, isObject, isSet } from '../../helpers/utils'
-import Jedi from '../../jedi'
+import { compileTemplate, isObject, isSet } from '../../helpers/utils.js'
+import Jedi from '../../jedi.js'
 import {
   getSchemaPropertyNames
-} from '../../helpers/schema'
-import { i18n } from '../../i18n'
+} from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function propertyNames (validator, value, schema, key, path) {
   const errors = []
@@ -17,7 +17,6 @@ export function propertyNames (validator, value, schema, key, path) {
     Object.keys(value).forEach((propertyName) => {
       const editor = new Jedi({
         refParser: validator.refParser,
-        XMLHttpRequest: validator.refParser.XMLHttpRequest,
         schema: schemaPropertyNames,
         data: propertyName
       })

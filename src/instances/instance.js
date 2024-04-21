@@ -1,12 +1,12 @@
-import EventEmitter from '../event-emitter'
+import EventEmitter from '../event-emitter.js'
 import {
   isSet, notSet, removeDuplicatesFromArray
-} from '../helpers/utils'
+} from '../helpers/utils.js'
 import {
   getSchemaDefault,
   getSchemaReadOnly,
   getSchemaType
-} from '../helpers/schema'
+} from '../helpers/schema.js'
 
 /**
  * Represents a JSON instance.

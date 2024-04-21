@@ -1,5 +1,5 @@
 /* global Feature Scenario */
-const jsonData = require('./fixtures/test')
+const jsonData = require('./fixtures/test.json')
 const theme = process.env.THEME || 'barebones'
 
 Feature('editor')

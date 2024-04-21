@@ -51,3 +51,10 @@ jobs:
         run: yarn install
       - name: Test
         run: yarn serve & yarn e2e:b5
+      - name: Test Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: codeceptjs-output
+          path: tests/e2e/output
+          retention-days: 30

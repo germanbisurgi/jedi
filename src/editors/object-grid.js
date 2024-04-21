@@ -1,5 +1,5 @@
-import EditorObject from './object'
-import { getSchemaOption } from '../helpers/schema'
+import EditorObject from './object.js'
+import { getSchemaOption } from '../helpers/schema.js'
 
 /**
  * Represents a EditorObjectGrid instance.

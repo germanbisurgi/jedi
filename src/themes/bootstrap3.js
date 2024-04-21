@@ -1,4 +1,4 @@
-import Theme from './theme'
+import Theme from './theme.js'
 
 /**
  * Represents a ThemeBootstrap3 instance.

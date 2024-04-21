@@ -8,9 +8,9 @@ import {
   isObject,
   isSet,
   isString
-} from '../../helpers/utils'
-import { getSchemaType } from '../../helpers/schema'
-import { i18n } from '../../i18n'
+} from '../../helpers/utils.js'
+import { getSchemaType } from '../../helpers/schema.js'
+import { i18n } from '../../i18n.js'
 
 export function type (validator, value, schema, key, path) {
   const errors = []

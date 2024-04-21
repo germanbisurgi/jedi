@@ -1,19 +1,18 @@
-import Validator from './validation/validator'
-import EventEmitter from './event-emitter'
-import InstanceIfThenElse from './instances/if-then-else'
-import InstanceMultiple from './instances/multiple'
-import InstanceBoolean from './instances/boolean'
-import InstanceObject from './instances/object'
-import InstanceArray from './instances/array'
-import InstanceString from './instances/string'
-import InstanceNumber from './instances/number'
-import InstanceNull from './instances/null'
-import RefParser from './ref-parser/ref-parser'
+import Validator from './validation/validator.js'
+import EventEmitter from './event-emitter.js'
+import InstanceIfThenElse from './instances/if-then-else.js'
+import InstanceMultiple from './instances/multiple.js'
+import InstanceBoolean from './instances/boolean.js'
+import InstanceObject from './instances/object.js'
+import InstanceArray from './instances/array.js'
+import InstanceString from './instances/string.js'
+import InstanceNumber from './instances/number.js'
+import InstanceNull from './instances/null.js'
 import {
   isArray,
   isSet,
   notSet
-} from './helpers/utils'
+} from './helpers/utils.js'
 import {
   getSchemaAnyOf,
   getSchemaElse,
@@ -21,7 +20,7 @@ import {
   getSchemaOneOf,
   getSchemaThen,
   getSchemaType
-} from './helpers/schema'
+} from './helpers/schema.js'
 
 /**
  * Represents a Jedi instance.
@@ -46,8 +45,7 @@ class Jedi extends EventEmitter {
       schema: {},
       showErrors: 'change',
       data: undefined,
-      validateFormat: false,
-      XMLHttpRequest: undefined
+      validateFormat: false
     }, options)
 
     /**
@@ -97,14 +95,14 @@ class Jedi extends EventEmitter {
      * @type {*}
      * @private
      */
-    this.schema = null
+    this.schema = {}
 
     /**
      * A RefParser instance
      * @type {RefParser}
      * @private
      */
-    this.refParser = null
+    this.refParser = this.options.refParser ? this.options.refParser : null
 
     this.init()
   }
@@ -115,8 +113,6 @@ class Jedi extends EventEmitter {
    */
   init () {
     this.schema = this.options.schema
-    this.refParser = this.options.refParser ? this.options.refParser : new RefParser({ XMLHttpRequest: this.options.XMLHttpRequest })
-    this.refParser.dereference(this.options.schema)
     this.validator = new Validator({ refParser: this.refParser, validateFormat: this.options.validateFormat })
 
     this.root = this.createInstance({
@@ -193,7 +189,9 @@ class Jedi extends EventEmitter {
    * @private
    */
   createInstance (config) {
-    config.schema = this.refParser.expand(config.schema, config.path)
+    if (this.refParser) {
+      config.schema = this.refParser.expand(config.schema, config.path)
+    }
     const schemaType = getSchemaType(config.schema)
     const schemaOneOf = getSchemaOneOf(config.schema)
     const schemaAnyOf = getSchemaAnyOf(config.schema)
