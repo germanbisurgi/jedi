@@ -1,5 +1,7 @@
 ## Todo
 
+- better elements class names
+- refactor label sr-only
 - move actions on top of cards
 - multiple in fieldsets
 - ionic theme

@@ -48,7 +48,9 @@ class Theme {
    * @private
    */
   getFieldset () {
-    return document.createElement('fieldset')
+    const html = document.createElement('fieldset')
+    html.classList.add('jedi-editor-fieldset')
+    return html
   }
 
   /**
@@ -58,6 +60,8 @@ class Theme {
   getLegend (config) {
     const legend = document.createElement('legend')
     const legendText = document.createElement('span')
+    legend.classList.add('jedi-editor-legend')
+    legendText.classList.add('jedi-editor-legend-text')
     legend.setAttribute('aria-labelledby', '#legend-' + config.id)
     legendText.textContent = config.textContent
     legendText.setAttribute('id', '#legend-' + config.id)
@@ -70,7 +74,9 @@ class Theme {
    * @private
    */
   getCard () {
-    return document.createElement('div')
+    const html = document.createElement('div')
+    html.classList.add('jedi-editor-card')
+    return html
   }
 
   /**
@@ -78,7 +84,9 @@ class Theme {
    * @private
    */
   getCardHeader () {
-    return document.createElement('div')
+    const html = document.createElement('div')
+    html.classList.add('jedi-editor-card-header')
+    return html
   }
 
   /**
@@ -86,7 +94,9 @@ class Theme {
    * @private
    */
   getCardBody () {
-    return document.createElement('div')
+    const html = document.createElement('div')
+    html.classList.add('jedi-editor-card-body')
+    return html
   }
 
   /**
@@ -115,7 +125,7 @@ class Theme {
    */
   getChildrenSlot () {
     const html = document.createElement('div')
-    html.classList.add('jedi-child-editors-slot')
+    html.classList.add('jedi-children-slot')
     return html
   }
 
@@ -123,11 +133,16 @@ class Theme {
    * Wrapper for error messages
    * @private
    */
-  getMessagesSlot () {
+  getMessagesSlot (config = {}) {
     const html = document.createElement('div')
     html.classList.add('jedi-messages-slot')
     html.setAttribute('aria-atomic', 'false')
     html.setAttribute('aria-live', 'polite')
+
+    if (config.id) {
+      html.setAttribute('id', config.id)
+    }
+
     return html
   }
 
@@ -163,6 +178,7 @@ class Theme {
    */
   getPropertiesAriaLive () {
     const html = document.createElement('div')
+    html.classList.add('jedi-properties-aria-live')
     html.setAttribute('role', 'status')
     html.setAttribute('aria-live', 'polite')
     return html
@@ -174,6 +190,7 @@ class Theme {
    */
   getAriaLiveMessage (message) {
     const html = document.createElement('p')
+    html.classList.add('jedi-aria-live-message')
     html.textContent = message
     this.visuallyHidden(html)
     return html
@@ -206,7 +223,7 @@ class Theme {
    */
   getPropertiesActivators () {
     const html = document.createElement('div')
-    html.classList.add('jedi-properties-container')
+    html.classList.add('jedi-properties-activators')
     return html
   }
 
@@ -216,6 +233,7 @@ class Theme {
    */
   getBtnGroup () {
     const html = document.createElement('span')
+    html.classList.add('jedi-btn-group')
     html.style.display = 'initial'
     return html
   }
@@ -226,6 +244,8 @@ class Theme {
    */
   getButton (config) {
     const button = document.createElement('button')
+    button.classList.add('jedi-btn')
+
     button.setAttribute('type', 'button')
 
     if (config.value) {
@@ -321,9 +341,18 @@ class Theme {
    * Wrapper for the editor description
    * @private
    */
-  getDescription (config) {
+  getDescription (config = {}) {
     const description = document.createElement('small')
-    description.textContent = config.textContent
+    description.classList.add('jedi-description')
+
+    if (config.textContent) {
+      description.textContent = config.textContent
+    }
+
+    if (config.id) {
+      description.setAttribute('id', config.id)
+    }
+
     return description
   }
 
@@ -526,27 +555,6 @@ class Theme {
    * Control for NullEditor
    * @private
    */
-  getCircularControl () {
-    const container = document.createElement('div')
-    const actions = this.getActionsSlot()
-    const arrayActions = this.getArrayActionsSlot()
-    const description = document.createElement('div')
-    const messages = this.getMessagesSlot()
-
-    description.textContent = 'CIRCULAR'
-
-    container.appendChild(description)
-    container.appendChild(messages)
-    container.appendChild(actions)
-    actions.appendChild(arrayActions)
-
-    return { container, description, messages, actions, arrayActions }
-  }
-
-  /**
-   * Control for NullEditor
-   * @private
-   */
   getNullControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
@@ -563,12 +571,10 @@ class Theme {
     }
 
     const descriptionId = config.id + '-description'
-    const description = document.createElement('div')
-    description.setAttribute('id', descriptionId)
-
-    if (config.description) {
-      description.textContent = config.description
-    }
+    const description = this.getDescription({
+      textContent: config.description,
+      id: descriptionId
+    })
 
     const messages = this.getMessagesSlot()
 
@@ -605,17 +611,16 @@ class Theme {
       this.visuallyHidden(label)
     }
 
-    const description = document.createElement('div')
     const descriptionId = config.id + '-description'
-    description.setAttribute('id', descriptionId)
+    const description = this.getDescription({
+      textContent: config.description,
+      id: descriptionId
+    })
 
-    if (config.description) {
-      description.textContent = config.description
-    }
-
-    const messages = this.getMessagesSlot()
     const messagesId = config.id + '-messages'
-    messages.setAttribute('id', messagesId)
+    const messages = this.getMessagesSlot({
+      id: messagesId
+    })
 
     const describedBy = messagesId + ' ' + descriptionId
     input.setAttribute('aria-describedby', describedBy)
@@ -655,17 +660,16 @@ class Theme {
       this.visuallyHidden(label)
     }
 
-    const description = document.createElement('div')
     const descriptionId = config.id + '-description'
-    description.setAttribute('id', descriptionId)
+    const description = this.getDescription({
+      textContent: config.description,
+      id: descriptionId
+    })
 
-    if (config.description) {
-      description.textContent = config.description
-    }
-
-    const messages = this.getMessagesSlot()
     const messagesId = config.id + '-messages'
-    messages.setAttribute('id', messagesId)
+    const messages = this.getMessagesSlot({
+      id: messagesId
+    })
 
     const describedBy = messagesId + ' ' + descriptionId
     input.setAttribute('aria-describedby', describedBy)
@@ -690,18 +694,22 @@ class Theme {
     const actions = this.getActionsSlot()
     const arrayActions = this.getArrayActionsSlot()
     const fieldset = this.getFieldset()
-    const messages = this.getMessagesSlot()
     const body = this.getCardBody()
     const legend = this.getLegend({
-      id: config.label
+      textContent: config.label,
+      id: config.id
     })
 
     const messagesId = config.id + '-messages'
-    messages.setAttribute('id', messagesId)
+    const messages = this.getMessagesSlot({
+      id: messagesId
+    })
 
-    const description = document.createElement('div')
     const descriptionId = config.id + '-description'
-    description.setAttribute('id', descriptionId)
+    const description = this.getDescription({
+      textContent: config.description,
+      id: descriptionId
+    })
 
     if (config.srOnly) {
       this.visuallyHidden(legend)
@@ -737,14 +745,6 @@ class Theme {
 
       labels.push(label)
     })
-
-    if (config.description) {
-      description.textContent = config.description
-    }
-
-    if (config.label) {
-      legend.textContent = config.label
-    }
 
     container.appendChild(fieldset)
     container.appendChild(actions)
@@ -790,17 +790,16 @@ class Theme {
       this.visuallyHidden(label)
     }
 
-    const description = document.createElement('div')
     const descriptionId = config.id + '-description'
-    description.setAttribute('id', descriptionId)
+    const description = this.getDescription({
+      textContent: config.description,
+      id: descriptionId
+    })
 
-    if (config.description) {
-      description.textContent = config.description
-    }
-
-    const messages = this.getMessagesSlot()
     const messagesId = config.id + '-messages'
-    messages.setAttribute('id', messagesId)
+    const messages = this.getMessagesSlot({
+      id: messagesId
+    })
 
     const describedBy = messagesId + ' ' + descriptionId
     input.setAttribute('aria-describedby', describedBy)
@@ -851,17 +850,16 @@ class Theme {
       this.visuallyHidden(label)
     }
 
-    const description = document.createElement('div')
     const descriptionId = config.id + '-description'
-    description.setAttribute('id', descriptionId)
+    const description = this.getDescription({
+      textContent: config.description,
+      id: descriptionId
+    })
 
-    if (config.description) {
-      description.textContent = config.description
-    }
-
-    const messages = this.getMessagesSlot()
     const messagesId = config.id + '-messages'
-    messages.setAttribute('id', messagesId)
+    const messages = this.getMessagesSlot({
+      id: messagesId
+    })
 
     const describedBy = messagesId + ' ' + descriptionId
     input.setAttribute('aria-describedby', describedBy)
@@ -901,9 +899,9 @@ class Theme {
   getInvalidFeedback (config) {
     const html = document.createElement('div')
     const invalidFeedbackText = document.createElement('span')
-    const invalidFeedbackIcon = document.createElement('small')
+    const invalidFeedbackIcon = document.createElement('span')
     invalidFeedbackText.textContent = config.message
-    invalidFeedbackIcon.textContent = '❌ '
+    invalidFeedbackIcon.textContent = '⚠ '
     invalidFeedbackIcon.classList.add('jedi-error-message')
     invalidFeedbackIcon.setAttribute('aria-hidden', 'true')
     html.classList.add('jedi-error-message')
