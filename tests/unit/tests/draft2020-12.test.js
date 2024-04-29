@@ -1,5 +1,5 @@
 /* global describe it expect */
-const Jedi = require('../../../dist/jedi')
+const Jedi = require('../../../dist/jedi.umd.cjs')
 
 const suites = [
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/additionalProperties.json'),
