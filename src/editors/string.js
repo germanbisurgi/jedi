@@ -15,7 +15,7 @@ class EditorString extends Editor {
       type: inputTypes.includes(schemaFormat) ? schemaFormat : 'text',
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      srOnly: getSchemaOption(this.instance.schema, 'hideTitle') || schemaFormat === 'hidden',
+      titleHidden: getSchemaOption(this.instance.schema, 'titleHidden') || schemaFormat === 'hidden',
       description: getSchemaDescription(this.instance.schema)
     })
 

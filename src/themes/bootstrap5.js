@@ -96,7 +96,7 @@ class ThemeBootstrap5 extends Theme {
     container.classList.add('mb-3')
     input.classList.add('form-control')
 
-    if (config.srOnly) {
+    if (config.titleHidden) {
       this.visuallyHidden(label)
     }
 
@@ -109,7 +109,7 @@ class ThemeBootstrap5 extends Theme {
     container.classList.add('mb-3')
     input.classList.add('form-control')
 
-    if (config.srOnly) {
+    if (config.titleHidden) {
       this.visuallyHidden(label)
     }
 
@@ -147,7 +147,7 @@ class ThemeBootstrap5 extends Theme {
     input.classList.add('form-check-input')
     label.classList.add('form-check-label')
 
-    if (config.srOnly) {
+    if (config.titleHidden) {
       this.visuallyHidden(label)
     }
 

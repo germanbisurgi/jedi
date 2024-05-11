@@ -29,7 +29,7 @@ class Editor {
     /**
      * The user interface html for this editor
      * @type {HTMLElement}
-     * @private
+     * @protected
      */
     this.control = null
 

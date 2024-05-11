@@ -11,7 +11,7 @@ class EditorNull extends Editor {
     this.control = this.theme.getNullControl({
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      srOnly: getSchemaOption(this.instance.schema, 'hideTitle') || getSchemaFormat(this.instance.schema) === 'hidden',
+      titleHidden: getSchemaOption(this.instance.schema, 'titleHidden') || getSchemaFormat(this.instance.schema) === 'hidden',
       description: getSchemaDescription(this.instance.schema)
     })
   }

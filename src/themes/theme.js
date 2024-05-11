@@ -504,7 +504,7 @@ class Theme {
 
     const header = this.getCardHeader({
       textContent: config.title,
-      srOnly: config.srOnly
+      titleHidden: config.titleHidden
     })
 
     const body = this.getCardBody()
@@ -522,7 +522,7 @@ class Theme {
       titles: config.switcherOptionsLabels,
       id: config.id + '-switcher',
       label: config.id + '-switcher',
-      srOnly: true,
+      titleHidden: true,
       readOnly: config.readOnly
     })
 
@@ -566,7 +566,7 @@ class Theme {
     const labelText = document.createElement('span')
     labelText.textContent = config.label
 
-    if (config.srOnly) {
+    if (config.titleHidden) {
       this.visuallyHidden(label)
     }
 
@@ -607,7 +607,7 @@ class Theme {
     const labelText = document.createElement('span')
     labelText.textContent = config.label
 
-    if (config.srOnly) {
+    if (config.titleHidden) {
       this.visuallyHidden(label)
     }
 
@@ -656,7 +656,7 @@ class Theme {
     const labelText = document.createElement('span')
     labelText.textContent = config.label
 
-    if (config.srOnly) {
+    if (config.titleHidden) {
       this.visuallyHidden(label)
     }
 
@@ -711,7 +711,7 @@ class Theme {
       id: descriptionId
     })
 
-    if (config.srOnly) {
+    if (config.titleHidden) {
       this.visuallyHidden(legend)
     }
 
@@ -786,7 +786,7 @@ class Theme {
     const labelText = document.createElement('span')
     labelText.textContent = config.label
 
-    if (config.srOnly) {
+    if (config.titleHidden) {
       this.visuallyHidden(label)
     }
 
@@ -846,7 +846,7 @@ class Theme {
     const labelText = document.createElement('span')
     labelText.textContent = config.label
 
-    if (config.srOnly) {
+    if (config.titleHidden) {
       this.visuallyHidden(label)
     }
 

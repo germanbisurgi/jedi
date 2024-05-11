@@ -13,7 +13,7 @@ class EditorNumberEnumRadio extends EditorNumber {
       titles: getSchemaOption(this.instance.schema, 'enumTitles') || getSchemaEnum(this.instance.schema),
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      srOnly: getSchemaOption(this.instance.schema, 'hideTitle'),
+      titleHidden: getSchemaOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema)
     })
   }

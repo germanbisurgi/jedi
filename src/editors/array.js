@@ -16,7 +16,7 @@ class EditorArray extends Editor {
   build () {
     this.control = this.theme.getArrayControl({
       title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      srOnly: getSchemaOption(this.instance.schema, 'hideTitle'),
+      titleHidden: getSchemaOption(this.instance.schema, 'titleHidden'),
       id: pathToAttribute(this.instance.path),
       description: getSchemaDescription(this.instance.schema)
     })

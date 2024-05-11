@@ -11,7 +11,7 @@ class EditorBoolean extends Editor {
     this.control = this.theme.getCheckboxControl({
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      srOnly: getSchemaOption(this.instance.schema, 'hideTitle'),
+      titleHidden: getSchemaOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema)
     })
   }

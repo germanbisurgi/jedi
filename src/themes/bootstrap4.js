@@ -91,7 +91,7 @@ class ThemeBootstrap4 extends Theme {
     container.classList.add('form-group')
     input.classList.add('form-control')
 
-    if (config.srOnly) {
+    if (config.titleHidden) {
       this.visuallyHidden(label)
     }
 
@@ -104,7 +104,7 @@ class ThemeBootstrap4 extends Theme {
     container.classList.add('form-group')
     input.classList.add('form-control')
 
-    if (config.srOnly) {
+    if (config.titleHidden) {
       this.visuallyHidden(label)
     }
 

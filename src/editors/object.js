@@ -40,7 +40,7 @@ class EditorObject extends Editor {
 
     this.control = this.theme.getObjectControl({
       title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      srOnly: getSchemaOption(this.instance.schema, 'hideTitle'),
+      titleHidden: getSchemaOption(this.instance.schema, 'titleHidden'),
       id: pathToAttribute(this.instance.path),
       description: getSchemaDescription(this.instance.schema),
       editableProperties: editableProperties,
@@ -122,7 +122,7 @@ class EditorObject extends Editor {
           const checkboxControl = this.theme.getCheckboxControl({
             id: id,
             label: label,
-            srOnly: false
+            titleHidden: false
           })
 
           const checkbox = checkboxControl.input
