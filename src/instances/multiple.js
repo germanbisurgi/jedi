@@ -29,7 +29,6 @@ class InstanceMultiple extends Instance {
   prepare () {
     this.instances = []
     this.activeInstance = null
-    this.activeInstanceChanged = true
     this.lastIndex = 0
     this.index = 0
     this.schemas = []
@@ -128,8 +127,8 @@ class InstanceMultiple extends Instance {
       instance.unregister()
 
       instance.on('change', () => {
-        this.activeInstanceChanged = true
-        this.setValue(this.activeInstance.getValue())
+        this.value = this.activeInstance.getValue()
+        this.emit('change')
       })
 
       this.instances.push(instance)
@@ -137,7 +136,7 @@ class InstanceMultiple extends Instance {
       this.register()
     })
 
-    const fittestIndex = isSet(this.if) ? this.getIfIndex(this.value) : this.getFittestIndex(this.value)
+    const fittestIndex = this.getFittestIndex(this.value)
     this.switchInstance(fittestIndex, this.value)
   }
 
@@ -154,9 +153,8 @@ class InstanceMultiple extends Instance {
   }
 
   onSetValue () {
-    if (different(this.activeInstance.getValue(), this.value) || this.activeInstanceChanged) {
-      this.activeInstanceChanged = false
-      const fittestIndex = isSet(this.if) ? this.getIfIndex(this.value) : this.getFittestIndex(this.value)
+    if (different(this.activeInstance.getValue(), this.value)) {
+      const fittestIndex = this.getFittestIndex(this.value)
       this.switchInstance(fittestIndex, this.value)
     }
   }
@@ -169,13 +167,6 @@ class InstanceMultiple extends Instance {
       const mergedValue = overwriteExistingProperties(currentInstanceValue, lastInstanceValue)
       this.activeInstance.setValue(mergedValue, false)
     }
-  }
-
-  getIfIndex (value) {
-    const ifEditor = new Jedi({ schema: this.if, data: value })
-    const ifErrors = ifEditor.getErrors()
-    ifEditor.destroy()
-    return ifErrors.length === 0 ? 0 : 1
   }
 
   /**
