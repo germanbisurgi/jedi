@@ -1,6 +1,5 @@
 ## Todo
 
-- is editor not needed if container is set
 - better elements class names
 - move actions on top of cards
 - multiple in fieldsets
@@ -10,7 +9,6 @@
 - options can be global or scoped in schemas
 - resolvers system
 - collapsed options and arrays
-- pass refParser to child instances
 - property already exist message box or disable add button
 - use dropdown instead of collapse
 - minimize dependencies and overhead (webpack, sass, less, and stuff)
@@ -20,7 +18,6 @@
 - placeholderOption
 - array copy button
 - ?can not set value if enum and not in enum?
-- try to guess type from constrains and build switcher schemas from most likely to less likely type
 - close on escape
 - compact descriptions
 - aria live for multiple
@@ -28,17 +25,14 @@
 - empty jedi-actions-slot weird margins (.btn-group)
 - use same invalid feedback (no alerts)
 - editor method refreshDisableState() to avoid calling refreshUI when enabling / disabling editor (to avoid re-appending editors)
-- remove display none
 - array button accessibility for screen reader
 - anyOf, oneOf accessibility switcher (radios are better)
-- isomorphic external schema loader
 - position and dry of errors (not, patternProperties)
 - items validation message
 - Configurable i18n via options
 - multiple error messages (oneOf, anyOf, not, any, type undefined, etc.)
 - prefixItems test and error messages
-- additionalProperties false by default in UI
-- scope switcher options and titles in editors and not in instances
+- move switcher options and titles in editors and not in instances
 - template / titles / descriptions as html with xss lib option
 - active item after array add/move/etc. (min and max items) + test
 - active item after object add/
