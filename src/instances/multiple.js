@@ -159,15 +159,15 @@ class InstanceMultiple extends Instance {
     }
   }
 
-  reassignValues () {
-    const lastInstanceValue = this.instances[this.lastIndex].getValue()
-    const currentInstanceValue = this.activeInstance.getValue()
-
-    if (isObject(lastInstanceValue) && isObject(currentInstanceValue)) {
-      const mergedValue = overwriteExistingProperties(currentInstanceValue, lastInstanceValue)
-      this.activeInstance.setValue(mergedValue, false)
-    }
-  }
+  // reassignValues () {
+  //   const lastInstanceValue = this.instances[this.lastIndex].getValue()
+  //   const currentInstanceValue = this.activeInstance.getValue()
+  //
+  //   if (isObject(lastInstanceValue) && isObject(currentInstanceValue)) {
+  //     const mergedValue = overwriteExistingProperties(currentInstanceValue, lastInstanceValue)
+  //     this.activeInstance.setValue(mergedValue, false)
+  //   }
+  // }
 
   /**
    * Returns the index of the instance that has less validation errors

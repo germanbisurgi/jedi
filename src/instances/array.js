@@ -85,7 +85,8 @@ class InstanceArray extends Instance {
       value.push(child.getValue())
     })
 
-    this.setValue(value)
+    this.value = value
+    this.emit('change')
   }
 
   refreshChildren () {
