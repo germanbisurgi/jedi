@@ -84,7 +84,7 @@ class Instance extends EventEmitter {
     this.prepare()
     this.setDefaultValue()
 
-    if (this.jedi.options.isEditor) {
+    if (this.jedi.options.container) {
       this.setUI()
     }
 

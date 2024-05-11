@@ -86,7 +86,6 @@ window.addEventListener('DOMContentLoaded', () => {
         editableProperties: true,
         schema: {},
         editor: null,
-        isEditor: true,
         theme: 'barebones',
         iconLib: 'bootstrap-icons',
         showErrors: 'change',
@@ -99,7 +98,6 @@ window.addEventListener('DOMContentLoaded', () => {
       this.example = this.getQueryParam('example') || '../json/editors/all.json'
       this.showErrors = this.getQueryParam('showErrors') || 'change'
       this.validateFormat = this.getQueryParam('validateFormat') ? this.parseBooleanString(this.getQueryParam('validateFormat')) : false
-      this.isEditor = this.getQueryParam('isEditor') ? this.parseBooleanString(this.getQueryParam('isEditor')) : true
     },
     mounted() {
       switch (this.theme) {
@@ -182,7 +180,6 @@ window.addEventListener('DOMContentLoaded', () => {
         const options = {
           container: document.querySelector('#jedi-container'),
           editableProperties: this.editableProperties,
-          isEditor: this.isEditor,
           iconLib: this.iconLib,
           showErrors: this.showErrors,
           validateFormat: this.validateFormat,
@@ -223,7 +220,6 @@ window.addEventListener('DOMContentLoaded', () => {
         newUrl += "&example=" + this.example
         newUrl += "&showErrors=" + this.showErrors
         newUrl += "&validateFormat=" + this.validateFormat
-        newUrl += "&isEditor=" + this.isEditor
 
         window.open(newUrl, '_self')
       },

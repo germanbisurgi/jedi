@@ -20,7 +20,6 @@
             <main>
                 <form action="" method="POST">
                     <div ref="jediContainer" id="jedi-container"></div>
-                    <input v-if="isEditor" class="btn btn-primary btn-block" type="submit" value="Submit">
                 </form>
             </main>
         </div>
@@ -74,11 +73,6 @@
                         <span>{{ errorCount }}</span>
                     </label>
                     <textarea ref="editorErrors" class="form-control" id="editor-errors" style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <input type="checkbox" id="isEditor" v-model="isEditor" @change="reload()">
-                    <label for="isEditor">isEditor</label>
                 </div>
 
                 <div class="form-group">

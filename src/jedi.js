@@ -30,7 +30,6 @@ class Jedi extends EventEmitter {
    * Creates a Jedi instance.
    * @param {object} options - Options object
    * @param {object|boolean} options.schema - A JSON schema
-   * @param {boolean} options.isEditor - Generates UI controls to edit the JSON value
    * @param {boolean} options.container - Where the UI controls will be rendered
    * @param {string} options.theme - How the UI controls will be rendered
    */
@@ -40,7 +39,6 @@ class Jedi extends EventEmitter {
     this.options = Object.assign({
       container: null,
       refParser: null,
-      isEditor: false,
       editableProperties: false,
       schema: {},
       showErrors: 'change',
@@ -125,7 +123,7 @@ class Jedi extends EventEmitter {
       this.root.setValue(this.options.data, false)
     }
 
-    if (this.options.isEditor && this.options.container) {
+    if (this.options.container) {
       this.container = this.options.container
       this.appendHiddenInput()
       this.container.appendChild(this.root.ui.control.container)
@@ -289,7 +287,7 @@ class Jedi extends EventEmitter {
   destroy () {
     this.root.destroy()
 
-    if (this.options.isEditor) {
+    if (this.options.container) {
       this.container.innerHTML = ''
     }
 
