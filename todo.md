@@ -1,5 +1,6 @@
 ## Todo
 
+- hide if-then-else headers
 - better elements class names
 - move actions on top of cards
 - multiple in fieldsets
