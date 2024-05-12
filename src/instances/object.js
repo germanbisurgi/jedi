@@ -151,7 +151,8 @@ class InstanceObject extends Instance {
       }
     })
 
-    this.setValue(value)
+    this.value = value
+    this.emit('change')
   }
 
   refreshInstances () {

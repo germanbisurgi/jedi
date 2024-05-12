@@ -1,6 +1,5 @@
 ## Todo
 
-- object onChildChange like multiple and array
 - hide if-then-else headers
 - better elements class names
 - move actions on top of cards

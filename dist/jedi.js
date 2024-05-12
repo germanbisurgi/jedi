@@ -2659,7 +2659,7 @@ class _e extends D {
     const t = {};
     this.children.forEach((e) => {
       e.isActive && (t[e.getKey()] = e.getValue());
-    }), this.setValue(t);
+    }), this.value = t, this.emit("change");
   }
   refreshInstances() {
     const t = this.getValue();
@@ -3027,9 +3027,9 @@ class as extends Xt {
       jedi: this,
       schema: this.options.schema,
       path: this.rootName
-    }), l(this.options.data) && this.root.setValue(this.options.data, !1), this.bindEventListeners(), this.options.container && (this.container = this.options.container, this.appendHiddenInput(), this.container.appendChild(this.root.ui.control.container), this.container.classList.add("jedi-ready"), setTimeout(() => {
+    }), l(this.options.data) && this.root.setValue(this.options.data, !1), this.options.container && (this.container = this.options.container, this.appendHiddenInput(), this.container.appendChild(this.root.ui.control.container), this.container.classList.add("jedi-ready"), setTimeout(() => {
       this.emit("ready");
-    }));
+    })), this.bindEventListeners();
   }
   bindEventListeners() {
     this.root && this.root.on("change", () => {

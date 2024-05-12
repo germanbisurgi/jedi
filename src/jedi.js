@@ -123,8 +123,6 @@ class Jedi extends EventEmitter {
       this.root.setValue(this.options.data, false)
     }
 
-    this.bindEventListeners()
-
     if (this.options.container) {
       this.container = this.options.container
       this.appendHiddenInput()
@@ -135,6 +133,8 @@ class Jedi extends EventEmitter {
         this.emit('ready')
       })
     }
+
+    this.bindEventListeners()
   }
 
   bindEventListeners () {
