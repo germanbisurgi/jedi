@@ -123,14 +123,18 @@ class Jedi extends EventEmitter {
       this.root.setValue(this.options.data, false)
     }
 
+    this.bindEventListeners()
+
     if (this.options.container) {
       this.container = this.options.container
       this.appendHiddenInput()
       this.container.appendChild(this.root.ui.control.container)
       this.container.classList.add('jedi-ready')
-    }
 
-    this.bindEventListeners()
+      setTimeout(() => {
+        this.emit('ready')
+      })
+    }
   }
 
   bindEventListeners () {
