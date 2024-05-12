@@ -1032,6 +1032,9 @@ class Xt {
   on(t, e) {
     this.listeners.push({ name: t, callback: e });
   }
+  off(t) {
+    this.listeners = this.listeners.filter((e) => e.name !== t);
+  }
   /**
    * Triggers the callback function of a named event listener
    * @public
@@ -2371,7 +2374,7 @@ class Ue extends D {
         parent: this.parent,
         value: k(this.value)
       });
-      l(this.value) && n.setValue(this.value, !1), n.unregister(), n.on("change", () => {
+      l(this.value) && n.setValue(this.value, !1), n.unregister(), n.off("change"), n.on("change", () => {
         this.value = this.activeInstance.getValue(), this.emit("change");
       }), this.instances.push(n), this.register();
     });

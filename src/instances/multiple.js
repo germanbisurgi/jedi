@@ -126,6 +126,8 @@ class InstanceMultiple extends Instance {
 
       instance.unregister()
 
+      instance.off('change')
+
       instance.on('change', () => {
         this.value = this.activeInstance.getValue()
         this.emit('change')

@@ -16,6 +16,10 @@ class EventEmitter {
     this.listeners.push({ name, callback })
   }
 
+  off (name) {
+    this.listeners = this.listeners.filter(listener => listener.name !== name)
+  }
+
   /**
    * Triggers the callback function of a named event listener
    * @public
