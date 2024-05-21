@@ -3030,9 +3030,7 @@ class as extends Xt {
       jedi: this,
       schema: this.options.schema,
       path: this.rootName
-    }), l(this.options.data) && this.root.setValue(this.options.data, !1), this.options.container && (this.container = this.options.container, this.appendHiddenInput(), this.container.appendChild(this.root.ui.control.container), this.container.classList.add("jedi-ready"), setTimeout(() => {
-      this.emit("ready");
-    })), this.bindEventListeners();
+    }), l(this.options.data) && this.root.setValue(this.options.data, !1), this.options.container && (this.container = this.options.container, this.appendHiddenInput(), this.container.appendChild(this.root.ui.control.container), this.container.classList.add("jedi-ready")), this.bindEventListeners();
   }
   bindEventListeners() {
     this.root && this.root.on("change", () => {
