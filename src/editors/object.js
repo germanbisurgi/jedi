@@ -147,6 +147,10 @@ class EditorObject extends Editor {
               ariaLiveMessage.textContent = label + ' field was removed from the form'
               ariaLive.appendChild(ariaLiveMessage)
             }
+
+            // keeps dialog open
+            this.control.propertiesContainer.close()
+            this.control.propertiesContainer.showModal()
           })
 
           this.control.propertiesActivators.appendChild(checkboxControl.container)

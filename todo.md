@@ -1,9 +1,16 @@
 ## Todo
 
+- start deactivated and activate them after
+- append descriptions if set and not hidden
+- type hidden description
+- enforce margin-bottom
+- actions buttons disabled
+- add property separated from edit properties
+- editor hidden description
 - hide if-then-else headers
 - better elements class names
 - move actions on top of cards
-- multiple in fieldsets
+- multiple in field sets
 - ionic theme
 - integrate unevaluatedProperties "see through"
 - better NOT error messages
@@ -46,7 +53,11 @@
 - readonly, should not set value
 - documentation mode
 - use names options
-- plugins examples (flatpickr)
+- plugins flatpickr
+- plugins sortablejs
+- plugins jodit
+- plugins simplemde
 - edit object values
 - edit array values
 - formats: https://json-schema.org/understanding-json-schema/reference/string#format
+

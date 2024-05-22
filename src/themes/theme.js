@@ -157,17 +157,40 @@ class Theme {
   }
 
   /**
+   * Toggles the ObjectEditor properties wrapper visibility
+   * @private
+   */
+  getPropertiesToggle (config) {
+    const toggle = this.getButton(config)
+    toggle.classList.add('jedi-properties-toggle')
+
+    // if (this.useToggleEvents) {
+      toggle.addEventListener('click', () => {
+        if (config.propertiesContainer.open) {
+          config.propertiesContainer.close()
+        } else {
+          config.propertiesContainer.showModal()
+        }
+      })
+    // }
+
+    return toggle
+  }
+
+  /**
    * Container for properties editing elements like property activators
    * @private
    */
   getPropertiesSlot (config) {
-    const html = document.createElement('div')
+    const html = document.createElement('dialog')
     html.classList.add('jedi-properties-slot')
     html.setAttribute('id', config.id)
 
-    if (this.useToggleEvents) {
-      html.style.display = 'none'
-    }
+    window.addEventListener('click', (event) => {
+      if (event.target === html) {
+        html.close()
+      }
+    })
 
     return html
   }
@@ -194,27 +217,6 @@ class Theme {
     html.textContent = message
     this.visuallyHidden(html)
     return html
-  }
-
-  /**
-   * Toggles the ObjectEditor properties wrapper visibility
-   * @private
-   */
-  getPropertiesToggle (config) {
-    const toggle = this.getButton(config)
-    toggle.classList.add('jedi-properties-toggle')
-
-    if (this.useToggleEvents) {
-      toggle.addEventListener('click', () => {
-        if (config.propertiesContainer.hasAttribute('style')) {
-          this.visuallyVisible(config.propertiesContainer)
-        } else {
-          this.visuallyHidden(config.propertiesContainer)
-        }
-      })
-    }
-
-    return toggle
   }
 
   /**

@@ -51,21 +51,6 @@ class ThemeBootstrap4 extends Theme {
     return html
   }
 
-  getPropertiesSlot (config) {
-    const html = super.getPropertiesSlot(config)
-    html.classList.add('collapse')
-    html.setAttribute('id', config.id)
-    return html
-  }
-
-  getPropertiesToggle (config) {
-    const html = this.getButton(config)
-    html.setAttribute('data-toggle', 'collapse')
-    html.setAttribute('data-target', '#' + config.propertiesContainer.id)
-    html.classList.add('jedi-properties-toggle')
-    return html
-  }
-
   getBtnGroup () {
     const html = super.getBtnGroup()
     html.classList.add('btn-group')
