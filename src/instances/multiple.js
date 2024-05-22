@@ -6,10 +6,8 @@ import {
   different,
   notSet,
   clone,
-  isObject,
-  overwriteExistingProperties, mergeDeep
+  mergeDeep
 } from '../helpers/utils.js'
-import Jedi from '../jedi.js'
 import {
   getSchemaAnyOf,
   getSchemaOneOf,
@@ -160,16 +158,6 @@ class InstanceMultiple extends Instance {
       this.switchInstance(fittestIndex, this.value)
     }
   }
-
-  // reassignValues () {
-  //   const lastInstanceValue = this.instances[this.lastIndex].getValue()
-  //   const currentInstanceValue = this.activeInstance.getValue()
-  //
-  //   if (isObject(lastInstanceValue) && isObject(currentInstanceValue)) {
-  //     const mergedValue = overwriteExistingProperties(currentInstanceValue, lastInstanceValue)
-  //     this.activeInstance.setValue(mergedValue, false)
-  //   }
-  // }
 
   /**
    * Returns the index of the instance that has less validation errors

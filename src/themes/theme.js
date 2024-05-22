@@ -165,13 +165,13 @@ class Theme {
     toggle.classList.add('jedi-properties-toggle')
 
     // if (this.useToggleEvents) {
-      toggle.addEventListener('click', () => {
-        if (config.propertiesContainer.open) {
-          config.propertiesContainer.close()
-        } else {
-          config.propertiesContainer.showModal()
-        }
-      })
+    toggle.addEventListener('click', () => {
+      if (config.propertiesContainer.open) {
+        config.propertiesContainer.close()
+      } else {
+        config.propertiesContainer.showModal()
+      }
+    })
     // }
 
     return toggle
