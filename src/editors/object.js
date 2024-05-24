@@ -85,6 +85,10 @@ class EditorObject extends Editor {
       const ariaLiveMessage = this.theme.getAriaLiveMessage()
       ariaLiveMessage.textContent = label + ' field was added to the form'
       ariaLive.appendChild(ariaLiveMessage)
+
+      // keeps dialog open
+      this.control.propertiesContainer.close()
+      this.control.propertiesContainer.showModal()
     })
   }
 

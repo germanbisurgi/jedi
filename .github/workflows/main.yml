@@ -1,6 +1,16 @@
 name: Tests
 on: [push, pull_request]
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Node version
+        run: node -v
+      - name: Install
+        run: yarn install
+      - name: Lint
+        run: yarn lint
   unit:
     runs-on: ubuntu-latest
     steps:
@@ -11,7 +21,7 @@ jobs:
         run: yarn install
       - name: Test
         run: yarn unit
-  e2e-barebones:
+  e2e:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,41 +30,12 @@ jobs:
       - name: Install
         run: yarn install
       - name: Test
-        run: yarn serve & yarn e2e
-  e2e-bootstrap3:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Node version
-        run: node -v
-      - name: Install
-        run: yarn install
-      - name: Test
-        run: yarn serve & yarn e2e:b3
-  e2e-bootstrap4:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Node version
-        run: node -v
-      - name: Install
-        run: yarn install
-      - name: Test
-        run: yarn serve & yarn e2e:b4
-  e2e-bootstrap5:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Node version
-        run: node -v
-      - name: Install
-        run: yarn install
-      - name: Test
-        run: yarn serve & yarn e2e:b5
+        run: yarn serve & yarn e2e:*
       - name: Test Artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: codeceptjs-output
           path: tests/e2e/output
+          if-no-files-found: 'ignore'
           retention-days: 30

@@ -28,8 +28,8 @@
     "serve": "reload --port 8282 --browser --watch-dir ./docs --dir ./docs",
     "watch": "webpack --config config/webpack.config.cjs --watch",
     "webpack": "webpack",
-    "eslint": "eslint -c ./config/.eslintrc.json ./src",
-    "eslint:fix": "eslint --fix -c ./config/.eslintrc.json ./src",
+    "lint": "eslint -c ./config/.eslintrc.json ./src",
+    "lint:fix": "eslint --fix -c ./config/.eslintrc.json ./src",
     "jsdoc": "jsdoc -r -X ./src > ./docs/jsdoc.json"
   },
   "repository": {

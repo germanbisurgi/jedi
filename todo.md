@@ -1,6 +1,6 @@
 ## Todo
 
-- start deactivated and activate them after
+- replace node-sass with sass
 - append descriptions if set and not hidden
 - type hidden description
 - enforce margin-bottom
