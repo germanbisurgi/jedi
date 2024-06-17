@@ -39,7 +39,10 @@ class Jedi extends EventEmitter {
     this.options = Object.assign({
       container: null,
       refParser: null,
-      editableProperties: false,
+      enablePropertiesToggle: false,
+      enableCollapseToggle: false,
+      startCollapsed: false,
+      deactivateNonRequired: false,
       schema: {},
       showErrors: 'change',
       data: undefined,
@@ -190,6 +193,7 @@ class Jedi extends EventEmitter {
     if (this.refParser) {
       config.schema = this.refParser.expand(config.schema, config.path)
     }
+
     const schemaType = getSchemaType(config.schema)
     const schemaOneOf = getSchemaOneOf(config.schema)
     const schemaAnyOf = getSchemaAnyOf(config.schema)

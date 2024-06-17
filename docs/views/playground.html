@@ -76,8 +76,18 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="checkbox" id="editableProperties" v-model="editableProperties" @change="initEditor()">
-                    <label for="editableProperties">editableProperties</label>
+                    <input type="checkbox" id="enablePropertiesToggle" v-model="enablePropertiesToggle" @change="initEditor()">
+                    <label for="enablePropertiesToggle">enablePropertiesToggle</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="enableCollapseToggle" v-model="enableCollapseToggle" @change="initEditor()">
+                    <label for="enableCollapseToggle">enableCollapseToggle</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="startCollapsed" v-model="startCollapsed" @change="initEditor()">
+                    <label for="startCollapsed">startCollapsed</label>
                 </div>
 
                 <div class="form-group">

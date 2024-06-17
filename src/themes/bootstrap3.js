@@ -9,6 +9,24 @@ class ThemeBootstrap3 extends Theme {
     this.useToggleEvents = false
   }
 
+  getCollapseToggle (config) {
+    const toggle = super.getCollapseToggle(config)
+    toggle.setAttribute('href', '#' + config.collapseId)
+    toggle.setAttribute('data-toggle', 'collapse')
+    return toggle
+  }
+
+  getCollapse (config) {
+    const collapse = super.getCollapse(config)
+    collapse.classList.add('collapse')
+
+    if (!config.startCollapsed) {
+      collapse.classList.add('in')
+    }
+
+    return collapse
+  }
+
   getFieldset () {
     const fieldset = document.createElement('fieldset')
     fieldset.classList.add('panel')

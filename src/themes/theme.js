@@ -178,6 +178,43 @@ class Theme {
   }
 
   /**
+   * Container that will collapse and expand to show and hide it contents
+   * @private
+   */
+  getCollapse (config) {
+    const collapse = document.createElement('div')
+    collapse.classList.add('jedi-collapse')
+    collapse.setAttribute('id', config.id)
+
+    if (this.useToggleEvents && config.startCollapsed) {
+      collapse.style.display = 'none'
+    }
+
+    return collapse
+  }
+
+  /**
+   * Toggle button for collapse
+   * @private
+   */
+  getCollapseToggle (config) {
+    const toggle = this.getButton(config)
+    toggle.classList.add('jedi-collapse-toggle')
+
+    if (this.useToggleEvents) {
+      toggle.addEventListener('click', () => {
+        if (config.collapse.style.display === 'none') {
+          config.collapse.style.display = 'block'
+        } else {
+          config.collapse.style.display = 'none'
+        }
+      })
+    }
+
+    return toggle
+  }
+
+  /**
    * Container for properties editing elements like property activators
    * @private
    */
@@ -389,6 +426,21 @@ class Theme {
       propertiesContainer: propertiesContainer
     })
 
+    const collapseId = 'collapse-' + config.id
+
+    const collapse = this.getCollapse({
+      id: collapseId,
+      startCollapsed: config.startCollapsed
+    })
+
+    const collapseToggle = this.getCollapseToggle({
+      textContent: config.title + ' ' + 'properties',
+      id: 'collapse-toggle-' + config.id,
+      icon: 'collapse',
+      collapseId: collapseId,
+      collapse: collapse
+    })
+
     const propertiesActivators = this.getPropertiesActivators()
 
     const addPropertyControl = this.getInputControl({
@@ -408,13 +460,14 @@ class Theme {
     addPropertyBtn.classList.add('jedi-object-add')
 
     container.appendChild(fieldset)
+    container.appendChild(propertiesContainer)
     fieldset.appendChild(legend)
-    fieldset.appendChild(body)
+    fieldset.appendChild(collapse)
+    collapse.appendChild(body)
     body.appendChild(description)
     body.appendChild(messages)
     legend.appendChild(actions)
     actions.appendChild(arrayActions)
-    body.appendChild(propertiesContainer)
     body.appendChild(childrenSlot)
 
     if (config.addProperty) {
@@ -422,14 +475,20 @@ class Theme {
       propertiesContainer.appendChild(addPropertyBtn)
     }
 
-    if (config.editableProperties) {
+    if (config.enablePropertiesToggle) {
       actions.appendChild(propertiesToggle)
       propertiesContainer.appendChild(ariaLive)
       propertiesContainer.appendChild(propertiesActivators)
     }
 
+    if (config.enableCollapseToggle) {
+      actions.appendChild(collapseToggle)
+    }
+
     return {
       container,
+      collapse,
+      collapseToggle,
       body,
       actions,
       messages,
@@ -469,9 +528,25 @@ class Theme {
       id: config.id
     })
 
+    const collapseId = 'collapse-' + config.id
+
+    const collapse = this.getCollapse({
+      id: collapseId,
+      startCollapsed: config.startCollapsed
+    })
+
+    const collapseToggle = this.getCollapseToggle({
+      textContent: config.title + ' ' + 'properties',
+      id: 'collapse-toggle-' + config.id,
+      icon: 'collapse',
+      collapseId: collapseId,
+      collapse: collapse
+    })
+
     container.appendChild(fieldset)
     fieldset.appendChild(legend)
-    fieldset.appendChild(body)
+    fieldset.appendChild(collapse)
+    collapse.appendChild(body)
     body.appendChild(description)
     body.appendChild(messages)
     legend.appendChild(actions)
@@ -480,8 +555,14 @@ class Theme {
     actions.appendChild(arrayActions)
     body.appendChild(childrenSlot)
 
+    if (config.enableCollapseToggle) {
+      actions.appendChild(collapseToggle)
+    }
+
     return {
       container,
+      collapseToggle,
+      collapse,
       body,
       actions,
       messages,
@@ -764,7 +845,20 @@ class Theme {
     fieldset.appendChild(description)
     fieldset.appendChild(messages)
 
-    return { container, fieldset, legend, body, radios, labels, labelTexts, radioControls, description, messages, actions, arrayActions }
+    return {
+      container,
+      fieldset,
+      legend,
+      body,
+      radios,
+      labels,
+      labelTexts,
+      radioControls,
+      description,
+      messages,
+      actions,
+      arrayActions
+    }
   }
 
   /**

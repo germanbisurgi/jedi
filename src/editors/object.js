@@ -28,14 +28,14 @@ class EditorObject extends Editor {
       addProperty = false
     }
 
-    let editableProperties = false
+    let enablePropertiesToggle = false
 
-    if (isSet(this.instance.jedi.options.editableProperties)) {
-      editableProperties = this.instance.jedi.options.editableProperties
+    if (isSet(this.instance.jedi.options.enablePropertiesToggle)) {
+      enablePropertiesToggle = this.instance.jedi.options.enablePropertiesToggle
     }
 
-    if (isSet(schemaOptions.editableProperties)) {
-      editableProperties = schemaOptions.editableProperties
+    if (isSet(schemaOptions.enablePropertiesToggle)) {
+      enablePropertiesToggle = schemaOptions.enablePropertiesToggle
     }
 
     this.control = this.theme.getObjectControl({
@@ -43,8 +43,10 @@ class EditorObject extends Editor {
       titleHidden: getSchemaOption(this.instance.schema, 'titleHidden'),
       id: pathToAttribute(this.instance.path),
       description: getSchemaDescription(this.instance.schema),
-      editableProperties: editableProperties,
-      addProperty: addProperty
+      enablePropertiesToggle: enablePropertiesToggle,
+      addProperty: addProperty,
+      enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaOption(this.instance.schema, 'enableCollapseToggle'),
+      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaOption(this.instance.schema, 'startCollapsed')
     })
   }
 
@@ -105,9 +107,9 @@ class EditorObject extends Editor {
   }
 
   refreshPropertiesSlot () {
-    const schemaOptionEditableProperties = getSchemaOption(this.instance.schema, 'editableProperties')
+    const schemaOptionEnablePropertiesToggle = getSchemaOption(this.instance.schema, 'enablePropertiesToggle')
 
-    if (equal(this.instance.jedi.options.editableProperties, true) || equal(schemaOptionEditableProperties, true)) {
+    if (equal(this.instance.jedi.options.enablePropertiesToggle, true) || equal(schemaOptionEnablePropertiesToggle, true)) {
       Object.keys(this.instance.properties).forEach((property) => {
         // refactor with isNotRequired
         const isRequired = this.instance.isRequired(property)

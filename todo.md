@@ -1,24 +1,22 @@
 ## Todo
 
-- replace node-sass with sass
+- merge schema into own oneOf schemas https://json.schemastore.org/geojson.json
+- additionalItems with prefixItems validation and editing https://json-schema.org/understanding-json-schema/reference/array#additionalitems
+- multiple instance: do not transfer values between editors
 - append descriptions if set and not hidden
 - type hidden description
 - enforce margin-bottom
-- actions buttons disabled
 - add property separated from edit properties
 - editor hidden description
 - hide if-then-else headers
 - better elements class names
 - move actions on top of cards
-- multiple in field sets
 - ionic theme
 - integrate unevaluatedProperties "see through"
 - better NOT error messages
 - options can be global or scoped in schemas
 - resolvers system
-- collapsed options and arrays
 - property already exist message box or disable add button
-- use dropdown instead of collapse
 - minimize dependencies and overhead (webpack, sass, less, and stuff)
 - fix/check items constrain
 - error constrain property: allOf, dependentSchemas, if-then-else

@@ -83,7 +83,9 @@ window.addEventListener('DOMContentLoaded', () => {
           'change',
           'always'
         ],
-        editableProperties: true,
+        enablePropertiesToggle: true,
+        enableCollapseToggle: true,
+        startCollapsed: false,
         schema: {},
         editor: null,
         theme: 'barebones',
@@ -179,7 +181,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
         const options = {
           container: document.querySelector('#jedi-container'),
-          editableProperties: this.editableProperties,
+          enablePropertiesToggle: this.enablePropertiesToggle,
+          enableCollapseToggle: this.enableCollapseToggle,
+          startCollapsed: this.startCollapsed,
           iconLib: this.iconLib,
           showErrors: this.showErrors,
           validateFormat: this.validateFormat,
@@ -189,6 +193,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         this.editor = new Jedi.Jedi(options)
+        window.editor = this.editor
         this.editorChangeHandler()
         this.editor.on('change', this.editorChangeHandler)
       },

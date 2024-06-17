@@ -8,7 +8,7 @@
     "csfr"
   ],
   "options": {
-    "editableProperties": false
+    "enablePropertiesToggle": false
   },
   "properties": {
     "email": {

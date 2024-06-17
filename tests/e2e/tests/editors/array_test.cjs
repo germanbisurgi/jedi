@@ -36,6 +36,16 @@ Scenario('@editor-array @prefixItems should validate against prefixItems', ({ I 
   I._waitForElement('[data-path="#/prefixItems/3"][data-type="undefined"]')
 })
 
+Scenario('@array-object @enableCollapseToggle should collapse and expand contents', ({ I }) => {
+  I.amOnPage(`playground.html?theme=${theme}`)
+  I.selectOption('#examples', '../json/editors/array.json')
+  I._waitForElement('.jedi-ready')
+  I._click('.jedi-collapse-toggle')
+  I.waitForInvisible('.jedi-editor-card-body')
+  I._click('.jedi-collapse-toggle')
+  I.waitForVisible('.jedi-editor-card-body')
+})
+
 Scenario('@editor-array @array-nav-pills', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', '../json/editors/array-nav-pills.json')

@@ -42,8 +42,13 @@ class InstanceObject extends Instance {
 
         let musstCreateChild = true
 
+        const optionsDeactivateNonRequired = this.jedi.options.deactivateNonRequired
         const deactivateNonRequired = getSchemaOption(this.schema, 'deactivateNonRequired')
         const schemaDeactivateNonRequired = getSchemaOption(schema, 'deactivateNonRequired')
+
+        if (this.isNotRequired(key) && isSet(optionsDeactivateNonRequired) && optionsDeactivateNonRequired === true) {
+          musstCreateChild = false
+        }
 
         if (this.isNotRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true) {
           musstCreateChild = false
@@ -112,7 +117,7 @@ class InstanceObject extends Instance {
     this.children.push(instance)
     this.value[key] = instance.getValue()
 
-    const deactivateNonRequired = getSchemaOption(this.schema, 'deactivateNonRequired')
+    const deactivateNonRequired = this.jedi.options.deactivateNonRequired || getSchemaOption(this.schema, 'deactivateNonRequired')
 
     if (this.isNotRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true) {
       instance.deactivate()

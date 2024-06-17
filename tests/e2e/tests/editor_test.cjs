@@ -55,7 +55,7 @@ Scenario('@editor-disable Should disable and enable', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', '../json/editors/all.json')
   I._waitForElement('.jedi-ready')
-  I._checkOption('[id="editableProperties"]')
+  I._checkOption('[id="enablePropertiesToggle"]')
   I._waitForElement('.jedi-ready')
   I._waitForElement('#disable-editor')
   I._scrollTo('#disable-editor')

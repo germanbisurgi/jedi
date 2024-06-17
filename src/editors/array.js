@@ -18,7 +18,9 @@ class EditorArray extends Editor {
       title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaOption(this.instance.schema, 'titleHidden'),
       id: pathToAttribute(this.instance.path),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaOption(this.instance.schema, 'enableCollapseToggle'),
+      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaOption(this.instance.schema, 'startCollapsed')
     })
   }
 

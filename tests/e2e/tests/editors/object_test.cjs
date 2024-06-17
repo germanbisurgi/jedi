@@ -11,7 +11,7 @@ Scenario('@editor-object @description @title should have title and description',
   I._waitForText('Objects are the mapping type in JSON. They map “keys” to “values”. In JSON, the “keys” must always be strings. Each of these pairs is conventionally referred to as a “property”.')
 })
 
-Scenario('@editor-object @editableProperties should add properties', ({ I }) => {
+Scenario('@editor-object @enablePropertiesToggle should add properties', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', '../json/editors/object.json')
   I._waitForElement('.jedi-ready')
@@ -24,7 +24,7 @@ Scenario('@editor-object @editableProperties should add properties', ({ I }) => 
   I.dontSee('[data-path="#/test"')
 })
 
-Scenario('@editor-object @editableProperties should activate and deactivate properties', ({ I }) => {
+Scenario('@editor-object @enablePropertiesToggle should activate and deactivate properties', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', '../json/editors/object.json')
   I._waitForElement('.jedi-ready')
@@ -35,6 +35,16 @@ Scenario('@editor-object @editableProperties should activate and deactivate prop
   I.dontSee('[data-path="#/notRequired"]')
   I._click('[id="root-notRequired-activator"]')
   I._waitForElement('[data-path="#/notRequired"]')
+})
+
+Scenario('@editor-object @enableCollapseToggle should collapse and expand contents', ({ I }) => {
+  I.amOnPage(`playground.html?theme=${theme}`)
+  I.selectOption('#examples', '../json/editors/object.json')
+  I._waitForElement('.jedi-ready')
+  I._click('.jedi-collapse-toggle')
+  I.waitForInvisible('.jedi-editor-card-body')
+  I._click('.jedi-collapse-toggle')
+  I.waitForVisible('.jedi-editor-card-body')
 })
 
 Scenario('@editor-object @object-grid rows and columns', ({ I }) => {
