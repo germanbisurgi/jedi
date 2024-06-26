@@ -1,12 +1,12 @@
 ## Todo
 
-- merge schema into own oneOf schemas https://json.schemastore.org/geojson.json
+- getButton exports object { button, text, icon }
+- x- prefix
+- compact descriptions
 - additionalItems with prefixItems validation and editing https://json-schema.org/understanding-json-schema/reference/array#additionalitems
 - multiple instance: do not transfer values between editors
 - append descriptions if set and not hidden
 - type hidden description
-- enforce margin-bottom
-- add property separated from edit properties
 - editor hidden description
 - hide if-then-else headers
 - better elements class names
@@ -24,20 +24,14 @@
 - placeholderOption
 - array copy button
 - ?can not set value if enum and not in enum?
-- close on escape
-- compact descriptions
 - aria live for multiple
 - aria live for arrays
-- empty jedi-actions-slot weird margins (.btn-group)
 - use same invalid feedback (no alerts)
 - editor method refreshDisableState() to avoid calling refreshUI when enabling / disabling editor (to avoid re-appending editors)
-- array button accessibility for screen reader
 - anyOf, oneOf accessibility switcher (radios are better)
 - position and dry of errors (not, patternProperties)
-- items validation message
 - Configurable i18n via options
 - multiple error messages (oneOf, anyOf, not, any, type undefined, etc.)
-- prefixItems test and error messages
 - move switcher options and titles in editors and not in instances
 - template / titles / descriptions as html with xss lib option
 - active item after array add/move/etc. (min and max items) + test

@@ -9,6 +9,13 @@ class ThemeBootstrap4 extends Theme {
     this.useToggleEvents = false
   }
 
+  getAddPropertyButton () {
+    const btn = super.getAddPropertyButton()
+    btn.classList.add('btn-primary')
+    btn.classList.add('btn-block')
+    return btn
+  }
+
   getCollapseToggle (config) {
     const toggle = super.getCollapseToggle(config)
     toggle.setAttribute('href', '#' + config.collapseId)
@@ -66,6 +73,7 @@ class ThemeBootstrap4 extends Theme {
   getCardBody () {
     const html = super.getCardBody()
     html.classList.add('card-body')
+    html.classList.add('pb-0')
     return html
   }
 
@@ -158,14 +166,6 @@ class ThemeBootstrap4 extends Theme {
     const { container, input } = control
     container.classList.add('form-group')
     input.classList.add('form-control')
-    return control
-  }
-
-  getSwitcher (config) {
-    const control = super.getSwitcher(config)
-    const { container, input } = control
-    container.classList.remove('form-group')
-    input.classList.remove('form-control')
     return control
   }
 

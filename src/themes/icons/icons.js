@@ -13,7 +13,6 @@ export const glyphicons = {
   add: 'glyphicon glyphicon-plus',
   moveUp: 'glyphicon glyphicon-arrow-up',
   moveDown: 'glyphicon glyphicon-arrow-down',
-  expand: 'glyphicon glyphicon-chevron-right',
   collapse: 'glyphicon glyphicon-chevron-down'
 }
 
@@ -27,7 +26,6 @@ export const bootstrapIcons = {
   add: 'bi bi-plus',
   moveUp: 'bi bi-arrow-up',
   moveDown: 'bi bi-arrow-down',
-  expand: 'bi bi-chevron-right',
   collapse: 'bi bi-chevron-down'
 }
 
@@ -41,7 +39,6 @@ export const fontAwesome3 = {
   add: 'icon-plus',
   moveUp: 'icon-arrow-up',
   moveDown: 'icon-arrow-down',
-  expand: 'icon-chevron-right',
   collapse: 'icon-chevron-down'
 }
 
@@ -55,7 +52,6 @@ export const fontAwesome4 = {
   add: 'fa fa-plus',
   moveUp: 'fa fa-arrow-up',
   moveDown: 'fa fa-arrow-down',
-  expand: 'fa fa-chevron-right',
   collapse: 'fa fa-chevron-down'
 }
 
@@ -69,7 +65,6 @@ export const fontAwesome5 = {
   add: 'fas fa-plus',
   moveUp: 'fas fa-arrow-up',
   moveDown: 'fas fa-arrow-down',
-  expand: 'fas fa-chevron-right',
   collapse: 'fas fa-chevron-down'
 }
 
@@ -83,6 +78,5 @@ export const fontAwesome6 = {
   add: 'fa-solid fa-plus',
   moveUp: 'fa-solid fa-arrow-up',
   moveDown: 'fa-solid fa-arrow-down',
-  expand: 'fa-solid fa-chevron-right',
   collapse: 'fa-solid fa-chevron-down'
 }

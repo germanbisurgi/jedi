@@ -9,6 +9,13 @@ class ThemeBootstrap3 extends Theme {
     this.useToggleEvents = false
   }
 
+  getAddPropertyButton () {
+    const btn = super.getAddPropertyButton()
+    btn.classList.add('btn-primary')
+    btn.classList.add('btn-block')
+    return btn
+  }
+
   getCollapseToggle (config) {
     const toggle = super.getCollapseToggle(config)
     toggle.setAttribute('href', '#' + config.collapseId)
@@ -153,14 +160,6 @@ class ThemeBootstrap3 extends Theme {
       this.visuallyHidden(label)
     }
 
-    return control
-  }
-
-  getSwitcher (config) {
-    const control = super.getSwitcher(config)
-    const { container, input } = control
-    container.classList.remove('form-group')
-    input.classList.remove('form-control')
     return control
   }
 

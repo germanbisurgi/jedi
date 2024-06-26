@@ -9,6 +9,13 @@ class ThemeBootstrap5 extends Theme {
     this.useToggleEvents = false
   }
 
+  getAddPropertyButton () {
+    const btn = super.getAddPropertyButton()
+    btn.classList.add('btn-primary')
+    btn.classList.add('w-100')
+    return btn
+  }
+
   getCollapseToggle (config) {
     const toggle = super.getCollapseToggle(config)
     toggle.setAttribute('href', '#' + config.collapseId)
@@ -65,6 +72,7 @@ class ThemeBootstrap5 extends Theme {
   getCardBody () {
     const html = super.getCardBody()
     html.classList.add('card-body')
+    html.classList.add('pb-0')
     return html
   }
 
@@ -167,15 +175,6 @@ class ThemeBootstrap5 extends Theme {
     const { container, input } = control
     container.classList.add('mb-3')
     input.classList.add('form-select')
-    return control
-  }
-
-  getSwitcher (config) {
-    const control = super.getSwitcher(config)
-    const { container, input, label } = control
-    container.classList.remove('mb-3')
-    input.classList.remove('form-select')
-    this.visuallyHidden(label)
     return control
   }
 

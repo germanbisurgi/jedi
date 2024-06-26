@@ -59,11 +59,13 @@ class EditorArray extends Editor {
       const deleteBtn = this.theme.getDeleteItemBtn()
       const moveUpBtn = this.theme.getMoveUpItemBtn()
       const moveDownBtn = this.theme.getMoveDownItemBtn()
+      const btnGroup = this.theme.getBtnGroup()
 
       child.ui.control.arrayActions.innerHTML = ''
-      child.ui.control.arrayActions.appendChild(deleteBtn)
-      child.ui.control.arrayActions.appendChild(moveUpBtn)
-      child.ui.control.arrayActions.appendChild(moveDownBtn)
+      child.ui.control.arrayActions.appendChild(btnGroup)
+      btnGroup.appendChild(deleteBtn)
+      btnGroup.appendChild(moveUpBtn)
+      btnGroup.appendChild(moveDownBtn)
 
       this.control.childrenSlot.appendChild(child.ui.control.container)
 

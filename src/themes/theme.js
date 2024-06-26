@@ -114,7 +114,7 @@ class Theme {
    * @private
    */
   getArrayActionsSlot () {
-    const html = this.getBtnGroup()
+    const html = document.createElement('span')
     html.classList.add('jedi-array-actions-slot')
     return html
   }
@@ -211,6 +211,24 @@ class Theme {
       })
     }
 
+    let collapsed = config.startCollapsed
+
+    toggle.style.transition = 'transform 0.1s ease'
+
+    if (collapsed) {
+      toggle.style.transform = 'rotate(90deg)'
+    }
+
+    toggle.addEventListener('click', () => {
+      if (collapsed) {
+        toggle.style.transform = 'rotate(0deg)'
+      } else {
+        toggle.style.transform = 'rotate(90deg)'
+      }
+
+      collapsed = !collapsed
+    })
+
     return toggle
   }
 
@@ -273,7 +291,6 @@ class Theme {
   getBtnGroup () {
     const html = document.createElement('span')
     html.classList.add('jedi-btn-group')
-    html.style.display = 'initial'
     return html
   }
 
@@ -316,7 +333,7 @@ class Theme {
    */
   getArrayBtnAdd () {
     const html = this.getButton({
-      textContent: 'Add item into',
+      textContent: 'Add item',
       icon: 'add'
     })
     html.classList.add('jedi-array-add')
@@ -438,7 +455,8 @@ class Theme {
       id: 'collapse-toggle-' + config.id,
       icon: 'collapse',
       collapseId: collapseId,
-      collapse: collapse
+      collapse: collapse,
+      startCollapsed: config.startCollapsed
     })
 
     const propertiesActivators = this.getPropertiesActivators()
@@ -473,6 +491,7 @@ class Theme {
     if (config.addProperty) {
       propertiesContainer.appendChild(addPropertyControl.container)
       propertiesContainer.appendChild(addPropertyBtn)
+      propertiesContainer.appendChild(document.createElement('hr'))
     }
 
     if (config.enablePropertiesToggle) {
@@ -540,7 +559,8 @@ class Theme {
       id: 'collapse-toggle-' + config.id,
       icon: 'collapse',
       collapseId: collapseId,
-      collapse: collapse
+      collapse: collapse,
+      startCollapsed: config.startCollapsed
     })
 
     container.appendChild(fieldset)
@@ -616,8 +636,8 @@ class Theme {
     card.appendChild(header)
     card.appendChild(body)
     header.appendChild(actions)
-    actions.appendChild(arrayActions)
     actions.appendChild(switcher.container)
+    actions.appendChild(arrayActions)
     body.appendChild(messages)
     body.appendChild(childrenSlot)
 
@@ -923,7 +943,6 @@ class Theme {
 
     const input = document.createElement('select')
     input.setAttribute('id', config.id)
-    input.style.width = '100%'
 
     config.values.forEach((value, index) => {
       const option = document.createElement('option')
@@ -976,7 +995,34 @@ class Theme {
    * @private
    */
   getSwitcher (config) {
-    return this.getSelectControl(config)
+    const container = document.createElement('span')
+    const input = document.createElement('select')
+    input.setAttribute('id', config.id)
+
+    config.values.forEach((value, index) => {
+      const option = document.createElement('option')
+      option.setAttribute('value', value)
+
+      if (config.titles && config.titles[index]) {
+        option.textContent = config.titles[index]
+      }
+
+      input.appendChild(option)
+    })
+
+    const label = document.createElement('label')
+    label.setAttribute('for', config.id)
+
+    const labelText = document.createElement('span')
+    labelText.textContent = config.label
+
+    this.visuallyHidden(label)
+
+    container.appendChild(label)
+    container.appendChild(input)
+    label.appendChild(labelText)
+
+    return { container, input, label, labelText }
   }
 
   /**
