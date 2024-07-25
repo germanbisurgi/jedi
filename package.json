@@ -1,7 +1,7 @@
 {
   "name": "jedi",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "JavaScript Library for JSON Validation and Editing",
   "main": "./dist/jedi.umd.cjs",
   "module": "./dist/jedi.js",
   "type": "module",

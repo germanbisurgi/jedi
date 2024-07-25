@@ -1,5 +1,7 @@
 ## Todo
-
+- better scope JSONDoc pages
+- README.md editor options
+- publish on NPM
 - getButton exports object { button, text, icon }
 - x- prefix
 - compact descriptions
