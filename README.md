@@ -44,6 +44,72 @@ const editor = new Jedi({
 })
 ````
 
+## Development
+
+Install dependencies:
+```bash
+yarn install
+```
+
+Start dev server, watch for changes and opens the playground page in the browser.
+
+```bash
+yarn dev
+```
+
+Builds the production-ready version of the library.
+
+```bash
+yarn build
+```
+
+Runs end-to-end tests using CodeceptJS with the barebones theme.
+
+```bash
+yarn e2e
+```
+
+Runs end-to-end tests using CodeceptJS with the bootstrap 3 theme.
+
+```bash
+yarn e2e:b3
+```
+
+Runs end-to-end tests using CodeceptJS with the bootstrap 4 theme.
+
+```bash
+yarn e2e:b4
+```
+
+Runs end-to-end tests using CodeceptJS with the bootstrap 5 theme.
+
+```bash
+yarn e2e:b5
+```
+
+Runs end-to-end tests using CodeceptJS with all the themes.
+
+```bash
+yarn e2e:*
+```
+
+Runs unit tests using Jest.
+
+```bash
+yarn unit
+```
+
+Runs ESLint to check for linting errors.
+
+```bash
+yarn lint
+```
+
+Runs ESLint with the --fix option to automatically fix linting errors.
+```bash
+yarn lint:fix
+```
+
 ## License
 
 Jedi is released under the MIT License, making it free for commercial and non-commercial use.

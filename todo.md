@@ -23,7 +23,7 @@
 - check for unused properties in code
 - placeholderOption
 - array copy button
-- ?can not set value if enum and not in enum?
+- can not set value if enum and not in enum?
 - aria live for multiple
 - aria live for arrays
 - use same invalid feedback (no alerts)
