@@ -11,6 +11,8 @@ Validate JSON data effortlessly with custom schemas or generate dynamic forms fo
 
 - JSON Editing: Generate accessible user-friendly forms for quick JSON editing.
 
+- Lightweight $ref parser: Dereferences JSON Schema $ref pointers.
+
 - CSS libraries Integration: Seamlessly integrates with Bootstrap 3, 4, and 5.
 Integration with other popular libraries coming soon.
 
@@ -115,5 +117,5 @@ yarn lint:fix
 Jedi is released under the MIT License, making it free for commercial and non-commercial use.
 
 ## Resources
-* [Understanding JSON Schema](http://json-schema.org/understanding-json-schema/index.html)
+* [Understanding JSON Schema](https://json-schema.org/understanding-json-schema)
 * [JSON-Schema-Test-Suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite)
