@@ -32,20 +32,47 @@
             "$ref": "#/$defs/schema"
           }
         },
+        "anyOf": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          }
+        },
         "const": {
-          "type": "boolean"
+          "type": [
+            "object",
+            "array",
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ]
         },
         "contains": {
-          "type": "boolean"
+          "$ref": "#/$defs/schema"
         },
         "dependentRequired": {
-          "type": "boolean"
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "title": "property",
+              "type": "string"
+            }
+          }
         },
         "dependentSchemas": {
-          "type": "boolean"
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/schema"
+          }
         },
         "enum": {
-          "type": "boolean"
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true
         },
         "exclusiveMaximum": {
           "type": "number"
@@ -57,19 +84,20 @@
           "type": "string"
         },
         "if": {
-          "type": "boolean"
+          "$ref": "#/$defs/schema"
         },
         "then": {
-          "type": "boolean"
+          "$ref": "#/$defs/schema"
         },
         "else": {
-          "type": "boolean"
+          "$ref": "#/$defs/schema"
         },
         "items": {
-          "type": "boolean"
+          "$ref": "#/$defs/schema"
         },
         "maxContains": {
-          "type": "number"
+          "type": "integer",
+          "minimum": 0
         },
         "maximum": {
           "type": "number"
@@ -87,7 +115,8 @@
           "minimum": 0
         },
         "minContains": {
-          "type": "number"
+          "type": "integer",
+          "minimum": 0
         },
         "minimum": {
           "type": "number"
@@ -105,46 +134,64 @@
           "minimum": 0
         },
         "multipleOf": {
-          "type": "number"
+          "type": "number",
+          "exclusiveMinimum": 0
         },
         "not": {
-          "type": "boolean"
+          "$ref": "#/$defs/schema"
         },
         "oneOf": {
-          "type": "boolean"
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          }
         },
         "pattern": {
           "type": "string",
           "format": "regex"
         },
         "patternProperties": {
-          "type": "boolean"
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/schema"
+          }
         },
         "prefixItems": {
-          "type": "boolean"
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          }
         },
         "properties": {
-          "type": "object"
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/schema"
+          }
         },
         "required": {
           "type": "array",
+          "uniqueItems": true,
           "items": {
             "type": "string"
           }
         },
         "type": {
-          "type": "string",
-          "enum": [
-            "string",
-            "integer",
-            "number",
-            "boolean",
-            "array",
-            "object",
-            "null",
-            "any"
-          ],
-          "default": "string"
+          "oneOf": [
+            {
+              "title": "type",
+              "type": "string",
+              "enum": ["null", "boolean", "object", "array", "number", "string", "integer"]
+            },
+            {
+              "title": "types",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["null", "boolean", "object", "array", "number", "string", "integer"]
+              },
+              "uniqueItems": true
+            }
+          ]
         },
         "uniqueItems": {
           "type": "boolean"

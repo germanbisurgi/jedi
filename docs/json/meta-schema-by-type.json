@@ -1,0 +1,305 @@
+{
+  "anyOf": [
+    {
+      "$ref": "#/$defs/objectSchema"
+    },
+    {
+      "$ref": "#/$defs/arraySchema"
+    },
+    {
+      "$ref": "#/$defs/stringSchema"
+    },
+    {
+      "$ref": "#/$defs/numberSchema"
+    },
+    {
+      "$ref": "#/$defs/integerSchema"
+    },
+    {
+      "$ref": "#/$defs/booleanSchema"
+    },
+    {
+      "$ref": "#/$defs/nullSchema"
+    }
+  ],
+  "$defs": {
+    "schema": {
+      "type": "object",
+      "properties": {
+        "not": {
+          "$ref": "#/$defs/schema"
+        },
+        "oneOf": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          }
+        },
+        "allOf": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          }
+        },
+        "anyOf": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          }
+        },
+        "const": {
+          "type": [
+            "object",
+            "array",
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ]
+        },
+        "enum": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "format": {
+          "type": "string"
+        },
+        "if": {
+          "$ref": "#/$defs/schema"
+        },
+        "then": {
+          "$ref": "#/$defs/schema"
+        },
+        "else": {
+          "$ref": "#/$defs/schema"
+        },
+        "type": {
+          "readOnly": "true",
+          "title": "type",
+          "type": "string",
+          "enum": ["null", "boolean", "object", "array", "number", "string", "integer"]
+        }
+      }
+    },
+    "objectSchema": {
+      "options": {
+        "editableProperties": true,
+        "deactivateNonRequired": true
+      },
+      "$ref": "#/$defs/schema",
+      "title": "Object",
+      "required": ["type"],
+      "default": {
+        "type": "object"
+      },
+      "properties": {
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/schema"
+          }
+        },
+        "required": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": {
+          "title": "additionalProperties",
+          "$ref": "#/$defs/schema"
+        },
+        "dependentRequired": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "title": "property",
+              "type": "string"
+            }
+          }
+        },
+        "dependentSchemas": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/schema"
+          }
+        },
+        "patternProperties": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/schema"
+          }
+        },
+        "maxProperties": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "minProperties": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": {
+        "options": {
+          "deactivateNonRequired": true
+        },
+        "$ref": "#/$defs/schema"
+      }
+    },
+    "arraySchema": {
+      "options": {
+        "deactivateNonRequired": true
+      },
+      "$ref": "#/$defs/schema",
+      "title": "Array",
+      "required": ["type"],
+      "default": {
+        "type": "array"
+      },
+      "properties": {
+        "items": {
+          "$ref": "#/$defs/schema"
+        },
+        "uniqueItems": {
+          "type": "boolean"
+        },
+        "minItems": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxItems": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "contains": {
+          "$ref": "#/$defs/schema"
+        },
+        "minContains": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxContains": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "prefixItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          }
+        }
+      }
+    },
+    "stringSchema": {
+      "options": {
+        "deactivateNonRequired": true
+      },
+      "$ref": "#/$defs/schema",
+      "title": "String",
+      "required": ["type"],
+      "default": {
+        "type": "string"
+      },
+      "properties": {
+        "minLength": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxLength": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pattern": {
+          "type": "string",
+          "format": "regex"
+        }
+      }
+    },
+    "numberSchema": {
+      "options": {
+        "deactivateNonRequired": true
+      },
+      "$ref": "#/$defs/schema",
+      "title": "Number",
+      "required": ["type"],
+      "default": {
+        "type": "number"
+      },
+      "type": "object",
+      "properties": {
+        "exclusiveMaximum": {
+          "type": "number"
+        },
+        "exclusiveMinimum": {
+          "type": "number"
+        },
+        "maximum": {
+          "type": "number"
+        },
+        "minimum": {
+          "type": "number"
+        },
+        "multipleOf": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "integerSchema": {
+      "options": {
+        "deactivateNonRequired": true
+      },
+      "$ref": "#/$defs/schema",
+      "title": "Integer",
+      "required": ["type"],
+      "default": {
+        "type": "integer"
+      },
+      "properties": {
+        "exclusiveMaximum": {
+          "type": "number"
+        },
+        "exclusiveMinimum": {
+          "type": "number"
+        },
+        "maximum": {
+          "type": "number"
+        },
+        "minimum": {
+          "type": "number"
+        },
+        "multipleOf": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "booleanSchema": {
+      "options": {
+        "deactivateNonRequired": true
+      },
+      "$ref": "#/$defs/schema",
+      "title": "Boolean",
+      "required": ["type"],
+      "default": {
+        "type": "boolean"
+      }
+    },
+    "nullSchema": {
+      "options": {
+        "deactivateNonRequired": true
+      },
+      "$ref": "#/$defs/schema",
+      "title": "Null",
+      "required": ["type"],
+      "default": {
+        "type": "null"
+      }
+    }
+  }
+}
