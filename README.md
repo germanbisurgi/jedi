@@ -5,6 +5,8 @@
 Jedi is a versatile JavaScript library that simplifies JSON data handling in web applications.
 Validate JSON data effortlessly with custom schemas or generate dynamic forms for seamless JSON editing. 
 
+[Check Out the Playground](https://germanbisurgi.github.io/jedi/views/playground.html?theme=bootstrap5)
+
 ## Key Features
 
 - JSON Validation: Ensure JSON data integrity using JSON schemas.
