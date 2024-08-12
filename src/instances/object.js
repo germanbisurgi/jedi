@@ -105,7 +105,7 @@ class InstanceObject extends Instance {
     return false
   }
 
-  createChild (schema, key, value) {
+  createChild (schema, key, value, activate = false) {
     const instance = this.jedi.createInstance({
       jedi: this.jedi,
       schema: schema,
@@ -119,7 +119,7 @@ class InstanceObject extends Instance {
 
     const deactivateNonRequired = this.jedi.options.deactivateNonRequired || getSchemaOption(this.schema, 'deactivateNonRequired')
 
-    if (this.isNotRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true) {
+    if (this.isNotRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true && !activate) {
       instance.deactivate()
     }
 
@@ -170,7 +170,7 @@ class InstanceObject extends Instance {
     Object.keys(value).forEach((key) => {
       const child = this.getChild(key)
 
-      // If a value has a already a child instance
+      // If a value has already a child instance
       if (child) {
         child.activate()
         const oldValue = child.getValue()
@@ -182,7 +182,8 @@ class InstanceObject extends Instance {
         }
       } else {
         // create new child instance for the new value entry having the value as default
-        this.createChild({}, key, value[key])
+        const schema = this.schema.properties && this.schema.properties[key] ? this.schema.properties[key]: {}
+        this.createChild(schema, key, value[key], true)
       }
     })
 

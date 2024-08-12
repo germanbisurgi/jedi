@@ -76,7 +76,7 @@
           "$ref": "#/$defs/schema"
         },
         "type": {
-          "readOnly": "true",
+          "readOnly": true,
           "title": "type",
           "type": "string",
           "enum": ["null", "boolean", "object", "array", "number", "string", "integer"]

@@ -187,7 +187,6 @@ class Jedi extends EventEmitter {
 
   /**
    * Creates a json instance and dereference schema on the fly if needed.
-   * @private
    */
   createInstance (config) {
     if (this.refParser) {
