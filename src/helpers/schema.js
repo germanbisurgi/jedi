@@ -177,6 +177,10 @@ export function getSchemaOption (schema, option) {
   return (schema.options && schema.options[option]) ? schema.options[option] : undefined
 }
 
+export function getSchemaXOption (schema, option) {
+  return (schema['x-options'] && schema['x-options'][option]) ? schema['x-options'][option] : undefined
+}
+
 export function getSchemaPattern (schema) {
   return isString(schema.pattern) ? schema.pattern : undefined
 }
