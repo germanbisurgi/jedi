@@ -52,38 +52,31 @@ class EditorObject extends Editor {
 
   addEventListeners () {
     this.control.addPropertyBtn.addEventListener('click', () => {
-      const key = this.control.addPropertyControl.input.value.split(' ').join('')
+      const propertyName = this.control.addPropertyControl.input.value.split(' ').join('')
 
-      const propertyNameEmpty = key.length === 0
+      const propertyNameEmpty = propertyName.length === 0
 
       if (propertyNameEmpty) {
         return
       }
 
-      const propertyExist = isSet(this.instance.value[key])
+      const propertyExist = isSet(this.instance.value[propertyName])
 
       if (propertyExist) {
         return
       }
 
-      let schema = {}
+      const schema = this.instance.getPropertySchema(propertyName)
 
-      const schemaAdditionalProperties = getSchemaAdditionalProperties(this.instance.schema)
-
-      if (isSet(schemaAdditionalProperties)) {
-        schema = schemaAdditionalProperties
-      }
-
-      const child = this.instance.createChild(schema, key)
+      const child = this.instance.createChild(schema, propertyName)
       child.activate()
-      this.instance.properties[key] = { schema }
       this.instance.setValue(this.instance.value)
       this.control.addPropertyControl.input.value = ''
 
       const ariaLive = this.control.ariaLive
       ariaLive.innerHTML = ''
       const schemaTitle = getSchemaTitle(child.schema)
-      const label = isSet(schemaTitle) ? schemaTitle : key
+      const label = isSet(schemaTitle) ? schemaTitle : propertyName
       const ariaLiveMessage = this.theme.getAriaLiveMessage()
       ariaLiveMessage.textContent = label + ' field was added to the form'
       ariaLive.appendChild(ariaLiveMessage)
@@ -121,6 +114,7 @@ class EditorObject extends Editor {
         const activatorInDom = this.propertyActivators[property]
         const ariaLive = this.control.ariaLive
         const schema = this.instance.getPropertySchema(property)
+
         const schemaTitle = getSchemaTitle(schema)
         const path = this.instance.path + this.instance.jedi.pathSeparator + property
         const id = pathToAttribute(path) + '-activator'

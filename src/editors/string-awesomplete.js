@@ -1,6 +1,6 @@
 import EditorString from './string.js'
 import { pathToAttribute } from '../helpers/utils.js'
-import {getSchemaDescription, getSchemaOption, getSchemaTitle, getSchemaXOption} from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaOption, getSchemaTitle, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents a EditorStringAwesomplete instance.

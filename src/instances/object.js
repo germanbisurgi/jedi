@@ -1,12 +1,13 @@
 import Instance from './instance.js'
-import { different, isSet, notSet, isObject, hasOwn, clone, mergeDeep } from '../helpers/utils.js'
+import { different, isSet, notSet, isObject, hasOwn, clone } from '../helpers/utils.js'
 import EditorObjectGrid from '../editors/object-grid.js'
 import EditorObject from '../editors/object.js'
 import EditorObjectNav from '../editors/object-nav.js'
 import {
+  getSchemaAdditionalProperties,
   getSchemaDependentRequired,
   getSchemaFormat,
-  getSchemaOption,
+  getSchemaOption, getSchemaPatternProperties,
   getSchemaProperties,
   getSchemaRequired,
   getSchemaType
@@ -147,20 +148,40 @@ class InstanceObject extends Instance {
     })
   }
 
-  getPropertySchema (property) {
-    let schema = {}
+  getPropertySchema (propertyName) {
+    let schema
+    const schemaAdditionalProperties = getSchemaAdditionalProperties(this.schema)
+    const schemaProperties = getSchemaProperties(this.schema)
+    const schemaPatternProperties = getSchemaPatternProperties(this.schema)
 
-    if (this.schema.properties && this.schema.properties[property]) {
-      schema = mergeDeep({}, this.schema.properties[property], clone(schema))
+    // Determine the appropriate schema
+    if (isSet(schemaProperties) && hasOwn(schemaProperties, propertyName)) {
+      // If the propertyName is explicitly defined in `properties`, use it
+      schema = schemaProperties[propertyName]
+    } else if (isSet(schemaPatternProperties)) {
+      // If no exact match in `properties`, check if it matches any pattern in `patternProperties`
+      Object.keys(schemaPatternProperties).forEach((pattern) => {
+        const regexp = new RegExp(pattern)
+        if (regexp.test(propertyName)) {
+          schema = schemaPatternProperties[pattern]
+        }
+      })
     }
 
-    if (this.schema.additionalProperties) {
-      schema = mergeDeep({}, this.schema.additionalProperties, clone(schema))
+    if (propertyName === 'name') {
+      console.log('', JSON.stringify(schema, null, 2))
+      console.log('', JSON.stringify(schemaAdditionalProperties, null, 2))
+      console.log('', schema, isSet(schemaAdditionalProperties))
     }
 
-    // if (this.schema.patternProperties) {
-    //   schema = mergeDeep({}, this.schema.patternProperties, clone(schema))
-    // }
+    if (notSet(schema) && isSet(schemaAdditionalProperties)) {
+      // If no match was found in `properties` or `patternProperties`, use `additionalProperties`
+      schema = schemaAdditionalProperties
+    }
+
+    if (notSet(schema)) {
+      schema = {}
+    }
 
     return schema
   }
@@ -185,8 +206,8 @@ class InstanceObject extends Instance {
       return
     }
 
-    Object.keys(value).forEach((key) => {
-      const child = this.getChild(key)
+    Object.keys(value).forEach((propertyName) => {
+      const child = this.getChild(propertyName)
 
       // If a value has already a child instance
       if (child) {
@@ -200,21 +221,21 @@ class InstanceObject extends Instance {
         }
       } else {
         // create new child instance for the new value entry having the value as default
-        const schema = this.getPropertySchema(key)
+        const schema = this.getPropertySchema(propertyName)
 
-        this.createChild(schema, key, value[key], true)
+        this.createChild(schema, propertyName, value[propertyName], true)
       }
     })
 
     // remove any children that are not included in the value
     for (let i = this.children.length - 1; i >= 0; i--) {
       const instance = this.children[i]
-      const key = instance.getKey()
-      if (notSet(value[key])) {
-        if (this.getChild(key)) {
+      const propertyName = instance.getKey()
+      if (notSet(value[propertyName])) {
+        if (this.getChild(propertyName)) {
           instance.deactivate()
         } else {
-          this.deleteChild(key)
+          this.deleteChild(propertyName)
         }
       }
     }

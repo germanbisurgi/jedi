@@ -1,5 +1,5 @@
 /**
- * constrains additionalProperties
+ * Constrains additionalProperties
  */
 
 import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils.js'
@@ -8,60 +8,51 @@ import { getSchemaAdditionalProperties, getSchemaPatternProperties, getSchemaPro
 import { i18n } from '../../i18n.js'
 
 export function additionalProperties (validator, value, schema, key, path) {
-  let errors = []
+  const errors = []
   const schemaAdditionalProperties = getSchemaAdditionalProperties(schema)
   const schemaPatternProperties = getSchemaPatternProperties(schema)
   const schemaProperties = getSchemaProperties(schema)
 
   if (isObject(value) && isSet(schemaAdditionalProperties)) {
-    const properties = isSet(schemaProperties) ? schemaProperties : {}
+    const properties = schemaProperties || {}
     const additionalProperties = schemaAdditionalProperties
-    const patternProperties = schemaPatternProperties
+    const patternProperties = schemaPatternProperties || {}
 
-    if (properties) {
-      Object.keys(value).forEach((property) => {
-        let definedInPatternProperty = false
+    Object.keys(value).forEach((property) => {
+      const definedInPatternProperty = Object.keys(patternProperties).some((pattern) => {
+        const regexp = new RegExp(pattern)
+        return regexp.test(property)
+      })
 
-        if (isSet(patternProperties)) {
-          Object.keys(patternProperties).forEach((pattern) => {
-            const regexp = new RegExp(pattern)
-            definedInPatternProperty = regexp.test(property)
-          })
-        }
+      const isDefinedInProperties = hasOwn(properties, property)
 
-        if (!definedInPatternProperty && additionalProperties === false && !hasOwn(properties, property)) {
+      if (!definedInPatternProperty && !isDefinedInProperties) {
+        if (additionalProperties === false) {
           errors.push({
             messages: [
-              compileTemplate(i18n.errorAdditionalProperties, {
-                property: property
-              })
+              compileTemplate(i18n.errorAdditionalProperties, { property })
             ],
-            path: path,
+            path,
             constrain: 'additionalProperties'
           })
-        }
-
-        if (!definedInPatternProperty && isObject(additionalProperties) && !hasOwn(properties, property)) {
+        } else if (isObject(additionalProperties)) {
           const editor = new Jedi({
             refParser: validator.refParser,
             schema: additionalProperties,
             data: value[property]
           })
 
-          const additionalPropertyErrors = editor.getErrors().map((error) => {
-            return {
-              messages: error.messages,
-              path: property,
-              constrain: 'additionalProperties'
-            }
-          })
+          const additionalPropertyErrors = editor.getErrors().map((error) => ({
+            messages: error.messages,
+            path: `${path}.${property}`,
+            constrain: 'additionalProperties'
+          }))
 
-          errors = [...errors, ...additionalPropertyErrors]
-
+          errors.push(...additionalPropertyErrors)
           editor.destroy()
         }
-      })
-    }
+      }
+    })
   }
 
   return errors
