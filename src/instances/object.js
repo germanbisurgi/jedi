@@ -192,9 +192,9 @@ class InstanceObject extends Instance {
           schema = mergeDeep({}, this.schema.additionalProperties, clone(schema))
         }
 
-        if (this.schema.patternProperties) {
-          schema = mergeDeep({}, this.schema.patternProperties, clone(schema))
-        }
+        // if (this.schema.patternProperties) {
+        //   schema = mergeDeep({}, this.schema.patternProperties, clone(schema))
+        // }
 
         this.createChild(schema, key, value[key], true)
       }

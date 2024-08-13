@@ -44,7 +44,6 @@
 - array table
 - header: false
 - title: false
-- readonly, should not set value
 - documentation mode
 - use names options
 - plugins flatpickr

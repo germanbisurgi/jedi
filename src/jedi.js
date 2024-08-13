@@ -10,14 +10,15 @@ import InstanceNumber from './instances/number.js'
 import InstanceNull from './instances/null.js'
 import {
   isArray,
-  isSet,
+  isSet, mergeDeep,
   notSet
 } from './helpers/utils.js'
 import {
+  getSchemaAllOf,
   getSchemaAnyOf,
   getSchemaElse,
   getSchemaIf,
-  getSchemaOneOf,
+  getSchemaOneOf, getSchemaOption,
   getSchemaThen,
   getSchemaType
 } from './helpers/schema.js'
@@ -46,7 +47,8 @@ class Jedi extends EventEmitter {
       schema: {},
       showErrors: 'change',
       data: undefined,
-      validateFormat: false
+      validateFormat: false,
+      mergeAllOf: false
     }, options)
 
     /**
@@ -189,6 +191,18 @@ class Jedi extends EventEmitter {
    * Creates a json instance and dereference schema on the fly if needed.
    */
   createInstance (config) {
+    const mergeAllOf = this.options.mergeAllOf || getSchemaOption(config.schema, 'mergeAllOf')
+
+    if (mergeAllOf) {
+      const allOf = getSchemaAllOf(config.schema)
+
+      if (isSet(allOf)) {
+        allOf.forEach((subschema) => {
+          config.schema = mergeDeep({}, config.schema, subschema)
+        })
+      }
+    }
+
     if (this.refParser) {
       config.schema = this.refParser.expand(config.schema, config.path)
     }

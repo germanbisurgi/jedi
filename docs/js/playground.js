@@ -91,7 +91,8 @@ window.addEventListener('DOMContentLoaded', () => {
         theme: 'barebones',
         iconLib: 'bootstrap-icons',
         showErrors: 'change',
-        validateFormat: false
+        validateFormat: false,
+        mergeAllOf: false
       }
     },
     created() {
@@ -100,6 +101,7 @@ window.addEventListener('DOMContentLoaded', () => {
       this.example = this.getQueryParam('example') || '../json/editors/all.json'
       this.showErrors = this.getQueryParam('showErrors') || 'change'
       this.validateFormat = this.getQueryParam('validateFormat') ? this.parseBooleanString(this.getQueryParam('validateFormat')) : false
+      this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
     },
     mounted() {
       switch (this.theme) {
@@ -188,6 +190,7 @@ window.addEventListener('DOMContentLoaded', () => {
           iconLib: this.iconLib,
           showErrors: this.showErrors,
           validateFormat: this.validateFormat,
+          mergeAllOf: this.mergeAllOf,
           schema: this.schema,
           theme: this.theme,
           refParser
@@ -226,6 +229,7 @@ window.addEventListener('DOMContentLoaded', () => {
         newUrl += "&example=" + this.example
         newUrl += "&showErrors=" + this.showErrors
         newUrl += "&validateFormat=" + this.validateFormat
+        newUrl += "&mergeAllOf=" + this.mergeAllOf
 
         window.open(newUrl, '_self')
       },
