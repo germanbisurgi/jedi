@@ -168,12 +168,6 @@ class InstanceObject extends Instance {
       })
     }
 
-    if (propertyName === 'name') {
-      console.log('', JSON.stringify(schema, null, 2))
-      console.log('', JSON.stringify(schemaAdditionalProperties, null, 2))
-      console.log('', schema, isSet(schemaAdditionalProperties))
-    }
-
     if (notSet(schema) && isSet(schemaAdditionalProperties)) {
       // If no match was found in `properties` or `patternProperties`, use `additionalProperties`
       schema = schemaAdditionalProperties

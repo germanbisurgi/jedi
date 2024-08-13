@@ -170,7 +170,7 @@ window.addEventListener('DOMContentLoaded', () => {
     },
     computed: {
       errorCount() {
-        return this.editor ? this.editor.getErrors().length : 0
+        return this.editor?.root.ready ? this.editor.getErrors().length : 0
       }
     },
     methods: {

@@ -103,6 +103,7 @@ class EditorObject extends Editor {
     const schemaOptionEnablePropertiesToggle = getSchemaOption(this.instance.schema, 'enablePropertiesToggle')
 
     if (equal(this.instance.jedi.options.enablePropertiesToggle, true) || equal(schemaOptionEnablePropertiesToggle, true)) {
+      // todo: delete "this.properties and this.instance.properties"
       const schemaProperties = Object.keys(this.instance.properties)
       const childrenProperties = this.instance.children.map((child) => child.getKey())
       const properties = [...schemaProperties, ...childrenProperties]
