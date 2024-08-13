@@ -110,15 +110,15 @@ class EditorObject extends Editor {
     const schemaOptionEnablePropertiesToggle = getSchemaOption(this.instance.schema, 'enablePropertiesToggle')
 
     if (equal(this.instance.jedi.options.enablePropertiesToggle, true) || equal(schemaOptionEnablePropertiesToggle, true)) {
-      Object.keys(this.instance.properties).forEach((property) => {
-        // refactor with isNotRequired
+      this.instance.children.forEach((child) => {
+        const property = child.getKey()
         const isRequired = this.instance.isRequired(property)
         const isDependentRequired = this.instance.isDependentRequired(property)
         const notRequired = !isRequired && !isDependentRequired
 
         const activatorInDom = this.propertyActivators[property]
         const ariaLive = this.control.ariaLive
-        const schema = this.instance.properties[property].schema
+        const schema = child.schema
         const schemaTitle = getSchemaTitle(schema)
         const path = this.instance.path + this.instance.jedi.pathSeparator + property
         const id = pathToAttribute(path) + '-activator'
@@ -139,12 +139,6 @@ class EditorObject extends Editor {
             const ariaLiveMessage = this.theme.getAriaLiveMessage()
 
             if (checkbox.checked) {
-              const child = this.instance.getChild(property)
-
-              if (!child) {
-                this.instance.createChild(schema, property)
-              }
-
               this.instance.getChild(property).activate()
               ariaLiveMessage.textContent = label + ' field was added to the form'
               ariaLive.appendChild(ariaLiveMessage)
@@ -163,6 +157,7 @@ class EditorObject extends Editor {
         }
 
         const checkbox = this.propertyActivators[property]
+
         if (checkbox) {
           checkbox.disabled = this.disabled
           checkbox.checked = hasOwn(this.instance.getValue(), property)

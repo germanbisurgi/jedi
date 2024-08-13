@@ -1,5 +1,5 @@
 import Instance from './instance.js'
-import { different, isSet, notSet, isObject, hasOwn, clone } from '../helpers/utils.js'
+import {different, isSet, notSet, isObject, hasOwn, clone, mergeDeep} from '../helpers/utils.js'
 import EditorObjectGrid from '../editors/object-grid.js'
 import EditorObject from '../editors/object.js'
 import EditorObjectNav from '../editors/object-nav.js'
@@ -182,7 +182,20 @@ class InstanceObject extends Instance {
         }
       } else {
         // create new child instance for the new value entry having the value as default
-        const schema = this.schema.properties && this.schema.properties[key] ? this.schema.properties[key]: {}
+        let schema = {}
+
+        if (this.schema.properties && this.schema.properties[key]) {
+          schema = mergeDeep({}, this.schema.properties[key], clone(schema))
+        }
+
+        if (this.schema.additionalProperties) {
+          schema = mergeDeep({}, this.schema.additionalProperties, clone(schema))
+        }
+
+        if (this.schema.patternProperties) {
+          schema = mergeDeep({}, this.schema.patternProperties, clone(schema))
+        }
+
         this.createChild(schema, key, value[key], true)
       }
     })
