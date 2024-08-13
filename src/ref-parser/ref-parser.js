@@ -55,7 +55,7 @@ class RefParser {
   }
 
   hasRef (schema) {
-    return typeof schema['$ref'] !== 'undefined'
+    return typeof schema['$ref'] !== 'undefined' && typeof schema['$ref'] === 'string'
   }
 
   isExternalRef (ref) {
