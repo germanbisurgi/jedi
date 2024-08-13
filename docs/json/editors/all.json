@@ -36,6 +36,7 @@
         "boolean": {
           "type": "boolean",
           "title": "Boolean",
+          "format": "checkbox",
           "description": "A boolean editor checkbox.",
           "const": true
         }

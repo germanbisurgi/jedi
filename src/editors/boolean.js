@@ -3,10 +3,10 @@ import { pathToAttribute } from '../helpers/utils.js'
 import { getSchemaDescription, getSchemaOption, getSchemaTitle } from '../helpers/schema.js'
 
 /**
- * Represents a EditorBoolean instance.
+ * Represents a EditorBooleanCheckbox instance.
  * @extends Editor
  */
-class EditorBoolean extends Editor {
+class EditorBooleanCheckbox extends Editor {
   build () {
     this.control = this.theme.getCheckboxControl({
       id: pathToAttribute(this.instance.path),
@@ -32,4 +32,4 @@ class EditorBoolean extends Editor {
   }
 }
 
-export default EditorBoolean
+export default EditorBooleanCheckbox

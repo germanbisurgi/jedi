@@ -33,7 +33,7 @@ Scenario('@constrain-const should display validation errors', ({ I }) => {
   // boolean
   I._scrollTo('[data-path="#/boolean"]')
   I._waitForText('Must have value of: true', '[data-path="#/boolean"]')
-  I._checkOption('[id="root-boolean"]')
+  I.selectOption('[id="root-boolean"]', 'true')
   I.pressKey('Tab')
   I.dontSee('Must have value of: true', '[data-path="#/boolean"]')
 
