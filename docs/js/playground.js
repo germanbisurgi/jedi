@@ -59,7 +59,6 @@ window.addEventListener('DOMContentLoaded', () => {
           'validator/uniqueItems': '../json/validator/uniqueItems.json',
           'validator/messages': '../json/validator/messages.json',
           'meta-schema': '../json/meta-schema.json',
-          'meta-schema-by-type': '../json/meta-schema-by-type.json',
           'europass-xml-3.3.0': '../json/europass.json',
           'test': '../json/test.json',
         },
