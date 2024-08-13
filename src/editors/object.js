@@ -110,15 +110,17 @@ class EditorObject extends Editor {
     const schemaOptionEnablePropertiesToggle = getSchemaOption(this.instance.schema, 'enablePropertiesToggle')
 
     if (equal(this.instance.jedi.options.enablePropertiesToggle, true) || equal(schemaOptionEnablePropertiesToggle, true)) {
-      this.instance.children.forEach((child) => {
-        const property = child.getKey()
+      let schemaProperties = Object.keys(this.instance.properties)
+      let childrenProperties = this.instance.children.map((child) => child.getKey())
+      const properties = [...schemaProperties, ...childrenProperties]
+
+      properties.forEach((property) => {
         const isRequired = this.instance.isRequired(property)
         const isDependentRequired = this.instance.isDependentRequired(property)
         const notRequired = !isRequired && !isDependentRequired
-
         const activatorInDom = this.propertyActivators[property]
         const ariaLive = this.control.ariaLive
-        const schema = child.schema
+        const schema = this.instance.getPropertySchema(property)
         const schemaTitle = getSchemaTitle(schema)
         const path = this.instance.path + this.instance.jedi.pathSeparator + property
         const id = pathToAttribute(path) + '-activator'
@@ -139,6 +141,12 @@ class EditorObject extends Editor {
             const ariaLiveMessage = this.theme.getAriaLiveMessage()
 
             if (checkbox.checked) {
+              const child = this.instance.getChild(property)
+
+              if (!child) {
+                this.instance.createChild(schema, property)
+              }
+
               this.instance.getChild(property).activate()
               ariaLiveMessage.textContent = label + ' field was added to the form'
               ariaLive.appendChild(ariaLiveMessage)

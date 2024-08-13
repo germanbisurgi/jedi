@@ -180,7 +180,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
         const refParser = new Jedi.RefParser()
         await refParser.dereference(this.schema)
-        // console.log(JSON.stringify(refParser.refs,  null, 2))
 
         const options = {
           container: document.querySelector('#jedi-container'),

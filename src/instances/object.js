@@ -147,6 +147,24 @@ class InstanceObject extends Instance {
     })
   }
 
+  getPropertySchema (property) {
+    let schema = {}
+
+    if (this.schema.properties && this.schema.properties[property]) {
+      schema = mergeDeep({}, this.schema.properties[property], clone(schema))
+    }
+
+    if (this.schema.additionalProperties) {
+      schema = mergeDeep({}, this.schema.additionalProperties, clone(schema))
+    }
+
+    // if (this.schema.patternProperties) {
+    //   schema = mergeDeep({}, this.schema.patternProperties, clone(schema))
+    // }
+
+    return schema
+  }
+
   onChildChange () {
     const value = {}
 
@@ -182,19 +200,7 @@ class InstanceObject extends Instance {
         }
       } else {
         // create new child instance for the new value entry having the value as default
-        let schema = {}
-
-        if (this.schema.properties && this.schema.properties[key]) {
-          schema = mergeDeep({}, this.schema.properties[key], clone(schema))
-        }
-
-        if (this.schema.additionalProperties) {
-          schema = mergeDeep({}, this.schema.additionalProperties, clone(schema))
-        }
-
-        // if (this.schema.patternProperties) {
-        //   schema = mergeDeep({}, this.schema.patternProperties, clone(schema))
-        // }
+        const schema = this.getPropertySchema(key)
 
         this.createChild(schema, key, value[key], true)
       }

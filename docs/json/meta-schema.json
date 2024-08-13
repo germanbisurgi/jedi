@@ -6,9 +6,6 @@
         "editableProperties": true,
         "deactivateNonRequired": true
       },
-      "additionalProperties": {
-        "$ref": "#/$defs/schema"
-      },
       "type": "object",
       "properties": {
         "$anchor": {
@@ -225,6 +222,9 @@
         "properties": {
           "title": "properties",
           "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/schema"
+          },
           "x-control": "nav"
         },
         "readOnly": {
