@@ -6,7 +6,9 @@
     <meta name="description" content="Test page for jedi">
     <link rel="icon" type="image/x-icon" href="../images/json-schema.svg">
     <title>Playground</title>
-</head>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.7/awesomplete.js" integrity="sha512-MFs25tmDowD+4zBNoh4ltA/pZviY2G63nRZsQaSQYZaPvyg3hTatHmkA1gQWa/vQDL4/QXmnS4Zu/c0N4uZikw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.7/awesomplete.css" integrity="sha512-GEMEzu9K8wXXaW527IHfGIOaTQ0hXxZPJXZOwGDIO+nrR9Z0ttJih1ZehiEoWY8xPtqzzD7pxAEnQInTZwn3MQ==" crossorigin="anonymous" referrerpolicy="no-referrer" /></head>
 <body>
 
 
@@ -61,21 +63,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="editor-value">Value</label>
-                    <textarea ref="editorValue" class="form-control" id="editor-value" style="font-size: 14px; font-family: monospace;height: 200px;"></textarea>
-                    <button class="btn btn-primary btn-block" id="set-value" @click="setEditorValue()">Set value
-                    </button>
-                </div>
-
-                <div class="form-group">
-                    <label for="editor-errors">
-                        <span>Errors</span>
-                        <span>{{ errorCount }}</span>
-                    </label>
-                    <textarea ref="editorErrors" class="form-control" id="editor-errors" style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
-                </div>
-
-                <div class="form-group">
                     <input type="checkbox" id="enablePropertiesToggle" v-model="enablePropertiesToggle" @change="initEditor()">
                     <label for="enablePropertiesToggle">enablePropertiesToggle</label>
                 </div>
@@ -98,6 +85,23 @@
                 <div class="form-group">
                     <input type="checkbox" id="mergeAllOf" v-model="mergeAllOf" @change="initEditor()">
                     <label for="mergeAllOf">mergeAllOf</label>
+                </div>
+
+                <hr>
+
+                <div class="form-group">
+                    <label for="editor-value">Value</label>
+                    <textarea ref="editorValue" class="form-control" id="editor-value" style="font-size: 14px; font-family: monospace;height: 200px;"></textarea>
+                    <button class="btn btn-primary btn-block" id="set-value" @click="setEditorValue()">Set value
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label for="editor-errors">
+                        <span>Errors</span>
+                        <span>{{ errorCount }}</span>
+                    </label>
+                    <textarea ref="editorErrors" class="form-control" id="editor-errors" style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
                 </div>
 
                 <button class="btn btn-primary btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>

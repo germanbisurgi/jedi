@@ -1,5 +1,5 @@
 import Instance from './instance.js'
-import {different, isSet, notSet, isObject, hasOwn, clone, mergeDeep} from '../helpers/utils.js'
+import { different, isSet, notSet, isObject, hasOwn, clone, mergeDeep } from '../helpers/utils.js'
 import EditorObjectGrid from '../editors/object-grid.js'
 import EditorObject from '../editors/object.js'
 import EditorObjectNav from '../editors/object-nav.js'

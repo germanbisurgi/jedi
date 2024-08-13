@@ -1,9 +1,8 @@
 ## Todo
-- better scope JSONDoc pages
-- README.md editor options
+- x-options: format, enumTitles, grids, switcher, nav, etc
+- input range
 - publish on NPM
 - getButton exports object { button, text, icon }
-- x- prefix
 - compact descriptions
 - additionalItems with prefixItems validation and editing https://json-schema.org/understanding-json-schema/reference/array#additionalitems
 - multiple instance: do not transfer values between editors

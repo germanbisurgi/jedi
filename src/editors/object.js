@@ -110,8 +110,8 @@ class EditorObject extends Editor {
     const schemaOptionEnablePropertiesToggle = getSchemaOption(this.instance.schema, 'enablePropertiesToggle')
 
     if (equal(this.instance.jedi.options.enablePropertiesToggle, true) || equal(schemaOptionEnablePropertiesToggle, true)) {
-      let schemaProperties = Object.keys(this.instance.properties)
-      let childrenProperties = this.instance.children.map((child) => child.getKey())
+      const schemaProperties = Object.keys(this.instance.properties)
+      const childrenProperties = this.instance.children.map((child) => child.getKey())
       const properties = [...schemaProperties, ...childrenProperties]
 
       properties.forEach((property) => {
