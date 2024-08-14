@@ -11,8 +11,8 @@ import {
 import {
   getSchemaAnyOf,
   getSchemaOneOf,
-  getSchemaOption, getSchemaTitle,
-  getSchemaType
+  getSchemaTitle,
+  getSchemaType, getSchemaXOption
 } from '../helpers/schema.js'
 
 /**
@@ -54,7 +54,7 @@ class InstanceMultiple extends Instance {
         }
 
         let switcherOptionsLabel = 'Option-' + (index + 1)
-        const switcherTitle = getSchemaOption(schema, 'switcherTitle')
+        const switcherTitle = getSchemaXOption(schema, 'switcherTitle')
         const schemaTitle = getSchemaTitle(schema)
 
         if (isSet(schemaTitle)) {

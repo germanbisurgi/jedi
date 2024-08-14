@@ -1,6 +1,6 @@
 import EditorObject from './object.js'
 import { isSet, pathToAttribute } from '../helpers/utils.js'
-import { getSchemaTitle } from '../helpers/schema.js'
+import { getSchemaTitle, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents a EditorObjectNav instance.
@@ -17,18 +17,15 @@ class EditorObjectNav extends EditorObject {
       this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild)
     }
 
-    const controlCols = this.instance.schema['x-control-cols']
-    const controlStacked = this.instance.schema['x-control-stacked']
-    const controlVariant = this.instance.schema['x-control-variant']
-
+    const nav = getSchemaXOption(this.instance.schema, 'nav')
     const row = this.theme.getRow()
-    const cols = isSet(controlCols) ? controlCols : 3
+    const cols = isSet(nav.cols) ? nav.cols : 3
     const tabListCol = this.theme.getCol(12, cols)
     const tabContentCol = this.theme.getCol(12, (12 - cols))
     const tabContent = this.theme.getTabContent()
     const tabList = this.theme.getTabList({
-      stacked: isSet(controlStacked) ? controlStacked : false,
-      type: isSet(controlVariant) ? controlVariant : 'pils'
+      stacked: isSet(nav.stacked) ? nav.stacked : false,
+      type: isSet(nav.variant) ? nav.variant : 'pils'
     })
 
     this.control.childrenSlot.appendChild(row)

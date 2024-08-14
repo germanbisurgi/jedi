@@ -4,8 +4,7 @@ import {
   getSchemaDescription,
   getSchemaMaxItems,
   getSchemaMinItems,
-  getSchemaOption,
-  getSchemaTitle
+  getSchemaTitle, getSchemaXOption
 } from '../helpers/schema.js'
 
 /**
@@ -16,11 +15,11 @@ class EditorArray extends Editor {
   build () {
     this.control = this.theme.getArrayControl({
       title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      titleHidden: getSchemaOption(this.instance.schema, 'titleHidden'),
+      titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       id: pathToAttribute(this.instance.path),
       description: getSchemaDescription(this.instance.schema),
-      enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaOption(this.instance.schema, 'enableCollapseToggle'),
-      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaOption(this.instance.schema, 'startCollapsed')
+      enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, 'enableCollapseToggle'),
+      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, 'startCollapsed')
     })
   }
 

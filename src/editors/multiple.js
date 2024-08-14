@@ -1,6 +1,6 @@
 import Editor from './editor.js'
 import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaOption } from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorMultiple instance.
@@ -10,7 +10,7 @@ class EditorMultiple extends Editor {
   build () {
     this.control = this.theme.getMultipleControl({
       title: 'Options',
-      titleHidden: getSchemaOption(this.instance.schema, 'titleHidden'),
+      titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       id: pathToAttribute(this.instance.path),
       description: getSchemaDescription(this.instance.schema),
       switcherOptionValues: this.instance.switcherOptionValues,

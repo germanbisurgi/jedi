@@ -7,7 +7,7 @@
     "keep",
     "csfr"
   ],
-  "options": {
+  "x-options": {
     "enablePropertiesToggle": false
   },
   "properties": {

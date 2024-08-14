@@ -20,7 +20,7 @@ class Editor extends Validator {
       enableCollapseToggle: false,
       startCollapsed: false,
       deactivateNonRequired: false,
-      showErrors: 'change',
+      showErrors: 'change'
     }, options)
 
     /**
@@ -47,7 +47,6 @@ class Editor extends Validator {
 
   bindEventListeners () {
     super.bindEventListeners()
-    console.log('bindEventListeners', this.hiddenInput)
 
     if (this.hiddenInput) {
       this.on('change', () => {
@@ -62,8 +61,6 @@ class Editor extends Validator {
    * @private
    */
   appendHiddenInput () {
-    console.log('appendHiddenInput', this.hiddenInput)
-
     const hiddenControl = this.root.ui.theme.getInputControl({
       type: 'hidden',
       id: 'jedi-hidden-input'

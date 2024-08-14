@@ -25,7 +25,7 @@
       "telephone"
     ]
   },
-  "options": {
-    "alwaysShowErrors": true
+  "x-options": {
+    "showErrors": true
   }
 }

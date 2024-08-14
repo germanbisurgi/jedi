@@ -1,6 +1,6 @@
 import Editor from './editor.js'
 import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaFormat, getSchemaOption, getSchemaTitle } from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaFormat, getSchemaXOption, getSchemaTitle } from '../helpers/schema.js'
 
 /**
  * Represents a EditorString instance.
@@ -15,7 +15,7 @@ class EditorString extends Editor {
       type: inputTypes.includes(schemaFormat) ? schemaFormat : 'text',
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      titleHidden: getSchemaOption(this.instance.schema, 'titleHidden') || schemaFormat === 'hidden',
+      titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden') || schemaFormat === 'hidden',
       description: getSchemaDescription(this.instance.schema)
     })
 

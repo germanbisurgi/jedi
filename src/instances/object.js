@@ -6,11 +6,10 @@ import EditorObjectNav from '../editors/object-nav.js'
 import {
   getSchemaAdditionalProperties,
   getSchemaDependentRequired,
-  getSchemaFormat,
-  getSchemaOption, getSchemaPatternProperties,
+  getSchemaPatternProperties,
   getSchemaProperties,
   getSchemaRequired,
-  getSchemaType
+  getSchemaType, getSchemaXOption
 } from '../helpers/schema.js'
 
 /**
@@ -20,12 +19,12 @@ import {
 class InstanceObject extends Instance {
   setUI () {
     const schemaType = getSchemaType(this.schema)
-    const schemaFormat = getSchemaFormat(this.schema)
-    const schemaControl = this.schema['x-control']
+    const nav = getSchemaXOption(this.schema, 'nav')
+    const grid = getSchemaXOption(this.schema, 'grid')
 
-    if (schemaType === 'object' && schemaFormat === 'grid') {
+    if (schemaType === 'object' && isSet(grid)) {
       this.ui = new EditorObjectGrid(this)
-    } else if (schemaType === 'object' && schemaControl === 'nav') {
+    } else if (schemaType === 'object' && isSet(nav)) {
       this.ui = new EditorObjectNav(this)
     } else {
       this.ui = new EditorObject(this)
@@ -44,8 +43,8 @@ class InstanceObject extends Instance {
         let musstCreateChild = true
 
         const optionsDeactivateNonRequired = this.jedi.options.deactivateNonRequired
-        const deactivateNonRequired = getSchemaOption(this.schema, 'deactivateNonRequired')
-        const schemaDeactivateNonRequired = getSchemaOption(schema, 'deactivateNonRequired')
+        const deactivateNonRequired = getSchemaXOption(this.schema, 'deactivateNonRequired')
+        const schemaDeactivateNonRequired = getSchemaXOption(schema, 'deactivateNonRequired')
 
         if (this.isNotRequired(key) && isSet(optionsDeactivateNonRequired) && optionsDeactivateNonRequired === true) {
           musstCreateChild = false
@@ -118,7 +117,7 @@ class InstanceObject extends Instance {
     this.children.push(instance)
     this.value[key] = instance.getValue()
 
-    const deactivateNonRequired = this.jedi.options.deactivateNonRequired || getSchemaOption(this.schema, 'deactivateNonRequired')
+    const deactivateNonRequired = this.jedi.options.deactivateNonRequired || getSchemaXOption(this.schema, 'deactivateNonRequired')
 
     if (this.isNotRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true && !activate) {
       instance.deactivate()

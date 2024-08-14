@@ -18,9 +18,10 @@ import {
   getSchemaAnyOf,
   getSchemaElse,
   getSchemaIf,
-  getSchemaOneOf, getSchemaOption,
+  getSchemaOneOf,
   getSchemaThen,
-  getSchemaType
+  getSchemaType,
+  getSchemaXOption
 } from './helpers/schema.js'
 
 /**
@@ -142,7 +143,7 @@ class Validator extends EventEmitter {
    * Creates a json instance and dereference schema on the fly if needed.
    */
   createInstance (config) {
-    const mergeAllOf = this.options.mergeAllOf || getSchemaOption(config.schema, 'mergeAllOf')
+    const mergeAllOf = this.options.mergeAllOf || getSchemaXOption(config.schema, 'mergeAllOf')
 
     if (mergeAllOf) {
       const allOf = getSchemaAllOf(config.schema)

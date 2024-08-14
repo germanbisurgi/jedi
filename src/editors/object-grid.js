@@ -1,5 +1,5 @@
 import EditorObject from './object.js'
-import { getSchemaOption } from '../helpers/schema.js'
+import { getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents a EditorObjectGrid instance.
@@ -11,16 +11,20 @@ class EditorObjectGrid extends EditorObject {
       this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild)
     }
 
+    const grid = getSchemaXOption(this.instance.schema, 'grid')
+    console.log(grid)
     let row = this.theme.getRow()
     this.control.childrenSlot.appendChild(row)
 
     this.instance.children.forEach((child) => {
       if (child.isActive) {
-        const columns = getSchemaOption(child.schema, 'columns') || 12
-        const offset = getSchemaOption(child.schema, 'offset') || 0
+        const grid = getSchemaXOption(child.schema, 'grid')
+        const columns = grid.columns || 12
+        const offset = grid.offset || 0
         const col = this.theme.getCol(12, columns, offset)
+        const newRow = grid.newRow || false
 
-        if (getSchemaOption(child.schema, 'newRow') === true) {
+        if (newRow) {
           row = this.theme.getRow()
           this.control.childrenSlot.appendChild(row)
         }

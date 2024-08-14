@@ -6561,7 +6561,7 @@ json-query@^2.2.2:
 
 "json-schema-test-suite@https://github.com/json-schema-org/JSON-Schema-Test-Suite.git":
   version "0.1.0"
-  resolved "https://github.com/json-schema-org/JSON-Schema-Test-Suite.git#bf0360f4b7c51b8f968aabe7f3f49e12b120fc85"
+  resolved "https://github.com/json-schema-org/JSON-Schema-Test-Suite.git#9fc880bfb6d8ccd093bc82431f17d13681ffae8e"
 
 json-schema-traverse@^0.4.1:
   version "0.4.1"

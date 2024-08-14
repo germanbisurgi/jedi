@@ -2,7 +2,7 @@
   "$ref": "#/$defs/schema",
   "$defs": {
     "schema": {
-      "options": {
+      "x-options": {
         "editableProperties": true,
         "deactivateNonRequired": true
       },
@@ -225,7 +225,9 @@
           "additionalProperties": {
             "$ref": "#/$defs/schema"
           },
-          "x-control": "nav"
+          "x-options": {
+            "nav": true
+          }
         },
         "readOnly": {
           "title": "readOnly",

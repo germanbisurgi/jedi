@@ -173,10 +173,6 @@ export function getSchemaNot (schema) {
   return (isObject(schema.not) || isBoolean(schema.not)) ? schema.not : undefined
 }
 
-export function getSchemaOption (schema, option) {
-  return (schema.options && schema.options[option]) ? schema.options[option] : undefined
-}
-
 export function getSchemaXOption (schema, option) {
   return (schema['x-options'] && schema['x-options'][option]) ? schema['x-options'][option] : undefined
 }

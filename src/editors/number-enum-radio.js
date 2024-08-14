@@ -1,6 +1,6 @@
 import EditorNumber from './number.js'
 import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaEnum, getSchemaOption, getSchemaTitle } from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorNumberEnumRadio instance.
@@ -10,10 +10,10 @@ class EditorNumberEnumRadio extends EditorNumber {
   build () {
     this.control = this.theme.getRadiosControl({
       values: getSchemaEnum(this.instance.schema),
-      titles: getSchemaOption(this.instance.schema, 'enumTitles') || getSchemaEnum(this.instance.schema),
+      titles: getSchemaXOption(this.instance.schema, 'enumTitles') || getSchemaEnum(this.instance.schema),
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      titleHidden: getSchemaOption(this.instance.schema, 'titleHidden'),
+      titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema)
     })
   }

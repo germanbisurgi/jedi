@@ -4,7 +4,7 @@ import ThemeBootstrap4 from '../themes/bootstrap4.js'
 import ThemeBootstrap5 from '../themes/bootstrap5.js'
 import Theme from '../themes/theme.js'
 import { isSet } from '../helpers/utils.js'
-import { getSchemaEnum, getSchemaOption, getSchemaTitle, getSchemaType } from '../helpers/schema.js'
+import { getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an Editor instance.
@@ -54,7 +54,7 @@ class Editor {
     this.setContainerAttributes()
     this.refreshUI()
 
-    const alwaysShowErrors = this.instance.jedi.options.showErrors === 'always' || getSchemaOption(this.instance.schema, 'showErrors') === 'always'
+    const alwaysShowErrors = this.instance.jedi.options.showErrors === 'always' || getSchemaXOption(this.instance.schema, 'showErrors') === 'always'
 
     if (alwaysShowErrors) {
       const errors = this.instance.getErrors()
@@ -158,7 +158,7 @@ class Editor {
    * @private
    */
   showValidationErrors (errors) {
-    const neverShowErrors = this.instance.jedi.options.showErrors === 'never' || getSchemaOption(this.instance.schema, 'showErrors') === 'never'
+    const neverShowErrors = this.instance.jedi.options.showErrors === 'never' || getSchemaXOption(this.instance.schema, 'showErrors') === 'never'
 
     if (neverShowErrors) {
       return

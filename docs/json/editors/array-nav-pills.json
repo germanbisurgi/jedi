@@ -2,8 +2,9 @@
   "type": "array",
   "format": "nav",
   "title": "Colors",
-  "options": {
-    "itemTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}"
+  "x-options": {
+    "itemTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
+    "nav": true
   },
   "default": [
     {

@@ -9,8 +9,8 @@ import {
 import {
   getSchemaAdditionalProperties,
   getSchemaDescription,
-  getSchemaOption,
-  getSchemaTitle
+  getSchemaTitle,
+  getSchemaXOption
 } from '../helpers/schema.js'
 
 /**
@@ -40,13 +40,13 @@ class EditorObject extends Editor {
 
     this.control = this.theme.getObjectControl({
       title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      titleHidden: getSchemaOption(this.instance.schema, 'titleHidden'),
+      titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       id: pathToAttribute(this.instance.path),
       description: getSchemaDescription(this.instance.schema),
       enablePropertiesToggle: enablePropertiesToggle,
       addProperty: addProperty,
-      enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaOption(this.instance.schema, 'enableCollapseToggle'),
-      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaOption(this.instance.schema, 'startCollapsed')
+      enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, 'enableCollapseToggle'),
+      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, 'startCollapsed')
     })
   }
 
@@ -100,7 +100,7 @@ class EditorObject extends Editor {
   }
 
   refreshPropertiesSlot () {
-    const schemaOptionEnablePropertiesToggle = getSchemaOption(this.instance.schema, 'enablePropertiesToggle')
+    const schemaOptionEnablePropertiesToggle = getSchemaXOption(this.instance.schema, 'enablePropertiesToggle')
 
     if (equal(this.instance.jedi.options.enablePropertiesToggle, true) || equal(schemaOptionEnablePropertiesToggle, true)) {
       // todo: delete "this.properties and this.instance.properties"

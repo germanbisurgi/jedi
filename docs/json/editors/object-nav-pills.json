@@ -1,7 +1,9 @@
 {
+  "x-options": {
+    "nav": {}
+  },
   "type": "object",
   "title": "All Editors",
-  "x-control": "nav",
   "description": "Description",
   "minProperties": 6,
   "properties": {
@@ -16,7 +18,7 @@
           "description": "Description",
           "format": "select",
           "const": true,
-          "options": {
+          "x-options": {
             "enumTitles": [
               "No",
               "Yes"
@@ -29,7 +31,7 @@
           "description": "Description",
           "format": "radio",
           "const": true,
-          "options": {
+          "x-options": {
             "enumTitles": [
               "No",
               "Yes"
@@ -71,7 +73,7 @@
             "betti",
             "carl"
           ],
-          "options": {
+          "x-options": {
             "enumTitles": [
               "Albert",
               "Betti",
@@ -89,7 +91,7 @@
             "betti",
             "carl"
           ],
-          "options": {
+          "x-options": {
             "enumTitles": [
               "Albert",
               "Betti",
@@ -119,7 +121,7 @@
             2.5,
             3.5
           ],
-          "options": {
+          "x-options": {
             "enumTitles": [
               "small (1.5)",
               "medium (2.5)",
@@ -137,7 +139,7 @@
             2.5,
             3.5
           ],
-          "options": {
+          "x-options": {
             "enumTitles": [
               "small (1.5)",
               "medium (2.5)",
@@ -167,7 +169,7 @@
             2,
             3
           ],
-          "options": {
+          "x-options": {
             "enumTitles": [
               "small (1)",
               "medium (2)",
@@ -185,7 +187,7 @@
             2,
             3
           ],
-          "options": {
+          "x-options": {
             "enumTitles": [
               "small (1)",
               "medium (2)",
@@ -233,57 +235,57 @@
           "oneOf": [
             {
               "type": "string",
-              "options": {
+              "x-options": {
                 "switcherTitle": "String"
               }
             },
             {
               "type": "boolean",
-              "options": {
+              "x-options": {
                 "switcherTitle": "Boolean"
               }
             },
             {
               "title": "Any of",
               "description": "Description",
-              "options": {
+              "x-options": {
                 "switcherTitle": "Any of"
               },
               "anyOf": [
                 {
                   "type": "integer",
-                  "options": {
+                  "x-options": {
                     "switcherTitle": "Integer"
                   }
                 },
                 {
                   "type": "number",
-                  "options": {
+                  "x-options": {
                     "switcherTitle": "Number"
                   }
                 },
                 {
                   "title": "One of",
                   "description": "Description",
-                  "options": {
+                  "x-options": {
                     "switcherTitle": "One of"
                   },
                   "oneOf": [
                     {
                       "type": "object",
-                      "options": {
+                      "x-options": {
                         "switcherTitle": "Object"
                       }
                     },
                     {
                       "type": "array",
-                      "options": {
+                      "x-options": {
                         "switcherTitle": "Array"
                       }
                     },
                     {
                       "type": "null",
-                      "options": {
+                      "x-options": {
                         "switcherTitle": "Null"
                       }
                     }
@@ -299,19 +301,19 @@
           "oneOf": [
             {
               "type": "boolean",
-              "options": {
+              "x-options": {
                 "switcherTitle": "Boolean"
               }
             },
             {
               "type": "string",
-              "options": {
+              "x-options": {
                 "switcherTitle": "String"
               }
             },
             {
               "type": "integer",
-              "options": {
+              "x-options": {
                 "switcherTitle": "Integer"
               }
             }
@@ -323,19 +325,19 @@
           "anyOf": [
             {
               "type": "array",
-              "options": {
+              "x-options": {
                 "switcherTitle": "Array"
               }
             },
             {
               "type": "object",
-              "options": {
+              "x-options": {
                 "switcherTitle": "Object"
               }
             },
             {
               "type": "null",
-              "options": {
+              "x-options": {
                 "switcherTitle": "Null"
               }
             }

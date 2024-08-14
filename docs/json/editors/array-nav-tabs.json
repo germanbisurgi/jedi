@@ -2,11 +2,13 @@
   "type": "array",
   "format": "nav",
   "title": "array-nav-tabs",
-  "options": {
-    "navType": "tabs",
-    "navCols": 12,
-    "navStacked": false,
-    "itemTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}"
+  "x-options": {
+    "itemTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
+    "nav": {
+      "type": "tabs",
+      "cols": "12",
+      "stacked": "false"
+    }
   },
   "default": [
     {

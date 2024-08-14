@@ -1,6 +1,6 @@
 import Editor from './editor.js'
 import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaOption, getSchemaTitle } from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaXOption, getSchemaTitle } from '../helpers/schema.js'
 
 /**
  * Represents a EditorBooleanCheckbox instance.
@@ -11,7 +11,7 @@ class EditorBooleanCheckbox extends Editor {
     this.control = this.theme.getCheckboxControl({
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      titleHidden: getSchemaOption(this.instance.schema, 'titleHidden'),
+      titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema)
     })
   }

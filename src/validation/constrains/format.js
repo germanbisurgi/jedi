@@ -1,5 +1,5 @@
 import { compileTemplate, isSet, isString } from '../../helpers/utils.js'
-import { getSchemaFormat, getSchemaOption } from '../../helpers/schema.js'
+import { getSchemaFormat, getSchemaXOption } from '../../helpers/schema.js'
 import { i18n } from '../../i18n.js'
 
 export function format (validator, value, schema, key, path) {
@@ -7,7 +7,7 @@ export function format (validator, value, schema, key, path) {
   const format = getSchemaFormat(schema)
   let validateFormat = validator.validateFormat
 
-  if (getSchemaOption(schema, 'validateFormat')) {
+  if (getSchemaXOption(schema, 'validateFormat')) {
     validateFormat = schema.options.validateFormat
   }
 

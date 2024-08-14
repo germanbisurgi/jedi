@@ -4,7 +4,7 @@ import draft07 from './drafts/draft-07.js'
 import draft201909 from './drafts/draft-2019-09.js'
 import draft202012 from './drafts/draft-2020-12.js'
 import { hasOwn, isBoolean, clone, isSet } from '../helpers/utils.js'
-import { getSchemaOption } from '../helpers/schema.js'
+import { getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents a Validator instance.
@@ -29,7 +29,7 @@ class Validator {
    */
   getErrors (value, schema, key, path) {
     let schemaErrors = []
-    const schemaOptionsMessages = getSchemaOption(schema, 'messages')
+    const schemaOptionsMessages = getSchemaXOption(schema, 'messages')
 
     const schemaClone = clone(schema)
 

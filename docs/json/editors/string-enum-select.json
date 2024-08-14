@@ -6,7 +6,7 @@
     "betti",
     "carl"
   ],
-  "options": {
+  "x-options": {
     "enumTitles": [
       "Albert",
       "Betti",

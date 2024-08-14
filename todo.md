@@ -11,7 +11,6 @@
 - editor hidden description
 - hide if-then-else headers
 - better elements class names
-- move actions on top of cards
 - ionic theme
 - integrate unevaluatedProperties "see through"
 - better NOT error messages

@@ -1,6 +1,6 @@
 import EditorArray from './array.js'
 import { clamp, compileTemplate, isSet, pathToAttribute } from '../helpers/utils.js'
-import { getSchemaOption, getSchemaTitle } from '../helpers/schema.js'
+import { getSchemaTitle, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorArrayNav instance.
@@ -23,18 +23,15 @@ class EditorArrayNav extends EditorArray {
     this.refreshInteractiveElements()
     this.control.childrenSlot.innerHTML = ''
 
-    const navCols = getSchemaOption(this.instance.schema, 'navCols')
-    const navStacked = getSchemaOption(this.instance.schema, 'navStacked')
-    const navType = getSchemaOption(this.instance.schema, 'navType')
-
+    const nav = getSchemaXOption(this.instance.schema, 'nav')
     const row = this.theme.getRow()
-    const cols = isSet(navCols) ? navCols : 3
+    const cols = isSet(nav.cols) ? nav.cols : 3
     const tabListCol = this.theme.getCol(12, cols)
     const tabContentCol = this.theme.getCol(12, (12 - cols))
     const tabContent = this.theme.getTabContent()
     const tabList = this.theme.getTabList({
-      stacked: isSet(navStacked) ? navStacked : false,
-      type: isSet(navType) ? navType : 'pils'
+      stacked: isSet(nav.stacked) ? nav.stacked : false,
+      type: isSet(nav.type) ? nav.type : 'pils'
     })
 
     this.control.childrenSlot.appendChild(row)
@@ -56,7 +53,7 @@ class EditorArrayNav extends EditorArray {
       this.control.childrenSlot.appendChild(child.ui.control.container)
 
       let childTitle
-      const schemaOptionItemTemplate = getSchemaOption(this.instance.schema, 'itemTemplate')
+      const schemaOptionItemTemplate = getSchemaXOption(this.instance.schema, 'itemTemplate')
 
       if (schemaOptionItemTemplate) {
         const template = schemaOptionItemTemplate

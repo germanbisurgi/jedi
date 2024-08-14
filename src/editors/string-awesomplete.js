@@ -1,6 +1,6 @@
 import EditorString from './string.js'
 import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaOption, getSchemaTitle, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaTitle, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents a EditorStringAwesomplete instance.
@@ -12,7 +12,7 @@ class EditorStringAwesomplete extends EditorString {
       type: 'text',
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      titleHidden: getSchemaOption(this.instance.schema, 'titleHidden'),
+      titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema)
     })
 
