@@ -196,7 +196,8 @@ window.addEventListener('DOMContentLoaded', () => {
           refParser
         }
 
-        this.editor = new Jedi.Jedi(options)
+        // this.editor = new Jedi.Jedi(options)
+        this.editor = new Jedi.Editor(options)
         window.editor = this.editor
         this.editorChangeHandler()
         this.editor.on('change', this.editorChangeHandler)

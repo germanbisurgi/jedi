@@ -1,6 +1,6 @@
 [![Tests](https://github.com/germanbisurgi/jedi/actions/workflows/main.yml/badge.svg)](https://github.com/germanbisurgi/jedi/actions/workflows/main.yml)
 
-# Jedi - JSON Editing and Data Inspection
+# Jedi - JSON Editing and Data Integrity
 
 Jedi is a versatile JavaScript library that simplifies JSON data handling in web applications.
 Validate JSON data effortlessly with custom schemas or generate dynamic forms for seamless JSON editing. 
@@ -25,27 +25,34 @@ Integration with other popular libraries coming soon.
 ### As a Validator
 
 ````javascript
-const editor = new Jedi({
+const validator = new Jedi.Validator({
+  schema: {
+    "type": "string"
+  }
+})
+
+validator.setValue(42)
+validator.getValue()
+validator.getErrors()
+validator.destroy()
+````
+
+### As an Editor
+
+````javascript
+const editor = new Jedi.Editor({
+  container: document.querySelector('#jedi-container'),
   schema: {
     "type": "string"
   }
 })
 
 editor.setValue(42)
-
-const errors = editor.getErrors()
-````
-
-### As an Editor
-
-````javascript
-const editor = new Jedi({
-  isEditor: true,
-  container: document.querySelector('#jedi-container'),
-  schema: {
-    "type": "string"
-  }
-})
+editor.getValue()
+editor.getErrors()
+editor.enable()
+editor.disable()
+editor.destroy()
 ````
 
 ## Development

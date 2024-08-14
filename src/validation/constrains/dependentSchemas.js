@@ -1,5 +1,5 @@
 import { isObject, isSet } from '../../helpers/utils.js'
-import Jedi from '../../jedi.js'
+import Validator from '../../validator.js'
 import { getSchemaDependentSchemas } from '../../helpers/schema.js'
 
 export function dependentSchemas (validator, value, schema) {
@@ -10,7 +10,7 @@ export function dependentSchemas (validator, value, schema) {
     Object.keys(dependentSchemas).forEach((key) => {
       if (isSet(value[key])) {
         const dependentSchema = dependentSchemas[key]
-        const tmpEditor = new Jedi({ refParser: validator.refParser, schema: dependentSchema, data: value })
+        const tmpEditor = new Validator({ refParser: validator.refParser, schema: dependentSchema, data: value })
         const tmpErrors = tmpEditor.getErrors()
         tmpEditor.destroy()
         errors = [...errors, ...tmpErrors]

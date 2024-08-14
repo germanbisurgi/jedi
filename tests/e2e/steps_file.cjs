@@ -15,19 +15,13 @@ module.exports = function () {
     },
     _scrollTo: function (locator) {
       this._scrollIntoView(locator)
-
-      this.wait(1)
     },
     _click: function (locator) {
       this._scrollIntoView(locator)
-
-      this.wait(1)
       this.click(locator)
     },
     _checkOption: function (locator) {
       this._scrollIntoView(locator)
-
-      this.wait(1)
       this.checkOption(locator)
     }
   })

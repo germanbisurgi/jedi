@@ -1,5 +1,5 @@
 import { compileTemplate, isArray, isSet } from '../../helpers/utils.js'
-import Jedi from '../../jedi.js'
+import Validator from '../../validator.js'
 import { getSchemaContains, getSchemaMaxContains, getSchemaMinContains } from '../../helpers/schema.js'
 import { i18n } from '../../i18n.js'
 
@@ -13,7 +13,7 @@ export function contains (validator, value, schema, key, path) {
     let counter = 0
 
     value.forEach((item) => {
-      const containsEditor = new Jedi({ refParser: validator.refParser, schema: contains, data: item })
+      const containsEditor = new Validator({ refParser: validator.refParser, schema: contains, data: item })
       const containsErrors = containsEditor.getErrors()
 
       if (containsErrors.length === 0) {

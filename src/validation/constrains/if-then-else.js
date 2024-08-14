@@ -1,4 +1,4 @@
-import Jedi from '../../jedi.js'
+import Validator from '../../validator.js'
 import { isSet, notSet } from '../../helpers/utils.js'
 import { getSchemaElse, getSchemaIf, getSchemaThen } from '../../helpers/schema.js'
 
@@ -13,7 +13,7 @@ export function ifThenElse (validator, value, schema) {
       return errors
     }
 
-    const ifEditor = new Jedi({ refParser: validator.refParser, schema: schemaIf, data: value })
+    const ifEditor = new Validator({ refParser: validator.refParser, schema: schemaIf, data: value })
     const ifErrors = ifEditor.getErrors()
     ifEditor.destroy()
 
@@ -21,13 +21,13 @@ export function ifThenElse (validator, value, schema) {
     let elseErrors = []
 
     if (isSet(schemaThen)) {
-      const thenEditor = new Jedi({ refParser: validator.refParser, schema: schemaThen, data: value })
+      const thenEditor = new Validator({ refParser: validator.refParser, schema: schemaThen, data: value })
       thenErrors = thenEditor.getErrors()
       thenEditor.destroy()
     }
 
     if (isSet(schemaElse)) {
-      const elseEditor = new Jedi({ refParser: validator.refParser, schema: schemaElse, data: value })
+      const elseEditor = new Validator({ refParser: validator.refParser, schema: schemaElse, data: value })
       elseErrors = elseEditor.getErrors()
       elseEditor.destroy()
     }

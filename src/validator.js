@@ -1,4 +1,4 @@
-import Validator from './validation/validator.js'
+import SchemaValidator from './validation/validator.js'
 import EventEmitter from './event-emitter.js'
 import InstanceIfThenElse from './instances/if-then-else.js'
 import InstanceMultiple from './instances/multiple.js'
@@ -26,7 +26,7 @@ import {
 /**
  * Represents a Jedi instance.
  */
-class Jedi extends EventEmitter {
+class Validator extends EventEmitter {
   /**
    * Creates a Jedi instance.
    * @param {object} options - Options object
@@ -38,14 +38,8 @@ class Jedi extends EventEmitter {
     super()
 
     this.options = Object.assign({
-      container: null,
       refParser: null,
-      enablePropertiesToggle: false,
-      enableCollapseToggle: false,
-      startCollapsed: false,
-      deactivateNonRequired: false,
       schema: {},
-      showErrors: 'change',
       data: undefined,
       validateFormat: false,
       mergeAllOf: false
@@ -54,69 +48,61 @@ class Jedi extends EventEmitter {
     /**
      * Roots symbol used in paths
      * @type {string}
-     * @private
      */
     this.rootName = '#'
 
     /**
      * Separator symbol used in paths
      * @type {string}
-     * @private
      */
     this.pathSeparator = '/'
 
     /**
      * List of registered instances
      * @type {object}
-     * @private
      */
     this.instances = {}
 
     /**
      * The root editor
      * @type {Instance}
-     * @private
      */
     this.root = null
 
     /**
      * The Theme instance used to generate editors user interfaces
      * @type {Theme}
-     * @private
      */
     this.theme = null
 
     /**
      * The Validator instance used to validate instance values
      * @type {Validator}
-     * @private
      */
     this.validator = null
 
     /**
      * A json schema used
      * @type {*}
-     * @private
      */
     this.schema = {}
 
     /**
      * A RefParser instance
      * @type {RefParser}
-     * @private
      */
     this.refParser = this.options.refParser ? this.options.refParser : null
 
     this.init()
+    this.bindEventListeners()
   }
 
   /**
    * Initializes instance properties
-   * @private
    */
   init () {
     this.schema = this.options.schema
-    this.validator = new Validator({ refParser: this.refParser, validateFormat: this.options.validateFormat })
+    this.validator = new SchemaValidator({ refParser: this.refParser, validateFormat: this.options.validateFormat })
 
     this.root = this.createInstance({
       jedi: this,
@@ -127,15 +113,6 @@ class Jedi extends EventEmitter {
     if (isSet(this.options.data)) {
       this.root.setValue(this.options.data, false)
     }
-
-    if (this.options.container) {
-      this.container = this.options.container
-      this.appendHiddenInput()
-      this.container.appendChild(this.root.ui.control.container)
-      this.container.classList.add('jedi-ready')
-    }
-
-    this.bindEventListeners()
   }
 
   bindEventListeners () {
@@ -144,35 +121,10 @@ class Jedi extends EventEmitter {
         this.emit('change')
       })
     }
-
-    if (this.hiddenInput) {
-      this.on('change', () => {
-        this.hiddenInput.value = JSON.stringify(this.getValue())
-      })
-    }
-  }
-
-  /**
-   * Appends a hidden input to the root container whose value will be the value
-   * of the root instance.
-   * @private
-   */
-  appendHiddenInput () {
-    const hiddenControl = this.root.ui.theme.getInputControl({
-      type: 'hidden',
-      id: 'jedi-hidden-input'
-    })
-
-    this.hiddenInput = hiddenControl.input
-    this.hiddenInput.setAttribute('name', 'json')
-    this.hiddenInput.removeAttribute('aria-describedby')
-    this.container.appendChild(this.hiddenInput)
-    this.hiddenInput.value = JSON.stringify(this.getValue())
   }
 
   /**
    * Adds a child instance pointer to the instances list
-   * @private
    */
   register (instance) {
     this.instances[instance.path] = instance
@@ -180,7 +132,6 @@ class Jedi extends EventEmitter {
 
   /**
    * Deletes a child instance pointer from the instances list
-   * @private
    */
   unregister (instance) {
     this.instances[instance.path] = null
@@ -271,20 +222,6 @@ class Jedi extends EventEmitter {
   }
 
   /**
-   * Disables the root instance and it's children user interfaces
-   */
-  disable () {
-    this.root.ui.disable()
-  }
-
-  /**
-   * Enables the root instance and it's children user interfaces
-   */
-  enable () {
-    this.root.ui.enable()
-  }
-
-  /**
    * Returns an array of validation error messages
    */
   getErrors () {
@@ -304,14 +241,10 @@ class Jedi extends EventEmitter {
   destroy () {
     this.root.destroy()
 
-    if (this.options.container) {
-      this.container.innerHTML = ''
-    }
-
     Object.keys(this).forEach((key) => {
       delete this[key]
     })
   }
 }
 
-export default Jedi
+export default Validator
