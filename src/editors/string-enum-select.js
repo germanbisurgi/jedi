@@ -13,6 +13,7 @@ class EditorStringEnumSelect extends EditorString {
       titles: getSchemaXOption(this.instance.schema, 'enumTitles') || getSchemaEnum(this.instance.schema),
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
+      labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema)
     })

@@ -17,23 +17,6 @@ class Theme {
   }
 
   /**
-   * Returns a icon element
-   * @private
-   */
-  getIcon (name) {
-    const icon = document.createElement('i')
-    const iconClasses = this.icons[name].split(' ')
-
-    if (iconClasses.length > 0) {
-      iconClasses.forEach((className) => {
-        icon.classList.add(className)
-      })
-    }
-
-    return icon
-  }
-
-  /**
    * Used to wrap the editor UI elements
    * @private
    */
@@ -55,7 +38,6 @@ class Theme {
 
   /**
    * Represents a caption for the content of its parent fieldset
-   * @private
    */
   getLegend (config) {
     const legend = document.createElement('legend')
@@ -67,6 +49,47 @@ class Theme {
     legendText.setAttribute('id', '#legend-' + config.id)
     legend.appendChild(legendText)
     return legend
+  }
+
+  /**
+   * Represents a caption for the content of its parent fieldset
+   */
+  getLabel (config) {
+    const label = document.createElement('label')
+    label.setAttribute('for', config.for)
+
+    const icon = this.getIcon(config.labelIconClass)
+
+    const labelText = document.createElement('span')
+    labelText.textContent = config.text
+
+    if (config.visuallyHidden) {
+      this.visuallyHidden(label)
+    }
+
+    label.classList.add('jedi-editor-label')
+    label.appendChild(icon)
+    label.appendChild(labelText)
+
+    return { label, labelText, icon }
+  }
+
+  /**
+   * Returns a icon element
+   * @private
+   */
+  getIcon (classes = '') {
+    const icon = document.createElement('i')
+    let iconClasses = classes.split(' ')
+    iconClasses = iconClasses.filter((className) => className.length > 0)
+
+    if (iconClasses) {
+      iconClasses.forEach((className) => {
+        icon.classList.add(className)
+      })
+    }
+
+    return icon
   }
 
   /**
@@ -316,7 +339,7 @@ class Theme {
     text.textContent = config.textContent
 
     if (this.icons && config.icon) {
-      const icon = this.getIcon(config.icon)
+      const icon = this.getIcon(this.icons[config.icon])
       icon.setAttribute('title', config.textContent)
       button.appendChild(icon)
       this.visuallyHidden(text)
@@ -663,15 +686,12 @@ class Theme {
     const actions = this.getActionsSlot()
     const arrayActions = this.getArrayActionsSlot()
 
-    const label = document.createElement('label')
-    label.setAttribute('for', config.id)
-
-    const labelText = document.createElement('span')
-    labelText.textContent = config.label
-
-    if (config.titleHidden) {
-      this.visuallyHidden(label)
-    }
+    const { label, labelText } = this.getLabel({
+      for: config.id,
+      text: config.label,
+      visuallyHidden: config.titleHidden,
+      labelIconClass: config.labelIconClass
+    })
 
     const descriptionId = config.id + '-description'
     const description = this.getDescription({
@@ -686,7 +706,6 @@ class Theme {
     container.appendChild(messages)
     container.appendChild(actions)
     actions.appendChild(arrayActions)
-    label.appendChild(labelText)
 
     return { container, label, labelText, description, messages, actions, arrayActions }
   }
@@ -704,15 +723,11 @@ class Theme {
     input.setAttribute('id', config.id)
     input.style.width = '100%'
 
-    const label = document.createElement('label')
-    label.setAttribute('for', config.id)
-
-    const labelText = document.createElement('span')
-    labelText.textContent = config.label
-
-    if (config.titleHidden) {
-      this.visuallyHidden(label)
-    }
+    const { label, labelText } = this.getLabel({
+      for: config.id,
+      text: config.label,
+      visuallyHidden: config.titleHidden
+    })
 
     const descriptionId = config.id + '-description'
     const description = this.getDescription({
@@ -734,7 +749,6 @@ class Theme {
     container.appendChild(messages)
     container.appendChild(actions)
     actions.appendChild(arrayActions)
-    label.appendChild(labelText)
 
     return { container, input, label, labelText, description, messages, actions, arrayActions }
   }
@@ -753,15 +767,12 @@ class Theme {
     input.setAttribute('id', config.id)
     input.style.width = '100%'
 
-    const label = document.createElement('label')
-    label.setAttribute('for', config.id)
-
-    const labelText = document.createElement('span')
-    labelText.textContent = config.label
-
-    if (config.titleHidden) {
-      this.visuallyHidden(label)
-    }
+    const { label, labelText } = this.getLabel({
+      for: config.id,
+      text: config.label,
+      visuallyHidden: config.titleHidden,
+      labelIconClass: config.labelIconClass
+    })
 
     const descriptionId = config.id + '-description'
     const description = this.getDescription({
@@ -783,7 +794,6 @@ class Theme {
     container.appendChild(messages)
     container.appendChild(actions)
     actions.appendChild(arrayActions)
-    label.appendChild(labelText)
 
     return { container, input, label, labelText, description, messages, actions, arrayActions }
   }
@@ -896,15 +906,11 @@ class Theme {
     input.setAttribute('type', 'checkbox')
     input.setAttribute('id', config.id)
 
-    const label = document.createElement('label')
-    label.setAttribute('for', config.id)
-
-    const labelText = document.createElement('span')
-    labelText.textContent = config.label
-
-    if (config.titleHidden) {
-      this.visuallyHidden(label)
-    }
+    const { label, labelText } = this.getLabel({
+      for: config.id,
+      text: config.label,
+      visuallyHidden: config.titleHidden
+    })
 
     const descriptionId = config.id + '-description'
     const description = this.getDescription({
@@ -925,7 +931,6 @@ class Theme {
     actions.appendChild(arrayActions)
     formGroup.appendChild(input)
     formGroup.appendChild(label)
-    label.appendChild(labelText)
     formGroup.appendChild(description)
     formGroup.appendChild(messages)
 
@@ -955,15 +960,11 @@ class Theme {
       input.appendChild(option)
     })
 
-    const label = document.createElement('label')
-    label.setAttribute('for', config.id)
-
-    const labelText = document.createElement('span')
-    labelText.textContent = config.label
-
-    if (config.titleHidden) {
-      this.visuallyHidden(label)
-    }
+    const { label, labelText } = this.getLabel({
+      for: config.id,
+      text: config.label,
+      visuallyHidden: config.titleHidden
+    })
 
     const descriptionId = config.id + '-description'
     const description = this.getDescription({
@@ -981,7 +982,6 @@ class Theme {
 
     container.appendChild(label)
     container.appendChild(input)
-    label.appendChild(labelText)
     container.appendChild(description)
     container.appendChild(messages)
     container.appendChild(actions)
@@ -1010,17 +1010,14 @@ class Theme {
       input.appendChild(option)
     })
 
-    const label = document.createElement('label')
-    label.setAttribute('for', config.id)
-
-    const labelText = document.createElement('span')
-    labelText.textContent = config.label
-
-    this.visuallyHidden(label)
+    const { label, labelText } = this.getLabel({
+      for: config.id,
+      text: config.label,
+      visuallyHidden: config.titleHidden
+    })
 
     container.appendChild(label)
     container.appendChild(input)
-    label.appendChild(labelText)
 
     return { container, input, label, labelText }
   }

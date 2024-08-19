@@ -53,6 +53,12 @@ class ThemeBootstrap4 extends Theme {
     return legend
   }
 
+  getLabel (config) {
+    const labelObj = super.getLabel(config)
+    labelObj.icon.classList.add('mr-1')
+    return labelObj
+  }
+
   getCard () {
     const card = super.getCard()
     card.classList.add('card')

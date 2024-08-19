@@ -12,6 +12,7 @@ class EditorStringAwesomplete extends EditorString {
       type: 'text',
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
+      labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema)
     })

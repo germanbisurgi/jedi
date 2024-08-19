@@ -17,6 +17,7 @@ class EditorNumber extends Editor {
       type: 'number',
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
+      labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden') || getSchemaFormat(this.instance.schema) === 'hidden',
       description: getSchemaDescription(this.instance.schema)
     })

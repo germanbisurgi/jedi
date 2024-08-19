@@ -1,5 +1,6 @@
 ## Todo
-- x-options: format, enumTitles, grids, switcher, nav, etc
+
+- x-option format
 - input range
 - publish on NPM
 - getButton exports object { button, text, icon }

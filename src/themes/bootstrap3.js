@@ -50,6 +50,12 @@ class ThemeBootstrap3 extends Theme {
     return legend
   }
 
+  getLabel (config) {
+    const labelObj = super.getLabel(config)
+    labelObj.icon.setAttribute('style', 'margin-right: 5px;')
+    return labelObj
+  }
+
   getCard () {
     const card = super.getCard()
     card.classList.add('panel')

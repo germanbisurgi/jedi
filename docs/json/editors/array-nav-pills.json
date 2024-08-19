@@ -1,6 +1,5 @@
 {
   "type": "array",
-  "format": "nav",
   "title": "Colors",
   "x-options": {
     "itemTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
