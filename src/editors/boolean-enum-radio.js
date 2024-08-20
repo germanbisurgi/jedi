@@ -1,6 +1,6 @@
 import EditorBoolean from './boolean.js'
 import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaFormat, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorBooleanEnumRadio instance.
@@ -8,9 +8,7 @@ import { getSchemaDescription, getSchemaFormat, getSchemaTitle, getSchemaType, g
  */
 class EditorBooleanEnumRadio extends EditorBoolean {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    const schemaFormat = getSchemaFormat(schema)
-    return schemaType === 'boolean' && schemaFormat === 'radio'
+    return getSchemaType(schema) === 'boolean' && getSchemaXOption(schema, 'format') === 'radio'
   }
 
   build () {

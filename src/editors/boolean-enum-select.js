@@ -1,6 +1,6 @@
 import EditorBoolean from './boolean.js'
-import { notSet, pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaFormat, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { pathToAttribute } from '../helpers/utils.js'
+import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorBooleanEnumSelect instance.
@@ -8,11 +8,7 @@ import { getSchemaDescription, getSchemaFormat, getSchemaTitle, getSchemaType, g
  */
 class EditorBooleanEnumSelect extends EditorBoolean {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    const schemaFormat = getSchemaFormat(schema)
-    const isBooleanWithFormatSelect = schemaType === 'boolean' && schemaFormat === 'select'
-    const isBooleanWithoutFormat = schemaType === 'boolean' && notSet(schemaFormat)
-    return isBooleanWithFormatSelect || isBooleanWithoutFormat
+    return getSchemaType(schema) === 'boolean'
   }
 
   build () {

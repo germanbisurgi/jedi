@@ -8,9 +8,7 @@ import { isSet } from '../helpers/utils.js'
  */
 class EditorObjectGrid extends EditorObject {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    const grid = getSchemaXOption(schema, 'grid')
-    return schemaType === 'object' && isSet(grid)
+    return getSchemaType(schema) === 'object' && isSet(getSchemaXOption(schema, 'grid'))
   }
 
   refreshEditors () {

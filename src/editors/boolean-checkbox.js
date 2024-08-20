@@ -1,6 +1,6 @@
 import EditorBoolean from './boolean.js'
 import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaXOption, getSchemaTitle, getSchemaType, getSchemaFormat } from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaXOption, getSchemaTitle, getSchemaType } from '../helpers/schema.js'
 
 /**
  * Represents a EditorBooleanCheckbox instance.
@@ -8,9 +8,7 @@ import { getSchemaDescription, getSchemaXOption, getSchemaTitle, getSchemaType, 
  */
 class EditorBooleanCheckbox extends EditorBoolean {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    const schemaFormat = getSchemaFormat(schema)
-    return schemaType === 'boolean' && schemaFormat === 'checkbox'
+    return getSchemaType(schema) === 'boolean' && getSchemaXOption(schema, 'format') === 'checkbox'
   }
 
   build () {

@@ -1,6 +1,6 @@
 import EditorString from './string.js'
-import { notSet, pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaFormat, getSchemaXOption, getSchemaTitle, getSchemaType } from '../helpers/schema.js'
+import { pathToAttribute } from '../helpers/utils.js'
+import { getSchemaDescription, getSchemaXOption, getSchemaTitle, getSchemaType } from '../helpers/schema.js'
 
 /**
  * Represents a EditorString instance.
@@ -8,11 +8,7 @@ import { getSchemaDescription, getSchemaFormat, getSchemaXOption, getSchemaTitle
  */
 class EditorStringInput extends EditorString {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    const schemaFormat = getSchemaFormat(schema)
-    const isStringWithFormatSelect = schemaType === 'string' && this.getTypes().includes(schemaFormat)
-    const isStringWithoutFormat = schemaType === 'string' && notSet(schemaFormat)
-    return isStringWithFormatSelect || isStringWithoutFormat
+    return getSchemaType(schema) === 'string'
   }
 
   static getTypes () {
@@ -20,19 +16,19 @@ class EditorStringInput extends EditorString {
   }
 
   build () {
-    const schemaFormat = getSchemaFormat(this.instance.schema)
+    const optionFormat = getSchemaXOption(this.instance.schema, 'format')
 
     this.control = this.theme.getInputControl({
-      type: EditorStringInput.getTypes().includes(schemaFormat) ? schemaFormat : 'text',
+      type: EditorStringInput.getTypes().includes(optionFormat) ? optionFormat : 'text',
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
-      titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden') || schemaFormat === 'hidden',
+      titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden') || optionFormat === 'hidden',
       description: getSchemaDescription(this.instance.schema)
     })
 
     // fix color picker bug
-    if (schemaFormat === 'color' && this.instance.value.length === 0) {
+    if (optionFormat === 'color' && this.instance.value.length === 0) {
       this.instance.setValue('#000000', false)
     }
   }

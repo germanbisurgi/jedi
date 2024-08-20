@@ -8,9 +8,7 @@ import { getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/sche
  */
 class EditorArrayNav extends EditorArray {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    const nav = getSchemaXOption(schema, 'nav')
-    return schemaType === 'array' && isSet(nav)
+    return getSchemaType(schema) === 'array' && isSet(getSchemaXOption(schema, 'nav'))
   }
 
   init () {

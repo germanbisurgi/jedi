@@ -8,9 +8,7 @@ import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaType, get
  */
 class EditorStringEnumSelect extends EditorString {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    const schemaEnum = getSchemaEnum(schema)
-    return schemaType === 'string' && isSet(schemaEnum)
+    return getSchemaType(schema) === 'string' && isSet(getSchemaEnum(schema))
   }
 
   build () {

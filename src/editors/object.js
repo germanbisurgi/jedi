@@ -19,8 +19,7 @@ import {
  */
 class EditorObject extends Editor {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    return schemaType === 'object'
+    return getSchemaType(schema) === 'object'
   }
 
   build () {

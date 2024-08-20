@@ -1,13 +1,13 @@
 {
   "type": "string",
   "title": "String enum radio",
-  "format": "radio",
   "enum": [
     "albert",
     "betti",
     "carl"
   ],
   "x-options": {
+    "format": "radio",
     "enumTitles": [
       "Albert",
       "Betti",

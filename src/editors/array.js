@@ -13,8 +13,7 @@ import {
  */
 class EditorArray extends Editor {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    return schemaType === 'array'
+    return getSchemaType(schema) === 'array'
   }
 
   build () {

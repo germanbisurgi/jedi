@@ -8,9 +8,7 @@ import { getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/sche
  */
 class EditorObjectNav extends EditorObject {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    const nav = getSchemaXOption(schema, 'nav')
-    return schemaType === 'object' && isSet(nav)
+    return getSchemaType(schema) === 'object' && isSet(getSchemaXOption(schema, 'nav'))
   }
 
   init () {

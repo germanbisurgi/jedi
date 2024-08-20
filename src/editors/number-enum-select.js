@@ -9,9 +9,8 @@ import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaType, get
 class EditorNumberEnumSelect extends EditorNumber {
   static resolves (schema) {
     const schemaType = getSchemaType(schema)
-    const schemaEnum = getSchemaEnum(schema)
     const typeIsNumeric = schemaType === 'number' || schemaType === 'integer'
-    return typeIsNumeric && isSet(schemaEnum)
+    return typeIsNumeric && isSet(getSchemaEnum(schema))
   }
 
   build () {

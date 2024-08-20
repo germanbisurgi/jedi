@@ -1,6 +1,6 @@
 import EditorNumber from './number.js'
 import { isSet, pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaEnum, getSchemaFormat, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorNumberEnumRadio instance.
@@ -10,9 +10,9 @@ class EditorNumberEnumRadio extends EditorNumber {
   static resolves (schema) {
     const schemaType = getSchemaType(schema)
     const schemaEnum = getSchemaEnum(schema)
-    const schemaFormat = getSchemaFormat(schema)
+    const optionFormat = getSchemaXOption(schema, 'format')
     const typeIsNumeric = schemaType === 'number' || schemaType === 'integer'
-    return typeIsNumeric && isSet(schemaEnum) && schemaFormat === 'radio'
+    return typeIsNumeric && isSet(schemaEnum) && optionFormat === 'radio'
   }
 
   build () {

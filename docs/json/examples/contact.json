@@ -16,15 +16,19 @@
     "message": {
       "title": "Message",
       "type": "string",
-      "format": "textarea",
-      "minLength": 1
+      "minLength": 1,
+      "x-options": {
+        "format": "textarea"
+      }
     },
     "gdpr": {
       "title": "I have read and accept the privacy policy",
       "type": "boolean",
-      "format": "checkbox",
       "default": false,
-      "const": true
+      "const": true,
+      "x-options": {
+        "format": "checkbox"
+      }
     }
   }
 }

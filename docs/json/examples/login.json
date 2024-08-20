@@ -22,21 +22,25 @@
     "password": {
       "title": "Password",
       "type": "string",
-      "format": "password",
       "minLength": 8,
       "x-options": {
+        "format": "password",
         "labelIconClass": "fas fa-lock"
       }
     },
     "keep": {
       "title": "Remember me",
       "type": "boolean",
-      "format": "checkbox"
+      "x-options": {
+        "format": "checkbox"
+      }
     },
     "csfr": {
       "type": "string",
-      "format": "hidden",
-      "default": "csfr"
+      "default": "csfr",
+      "x-options": {
+        "format": "hidden"
+      }
     }
   }
 }

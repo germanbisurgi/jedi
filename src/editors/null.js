@@ -1,6 +1,6 @@
 import Editor from './editor.js'
 import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaFormat, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents a EditorNull instance.
@@ -8,8 +8,7 @@ import { getSchemaDescription, getSchemaFormat, getSchemaTitle, getSchemaType, g
  */
 class EditorNull extends Editor {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    return schemaType === 'null'
+    return getSchemaType(schema) === 'null'
   }
 
   build () {
@@ -17,7 +16,7 @@ class EditorNull extends Editor {
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
-      titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden') || getSchemaFormat(this.instance.schema) === 'hidden',
+      titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden') || getSchemaXOption(this.instance.schema, 'format') === 'hidden',
       description: getSchemaDescription(this.instance.schema)
     })
   }

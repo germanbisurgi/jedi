@@ -8,9 +8,7 @@ import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption }
  */
 class EditorStringAwesomplete extends EditorString {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    const awesomplete = getSchemaXOption(schema, 'awesomplete')
-    return schemaType === 'string' && isSet(awesomplete)
+    return getSchemaType(schema) === 'string' && isSet(getSchemaXOption(schema, 'awesomplete'))
   }
 
   build () {
