@@ -1,25 +1,12 @@
 import Instance from './instance.js'
 import { isSet, clone, isArray } from '../helpers/utils.js'
-import EditorArray from '../editors/array.js'
-import EditorArrayNav from '../editors/array-nav.js'
-import { getSchemaItems, getSchemaPrefixItems, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaItems, getSchemaPrefixItems } from '../helpers/schema.js'
 
 /**
  * Represents an InstanceArray instance.
  * @extends Instance
  */
 class InstanceArray extends Instance {
-  setUI () {
-    const schemaType = getSchemaType(this.schema)
-    const nav = getSchemaXOption(this.schema, 'nav')
-
-    if (schemaType === 'array' && isSet(nav)) {
-      this.ui = new EditorArrayNav(this)
-    } else {
-      this.ui = new EditorArray(this)
-    }
-  }
-
   prepare () {
     this.refreshChildren()
 

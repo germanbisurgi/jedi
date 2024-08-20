@@ -99,6 +99,8 @@ class Instance extends EventEmitter {
    * Sets the instance ui property. UI can be an editor instance or similar
    */
   setUI () {
+    const EditorClass = this.jedi.uiResolver.getClass(this.schema)
+    this.ui = new EditorClass(this)
   }
 
   /**

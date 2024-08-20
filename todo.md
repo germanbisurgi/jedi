@@ -1,5 +1,8 @@
 ## Todo
 
+- void instance/editor?
+- awesomplete test
+- correct ui.theme references
 - x-option format
 - input range
 - publish on NPM

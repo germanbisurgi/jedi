@@ -326,3 +326,31 @@ export function removeDuplicatesFromArray (arr) {
 
   return uniqueObjects
 }
+
+export default {
+  getCircularReplacer,
+  clone,
+  escapeRegExp,
+  replaceAll,
+  pathToAttribute,
+  hasOwn,
+  sortObject,
+  equal,
+  different,
+  isNull,
+  isSet,
+  notSet,
+  isNumber,
+  isInteger,
+  isString,
+  isBoolean,
+  isArray,
+  isObject,
+  getType,
+  mergeDeep,
+  overwriteExistingProperties,
+  getValueByJSONPath,
+  compileTemplate,
+  clamp,
+  removeDuplicatesFromArray
+}

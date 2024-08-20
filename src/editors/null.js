@@ -1,12 +1,17 @@
 import Editor from './editor.js'
 import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaFormat, getSchemaTitle, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaFormat, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents a EditorNull instance.
  * @extends Editor
  */
 class EditorNull extends Editor {
+  static resolves (schema) {
+    const schemaType = getSchemaType(schema)
+    return schemaType === 'null'
+  }
+
   build () {
     this.control = this.theme.getNullControl({
       id: pathToAttribute(this.instance.path),

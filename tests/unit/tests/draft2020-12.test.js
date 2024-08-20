@@ -62,7 +62,7 @@ for (let i = 0; i < suites.length; i++) {
           const refParser = new Jedi.RefParser()
           await refParser.dereference(scenario.schema)
 
-          const jedi = new Jedi.Validator({
+          const jedi = new Jedi.Create({
             schema: scenario.schema,
             refParser
           });

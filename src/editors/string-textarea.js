@@ -1,12 +1,18 @@
-import Editor from './editor.js'
+import EditorString from './string.js'
 import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaFormat, getSchemaXOption, getSchemaTitle } from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaFormat, getSchemaXOption, getSchemaTitle, getSchemaType } from '../helpers/schema.js'
 
 /**
  * Represents a EditorStringTextarea instance.
- * @extends Editor
+ * @extends EditorString
  */
-class EditorStringTextarea extends Editor {
+class EditorStringTextarea extends EditorString {
+  static resolves (schema) {
+    const schemaType = getSchemaType(schema)
+    const schemaFormat = getSchemaFormat(schema)
+    return schemaType === 'string' && schemaFormat === 'textarea'
+  }
+
   build () {
     this.control = this.theme.getTextareaControl({
       id: pathToAttribute(this.instance.path),
@@ -21,10 +27,6 @@ class EditorStringTextarea extends Editor {
     this.control.input.addEventListener('change', () => {
       this.instance.setValue(this.control.input.value)
     })
-  }
-
-  sanitize (value) {
-    return String(value)
   }
 
   refreshUI () {

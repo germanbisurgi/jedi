@@ -1,12 +1,18 @@
 import EditorArray from './array.js'
 import { clamp, compileTemplate, isSet, pathToAttribute } from '../helpers/utils.js'
-import { getSchemaTitle, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorArrayNav instance.
  * @extends EditorArray
  */
 class EditorArrayNav extends EditorArray {
+  static resolves (schema) {
+    const schemaType = getSchemaType(schema)
+    const nav = getSchemaXOption(schema, 'nav')
+    return schemaType === 'array' && isSet(nav)
+  }
+
   init () {
     super.init()
     this.activeTabIndex = 0

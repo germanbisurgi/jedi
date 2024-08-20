@@ -4,7 +4,7 @@ import {
   getSchemaDescription,
   getSchemaMaxItems,
   getSchemaMinItems,
-  getSchemaTitle, getSchemaXOption
+  getSchemaTitle, getSchemaType, getSchemaXOption
 } from '../helpers/schema.js'
 
 /**
@@ -12,6 +12,11 @@ import {
  * @extends Editor
  */
 class EditorArray extends Editor {
+  static resolves (schema) {
+    const schemaType = getSchemaType(schema)
+    return schemaType === 'array'
+  }
+
   build () {
     this.control = this.theme.getArrayControl({
       title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),

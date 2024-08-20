@@ -1,8 +1,3 @@
-import { glyphicons, bootstrapIcons, fontAwesome3, fontAwesome4, fontAwesome5, fontAwesome6 } from '../themes/icons/icons.js'
-import ThemeBootstrap3 from '../themes/bootstrap3.js'
-import ThemeBootstrap4 from '../themes/bootstrap4.js'
-import ThemeBootstrap5 from '../themes/bootstrap5.js'
-import Theme from '../themes/theme.js'
 import { isSet } from '../helpers/utils.js'
 import { getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
@@ -14,7 +9,7 @@ class Editor {
   constructor (instance) {
     /**
      * A reference to the Instance being controlled by this editor.
-     * @type {Instance}
+     * @type {Jedi}
      * @private
      */
     this.instance = instance
@@ -74,49 +69,14 @@ class Editor {
     })
   }
 
+  static resolves (schema) {}
+
   /**
    * Initializes the editor
    * @private
    */
   init () {
-    let icons = null
-
-    if (isSet(this.instance.jedi.options.iconLib)) {
-      switch (this.instance.jedi.options.iconLib) {
-        case 'glyphicons':
-          icons = glyphicons
-          break
-        case 'bootstrap-icons':
-          icons = bootstrapIcons
-          break
-        case 'fontawesome3':
-          icons = fontAwesome3
-          break
-        case 'fontawesome4':
-          icons = fontAwesome4
-          break
-        case 'fontawesome5':
-          icons = fontAwesome5
-          break
-        case 'fontawesome6':
-          icons = fontAwesome6
-          break
-      }
-    }
-
-    switch (this.instance.jedi.options.theme) {
-      case 'bootstrap3':
-        this.theme = new ThemeBootstrap3(icons)
-        break
-      case 'bootstrap4':
-        this.theme = new ThemeBootstrap4(icons)
-        break
-      case 'bootstrap5':
-        this.theme = new ThemeBootstrap5(icons)
-        break
-      default:
-        this.theme = new Theme(icons)
-    }
+    this.theme = this.instance.jedi.theme
   }
 
   /**

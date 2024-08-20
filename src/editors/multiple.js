@@ -1,12 +1,19 @@
 import Editor from './editor.js'
-import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaXOption } from '../helpers/schema.js'
+import { isArray, isSet, notSet, pathToAttribute } from '../helpers/utils.js'
+import { getSchemaAnyOf, getSchemaDescription, getSchemaOneOf, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorMultiple instance.
  * @extends Editor
  */
 class EditorMultiple extends Editor {
+  static resolves (schema) {
+    const schemaType = getSchemaType(schema)
+    const schemaOneOf = getSchemaOneOf(schema)
+    const schemaAnyOf = getSchemaAnyOf(schema)
+    return isSet(schemaAnyOf) || isSet(schemaOneOf) || schemaType === 'any' || isArray(schemaType) || notSet(schemaType)
+  }
+
   build () {
     this.control = this.theme.getMultipleControl({
       title: 'Options',

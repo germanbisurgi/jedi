@@ -1,12 +1,18 @@
 import EditorString from './string.js'
 import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaEnum, getSchemaFormat, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents a EditorStringEnumRadio instance.
- * @extends Editor
+ * @extends EditorString
  */
 class EditorStringEnumRadio extends EditorString {
+  static resolves (schema) {
+    const schemaType = getSchemaType(schema)
+    const schemaFormat = getSchemaFormat(schema)
+    return schemaType === 'string' && schemaFormat === 'radio'
+  }
+
   build () {
     this.control = this.theme.getRadiosControl({
       values: getSchemaEnum(this.instance.schema),

@@ -1,15 +1,12 @@
 import Instance from './instance.js'
 import { different, isSet, notSet, isObject, hasOwn, clone } from '../helpers/utils.js'
-import EditorObjectGrid from '../editors/object-grid.js'
-import EditorObject from '../editors/object.js'
-import EditorObjectNav from '../editors/object-nav.js'
 import {
   getSchemaAdditionalProperties,
   getSchemaDependentRequired,
   getSchemaPatternProperties,
   getSchemaProperties,
   getSchemaRequired,
-  getSchemaType, getSchemaXOption
+  getSchemaXOption
 } from '../helpers/schema.js'
 
 /**
@@ -17,20 +14,6 @@ import {
  * @extends Instance
  */
 class InstanceObject extends Instance {
-  setUI () {
-    const schemaType = getSchemaType(this.schema)
-    const nav = getSchemaXOption(this.schema, 'nav')
-    const grid = getSchemaXOption(this.schema, 'grid')
-
-    if (schemaType === 'object' && isSet(grid)) {
-      this.ui = new EditorObjectGrid(this)
-    } else if (schemaType === 'object' && isSet(nav)) {
-      this.ui = new EditorObjectNav(this)
-    } else {
-      this.ui = new EditorObject(this)
-    }
-  }
-
   prepare () {
     this.properties = {}
     const schemaProperties = getSchemaProperties(this.schema)

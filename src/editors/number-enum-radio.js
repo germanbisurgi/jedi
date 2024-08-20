@@ -1,12 +1,20 @@
 import EditorNumber from './number.js'
-import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaXOption } from '../helpers/schema.js'
+import { isSet, pathToAttribute } from '../helpers/utils.js'
+import { getSchemaDescription, getSchemaEnum, getSchemaFormat, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorNumberEnumRadio instance.
  * @extends EditorNumber
  */
 class EditorNumberEnumRadio extends EditorNumber {
+  static resolves (schema) {
+    const schemaType = getSchemaType(schema)
+    const schemaEnum = getSchemaEnum(schema)
+    const schemaFormat = getSchemaFormat(schema)
+    const typeIsNumeric = schemaType === 'number' || schemaType === 'integer'
+    return typeIsNumeric && isSet(schemaEnum) && schemaFormat === 'radio'
+  }
+
   build () {
     this.control = this.theme.getRadiosControl({
       values: getSchemaEnum(this.instance.schema),

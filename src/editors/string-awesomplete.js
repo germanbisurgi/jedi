@@ -1,12 +1,18 @@
 import EditorString from './string.js'
-import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaTitle, getSchemaXOption } from '../helpers/schema.js'
+import { isSet, pathToAttribute } from '../helpers/utils.js'
+import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents a EditorStringAwesomplete instance.
- * @extends Editor
+ * @extends EditorString
  */
 class EditorStringAwesomplete extends EditorString {
+  static resolves (schema) {
+    const schemaType = getSchemaType(schema)
+    const awesomplete = getSchemaXOption(schema, 'awesomplete')
+    return schemaType === 'string' && isSet(awesomplete)
+  }
+
   build () {
     this.control = this.theme.getInputControl({
       type: 'text',
@@ -25,15 +31,8 @@ class EditorStringAwesomplete extends EditorString {
     }
   }
 
-  addEventListeners () {
-  }
-
   refreshUI () {
     this.refreshInteractiveElements()
-
-    // this.control.radios.forEach((radio) => {
-    //   radio.checked = (radio.value === this.instance.getValue())
-    // })
   }
 }
 

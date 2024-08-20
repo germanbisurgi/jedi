@@ -1,12 +1,20 @@
-import EditorBooleanCheckbox from './boolean.js'
-import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaTitle, getSchemaXOption } from '../helpers/schema.js'
+import EditorBoolean from './boolean.js'
+import { notSet, pathToAttribute } from '../helpers/utils.js'
+import { getSchemaDescription, getSchemaFormat, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorBooleanEnumSelect instance.
  * @extends EditorBooleanCheckbox
  */
-class EditorBooleanEnumSelect extends EditorBooleanCheckbox {
+class EditorBooleanEnumSelect extends EditorBoolean {
+  static resolves (schema) {
+    const schemaType = getSchemaType(schema)
+    const schemaFormat = getSchemaFormat(schema)
+    const isBooleanWithFormatSelect = schemaType === 'boolean' && schemaFormat === 'select'
+    const isBooleanWithoutFormat = schemaType === 'boolean' && notSet(schemaFormat)
+    return isBooleanWithFormatSelect || isBooleanWithoutFormat
+  }
+
   build () {
     this.control = this.theme.getSelectControl({
       values: ['false', 'true'],

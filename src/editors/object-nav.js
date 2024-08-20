@@ -1,12 +1,18 @@
 import EditorObject from './object.js'
 import { isSet, pathToAttribute } from '../helpers/utils.js'
-import { getSchemaTitle, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents a EditorObjectNav instance.
  * @extends EditorObject
  */
 class EditorObjectNav extends EditorObject {
+  static resolves (schema) {
+    const schemaType = getSchemaType(schema)
+    const nav = getSchemaXOption(schema, 'nav')
+    return schemaType === 'object' && isSet(nav)
+  }
+
   init () {
     super.init()
     this.activeTabIndex = 0

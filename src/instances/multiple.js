@@ -1,5 +1,4 @@
 import Instance from './instance.js'
-import EditorMultiple from '../editors/multiple.js'
 import {
   isSet,
   isArray,
@@ -12,7 +11,8 @@ import {
   getSchemaAnyOf,
   getSchemaOneOf,
   getSchemaTitle,
-  getSchemaType, getSchemaXOption
+  getSchemaType,
+  getSchemaXOption
 } from '../helpers/schema.js'
 
 /**
@@ -20,10 +20,6 @@ import {
  * @extends Instance
  */
 class InstanceMultiple extends Instance {
-  setUI () {
-    this.ui = new EditorMultiple(this)
-  }
-
   prepare () {
     this.instances = []
     this.activeInstance = null

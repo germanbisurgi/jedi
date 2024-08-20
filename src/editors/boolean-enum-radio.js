@@ -1,12 +1,18 @@
-import EditorBooleanCheckbox from './boolean.js'
+import EditorBoolean from './boolean.js'
 import { pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaTitle, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaFormat, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorBooleanEnumRadio instance.
  * @extends EditorBooleanCheckbox
  */
-class EditorBooleanEnumRadio extends EditorBooleanCheckbox {
+class EditorBooleanEnumRadio extends EditorBoolean {
+  static resolves (schema) {
+    const schemaType = getSchemaType(schema)
+    const schemaFormat = getSchemaFormat(schema)
+    return schemaType === 'boolean' && schemaFormat === 'radio'
+  }
+
   build () {
     this.control = this.theme.getRadiosControl({
       values: ['false', 'true'],

@@ -1,27 +1,29 @@
 import EditorNumber from './number.js'
-import { isNumber, isSet, pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { isNumber, pathToAttribute } from '../helpers/utils.js'
+import {
+  getSchemaDescription,
+  getSchemaFormat,
+  getSchemaXOption,
+  getSchemaTitle, getSchemaType
+} from '../helpers/schema.js'
 
 /**
- * Represents an EditorNumberEnumSelect instance.
+ * Represents a EditorNumber instance.
  * @extends EditorNumber
  */
-class EditorNumberEnumSelect extends EditorNumber {
+class EditorNumberInput extends EditorNumber {
   static resolves (schema) {
     const schemaType = getSchemaType(schema)
-    const schemaEnum = getSchemaEnum(schema)
-    const typeIsNumeric = schemaType === 'number' || schemaType === 'integer'
-    return typeIsNumeric && isSet(schemaEnum)
+    return schemaType === 'number' || schemaType === 'integer'
   }
 
   build () {
-    this.control = this.theme.getSelectControl({
-      values: getSchemaEnum(this.instance.schema),
-      titles: getSchemaXOption(this.instance.schema, 'enumTitles') || getSchemaEnum(this.instance.schema),
+    this.control = this.theme.getInputControl({
+      type: 'number',
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
-      titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
+      titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden') || getSchemaFormat(this.instance.schema) === 'hidden',
       description: getSchemaDescription(this.instance.schema)
     })
   }
@@ -43,4 +45,4 @@ class EditorNumberEnumSelect extends EditorNumber {
   }
 }
 
-export default EditorNumberEnumSelect
+export default EditorNumberInput

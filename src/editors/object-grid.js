@@ -1,18 +1,23 @@
 import EditorObject from './object.js'
-import { getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { isSet } from '../helpers/utils.js'
 
 /**
  * Represents a EditorObjectGrid instance.
  * @extends EditorObject
  */
 class EditorObjectGrid extends EditorObject {
+  static resolves (schema) {
+    const schemaType = getSchemaType(schema)
+    const grid = getSchemaXOption(schema, 'grid')
+    return schemaType === 'object' && isSet(grid)
+  }
+
   refreshEditors () {
     while (this.control.childrenSlot.firstChild) {
       this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild)
     }
 
-    const grid = getSchemaXOption(this.instance.schema, 'grid')
-    console.log(grid)
     let row = this.theme.getRow()
     this.control.childrenSlot.appendChild(row)
 

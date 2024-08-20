@@ -9,7 +9,7 @@ import {
 import {
   getSchemaAdditionalProperties,
   getSchemaDescription,
-  getSchemaTitle,
+  getSchemaTitle, getSchemaType,
   getSchemaXOption
 } from '../helpers/schema.js'
 
@@ -18,6 +18,11 @@ import {
  * @extends Editor
  */
 class EditorObject extends Editor {
+  static resolves (schema) {
+    const schemaType = getSchemaType(schema)
+    return schemaType === 'object'
+  }
+
   build () {
     this.propertyActivators = {}
     const schemaOptions = this.instance.schema.options || {}

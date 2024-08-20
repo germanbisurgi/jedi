@@ -12,7 +12,7 @@ import {
   getSchemaIf,
   getSchemaThen
 } from '../helpers/schema.js'
-import Validator from '../validator.js'
+import Jedi from '../jedi.js'
 
 /**
  * Represents a InstanceMultiple instance.
@@ -158,7 +158,7 @@ class InstanceIfThenElse extends Instance {
     let fittestIndex = this.index
 
     this.ifThenElseShemas.forEach((schema, index) => {
-      const ifValidator = new Validator({
+      const ifValidator = new Jedi({
         schema: schema.if,
         data: value
       })

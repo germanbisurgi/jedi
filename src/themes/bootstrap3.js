@@ -52,7 +52,11 @@ class ThemeBootstrap3 extends Theme {
 
   getLabel (config) {
     const labelObj = super.getLabel(config)
-    labelObj.icon.setAttribute('style', 'margin-right: 5px;')
+
+    if (labelObj.classList) {
+      labelObj.icon.setAttribute('style', 'margin-right: 5px;')
+    }
+
     return labelObj
   }
 

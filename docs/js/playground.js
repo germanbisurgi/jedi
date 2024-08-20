@@ -59,6 +59,7 @@ window.addEventListener('DOMContentLoaded', () => {
           'validator/uniqueItems': '../json/validator/uniqueItems.json',
           'validator/messages': '../json/validator/messages.json',
           'plugins/awesomplete': '../json/plugins/awesomplete.json',
+          'custom/custom': '../json/custom/custom.json',
           'meta-schema': '../json/meta-schema.json',
           'europass-xml-3.3.0': '../json/europass.json',
           'test': '../json/test.json',
@@ -103,6 +104,8 @@ window.addEventListener('DOMContentLoaded', () => {
       this.showErrors = this.getQueryParam('showErrors') || 'change'
       this.validateFormat = this.getQueryParam('validateFormat') ? this.parseBooleanString(this.getQueryParam('validateFormat')) : false
       this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
+      this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
+      this.enableCollapseToggle = this.getQueryParam('enableCollapseToggle') ? this.parseBooleanString(this.getQueryParam('enableCollapseToggle')) : true
     },
     mounted() {
       switch (this.theme) {
@@ -174,6 +177,26 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     },
     methods: {
+      getThemeInstance(name) {
+        let theme
+
+        switch (name) {
+          case 'barebones':
+            theme = new Jedi.Theme()
+            break
+          case 'bootstrap3':
+            theme = new Jedi.ThemeBootstrap3()
+            break
+          case 'bootstrap4':
+            theme = new Jedi.ThemeBootstrap4()
+            break
+          case 'bootstrap5':
+            theme = new Jedi.ThemeBootstrap5()
+            break
+        }
+
+        return theme
+      },
       async initEditor() {
         if (this.editor) {
           this.editor.destroy()
@@ -192,12 +215,14 @@ window.addEventListener('DOMContentLoaded', () => {
           validateFormat: this.validateFormat,
           mergeAllOf: this.mergeAllOf,
           schema: this.schema,
-          theme: this.theme,
-          refParser
+          theme: this.getThemeInstance(this.theme),
+          refParser,
+          customEditors: [
+            EditorStringCustom
+          ]
         }
 
-        // this.editor = new Jedi.Jedi(options)
-        this.editor = new Jedi.Editor(options)
+        this.editor = new Jedi.Create(options)
         window.editor = this.editor
         this.editorChangeHandler()
         this.editor.on('change', this.editorChangeHandler)
@@ -231,6 +256,8 @@ window.addEventListener('DOMContentLoaded', () => {
         newUrl += "&showErrors=" + this.showErrors
         newUrl += "&validateFormat=" + this.validateFormat
         newUrl += "&mergeAllOf=" + this.mergeAllOf
+        newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
+        newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
 
         window.open(newUrl, '_self')
       },
