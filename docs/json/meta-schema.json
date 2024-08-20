@@ -257,6 +257,78 @@
         "writeOnly": {
           "title": "writeOnly",
           "type": "boolean"
+        },
+        "x-options": {
+          "title": "x-options",
+          "type": "object",
+          "properties": {
+            "format": {
+              "title": "format",
+              "type": "string"
+            },
+            "labelIconClass": {
+              "title": "labelIconClass",
+              "type": "string"
+            },
+            "itemTemplate": {
+              "title": "itemTemplate",
+              "type": "string"
+            },
+            "switcherTitle": {
+              "title": "switcherTitle",
+              "type": "string"
+            },
+            "nav": {
+              "title": "nav",
+              "type": "object"
+            },
+            "grid": {
+              "title": "grid",
+              "type": "object"
+            },
+            "enumTitles": {
+              "title": "enumTitles",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "messages": {
+              "title": "messages",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "titleHidden": {
+              "title": "titleHidden",
+              "type": "boolean"
+            },
+            "enableCollapseToggle": {
+              "title": "enableCollapseToggle",
+              "type": "boolean"
+            },
+            "startCollapsed": {
+              "title": "startCollapsed",
+              "type": "boolean"
+            },
+            "showErrors": {
+              "title": "showErrors",
+              "type": "boolean"
+            },
+            "deactivateNonRequired": {
+              "title": "deactivateNonRequired",
+              "type": "boolean"
+            },
+            "mergeAllOf": {
+              "title": "mergeAllOf",
+              "type": "boolean"
+            },
+            "validateFormat": {
+              "title": "validateFormat",
+              "type": "boolean"
+            }
+          }
         }
       }
     }

@@ -3,8 +3,8 @@
 - void instance/editor?
 - awesomplete test
 - correct ui.theme references
-- x-option format
 - input range
+- input file
 - publish on NPM
 - getButton exports object { button, text, icon }
 - compact descriptions
@@ -19,7 +19,6 @@
 - integrate unevaluatedProperties "see through"
 - better NOT error messages
 - options can be global or scoped in schemas
-- resolvers system
 - property already exist message box or disable add button
 - minimize dependencies and overhead (webpack, sass, less, and stuff)
 - fix/check items constrain

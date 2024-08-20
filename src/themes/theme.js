@@ -435,6 +435,40 @@ class Theme {
     return description
   }
 
+  getPlaceholderControl (config) {
+    const container = document.createElement('div')
+    const placeholder = document.createElement('div')
+    const actions = this.getActionsSlot()
+    const arrayActions = this.getArrayActionsSlot()
+
+    const { label, labelText } = this.getLabel({
+      for: config.id,
+      text: config.label,
+      visuallyHidden: config.titleHidden,
+      labelIconClass: config.labelIconClass
+    })
+
+    const descriptionId = config.id + '-description'
+    const description = this.getDescription({
+      textContent: config.description,
+      id: descriptionId
+    })
+
+    const messagesId = config.id + '-messages'
+    const messages = this.getMessagesSlot({
+      id: messagesId
+    })
+
+    container.appendChild(label)
+    container.appendChild(placeholder)
+    container.appendChild(description)
+    container.appendChild(messages)
+    container.appendChild(actions)
+    actions.appendChild(arrayActions)
+
+    return { container, placeholder, label, labelText, description, messages, actions, arrayActions }
+  }
+
   /**
    * Object control is a card containing multiple editors.
    * Each editor is mapped to an object instance property.

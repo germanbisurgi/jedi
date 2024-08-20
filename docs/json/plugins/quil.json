@@ -1,0 +1,11 @@
+{
+  "title": "Quil",
+  "type": "string",
+  "description": "Quill is a modern WYSIWYG editor built for compatibility and extensibility.",
+  "x-options": {
+    "quill": {
+      "theme": "snow",
+      "placeholder": "Obi-One: Hello there... Grievous: General Kenobi"
+    }
+  }
+}

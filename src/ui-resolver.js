@@ -16,6 +16,7 @@ import EditorArrayNav from './editors/array-nav.js'
 import EditorArray from './editors/array.js'
 import EditorMultiple from './editors/multiple.js'
 import EditorNull from './editors/null.js'
+import EditorStringQuill from './editors/string-quill.js'
 
 class UiResolver {
   constructor (options) {
@@ -29,6 +30,7 @@ class UiResolver {
       EditorStringEnumSelect,
       EditorStringTextarea,
       EditorStringAwesomplete,
+      EditorStringQuill,
       EditorStringInput,
       EditorNumberEnumRadio,
       EditorNumberEnumSelect,

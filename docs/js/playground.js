@@ -59,6 +59,7 @@ window.addEventListener('DOMContentLoaded', () => {
           'validator/uniqueItems': '../json/validator/uniqueItems.json',
           'validator/messages': '../json/validator/messages.json',
           'plugins/awesomplete': '../json/plugins/awesomplete.json',
+          'plugins/quil': '../json/plugins/quil.json',
           'custom/custom': '../json/custom/custom.json',
           'meta-schema': '../json/meta-schema.json',
           'europass-xml-3.3.0': '../json/europass.json',
