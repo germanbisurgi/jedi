@@ -1,5 +1,7 @@
 ## Todo
 
+- fix element class jedi-error-message
+- editor test template (create, setValue, getValue, disable, enable, destroy, showErrors, default, title, description ...)
 - void instance/editor?
 - awesomplete test
 - correct ui.theme references

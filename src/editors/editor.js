@@ -52,20 +52,17 @@ class Editor {
     const alwaysShowErrors = this.instance.jedi.options.showErrors === 'always' || getSchemaXOption(this.instance.schema, 'showErrors') === 'always'
 
     if (alwaysShowErrors) {
-      const errors = this.instance.getErrors()
-      this.showValidationErrors(errors)
+      this.showValidationErrors(this.instance.getErrors())
     }
 
     this.instance.on('set-value', () => {
       this.refreshUI()
-      const errors = this.instance.getErrors()
-      this.showValidationErrors(errors)
+      this.showValidationErrors(this.instance.getErrors())
     })
 
     this.instance.on('change', () => {
       this.refreshUI()
-      const errors = this.instance.getErrors()
-      this.showValidationErrors(errors)
+      this.showValidationErrors(this.instance.getErrors())
     })
   }
 

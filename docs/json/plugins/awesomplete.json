@@ -2,6 +2,8 @@
   "title": "Awesomplete",
   "type": "string",
   "description": "Awesomplete is an ultra lightweight, customizable, simple autocomplete widget with zero dependencies, built with modern standards for modern browsers.",
+  "default": "Awesomplete default",
+  "minLength": 1,
   "x-options": {
     "awesomplete": {
       "list": ["JavaScript", "Java", "Python", "Ruby", "C++", "C#", "PHP", "Swift", "Go", "Kotlin"],

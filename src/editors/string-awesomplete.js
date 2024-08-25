@@ -22,15 +22,27 @@ class EditorStringAwesomplete extends EditorString {
     })
 
     try {
-      new window.Awesomplete(this.control.input, getSchemaXOption(this.instance.schema, 'awesomplete'))
+      this.awesomplete = new window.Awesomplete(this.control.input, getSchemaXOption(this.instance.schema, 'awesomplete'))
       this.control.container.querySelector('.awesomplete').style.display = 'block'
     } catch (e) {
       console.error('Awesomplete is not available or not loaded correctly.', e)
     }
   }
 
+  addEventListeners () {
+    this.control.input.addEventListener('awesomplete-selectcomplete', () => {
+      this.instance.setValue(this.control.input.value)
+    })
+  }
+
   refreshUI () {
     this.refreshInteractiveElements()
+    this.control.input.value = this.instance.getValue()
+  }
+
+  destroy () {
+    this.awesomplete.destroy()
+    super.destroy()
   }
 }
 

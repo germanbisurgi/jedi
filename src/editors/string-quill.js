@@ -28,15 +28,25 @@ class EditorStringQuill extends EditorString {
   }
 
   addEventListeners () {
-    this.quill.on('text-change', (delta, oldDelta, source) => {
-      if (source === 'user') {
-        this.instance.setValue(this.quill.getText())
+    this.quill.root.addEventListener('blur', () => {
+      const quillText = this.quill.getText()
+
+      if (quillText !== this.instance.getValue()) {
+        this.instance.setValue(quillText)
       }
     })
   }
 
+  refreshInteractiveElements () {
+    if (this.disabled || this.readOnly) {
+      this.quill.disable()
+    } else {
+      this.quill.enable()
+    }
+  }
+
   refreshUI () {
-    this.refreshInteractiveElements()
+    super.refreshUI()
     this.quill.setText(this.instance.getValue())
   }
 }

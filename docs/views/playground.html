@@ -25,6 +25,12 @@
         <form action="" method="POST">
           <div ref="jediContainer" id="jedi-container"></div>
         </form>
+
+        <hr>
+
+        <button class="btn btn-primary btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
+        <button class="btn btn-primary btn-block" id="enable-editor" @click="enableEditor()">Enable editor</button>
+        <button class="btn btn-primary btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
       </main>
     </div>
 
@@ -105,10 +111,6 @@
           </label>
           <textarea ref="editorErrors" class="form-control" id="editor-errors" style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
         </div>
-
-        <button class="btn btn-primary btn-block" id="disable-editor" @click="disableEditor()">Disable editor</button>
-        <button class="btn btn-primary btn-block" id="enable-editor" @click="enableEditor()">Enable editor</button>
-        <button class="btn btn-primary btn-block" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
       </aside>
     </div>
   </div>

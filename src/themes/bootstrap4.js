@@ -56,7 +56,7 @@ class ThemeBootstrap4 extends Theme {
   getLabel (config) {
     const labelObj = super.getLabel(config)
 
-    if (labelObj.classList) {
+    if (labelObj.icon.classList) {
       labelObj.icon.classList.add('mr-1')
     }
 

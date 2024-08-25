@@ -67,7 +67,7 @@ class Theme {
       this.visuallyHidden(label)
     }
 
-    label.classList.add('jedi-editor-label')
+    label.classList.add('jedi-title')
     label.appendChild(icon)
     label.appendChild(labelText)
 

@@ -24,7 +24,7 @@ Integration with other popular libraries coming soon.
 
 ### As a Validator
 
-````javascript
+```javascript
 const validator = new Jedi.Create({
   schema: {
     "type": "string"
@@ -35,11 +35,15 @@ validator.setValue(42)
 validator.getValue()
 validator.getErrors()
 validator.destroy()
-````
+```
 
 ### As an Editor
 
-````javascript
+```html
+<div id="jedi-container"></div>
+```
+
+```javascript
 const editor = new Jedi.Create({
   container: document.querySelector('#jedi-container'),
   schema: {
@@ -53,7 +57,7 @@ editor.getErrors()
 editor.enable()
 editor.disable()
 editor.destroy()
-````
+```
 
 ## Development
 
