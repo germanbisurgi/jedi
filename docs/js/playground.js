@@ -60,6 +60,8 @@ window.addEventListener('DOMContentLoaded', () => {
           'validator/messages': '../json/validator/messages.json',
           'plugins/awesomplete': '../json/plugins/awesomplete.json',
           'plugins/quill': '../json/plugins/quill.json',
+          'plugins/jodit': '../json/plugins/jodit.json',
+          'plugins/flatpickr': '../json/plugins/flatpickr.json',
           'custom/custom': '../json/custom/custom.json',
           'meta-schema': '../json/meta-schema.json',
           'europass-xml-3.3.0': '../json/europass.json',

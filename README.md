@@ -2,25 +2,30 @@
 
 # Jedi - JSON Editing and Data Integrity
 
-Jedi is a versatile JavaScript library that simplifies JSON data handling in web applications.
-Validate JSON data effortlessly with custom schemas or generate dynamic forms for seamless JSON editing. 
+Jedi is a lightweight, dependency-free JavaScript library that makes JSON handling simple.
+Use it in the browser to generate forms for editing and validating JSON with JSON schemas,
+or in Node.js as a powerful JSON schema validator.
 
 [Check Out the Playground](https://germanbisurgi.github.io/jedi/views/playground.html?theme=bootstrap5)
 
 ## Key Features
 
-- JSON Validation: Ensure JSON data integrity using JSON schemas.
-
-- JSON Editing: Generate accessible user-friendly forms for quick JSON editing.
-
+- JSON Validation: Easily validate your JSON data using JSON schemas.
+- JSON Editing: Generate user-friendly forms for smooth JSON editing in the browser.
 - Lightweight $ref parser: Dereferences JSON Schema $ref pointers.
-
-- CSS libraries Integration: Seamlessly integrates with Bootstrap 3, 4, and 5.
-Integration with other popular libraries coming soon.
-
+- CSS libraries Integration:
+    - Bootstrap 3, 4, 5
+- Icon libraries Integration:
+    - Glyphicons
+    - Bootstrap icons
+    - FontAwesome 3, 4, 5, 6
+- Plugin Editors:
+    - Quill (Rich Text Editor)
+    - Flatpickr (Date Picker)
+    - Awesomplete (Autocomplete)
+    - Jodit (Rich Text Editor)
 
 ## Getting Started
-
 
 ### As a Validator
 
@@ -40,6 +45,7 @@ validator.destroy()
 ### As an Editor
 
 ```html
+
 <div id="jedi-container"></div>
 ```
 
@@ -62,6 +68,7 @@ editor.destroy()
 ## Development
 
 Install dependencies:
+
 ```bash
 yarn install
 ```
@@ -121,6 +128,7 @@ yarn lint
 ```
 
 Runs ESLint with the --fix option to automatically fix linting errors.
+
 ```bash
 yarn lint:fix
 ```
@@ -130,5 +138,6 @@ yarn lint:fix
 Jedi is released under the MIT License, making it free for commercial and non-commercial use.
 
 ## Resources
+
 * [Understanding JSON Schema](https://json-schema.org/understanding-json-schema)
 * [JSON-Schema-Test-Suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite)

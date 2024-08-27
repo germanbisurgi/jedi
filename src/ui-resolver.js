@@ -17,6 +17,8 @@ import EditorArray from './editors/array.js'
 import EditorMultiple from './editors/multiple.js'
 import EditorNull from './editors/null.js'
 import EditorStringQuill from './editors/string-quill.js'
+import EditorStringJodit from './editors/string-jodit.js'
+import EditorStringFlatpickr from './editors/string-flatpickr.js'
 
 class UiResolver {
   constructor (options) {
@@ -31,6 +33,8 @@ class UiResolver {
       EditorStringTextarea,
       EditorStringAwesomplete,
       EditorStringQuill,
+      EditorStringJodit,
+      EditorStringFlatpickr,
       EditorStringInput,
       EditorNumberEnumRadio,
       EditorNumberEnumSelect,

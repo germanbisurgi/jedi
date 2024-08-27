@@ -8,7 +8,7 @@ function Xe() {
     return i.includes(t) ? "[Circular]" : (i.push(t), t);
   };
 }
-function R(i) {
+function V(i) {
   if (!(typeof i > "u"))
     return JSON.parse(JSON.stringify(i, Xe()));
 }
@@ -48,33 +48,33 @@ function k(i) {
 function q(i) {
   return k(i) && i === Math.floor(i);
 }
-function V(i) {
+function R(i) {
   return typeof i == "string";
 }
-function j(i) {
+function T(i) {
   return typeof i == "boolean";
 }
-function w(i) {
+function A(i) {
   return Array.isArray(i);
 }
 function f(i) {
-  return !Le(i) && !w(i) && typeof i == "object";
+  return !Le(i) && !A(i) && typeof i == "object";
 }
 function et(i) {
   let e = "any";
-  return k(i) ? e = q(i) ? "integer" : "number" : V(i) ? e = "string" : j(i) ? e = "boolean" : w(i) ? e = "array" : Le(i) ? e = "null" : f(i) && (e = "object"), e;
+  return k(i) ? e = q(i) ? "integer" : "number" : R(i) ? e = "string" : T(i) ? e = "boolean" : A(i) ? e = "array" : Le(i) ? e = "null" : f(i) && (e = "object"), e;
 }
-function D(i, ...e) {
+function U(i, ...e) {
   if (!e.length)
     return i;
   const t = e.shift();
   return f(i) && f(t) && Object.keys(t).forEach((s) => {
     f(t[s]) ? (i[s] || Object.assign(i, {
       [s]: {}
-    }), D(i[s], t[s])) : Object.assign(i, {
+    }), U(i[s], t[s])) : Object.assign(i, {
       [s]: t[s]
     });
-  }), D(i, ...e);
+  }), U(i, ...e);
 }
 function tt(i, e) {
   return Object.keys(e).forEach(function(t) {
@@ -107,7 +107,7 @@ function C(i, e) {
 function it(i, e, t) {
   return Math.max(e, Math.min(i, t));
 }
-function Fe(i) {
+function Ue(i) {
   const e = [], t = /* @__PURE__ */ new Set();
   for (const s of i) {
     const r = JSON.stringify(s);
@@ -115,9 +115,9 @@ function Fe(i) {
   }
   return e;
 }
-const Ft = {
+const Ut = {
   getCircularReplacer: Xe,
-  clone: R,
+  clone: V,
   escapeRegExp: Ye,
   replaceAll: Ne,
   pathToAttribute: P,
@@ -130,60 +130,60 @@ const Ft = {
   notSet: H,
   isNumber: k,
   isInteger: q,
-  isString: V,
-  isBoolean: j,
-  isArray: w,
+  isString: R,
+  isBoolean: T,
+  isArray: A,
   isObject: f,
   getType: et,
-  mergeDeep: D,
+  mergeDeep: U,
   overwriteExistingProperties: tt,
   getValueByJSONPath: st,
   compileTemplate: C,
   clamp: it,
-  removeDuplicatesFromArray: Fe
+  removeDuplicatesFromArray: Ue
 };
-function Ut(i, e) {
+function Ft(i, e) {
   const t = "x-" + e;
   return i[t];
 }
 function Kt(i) {
-  return V(i.$schema) ? i.$schema : void 0;
+  return R(i.$schema) ? i.$schema : void 0;
 }
 function Ee(i) {
-  return f(i.additionalProperties) || j(i.additionalProperties) ? i.additionalProperties : void 0;
+  return f(i.additionalProperties) || T(i.additionalProperties) ? i.additionalProperties : void 0;
 }
 function nt(i) {
-  return f(i.propertyNames) || j(i.propertyNames) ? i.propertyNames : void 0;
+  return f(i.propertyNames) || T(i.propertyNames) ? i.propertyNames : void 0;
 }
 function xe(i) {
-  return w(i.allOf) ? i.allOf : void 0;
+  return A(i.allOf) ? i.allOf : void 0;
 }
-function N(i) {
-  return w(i.anyOf) ? i.anyOf : void 0;
+function D(i) {
+  return A(i.anyOf) ? i.anyOf : void 0;
 }
 function rt(i) {
   return i.const;
 }
 function at(i) {
-  return f(i.contains) || j(i.contains) ? i.contains : void 0;
+  return f(i.contains) || T(i.contains) ? i.contains : void 0;
 }
 function ot(i) {
   return i.default;
 }
-function Ue(i) {
+function Fe(i) {
   return f(i.dependentRequired) ? i.dependentRequired : void 0;
 }
 function lt(i) {
   return f(i.dependentSchemas) ? i.dependentSchemas : void 0;
 }
-function O(i) {
-  return V(i.description) ? i.description : void 0;
+function S(i) {
+  return R(i.description) ? i.description : void 0;
 }
 function Ie(i) {
-  return f(i.else) || j(i.else) ? i.else : void 0;
+  return f(i.else) || T(i.else) ? i.else : void 0;
 }
 function M(i) {
-  if (w(i.enum) && i.enum.length > 0)
+  if (A(i.enum) && i.enum.length > 0)
     return i.enum;
 }
 function ct(i) {
@@ -193,14 +193,14 @@ function dt(i) {
   return k(i.exclusiveMinimum) ? i.exclusiveMinimum : void 0;
 }
 function ht(i) {
-  return V(i.format) ? i.format : void 0;
+  return R(i.format) ? i.format : void 0;
 }
 function we(i) {
-  if (f(i.if) || j(i.if))
+  if (f(i.if) || T(i.if))
     return i.if;
 }
 function Ke(i) {
-  return f(i.items) || j(i.items) ? i.items : void 0;
+  return f(i.items) || T(i.items) ? i.items : void 0;
 }
 function ut(i) {
   return k(i.maximum) ? i.maximum : void 0;
@@ -209,7 +209,7 @@ function pt(i) {
   if (q(i.maxContains) && i.maxContains >= 0)
     return i.maxContains;
 }
-function $e(i) {
+function Je(i) {
   if (q(i.maxItems) && i.maxItems >= 0)
     return i.maxItems;
 }
@@ -228,7 +228,7 @@ function bt(i) {
   if (q(i.minContains) && i.minContains >= 0)
     return i.minContains;
 }
-function ze(i) {
+function $e(i) {
   if (q(i.minItems) && i.minItems >= 0)
     return i.minItems;
 }
@@ -245,61 +245,61 @@ function yt(i) {
     return i.multipleOf;
 }
 function Lt(i) {
-  return f(i.not) || j(i.not) ? i.not : void 0;
+  return f(i.not) || T(i.not) ? i.not : void 0;
 }
 function p(i, e) {
   return i["x-options"] && i["x-options"][e] ? i["x-options"][e] : void 0;
 }
 function Et(i) {
-  return V(i.pattern) ? i.pattern : void 0;
+  return R(i.pattern) ? i.pattern : void 0;
 }
-function J(i) {
+function z(i) {
   return f(i.patternProperties) ? i.patternProperties : void 0;
 }
 function Ae(i) {
-  return w(i.prefixItems) ? i.prefixItems : void 0;
+  return A(i.prefixItems) ? i.prefixItems : void 0;
 }
-function z(i) {
+function $(i) {
   return f(i.properties) ? i.properties : void 0;
 }
 function De(i) {
-  return j(i.readOnly) ? i.readOnly : void 0;
+  return T(i.readOnly) ? i.readOnly : void 0;
 }
-function Je(i) {
-  return w(i.required) ? [...new Set(i.required)] : void 0;
+function ze(i) {
+  return A(i.required) ? [...new Set(i.required)] : void 0;
 }
 function Pe(i) {
-  return f(i.then) || j(i.then) ? i.then : void 0;
+  return f(i.then) || T(i.then) ? i.then : void 0;
 }
-function A(i) {
-  return V(i.title) ? i.title : void 0;
+function w(i) {
+  return R(i.title) ? i.title : void 0;
 }
-function E(i) {
-  if (V(i.type) || w(i.type))
+function y(i) {
+  if (R(i.type) || A(i.type))
     return i.type;
 }
-function U(i) {
-  return w(i.oneOf) ? i.oneOf : void 0;
+function K(i) {
+  return A(i.oneOf) ? i.oneOf : void 0;
 }
 function xt(i) {
-  return j(i.unevaluatedProperties) ? i.unevaluatedProperties : void 0;
+  return T(i.unevaluatedProperties) ? i.unevaluatedProperties : void 0;
 }
 function It(i) {
-  return j(i.uniqueItems) ? i.uniqueItems : void 0;
+  return T(i.uniqueItems) ? i.uniqueItems : void 0;
 }
-const $t = {
-  getSchemaX: Ut,
+const Jt = {
+  getSchemaX: Ft,
   getSchemaSchema: Kt,
   getSchemaAdditionalProperties: Ee,
   getSchemaPropertyNames: nt,
   getSchemaAllOf: xe,
-  getSchemaAnyOf: N,
+  getSchemaAnyOf: D,
   getSchemaConst: rt,
   getSchemaContains: at,
   getSchemaDefault: ot,
-  getSchemaDependentRequired: Ue,
+  getSchemaDependentRequired: Fe,
   getSchemaDependentSchemas: lt,
-  getSchemaDescription: O,
+  getSchemaDescription: S,
   getSchemaElse: Ie,
   getSchemaEnum: M,
   getSchemaExclusiveMaximum: ct,
@@ -309,27 +309,27 @@ const $t = {
   getSchemaItems: Ke,
   getSchemaMaximum: ut,
   getSchemaMaxContains: pt,
-  getSchemaMaxItems: $e,
+  getSchemaMaxItems: Je,
   getSchemaMaxLength: mt,
   getSchemaMaxProperties: ft,
   getSchemaMinimum: gt,
   getSchemaMinContains: bt,
-  getSchemaMinItems: ze,
+  getSchemaMinItems: $e,
   getSchemaMinLength: vt,
   getSchemaMinProperties: Ct,
   getSchemaMultipleOf: yt,
   getSchemaNot: Lt,
   getSchemaXOption: p,
   getSchemaPattern: Et,
-  getSchemaPatternProperties: J,
+  getSchemaPatternProperties: z,
   getSchemaPrefixItems: Ae,
-  getSchemaProperties: z,
+  getSchemaProperties: $,
   getSchemaReadOnly: De,
-  getSchemaRequired: Je,
+  getSchemaRequired: ze,
   getSchemaThen: Pe,
-  getSchemaTitle: A,
-  getSchemaType: E,
-  getSchemaOneOf: U,
+  getSchemaTitle: w,
+  getSchemaType: y,
+  getSchemaOneOf: K,
   getSchemaUnevaluatedProperties: xt,
   getSchemaUniqueItems: It
 };
@@ -337,8 +337,8 @@ function G(i, e, t, s) {
   let r = [];
   const n = xe(t);
   return d(n) && n.forEach((a) => {
-    const o = new T({ refParser: i.refParser, schema: a, data: e, rootName: s }), l = o.getErrors();
-    o.destroy(), r = [...r, ...l], r = Fe(r);
+    const o = new j({ refParser: i.refParser, schema: a, data: e, rootName: s }), l = o.getErrors();
+    o.destroy(), r = [...r, ...l], r = Ue(r);
   }), r;
 }
 const b = {
@@ -375,7 +375,7 @@ const b = {
 };
 function Z(i, e, t, s, r) {
   const n = [], a = vt(t);
-  return V(e) && d(a) && (e = e.replace(/[\uDCA9]/g, ""), e.length < a && n.push({
+  return R(e) && d(a) && (e = e.replace(/[\uDCA9]/g, ""), e.length < a && n.push({
     messages: [
       C(b.errorMinLength, {
         minLength: a
@@ -386,11 +386,11 @@ function Z(i, e, t, s, r) {
   })), n;
 }
 function Q(i, e, t, s, r) {
-  const n = [], a = N(t);
+  const n = [], a = D(t);
   if (d(a)) {
     let o = !1;
     a.forEach((l) => {
-      const c = new T({ refParser: i.refParser, schema: l, data: e }), h = c.getErrors();
+      const c = new j({ refParser: i.refParser, schema: l, data: e }), h = c.getErrors();
       c.destroy(), h.length === 0 && (o = !0);
     }), o || n.push({
       messages: [
@@ -441,7 +441,7 @@ function X(i, e, t, s, r) {
 function Y(i, e, t, s, r) {
   const n = [], a = ht(t);
   let o = i.validateFormat;
-  if (p(t, "validateFormat") && (o = t.options.validateFormat), d(a) && V(e) && o) {
+  if (p(t, "validateFormat") && (o = t.options.validateFormat), d(a) && R(e) && o) {
     let l;
     a === "email" && (l = new RegExp(/^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/i)), a === "url" && (l = new RegExp(/^(?:https?|ftp):\/\/(?:[^\s:@]+(?::[^\s:@]*)?@)?(?:(?:[^\s:@]+(?::[^\s:@]*)?@)?(?:[^\s:@](?:[^\s:@-]*[^\s:@])?\.?)+[a-zA-Z]{2,}|(?:\d{1,3}\.){3}\d{1,3})(?::\d{2,5})?(?:\/[^\s]*)?$/i)), a === "uuid" && (l = new RegExp(/^(?:urn:uuid:)?[0-9a-fA-F]{8}-(?:[0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$/i)), d(l) && !l.test(e) && n.push({
       messages: [
@@ -455,7 +455,7 @@ function Y(i, e, t, s, r) {
 }
 function ee(i, e, t, s, r) {
   const n = [], a = Ke(t), o = Ae(t);
-  if (w(e) && d(a)) {
+  if (A(e) && d(a)) {
     const l = d(o) ? o.length : 0;
     a === !1 && e.length > 0 && e.length > l && n.push({
       messages: [b.errorItems],
@@ -466,8 +466,8 @@ function ee(i, e, t, s, r) {
   return n;
 }
 function te(i, e, t, s, r) {
-  const n = [], a = $e(t);
-  return w(e) && d(a) && e.length > a && n.push({
+  const n = [], a = Je(t);
+  return A(e) && d(a) && e.length > a && n.push({
     messages: [
       C(b.errorMaxItems, {
         maxItems: a
@@ -479,7 +479,7 @@ function te(i, e, t, s, r) {
 }
 function se(i, e, t, s, r) {
   const n = [], a = mt(t);
-  return V(e) && d(a) && (e = e.replace(/[\uDCA9]/g, ""), e.length > a && n.push({
+  return R(e) && d(a) && (e = e.replace(/[\uDCA9]/g, ""), e.length > a && n.push({
     messages: [
       C(b.errorMaxLength, {
         maxLength: a
@@ -514,8 +514,8 @@ function ne(i, e, t, s, r) {
   }), n;
 }
 function re(i, e, t, s, r) {
-  const n = [], a = ze(t);
-  return w(e) && d(a) && e.length < a && n.push({
+  const n = [], a = $e(t);
+  return A(e) && d(a) && e.length < a && n.push({
     messages: [
       C(b.errorMinItems, {
         minItems: a
@@ -557,7 +557,7 @@ function oe(i, e, t, s, r) {
 function le(i, e, t, s, r) {
   const n = [], a = Lt(t);
   if (d(a)) {
-    const o = new T({ refParser: i.refParser, schema: a, data: e }), l = o.getErrors();
+    const o = new j({ refParser: i.refParser, schema: a, data: e }), l = o.getErrors();
     o.destroy(), l.length === 0 && n.push({
       messages: [
         C(b.errorNot)
@@ -569,11 +569,11 @@ function le(i, e, t, s, r) {
   return n;
 }
 function ce(i, e, t, s, r) {
-  const n = [], a = U(t);
+  const n = [], a = K(t);
   if (d(a)) {
     let o = 0;
     a.forEach((l) => {
-      const c = new T({ refParser: i.refParser, schema: l, data: e }), h = c.getErrors();
+      const c = new j({ refParser: i.refParser, schema: l, data: e }), h = c.getErrors();
       c.destroy(), h.length === 0 && o++;
     }), o !== 1 && n.push({
       messages: [
@@ -589,7 +589,7 @@ function ce(i, e, t, s, r) {
 }
 function de(i, e, t, s, r) {
   const n = [], a = Et(t);
-  return V(e) && d(a) && !new RegExp(a).test(e) && n.push({
+  return R(e) && d(a) && !new RegExp(a).test(e) && n.push({
     messages: [
       C(b.errorPattern, {
         pattern: a
@@ -601,11 +601,11 @@ function de(i, e, t, s, r) {
 }
 function he(i, e, t, s) {
   let r = [];
-  const n = J(t);
+  const n = z(t);
   return f(e) && d(n) && Object.keys(e).forEach((a) => {
     Object.keys(n).forEach((o) => {
       if (new RegExp(o).test(a)) {
-        const c = n[o], h = new T({
+        const c = n[o], h = new j({
           refParser: i.refParser,
           schema: c,
           data: e[a]
@@ -620,7 +620,7 @@ function he(i, e, t, s) {
   }), r;
 }
 function ue(i, e, t, s, r) {
-  const n = [], a = Je(t);
+  const n = [], a = ze(t);
   if (f(e) && d(a)) {
     const o = [], l = Object.keys(e);
     a.forEach((h) => {
@@ -638,21 +638,21 @@ function ue(i, e, t, s, r) {
   return n;
 }
 function pe(i, e, t, s, r) {
-  const n = [], a = E(t);
+  const n = [], a = y(t);
   if (a === "any")
     return n;
   if (d(a)) {
     const o = {
-      string: (c) => V(c),
+      string: (c) => R(c),
       number: (c) => k(c),
       integer: (c) => q(c),
-      boolean: (c) => j(c),
-      array: (c) => w(c),
+      boolean: (c) => T(c),
+      array: (c) => A(c),
       object: (c) => f(c),
       null: (c) => Le(c)
     };
     let l = !0;
-    w(a) ? l = a.some((c) => o[c](e)) : l = o[a](e), l || n.push({
+    A(a) ? l = a.some((c) => o[c](e)) : l = o[a](e), l || n.push({
       messages: [
         C(b.errorType, {
           type: a,
@@ -679,7 +679,7 @@ function me(i, e, t, s, r) {
 }
 function fe(i, e, t, s, r) {
   const n = [], a = It(t);
-  if (w(e) && d(a) && a === !0) {
+  if (A(e) && d(a) && a === !0) {
     const o = [];
     let l = !1;
     for (let h = 0; h < e.length; h++) {
@@ -701,11 +701,11 @@ function fe(i, e, t, s, r) {
   return n;
 }
 function ge(i, e, t, s, r) {
-  const n = [], a = Ee(t), o = J(t), l = z(t);
+  const n = [], a = Ee(t), o = z(t), l = $(t);
   if (f(e) && d(a)) {
     const c = l || {}, h = a, u = o || {};
     Object.keys(e).forEach((m) => {
-      const g = Object.keys(u).some((L) => new RegExp(L).test(m)), x = B(c, m);
+      const g = Object.keys(u).some((E) => new RegExp(E).test(m)), x = B(c, m);
       if (!g && !x) {
         if (h === !1)
           n.push({
@@ -716,23 +716,23 @@ function ge(i, e, t, s, r) {
             constrain: "additionalProperties"
           });
         else if (f(h)) {
-          const L = new T({
+          const E = new j({
             refParser: i.refParser,
             schema: h,
             data: e[m]
-          }), y = L.getErrors().map((v) => ({
+          }), L = E.getErrors().map((v) => ({
             messages: v.messages,
             path: `${r}.${m}`,
             constrain: "additionalProperties"
           }));
-          n.push(...y), L.destroy();
+          n.push(...L), E.destroy();
         }
       }
     });
   }
   return n;
 }
-const zt = {
+const $t = {
   additionalProperties: ge,
   allOf: G,
   anyOf: Q,
@@ -772,10 +772,10 @@ function Se(i, e, t, s, r) {
 }
 function Oe(i, e, t, s, r) {
   const n = [], a = at(t), o = bt(t), l = pt(t);
-  if (w(e) && d(a)) {
+  if (A(e) && d(a)) {
     let c = 0;
     e.forEach((u) => {
-      const m = new T({ refParser: i.refParser, schema: a, data: u });
+      const m = new j({ refParser: i.refParser, schema: a, data: u });
       m.getErrors().length === 0 && c++, m.destroy();
     });
     const h = c === 0;
@@ -805,8 +805,8 @@ function Oe(i, e, t, s, r) {
   }
   return n;
 }
-function Te(i, e, t, s, r) {
-  const n = [], a = Ue(t);
+function je(i, e, t, s, r) {
+  const n = [], a = Fe(t);
   if (f(e) && d(a)) {
     let o = [];
     Object.keys(a).forEach((c) => {
@@ -823,12 +823,12 @@ function Te(i, e, t, s, r) {
   }
   return n;
 }
-function je(i, e, t) {
+function Te(i, e, t) {
   let s = [];
   const r = lt(t);
   return f(e) && d(r) && Object.keys(r).forEach((n) => {
     if (d(e[n])) {
-      const a = r[n], o = new T({ refParser: i.refParser, schema: a, data: e }), l = o.getErrors();
+      const a = r[n], o = new j({ refParser: i.refParser, schema: a, data: e }), l = o.getErrors();
       o.destroy(), s = [...s, ...l];
     }
   }), s;
@@ -838,15 +838,15 @@ function ke(i, e, t) {
   if (d(r)) {
     if (H(n) && H(a))
       return s;
-    const o = new T({ refParser: i.refParser, schema: r, data: e }), l = o.getErrors();
+    const o = new j({ refParser: i.refParser, schema: r, data: e }), l = o.getErrors();
     o.destroy();
     let c = [], h = [];
     if (d(n)) {
-      const u = new T({ refParser: i.refParser, schema: n, data: e });
+      const u = new j({ refParser: i.refParser, schema: n, data: e });
       c = u.getErrors(), u.destroy();
     }
     if (d(a)) {
-      const u = new T({ refParser: i.refParser, schema: a, data: e });
+      const u = new j({ refParser: i.refParser, schema: a, data: e });
       h = u.getErrors(), u.destroy();
     }
     if (r === !0)
@@ -862,10 +862,10 @@ function ke(i, e, t) {
 }
 function Me(i, e, t, s, r) {
   const n = [], a = Ae(t);
-  return w(e) && d(a) && a.forEach((o, l) => {
+  return A(e) && d(a) && a.forEach((o, l) => {
     const c = e[l];
     if (d(c)) {
-      const h = new T({ refParser: i.refParser, schema: o, data: c }), u = h.getErrors();
+      const h = new j({ refParser: i.refParser, schema: o, data: c }), u = h.getErrors();
       h.destroy(), u.length > 0 && n.push({
         messages: [
           C(b.errorPrefixItems, {
@@ -878,14 +878,14 @@ function Me(i, e, t, s, r) {
     }
   }), n;
 }
-const Jt = {
+const zt = {
   additionalProperties: ge,
   allOf: G,
   anyOf: Q,
   const: Se,
   contains: Oe,
-  dependentRequired: Te,
-  dependentSchemas: je,
+  dependentRequired: je,
+  dependentSchemas: Te,
   enum: W,
   exclusiveMaximum: _,
   exclusiveMinimum: X,
@@ -915,8 +915,8 @@ const Jt = {
   anyOf: Q,
   const: Se,
   contains: Oe,
-  dependentRequired: Te,
-  dependentSchemas: je,
+  dependentRequired: je,
+  dependentSchemas: Te,
   enum: W,
   exclusiveMaximum: _,
   exclusiveMinimum: X,
@@ -943,7 +943,7 @@ const Jt = {
 };
 function wt(i, e, t, s, r) {
   let n = [];
-  const a = xt(t), o = J(t), l = z(t), c = xe(t), h = N(t), u = U(t);
+  const a = xt(t), o = z(t), l = $(t), c = xe(t), h = D(t), u = K(t);
   if (f(e) && d(a)) {
     let m = d(l) ? l : {};
     const g = a, x = o;
@@ -951,33 +951,33 @@ function wt(i, e, t, s, r) {
       c,
       h,
       u
-    ].forEach((y) => {
-      d(y) && y.forEach((v) => {
+    ].forEach((L) => {
+      d(L) && L.forEach((v) => {
         d(v.properties) && (m = { ...m, ...v.properties });
       });
-    }), m && Object.keys(e).forEach((y) => {
+    }), m && Object.keys(e).forEach((L) => {
       let v = !1;
       if (d(x) && Object.keys(x).forEach((I) => {
-        v = new RegExp(I).test(y);
-      }), !v && g === !1 && !B(m, y) && n.push({
+        v = new RegExp(I).test(L);
+      }), !v && g === !1 && !B(m, L) && n.push({
         messages: [
           C(b.errorUnevaluatedProperties, {
-            property: y
+            property: L
           })
         ],
         path: r,
         constrain: "unevaluatedProperties"
-      }), !v && f(g) && !B(m, y)) {
-        const I = new T({
+      }), !v && f(g) && !B(m, L)) {
+        const I = new j({
           refParser: i.refParser,
           schema: g,
-          data: e[y]
-        }), S = I.getErrors().map((be) => ({
+          data: e[L]
+        }), O = I.getErrors().map((be) => ({
           messages: be.messages,
-          path: y,
+          path: L,
           constrain: "unevaluatedProperties"
         }));
-        n = [...n, ...S], I.destroy();
+        n = [...n, ...O], I.destroy();
       }
     });
   }
@@ -989,8 +989,8 @@ const Zt = {
   anyOf: Q,
   const: Se,
   contains: Oe,
-  dependentRequired: Te,
-  dependentSchemas: je,
+  dependentRequired: je,
+  dependentSchemas: Te,
   enum: W,
   exclusiveMaximum: _,
   exclusiveMinimum: X,
@@ -1019,7 +1019,7 @@ const Zt = {
 function Qt(i, e, t, s, r) {
   const n = [], a = nt(t);
   return f(e) && d(a) && Object.keys(e).forEach((o) => {
-    new T({
+    new j({
       refParser: i.refParser,
       schema: a,
       data: o
@@ -1038,8 +1038,8 @@ const _e = {
   anyOf: Q,
   const: Se,
   contains: Oe,
-  dependentRequired: Te,
-  dependentSchemas: je,
+  dependentRequired: je,
+  dependentSchemas: Te,
   enum: W,
   exclusiveMaximum: _,
   exclusiveMinimum: X,
@@ -1069,8 +1069,8 @@ const _e = {
 class Wt {
   constructor(e = {}) {
     this.refParser = e.refParser, this.validateFormat = e.validateFormat ? e.validateFormat : !1, this.draft = _e, this.jsonSchemaDrafts = {
-      "http://json-schema.org/draft-04/schema#": zt,
-      "http://json-schema.org/draft-06/schema#": Jt,
+      "http://json-schema.org/draft-04/schema#": $t,
+      "http://json-schema.org/draft-06/schema#": zt,
       "http://json-schema.org/draft-07/schema#": Gt,
       "https://json-schema.org/draft/2019-09/schema": Zt,
       "https://json-schema.org/draft/2020-12/schema": _e
@@ -1081,8 +1081,8 @@ class Wt {
    */
   getErrors(e, t, s, r) {
     let n = [];
-    const a = p(t, "messages"), o = R(t);
-    return j(o) && o === !0 ? n : j(o) && o === !1 ? [{
+    const a = p(t, "messages"), o = V(t);
+    return T(o) && o === !0 ? n : T(o) && o === !1 ? [{
       messages: d(a) ? a : ["invalid"],
       path: r
     }] : (Object.keys(this.draft).forEach((l) => {
@@ -1177,7 +1177,7 @@ class F extends At {
   setInitialValue() {
     if (H(this.value)) {
       let e;
-      const t = E(this.schema);
+      const t = y(this.schema);
       t === "boolean" && (e = !1), t === "number" && (e = 0), t === "integer" && (e = 0), t === "string" && (e = ""), t === "array" && (e = []), t === "object" && (e = {}), t === "null" && (e = null), this.value = e;
     }
   }
@@ -1209,7 +1209,7 @@ class F extends At {
     if (!this.isActive)
       return [];
     const e = this.jedi.validator.getErrors(this.getValue(), this.schema, this.getKey(), this.path);
-    return Fe(e);
+    return Ue(e);
   }
   /**
    * Prepare data before building the editor
@@ -1246,7 +1246,7 @@ class F extends At {
     }), super.destroy();
   }
 }
-class K {
+class J {
   constructor(e) {
     this.instance = e, this.theme = null, this.control = null, this.disabled = !1, this.readOnly = this.instance.isReadOnly(), this.init(), this.build(), this.coerceValue(), this.addEventListeners(), this.setContainerAttributes(), this.refreshUI(), (this.instance.jedi.options.showErrors === "always" || p(this.instance.schema, "showErrors") === "always") && this.showValidationErrors(this.instance.getErrors()), this.instance.on("set-value", () => {
       this.refreshUI(), this.showValidationErrors(this.instance.getErrors());
@@ -1268,7 +1268,7 @@ class K {
    * @private
    */
   setContainerAttributes() {
-    this.control.container.setAttribute("data-path", this.instance.path), this.control.container.setAttribute("data-type", E(this.instance.schema));
+    this.control.container.setAttribute("data-path", this.instance.path), this.control.container.setAttribute("data-type", y(this.instance.schema));
   }
   /**
    * Builds the editor control and appends it to the editor container
@@ -1297,7 +1297,7 @@ class K {
     if (this.instance.jedi.options.showErrors === "never" || p(this.instance.schema, "showErrors") === "never")
       return;
     this.control.messages.innerHTML = "";
-    const s = A(this.instance.schema) || this.instance.getKey();
+    const s = w(this.instance.schema) || this.instance.getKey();
     e.forEach((r) => {
       r.messages.forEach((n) => {
         const a = this.getInvalidFeedback({
@@ -1355,17 +1355,17 @@ class K {
     });
   }
 }
-class Ge extends K {
+class Ge extends J {
   static resolves(e) {
-    const t = E(e), s = U(e), r = N(e);
-    return d(r) || d(s) || t === "any" || w(t) || H(t);
+    const t = y(e), s = K(e), r = D(e);
+    return d(r) || d(s) || t === "any" || A(t) || H(t);
   }
   build() {
     this.control = this.theme.getMultipleControl({
       title: "Options",
       titleHidden: p(this.instance.schema, "titleHidden"),
       id: P(this.instance.path),
-      description: O(this.instance.schema),
+      description: S(this.instance.schema),
       switcherOptionValues: this.instance.switcherOptionValues,
       switcherOptionsLabels: this.instance.switcherOptionsLabels
     });
@@ -1391,9 +1391,9 @@ class _t extends F {
     this.instances = [], this.activeInstance = null, this.activeInstanceChanged = !0, this.index = 0, this.schemas = [], this.switcherOptionValues = [], this.switcherOptionsLabels = [], this.ifThenElseShemas = [], this.traverseSchema(this.schema), delete this.schema.if, delete this.schema.then, delete this.schema.else;
     let e = 0;
     this.ifThenElseShemas.forEach((n) => {
-      d(n.then) && (this.schemas.push(D({}, R(this.schema), n.then)), this.switcherOptionValues.push(e), this.switcherOptionsLabels.push(JSON.stringify(n.then)), e++), d(n.else) && (this.schemas.push(D({}, R(this.schema), n.else)), this.switcherOptionValues.push(e), this.switcherOptionsLabels.push(JSON.stringify(n.else)), e++);
+      d(n.then) && (this.schemas.push(U({}, V(this.schema), n.then)), this.switcherOptionValues.push(e), this.switcherOptionsLabels.push(JSON.stringify(n.then)), e++), d(n.else) && (this.schemas.push(U({}, V(this.schema), n.else)), this.switcherOptionValues.push(e), this.switcherOptionsLabels.push(JSON.stringify(n.else)), e++);
     });
-    const t = R(this.schema);
+    const t = V(this.schema);
     delete t.if, delete t.then, delete t.else;
     const s = this.jedi.createInstance({
       jedi: this.jedi,
@@ -1446,7 +1446,7 @@ class _t extends F {
   getFittestIndex(e) {
     let t = this.index;
     return this.ifThenElseShemas.forEach((s, r) => {
-      const n = new T({
+      const n = new j({
         schema: s.if,
         data: e
       }), a = n.getErrors();
@@ -1477,18 +1477,18 @@ class Xt extends F {
     this.instances = [], this.activeInstance = null, this.lastIndex = 0, this.index = 0, this.schemas = [], this.switcherOptionValues = [], this.switcherOptionsLabels = [], this.on("set-value", () => {
       this.onSetValue();
     });
-    const e = E(this.schema);
-    if (d(N(this.schema)) || d(U(this.schema))) {
-      const s = d(N(this.schema)) ? N(this.schema) : U(this.schema), r = R(this.schema);
+    const e = y(this.schema);
+    if (d(D(this.schema)) || d(K(this.schema))) {
+      const s = d(D(this.schema)) ? D(this.schema) : K(this.schema), r = V(this.schema);
       delete r.anyOf, delete r.oneOf, delete r.options, s.forEach((n, a) => {
         n = { ...r, ...n }, this.jedi.refParser && (n = this.jedi.refParser.expand(n));
         let o = "Option-" + (a + 1);
-        const l = p(n, "switcherTitle"), c = A(n);
+        const l = p(n, "switcherTitle"), c = w(n);
         d(c) && (o = c), d(l) && (o = l), this.switcherOptionValues.push(a), this.switcherOptionsLabels.push(o), this.schemas.push(n);
       });
-    } else if (w(e))
+    } else if (A(e))
       e.forEach((s, r) => {
-        const n = D(this.schema), a = {
+        const n = U(this.schema), a = {
           ...n,
           type: s,
           title: s[0].toUpperCase() + s.slice(1)
@@ -1496,7 +1496,7 @@ class Xt extends F {
         d(n.title) && (a.title = n.title), this.switcherOptionValues.push(r), this.switcherOptionsLabels.push(s.charAt(0).toUpperCase() + s.slice(1)), this.schemas.push(a);
       });
     else if (e === "any" || !e) {
-      const s = R(this.schema);
+      const s = V(this.schema);
       this.schemas = [
         { ...s, type: "object" },
         { ...s, type: "array" },
@@ -1523,7 +1523,7 @@ class Xt extends F {
         schema: s,
         path: this.path,
         parent: this.parent,
-        value: R(this.value)
+        value: V(this.value)
       });
       d(this.value) && r.setValue(this.value, !1), r.unregister(), r.off("change"), r.on("change", () => {
         this.value = this.activeInstance.getValue(), this.emit("change");
@@ -1563,7 +1563,7 @@ class Yt extends F {
 class es extends F {
   prepare() {
     this.properties = {};
-    const e = z(this.schema);
+    const e = $(this.schema);
     d(e) && Object.keys(e).forEach((t) => {
       const s = e[t];
       this.properties[t] = { schema: s };
@@ -1578,14 +1578,14 @@ class es extends F {
    * Returns true if the property is required
    */
   isRequired(e) {
-    const t = Je(this.schema);
+    const t = ze(this.schema);
     return d(t) && t.includes(e);
   }
   /**
    * Returns true if the property is dependent required
    */
   isDependentRequired(e) {
-    const t = Ue(this.schema);
+    const t = Fe(this.schema);
     if (d(t)) {
       let s = [];
       return Object.keys(t).forEach((r) => {
@@ -1600,7 +1600,7 @@ class es extends F {
       schema: e,
       path: this.path + this.jedi.pathSeparator + t,
       parent: this,
-      value: R(s)
+      value: V(s)
     });
     this.children.push(n), this.value[t] = n.getValue();
     const a = this.jedi.options.deactivateNonRequired || p(this.schema, "deactivateNonRequired");
@@ -1620,7 +1620,7 @@ class es extends F {
   }
   getPropertySchema(e) {
     let t;
-    const s = Ee(this.schema), r = z(this.schema), n = J(this.schema);
+    const s = Ee(this.schema), r = $(this.schema), n = z(this.schema);
     return d(r) && B(r, e) ? t = r[e] : d(n) && Object.keys(n).forEach((a) => {
       new RegExp(a).test(e) && (t = n[a]);
     }), H(t) && d(s) && (t = s), H(t) && (t = {}), t;
@@ -1667,20 +1667,20 @@ class ts extends F {
       schema: t,
       path: this.path + this.jedi.pathSeparator + s,
       parent: this,
-      value: R(e)
+      value: V(e)
     });
     return d(e) && o.setValue(e, !1), o;
   }
   move(e, t) {
-    const s = R(this.getValue()), r = s[e];
+    const s = V(this.getValue()), r = s[e];
     s.splice(e, 1), s.splice(t, 0, r), this.setValue(s);
   }
   addItem() {
-    const e = this.createItemInstance(), t = R(this.getValue());
+    const e = this.createItemInstance(), t = V(this.getValue());
     t.push(e.getValue()), e.destroy(), this.setValue(t);
   }
   deleteItem(e) {
-    const s = R(this.getValue()).filter((r, n) => n !== e);
+    const s = V(this.getValue()).filter((r, n) => n !== e);
     this.setValue(s);
   }
   onChildChange() {
@@ -1692,7 +1692,7 @@ class ts extends F {
   refreshChildren() {
     this.children = [];
     const e = this.getValue();
-    w(e) && e.forEach((t) => {
+    A(e) && e.forEach((t) => {
       const s = this.createItemInstance(t);
       this.children.push(s);
     });
@@ -1747,23 +1747,23 @@ const rs = {
   moveDown: "fa-solid fa-arrow-down",
   collapse: "fa-solid fa-chevron-down"
 };
-class Re extends K {
+class Ve extends J {
   sanitize(e) {
     return !!e;
   }
 }
-class Pt extends Re {
+class Pt extends Ve {
   static resolves(e) {
-    return E(e) === "boolean" && p(e, "format") === "radio";
+    return y(e) === "boolean" && p(e, "format") === "radio";
   }
   build() {
     this.control = this.theme.getRadiosControl({
       values: ["false", "true"],
       titles: p(this.instance.schema, "enumTitles") || ["false", "true"],
       id: P(this.instance.path),
-      label: A(this.instance.schema) || this.instance.getKey(),
+      label: w(this.instance.schema) || this.instance.getKey(),
       titleHidden: p(this.instance.schema, "titleHidden"),
-      description: O(this.instance.schema)
+      description: S(this.instance.schema)
     });
   }
   addEventListeners() {
@@ -1781,19 +1781,19 @@ class Pt extends Re {
     });
   }
 }
-class St extends Re {
+class St extends Ve {
   static resolves(e) {
-    return E(e) === "boolean";
+    return y(e) === "boolean";
   }
   build() {
     this.control = this.theme.getSelectControl({
       values: ["false", "true"],
       titles: p(this.instance.schema, "enumTitles") || ["false", "true"],
       id: P(this.instance.path),
-      label: A(this.instance.schema) || this.instance.getKey(),
+      label: w(this.instance.schema) || this.instance.getKey(),
       labelIconClass: p(this.instance.schema, "labelIconClass"),
       titleHidden: p(this.instance.schema, "titleHidden"),
-      description: O(this.instance.schema)
+      description: S(this.instance.schema)
     });
   }
   addEventListeners() {
@@ -1806,16 +1806,16 @@ class St extends Re {
     this.refreshInteractiveElements(), this.control.input.value = this.instance.getValue() === !0 ? "true" : "false";
   }
 }
-class Ot extends Re {
+class Ot extends Ve {
   static resolves(e) {
-    return E(e) === "boolean" && p(e, "format") === "checkbox";
+    return y(e) === "boolean" && p(e, "format") === "checkbox";
   }
   build() {
     this.control = this.theme.getCheckboxControl({
       id: P(this.instance.path),
-      label: A(this.instance.schema) || this.instance.getKey(),
+      label: w(this.instance.schema) || this.instance.getKey(),
       titleHidden: p(this.instance.schema, "titleHidden"),
-      description: O(this.instance.schema)
+      description: S(this.instance.schema)
     });
   }
   addEventListeners() {
@@ -1830,23 +1830,23 @@ class Ot extends Re {
     this.refreshInteractiveElements(), this.control.input.checked = this.instance.getValue();
   }
 }
-class $ extends K {
+class N extends J {
   sanitize(e) {
     return String(e);
   }
 }
-class Tt extends $ {
+class jt extends N {
   static resolves(e) {
-    return E(e) === "string" && p(e, "format") === "radio";
+    return y(e) === "string" && p(e, "format") === "radio";
   }
   build() {
     this.control = this.theme.getRadiosControl({
       values: M(this.instance.schema),
       titles: p(this.instance.schema, "enumTitles") || M(this.instance.schema),
       id: P(this.instance.path),
-      label: A(this.instance.schema) || this.instance.getKey(),
+      label: w(this.instance.schema) || this.instance.getKey(),
       titleHidden: p(this.instance.schema, "titleHidden"),
-      description: O(this.instance.schema)
+      description: S(this.instance.schema)
     });
   }
   addEventListeners() {
@@ -1862,19 +1862,19 @@ class Tt extends $ {
     });
   }
 }
-class jt extends $ {
+class Tt extends N {
   static resolves(e) {
-    return E(e) === "string" && d(M(e));
+    return y(e) === "string" && d(M(e));
   }
   build() {
     this.control = this.theme.getSelectControl({
       values: M(this.instance.schema),
       titles: p(this.instance.schema, "enumTitles") || M(this.instance.schema),
       id: P(this.instance.path),
-      label: A(this.instance.schema) || this.instance.getKey(),
+      label: w(this.instance.schema) || this.instance.getKey(),
       labelIconClass: p(this.instance.schema, "labelIconClass"),
       titleHidden: p(this.instance.schema, "titleHidden"),
-      description: O(this.instance.schema)
+      description: S(this.instance.schema)
     });
   }
   addEventListeners() {
@@ -1886,17 +1886,17 @@ class jt extends $ {
     this.refreshInteractiveElements(), this.control.input.value = this.instance.getValue();
   }
 }
-class kt extends $ {
+class kt extends N {
   static resolves(e) {
-    return E(e) === "string" && p(e, "format") === "textarea";
+    return y(e) === "string" && p(e, "format") === "textarea";
   }
   build() {
     this.control = this.theme.getTextareaControl({
       id: P(this.instance.path),
-      label: A(this.instance.schema) || this.instance.getKey(),
+      label: w(this.instance.schema) || this.instance.getKey(),
       labelIconClass: p(this.instance.schema, "labelIconClass"),
-      titleHidden: p(this.instance.schema, "titleHidden") || p(this.instance.schema, "format") === "hidden",
-      description: O(this.instance.schema)
+      titleHidden: p(this.instance.schema, "titleHidden"),
+      description: S(this.instance.schema)
     });
   }
   addEventListeners() {
@@ -1908,18 +1908,18 @@ class kt extends $ {
     this.refreshInteractiveElements(), this.control.input.value = this.instance.getValue();
   }
 }
-class Mt extends $ {
+class Mt extends N {
   static resolves(e) {
-    return E(e) === "string" && d(p(e, "awesomplete"));
+    return window.Awesomplete && y(e) === "string" && d(p(e, "awesomplete"));
   }
   build() {
     this.control = this.theme.getInputControl({
       type: "text",
       id: P(this.instance.path),
-      label: A(this.instance.schema) || this.instance.getKey(),
+      label: w(this.instance.schema) || this.instance.getKey(),
       labelIconClass: p(this.instance.schema, "labelIconClass"),
       titleHidden: p(this.instance.schema, "titleHidden"),
-      description: O(this.instance.schema)
+      description: S(this.instance.schema)
     });
     try {
       this.awesomplete = new window.Awesomplete(this.control.input, p(this.instance.schema, "awesomplete")), this.control.container.querySelector(".awesomplete").style.display = "block";
@@ -1939,9 +1939,9 @@ class Mt extends $ {
     this.awesomplete.destroy(), super.destroy();
   }
 }
-class Ve extends $ {
+class Re extends N {
   static resolves(e) {
-    return E(e) === "string";
+    return y(e) === "string";
   }
   static getTypes() {
     return ["hidden", "color", "date", "datetime-local", "email", "number", "month", "password", "search", "time", "tel", "text", "url", "week"];
@@ -1949,12 +1949,12 @@ class Ve extends $ {
   build() {
     const e = p(this.instance.schema, "format");
     this.control = this.theme.getInputControl({
-      type: Ve.getTypes().includes(e) ? e : "text",
+      type: Re.getTypes().includes(e) ? e : "text",
       id: P(this.instance.path),
-      label: A(this.instance.schema) || this.instance.getKey(),
+      label: w(this.instance.schema) || this.instance.getKey(),
       labelIconClass: p(this.instance.schema, "labelIconClass"),
       titleHidden: p(this.instance.schema, "titleHidden") || e === "hidden",
-      description: O(this.instance.schema)
+      description: S(this.instance.schema)
     }), e === "color" && this.instance.value.length === 0 && this.instance.setValue("#000000", !1);
   }
   addEventListeners() {
@@ -1969,14 +1969,14 @@ class Ve extends $ {
     this.refreshInteractiveElements(), this.control.input.value = this.instance.getValue();
   }
 }
-class He extends K {
+class He extends J {
   sanitize(e) {
-    return E(this.instance.schema) === "integer" ? Math.floor(Number(e)) : Number(e);
+    return y(this.instance.schema) === "integer" ? Math.floor(Number(e)) : Number(e);
   }
 }
-class Rt extends He {
+class Vt extends He {
   static resolves(e) {
-    const t = E(e), s = M(e), r = p(e, "format");
+    const t = y(e), s = M(e), r = p(e, "format");
     return (t === "number" || t === "integer") && d(s) && r === "radio";
   }
   build() {
@@ -1984,9 +1984,9 @@ class Rt extends He {
       values: M(this.instance.schema),
       titles: p(this.instance.schema, "enumTitles") || M(this.instance.schema),
       id: P(this.instance.path),
-      label: A(this.instance.schema) || this.instance.getKey(),
+      label: w(this.instance.schema) || this.instance.getKey(),
       titleHidden: p(this.instance.schema, "titleHidden"),
-      description: O(this.instance.schema)
+      description: S(this.instance.schema)
     });
   }
   addEventListeners() {
@@ -2003,9 +2003,9 @@ class Rt extends He {
     });
   }
 }
-class Vt extends He {
+class Rt extends He {
   static resolves(e) {
-    const t = E(e);
+    const t = y(e);
     return (t === "number" || t === "integer") && d(M(e));
   }
   build() {
@@ -2013,10 +2013,10 @@ class Vt extends He {
       values: M(this.instance.schema),
       titles: p(this.instance.schema, "enumTitles") || M(this.instance.schema),
       id: P(this.instance.path),
-      label: A(this.instance.schema) || this.instance.getKey(),
+      label: w(this.instance.schema) || this.instance.getKey(),
       labelIconClass: p(this.instance.schema, "labelIconClass"),
       titleHidden: p(this.instance.schema, "titleHidden"),
-      description: O(this.instance.schema)
+      description: S(this.instance.schema)
     });
   }
   addEventListeners() {
@@ -2033,17 +2033,17 @@ class Vt extends He {
 }
 class Ht extends He {
   static resolves(e) {
-    const t = E(e);
+    const t = y(e);
     return t === "number" || t === "integer";
   }
   build() {
     this.control = this.theme.getInputControl({
       type: "number",
       id: P(this.instance.path),
-      label: A(this.instance.schema) || this.instance.getKey(),
+      label: w(this.instance.schema) || this.instance.getKey(),
       labelIconClass: p(this.instance.schema, "labelIconClass"),
       titleHidden: p(this.instance.schema, "titleHidden") || p(this.instance.schema, "format") === "hidden",
-      description: O(this.instance.schema)
+      description: S(this.instance.schema)
     });
   }
   addEventListeners() {
@@ -2058,9 +2058,9 @@ class Ht extends He {
     k(e) && (this.control.input.value = this.instance.getValue());
   }
 }
-class qe extends K {
+class qe extends J {
   static resolves(e) {
-    return E(e) === "object";
+    return y(e) === "object";
   }
   build() {
     this.propertyActivators = {};
@@ -2070,10 +2070,10 @@ class qe extends K {
     d(s) && s === !1 && (t = !1);
     let r = !1;
     d(this.instance.jedi.options.enablePropertiesToggle) && (r = this.instance.jedi.options.enablePropertiesToggle), d(e.enablePropertiesToggle) && (r = e.enablePropertiesToggle), this.control = this.theme.getObjectControl({
-      title: A(this.instance.schema) || this.instance.getKey(),
+      title: w(this.instance.schema) || this.instance.getKey(),
       titleHidden: p(this.instance.schema, "titleHidden"),
       id: P(this.instance.path),
-      description: O(this.instance.schema),
+      description: S(this.instance.schema),
       enablePropertiesToggle: r,
       addProperty: t,
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || p(this.instance.schema, "enableCollapseToggle"),
@@ -2089,7 +2089,7 @@ class qe extends K {
       n.activate(), this.instance.setValue(this.instance.value), this.control.addPropertyControl.input.value = "";
       const a = this.control.ariaLive;
       a.innerHTML = "";
-      const o = A(n.schema), l = d(o) ? o : e, c = this.theme.getAriaLiveMessage();
+      const o = w(n.schema), l = d(o) ? o : e, c = this.theme.getAriaLiveMessage();
       c.textContent = l + " field was added to the form", a.appendChild(c), this.control.propertiesContainer.close(), this.control.propertiesContainer.showModal();
     });
   }
@@ -2104,21 +2104,21 @@ class qe extends K {
     if (Ce(this.instance.jedi.options.enablePropertiesToggle, !0) || Ce(e, !0)) {
       const t = Object.keys(this.instance.properties), s = this.instance.children.map((n) => n.getKey());
       [...t, ...s].forEach((n) => {
-        const a = this.instance.isRequired(n), o = this.instance.isDependentRequired(n), l = !a && !o, c = this.propertyActivators[n], h = this.control.ariaLive, u = this.instance.getPropertySchema(n), m = A(u), g = this.instance.path + this.instance.jedi.pathSeparator + n, x = P(g) + "-activator", L = d(m) ? m : n;
+        const a = this.instance.isRequired(n), o = this.instance.isDependentRequired(n), l = !a && !o, c = this.propertyActivators[n], h = this.control.ariaLive, u = this.instance.getPropertySchema(n), m = w(u), g = this.instance.path + this.instance.jedi.pathSeparator + n, x = P(g) + "-activator", E = d(m) ? m : n;
         if (l && !c) {
           const v = this.theme.getCheckboxControl({
             id: x,
-            label: L,
+            label: E,
             titleHidden: !1
           }), I = v.input;
           this.propertyActivators[n] = I, I.addEventListener("change", () => {
             h.innerHTML = "";
-            const S = this.theme.getAriaLiveMessage();
-            I.checked ? (this.instance.getChild(n) || this.instance.createChild(u, n), this.instance.getChild(n).activate(), S.textContent = L + " field was added to the form", h.appendChild(S)) : (this.instance.getChild(n).deactivate(), S.textContent = L + " field was removed from the form", h.appendChild(S)), this.control.propertiesContainer.close(), this.control.propertiesContainer.showModal();
+            const O = this.theme.getAriaLiveMessage();
+            I.checked ? (this.instance.getChild(n) || this.instance.createChild(u, n), this.instance.getChild(n).activate(), O.textContent = E + " field was added to the form", h.appendChild(O)) : (this.instance.getChild(n).deactivate(), O.textContent = E + " field was removed from the form", h.appendChild(O)), this.control.propertiesContainer.close(), this.control.propertiesContainer.showModal();
           }), this.control.propertiesActivators.appendChild(v.container);
         }
-        const y = this.propertyActivators[n];
-        y && (y.disabled = this.disabled, y.checked = B(this.instance.getValue(), n));
+        const L = this.propertyActivators[n];
+        L && (L.disabled = this.disabled, L.checked = B(this.instance.getValue(), n));
       });
     }
   }
@@ -2133,7 +2133,7 @@ class qe extends K {
 }
 class qt extends qe {
   static resolves(e) {
-    return E(e) === "object" && d(p(e, "grid"));
+    return y(e) === "object" && d(p(e, "grid"));
   }
   refreshEditors() {
     for (; this.control.childrenSlot.firstChild; )
@@ -2149,7 +2149,7 @@ class qt extends qe {
 }
 class Bt extends qe {
   static resolves(e) {
-    return E(e) === "object" && d(p(e, "nav"));
+    return y(e) === "object" && d(p(e, "nav"));
   }
   init() {
     super.init(), this.activeTabIndex = 0;
@@ -2163,7 +2163,7 @@ class Bt extends qe {
     });
     this.control.childrenSlot.appendChild(t), t.appendChild(r), t.appendChild(n), r.appendChild(o), n.appendChild(a), this.instance.children.forEach((l, c) => {
       if (l.isActive) {
-        const h = c === this.activeTabIndex, u = P(l.path), m = A(l.schema), g = this.theme.getTab({
+        const h = c === this.activeTabIndex, u = P(l.path), m = w(l.schema), g = this.theme.getTab({
           title: d(m) ? m : l.getKey(),
           id: u,
           active: h
@@ -2175,16 +2175,16 @@ class Bt extends qe {
     });
   }
 }
-class Ze extends K {
+class Ze extends J {
   static resolves(e) {
-    return E(e) === "array";
+    return y(e) === "array";
   }
   build() {
     this.control = this.theme.getArrayControl({
-      title: A(this.instance.schema) || this.instance.getKey(),
+      title: w(this.instance.schema) || this.instance.getKey(),
       titleHidden: p(this.instance.schema, "titleHidden"),
       id: P(this.instance.path),
-      description: O(this.instance.schema),
+      description: S(this.instance.schema),
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || p(this.instance.schema, "enableCollapseToggle"),
       startCollapsed: this.instance.jedi.options.startCollapsed || p(this.instance.schema, "startCollapsed")
     });
@@ -2198,11 +2198,11 @@ class Ze extends K {
     return this.theme.getAlert(e);
   }
   sanitize(e) {
-    return w(e) ? e : [];
+    return A(e) ? e : [];
   }
   refreshUI() {
     this.refreshInteractiveElements();
-    const e = $e(this.instance.schema), t = ze(this.instance.schema);
+    const e = Je(this.instance.schema), t = $e(this.instance.schema);
     d(e) && e === this.instance.value.length && this.control.addBtn.setAttribute("disabled", ""), this.control.childrenSlot.innerHTML = "", this.instance.children.forEach((s) => {
       const r = Number(s.getKey()), n = this.theme.getDeleteItemBtn(), a = this.theme.getMoveUpItemBtn(), o = this.theme.getMoveDownItemBtn(), l = this.theme.getBtnGroup();
       s.ui.control.arrayActions.innerHTML = "", s.ui.control.arrayActions.appendChild(l), l.appendChild(n), l.appendChild(a), l.appendChild(o), this.control.childrenSlot.appendChild(s.ui.control.container), n.addEventListener("click", () => {
@@ -2220,7 +2220,7 @@ class Ze extends K {
 }
 class Nt extends Ze {
   static resolves(e) {
-    return E(e) === "array" && d(p(e, "nav"));
+    return y(e) === "array" && d(p(e, "nav"));
   }
   init() {
     super.init(), this.activeTabIndex = 0;
@@ -2242,14 +2242,14 @@ class Nt extends Ze {
       let g;
       const x = p(this.instance.schema, "itemTemplate");
       if (x) {
-        const I = x, S = {
+        const I = x, O = {
           i0: c,
           i1: c + 1,
           value: l.getValue()
         };
-        g = C(I, S);
+        g = C(I, O);
       } else {
-        const I = A(l.schema);
+        const I = w(l.schema);
         g = d(I) ? I + " " + (c + 1) : l.getKey();
       }
       h.addEventListener("click", () => {
@@ -2261,45 +2261,45 @@ class Nt extends Ze {
         const I = c + 1;
         this.activeTabIndex = I, this.instance.move(c, I);
       });
-      const L = c === this.activeTabIndex, y = P(l.path), v = this.theme.getTab({
+      const E = c === this.activeTabIndex, L = P(l.path), v = this.theme.getTab({
         title: g,
-        id: y,
-        active: L
+        id: L,
+        active: E
       });
       v.list.addEventListener("click", () => {
         this.activeTabIndex = c;
-      }), this.theme.setTabPaneAttributes(l.ui.control.container, L, y), o.appendChild(v.list), a.appendChild(l.ui.control.container), this.disabled || this.instance.isReadOnly() ? l.ui.disable() : l.ui.enable(), c === 0 && u.setAttribute("disabled", ""), this.instance.value.length - 1 === c && m.setAttribute("disabled", "");
+      }), this.theme.setTabPaneAttributes(l.ui.control.container, E, L), o.appendChild(v.list), a.appendChild(l.ui.control.container), this.disabled || this.instance.isReadOnly() ? l.ui.disable() : l.ui.enable(), c === 0 && u.setAttribute("disabled", ""), this.instance.value.length - 1 === c && m.setAttribute("disabled", "");
     });
   }
 }
-class Dt extends K {
+class Dt extends J {
   static resolves(e) {
-    return E(e) === "null";
+    return y(e) === "null";
   }
   build() {
     this.control = this.theme.getNullControl({
       id: P(this.instance.path),
-      label: A(this.instance.schema) || this.instance.getKey(),
+      label: w(this.instance.schema) || this.instance.getKey(),
       labelIconClass: p(this.instance.schema, "labelIconClass"),
       titleHidden: p(this.instance.schema, "titleHidden") || p(this.instance.schema, "format") === "hidden",
-      description: O(this.instance.schema)
+      description: S(this.instance.schema)
     });
   }
   sanitize() {
     return null;
   }
 }
-class hs extends $ {
+class hs extends N {
   static resolves(e) {
-    return E(e) === "string" && d(p(e, "quill"));
+    return window.Quill && y(e) === "string" && d(p(e, "quill"));
   }
   build() {
     this.control = this.theme.getPlaceholderControl({
       id: P(this.instance.path),
-      label: A(this.instance.schema) || this.instance.getKey(),
+      label: w(this.instance.schema) || this.instance.getKey(),
       labelIconClass: p(this.instance.schema, "labelIconClass"),
       titleHidden: p(this.instance.schema, "titleHidden"),
-      description: O(this.instance.schema)
+      description: S(this.instance.schema)
     });
     try {
       this.quill = new window.Quill(this.control.placeholder, p(this.instance.schema, "quill"));
@@ -2320,20 +2320,87 @@ class hs extends $ {
     super.refreshUI(), this.quill.setText(this.instance.getValue());
   }
 }
-class us {
+class us extends N {
+  static resolves(e) {
+    return window.Jodit && y(e) === "string" && d(p(e, "jodit"));
+  }
+  build() {
+    this.control = this.theme.getTextareaControl({
+      id: P(this.instance.path),
+      label: w(this.instance.schema) || this.instance.getKey(),
+      labelIconClass: p(this.instance.schema, "labelIconClass"),
+      titleHidden: p(this.instance.schema, "titleHidden"),
+      description: S(this.instance.schema)
+    });
+    try {
+      this.jodit = window.Jodit.make(this.control.input, p(this.instance.schema, "jodit"));
+    } catch (e) {
+      console.error("Jodit is not available or not loaded correctly.", e);
+    }
+  }
+  addEventListeners() {
+    this.jodit.events.on("change", () => {
+      const e = this.jodit.value;
+      e !== this.instance.getValue() && this.instance.setValue(e);
+    });
+  }
+  refreshInteractiveElements() {
+    this.disabled || this.readOnly ? this.jodit.setReadOnly(!0) : this.jodit.setReadOnly(!1);
+  }
+  refreshUI() {
+    super.refreshUI(), this.jodit.value = this.instance.getValue();
+  }
+  destroy() {
+    this.jodit.destruct(), super.destroy();
+  }
+}
+class ps extends N {
+  static resolves(e) {
+    return window.flatpickr && y(e) === "string" && d(p(e, "flatpickr"));
+  }
+  build() {
+    this.control = this.theme.getInputControl({
+      type: "text",
+      id: P(this.instance.path),
+      label: w(this.instance.schema) || this.instance.getKey(),
+      labelIconClass: p(this.instance.schema, "labelIconClass"),
+      titleHidden: p(this.instance.schema, "titleHidden"),
+      description: S(this.instance.schema)
+    });
+    try {
+      this.flatpickr = window.flatpickr(this.control.input, p(this.instance.schema, "flatpickr"));
+    } catch (e) {
+      console.error("Flatpickr is not available or not loaded correctly.", e);
+    }
+  }
+  addEventListeners() {
+    this.control.input.addEventListener("change", () => {
+      this.instance.setValue(this.control.input.value);
+    });
+  }
+  refreshUI() {
+    this.refreshInteractiveElements(), this.flatpickr.setDate(this.instance.getValue());
+  }
+  destroy() {
+    this.flatpickr.destroy(), super.destroy();
+  }
+}
+class ms {
   constructor(e) {
     this.customEditors = e.customEditors ?? [], this.editors = [
       Pt,
       Ot,
       St,
-      Tt,
       jt,
+      Tt,
       kt,
       Mt,
       hs,
-      Ve,
-      Rt,
+      us,
+      ps,
+      Re,
       Vt,
+      Rt,
       Ht,
       qt,
       Bt,
@@ -2354,7 +2421,7 @@ class us {
     return null;
   }
 }
-class ps extends At {
+class fs extends At {
   /**
    * Creates a Jedi instance.
    * @param {object} options - Options object
@@ -2383,7 +2450,7 @@ class ps extends At {
    * Initializes instance properties
    */
   init() {
-    if (this.uiResolver = new us({
+    if (this.uiResolver = new ms({
       customEditors: this.options.customEditors
     }), this.theme = this.options.theme, d(this.options.iconLib))
       switch (this.options.iconLib) {
@@ -2450,12 +2517,12 @@ class ps extends At {
     if (this.options.mergeAllOf || p(e.schema, "mergeAllOf")) {
       const c = xe(e.schema);
       d(c) && c.forEach((h) => {
-        e.schema = D({}, e.schema, h);
+        e.schema = U({}, e.schema, h);
       });
     }
     this.refParser && (e.schema = this.refParser.expand(e.schema, e.path));
-    const s = E(e.schema), r = U(e.schema), n = N(e.schema), a = we(e.schema), o = Pe(e.schema), l = Ie(e.schema);
-    if (d(n) || d(r) || s === "any" || w(s) || H(s))
+    const s = y(e.schema), r = K(e.schema), n = D(e.schema), a = we(e.schema), o = Pe(e.schema), l = Ie(e.schema);
+    if (d(n) || d(r) || s === "any" || A(s) || H(s))
       return new Xt(e);
     if (d(a) && (d(o) || d(l)))
       return new _t(e);
@@ -2523,8 +2590,8 @@ class ps extends At {
     });
   }
 }
-const T = ps;
-class ms {
+const j = fs;
+class gs {
   constructor() {
     this.refs = {}, this.data = {};
   }
@@ -2571,7 +2638,7 @@ class ms {
     const t = JSON.parse(JSON.stringify(e));
     if (this.isObject(t) && this.hasRef(t)) {
       const s = t.$ref;
-      return delete t.$ref, this.expand(D({}, this.refs[s], t));
+      return delete t.$ref, this.expand(U({}, this.refs[s], t));
     }
     return t;
   }
@@ -2895,15 +2962,15 @@ class Be {
       collapseId: m,
       collapse: g,
       startCollapsed: e.startCollapsed
-    }), L = this.getPropertiesActivators(), y = this.getInputControl({
+    }), E = this.getPropertiesActivators(), L = this.getInputControl({
       type: "text",
       id: "jedi-add-property-input-" + e.id,
       label: "Property"
-    }), v = this.getAddPropertyButton(), I = this.getFieldset(), S = this.getLegend({
+    }), v = this.getAddPropertyButton(), I = this.getFieldset(), O = this.getLegend({
       textContent: e.title,
       id: e.id
     });
-    return v.classList.add("jedi-object-add"), t.appendChild(I), t.appendChild(h), I.appendChild(S), I.appendChild(g), g.appendChild(n), n.appendChild(o), n.appendChild(l), S.appendChild(s), s.appendChild(r), n.appendChild(c), e.addProperty && (h.appendChild(y.container), h.appendChild(v), h.appendChild(document.createElement("hr"))), e.enablePropertiesToggle && (s.appendChild(u), h.appendChild(a), h.appendChild(L)), e.enableCollapseToggle && s.appendChild(x), {
+    return v.classList.add("jedi-object-add"), t.appendChild(I), t.appendChild(h), I.appendChild(O), I.appendChild(g), g.appendChild(n), n.appendChild(o), n.appendChild(l), O.appendChild(s), s.appendChild(r), n.appendChild(c), e.addProperty && (h.appendChild(L.container), h.appendChild(v), h.appendChild(document.createElement("hr"))), e.enablePropertiesToggle && (s.appendChild(u), h.appendChild(a), h.appendChild(E)), e.enableCollapseToggle && s.appendChild(x), {
       container: t,
       collapse: g,
       collapseToggle: x,
@@ -2913,10 +2980,10 @@ class Be {
       childrenSlot: c,
       propertiesToggle: u,
       propertiesContainer: h,
-      addPropertyControl: y,
+      addPropertyControl: L,
       addPropertyBtn: v,
       ariaLive: a,
-      propertiesActivators: L,
+      propertiesActivators: E,
       arrayActions: r
     };
   }
@@ -2934,7 +3001,7 @@ class Be {
     }), g = "collapse-" + e.id, x = this.getCollapse({
       id: g,
       startCollapsed: e.startCollapsed
-    }), L = this.getCollapseToggle({
+    }), E = this.getCollapseToggle({
       textContent: e.title + " properties",
       id: "collapse-toggle-" + e.id,
       icon: "collapse",
@@ -2942,9 +3009,9 @@ class Be {
       collapse: x,
       startCollapsed: e.startCollapsed
     });
-    return t.appendChild(u), u.appendChild(m), u.appendChild(x), x.appendChild(n), n.appendChild(a), n.appendChild(o), m.appendChild(s), s.appendChild(c), c.appendChild(h), s.appendChild(r), n.appendChild(l), e.enableCollapseToggle && s.appendChild(L), {
+    return t.appendChild(u), u.appendChild(m), u.appendChild(x), x.appendChild(n), n.appendChild(a), n.appendChild(o), m.appendChild(s), s.appendChild(c), c.appendChild(h), s.appendChild(r), n.appendChild(l), e.enableCollapseToggle && s.appendChild(E), {
       container: t,
-      collapseToggle: L,
+      collapseToggle: E,
       collapse: x,
       body: n,
       actions: s,
@@ -3057,20 +3124,20 @@ class Be {
       id: h
     });
     e.titleHidden && this.visuallyHidden(o);
-    const m = [], g = [], x = [], L = [];
-    return e.values.forEach((y, v) => {
+    const m = [], g = [], x = [], E = [];
+    return e.values.forEach((L, v) => {
       const I = document.createElement("div");
       m.push(I);
-      const S = document.createElement("input");
-      S.setAttribute("type", "radio"), S.setAttribute("id", e.id + "-" + v), S.setAttribute("value", y), g.push(S);
+      const O = document.createElement("input");
+      O.setAttribute("type", "radio"), O.setAttribute("id", e.id + "-" + v), O.setAttribute("value", L), g.push(O);
       const be = l + " " + h;
-      S.setAttribute("aria-describedby", be);
+      O.setAttribute("aria-describedby", be);
       const Qe = document.createElement("label");
       Qe.setAttribute("for", e.id + "-" + v);
       const We = document.createElement("span");
-      L.push(We), e.titles && e.titles[v] && (We.textContent = e.titles[v]), x.push(Qe);
-    }), t.appendChild(n), t.appendChild(s), n.appendChild(o), n.appendChild(a), s.appendChild(r), m.forEach((y, v) => {
-      a.appendChild(m[v]), y.appendChild(g[v]), y.appendChild(x[v]), x[v].appendChild(L[v]);
+      E.push(We), e.titles && e.titles[v] && (We.textContent = e.titles[v]), x.push(Qe);
+    }), t.appendChild(n), t.appendChild(s), n.appendChild(o), n.appendChild(a), s.appendChild(r), m.forEach((L, v) => {
+      a.appendChild(m[v]), L.appendChild(g[v]), L.appendChild(x[v]), x[v].appendChild(E[v]);
     }), n.appendChild(u), n.appendChild(c), {
       container: t,
       fieldset: n,
@@ -3078,7 +3145,7 @@ class Be {
       body: a,
       radios: g,
       labels: x,
-      labelTexts: L,
+      labelTexts: E,
       radioControls: m,
       description: u,
       messages: c,
@@ -3112,8 +3179,8 @@ class Be {
   getSelectControl(e) {
     const t = document.createElement("div"), s = this.getActionsSlot(), r = this.getArrayActionsSlot(), n = document.createElement("select");
     n.setAttribute("id", e.id), e.values.forEach((g, x) => {
-      const L = document.createElement("option");
-      L.setAttribute("value", g), e.titles && e.titles[x] && (L.textContent = e.titles[x]), n.appendChild(L);
+      const E = document.createElement("option");
+      E.setAttribute("value", g), e.titles && e.titles[x] && (E.textContent = e.titles[x]), n.appendChild(E);
     });
     const { label: a, labelText: o } = this.getLabel({
       for: e.id,
@@ -3222,7 +3289,7 @@ class Be {
     e.removeAttribute("style");
   }
 }
-class fs extends Be {
+class bs extends Be {
   init() {
     this.useToggleEvents = !1;
   }
@@ -3330,7 +3397,7 @@ class fs extends Be {
     e.classList.remove("sr-only");
   }
 }
-class gs extends Be {
+class vs extends Be {
   init() {
     this.useToggleEvents = !1;
   }
@@ -3441,7 +3508,7 @@ class gs extends Be {
     e.classList.remove("sr-only");
   }
 }
-class bs extends Be {
+class Cs extends Be {
   init() {
     this.useToggleEvents = !1;
   }
@@ -3553,22 +3620,22 @@ class bs extends Be {
     e.classList.remove("visually-hidden");
   }
 }
-const vs = {
-  Schema: $t,
-  Utils: Ft,
-  EditorBoolean: Re,
+const ys = {
+  Schema: Jt,
+  Utils: Ut,
+  EditorBoolean: Ve,
   EditorBooleanEnumRadio: Pt,
   EditorBooleanEnumSelect: St,
   EditorBooleanCheckbox: Ot,
-  EditorString: $,
-  EditorStringEnumRadio: Tt,
-  EditorStringEnumSelect: jt,
+  EditorString: N,
+  EditorStringEnumRadio: jt,
+  EditorStringEnumSelect: Tt,
   EditorStringTextarea: kt,
   EditorStringAwesomplete: Mt,
-  EditorStringInput: Ve,
+  EditorStringInput: Re,
   EditorNumber: He,
-  EditorNumberEnumRadio: Rt,
-  EditorNumberEnumSelect: Vt,
+  EditorNumberEnumRadio: Vt,
+  EditorNumberEnumSelect: Rt,
   EditorNumberInput: Ht,
   EditorObjectGrid: qt,
   EditorObjectNav: Bt,
@@ -3578,12 +3645,12 @@ const vs = {
   EditorMultiple: Ge,
   EditorNull: Dt,
   Theme: Be,
-  ThemeBootstrap3: fs,
-  ThemeBootstrap4: gs,
-  ThemeBootstrap5: bs,
-  RefParser: ms,
-  Create: T
+  ThemeBootstrap3: bs,
+  ThemeBootstrap4: vs,
+  ThemeBootstrap5: Cs,
+  RefParser: gs,
+  Create: j
 };
 export {
-  vs as default
+  ys as default
 };

@@ -6,13 +6,13 @@ import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption }
  * Represents a EditorStringQuill instance.
  * @extends EditorString
  */
-class EditorStringQuill extends EditorString {
+class EditorStringJodit extends EditorString {
   static resolves (schema) {
-    return window.Quill && getSchemaType(schema) === 'string' && isSet(getSchemaXOption(schema, 'quill'))
+    return window.Jodit && getSchemaType(schema) === 'string' && isSet(getSchemaXOption(schema, 'jodit'))
   }
 
   build () {
-    this.control = this.theme.getPlaceholderControl({
+    this.control = this.theme.getTextareaControl({
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
@@ -21,34 +21,39 @@ class EditorStringQuill extends EditorString {
     })
 
     try {
-      this.quill = new window.Quill(this.control.placeholder, getSchemaXOption(this.instance.schema, 'quill'))
+      this.jodit = window.Jodit.make(this.control.input, getSchemaXOption(this.instance.schema, 'jodit'))
     } catch (e) {
-      console.error('Quill is not available or not loaded correctly.', e)
+      console.error('Jodit is not available or not loaded correctly.', e)
     }
   }
 
   addEventListeners () {
-    this.quill.root.addEventListener('blur', () => {
-      const quillText = this.quill.getText()
+    this.jodit.events.on('change', () => {
+      const joditValue = this.jodit.value
 
-      if (quillText !== this.instance.getValue()) {
-        this.instance.setValue(quillText)
+      if (joditValue !== this.instance.getValue()) {
+        this.instance.setValue(joditValue)
       }
     })
   }
 
   refreshInteractiveElements () {
     if (this.disabled || this.readOnly) {
-      this.quill.disable()
+      this.jodit.setReadOnly(true)
     } else {
-      this.quill.enable()
+      this.jodit.setReadOnly(false)
     }
   }
 
   refreshUI () {
     super.refreshUI()
-    this.quill.setText(this.instance.getValue())
+    this.jodit.value = this.instance.getValue()
+  }
+
+  destroy () {
+    this.jodit.destruct()
+    super.destroy()
   }
 }
 
-export default EditorStringQuill
+export default EditorStringJodit

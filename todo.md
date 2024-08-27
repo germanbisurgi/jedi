@@ -1,7 +1,10 @@
 ## Todo
 
+- plugin SignaturePad
+- plugin star rating (wbotelhos/raty)
+- setValue(source) where source can be 'interaction' or 'api' 
 - fix element class jedi-error-message
-- editor test template (create, setValue, getValue, disable, enable, destroy, showErrors, default, title, description ...)
+- editor test template (create, setValue(api and interaction), getValue, disable, enable, destroy, showErrors, default, title, description ...)
 - void instance/editor?
 - awesomplete test
 - correct ui.theme references

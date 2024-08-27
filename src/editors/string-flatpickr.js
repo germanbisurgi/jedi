@@ -3,12 +3,12 @@ import { isSet, pathToAttribute } from '../helpers/utils.js'
 import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
- * Represents a EditorStringAwesomplete instance.
+ * Represents a EditorStringFlatpickr instance.
  * @extends EditorString
  */
-class EditorStringAwesomplete extends EditorString {
+class EditorStringFlatpickr extends EditorString {
   static resolves (schema) {
-    return window.Awesomplete && getSchemaType(schema) === 'string' && isSet(getSchemaXOption(schema, 'awesomplete'))
+    return window.flatpickr && getSchemaType(schema) === 'string' && isSet(getSchemaXOption(schema, 'flatpickr'))
   }
 
   build () {
@@ -22,28 +22,27 @@ class EditorStringAwesomplete extends EditorString {
     })
 
     try {
-      this.awesomplete = new window.Awesomplete(this.control.input, getSchemaXOption(this.instance.schema, 'awesomplete'))
-      this.control.container.querySelector('.awesomplete').style.display = 'block'
+      this.flatpickr = window.flatpickr(this.control.input, getSchemaXOption(this.instance.schema, 'flatpickr'))
     } catch (e) {
-      console.error('Awesomplete is not available or not loaded correctly.', e)
+      console.error('Flatpickr is not available or not loaded correctly.', e)
     }
   }
 
   addEventListeners () {
-    this.control.input.addEventListener('awesomplete-selectcomplete', () => {
+    this.control.input.addEventListener('change', () => {
       this.instance.setValue(this.control.input.value)
     })
   }
 
   refreshUI () {
     this.refreshInteractiveElements()
-    this.control.input.value = this.instance.getValue()
+    this.flatpickr.setDate(this.instance.getValue())
   }
 
   destroy () {
-    this.awesomplete.destroy()
+    this.flatpickr.destroy()
     super.destroy()
   }
 }
 
-export default EditorStringAwesomplete
+export default EditorStringFlatpickr
