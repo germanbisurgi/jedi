@@ -1,18 +1,16 @@
 ## Todo
 
+- plugin Choices
 - plugin SignaturePad
-- plugin star rating (wbotelhos/raty)
 - setValue(source) where source can be 'interaction' or 'api' 
 - fix element class jedi-error-message
-- editor test template (create, setValue(api and interaction), getValue, disable, enable, destroy, showErrors, default, title, description ...)
 - void instance/editor?
-- awesomplete test
 - correct ui.theme references
 - input range
 - input file
 - publish on NPM
 - getButton exports object { button, text, icon }
-- compact descriptions
+- compact descriptions with tooltip
 - additionalItems with prefixItems validation and editing https://json-schema.org/understanding-json-schema/reference/array#additionalitems
 - multiple instance: do not transfer values between editors
 - append descriptions if set and not hidden
@@ -52,9 +50,7 @@
 - title: false
 - documentation mode
 - use names options
-- plugins flatpickr
 - plugins sortablejs
-- plugins jodit
 - plugins simplemde
 - edit object values
 - edit array values

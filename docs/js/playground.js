@@ -62,6 +62,7 @@ window.addEventListener('DOMContentLoaded', () => {
           'plugins/quill': '../json/plugins/quill.json',
           'plugins/jodit': '../json/plugins/jodit.json',
           'plugins/flatpickr': '../json/plugins/flatpickr.json',
+          'plugins/raty': '../json/plugins/raty.json',
           'custom/custom': '../json/custom/custom.json',
           'meta-schema': '../json/meta-schema.json',
           'europass-xml-3.3.0': '../json/europass.json',

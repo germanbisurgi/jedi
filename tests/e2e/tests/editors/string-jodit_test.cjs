@@ -6,7 +6,7 @@ const valueDefault = '<p>Jodit default</p>'
 const value = '<p>value set</p>'
 const valueWithErrors = ''
 
-Feature('string')
+Feature('Jodit')
 
 BeforeSuite(({I}) => {
   I.amOnPage(`playground.html?theme=${theme}`)

@@ -6,7 +6,7 @@ const value = 'value set'
 const valueWithErrors = 'a'
 const valueDefault = '2024-08-27'
 
-Feature('string')
+Feature('Flatpickr')
 
 BeforeSuite(({I}) => {
   I.amOnPage(`playground.html?theme=${theme}`)

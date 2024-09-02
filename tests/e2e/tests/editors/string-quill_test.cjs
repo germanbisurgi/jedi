@@ -6,7 +6,7 @@ const value = 'value set'
 const valueWithErrors = 'a'
 const valueDefault = 'Quill default'
 
-Feature('string')
+Feature('Quill')
 
 BeforeSuite(({I}) => {
   I.amOnPage(`playground.html?theme=${theme}`)

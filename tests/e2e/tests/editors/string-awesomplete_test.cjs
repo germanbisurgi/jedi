@@ -6,7 +6,7 @@ const value = 'value set'
 const valueWithErrors = ''
 const valueDefault = 'Awesomplete default'
 
-Feature('string')
+Feature('Awesomplete')
 
 BeforeSuite(({I}) => {
   I.amOnPage(`playground.html?theme=${theme}`)
