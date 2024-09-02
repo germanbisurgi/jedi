@@ -46,14 +46,8 @@ class EditorArray extends Editor {
   }
 
   refreshUI () {
-    this.refreshInteractiveElements()
-
     const maxItems = getSchemaMaxItems(this.instance.schema)
     const minItems = getSchemaMinItems(this.instance.schema)
-
-    if (isSet(maxItems) && maxItems === this.instance.value.length) {
-      this.control.addBtn.setAttribute('disabled', '')
-    }
 
     this.control.childrenSlot.innerHTML = ''
 
@@ -63,14 +57,15 @@ class EditorArray extends Editor {
       const moveUpBtn = this.theme.getMoveUpItemBtn()
       const moveDownBtn = this.theme.getMoveDownItemBtn()
       const btnGroup = this.theme.getBtnGroup()
+      const { container, arrayActions, body } = this.theme.getArrayItem()
 
-      child.ui.control.arrayActions.innerHTML = ''
-      child.ui.control.arrayActions.appendChild(btnGroup)
+      arrayActions.appendChild(btnGroup)
       btnGroup.appendChild(deleteBtn)
       btnGroup.appendChild(moveUpBtn)
       btnGroup.appendChild(moveDownBtn)
 
-      this.control.childrenSlot.appendChild(child.ui.control.container)
+      this.control.childrenSlot.appendChild(container)
+      body.appendChild(child.ui.control.container)
 
       deleteBtn.addEventListener('click', () => {
         const itemIndex = Number(child.path.split(this.instance.jedi.pathSeparator).pop())
@@ -97,6 +92,12 @@ class EditorArray extends Editor {
         deleteBtn.setAttribute('disabled', '')
       }
     })
+
+    this.refreshInteractiveElements()
+
+    if (isSet(maxItems) && maxItems === this.instance.value.length) {
+      this.control.addBtn.setAttribute('disabled', '')
+    }
   }
 }
 

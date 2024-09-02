@@ -650,6 +650,30 @@ class Theme {
     }
   }
 
+  getArrayItem () {
+    const container = document.createElement('div')
+    const card = this.getCard()
+    const actions = this.getActionsSlot()
+    const arrayActions = this.getArrayActionsSlot()
+    const header = this.getCardHeader()
+    const body = this.getCardBody()
+
+    container.appendChild(card)
+    card.appendChild(header)
+    card.appendChild(body)
+    header.appendChild(actions)
+    actions.appendChild(arrayActions)
+
+    return {
+      container,
+      card,
+      header,
+      body,
+      actions,
+      arrayActions
+    }
+  }
+
   /**
    * Multiple control is a card containing multiple editors options that can be
    * selected with a switcher control. Only one editor can be active/visible
