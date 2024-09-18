@@ -416,6 +416,17 @@ class Theme {
     return moveDownItemBtn
   }
 
+  getDragItemBtn () {
+    const dragItemBtn = this.getButton({
+      textContent: 'Drag',
+      icon: 'drag'
+    })
+
+    dragItemBtn.classList.add('jedi-array-drag')
+
+    return dragItemBtn
+  }
+
   /**
    * Wrapper for the editor description
    * @private

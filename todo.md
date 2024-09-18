@@ -1,5 +1,6 @@
 ## Todo
 
+- multiple instance: do not transfer values between editors
 - plugin Choices
 - plugin SignaturePad
 - setValue(source) where source can be 'interaction' or 'api' 
@@ -12,7 +13,6 @@
 - getButton exports object { button, text, icon }
 - compact descriptions with tooltip
 - additionalItems with prefixItems validation and editing https://json-schema.org/understanding-json-schema/reference/array#additionalitems
-- multiple instance: do not transfer values between editors
 - append descriptions if set and not hidden
 - type hidden description
 - editor hidden description

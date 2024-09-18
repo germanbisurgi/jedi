@@ -34,7 +34,6 @@ Scenario('@plugin @number-raty should @disable', ({I}) => {
 
 Scenario('@plugin @number-raty should @enable', ({I}) => {
   I.click('#enable-editor')
-  // I._waitForElement('[data-read-only="false"]')
   I.dontSee('[data-read-only="false"]')
 })
 

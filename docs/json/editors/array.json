@@ -13,6 +13,9 @@
       "items": {
         "title": "This is a number editor",
         "type": "number"
+      },
+      "x-options": {
+        "sortable": true
       }
     },
     "prefixItems": {

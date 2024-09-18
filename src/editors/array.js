@@ -45,6 +45,10 @@ class EditorArray extends Editor {
     return []
   }
 
+  isSortable () {
+    return window.Sortable && isSet(getSchemaXOption(this.instance.schema, 'sortable'))
+  }
+
   refreshUI () {
     const maxItems = getSchemaMaxItems(this.instance.schema)
     const minItems = getSchemaMinItems(this.instance.schema)
@@ -63,6 +67,11 @@ class EditorArray extends Editor {
       btnGroup.appendChild(deleteBtn)
       btnGroup.appendChild(moveUpBtn)
       btnGroup.appendChild(moveDownBtn)
+
+      if (this.isSortable()) {
+        const dragBtn = this.theme.getDragItemBtn()
+        btnGroup.appendChild(dragBtn)
+      }
 
       this.control.childrenSlot.appendChild(container)
       body.appendChild(child.ui.control.container)
@@ -94,6 +103,21 @@ class EditorArray extends Editor {
     })
 
     this.refreshInteractiveElements()
+
+    if (this.isSortable()) {
+      if (this.sortable) {
+        this.sortable.destroy()
+      }
+
+      this.sortable = Sortable.create(this.control.childrenSlot, {
+        animation: 150,
+        handle: '.jedi-array-drag',
+        disabled: this.disabled || this.readOnly,
+        onEnd: (evt) => {
+          this.instance.move(evt.oldIndex, evt.newIndex)
+        }
+      })
+    }
 
     if (isSet(maxItems) && maxItems === this.instance.value.length) {
       this.control.addBtn.setAttribute('disabled', '')

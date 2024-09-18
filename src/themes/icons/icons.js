@@ -13,7 +13,8 @@ export const glyphicons = {
   add: 'glyphicon glyphicon-plus',
   moveUp: 'glyphicon glyphicon-arrow-up',
   moveDown: 'glyphicon glyphicon-arrow-down',
-  collapse: 'glyphicon glyphicon-chevron-down'
+  collapse: 'glyphicon glyphicon-chevron-down',
+  drag: 'glyphicon glyphicon-move' // Added drag icon
 }
 
 /**
@@ -26,7 +27,8 @@ export const bootstrapIcons = {
   add: 'bi bi-plus',
   moveUp: 'bi bi-arrow-up',
   moveDown: 'bi bi-arrow-down',
-  collapse: 'bi bi-chevron-down'
+  collapse: 'bi bi-chevron-down',
+  drag: 'bi bi-arrows-move' // Added drag icon
 }
 
 /**
@@ -39,7 +41,8 @@ export const fontAwesome3 = {
   add: 'icon-plus',
   moveUp: 'icon-arrow-up',
   moveDown: 'icon-arrow-down',
-  collapse: 'icon-chevron-down'
+  collapse: 'icon-chevron-down',
+  drag: 'icon-move' // Added drag icon
 }
 
 /**
@@ -52,7 +55,8 @@ export const fontAwesome4 = {
   add: 'fa fa-plus',
   moveUp: 'fa fa-arrow-up',
   moveDown: 'fa fa-arrow-down',
-  collapse: 'fa fa-chevron-down'
+  collapse: 'fa fa-chevron-down',
+  drag: 'fa fa-arrows' // Added drag icon
 }
 
 /**
@@ -65,7 +69,8 @@ export const fontAwesome5 = {
   add: 'fas fa-plus',
   moveUp: 'fas fa-arrow-up',
   moveDown: 'fas fa-arrow-down',
-  collapse: 'fas fa-chevron-down'
+  collapse: 'fas fa-chevron-down',
+  drag: 'fas fa-arrows-alt' // Added drag icon
 }
 
 /**
@@ -78,5 +83,6 @@ export const fontAwesome6 = {
   add: 'fa-solid fa-plus',
   moveUp: 'fa-solid fa-arrow-up',
   moveDown: 'fa-solid fa-arrow-down',
-  collapse: 'fa-solid fa-chevron-down'
+  collapse: 'fa-solid fa-chevron-down',
+  drag: 'fa-solid fa-arrows-up-down-left-right' // Added drag icon
 }
