@@ -1,12 +1,3 @@
-/**
- * Lists of html classes used for icons.
- * @module icons
- */
-
-/**
- * HTML classes for glyphicons icons
- * @type {object}
- */
 export const glyphicons = {
   properties: 'glyphicon glyphicon-list',
   delete: 'glyphicon glyphicon-trash',
@@ -14,13 +5,9 @@ export const glyphicons = {
   moveUp: 'glyphicon glyphicon-arrow-up',
   moveDown: 'glyphicon glyphicon-arrow-down',
   collapse: 'glyphicon glyphicon-chevron-down',
-  drag: 'glyphicon glyphicon-move' // Added drag icon
+  drag: 'glyphicon glyphicon-th'
 }
 
-/**
- * HTML classes for bootstrap-icons icons
- * @type {object}
- */
 export const bootstrapIcons = {
   properties: 'bi bi-card-list',
   delete: 'bi bi-trash2',
@@ -28,13 +15,9 @@ export const bootstrapIcons = {
   moveUp: 'bi bi-arrow-up',
   moveDown: 'bi bi-arrow-down',
   collapse: 'bi bi-chevron-down',
-  drag: 'bi bi-arrows-move' // Added drag icon
+  drag: 'bi bi-grip-vertical'
 }
 
-/**
- * HTML classes for fontawesome3 icons
- * @type {object}
- */
 export const fontAwesome3 = {
   properties: 'icon-list',
   delete: 'icon-trash',
@@ -42,13 +25,9 @@ export const fontAwesome3 = {
   moveUp: 'icon-arrow-up',
   moveDown: 'icon-arrow-down',
   collapse: 'icon-chevron-down',
-  drag: 'icon-move' // Added drag icon
+  drag: 'icon-th'
 }
 
-/**
- * HTML classes for fontawesome4 icons
- * @type {object}
- */
 export const fontAwesome4 = {
   properties: 'fa fa-list',
   delete: 'fa fa-trash-o',
@@ -56,13 +35,9 @@ export const fontAwesome4 = {
   moveUp: 'fa fa-arrow-up',
   moveDown: 'fa fa-arrow-down',
   collapse: 'fa fa-chevron-down',
-  drag: 'fa fa-arrows' // Added drag icon
+  drag: 'fa fa-th'
 }
 
-/**
- * HTML classes for fontawesome5 icons
- * @type {object}
- */
 export const fontAwesome5 = {
   properties: 'fas fa-list',
   delete: 'fas fa-trash',
@@ -70,13 +45,9 @@ export const fontAwesome5 = {
   moveUp: 'fas fa-arrow-up',
   moveDown: 'fas fa-arrow-down',
   collapse: 'fas fa-chevron-down',
-  drag: 'fas fa-arrows-alt' // Added drag icon
+  drag: 'fas fa-grip-vertical'
 }
 
-/**
- * HTML classes for fontawesome6 icons
- * @type {object}
- */
 export const fontAwesome6 = {
   properties: 'fa-solid fa-list',
   delete: 'fa-solid fa-trash',
@@ -84,5 +55,5 @@ export const fontAwesome6 = {
   moveUp: 'fa-solid fa-arrow-up',
   moveDown: 'fa-solid fa-arrow-down',
   collapse: 'fa-solid fa-chevron-down',
-  drag: 'fa-solid fa-arrows-up-down-left-right' // Added drag icon
+  drag: 'fa-solid fa-grip-vertical'
 }
