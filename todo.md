@@ -1,5 +1,7 @@
 ## Todo
 
+- playground side menu for settings form
+- configurable icons vs theme overwrite
 - multiple instance: do not transfer values between editors
 - plugin Choices
 - plugin SignaturePad
