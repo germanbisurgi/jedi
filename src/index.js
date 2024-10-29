@@ -26,6 +26,7 @@ import EditorObject from './editors/object.js'
 import EditorArrayNav from './editors/array-nav.js'
 import EditorArray from './editors/array.js'
 import EditorMultiple from './editors/multiple.js'
+import EditorIfThenElse from './editors/if-then-else.js'
 import EditorNull from './editors/null.js'
 
 export default {
@@ -51,6 +52,7 @@ export default {
   EditorArrayNav,
   EditorArray,
   EditorMultiple,
+  EditorIfThenElse,
   EditorNull,
   Theme,
   ThemeBootstrap3,

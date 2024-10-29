@@ -728,10 +728,67 @@ class Theme {
     card.appendChild(header)
     card.appendChild(body)
     header.appendChild(actions)
-    actions.appendChild(switcher.container)
+
+    if (config.switcher) {
+      actions.appendChild(switcher.container)
+    }
+
     actions.appendChild(arrayActions)
     body.appendChild(messages)
     body.appendChild(childrenSlot)
+
+    return {
+      container,
+      card,
+      header,
+      body,
+      actions,
+      messages,
+      childrenSlot,
+      switcher,
+      arrayActions
+    }
+  }
+
+  getIfThenElseControl (config) {
+    const container = document.createElement('div')
+    const card = this.getCard()
+    const actions = this.getActionsSlot()
+    const arrayActions = this.getArrayActionsSlot()
+
+    const header = this.getCardHeader({
+      textContent: config.title,
+      titleHidden: config.titleHidden
+    })
+
+    const body = this.getCardBody()
+
+    const description = this.getDescription({
+      textContent: config.description
+    })
+
+    const messages = this.getMessagesSlot()
+
+    const childrenSlot = this.getChildrenSlot()
+
+    const switcher = this.getSwitcher({
+      values: config.switcherOptionValues,
+      titles: config.switcherOptionsLabels,
+      id: config.id + '-switcher',
+      label: config.id + '-switcher',
+      titleHidden: true,
+      readOnly: config.readOnly
+    })
+
+    switcher.container.classList.add('jedi-switcher')
+
+    if (config.switcher) {
+      container.appendChild(switcher.container)
+    }
+
+    container.appendChild(description)
+    container.appendChild(messages)
+    container.appendChild(childrenSlot)
 
     return {
       container,
@@ -770,7 +827,10 @@ class Theme {
 
     const messages = this.getMessagesSlot()
 
+    const br = document.createElement('br')
+
     container.appendChild(label)
+    container.appendChild(br)
     container.appendChild(description)
     container.appendChild(messages)
     container.appendChild(actions)
@@ -1067,6 +1127,7 @@ class Theme {
     const container = document.createElement('span')
     const input = document.createElement('select')
     input.setAttribute('id', config.id)
+    // input.setAttribute('style', 'width: 100%;')
 
     config.values.forEach((value, index) => {
       const option = document.createElement('option')

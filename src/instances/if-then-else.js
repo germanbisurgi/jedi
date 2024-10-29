@@ -1,5 +1,5 @@
 import Instance from './instance.js'
-import EditorMultiple from '../editors/multiple.js'
+import EditorIfThenElse from '../editors/if-then-else.js'
 import {
   isSet,
   mergeDeep,
@@ -15,12 +15,12 @@ import {
 import Jedi from '../jedi.js'
 
 /**
- * Represents a InstanceMultiple instance.
+ * Represents a InstanceIfThenElse instance.
  * @extends Instance
  */
 class InstanceIfThenElse extends Instance {
   setUI () {
-    this.ui = new EditorMultiple(this)
+    this.ui = new EditorIfThenElse(this)
   }
 
   prepare () {
@@ -45,14 +45,16 @@ class InstanceIfThenElse extends Instance {
       if (isSet(item.then)) {
         this.schemas.push(mergeDeep({}, clone(this.schema), item.then))
         this.switcherOptionValues.push(index)
-        this.switcherOptionsLabels.push(JSON.stringify(item.then))
+        const optionLabel = 'then';
+        this.switcherOptionsLabels.push(optionLabel)
         index++
       }
 
       if (isSet(item.else)) {
         this.schemas.push(mergeDeep({}, clone(this.schema), item.else))
         this.switcherOptionValues.push(index)
-        this.switcherOptionsLabels.push(JSON.stringify(item.else))
+        const optionLabel = 'else';
+        this.switcherOptionsLabels.push(optionLabel)
         index++
       }
     })

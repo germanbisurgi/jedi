@@ -3,10 +3,10 @@ import { isArray, isSet, notSet, pathToAttribute } from '../helpers/utils.js'
 import { getSchemaAnyOf, getSchemaDescription, getSchemaOneOf, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
- * Represents an EditorMultiple instance.
+ * Represents an EditorIfThenElse instance.
  * @extends Editor
  */
-class EditorMultiple extends Editor {
+class EditorIfThenElse extends Editor {
   static resolves (schema) {
     const schemaType = getSchemaType(schema)
     const schemaOneOf = getSchemaOneOf(schema)
@@ -15,14 +15,14 @@ class EditorMultiple extends Editor {
   }
 
   build () {
-    this.control = this.theme.getMultipleControl({
+    this.control = this.theme.getIfThenElseControl({
       title: 'Options',
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       id: pathToAttribute(this.instance.path),
       description: getSchemaDescription(this.instance.schema),
       switcherOptionValues: this.instance.switcherOptionValues,
       switcherOptionsLabels: this.instance.switcherOptionsLabels,
-      switcher: true
+      switcher: false
     })
   }
 
@@ -51,4 +51,4 @@ class EditorMultiple extends Editor {
   }
 }
 
-export default EditorMultiple
+export default EditorIfThenElse
