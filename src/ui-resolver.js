@@ -26,6 +26,7 @@ class UiResolver {
     this.customEditors = options.customEditors ?? []
 
     this.editors = [
+      EditorMultiple,
       EditorBooleanEnumRadio,
       EditorBooleanCheckbox,
       EditorBooleanEnumSelect,
@@ -47,7 +48,6 @@ class UiResolver {
       EditorArrayNav,
       EditorArray,
       EditorNull,
-      EditorMultiple
     ]
   }
 
