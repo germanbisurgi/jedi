@@ -1,5 +1,15 @@
 ## Todo
 
+- showValidationErrors
+- enforceConst documentation and test
+- readOnly test
+- complementary schema (for ui stuff)
+- examples
+- on change, pass editor that changed
+- implement is dirty when value change
+- fix raty
+- switch alternative to checkbox
+- color picker
 - playground side menu for settings form
 - configurable icons vs theme overwrite
 - multiple instance: do not transfer values between editors
@@ -18,7 +28,6 @@
 - append descriptions if set and not hidden
 - type hidden description
 - editor hidden description
-- hide if-then-else headers
 - better elements class names
 - ionic theme
 - integrate unevaluatedProperties "see through"
