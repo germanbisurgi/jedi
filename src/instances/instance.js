@@ -1,11 +1,13 @@
 import EventEmitter from '../event-emitter.js'
 import {
+  different, equal,
   isSet, notSet, removeDuplicatesFromArray
 } from '../helpers/utils.js'
 import {
+  getSchemaConst,
   getSchemaDefault,
   getSchemaReadOnly,
-  getSchemaType
+  getSchemaType, getSchemaXOption
 } from '../helpers/schema.js'
 
 /**
@@ -163,6 +165,19 @@ class Instance extends EventEmitter {
    * Sets the instance value
    */
   setValue (newValue, triggersChange = true) {
+    if (this.isReadOnly()) {
+      return
+    }
+
+    const enforceConst = this.jedi.options.enforceConst || getSchemaXOption(this.schema, 'enforceConst')
+
+    if (isSet(enforceConst) && equal(enforceConst, true)) {
+      const schemaConst = getSchemaConst(this.schema)
+      if (isSet(schemaConst) && different(newValue, schemaConst)) {
+        return
+      }
+    }
+
     this.value = newValue
 
     this.emit('set-value', newValue)

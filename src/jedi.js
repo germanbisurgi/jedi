@@ -53,6 +53,7 @@ class Jedi extends EventEmitter {
       data: undefined,
       validateFormat: false,
       mergeAllOf: false,
+      enforceConst: false,
       customEditors: []
     }, options)
 
