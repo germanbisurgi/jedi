@@ -1,3 +1,5 @@
+/* global Raty */
+
 import EditorNumber from './number.js'
 import { isSet, pathToAttribute } from '../helpers/utils.js'
 import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
@@ -8,7 +10,7 @@ import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption }
  */
 class EditorNumberRaty extends EditorNumber {
   static resolves (schema) {
-    return Raty && getSchemaType(schema) === 'number' && isSet(getSchemaXOption(schema, 'raty'))
+    return typeof Raty !== 'undefined' && getSchemaType(schema) === 'number' && isSet(getSchemaXOption(schema, 'raty'))
   }
 
   build () {
