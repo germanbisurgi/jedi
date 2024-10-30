@@ -117,6 +117,13 @@ class Instance extends EventEmitter {
    */
   register () {
     this.jedi.register(this)
+
+    const registerChildRecursive = (child) => {
+      this.jedi.register(child)
+      child.children.forEach(registerChildRecursive)
+    }
+
+    this.children.forEach(registerChildRecursive)
   }
 
   /**
@@ -165,8 +172,12 @@ class Instance extends EventEmitter {
    * Sets the instance value
    */
   setValue (newValue, triggersChange = true) {
+    const schemaDefault = getSchemaDefault(this.schema)
+
     if (this.isReadOnly()) {
-      return
+      if (isSet(schemaDefault) && different(newValue, schemaDefault)) {
+        return
+      }
     }
 
     const enforceConst = this.jedi.options.enforceConst || getSchemaXOption(this.schema, 'enforceConst')
@@ -253,13 +264,13 @@ class Instance extends EventEmitter {
    * Destroy the instance and it's children
    */
   destroy () {
+    this.unregister()
+
     this.listeners = []
 
     this.children.forEach((child) => {
       child.destroy()
     })
-
-    this.unregister()
 
     if (this.ui) {
       this.ui.destroy()

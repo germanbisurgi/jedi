@@ -45,7 +45,7 @@ class InstanceIfThenElse extends Instance {
       if (isSet(item.then)) {
         this.schemas.push(mergeDeep({}, clone(this.schema), item.then))
         this.switcherOptionValues.push(index)
-        const optionLabel = 'then';
+        const optionLabel = 'then'
         this.switcherOptionsLabels.push(optionLabel)
         index++
       }
@@ -53,7 +53,7 @@ class InstanceIfThenElse extends Instance {
       if (isSet(item.else)) {
         this.schemas.push(mergeDeep({}, clone(this.schema), item.else))
         this.switcherOptionValues.push(index)
-        const optionLabel = 'else';
+        const optionLabel = 'else'
         this.switcherOptionsLabels.push(optionLabel)
         index++
       }
@@ -79,7 +79,7 @@ class InstanceIfThenElse extends Instance {
         parent: this.parent
       })
 
-      instance.unregister()
+      // instance.unregister()
 
       instance.on('change', () => {
         const afterChangeValue = this.activeInstance.getValue()
@@ -95,8 +95,6 @@ class InstanceIfThenElse extends Instance {
       })
 
       this.instances.push(instance)
-
-      this.register()
     })
 
     this.on('set-value', (newValue) => {
@@ -128,8 +126,13 @@ class InstanceIfThenElse extends Instance {
   }
 
   switchInstance (index) {
+    if (this.activeInstance) {
+      this.activeInstance.unregister()
+    }
+
     this.index = index
     this.activeInstance = this.instances[this.index]
+    this.activeInstance.register()
     this.value = this.activeInstance.getValue()
     this.emit('change')
   }
@@ -162,7 +165,8 @@ class InstanceIfThenElse extends Instance {
     this.ifThenElseShemas.forEach((schema, index) => {
       const ifValidator = new Jedi({
         schema: schema.if,
-        data: value
+        data: value,
+        refParser: this.jedi.refParser
       })
 
       const ifErrors = ifValidator.getErrors()

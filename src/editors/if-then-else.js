@@ -1,6 +1,13 @@
 import Editor from './editor.js'
-import { isArray, isSet, notSet, pathToAttribute } from '../helpers/utils.js'
-import { getSchemaAnyOf, getSchemaDescription, getSchemaOneOf, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import {
+  isSet,
+  pathToAttribute
+} from '../helpers/utils.js'
+import {
+  getSchemaDescription,
+  getSchemaIf,
+  getSchemaXOption
+} from '../helpers/schema.js'
 
 /**
  * Represents an EditorIfThenElse instance.
@@ -8,10 +15,8 @@ import { getSchemaAnyOf, getSchemaDescription, getSchemaOneOf, getSchemaType, ge
  */
 class EditorIfThenElse extends Editor {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    const schemaOneOf = getSchemaOneOf(schema)
-    const schemaAnyOf = getSchemaAnyOf(schema)
-    return isSet(schemaAnyOf) || isSet(schemaOneOf) || schemaType === 'any' || isArray(schemaType) || notSet(schemaType)
+    const schemaIf = getSchemaIf(schema)
+    return isSet(schemaIf)
   }
 
   build () {
