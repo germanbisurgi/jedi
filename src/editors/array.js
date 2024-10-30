@@ -109,7 +109,7 @@ class EditorArray extends Editor {
         this.sortable.destroy()
       }
 
-      this.sortable = Sortable.create(this.control.childrenSlot, {
+      this.sortable = window.Sortable.create(this.control.childrenSlot, {
         animation: 150,
         handle: '.jedi-array-drag',
         disabled: this.disabled || this.readOnly,
