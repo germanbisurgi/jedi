@@ -16,10 +16,8 @@ import {
 import {
   getSchemaAllOf,
   getSchemaAnyOf,
-  getSchemaElse,
   getSchemaIf,
   getSchemaOneOf,
-  getSchemaThen,
   getSchemaType,
   getSchemaXOption
 } from './helpers/schema.js'
@@ -234,14 +232,12 @@ class Jedi extends EventEmitter {
     const schemaOneOf = getSchemaOneOf(config.schema)
     const schemaAnyOf = getSchemaAnyOf(config.schema)
     const schemaIf = getSchemaIf(config.schema)
-    const schemaThen = getSchemaThen(config.schema)
-    const schemaElse = getSchemaElse(config.schema)
 
     if (isSet(schemaAnyOf) || isSet(schemaOneOf) || schemaType === 'any' || isArray(schemaType) || notSet(schemaType)) {
       return new InstanceMultiple(config)
     }
 
-    if (isSet(schemaIf) && (isSet(schemaThen) || isSet(schemaElse))) {
+    if (isSet(schemaIf)) {
       return new InstanceIfThenElse(config)
     }
 
