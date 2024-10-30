@@ -20,6 +20,7 @@ import EditorStringQuill from './editors/string-quill.js'
 import EditorStringJodit from './editors/string-jodit.js'
 import EditorStringFlatpickr from './editors/string-flatpickr.js'
 import EditorNumberRaty from './editors/number-raty.js'
+import EditorIfThenElse from './editors/if-then-else.js'
 
 class UiResolver {
   constructor (options) {
@@ -27,6 +28,7 @@ class UiResolver {
 
     this.editors = [
       EditorMultiple,
+      EditorIfThenElse,
       EditorBooleanEnumRadio,
       EditorBooleanCheckbox,
       EditorBooleanEnumSelect,
@@ -47,7 +49,7 @@ class UiResolver {
       EditorObject,
       EditorArrayNav,
       EditorArray,
-      EditorNull,
+      EditorNull
     ]
   }
 
