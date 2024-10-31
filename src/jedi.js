@@ -9,7 +9,7 @@ import InstanceString from './instances/string.js'
 import InstanceNumber from './instances/number.js'
 import InstanceNull from './instances/null.js'
 import {
-  isArray,
+  isArray, isObject,
   isSet, mergeDeep,
   notSet
 } from './helpers/utils.js'
@@ -52,7 +52,8 @@ class Jedi extends EventEmitter {
       validateFormat: false,
       mergeAllOf: false,
       enforceConst: false,
-      customEditors: []
+      customEditors: [],
+      hiddenInputAttributes: {}
     }, options)
 
     /**
@@ -189,6 +190,13 @@ class Jedi extends EventEmitter {
     this.hiddenInput = hiddenControl.input
     this.hiddenInput.setAttribute('name', 'json')
     this.hiddenInput.removeAttribute('aria-describedby')
+
+    if (this.options.hiddenInputAttributes && isObject(this.options.hiddenInputAttributes)) {
+      Object.keys(this.options.hiddenInputAttributes).forEach(attr => {
+        this.hiddenInput.setAttribute(attr, this.options.hiddenInputAttributes[attr])
+      })
+    }
+
     this.container.appendChild(this.hiddenInput)
     this.hiddenInput.value = JSON.stringify(this.getValue())
   }
