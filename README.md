@@ -30,16 +30,24 @@ or in Node.js as a powerful JSON schema validator.
 ### As a Validator
 
 ```javascript
-const validator = new Jedi.Create({
-  schema: {
-    "type": "string"
-  }
-})
+const schema = {
+  "type": "string"
+};
 
-validator.setValue(42)
-validator.getValue()
-validator.getErrors()
-validator.destroy()
+const refParser = new Jedi.RefParser()
+
+const init = async () => {
+  await refParser.dereference(schema)
+
+  const jedi = new Jedi.Create({
+    refParser: refParser,
+    schema: {
+      "type": "string"
+    }
+  })
+}
+
+init()
 ```
 
 ### As an Editor
@@ -50,19 +58,26 @@ validator.destroy()
 ```
 
 ```javascript
-const editor = new Jedi.Create({
-  container: document.querySelector('#jedi-container'),
-  schema: {
-    "type": "string"
-  }
-})
+const schema = {
+  "type": "string"
+};
 
-editor.setValue(42)
-editor.getValue()
-editor.getErrors()
-editor.enable()
-editor.disable()
-editor.destroy()
+const refParser = new Jedi.RefParser()
+
+const init = async () => {
+  await refParser.dereference(schema)
+
+  const jedi = new Jedi.Create({
+    container: document.querySelector('#jedi-container'),
+    theme: new Jedi.ThemeBootstrap3(),
+    refParser: refParser,
+    schema: {
+      "type": "string"
+    }
+  })
+}
+
+init()
 ```
 
 ## Development
