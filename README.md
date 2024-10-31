@@ -82,26 +82,110 @@ init()
 
 ### Options
 
-### Options Properties
+#### `container`
+- **Type:** `HTMLElement`
+- **Default:** `null`
+- **Example:** `document.querySelector('#jedi-container')`
+- **Description:** The HTML element that will contain the generated form.
 
-| Property                    | Type          | Default     | Example                                     | Description                                                                                         |
-|-----------------------------|---------------|-------------|---------------------------------------------|-----------------------------------------------------------------------------------------------------|
-| `container`                 | `HTMLElement` | `null`      | `document.querySelector('#jedi-container')` | The HTML element that will contain the generated form.                                              |
-| `iconLib`                   | `string`      | `string`    | `'fontawesome'`                             | The icon library to use for UI components.                                                          |
-| `theme`                     | `Theme`       | `null`      | `new Jedi.ThemeBootstrap3()`                | The theme to apply to the UI.                                                                       |
-| `refParser`                 | `RefParser`   | `null`      | `new Jedi.RefParser()`                      | A `RefParser` instance to dereference `'$ref'` keywords.                                            |
-| `enablePropertiesToggle`     | `boolean`     | `false`     | `true`                                      | Enables a toggle to show/hide properties in the UI.                                                 |
-| `enableCollapseToggle`      | `boolean`     | `false`     | `true`                                      | Allows sections to be collapsible in the UI.                                                        |
-| `startCollapsed`            | `boolean`     | `false`     | `true`                                      | If `true`, the UI starts in a collapsed state.                                                      |
-| `deactivateNonRequired`     | `boolean`     | `false`     | `true`                                      | Deactivates non-required properties.                                                                |
-| `schema`                    | `object`      | `{}`        | `{type: 'object', properties: {}}`         | A JSON schema.                                                                                     |
-| `showErrors`                | `string`      | `'change'`  | `'always'`                                  | Determines when to show validation errors. Possible values are `'$never'`, `'$change'`, `'$always'`. |
-| `data`                      | `object`      | `undefined` | `{name: 'John', age: 30}`                  | The initial data to populate the form.                                                              |
-| `validateFormat`            | `boolean`     | `false`     | `true`                                      | Treats `'format'` as a validator and not just an annotation.                                        |
-| `mergeAllOf`                | `boolean`     | `false`     | `true`                                      | If `true`, merges all `allOf` schemas into one.                                                     |
-| `enforceConst`              | `boolean`     | `false`     | `true`                                      | Enforces the `const` keyword value in editors.                                                      |
-| `customEditors`             | `array`       | `[]`        | `[MyEditor]`                                | An array of custom editor classes.                                                                   |
-| `hiddenInputAttributes`     | `object`      | `{}`        | `{class: 'hidden', style: 'display:none;'}` | Attributes for hidden inputs in the form.                                                           |
+#### `iconLib`
+- **Type:** `string`
+- **Default:** `'null'`
+- **Example:** `'fontawesome'`
+- **Description:** Specifies the icon library to use for UI components. Valid options include:
+  - `'glyphicons'`
+  - `'bootstrapIcons'`
+  - `'fontAwesome3'`
+  - `'fontAwesome4'`
+  - `'fontAwesome5'`
+  - `'fontAwesome6'`
+
+#### `theme`
+- **Type:** `Theme`
+- **Default:** `null`
+- **Example:** `new Jedi.ThemeBootstrap3()`
+- **Description:** An instance of `Theme` to apply to the UI. Valid options include:
+  - `new Jedi.Theme()`
+  - `new Jedi.ThemeBootstrap3()`
+  - `new Jedi.ThemeBootstrap4()`
+  - `new Jedi.ThemeBootstrap5()`
+
+#### `refParser`
+- **Type:** `new Jedi.RefParser`
+- **Default:** `null`
+- **Example:** "new Jedi.RefParser()"
+- **Description:** An instance of `RefParser` to handle `'$ref'` keywords.
+
+#### `enablePropertiesToggle`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** Enables a toggle to show/hide properties in the UI.
+
+#### `enableCollapseToggle`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** Allows sections to be collapsible in the UI.
+
+#### `startCollapsed`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** If set to `true`, the UI starts in a collapsed state.
+
+#### `deactivateNonRequired`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** Deactivates non-required properties.
+
+#### `schema`
+- **Type:** `object`
+- **Default:** `{}`
+- **Example:** `{type: 'object', properties: {}}`
+- **Description:** A JSON schema for the form.
+
+#### `showErrors`
+- **Type:** `string`
+- **Default:** `'change'`
+- **Example:** `'always'`
+- **Description:** Determines when to display validation errors. Options include:
+  - `'never'`
+  - `'change'`
+  - `'always'`
+
+#### `data`
+- **Type:** `object`
+- **Default:** `undefined`
+- **Example:** `{name: 'John', age: 30}`
+- **Description:** Initial data to populate the form.
+
+#### `validateFormat`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** Treats `'format'` as a validator rather than just an annotation.
+
+#### `mergeAllOf`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** If set to `true`, merges all `allOf` schemas into one.
+
+#### `enforceConst`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** Enforces the `const` keyword value in editors.
+
+#### `customEditors`
+- **Type:** `array`
+- **Default:** `[]`
+- **Example:** `[MyEditor]`
+- **Description:** An array of custom editor classes.
+
+#### `hiddenInputAttributes`
+- **Type:** `object`
+- **Default:** `{}`
+- **Example:** `{class: 'hidden', style: 'display:none;'}`
+- **Description:** Attributes for hidden inputs in the form.
+
+### Notes
+- Ensure that all necessary properties are set according to your requirements for optimal functionality.
 
 
 ## Development
