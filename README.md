@@ -80,6 +80,30 @@ const init = async () => {
 init()
 ```
 
+### Options
+
+### Options Properties
+
+| Property                    | Type          | Default     | Example                                     | Description                                                                                         |
+|-----------------------------|---------------|-------------|---------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| `container`                 | `HTMLElement` | `null`      | `document.querySelector('#jedi-container')` | The HTML element that will contain the generated form.                                              |
+| `iconLib`                   | `string`      | `string`    | `'fontawesome'`                             | The icon library to use for UI components.                                                          |
+| `theme`                     | `Theme`       | `null`      | `new Jedi.ThemeBootstrap3()`                | The theme to apply to the UI.                                                                       |
+| `refParser`                 | `RefParser`   | `null`      | `new Jedi.RefParser()`                      | A `RefParser` instance to dereference `'$ref'` keywords.                                            |
+| `enablePropertiesToggle`     | `boolean`     | `false`     | `true`                                      | Enables a toggle to show/hide properties in the UI.                                                 |
+| `enableCollapseToggle`      | `boolean`     | `false`     | `true`                                      | Allows sections to be collapsible in the UI.                                                        |
+| `startCollapsed`            | `boolean`     | `false`     | `true`                                      | If `true`, the UI starts in a collapsed state.                                                      |
+| `deactivateNonRequired`     | `boolean`     | `false`     | `true`                                      | Deactivates non-required properties.                                                                |
+| `schema`                    | `object`      | `{}`        | `{type: 'object', properties: {}}`         | A JSON schema.                                                                                     |
+| `showErrors`                | `string`      | `'change'`  | `'always'`                                  | Determines when to show validation errors. Possible values are `'$never'`, `'$change'`, `'$always'`. |
+| `data`                      | `object`      | `undefined` | `{name: 'John', age: 30}`                  | The initial data to populate the form.                                                              |
+| `validateFormat`            | `boolean`     | `false`     | `true`                                      | Treats `'format'` as a validator and not just an annotation.                                        |
+| `mergeAllOf`                | `boolean`     | `false`     | `true`                                      | If `true`, merges all `allOf` schemas into one.                                                     |
+| `enforceConst`              | `boolean`     | `false`     | `true`                                      | Enforces the `const` keyword value in editors.                                                      |
+| `customEditors`             | `array`       | `[]`        | `[MyEditor]`                                | An array of custom editor classes.                                                                   |
+| `hiddenInputAttributes`     | `object`      | `{}`        | `{class: 'hidden', style: 'display:none;'}` | Attributes for hidden inputs in the form.                                                           |
+
+
 ## Development
 
 Install dependencies:
