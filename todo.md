@@ -1,5 +1,10 @@
 ## Todo
 
+- tabs and pils errors and responsiveness,
+- inputAttributes option, containerAttributes, ...
+- object format table editor
+- printable
+- propertyOrder option
 - showValidationErrors
 - enforceConst documentation and test
 - readOnly test

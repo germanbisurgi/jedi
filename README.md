@@ -80,7 +80,7 @@ const init = async () => {
 init()
 ```
 
-### Options
+## Instance Options
 
 #### `container`
 - **Type:** `HTMLElement`

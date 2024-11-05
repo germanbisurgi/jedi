@@ -248,10 +248,10 @@ export function mergeDeep (target, ...sources) {
 }
 
 /**
- * Merges objects but only the properties that exists in boths objects
+ * Merges objects but only the properties that exists in both objects
  * if they are the same type of value
  * @param {object} obj1 - The target object
- * @param {object[]} obj2 - Objects who's properties are the overrides
+ * @param {object[]} obj2 - Objects whose properties are the overrides
  * @return {object} The overwritten object
  */
 export function overwriteExistingProperties (obj1, obj2) {
