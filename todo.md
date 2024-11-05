@@ -1,8 +1,9 @@
 ## Todo
 
+- array checkbox
+- if-then-else descriptions or objects
 - tabs and pils errors and responsiveness,
 - inputAttributes option, containerAttributes, ...
-- object format table editor
 - printable
 - propertyOrder option
 - showValidationErrors
@@ -12,7 +13,6 @@
 - examples
 - on change, pass editor that changed
 - implement is dirty when value change
-- fix raty
 - switch alternative to checkbox
 - color picker
 - playground side menu for settings form
