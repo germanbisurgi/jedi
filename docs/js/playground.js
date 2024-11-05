@@ -36,6 +36,7 @@ window.addEventListener('DOMContentLoaded', () => {
           'validator/if-then-else': '../json/validator/if-then-else.json',
           'validator/if-then-else-allOf': '../json/validator/if-then-else-allOf.json',
           'validator/if-then-else-nested': '../json/validator/if-then-else-nested.json',
+          'validator/if-then-else-nested-complex': '../json/validator/if-then-else-nested-complex.json',
           'validator/items': '../json/validator/items.json',
           'validator/maxContains': '../json/validator/maxContains.json',
           'validator/maximum': '../json/validator/maximum.json',

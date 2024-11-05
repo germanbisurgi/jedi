@@ -130,7 +130,6 @@ class InstanceIfThenElse extends Instance {
     this.activeInstance = this.instances[this.index]
     this.activeInstance.register()
     this.value = this.activeInstance.getValue()
-    // this.emit('change')
   }
 
   traverseSchema (schema) {
