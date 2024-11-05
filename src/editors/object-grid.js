@@ -22,10 +22,10 @@ class EditorObjectGrid extends EditorObject {
     this.instance.children.forEach((child) => {
       if (child.isActive) {
         const grid = getSchemaXOption(child.schema, 'grid')
-        const columns = grid.columns || 12
-        const offset = grid.offset || 0
+        const columns = grid?.columns || 12
+        const offset = grid?.offset || 0
         const col = this.theme.getCol(12, columns, offset)
-        const newRow = grid.newRow || false
+        const newRow = grid?.newRow || false
 
         if (newRow) {
           row = this.theme.getRow()
