@@ -12,16 +12,19 @@ Scenario('@constrain-if-then-else validate against @if-then-else-nested', async 
     "vehicleType": "motorcycle",
     "numWheels": 0
   }))
-  I.selectOption('[id="root-vehicleType"]', 'car')
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
-    "vehicleType": "car",
-    "numDoors": 0
-  }))
+
   I.selectOption('[id="root-vehicleType"]', 'bicycle')
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "vehicleType": "bicycle",
     "numPedals": 0
   }))
+
+  I.selectOption('[id="root-vehicleType"]', 'car')
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "vehicleType": "car",
+    "numDoors": 0
+  }))
+
   I.selectOption('[id="root-vehicleType"]', 'other')
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "vehicleType": "other",

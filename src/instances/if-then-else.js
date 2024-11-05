@@ -26,7 +26,6 @@ class InstanceIfThenElse extends Instance {
   prepare () {
     this.instances = []
     this.activeInstance = null
-    this.activeInstanceChanged = true
     this.index = 0
     this.schemas = []
     this.switcherOptionValues = []
@@ -79,8 +78,6 @@ class InstanceIfThenElse extends Instance {
         parent: this.parent
       })
 
-      // instance.unregister()
-
       instance.on('change', () => {
         const afterChangeValue = this.activeInstance.getValue()
         const fittestIndex = this.getFittestIndex(afterChangeValue)
@@ -114,7 +111,6 @@ class InstanceIfThenElse extends Instance {
 
       if (mustSwitch) {
         this.switchInstance(fittestIndex)
-        this.emit('change')
       }
     })
 
@@ -134,7 +130,7 @@ class InstanceIfThenElse extends Instance {
     this.activeInstance = this.instances[this.index]
     this.activeInstance.register()
     this.value = this.activeInstance.getValue()
-    this.emit('change')
+    // this.emit('change')
   }
 
   traverseSchema (schema) {
