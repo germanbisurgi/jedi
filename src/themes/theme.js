@@ -1066,6 +1066,95 @@ class Theme {
     return { container, formGroup, input, label, labelText, description, messages, actions, arrayActions }
   }
 
+  getCheckboxesControl (config) {
+    const container = document.createElement('div')
+    const actions = this.getActionsSlot()
+    const arrayActions = this.getArrayActionsSlot()
+    const fieldset = this.getFieldset()
+    const body = this.getCardBody()
+    const legend = this.getLegend({
+      textContent: config.label,
+      id: config.id
+    })
+
+    const messagesId = config.id + '-messages'
+    const messages = this.getMessagesSlot({
+      id: messagesId
+    })
+
+    const descriptionId = config.id + '-description'
+    const description = this.getDescription({
+      textContent: config.description,
+      id: descriptionId
+    })
+
+    if (config.titleHidden) {
+      this.visuallyHidden(legend)
+    }
+
+    const checkboxControls = []
+    const checkboxes = []
+    const labels = []
+    const labelTexts = []
+
+    config.values.forEach((value, index) => {
+      const checkboxControl = document.createElement('div')
+      checkboxControls.push(checkboxControl)
+
+      const checkbox = document.createElement('input')
+      checkbox.setAttribute('type', 'checkbox')
+      checkbox.setAttribute('id', config.id + '-' + index)
+      checkbox.setAttribute('value', value)
+      checkboxes.push(checkbox)
+
+      const describedBy = messagesId + ' ' + descriptionId
+      checkbox.setAttribute('aria-describedby', describedBy)
+
+      const label = document.createElement('label')
+      label.setAttribute('for', config.id + '-' + index)
+
+      const labelText = document.createElement('span')
+      labelTexts.push(labelText)
+
+      if (config.titles && config.titles[index]) {
+        labelText.textContent = config.titles[index]
+      }
+
+      labels.push(label)
+    })
+
+    container.appendChild(fieldset)
+    container.appendChild(actions)
+    fieldset.appendChild(legend)
+    fieldset.appendChild(body)
+    actions.appendChild(arrayActions)
+
+    checkboxControls.forEach((checkboxControl, index) => {
+      body.appendChild(checkboxControls[index])
+      checkboxControl.appendChild(checkboxes[index])
+      checkboxControl.appendChild(labels[index])
+      labels[index].appendChild(labelTexts[index])
+    })
+
+    body.appendChild(description)
+    body.appendChild(messages)
+
+    return {
+      container,
+      fieldset,
+      legend,
+      body,
+      checkboxes,
+      labels,
+      labelTexts,
+      checkboxControls,
+      description,
+      messages,
+      actions,
+      arrayActions
+    }
+  }
+
   /**
    * A select control
    * @private

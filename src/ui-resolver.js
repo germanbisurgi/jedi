@@ -21,6 +21,7 @@ import EditorStringJodit from './editors/string-jodit.js'
 import EditorStringFlatpickr from './editors/string-flatpickr.js'
 import EditorNumberRaty from './editors/number-raty.js'
 import EditorIfThenElse from './editors/if-then-else.js'
+import EditorArrayEnumItems from './editors/array-enum-items.js'
 
 class UiResolver {
   constructor (options) {
@@ -47,6 +48,7 @@ class UiResolver {
       EditorObjectGrid,
       EditorObjectNav,
       EditorObject,
+      EditorArrayEnumItems,
       EditorArrayNav,
       EditorArray,
       EditorNull

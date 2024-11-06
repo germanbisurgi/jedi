@@ -160,6 +160,20 @@ class ThemeBootstrap5 extends Theme {
     return control
   }
 
+  getCheckboxesControl (config) {
+    const control = super.getCheckboxesControl(config)
+    const { checkboxes, labels, checkboxControls } = control
+
+    checkboxControls.forEach((checkboxControl, index) => {
+      checkboxControl.classList.add('mb-3')
+      checkboxControl.classList.add('form-check')
+      checkboxes[index].classList.add('form-check-input')
+      labels[index].classList.add('form-check-label')
+    })
+
+    return control
+  }
+
   getCheckboxControl (config) {
     const control = super.getCheckboxControl(config)
     const { container, formGroup, input, label, description, messages } = control

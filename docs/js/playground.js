@@ -6,6 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
         examples: {
           'editors/all': '../json/editors/all.json',
           'editors/array': '../json/editors/array.json',
+          'editors/array-enum-items': '../json/editors/array-enum-items.json',
           'editors/array-nav-pills': '../json/editors/array-nav-pills.json',
           'editors/array-nav-tabs': '../json/editors/array-nav-tabs.json',
           'editors/boolean': '../json/editors/boolean.json',

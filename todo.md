@@ -1,6 +1,6 @@
 ## Todo
 
-- array checkbox
+- editor tests @setValue should proof for changes in ui too when possible 
 - if-then-else descriptions or objects
 - tabs and pils errors and responsiveness,
 - inputAttributes option, containerAttributes, ...
