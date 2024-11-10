@@ -34,6 +34,7 @@ export const i18n = {
   errorPattern: 'Must match the pattern: "{{ pattern }}".',
   errorPrefixItems: 'Item {{ index }} fails validation.',
   errorPropertyNames: 'Property name "{{ propertyName }}" fails validation.',
+  errorProperties: 'The following properties do not comply with their schemas: {{ properties }}',
   errorRequired: 'Must have the required properties: {{ required }}.',
   errorType: 'Must be of type {{ type }}.',
   errorUnevaluatedProperties: 'Has invalid unevaluated property "{{ property }}"',

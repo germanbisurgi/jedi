@@ -74,6 +74,13 @@ class Instance extends EventEmitter {
      */
     this.ui = null
 
+    /**
+     * Indicates whether the instance value changed.
+     * @type {boolean}
+     * @private
+     */
+    this.isDirty = false
+
     this.init()
   }
 
@@ -92,6 +99,7 @@ class Instance extends EventEmitter {
 
     this.on('change', () => {
       if (this.parent) {
+        this.parent.isDirty = true
         this.parent.onChildChange()
       }
     })
@@ -194,6 +202,7 @@ class Instance extends EventEmitter {
     this.emit('set-value', newValue)
 
     if (triggersChange) {
+      this.isDirty = true
       this.emit('change')
     }
   }

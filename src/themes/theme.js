@@ -1313,7 +1313,7 @@ class Theme {
     const link = document.createElement('a')
     link.classList.add('jedi-nav-link')
     link.setAttribute('href', '#' + config.id)
-    link.textContent = config.title
+    link.textContent = config.hasErrors ? '⚠ ' + config.title : config.title
     list.appendChild(link)
     return { list, link }
   }

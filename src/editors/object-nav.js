@@ -23,7 +23,7 @@ class EditorObjectNav extends EditorObject {
 
     const nav = getSchemaXOption(this.instance.schema, 'nav')
     const row = this.theme.getRow()
-    const cols = isSet(nav.cols) ? nav.cols : 3
+    const cols = isSet(nav.cols) ? nav.cols : 4
     const tabListCol = this.theme.getCol(12, cols)
     const tabContentCol = this.theme.getCol(12, (12 - cols))
     const tabContent = this.theme.getTabContent()
@@ -45,6 +45,7 @@ class EditorObjectNav extends EditorObject {
         const schemaTitle = getSchemaTitle(child.schema)
 
         const tab = this.theme.getTab({
+          hasErrors: child.children.some((grandChild) => grandChild.ui.uiHasErrors),
           title: isSet(schemaTitle) ? schemaTitle : child.getKey(),
           id: id,
           active: active

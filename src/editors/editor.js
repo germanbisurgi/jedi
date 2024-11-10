@@ -42,6 +42,8 @@ class Editor {
      */
     this.readOnly = this.instance.isReadOnly()
 
+    this.uiHasErrors = false
+
     this.init()
     this.build()
     this.coerceValue()
@@ -115,17 +117,22 @@ class Editor {
    * @private
    */
   showValidationErrors (errors) {
+    this.control.messages.innerHTML = ''
+    this.uiHasErrors = false
+
     const neverShowErrors = this.instance.jedi.options.showErrors === 'never' || getSchemaXOption(this.instance.schema, 'showErrors') === 'never'
 
-    if (neverShowErrors) {
+    if (neverShowErrors || errors.length === 0) {
       return
     }
-
-    this.control.messages.innerHTML = ''
 
     const label = getSchemaTitle(this.instance.schema) || this.instance.getKey()
 
     errors.forEach((error) => {
+      if (error.constraint === 'properties') {
+        return
+      }
+
       error.messages.forEach((message) => {
         const invalidFeedback = this.getInvalidFeedback({
           message: label + ': ' + message
@@ -133,6 +140,8 @@ class Editor {
         this.control.messages.appendChild(invalidFeedback)
       })
     })
+
+    this.uiHasErrors = true
   }
 
   /**
