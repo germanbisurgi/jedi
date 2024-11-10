@@ -1,7 +1,7 @@
 ## Todo
 
 - editor tests @setValue should proof for changes in ui too when possible 
-- if-then-else descriptions or objects
+- options tests with @option tag
 - tabs and pils errors and responsiveness,
 - inputAttributes option, containerAttributes, ...
 - printable

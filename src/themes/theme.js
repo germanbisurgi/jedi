@@ -786,7 +786,7 @@ class Theme {
       container.appendChild(switcher.container)
     }
 
-    container.appendChild(description)
+    body.appendChild(description)
     container.appendChild(messages)
     container.appendChild(childrenSlot)
 
