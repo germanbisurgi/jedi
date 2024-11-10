@@ -2,7 +2,6 @@
 
 - editor tests @setValue should proof for changes in ui too when possible 
 - options tests with @option tag
-- tabs and pils errors and responsiveness,
 - inputAttributes option, containerAttributes, ...
 - printable
 - propertyOrder option
