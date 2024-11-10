@@ -22,6 +22,7 @@ import { not } from '../constrains/not.js'
 import { oneOf } from '../constrains/oneOf.js'
 import { pattern } from '../constrains/pattern.js'
 import { patternProperties } from '../constrains/patternProperties.js'
+import { properties } from '../constrains/properties.js'
 import { prefixItems } from '../constrains/prefixItems.js'
 import { required } from '../constrains/required.js'
 import { type } from '../constrains/type.js'
@@ -57,6 +58,7 @@ export default {
   oneOf: oneOf,
   pattern: pattern,
   patternProperties: patternProperties,
+  propertie: properties,
   prefixItems: prefixItems,
   required: required,
   type: type,

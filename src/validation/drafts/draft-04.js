@@ -17,6 +17,7 @@ import { not } from '../constrains/not.js'
 import { oneOf } from '../constrains/oneOf.js'
 import { pattern } from '../constrains/pattern.js'
 import { patternProperties } from '../constrains/patternProperties.js'
+import { properties } from '../constrains/properties.js'
 import { required } from '../constrains/required.js'
 import { type } from '../constrains/type.js'
 import { maximum } from '../constrains/maximum.js'
@@ -45,6 +46,7 @@ export default {
   oneOf: oneOf,
   pattern: pattern,
   patternProperties: patternProperties,
+  properties: properties,
   required: required,
   type: type,
   uniqueItems: uniqueItems

@@ -24,6 +24,7 @@ import { pattern } from '../constrains/pattern.js'
 import { patternProperties } from '../constrains/patternProperties.js'
 import { prefixItems } from '../constrains/prefixItems.js'
 import { propertyNames } from '../constrains/propertyNames.js'
+import { properties } from '../constrains/properties.js'
 import { required } from '../constrains/required.js'
 import { type } from '../constrains/type.js'
 import { maximum } from '../constrains/maximum.js'
@@ -60,6 +61,7 @@ export default {
   patternProperties: patternProperties,
   prefixItems: prefixItems,
   propertyNames: propertyNames,
+  properties: properties,
   required: required,
   type: type,
   unevaluatedProperties: unevaluatedProperties,
