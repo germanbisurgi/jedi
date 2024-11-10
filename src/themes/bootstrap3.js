@@ -148,7 +148,7 @@ class ThemeBootstrap3 extends Theme {
 
   getCheckboxesControl (config) {
     const control = super.getCheckboxesControl(config)
-    const { body, checkboxes, labels, labelTexts, checkboxControls, description, messages } = control
+    const { body, checkboxes, labels, labelTexts, checkboxControls } = control
 
     checkboxControls.forEach((checkboxControl, index) => {
       checkboxControl.classList.add('checkbox')
