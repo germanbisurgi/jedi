@@ -1,7 +1,7 @@
 import Editor from './editor.js'
 import {
   equal,
-  hasOwn,
+  hasOwn, isNumber,
   isObject,
   isSet,
   pathToAttribute
@@ -173,6 +173,40 @@ class EditorObject extends Editor {
     }
   }
 
+  /**
+   * Sorts the children of the current instance based on their `propertyOrder` value in ascending order.
+   * The sorting is done using the `propertyOrder` obtained from each child's schema, which should be a number.
+   * If a child does not have a valid `propertyOrder` (i.e., the value is not a number), it will be placed after the child with a valid `propertyOrder`.
+   * @returns {void} This function modifies the `children` array of the instance in place.
+   */
+  sortChildrenByPropertyOrder () {
+    this.instance.children = this.instance.children.sort((a, b) => {
+      const propertyOrderA = getSchemaXOption(a.schema, 'propertyOrder')
+      const propertyOrderB = getSchemaXOption(b.schema, 'propertyOrder')
+
+      const isValidNumberA = isNumber(propertyOrderA)
+      const isValidNumberB = isNumber(propertyOrderB)
+
+      if (!isValidNumberA && isValidNumberB) {
+        return 1
+      }
+
+      if (isValidNumberA && !isValidNumberB) {
+        return -1
+      }
+
+      if (propertyOrderA < propertyOrderB) {
+        return -1
+      }
+
+      if (propertyOrderA > propertyOrderB) {
+        return 1
+      }
+
+      return 0
+    })
+  }
+
   refreshEditors () {
     this.instance.children.forEach((child) => {
       if (child.isActive) {
@@ -194,6 +228,7 @@ class EditorObject extends Editor {
   }
 
   refreshUI () {
+    this.sortChildrenByPropertyOrder()
     this.refreshInteractiveElements()
     this.refreshPropertiesSlot()
     this.refreshEditors()

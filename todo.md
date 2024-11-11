@@ -1,11 +1,7 @@
 ## Todo
 
-- editor tests @setValue should proof for changes in ui too when possible 
-- options tests with @option tag
 - inputAttributes option, containerAttributes, ...
 - printable
-- propertyOrder option
-- showValidationErrors
 - enforceConst documentation and test
 - readOnly test
 - complementary schema (for ui stuff)

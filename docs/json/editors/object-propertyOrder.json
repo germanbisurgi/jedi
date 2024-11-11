@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "a": {
+      "type": "string",
+      "x-options": {
+        "propertyOrder": 3
+      }
+    },
+    "b": {
+      "type": "string",
+      "x-options": {
+        "propertyOrder": 2
+      }
+    },
+    "c": {
+      "type": "string",
+      "x-options": {
+        "propertyOrder": 1
+      }
+    }
+  }
+}

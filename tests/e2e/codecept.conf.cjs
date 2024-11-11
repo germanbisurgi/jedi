@@ -14,6 +14,9 @@ exports.config = {
       waitForTimeout: 10000,
       windowSize: '1200x600',
       restart: false
+    },
+    ChaiWrapper: {
+      require: 'codeceptjs-chai'
     }
   }
 }
