@@ -116,7 +116,7 @@ class Editor {
    * Shows validation messages in the editor container.
    * @private
    */
-  showValidationErrors (errors) {
+  showValidationErrors (errors, force = false) {
     errors = errors.filter((error) => {
       return error.path === this.instance.path
     })
@@ -126,7 +126,7 @@ class Editor {
 
     const neverShowErrors = this.instance.jedi.options.showErrors === 'never' || getSchemaXOption(this.instance.schema, 'showErrors') === 'never'
 
-    if (neverShowErrors || errors.length === 0) {
+    if ((neverShowErrors && !force) || errors.length === 0) {
       return
     }
 

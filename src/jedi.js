@@ -330,7 +330,7 @@ class Jedi extends EventEmitter {
    * If an errors list is passed, it will display these errors;
    * otherwise, it will retrieve existing errors from the instance.
    *
-   * @param {Object|null} errorsList - An optional object containing error messages.
+   * @param {Array|null} errorsList - An optional array containing error messages.
    * @returns {boolean} Returns `true` if the container exists and errors are displayed,
    * or `false` if there is no container and thus no errors are displayed.
    */
@@ -343,7 +343,7 @@ class Jedi extends EventEmitter {
 
     Object.keys(this.instances).forEach((key) => {
       const instance = this.instances[key]
-      instance.ui.showValidationErrors(errors)
+      instance.ui.showValidationErrors(errors, true)
     })
   }
 
