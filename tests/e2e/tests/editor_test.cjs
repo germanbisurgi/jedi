@@ -118,3 +118,17 @@ Scenario('@editor-showErrors should determine if and when validation errors are 
   I.selectOption('#root-booleans-boolean-enum-select', 'false')
   I.dontSeeElement('.jedi-error-message')
 })
+
+Scenario('@editor @showValidationErrors should programmatically display validation errors', ({ I }) => {
+  I.amOnPage(`playground.html?theme=${theme}`)
+  I._waitForElement('.jedi-ready')
+  I.selectOption('#examples', '../json/validator/const.json')
+  I._click('#show-validation-errors')
+  I._waitForText('Must have value of: "test"', '[data-path="#/string"]')
+  I._waitForText('Must have value of: 2.5', '[data-path="#/number"]')
+  I._waitForText('Must have value of: 3', '[data-path="#/integer"]')
+  I._waitForText('Must have value of: true', '[data-path="#/boolean"]')
+  I._waitForText('Must have value of: ["test"]', '[data-path="#/array"]')
+  I._waitForText('Must have value of: {"test":"test"}', '[data-path="#/object"]')
+  I._waitForText('Must have value of: "test"', '[data-path="#/multiple"]')
+})

@@ -117,6 +117,10 @@ class Editor {
    * @private
    */
   showValidationErrors (errors) {
+    errors = errors.filter((error) => {
+      return error.path === this.instance.path
+    })
+
     this.control.messages.innerHTML = ''
     this.showingValidationErrors = false
 

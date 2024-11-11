@@ -326,6 +326,28 @@ class Jedi extends EventEmitter {
   }
 
   /**
+   * Displays validation errors in the respective editors.
+   * If an errors list is passed, it will display these errors;
+   * otherwise, it will retrieve existing errors from the instance.
+   *
+   * @param {Object|null} errorsList - An optional object containing error messages.
+   * @returns {boolean} Returns `true` if the container exists and errors are displayed,
+   * or `false` if there is no container and thus no errors are displayed.
+   */
+  showValidationErrors (errorsList = null) {
+    if (!this.options.container) {
+      return false
+    }
+
+    const errors = errorsList || this.getErrors()
+
+    Object.keys(this.instances).forEach((key) => {
+      const instance = this.instances[key]
+      instance.ui.showValidationErrors(errors)
+    })
+  }
+
+  /**
    * Destroy the root instance and it's children
    */
   destroy () {
