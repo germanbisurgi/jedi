@@ -179,7 +179,7 @@ window.addEventListener('DOMContentLoaded', () => {
     },
     computed: {
       errorCount() {
-        return this.editor?.root.ready ? this.editor.getErrors().length : 0
+        return this.editor ? this.editor.getErrors().length : 0
       }
     },
     methods: {
@@ -237,6 +237,10 @@ window.addEventListener('DOMContentLoaded', () => {
         this.$refs.editorErrors.value = JSON.stringify(this.editor.getErrors(), null, 2)
         this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
         this.$refs.schema.value = JSON.stringify(this.editor.schema, null, 2)
+      },
+      showValidationErrors() {
+        const errors = this.editor.getErrors()
+        this.editor.showValidationErrors(errors)
       },
       destroyEditor() {
         this.editor.destroy()
