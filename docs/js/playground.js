@@ -3,6 +3,7 @@ window.addEventListener('DOMContentLoaded', () => {
     el: '#app',
     data() {
       return {
+        errorCount: 0,
         examples: {
           'editors/all': '../json/editors/all.json',
           'editors/array': '../json/editors/array.json',
@@ -17,6 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
           'editors/object-grid': '../json/editors/object-grid.json',
           'editors/object-nav-pills': '../json/editors/object-nav-pills.json',
           'editors/object-nav-tabs': '../json/editors/object-nav-tabs.json',
+          'editors/object-propertyOrder': '../json/editors/object-propertyOrder.json',
           'editors/string': '../json/editors/string.json',
           'examples/resume-schema': '../json/examples/resume-schema.json',
           'examples/login': '../json/examples/login.json',
@@ -177,11 +179,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
       this.loadSchema()
     },
-    computed: {
-      errorCount() {
-        return this.editor ? this.editor.getErrors().length : 0
-      }
-    },
     methods: {
       getThemeInstance(name) {
         let theme
@@ -234,7 +231,9 @@ window.addEventListener('DOMContentLoaded', () => {
         this.editor.on('change', this.editorChangeHandler)
       },
       editorChangeHandler() {
-        this.$refs.editorErrors.value = JSON.stringify(this.editor.getErrors(), null, 2)
+        const errors = this.editor.getErrors()
+        this.errorCount = errors.length
+        this.$refs.editorErrors.value = JSON.stringify(errors, null, 2)
         this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
         this.$refs.schema.value = JSON.stringify(this.editor.schema, null, 2)
       },
