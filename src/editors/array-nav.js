@@ -93,7 +93,7 @@ class EditorArrayNav extends EditorArray {
       const id = pathToAttribute(child.path)
 
       const tab = this.theme.getTab({
-        hasErrors: child.children.some((grandChild) => grandChild.ui.uiHasErrors),
+        hasErrors: child.children.some((grandChild) => grandChild.ui.showingValidationErrors),
         title: childTitle,
         id: id,
         active: active

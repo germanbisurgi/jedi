@@ -1,6 +1,9 @@
 {
   "x-options": {
-    "nav": {}
+    "nav": {
+      "variant": "pills",
+      "stacked": true
+    }
   },
   "type": "object",
   "title": "All Editors",

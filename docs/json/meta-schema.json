@@ -18,7 +18,10 @@
         },
         "$defs": {
           "title": "$defs",
-          "type": "string"
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/schema"
+          }
         },
         "$id": {
           "title": "$id",
@@ -226,7 +229,10 @@
             "$ref": "#/$defs/schema"
           },
           "x-options": {
-            "nav": true
+            "nav": {
+              "variant": "pills",
+              "stacked": true
+            }
           }
         },
         "readOnly": {

@@ -45,7 +45,7 @@ class EditorObjectNav extends EditorObject {
         const schemaTitle = getSchemaTitle(child.schema)
 
         const tab = this.theme.getTab({
-          hasErrors: child.children.some((grandChild) => grandChild.ui.uiHasErrors),
+          hasErrors: child.children.some((grandChild) => grandChild.ui.showingValidationErrors),
           title: isSet(schemaTitle) ? schemaTitle : child.getKey(),
           id: id,
           active: active

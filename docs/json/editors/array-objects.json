@@ -3,7 +3,10 @@
   "title": "Persons",
   "x-options": {
     "itemTemplate": "{{ i1 }}) {{ value.name }}",
-    "nav": true
+    "nav": {
+      "variant": "pills",
+      "stacked": true
+    }
   },
   "items": {
     "type": "object",

@@ -42,7 +42,7 @@ class Editor {
      */
     this.readOnly = this.instance.isReadOnly()
 
-    this.uiHasErrors = false
+    this.showingValidationErrors = false
 
     this.init()
     this.build()
@@ -118,7 +118,7 @@ class Editor {
    */
   showValidationErrors (errors) {
     this.control.messages.innerHTML = ''
-    this.uiHasErrors = false
+    this.showingValidationErrors = false
 
     const neverShowErrors = this.instance.jedi.options.showErrors === 'never' || getSchemaXOption(this.instance.schema, 'showErrors') === 'never'
 
@@ -141,7 +141,7 @@ class Editor {
       })
     })
 
-    this.uiHasErrors = true
+    this.showingValidationErrors = true
   }
 
   /**
