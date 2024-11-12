@@ -158,8 +158,6 @@ class Jedi extends EventEmitter {
       this.container.appendChild(this.root.ui.control.container)
       this.container.classList.add('jedi-ready')
     }
-
-    this.bindEventListeners()
   }
 
   bindEventListeners () {
