@@ -4,19 +4,19 @@
     "a": {
       "type": "string",
       "x-options": {
-        "propertyOrder": 3
+        "propertyOrder": 30
       }
     },
     "b": {
       "type": "string",
       "x-options": {
-        "propertyOrder": 2
+        "propertyOrder": 20
       }
     },
     "c": {
       "type": "string",
       "x-options": {
-        "propertyOrder": 1
+        "propertyOrder": 10
       }
     }
   }

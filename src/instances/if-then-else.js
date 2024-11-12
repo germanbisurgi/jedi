@@ -1,5 +1,7 @@
 import Instance from './instance.js'
 import EditorIfThenElse from '../editors/if-then-else.js'
+import Jedi from '../jedi.js'
+
 import {
   isSet,
   mergeDeep,
@@ -7,12 +9,13 @@ import {
   isObject,
   overwriteExistingProperties
 } from '../helpers/utils.js'
+
 import {
+  getSchemaConst,
   getSchemaElse,
   getSchemaIf,
   getSchemaThen
 } from '../helpers/schema.js'
-import Jedi from '../jedi.js'
 
 /**
  * Represents a InstanceIfThenElse instance.
@@ -25,6 +28,7 @@ class InstanceIfThenElse extends Instance {
 
   prepare () {
     this.instances = []
+    this.instanceStartingValues = []
     this.activeInstance = null
     this.index = 0
     this.schemas = []
@@ -78,13 +82,15 @@ class InstanceIfThenElse extends Instance {
         parent: this.parent
       })
 
+      this.instanceStartingValues.push(instance.getValue())
+
       instance.on('change', () => {
-        const afterChangeValue = this.activeInstance.getValue()
-        const fittestIndex = this.getFittestIndex(afterChangeValue)
+        const currentValue = this.activeInstance.getValue()
+        const fittestIndex = this.getFittestIndex(currentValue)
         const mustSwitch = fittestIndex !== this.index
 
         if (mustSwitch) {
-          this.setValue(afterChangeValue)
+          this.setValue(currentValue)
         } else {
           this.value = this.activeInstance.getValue()
           this.emit('change')
@@ -101,6 +107,15 @@ class InstanceIfThenElse extends Instance {
 
         if (isObject(valueBefore) && isObject(futureValue)) {
           futureValue = overwriteExistingProperties(valueBefore, futureValue)
+
+          // restore any const value here
+          instance.children.forEach((child) => {
+            const schemaConst = getSchemaConst(child.schema)
+
+            if (isSet(schemaConst)) {
+              futureValue[child.getKey()] = schemaConst
+            }
+          })
         }
 
         instance.setValue(futureValue, false)
@@ -130,6 +145,7 @@ class InstanceIfThenElse extends Instance {
     this.activeInstance = this.instances[this.index]
     this.activeInstance.register()
     this.value = this.activeInstance.getValue()
+    // this.emit('change')
   }
 
   traverseSchema (schema) {

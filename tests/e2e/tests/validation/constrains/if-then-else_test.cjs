@@ -3,6 +3,42 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('if-then-else')
 
+Scenario('@constrain-if-then-else validate against @if-then-else-nested-simple', async ({ I }) => {
+  I.amOnPage(`playground.html?theme=${theme}`)
+  I._waitForElement('.jedi-ready')
+  I.selectOption('#examples', '../json/validator/if-then-else-nested-simple.json')
+  I._scrollTo('[data-path="#"]')
+
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "occurrence": "yes",
+    "count": 4
+  }))
+
+  I.click('label[for="root-occurrence-1"]')
+
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "occurrence": "no",
+    "count": 0,
+    "something": ""
+  }))
+
+  I.fillField('[id="root-something"]', 'test')
+  I.pressKey('Tab')
+
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "occurrence": "no",
+    "count": 0,
+    "something": "test"
+  }))
+
+  I.click('label[for="root-occurrence-0"]')
+
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "occurrence": "yes",
+    "count": 0
+  }))
+})
+
 Scenario('@constrain-if-then-else validate against @if-then-else-nested-complex', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
