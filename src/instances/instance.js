@@ -201,6 +201,7 @@ class Instance extends EventEmitter {
     if (triggersChange) {
       this.isDirty = true
       this.emit('change')
+      this.jedi.emit('instance-change', this)
     }
   }
 
