@@ -2,22 +2,22 @@
   "name": "jedi",
   "version": "0.1.0",
   "description": "JavaScript Library for JSON Validation and Editing",
-  "main": "./dist/jedi.umd.cjs",
-  "module": "./dist/jedi.js",
+  "main": "./dist/cjs/jedi.cjs",
+  "module": "./dist/esm/jedi.js",
   "type": "module",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/jedi.js",
-      "require": "./dist/jedi.cjs"
+      "import": "./dist/esm/jedi.js",
+      "require": "./dist/cjs/jedi.cjs"
     }
   },
   "scripts": {
     "dev": "vite --config ./vite.config.dev.js",
     "build": "vite build --config ./vite.config.prod.js",
-    "postbuild": "vite build --config ./vite.config.github.js",
+    "preserve": "vite build --config ./vite.config.dev.js",
     "serve": "vite preview --config ./vite.config.dev.js",
     "unit": "jest --config=./tests/unit/jest.config.cjs",
     "e2e": "codeceptjs run-workers 10 -c tests/e2e/codecept.conf.cjs",
