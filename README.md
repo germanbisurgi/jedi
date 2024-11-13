@@ -6,7 +6,7 @@ Jedi is a lightweight, dependency-free JavaScript library that makes JSON handli
 Use it in the browser to generate forms for editing and validating JSON with JSON schemas,
 or in Node.js as a powerful JSON schema validator.
 
-[Check Out the Playground](https://germanbisurgi.github.io/jedi/views/playground.html?theme=bootstrap5)
+[Check Out the Playground](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5)
 
 ## Key Features
 
