@@ -1,0 +1,28 @@
+{
+  "type": "array",
+  "prefixItems": [
+    {
+      "type": "number"
+    },
+    {
+      "type": "string"
+    },
+    {
+      "type": "string",
+      "enum": [
+        "Street",
+        "Avenue",
+        "Boulevard"
+      ]
+    },
+    {
+      "type": "string",
+      "enum": [
+        "NW",
+        "NE",
+        "SW",
+        "SE"
+      ]
+    }
+  ]
+}

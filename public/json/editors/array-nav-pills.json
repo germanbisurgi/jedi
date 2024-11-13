@@ -1,0 +1,61 @@
+{
+  "type": "array",
+  "title": "Colors",
+  "x-options": {
+    "itemTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
+    "nav": {
+      "variant": "pills",
+      "stacked": true
+    }
+  },
+  "default": [
+    {
+      "name": "Albert",
+      "children": [
+        {
+          "name": "Child 1"
+        },
+        {
+          "name": "Child 2"
+        }
+      ]
+    },
+    {
+      "name": "Betti",
+      "children": [
+        {
+          "name": "Child 1"
+        },
+        {
+          "name": "Child 2"
+        }
+      ]
+    }
+  ],
+  "items": {
+    "type": "object",
+    "title": "Person",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "German"
+      },
+      "children": {
+        "title": "Children",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "title": "Object",
+          "properties": {
+            "name": {
+              "title": "Name",
+              "type": "string",
+              "default": "German"
+            }
+          }
+        }
+      }
+    }
+  }
+}

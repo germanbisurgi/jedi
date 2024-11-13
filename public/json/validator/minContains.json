@@ -1,0 +1,17 @@
+{
+  "title": "Test: minContains",
+  "type": "object",
+  "description": "minContains can be used with contains to further specify how many times a schema matches a contains constraint. These keywords can be any non-negative number including zero.",
+  "properties": {
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "contains": {
+        "type": "number"
+      },
+      "minContains": 2
+    }
+  }
+}

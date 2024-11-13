@@ -1,0 +1,342 @@
+{
+  "$ref": "#/$defs/schema",
+  "$defs": {
+    "schema": {
+      "x-options": {
+        "editableProperties": true,
+        "deactivateNonRequired": true
+      },
+      "type": "object",
+      "properties": {
+        "$anchor": {
+          "title": "$anchor",
+          "type": "string"
+        },
+        "$comment": {
+          "title": "$comment",
+          "type": "string"
+        },
+        "$defs": {
+          "title": "$defs",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/schema"
+          }
+        },
+        "$id": {
+          "title": "$id",
+          "type": "string"
+        },
+        "$schema": {
+          "title": "$schema",
+          "type": "string",
+          "format": "uri"
+        },
+        "$ref": {
+          "title": "$ref",
+          "type": "string"
+        },
+        "additionalProperties": {
+          "title": "additionalProperties",
+          "$ref": "#/$defs/schema"
+        },
+        "allOf": {
+          "title": "allOf",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          }
+        },
+        "anyOf": {
+          "title": "anyOf",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          }
+        },
+        "const": {
+          "title": "const",
+          "type": [
+            "object",
+            "array",
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ]
+        },
+        "contains": {
+          "title": "contains",
+          "$ref": "#/$defs/schema"
+        },
+        "default": {
+          "title": "default",
+          "type": ["null", "boolean", "object", "array", "number", "string", "integer"]
+        },
+        "dependentRequired": {
+          "title": "dependentRequired",
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "title": "property",
+              "type": "string"
+            }
+          }
+        },
+        "dependentSchemas": {
+          "title": "dependentSchemas",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/schema"
+          }
+        },
+        "description": {
+          "title": "description",
+          "type": "string"
+        },
+        "deprecated": {
+          "title": "deprecated",
+          "type": "boolean"
+        },
+        "enum": {
+          "title": "enum",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "example": {
+          "title": "example",
+          "type": ["null", "boolean", "object", "array", "number", "string", "integer"]
+        },
+        "exclusiveMaximum": {
+          "title": "exclusiveMaximum",
+          "type": "number"
+        },
+        "exclusiveMinimum": {
+          "title": "exclusiveMinimum",
+          "type": "number"
+        },
+        "format": {
+          "title": "format",
+          "type": "string"
+        },
+        "if": {
+          "title": "if",
+          "$ref": "#/$defs/schema"
+        },
+        "then": {
+          "title": "then",
+          "$ref": "#/$defs/schema"
+        },
+        "else": {
+          "title": "else",
+          "$ref": "#/$defs/schema"
+        },
+        "items": {
+          "title": "items",
+          "$ref": "#/$defs/schema"
+        },
+        "maxContains": {
+          "title": "maxContains",
+          "type": "integer",
+          "minimum": 0
+        },
+        "maximum": {
+          "title": "maximum",
+          "type": "number"
+        },
+        "maxItems": {
+          "title": "maxItems",
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxLength": {
+          "title": "maxLength",
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxProperties": {
+          "title": "maxProperties",
+          "type": "integer",
+          "minimum": 0
+        },
+        "minContains": {
+          "title": "minContains",
+          "type": "integer",
+          "minimum": 0
+        },
+        "minimum": {
+          "title": "minimum",
+          "type": "number"
+        },
+        "minItems": {
+          "title": "minItems",
+          "type": "integer",
+          "minimum": 0
+        },
+        "minLength": {
+          "title": "minLength",
+          "type": "integer",
+          "minimum": 0
+        },
+        "minProperties": {
+          "title": "minProperties",
+          "type": "integer",
+          "minimum": 0
+        },
+        "multipleOf": {
+          "title": "multipleOf",
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "not": {
+          "title": "not",
+          "$ref": "#/$defs/schema"
+        },
+        "oneOf": {
+          "title": "oneOf",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          }
+        },
+        "pattern": {
+          "title": "pattern",
+          "type": "string",
+          "format": "regex"
+        },
+        "patternProperties": {
+          "title": "patternProperties",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/schema"
+          }
+        },
+        "prefixItems": {
+          "title": "prefixItems",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          }
+        },
+        "properties": {
+          "title": "properties",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/schema"
+          },
+          "x-options": {
+            "nav": {
+              "variant": "pills",
+              "stacked": true
+            }
+          }
+        },
+        "readOnly": {
+          "title": "readOnly",
+          "type": "boolean"
+        },
+        "required": {
+          "title": "required",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "title": {
+          "title": "title",
+          "type": "string"
+        },
+        "type": {
+          "title": "type",
+          "type": "string",
+          "enum": ["null", "boolean", "object", "array", "number", "string", "integer"]
+        },
+        "uniqueItems": {
+          "title": "uniqueItems",
+          "type": "boolean"
+        },
+        "writeOnly": {
+          "title": "writeOnly",
+          "type": "boolean"
+        },
+        "x-options": {
+          "title": "x-options",
+          "type": "object",
+          "properties": {
+            "format": {
+              "title": "format",
+              "type": "string"
+            },
+            "labelIconClass": {
+              "title": "labelIconClass",
+              "type": "string"
+            },
+            "itemTemplate": {
+              "title": "itemTemplate",
+              "type": "string"
+            },
+            "switcherTitle": {
+              "title": "switcherTitle",
+              "type": "string"
+            },
+            "nav": {
+              "title": "nav",
+              "type": "object"
+            },
+            "grid": {
+              "title": "grid",
+              "type": "object"
+            },
+            "enumTitles": {
+              "title": "enumTitles",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "messages": {
+              "title": "messages",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "titleHidden": {
+              "title": "titleHidden",
+              "type": "boolean"
+            },
+            "enableCollapseToggle": {
+              "title": "enableCollapseToggle",
+              "type": "boolean"
+            },
+            "startCollapsed": {
+              "title": "startCollapsed",
+              "type": "boolean"
+            },
+            "showErrors": {
+              "title": "showErrors",
+              "type": "boolean"
+            },
+            "deactivateNonRequired": {
+              "title": "deactivateNonRequired",
+              "type": "boolean"
+            },
+            "mergeAllOf": {
+              "title": "mergeAllOf",
+              "type": "boolean"
+            },
+            "validateFormat": {
+              "title": "validateFormat",
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
+}

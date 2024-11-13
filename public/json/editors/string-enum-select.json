@@ -1,0 +1,16 @@
+{
+  "type": "string",
+  "title": "String enum select",
+  "enum": [
+    "albert",
+    "betti",
+    "carl"
+  ],
+  "x-options": {
+    "enumTitles": [
+      "Albert",
+      "Betti",
+      "Carl"
+    ]
+  }
+}

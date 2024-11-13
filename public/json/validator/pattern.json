@@ -1,0 +1,11 @@
+{
+  "title": "pattern",
+  "type": "object",
+  "description": "The pattern keyword is used to restrict a string to a particular regular expression. The regular expression syntax is the one defined in JavaScript (ECMA 262 specifically) with Unicode support.",
+  "properties": {
+    "string": {
+      "type": "string",
+      "pattern": "^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$"
+    }
+  }
+}

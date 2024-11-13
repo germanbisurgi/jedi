@@ -1,0 +1,9 @@
+{
+  "title": "patternProperties",
+  "type": "object",
+  "description": "",
+  "patternProperties": {
+    "^S": { "type": "string", "const": "test" },
+    "^I": { "type": "integer", "const": 21 }
+  }
+}

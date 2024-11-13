@@ -1,0 +1,16 @@
+{
+  "title": "Test: contains",
+  "type": "object",
+  "description": "While the items schema must be valid for every item in the array, the contains schema only needs to validate against one or more items in the array.",
+  "properties": {
+    "array": {
+      "type": "array",
+      "contains": {
+        "type": "number"
+      },
+      "items": {
+        "type": "number"
+      }
+    }
+  }
+}

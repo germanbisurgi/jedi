@@ -11,26 +11,23 @@
   "exports": {
     ".": {
       "import": "./dist/jedi.js",
-      "require": "./dist/jedi.umd.cjs"
+      "require": "./dist/jedi.cjs"
     }
   },
   "scripts": {
-    "dev": "npm run watch & npm run sass & npm run serve",
-    "sass": "sass --watch ./docs/scss:./docs/css",
+    "dev": "vite --config ./vite.config.dev.js",
+    "build": "vite build --config ./vite.config.prod.js",
+    "build:docs": "vite build --config ./vite.config.dev.js",
+    "serve": "vite preview --config ./vite.config.dev.js",
     "unit": "jest --config=./tests/unit/jest.config.cjs",
-    "build": "vite build --config ./config/vite.config.js",
     "e2e": "codeceptjs run-workers 10 -c tests/e2e/codecept.conf.cjs",
     "e2e:b3": "THEME='bootstrap3' npm run e2e",
     "e2e:b4": "THEME='bootstrap4' npm run e2e",
     "e2e:b5": "THEME='bootstrap5' npm run e2e",
     "e2e:*": "npm run e2e && npm run e2e:b3 && npm run e2e:b4 && npm run e2e:b5",
     "e2e:grep": "SHOW=true THEME='bootstrap5' codeceptjs run -c tests/e2e/codecept.conf.cjs --steps --debug --grep '@if-then-else-nested-simple'",
-    "serve": "reload --port 8282 --browser --watch-dir ./docs --dir ./docs",
-    "watch": "webpack --config config/webpack.config.cjs --watch",
-    "webpack": "webpack",
-    "lint": "eslint -c ./config/.eslintrc.json ./src",
-    "lint:fix": "eslint --fix -c ./config/.eslintrc.json ./src",
-    "jsdoc": "jsdoc -r -X ./src > ./docs/jsdoc.json"
+    "lint": "eslint -c ./.eslintrc.json ./src",
+    "lint:fix": "eslint --fix -c ./.eslintrc.json ./src"
   },
   "repository": {
     "type": "git",
@@ -44,15 +41,10 @@
   },
   "homepage": "https://github.com/germanbisurgi/jedi#readme",
   "devDependencies": {
-    "@babel/core": "^7.8.3",
-    "@babel/plugin-transform-runtime": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
-    "@babel/runtime": "^7.9.2",
-    "babel-loader": "^8.0.6",
+    "@vitejs/plugin-vue": "^5.2.0",
     "bootstrap": "^5.3.0",
     "codeceptjs": "^3.3.0",
     "codeceptjs-chai": "^2.3.5",
-    "deepmerge": "^4.2.2",
     "eslint": "^8.57.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.20.0",
@@ -60,19 +52,12 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^29.4.1",
-    "jsdoc": "^4.0.2",
     "json-schema-test-suite": "https://github.com/json-schema-org/JSON-Schema-Test-Suite.git",
-    "less": "^4.1.2",
-    "less-watch-compiler": "^1.16.3",
     "puppeteer": "^13.5.2",
-    "reload": "^3.2.0",
     "sass": "^1.77.8",
-    "vite": "5.2.6",
-    "webpack": "^5.90.3",
-    "webpack-cli": "^5.1.4",
-    "xmlhttprequest": "^1.8.0"
+    "vite": "^5.4.11",
+    "vue": "^3.5.12"
   },
-  "dependencies": {},
   "resolutions": {
     "ws": "^8.17.1",
     "braces": "^3.0.3"

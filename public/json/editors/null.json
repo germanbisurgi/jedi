@@ -1,0 +1,5 @@
+{
+  "type": "null",
+  "title": "Null",
+  "description": "When a schema specifies a type of null, it has only one acceptable value: null."
+}

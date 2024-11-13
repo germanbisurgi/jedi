@@ -1,0 +1,7 @@
+{
+  "title": "minProperties",
+  "type": "object",
+  "description": "The number of properties on an object can be restricted using the minProperties and maxProperties keywords. Each of these must be a non-negative integer.",
+  "minProperties": 1,
+  "properties": {}
+}

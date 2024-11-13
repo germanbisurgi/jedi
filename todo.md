@@ -34,7 +34,6 @@
 - better NOT error messages
 - options can be global or scoped in schemas
 - property already exist message box or disable add button
-- minimize dependencies and overhead (webpack, sass, less, and stuff)
 - fix/check items constrain
 - error constrain property: allOf, dependentSchemas, if-then-else
 - check for unused properties in code
@@ -61,7 +60,6 @@
 - title: false
 - documentation mode
 - use names options
-- plugins sortablejs
 - plugins simplemde
 - edit object values
 - edit array values
