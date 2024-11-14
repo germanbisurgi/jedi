@@ -25,7 +25,7 @@
           <div class="form-group mb-3">
             <label for="examples">Examples</label>
             <select class="form-control" id="examples" v-model="example" @change="reload">
-              <option v-for="(option, key) in examples" :value="option">{{ key }}</option>
+              <option v-for="(option, key) in examples" :value="key">{{ key }}</option>
             </select>
           </div>
 
@@ -104,81 +104,148 @@
 
 <script>
 import Jedi from '/src/index.js'
+import all from './json/editors/all.json'
+import array from './json/editors/array.json'
+import arrayEnumItems from './json/editors/array-enum-items.json'
+import arrayNavPills from './json/editors/array-nav-pills.json'
+import arrayNavTabs from './json/editors/array-nav-tabs.json'
+import boolean from './json/editors/boolean.json'
+import integer from './json/editors/integer.json'
+import nullJson from './json/editors/null.json'
+import number from './json/editors/number.json'
+import objectJson from './json/editors/object.json'
+import objectGrid from './json/editors/object-grid.json'
+import objectNavPills from './json/editors/object-nav-pills.json'
+import objectNavTabs from './json/editors/object-nav-tabs.json'
+import objectPropertyOrder from './json/editors/object-propertyOrder.json'
+import stringJson from './json/editors/string.json'
+import resumeSchema from './json/examples/resume-schema.json'
+import loginExample from './json/examples/login.json'
+import contactExample from './json/examples/contact.json'
+import additionalProperties from './json/validator/additionalProperties.json'
+import allOf from './json/validator/allOf.json'
+import anyOf from './json/validator/anyOf.json'
+import constJson from './json/validator/const.json'
+import contains from './json/validator/contains.json'
+import dependentRequired from './json/validator/dependentRequired.json'
+import dependentSchemas from './json/validator/dependentSchemas.json'
+import enumValidator from './json/validator/enum.json'
+import exclusiveMaximum from './json/validator/exclusiveMaximum.json'
+import exclusiveMinimum from './json/validator/exclusiveMinimum.json'
+import format from './json/validator/format.json'
+import ifElse from './json/validator/if-else.json'
+import ifThen from './json/validator/if-then.json'
+import ifThenElse from './json/validator/if-then-else.json'
+import ifThenElseAllOf from './json/validator/if-then-else-allOf.json'
+import ifThenElseNested from './json/validator/if-then-else-nested.json'
+import ifThenElseNestedSimple from './json/validator/if-then-else-nested-simple.json'
+import ifThenElseNestedComplex from './json/validator/if-then-else-nested-complex.json'
+import items from './json/validator/items.json'
+import maxContains from './json/validator/maxContains.json'
+import maximum from './json/validator/maximum.json'
+import maxItems from './json/validator/maxItems.json'
+import maxLength from './json/validator/maxLength.json'
+import maxProperties from './json/validator/maxProperties.json'
+import minContains from './json/validator/minContains.json'
+import minimum from './json/validator/minimum.json'
+import minItems from './json/validator/minItems.json'
+import minLength from './json/validator/minLength.json'
+import minProperties from './json/validator/minProperties.json'
+import multipleOf from './json/validator/multipleOf.json'
+import notValidator from './json/validator/not.json'
+import oneOf from './json/validator/oneOf.json'
+import pattern from './json/validator/pattern.json'
+import patternProperties from './json/validator/patternProperties.json'
+import prefixItems from './json/validator/prefixItems.json'
+import propertyNames from './json/validator/propertyNames.json'
+import required from './json/validator/required.json'
+import typeValidator from './json/validator/type.json'
+import uniqueItems from './json/validator/uniqueItems.json'
+import messages from './json/validator/messages.json'
+import awesomplete from './json/plugins/awesomplete.json'
+import quill from './json/plugins/quill.json'
+import jodit from './json/plugins/jodit.json'
+import flatpickr from './json/plugins/flatpickr.json'
+import raty from './json/plugins/raty.json'
+import custom from './json/custom/custom.json'
+import metaSchema from './json/meta-schema.json'
+import europass from './json/europass.json'
+import testJson from './json/test.json'
 
 export default {
   data() {
     return {
       errorCount: 0,
       examples: {
-        'editors/all': '/json/editors/all.json',
-        'editors/array': '/json/editors/array.json',
-        'editors/array-enum-items': '/json/editors/array-enum-items.json',
-        'editors/array-nav-pills': '/json/editors/array-nav-pills.json',
-        'editors/array-nav-tabs': '/json/editors/array-nav-tabs.json',
-        'editors/boolean': '/json/editors/boolean.json',
-        'editors/integer': '/json/editors/integer.json',
-        'editors/null': '/json/editors/null.json',
-        'editors/number': '/json/editors/number.json',
-        'editors/object': '/json/editors/object.json',
-        'editors/object-grid': '/json/editors/object-grid.json',
-        'editors/object-nav-pills': '/json/editors/object-nav-pills.json',
-        'editors/object-nav-tabs': '/json/editors/object-nav-tabs.json',
-        'editors/object-propertyOrder': '/json/editors/object-propertyOrder.json',
-        'editors/string': '/json/editors/string.json',
-        'examples/resume-schema': '/json/examples/resume-schema.json',
-        'examples/login': '/json/examples/login.json',
-        'examples/contact': '/json/examples/contact.json',
-        'validator/additionalProperties': '/json/validator/additionalProperties.json',
-        'validator/allOf': '/json/validator/allOf.json',
-        'validator/anyOf': '/json/validator/anyOf.json',
-        'validator/const': '/json/validator/const.json',
-        'validator/contains': '/json/validator/contains.json',
-        'validator/dependentRequired': '/json/validator/dependentRequired.json',
-        'validator/dependentSchemas': '/json/validator/dependentSchemas.json',
-        'validator/enum': '/json/validator/enum.json',
-        'validator/exclusiveMaximum': '/json/validator/exclusiveMaximum.json',
-        'validator/exclusiveMinimum': '/json/validator/exclusiveMinimum.json',
-        'validator/format': '/json/validator/format.json',
-        'validator/if-else': '/json/validator/if-else.json',
-        'validator/if-then': '/json/validator/if-then.json',
-        'validator/if-then-else': '/json/validator/if-then-else.json',
-        'validator/if-then-else-allOf': '/json/validator/if-then-else-allOf.json',
-        'validator/if-then-else-nested': '/json/validator/if-then-else-nested.json',
-        'validator/if-then-else-nested-simple': '/json/validator/if-then-else-nested-simple.json',
-        'validator/if-then-else-nested-complex': '/json/validator/if-then-else-nested-complex.json',
-        'validator/items': '/json/validator/items.json',
-        'validator/maxContains': '/json/validator/maxContains.json',
-        'validator/maximum': '/json/validator/maximum.json',
-        'validator/maxItems': '/json/validator/maxItems.json',
-        'validator/maxLength': '/json/validator/maxLength.json',
-        'validator/maxProperties': '/json/validator/maxProperties.json',
-        'validator/minContains': '/json/validator/minContains.json',
-        'validator/minimum': '/json/validator/minimum.json',
-        'validator/minItems': '/json/validator/minItems.json',
-        'validator/minLength': '/json/validator/minLength.json',
-        'validator/minProperties': '/json/validator/minProperties.json',
-        'validator/multipleOf': '/json/validator/multipleOf.json',
-        'validator/not': '/json/validator/not.json',
-        'validator/oneOf': '/json/validator/oneOf.json',
-        'validator/pattern': '/json/validator/pattern.json',
-        'validator/patternProperties': '/json/validator/patternProperties.json',
-        'validator/prefixItems': '/json/validator/prefixItems.json',
-        'validator/propertyNames': '/json/validator/propertyNames.json',
-        'validator/required': '/json/validator/required.json',
-        'validator/type': '/json/validator/type.json',
-        'validator/uniqueItems': '/json/validator/uniqueItems.json',
-        'validator/messages': '/json/validator/messages.json',
-        'plugins/awesomplete': '/json/plugins/awesomplete.json',
-        'plugins/quill': '/json/plugins/quill.json',
-        'plugins/jodit': '/json/plugins/jodit.json',
-        'plugins/flatpickr': '/json/plugins/flatpickr.json',
-        'plugins/raty': '/json/plugins/raty.json',
-        'custom/custom': '/json/custom/custom.json',
-        'meta-schema': '/json/meta-schema.json',
-        'europass-xml-3.3.0': '/json/europass.json',
-        'test': '/json/test.json',
+        'editors/all': all,
+        'editors/array': array,
+        'editors/array-enum-items': arrayEnumItems,
+        'editors/array-nav-pills': arrayNavPills,
+        'editors/array-nav-tabs': arrayNavTabs,
+        'editors/boolean': boolean,
+        'editors/integer': integer,
+        'editors/null': nullJson,
+        'editors/number': number,
+        'editors/object': objectJson,
+        'editors/object-grid': objectGrid,
+        'editors/object-nav-pills': objectNavPills,
+        'editors/object-nav-tabs': objectNavTabs,
+        'editors/object-propertyOrder': objectPropertyOrder,
+        'editors/string': stringJson,
+        'examples/resume-schema': resumeSchema,
+        'examples/login': loginExample,
+        'examples/contact': contactExample,
+        'validator/additionalProperties': additionalProperties,
+        'validator/allOf': allOf,
+        'validator/anyOf': anyOf,
+        'validator/const': constJson,
+        'validator/contains': contains,
+        'validator/dependentRequired': dependentRequired,
+        'validator/dependentSchemas': dependentSchemas,
+        'validator/enum': enumValidator,
+        'validator/exclusiveMaximum': exclusiveMaximum,
+        'validator/exclusiveMinimum': exclusiveMinimum,
+        'validator/format': format,
+        'validator/if-else': ifElse,
+        'validator/if-then': ifThen,
+        'validator/if-then-else': ifThenElse,
+        'validator/if-then-else-allOf': ifThenElseAllOf,
+        'validator/if-then-else-nested': ifThenElseNested,
+        'validator/if-then-else-nested-simple': ifThenElseNestedSimple,
+        'validator/if-then-else-nested-complex': ifThenElseNestedComplex,
+        'validator/items': items,
+        'validator/maxContains': maxContains,
+        'validator/maximum': maximum,
+        'validator/maxItems': maxItems,
+        'validator/maxLength': maxLength,
+        'validator/maxProperties': maxProperties,
+        'validator/minContains': minContains,
+        'validator/minimum': minimum,
+        'validator/minItems': minItems,
+        'validator/minLength': minLength,
+        'validator/minProperties': minProperties,
+        'validator/multipleOf': multipleOf,
+        'validator/not': notValidator,
+        'validator/oneOf': oneOf,
+        'validator/pattern': pattern,
+        'validator/patternProperties': patternProperties,
+        'validator/prefixItems': prefixItems,
+        'validator/propertyNames': propertyNames,
+        'validator/required': required,
+        'validator/type': typeValidator,
+        'validator/uniqueItems': uniqueItems,
+        'validator/messages': messages,
+        'plugins/awesomplete': awesomplete,
+        'plugins/quill': quill,
+        'plugins/jodit': jodit,
+        'plugins/flatpickr': flatpickr,
+        'plugins/raty': raty,
+        'custom/custom': custom,
+        'meta-schema': metaSchema,
+        'europass-xml-3.3.0': europass,
+        'test': testJson,
       },
-      example: '/json/editors/all.json',
+      example: 'editors/all',
       themes: [
         'bootstrap5',
         'bootstrap4',
@@ -202,7 +269,7 @@ export default {
       enablePropertiesToggle: true,
       enableCollapseToggle: true,
       startCollapsed: false,
-      schema: {},
+      schema: all,
       editor: null,
       theme: 'barebones',
       iconLib: 'bootstrap-icons',
@@ -214,7 +281,7 @@ export default {
   created() {
     this.theme = this.getQueryParam('theme') || 'bootstrap5'
     this.iconLib = this.getQueryParam('iconLib') || 'fontawesome5'
-    this.example = this.getQueryParam('example') || '/json/editors/all.json'
+    this.example = this.getQueryParam('example') || 'editors/all'
     this.showErrors = this.getQueryParam('showErrors') || 'change'
     this.validateFormat = this.getQueryParam('validateFormat') ? this.parseBooleanString(this.getQueryParam('validateFormat')) : false
     this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
@@ -283,7 +350,7 @@ export default {
         break;
     }
 
-    this.loadSchema()
+    this.initEditor()
   },
   methods: {
     getThemeInstance(name) {
@@ -310,6 +377,8 @@ export default {
       if (this.editor) {
         this.editor.destroy()
       }
+
+      this.schema = this.examples[this.example]
 
       const refParser = new Jedi.RefParser()
       await refParser.dereference(this.schema)
@@ -375,12 +444,6 @@ export default {
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
 
       window.open(newUrl, '_self')
-    },
-    async loadSchema() {
-      const url = this.example
-      const response = await fetch(url)
-      this.schema = await response.json()
-      this.initEditor()
     },
     getQueryParam(name) {
       const match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search)

@@ -1,0 +1,31 @@
+{
+  "title": "additionalProperties",
+  "description": "The additionalProperties keyword is used to control the handling of extra stuff, that is, properties whose names are not listed in the properties keyword or match any of the regular expressions in the patternProperties keyword. By default any additional properties are allowed. The value of the additionalProperties keyword is a schema that will be used to validate any properties in the instance that are not matched by properties or patternProperties.",
+  "type": "object",
+  "properties": {
+    "boolean": {
+      "title": "additionalProperties: false",
+      "description": "Setting the additionalProperties schema to false means no additional properties will be allowed.",
+      "type": "object",
+      "properties": {
+        "builtin": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "schema": {
+      "title": "additionalProperties: {\"type\": \"string\"}",
+      "description": "You can use non-boolean schemas to put more complex constraints on the additional properties of an instance. For example, one can allow additional properties, but only if their values are each a string",
+      "type": "object",
+      "properties": {
+        "builtin": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

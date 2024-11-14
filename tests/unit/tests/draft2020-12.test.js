@@ -2,14 +2,14 @@
 const Jedi = require('../../../dist/cjs/jedi.cjs')
 
 const suites = [
-  require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/additionalProperties.json'),
+  require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/additionalProperties'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/allOf'),
   // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/anchor'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/anyOf'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/boolean_schema'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/const'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/contains'),
-  // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/content.json'),
+  // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/content'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/default'),
   // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/defs'),
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/dependentRequired'),

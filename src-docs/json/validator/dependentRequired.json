@@ -1,0 +1,31 @@
+{
+  "title": "dependentRequired",
+  "type": "object",
+  "description": "The dependentRequired keyword conditionally requires that certain properties must be present if a given property is present in an object. The value of the dependentRequired keyword is an object. Each entry in the object maps from the name of a property, p, to an array of strings listing properties that are required if p is present.",
+  "required": [
+    "creditCard"
+  ],
+  "properties": {
+    "creditCard": {
+      "title": "Credit Card",
+      "type": "number"
+    },
+    "address": {
+      "title": "Address",
+      "type": "string"
+    },
+    "telephone": {
+      "title": "Telephone",
+      "type": "string"
+    }
+  },
+  "dependentRequired": {
+    "creditCard": [
+      "address",
+      "telephone"
+    ]
+  },
+  "x-options": {
+    "showErrors": true
+  }
+}

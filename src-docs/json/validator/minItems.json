@@ -1,0 +1,14 @@
+{
+  "title": "minItems",
+  "type": "object",
+  "description": "The length of the array can be specified using the minItems and maxItems keywords. The value of each keyword must be a non-negative number.",
+  "properties": {
+    "array": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

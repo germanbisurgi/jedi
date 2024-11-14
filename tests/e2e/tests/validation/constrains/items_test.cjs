@@ -6,7 +6,7 @@ Feature('items')
 Scenario('@constrain-items should edit items', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.selectOption('#examples', '/json/validator/items.json')
+  I.selectOption('#examples', 'validator/items')
   I._waitForElement('.jedi-ready')
   I.dontSee('[id="root-0"]')
   I._click('.jedi-array-add')

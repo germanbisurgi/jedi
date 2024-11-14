@@ -1,0 +1,12 @@
+{
+  "title": "not",
+  "type": "object",
+  "description": "The not keyword declares that an instance validates if it doesn’t validate against the given subschema.",
+  "properties": {
+    "test": {
+      "not": {
+        "type": "object"
+      }
+    }
+  }
+}

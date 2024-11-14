@@ -1,7 +1,7 @@
 /* global Feature Scenario */
 
 const theme = process.env.THEME || 'barebones'
-const pathToSchema = '/json/plugins/flatpickr.json'
+const pathToSchema = 'plugins/flatpickr'
 const value = 'value set'
 const valueWithErrors = 'a'
 const valueDefault = '2024-08-27'

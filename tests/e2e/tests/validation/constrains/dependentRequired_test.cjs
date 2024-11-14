@@ -6,7 +6,7 @@ Feature('dependentRequired')
 Scenario('@constrain-dependentRequired should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.selectOption('#examples', '/json/validator/dependentRequired.json')
+  I.selectOption('#examples', 'validator/dependentRequired')
   I.selectOption('#show-errors', 'always')
   I._scrollTo('[data-path="#"]')
   I._waitForElement('.jedi-ready')

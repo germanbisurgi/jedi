@@ -6,7 +6,7 @@ Feature('maxItems')
 Scenario('@constrain-maxItems should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.selectOption('#examples', '/json/validator/maxItems.json')
+  I.selectOption('#examples', 'validator/maxItems')
   I.selectOption('#show-errors', 'always')
   I._waitForElement('.jedi-ready')
   I.dontSee('Must have at most 3 items', '[data-path="#/array"]')

@@ -6,7 +6,7 @@ Feature('required')
 Scenario('@constrain-required should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.selectOption('#examples', '/json/validator/required.json')
+  I.selectOption('#examples', 'validator/required')
   I.selectOption('#show-errors', 'always')
   I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')

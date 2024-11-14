@@ -1,0 +1,17 @@
+{
+  "type": "string",
+  "title": "String enum radio",
+  "enum": [
+    "albert",
+    "betti",
+    "carl"
+  ],
+  "x-options": {
+    "format": "radio",
+    "enumTitles": [
+      "Albert",
+      "Betti",
+      "Carl"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "title": "allOf",
+  "type": "object",
+  "description": "To validate against allOf, the given data must be valid against all of the given subschemas.",
+  "properties": {
+    "string": {
+      "type": "string",
+      "allOf": [
+        { "const": "test" },
+        { "minLength": 1 }
+      ]
+    }
+  }
+}

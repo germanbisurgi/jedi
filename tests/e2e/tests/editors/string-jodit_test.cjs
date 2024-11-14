@@ -1,7 +1,7 @@
 /* global Feature Scenario */
 
 const theme = process.env.THEME || 'barebones'
-const pathToSchema = '/json/plugins/jodit.json'
+const pathToSchema = 'plugins/jodit'
 const valueDefault = '<p>Jodit default</p>'
 const value = '<p>value set</p>'
 const valueWithErrors = ''

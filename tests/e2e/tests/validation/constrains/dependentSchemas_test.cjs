@@ -6,7 +6,7 @@ Feature('dependentSchemas')
 Scenario('@constrain-dependentSchemas should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.selectOption('#examples', '/json/validator/dependentSchemas.json')
+  I.selectOption('#examples', 'validator/dependentSchemas')
   I.selectOption('#show-errors', 'always')
   I._scrollTo('[data-path="#"]')
   I._waitForElement('.jedi-ready')
