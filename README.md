@@ -189,9 +189,11 @@ init()
 - **Example:** `{class: 'hidden', style: 'display:none;'}`
 - **Description:** Attributes for hidden inputs in the form.
 
-### Notes
-- Ensure that all necessary properties are set according to your requirements for optimal functionality.
+## Events
+coming soon
 
+## Schema options
+coming soon
 
 ## Development
 
