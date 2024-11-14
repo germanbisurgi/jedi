@@ -17,7 +17,7 @@
   "scripts": {
     "dev": "vite --config ./vite.config.dev.js",
     "build": "vite build --config ./vite.config.prod.js",
-    "preserve": "vite build --config ./vite.config.dev.js",
+    "github-pages": "vite build --config ./vite.config.github-pages.js",
     "serve": "vite preview --config ./vite.config.dev.js",
     "unit": "jest --config=./tests/unit/jest.config.cjs",
     "e2e": "codeceptjs run-workers 10 -c tests/e2e/codecept.conf.cjs",

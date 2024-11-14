@@ -14,16 +14,21 @@ or in Node.js as a powerful JSON schema validator.
 - JSON Editing: Generate user-friendly forms for smooth JSON editing in the browser.
 - Lightweight $ref parser: Dereferences JSON Schema $ref pointers.
 - CSS libraries Integration:
-    - Bootstrap 3, 4, 5
+    - Bootstrap 3
+    - Bootstrap 4
+    - Bootstrap 5
 - Icon libraries Integration:
     - Glyphicons
     - Bootstrap icons
-    - FontAwesome 3, 4, 5, 6
+    - FontAwesome 3
+    - FontAwesome 4
+    - FontAwesome 5
+    - FontAwesome 6
 - Plugin Editors:
-    - Quill (Rich Text Editor)
-    - Flatpickr (Date Picker)
-    - Awesomplete (Autocomplete)
-    - Jodit (Rich Text Editor)
+    - Quill
+    - Flatpickr
+    - Awesomplete
+    - Jodit
 
 ## Getting Started
 
