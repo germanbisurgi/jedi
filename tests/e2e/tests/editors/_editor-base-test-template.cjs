@@ -1,6 +1,6 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'barebones'
-const pathToSchema = '../json/editors/array-enum-items.json'
+const pathToSchema = '/json/editors/array-enum-items.json'
 const value = ["value2"]
 const valueWithErrors = ["value1", "value2", "value2"]
 const valueDefault = ["value1"]

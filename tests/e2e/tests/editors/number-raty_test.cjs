@@ -1,7 +1,7 @@
 /* global Feature Scenario */
 
 const theme = process.env.THEME || 'barebones'
-const pathToSchema = '../json/plugins/raty.json'
+const pathToSchema = '/json/plugins/raty.json'
 const value = 5
 const valueWithErrors = 0
 const valueDefault = 3

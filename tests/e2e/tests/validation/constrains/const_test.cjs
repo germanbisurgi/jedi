@@ -6,7 +6,7 @@ Feature('const')
 Scenario('@constrain-const should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.selectOption('#examples', '../json/validator/const.json')
+  I.selectOption('#examples', '/json/validator/const.json')
   I.selectOption('#show-errors', 'always')
 
   // string

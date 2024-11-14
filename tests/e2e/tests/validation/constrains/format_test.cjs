@@ -6,7 +6,7 @@ Feature('format')
 Scenario('@constrain-format should display validation error', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.selectOption('#examples', '../json/validator/format.json')
+  I.selectOption('#examples', '/json/validator/format.json')
   I.selectOption('#show-errors', 'always')
   I.dontSee('Must be a valid email', '[data-path="#/email"]')
   I._checkOption('[id="validateFormat"]')

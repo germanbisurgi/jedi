@@ -1,7 +1,7 @@
 /* global Feature Scenario */
 
 const theme = process.env.THEME || 'barebones'
-const pathToSchema = '../json/plugins/awesomplete.json'
+const pathToSchema = '/json/plugins/awesomplete.json'
 const value = 'value set'
 const valueWithErrors = ''
 const valueDefault = 'Awesomplete default'

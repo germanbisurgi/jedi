@@ -35,10 +35,6 @@ or in Node.js as a powerful JSON schema validator.
 ### As a Validator
 
 ```javascript
-const schema = {
-  "type": "string"
-};
-
 const refParser = new Jedi.RefParser()
 
 const init = async () => {
@@ -58,15 +54,10 @@ init()
 ### As an Editor
 
 ```html
-
 <div id="jedi-container"></div>
 ```
 
 ```javascript
-const schema = {
-  "type": "string"
-};
-
 const refParser = new Jedi.RefParser()
 
 const init = async () => {

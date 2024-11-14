@@ -6,7 +6,7 @@ Feature('exclusiveMaximum')
 Scenario('@constrain-exclusiveMaximum should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
-  I.selectOption('#examples', '../json/validator/exclusiveMaximum.json')
+  I.selectOption('#examples', '/json/validator/exclusiveMaximum.json')
   I.selectOption('#show-errors', 'always')
   I._waitForElement('.jedi-ready')
   I.dontSee('Must be less than 100', '[data-path="#/number"]')
