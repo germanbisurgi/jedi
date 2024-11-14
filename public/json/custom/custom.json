@@ -1,8 +1,0 @@
-{
-  "title": "Custom",
-  "type": "null",
-  "description": "This is a custom editor",
-  "x-options": {
-    "custom": true
-  }
-}
