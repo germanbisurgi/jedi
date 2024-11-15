@@ -1,5 +1,8 @@
 ## Todo
 
+- nullable option
+- check is active when switching between if the else schemas
+- titleInErrors: boolean
 - inputAttributes option, containerAttributes, ...
 - printable
 - enforceConst documentation and test
