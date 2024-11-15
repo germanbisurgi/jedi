@@ -70,7 +70,6 @@ class EditorArrayEnumItems extends Editor {
   }
 
   refreshUI () {
-    console.log('hey')
     this.refreshInteractiveElements()
 
     const value = this.instance.getValue()

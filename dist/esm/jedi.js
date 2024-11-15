@@ -3546,9 +3546,7 @@ class EditorArrayEnumItems extends Editor {
     this.refreshInteractiveElements();
     const value = this.instance.getValue();
     this.control.checkboxes.forEach((checkbox) => {
-      if (value.includes(checkbox.value)) {
-        checkbox.checked = true;
-      }
+      checkbox.checked = value.includes(checkbox.value);
     });
   }
 }
