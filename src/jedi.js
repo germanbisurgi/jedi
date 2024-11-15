@@ -52,6 +52,7 @@ class Jedi extends EventEmitter {
       validateFormat: false,
       mergeAllOf: false,
       enforceConst: false,
+      enforceEnumDefault: true,
       customEditors: [],
       hiddenInputAttributes: {}
     }, options)

@@ -102,23 +102,22 @@ class InstanceIfThenElse extends Instance {
 
     this.on('set-value', (newValue) => {
       this.instances.forEach((instance) => {
-        const valueBefore = instance.getValue()
-        let futureValue = newValue
+        const currentValue = instance.getValue()
 
-        if (isObject(valueBefore) && isObject(futureValue)) {
-          futureValue = overwriteExistingProperties(valueBefore, futureValue)
+        if (isObject(currentValue) && isObject(newValue)) {
+          newValue = overwriteExistingProperties(currentValue, newValue)
 
           // restore any const value here
           instance.children.forEach((child) => {
             const schemaConst = getSchemaConst(child.schema)
 
             if (isSet(schemaConst)) {
-              futureValue[child.getKey()] = schemaConst
+              newValue[child.getKey()] = schemaConst
             }
           })
         }
 
-        instance.setValue(futureValue, false)
+        instance.setValue(newValue, false)
       })
 
       const fittestIndex = this.getFittestIndex(newValue)

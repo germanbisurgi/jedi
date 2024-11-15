@@ -322,7 +322,7 @@ function getSchemaNot(schema) {
   return isObject(schema.not) || isBoolean(schema.not) ? schema.not : void 0;
 }
 function getSchemaXOption(schema, option) {
-  return schema["x-options"] && schema["x-options"][option] ? schema["x-options"][option] : void 0;
+  return schema["x-options"] && isSet(schema["x-options"][option]) ? schema["x-options"][option] : void 0;
 }
 function getSchemaPattern(schema) {
   return isString(schema.pattern) ? schema.pattern : void 0;
@@ -1747,7 +1747,7 @@ class Editor {
     this.showingValidationErrors = false;
     this.init();
     this.build();
-    this.coerceValue();
+    this.enforceEnumDefault();
     this.addEventListeners();
     this.setContainerAttributes();
     this.refreshUI();
@@ -1790,9 +1790,10 @@ class Editor {
   /**
    * Updates the value of the instance by making assumptions based on constrains
    */
-  coerceValue() {
+  enforceEnumDefault() {
+    const enforceEnumDefault = getSchemaXOption(this.instance.schema, "enforceEnumDefault") ?? this.instance.jedi.options.enforceEnumDefault;
     const schemaEnum = getSchemaEnum(this.instance.schema);
-    if (isSet(schemaEnum) && !schemaEnum.includes(this.instance.getValue()) && isSet(schemaEnum[0])) {
+    if (isSet(schemaEnum) && !schemaEnum.includes(this.instance.getValue()) && isSet(schemaEnum[0]) && enforceEnumDefault) {
       this.instance.setValue(schemaEnum[0], false);
     }
   }
@@ -1992,18 +1993,17 @@ class InstanceIfThenElse extends Instance {
     });
     this.on("set-value", (newValue) => {
       this.instances.forEach((instance) => {
-        const valueBefore = instance.getValue();
-        let futureValue = newValue;
-        if (isObject(valueBefore) && isObject(futureValue)) {
-          futureValue = overwriteExistingProperties(valueBefore, futureValue);
+        const currentValue = instance.getValue();
+        if (isObject(currentValue) && isObject(newValue)) {
+          newValue = overwriteExistingProperties(currentValue, newValue);
           instance.children.forEach((child) => {
             const schemaConst = getSchemaConst(child.schema);
             if (isSet(schemaConst)) {
-              futureValue[child.getKey()] = schemaConst;
+              newValue[child.getKey()] = schemaConst;
             }
           });
         }
-        instance.setValue(futureValue, false);
+        instance.setValue(newValue, false);
       });
       const fittestIndex2 = this.getFittestIndex(newValue);
       const mustSwitch = fittestIndex2 !== this.index;
@@ -3618,6 +3618,7 @@ class Jedi extends EventEmitter {
       validateFormat: false,
       mergeAllOf: false,
       enforceConst: false,
+      enforceEnumDefault: true,
       customEditors: [],
       hiddenInputAttributes: {}
     }, options);

@@ -209,6 +209,12 @@ init()
       <td><code>{}</code></td>
       <td>Attributes for hidden inputs in the form.</td>
     </tr>
+    <tr align="left">
+      <td><code>enforceEnumDefault</code></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+      <td>When <code>true</code> uses the first item in the enum as the default value</td>
+    </tr>
   </tbody>
 </table>
 

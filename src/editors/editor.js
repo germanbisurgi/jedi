@@ -46,7 +46,7 @@ class Editor {
 
     this.init()
     this.build()
-    this.coerceValue()
+    this.enforceEnumDefault()
     this.addEventListeners()
     this.setContainerAttributes()
     this.refreshUI()
@@ -97,10 +97,11 @@ class Editor {
   /**
    * Updates the value of the instance by making assumptions based on constrains
    */
-  coerceValue () {
+  enforceEnumDefault () {
+    const enforceEnumDefault = getSchemaXOption(this.instance.schema, 'enforceEnumDefault') ?? this.instance.jedi.options.enforceEnumDefault
     const schemaEnum = getSchemaEnum(this.instance.schema)
 
-    if (isSet(schemaEnum) && !schemaEnum.includes(this.instance.getValue()) && isSet(schemaEnum[0])) {
+    if (isSet(schemaEnum) && !schemaEnum.includes(this.instance.getValue()) && isSet(schemaEnum[0]) && enforceEnumDefault) {
       this.instance.setValue(schemaEnum[0], false)
     }
   }

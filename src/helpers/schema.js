@@ -1,4 +1,4 @@
-import { isString, isArray, isNumber, isInteger, isBoolean, isObject } from './utils.js'
+import {isString, isArray, isNumber, isInteger, isBoolean, isObject, isSet} from './utils.js'
 
 export function getSchemaX (schema, keyword) {
   const key = 'x-' + keyword
@@ -174,7 +174,7 @@ export function getSchemaNot (schema) {
 }
 
 export function getSchemaXOption (schema, option) {
-  return (schema['x-options'] && schema['x-options'][option]) ? schema['x-options'][option] : undefined
+  return (schema['x-options'] && isSet(schema['x-options'][option])) ? schema['x-options'][option] : undefined
 }
 
 export function getSchemaPattern (schema) {

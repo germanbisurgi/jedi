@@ -1,3 +1,186 @@
 {
-  "$ref": "https://json.schemastore.org/jsdoc-1.0.0.json"
+  "title": "Rotfuchs",
+  "type": "object",
+  "required": [
+    "vk"
+  ],
+  "properties": {
+    "vk": {
+      "title": "Kamen die Arten im Jagdjahr 2018/2019 in Ihrem Revier vor?",
+      "type": "string",
+      "default": "",
+      "enum": [
+        "ja",
+        "nein",
+        "unbekannt",
+        "keine Angabe"
+      ],
+      "x-options": {
+        "enforceEnumDefault": false,
+        "format": "radio"
+      }
+    }
+  },
+  "if": {
+    "properties": {
+      "vk": {
+        "const": "ja"
+      }
+    }
+  },
+  "then": {
+    "properties": {
+      "anzahl": {
+        "$ref": "#/$defs/anzahl",
+        "type": "integer",
+        "minimum": 1
+      },
+      "jagdstrecke": {
+        "$ref": "#/$defs/jagdstrecke",
+        "properties": {
+          "erlegung": {
+            "$ref": "#/$defs/erlegung",
+            "minimum": 1
+          },
+          "fangjagd": {
+            "$ref": "#/$defs/fangjagd",
+            "minimum": 1
+          },
+          "unfallwild": {
+            "$ref": "#/$defs/unfallwild",
+            "minimum": 1
+          },
+          "fallwild": {
+            "$ref": "#/$defs/fallwild",
+            "minimum": 1
+          }
+        }
+      },
+      "summe": {
+        "$ref": "#/$defs/summe",
+        "minimum": 1
+      }
+    }
+  },
+  "else": {
+    "if": {
+      "properties": {
+        "vk": {
+          "const": "nein"
+        }
+      }
+    },
+    "then": {
+      "properties": {
+        "anzahl": {
+          "$ref": "#/$defs/anzahl",
+          "readOnly": true,
+          "default": 0,
+          "const": 0
+        },
+        "jagdstrecke": {
+          "readOnly": true,
+          "$ref": "#/$defs/jagdstrecke",
+          "properties": {
+            "erlegung": {
+              "$ref": "#/$defs/erlegung",
+              "default": 0,
+              "const": 0
+            },
+            "fangjagd": {
+              "$ref": "#/$defs/fangjagd",
+              "default": 0,
+              "const": 0
+            },
+            "unfallwild": {
+              "$ref": "#/$defs/unfallwild",
+              "default": 0,
+              "const": 0
+            },
+            "fallwild": {
+              "$ref": "#/$defs/fallwild",
+              "default": 0,
+              "const": 0
+            }
+          }
+        },
+        "summe": {
+          "$ref": "#/$defs/summe",
+          "readOnly": true,
+          "default": 0,
+          "const": 0
+        }
+      }
+    },
+    "else": {
+      "properties": {
+        "anzahl": {
+          "$ref": "#/$defs/anzahl",
+          "type": "null",
+          "description": "keine Angabe"
+        },
+        "jagdstrecke": {
+          "readOnly": true,
+          "$ref": "#/$defs/jagdstrecke",
+          "properties": {
+            "erlegung": {
+              "$ref": "#/$defs/erlegung",
+              "type": "null",
+              "description": "keine Angabe"
+            },
+            "fangjagd": {
+              "$ref": "#/$defs/fangjagd",
+              "type": "null",
+              "description": "keine Angabe"
+            },
+            "unfallwild": {
+              "$ref": "#/$defs/unfallwild",
+              "type": "null",
+              "description": "keine Angabe"
+            },
+            "fallwild": {
+              "$ref": "#/$defs/fallwild",
+              "type": "null",
+              "description": "keine Angabe"
+            }
+          }
+        },
+        "summe": {
+          "$ref": "#/$defs/summe",
+          "type": "null",
+          "description": "keine Angabe"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "anzahl": {
+      "title": "Anzahl der Gehecke",
+      "type": "integer"
+    },
+    "jagdstrecke": {
+      "title": "Jagdstrecke 2022/23",
+      "type": "object"
+    },
+    "erlegung": {
+      "title": "Erlegung Stk.",
+      "type": "integer"
+    },
+    "fangjagd": {
+      "title": "Fangjagd Stk.",
+      "type": "integer"
+    },
+    "unfallwild": {
+      "title": "Unfallwild Stk.",
+      "type": "integer"
+    },
+    "fallwild": {
+      "title": "Fallwild Stk.",
+      "type": "integer"
+    },
+    "summe": {
+      "title": "Summe Jagdstrecke 2022/23",
+      "type": "integer"
+    }
+  }
 }

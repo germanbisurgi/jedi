@@ -44,7 +44,7 @@
 
           <div class="form-group mb-3">
             <label for="editor-errors">
-              <span>Errors</span>
+              <span>Errors: </span>
               <span>{{ errorCount }}</span>
             </label>
             <textarea ref="editorErrors" class="form-control" id="editor-errors" style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
@@ -101,6 +101,11 @@
           <div class="form-group mb-3">
             <input type="checkbox" id="mergeAllOf" v-model="mergeAllOf" @change="initEditor()">
             <label for="mergeAllOf">mergeAllOf</label>
+          </div>
+
+          <div class="form-group mb-3">
+            <input type="checkbox" id="enforceEnumDefault" v-model="enforceEnumDefault" @change="initEditor()">
+            <label for="enforceEnumDefault">enforceEnumDefault</label>
           </div>
         </aside>
       </div>
@@ -292,7 +297,8 @@ export default {
       iconLib: 'bootstrap-icons',
       showErrors: 'change',
       validateFormat: false,
-      mergeAllOf: false
+      mergeAllOf: false,
+      enforceEnumDefault: false
     }
   },
   created() {
@@ -302,6 +308,7 @@ export default {
     this.showErrors = this.getQueryParam('showErrors') || 'change'
     this.validateFormat = this.getQueryParam('validateFormat') ? this.parseBooleanString(this.getQueryParam('validateFormat')) : false
     this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
+    this.enforceEnumDefault = this.getQueryParam('enforceEnumDefault') ? this.parseBooleanString(this.getQueryParam('enforceEnumDefault')) : true
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
     this.enableCollapseToggle = this.getQueryParam('enableCollapseToggle') ? this.parseBooleanString(this.getQueryParam('enableCollapseToggle')) : true
   },
@@ -413,6 +420,7 @@ export default {
         showErrors: this.showErrors,
         validateFormat: this.validateFormat,
         mergeAllOf: this.mergeAllOf,
+        enforceEnumDefault: this.enforceEnumDefault,
         schema: this.schema,
         theme: this.getThemeInstance(this.theme),
         refParser,
@@ -461,6 +469,7 @@ export default {
       newUrl += "&showErrors=" + this.showErrors
       newUrl += "&validateFormat=" + this.validateFormat
       newUrl += "&mergeAllOf=" + this.mergeAllOf
+      newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
 
