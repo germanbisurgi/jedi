@@ -13,7 +13,8 @@ exports.config = {
       waitForAction: 500,
       waitForTimeout: 10000,
       windowSize: '1200x600',
-      restart: false
+      restart: false,
+      waitForNavigation: [ 'load', 'networkidle0' ],
     },
     ChaiWrapper: {
       require: 'codeceptjs-chai'
