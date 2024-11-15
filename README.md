@@ -78,107 +78,160 @@ init()
 
 ## Instance Options
 
-#### `container`
-- **Type:** `HTMLElement`
-- **Default:** `null`
-- **Example:** `document.querySelector('#jedi-container')`
-- **Description:** The HTML element that will contain the generated form.
+## Instance Options
 
-#### `iconLib`
-- **Type:** `string`
-- **Default:** `'null'`
-- **Example:** `'fontawesome'`
-- **Description:** Specifies the icon library to use for UI components. Valid options include:
-  - `'glyphicons'`
-  - `'bootstrapIcons'`
-  - `'fontAwesome3'`
-  - `'fontAwesome4'`
-  - `'fontAwesome5'`
-  - `'fontAwesome6'`
+<table>
+  <thead>
+    <tr align="left">
+      <th>Option</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Example</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr align="left">
+      <td><code>container</code></td>
+      <td><code>HTMLElement</code></td>
+      <td><code>null</code></td>
+      <td><code>document.querySelector('#jedi-container')</code></td>
+      <td>The HTML element that will contain the generated form.</td>
+    </tr>
+    <tr align="left">
+      <td><code>iconLib</code></td>
+      <td><code>string</code></td>
+      <td><code>'null'</code></td>
+      <td><code>'fontawesome'</code></td>
+      <td>
+        Specifies the icon library to use for UI components. Valid options include:
+        <ul>
+          <li><code>'glyphicons'</code></li>
+          <li><code>'bootstrapIcons'</code></li>
+          <li><code>'fontAwesome3'</code></li>
+          <li><code>'fontAwesome4'</code></li>
+          <li><code>'fontAwesome5'</code></li>
+          <li><code>'fontAwesome6'</code></li>
+        </ul>
+      </td>
+    </tr>
+    <tr align="left">
+      <td><code>theme</code></td>
+      <td><code>Theme</code></td>
+      <td><code>null</code></td>
+      <td><code>new Jedi.ThemeBootstrap3()</code></td>
+      <td>
+        An instance of <code>Theme</code> to apply to the UI. Valid options include:
+        <ul>
+          <li><code>new Jedi.Theme()</code></li>
+          <li><code>new Jedi.ThemeBootstrap3()</code></li>
+          <li><code>new Jedi.ThemeBootstrap4()</code></li>
+          <li><code>new Jedi.ThemeBootstrap5()</code></li>
+        </ul>
+      </td>
+    </tr>
+    <tr align="left">
+      <td><code>refParser</code></td>
+      <td><code>new Jedi.RefParser</code></td>
+      <td><code>null</code></td>
+      <td><code>new Jedi.RefParser()</code></td>
+      <td>An instance of <code>RefParser</code> to handle <code>'$ref'</code> keywords.</td>
+    </tr>
+    <tr align="left">
+      <td><code>enablePropertiesToggle</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>-</td>
+      <td>Enables a toggle to show/hide properties in the UI.</td>
+    </tr>
+    <tr align="left">
+      <td><code>enableCollapseToggle</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>-</td>
+      <td>Allows sections to be collapsible in the UI.</td>
+    </tr>
+    <tr align="left">
+      <td><code>startCollapsed</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>-</td>
+      <td>If set to <code>true</code>, the UI starts in a collapsed state.</td>
+    </tr>
+    <tr align="left">
+      <td><code>deactivateNonRequired</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>-</td>
+      <td>Deactivates non-required properties.</td>
+    </tr>
+    <tr align="left">
+      <td><code>schema</code></td>
+      <td><code>object</code></td>
+      <td><code>{}</code></td>
+      <td><code>{type: 'object', properties: {}}</code></td>
+      <td>A JSON schema for the form.</td>
+    </tr>
+    <tr align="left">
+      <td><code>showErrors</code></td>
+      <td><code>string</code></td>
+      <td><code>'change'</code></td>
+      <td><code>'always'</code></td>
+      <td>
+        Determines when to display validation errors. Options include:
+        <ul>
+          <li><code>'never'</code></li>
+          <li><code>'change'</code></li>
+          <li><code>'always'</code></li>
+        </ul>
+      </td>
+    </tr>
+    <tr align="left">
+      <td><code>data</code></td>
+      <td><code>object</code></td>
+      <td><code>undefined</code></td>
+      <td><code>{name: 'John', age: 30}</code></td>
+      <td>Initial data to populate the form.</td>
+    </tr>
+    <tr align="left">
+      <td><code>validateFormat</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>-</td>
+      <td>Treats <code>'format'</code> as a validator rather than just an annotation.</td>
+    </tr>
+    <tr align="left">
+      <td><code>mergeAllOf</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>-</td>
+      <td>If set to <code>true</code>, merges all <code>allOf</code> schemas into one.</td>
+    </tr>
+    <tr align="left">
+      <td><code>enforceConst</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>-</td>
+      <td>Enforces the <code>const</code> keyword value in editors.</td>
+    </tr>
+    <tr align="left">
+      <td><code>customEditors</code></td>
+      <td><code>array</code></td>
+      <td><code>[]</code></td>
+      <td><code>[MyEditor]</code></td>
+      <td>An array of custom editor classes.</td>
+    </tr>
+    <tr align="left">
+      <td><code>hiddenInputAttributes</code></td>
+      <td><code>object</code></td>
+      <td><code>{}</code></td>
+      <td><code>{class: 'hidden', style: 'display:none;'}</code></td>
+      <td>Attributes for hidden inputs in the form.</td>
+    </tr>
+  </tbody>
+</table>
 
-#### `theme`
-- **Type:** `Theme`
-- **Default:** `null`
-- **Example:** `new Jedi.ThemeBootstrap3()`
-- **Description:** An instance of `Theme` to apply to the UI. Valid options include:
-  - `new Jedi.Theme()`
-  - `new Jedi.ThemeBootstrap3()`
-  - `new Jedi.ThemeBootstrap4()`
-  - `new Jedi.ThemeBootstrap5()`
 
-#### `refParser`
-- **Type:** `new Jedi.RefParser`
-- **Default:** `null`
-- **Example:** "new Jedi.RefParser()"
-- **Description:** An instance of `RefParser` to handle `'$ref'` keywords.
-
-#### `enablePropertiesToggle`
-- **Type:** `boolean`
-- **Default:** `false`
-- **Description:** Enables a toggle to show/hide properties in the UI.
-
-#### `enableCollapseToggle`
-- **Type:** `boolean`
-- **Default:** `false`
-- **Description:** Allows sections to be collapsible in the UI.
-
-#### `startCollapsed`
-- **Type:** `boolean`
-- **Default:** `false`
-- **Description:** If set to `true`, the UI starts in a collapsed state.
-
-#### `deactivateNonRequired`
-- **Type:** `boolean`
-- **Default:** `false`
-- **Description:** Deactivates non-required properties.
-
-#### `schema`
-- **Type:** `object`
-- **Default:** `{}`
-- **Example:** `{type: 'object', properties: {}}`
-- **Description:** A JSON schema for the form.
-
-#### `showErrors`
-- **Type:** `string`
-- **Default:** `'change'`
-- **Example:** `'always'`
-- **Description:** Determines when to display validation errors. Options include:
-  - `'never'`
-  - `'change'`
-  - `'always'`
-
-#### `data`
-- **Type:** `object`
-- **Default:** `undefined`
-- **Example:** `{name: 'John', age: 30}`
-- **Description:** Initial data to populate the form.
-
-#### `validateFormat`
-- **Type:** `boolean`
-- **Default:** `false`
-- **Description:** Treats `'format'` as a validator rather than just an annotation.
-
-#### `mergeAllOf`
-- **Type:** `boolean`
-- **Default:** `false`
-- **Description:** If set to `true`, merges all `allOf` schemas into one.
-
-#### `enforceConst`
-- **Type:** `boolean`
-- **Default:** `false`
-- **Description:** Enforces the `const` keyword value in editors.
-
-#### `customEditors`
-- **Type:** `array`
-- **Default:** `[]`
-- **Example:** `[MyEditor]`
-- **Description:** An array of custom editor classes.
-
-#### `hiddenInputAttributes`
-- **Type:** `object`
-- **Default:** `{}`
-- **Example:** `{class: 'hidden', style: 'display:none;'}`
-- **Description:** Attributes for hidden inputs in the form.
 
 ## Events
 coming soon

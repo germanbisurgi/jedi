@@ -7,10 +7,12 @@
     <div class="row">
       <div class="col-xs-12 col-sm-8">
         <main>
-          <button class="btn btn-primary" id="disable-editor" @click="disableEditor()">Disable editor</button>
-          <button class="btn btn-primary" id="enable-editor" @click="enableEditor()">Enable editor</button>
-          <button class="btn btn-primary" id="show-validation-errors" @click="showValidationErrors()">Show validation errors</button>
-          <button class="btn btn-primary" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
+          <div class="btn-group">
+            <button class="btn btn-primary" id="disable-editor" @click="disableEditor()">Disable editor</button>
+            <button class="btn btn-primary" id="enable-editor" @click="enableEditor()">Enable editor</button>
+            <button class="btn btn-primary" id="show-validation-errors" @click="showValidationErrors()">Show validation errors</button>
+            <button class="btn btn-primary" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
+          </div>
 
           <hr>
 
