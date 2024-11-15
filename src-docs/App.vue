@@ -394,12 +394,12 @@ export default {
       const examples = Object.assign({}, ...Object.values(this.examples));
       return examples[this.example] || null;
     },
-    async initEditor() {
+    async initEditor(schema) {
       if (this.editor) {
         this.editor.destroy()
       }
 
-      this.schema = this.getSchema()
+      this.schema = schema ?? this.getSchema()
 
       const refParser = new Jedi.RefParser()
       await refParser.dereference(this.schema)
@@ -451,7 +451,7 @@ export default {
     },
     setSchema() {
       this.schema = JSON.parse(this.$refs.schema.value)
-      this.initEditor()
+      this.initEditor(this.schema)
     },
     reload() {
       let newUrl = window.location.origin + window.location.pathname
