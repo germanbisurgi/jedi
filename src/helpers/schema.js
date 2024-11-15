@@ -1,4 +1,4 @@
-import {isString, isArray, isNumber, isInteger, isBoolean, isObject, isSet} from './utils.js'
+import { isString, isArray, isNumber, isInteger, isBoolean, isObject, isSet } from './utils.js'
 
 export function getSchemaX (schema, keyword) {
   const key = 'x-' + keyword

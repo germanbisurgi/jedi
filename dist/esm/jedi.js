@@ -2356,6 +2356,33 @@ class InstanceObject extends Instance {
     this.value = value;
     this.emit("change");
   }
+  /**
+   * Sorts the children of the current instance based on their `propertyOrder` value in ascending order.
+   * The sorting is done using the `propertyOrder` obtained from each child's schema, which should be a number.
+   * If a child does not have a valid `propertyOrder` (i.e., the value is not a number), it will be placed after the child with a valid `propertyOrder`.
+   * @returns {void} This function modifies the `children` array of the instance in place.
+   */
+  sortChildrenByPropertyOrder() {
+    this.children = this.children.sort((a, b) => {
+      const propertyOrderA = getSchemaXOption(a.schema, "propertyOrder");
+      const propertyOrderB = getSchemaXOption(b.schema, "propertyOrder");
+      const isValidNumberA = isNumber(propertyOrderA);
+      const isValidNumberB = isNumber(propertyOrderB);
+      if (!isValidNumberA && isValidNumberB) {
+        return 1;
+      }
+      if (isValidNumberA && !isValidNumberB) {
+        return -1;
+      }
+      if (propertyOrderA < propertyOrderB) {
+        return -1;
+      }
+      if (propertyOrderA > propertyOrderB) {
+        return 1;
+      }
+      return 0;
+    });
+  }
   refreshInstances() {
     const value = this.getValue();
     if (!isObject(value)) {
@@ -2386,6 +2413,7 @@ class InstanceObject extends Instance {
         }
       }
     }
+    this.sortChildrenByPropertyOrder();
   }
 }
 class InstanceArray extends Instance {
@@ -2922,21 +2950,21 @@ class EditorObject extends Editor {
   refreshPropertiesSlot() {
     const schemaOptionEnablePropertiesToggle = getSchemaXOption(this.instance.schema, "enablePropertiesToggle");
     if (equal(this.instance.jedi.options.enablePropertiesToggle, true) || equal(schemaOptionEnablePropertiesToggle, true)) {
-      const schemaProperties = Object.keys(this.instance.properties);
-      const childrenProperties = this.instance.children.map((child) => child.getKey());
-      const properties2 = [...schemaProperties, ...childrenProperties];
+      const properties2 = this.instance.children.map((child) => child.getKey());
+      while (this.control.propertiesActivators.firstChild) {
+        this.control.propertiesActivators.removeChild(this.control.propertiesActivators.firstChild);
+      }
       properties2.forEach((property) => {
         const isRequired = this.instance.isRequired(property);
         const isDependentRequired = this.instance.isDependentRequired(property);
         const notRequired = !isRequired && !isDependentRequired;
-        const activatorInDom = this.propertyActivators[property];
         const ariaLive = this.control.ariaLive;
         const schema = this.instance.getPropertySchema(property);
         const schemaTitle = getSchemaTitle(schema);
         const path = this.instance.path + this.instance.jedi.pathSeparator + property;
         const id = pathToAttribute(path) + "-activator";
         const label = isSet(schemaTitle) ? schemaTitle : property;
-        if (notRequired && !activatorInDom) {
+        if (notRequired) {
           const checkboxControl = this.theme.getCheckboxControl({
             id,
             label,
@@ -2973,34 +3001,10 @@ class EditorObject extends Editor {
       });
     }
   }
-  /**
-   * Sorts the children of the current instance based on their `propertyOrder` value in ascending order.
-   * The sorting is done using the `propertyOrder` obtained from each child's schema, which should be a number.
-   * If a child does not have a valid `propertyOrder` (i.e., the value is not a number), it will be placed after the child with a valid `propertyOrder`.
-   * @returns {void} This function modifies the `children` array of the instance in place.
-   */
-  sortChildrenByPropertyOrder() {
-    this.instance.children = this.instance.children.sort((a, b) => {
-      const propertyOrderA = getSchemaXOption(a.schema, "propertyOrder");
-      const propertyOrderB = getSchemaXOption(b.schema, "propertyOrder");
-      const isValidNumberA = isNumber(propertyOrderA);
-      const isValidNumberB = isNumber(propertyOrderB);
-      if (!isValidNumberA && isValidNumberB) {
-        return 1;
-      }
-      if (isValidNumberA && !isValidNumberB) {
-        return -1;
-      }
-      if (propertyOrderA < propertyOrderB) {
-        return -1;
-      }
-      if (propertyOrderA > propertyOrderB) {
-        return 1;
-      }
-      return 0;
-    });
-  }
   refreshEditors() {
+    while (this.control.childrenSlot.firstChild) {
+      this.control.childrenSlot.removeChild(this.control.childrenSlot.firstChild);
+    }
     this.instance.children.forEach((child) => {
       if (child.isActive) {
         if (child.ui.control.container.parentNode === null) {
@@ -3019,7 +3023,6 @@ class EditorObject extends Editor {
     });
   }
   refreshUI() {
-    this.sortChildrenByPropertyOrder();
     this.refreshInteractiveElements();
     this.refreshPropertiesSlot();
     this.refreshEditors();
