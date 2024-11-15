@@ -84,7 +84,6 @@ init()
       <th>Option</th>
       <th>Type</th>
       <th>Default</th>
-      <th>Example</th>
       <th>Description</th>
     </tr>
   </thead>
@@ -93,14 +92,12 @@ init()
       <td><code>container</code></td>
       <td><code>HTMLElement</code></td>
       <td><code>null</code></td>
-      <td><code>document.querySelector('#jedi-container')</code></td>
       <td>The HTML element that will contain the generated form.</td>
     </tr>
     <tr align="left">
       <td><code>iconLib</code></td>
       <td><code>string</code></td>
       <td><code>'null'</code></td>
-      <td><code>'fontawesome'</code></td>
       <td>
         Specifies the icon library to use for UI components. Valid options include:
         <ul>
@@ -117,7 +114,6 @@ init()
       <td><code>theme</code></td>
       <td><code>Theme</code></td>
       <td><code>null</code></td>
-      <td><code>new Jedi.ThemeBootstrap3()</code></td>
       <td>
         An instance of <code>Theme</code> to apply to the UI. Valid options include:
         <ul>
@@ -132,49 +128,42 @@ init()
       <td><code>refParser</code></td>
       <td><code>new Jedi.RefParser</code></td>
       <td><code>null</code></td>
-      <td><code>new Jedi.RefParser()</code></td>
       <td>An instance of <code>RefParser</code> to handle <code>'$ref'</code> keywords.</td>
     </tr>
     <tr align="left">
       <td><code>enablePropertiesToggle</code></td>
       <td><code>boolean</code></td>
       <td><code>false</code></td>
-      <td>-</td>
       <td>Enables a toggle to show/hide properties in the UI.</td>
     </tr>
     <tr align="left">
       <td><code>enableCollapseToggle</code></td>
       <td><code>boolean</code></td>
       <td><code>false</code></td>
-      <td>-</td>
       <td>Allows sections to be collapsible in the UI.</td>
     </tr>
     <tr align="left">
       <td><code>startCollapsed</code></td>
       <td><code>boolean</code></td>
       <td><code>false</code></td>
-      <td>-</td>
       <td>If set to <code>true</code>, the UI starts in a collapsed state.</td>
     </tr>
     <tr align="left">
       <td><code>deactivateNonRequired</code></td>
       <td><code>boolean</code></td>
       <td><code>false</code></td>
-      <td>-</td>
       <td>Deactivates non-required properties.</td>
     </tr>
     <tr align="left">
       <td><code>schema</code></td>
       <td><code>object</code></td>
       <td><code>{}</code></td>
-      <td><code>{type: 'object', properties: {}}</code></td>
       <td>A JSON schema for the form.</td>
     </tr>
     <tr align="left">
       <td><code>showErrors</code></td>
       <td><code>string</code></td>
       <td><code>'change'</code></td>
-      <td><code>'always'</code></td>
       <td>
         Determines when to display validation errors. Options include:
         <ul>
@@ -188,48 +177,40 @@ init()
       <td><code>data</code></td>
       <td><code>object</code></td>
       <td><code>undefined</code></td>
-      <td><code>{name: 'John', age: 30}</code></td>
       <td>Initial data to populate the form.</td>
     </tr>
     <tr align="left">
       <td><code>validateFormat</code></td>
       <td><code>boolean</code></td>
       <td><code>false</code></td>
-      <td>-</td>
       <td>Treats <code>'format'</code> as a validator rather than just an annotation.</td>
     </tr>
     <tr align="left">
       <td><code>mergeAllOf</code></td>
       <td><code>boolean</code></td>
       <td><code>false</code></td>
-      <td>-</td>
       <td>If set to <code>true</code>, merges all <code>allOf</code> schemas into one.</td>
     </tr>
     <tr align="left">
       <td><code>enforceConst</code></td>
       <td><code>boolean</code></td>
       <td><code>false</code></td>
-      <td>-</td>
       <td>Enforces the <code>const</code> keyword value in editors.</td>
     </tr>
     <tr align="left">
       <td><code>customEditors</code></td>
       <td><code>array</code></td>
       <td><code>[]</code></td>
-      <td><code>[MyEditor]</code></td>
       <td>An array of custom editor classes.</td>
     </tr>
     <tr align="left">
       <td><code>hiddenInputAttributes</code></td>
       <td><code>object</code></td>
       <td><code>{}</code></td>
-      <td><code>{class: 'hidden', style: 'display:none;'}</code></td>
       <td>Attributes for hidden inputs in the form.</td>
     </tr>
   </tbody>
 </table>
-
-
 
 ## Events
 coming soon
