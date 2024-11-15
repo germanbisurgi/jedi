@@ -107,6 +107,9 @@
 </template>
 
 <script>
+
+import EditorStringCustom from "./js/custom-editor.js";
+
 import Jedi from '/src/index.js'
 import all from './json/editors/all.json'
 import array from './json/editors/array.json'
@@ -412,7 +415,7 @@ export default {
         theme: this.getThemeInstance(this.theme),
         refParser,
         customEditors: [
-          // EditorStringCustom
+          EditorStringCustom
         ]
       }
 
