@@ -78,8 +78,6 @@ init()
 
 ## Instance Options
 
-## Instance Options
-
 <table>
   <thead>
     <tr align="left">
