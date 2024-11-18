@@ -3,6 +3,75 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('if-then-else')
 
+Scenario('@constrain-if-then-else validate against @if-then-else-deeply-nested-and-unselected', async ({ I }) => {
+  I.amOnPage(`playground.html?theme=${theme}`)
+  I._waitForElement('.jedi-ready')
+  I.selectOption('#examples', 'validator/if-then-else-deeply-nested-and-unselected')
+  I._scrollTo('[data-path="#"]')
+
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "occurrence": "",
+    "huntingBag": {
+      "harvest": 0,
+      "accidentGame": 0,
+      "foundDead": 0
+    },
+    "total": 0
+  }))
+
+  I.click('label[for="root-occurrence-0"]')
+
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "occurrence": "Resident game",
+    "huntingBag": {
+      "harvest": 0,
+      "accidentGame": 0,
+      "foundDead": 0,
+      "unknown": 0
+    },
+    "total": 0
+  }))
+
+  I.fillField('[id="root-huntingBag-harvest"]', 1)
+  I.pressKey('Tab')
+
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "occurrence": "Resident game",
+    "huntingBag": {
+      "harvest": 1,
+      "accidentGame": 0,
+      "foundDead": 0,
+      "unknown": 0
+    },
+    "total": 0
+  }))
+
+  I.click('label[for="root-occurrence-4"]')
+
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "occurrence": "No information",
+    "huntingBag": {
+      "harvest": 0,
+      "accidentGame": 0,
+      "foundDead": 0
+    },
+    "total": 0
+  }))
+
+  I.click('label[for="root-occurrence-0"]')
+
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "occurrence": "Resident game",
+    "huntingBag": {
+      "harvest": 0,
+      "accidentGame": 0,
+      "foundDead": 0,
+      "unknown": 0
+    },
+    "total": 0
+  }))
+})
+
 Scenario('@constrain-if-then-else validate against @if-then-else-nested-simple', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
@@ -35,7 +104,7 @@ Scenario('@constrain-if-then-else validate against @if-then-else-nested-simple',
 
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "occurrence": "yes",
-    "count": 0
+    "count": 4
   }))
 })
 
@@ -142,12 +211,12 @@ Scenario('@constrain-if-then-else validate against @if-then-else-nested-complex'
     "grayGoose": {
       "presence": "yes",
       "nesting": "yes",
-      "pairCount": 5
+      "pairCount": 0
     }
   }))
 })
 
-Scenario('@constrain-if-then-else validate against @if-then-else-nested', async ({ I }) => {
+Scenario('@constrain-if-then-else validate against @if-then-else-nested-basic', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then-else-nested')
@@ -163,17 +232,17 @@ Scenario('@constrain-if-then-else validate against @if-then-else-nested', async 
     "numPedals": 0
   }))
 
-  I.selectOption('[id="root-vehicleType"]', 'car')
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
-    "vehicleType": "car",
-    "numDoors": 0
-  }))
-
   I.selectOption('[id="root-vehicleType"]', 'other')
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "vehicleType": "other",
     "make": "",
     "model": ""
+  }))
+
+  I.selectOption('[id="root-vehicleType"]', 'car')
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+    "vehicleType": "car",
+    "numDoors": 0
   }))
 })
 

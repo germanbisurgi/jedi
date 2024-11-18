@@ -1,7 +1,7 @@
 import Editor from './editor.js'
 import {
   equal,
-  hasOwn, isNumber,
+  hasOwn,
   isObject,
   isSet,
   pathToAttribute

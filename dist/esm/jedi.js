@@ -113,16 +113,20 @@ function mergeDeep(target, ...sources) {
   }
   return mergeDeep(target, ...sources);
 }
-function overwriteExistingProperties(obj1, obj2) {
-  Object.keys(obj2).forEach(function(key) {
+const overwriteExistingProperties = (obj1, obj2) => {
+  Object.keys(obj2).forEach((key) => {
     if (key in obj1) {
       if (typeof obj1[key] === typeof obj2[key]) {
-        obj1[key] = obj2[key];
+        if (isObject(obj1[key]) && isObject(obj2[key])) {
+          overwriteExistingProperties(obj1[key], obj2[key]);
+        } else {
+          obj1[key] = obj2[key];
+        }
       }
     }
   });
   return obj1;
-}
+};
 function getValueByJSONPath(data, path) {
   const keys = path.split(".");
   let value = data;
@@ -1933,6 +1937,7 @@ class InstanceIfThenElse extends Instance {
   prepare() {
     this.instances = [];
     this.instanceStartingValues = [];
+    this.instanceWithoutIf = null;
     this.activeInstance = null;
     this.index = 0;
     this.schemas = [];
@@ -1964,7 +1969,7 @@ class InstanceIfThenElse extends Instance {
     delete schemaClone.if;
     delete schemaClone.then;
     delete schemaClone.else;
-    const instanceWithoutIf = this.jedi.createInstance({
+    this.instanceWithoutIf = this.jedi.createInstance({
       jedi: this.jedi,
       schema: schemaClone,
       path: this.path,
@@ -1992,16 +1997,14 @@ class InstanceIfThenElse extends Instance {
       this.instances.push(instance);
     });
     this.on("set-value", (newValue) => {
-      this.instances.forEach((instance) => {
-        const currentValue = instance.getValue();
-        if (isObject(currentValue) && isObject(newValue)) {
-          newValue = overwriteExistingProperties(currentValue, newValue);
-          instance.children.forEach((child) => {
-            const schemaConst = getSchemaConst(child.schema);
-            if (isSet(schemaConst)) {
-              newValue[child.getKey()] = schemaConst;
-            }
-          });
+      let ifValue = this.instanceWithoutIf.getValue();
+      if (isObject(ifValue) && isObject(newValue)) {
+        ifValue = overwriteExistingProperties(ifValue, newValue);
+      }
+      this.instances.forEach((instance, index3) => {
+        const startingValue = this.instanceStartingValues[index3];
+        if (isObject(startingValue) && isObject(newValue)) {
+          newValue = overwriteExistingProperties(startingValue, ifValue);
         }
         instance.setValue(newValue, false);
       });
@@ -2011,8 +2014,7 @@ class InstanceIfThenElse extends Instance {
         this.switchInstance(fittestIndex2);
       }
     });
-    this.value = instanceWithoutIf.getValue();
-    instanceWithoutIf.destroy();
+    this.value = this.instanceWithoutIf.getValue();
     const fittestIndex = this.getFittestIndex(this.value);
     this.switchInstance(fittestIndex);
   }

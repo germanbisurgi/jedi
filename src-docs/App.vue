@@ -8,10 +8,10 @@
       <div class="col-xs-12 col-sm-8">
         <main>
           <div class="btn-group">
-            <button class="btn btn-primary" id="disable-editor" @click="disableEditor()">Disable editor</button>
-            <button class="btn btn-primary" id="enable-editor" @click="enableEditor()">Enable editor</button>
+            <button class="btn btn-primary" id="disable-editor" @click="disableEditor()">Disable</button>
+            <button class="btn btn-primary" id="enable-editor" @click="enableEditor()">Enable</button>
             <button class="btn btn-primary" id="show-validation-errors" @click="showValidationErrors()">Show validation errors</button>
-            <button class="btn btn-primary" id="destroy-editor" @click="destroyEditor()">Destroy editor</button>
+            <button class="btn btn-primary" id="destroy-editor" @click="destroyEditor()">Destroy</button>
           </div>
 
           <hr>
@@ -154,6 +154,7 @@ import ifThenElseAllOf from './json/validator/if-then-else-allOf.json'
 import ifThenElseNested from './json/validator/if-then-else-nested.json'
 import ifThenElseNestedSimple from './json/validator/if-then-else-nested-simple.json'
 import ifThenElseNestedComplex from './json/validator/if-then-else-nested-complex.json'
+import ifThenElseDeeplyNestedAndUnselected from './json/validator/if-then-else-deeply-nested-and-unselected.json'
 import items from './json/validator/items.json'
 import maxContains from './json/validator/maxContains.json'
 import maximum from './json/validator/maximum.json'
@@ -227,6 +228,7 @@ export default {
           'validator/if-then-else-nested': ifThenElseNested,
           'validator/if-then-else-nested-simple': ifThenElseNestedSimple,
           'validator/if-then-else-nested-complex': ifThenElseNestedComplex,
+          'validator/if-then-else-deeply-nested-and-unselected': ifThenElseDeeplyNestedAndUnselected,
           'validator/items': items,
           'validator/maxContains': maxContains,
           'validator/maximum': maximum,

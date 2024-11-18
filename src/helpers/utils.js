@@ -248,17 +248,22 @@ export function mergeDeep (target, ...sources) {
 }
 
 /**
- * Merges objects but only the properties that exists in both objects
- * if they are the same type of value
+ * Merges objects but only the properties that exist in both objects
+ * if they are the same type of value.
+ * Handles nested objects recursively.
  * @param {object} obj1 - The target object
- * @param {object[]} obj2 - Objects whose properties are the overrides
+ * @param {object} obj2 - Object whose properties are the overrides
  * @return {object} The overwritten object
  */
-export function overwriteExistingProperties (obj1, obj2) {
-  Object.keys(obj2).forEach(function (key) {
+export const overwriteExistingProperties = (obj1, obj2) => {
+  Object.keys(obj2).forEach((key) => {
     if (key in obj1) {
       if (typeof obj1[key] === typeof obj2[key]) {
-        obj1[key] = obj2[key]
+        if (isObject(obj1[key]) && isObject(obj2[key])) {
+          overwriteExistingProperties(obj1[key], obj2[key])
+        } else {
+          obj1[key] = obj2[key]
+        }
       }
     }
   })

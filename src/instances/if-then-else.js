@@ -11,7 +11,6 @@ import {
 } from '../helpers/utils.js'
 
 import {
-  getSchemaConst,
   getSchemaElse,
   getSchemaIf,
   getSchemaThen
@@ -29,6 +28,7 @@ class InstanceIfThenElse extends Instance {
   prepare () {
     this.instances = []
     this.instanceStartingValues = []
+    this.instanceWithoutIf = null
     this.activeInstance = null
     this.index = 0
     this.schemas = []
@@ -67,7 +67,7 @@ class InstanceIfThenElse extends Instance {
     delete schemaClone.then
     delete schemaClone.else
 
-    const instanceWithoutIf = this.jedi.createInstance({
+    this.instanceWithoutIf = this.jedi.createInstance({
       jedi: this.jedi,
       schema: schemaClone,
       path: this.path,
@@ -101,20 +101,17 @@ class InstanceIfThenElse extends Instance {
     })
 
     this.on('set-value', (newValue) => {
-      this.instances.forEach((instance) => {
-        const currentValue = instance.getValue()
+      let ifValue = this.instanceWithoutIf.getValue()
 
-        if (isObject(currentValue) && isObject(newValue)) {
-          newValue = overwriteExistingProperties(currentValue, newValue)
+      if (isObject(ifValue) && isObject(newValue)) {
+        ifValue = overwriteExistingProperties(ifValue, newValue)
+      }
 
-          // restore any const value here
-          instance.children.forEach((child) => {
-            const schemaConst = getSchemaConst(child.schema)
+      this.instances.forEach((instance, index) => {
+        const startingValue = this.instanceStartingValues[index]
 
-            if (isSet(schemaConst)) {
-              newValue[child.getKey()] = schemaConst
-            }
-          })
+        if (isObject(startingValue) && isObject(newValue)) {
+          newValue = overwriteExistingProperties(startingValue, ifValue)
         }
 
         instance.setValue(newValue, false)
@@ -129,8 +126,7 @@ class InstanceIfThenElse extends Instance {
     })
 
     // initial value and active instance
-    this.value = instanceWithoutIf.getValue()
-    instanceWithoutIf.destroy()
+    this.value = this.instanceWithoutIf.getValue()
     const fittestIndex = this.getFittestIndex(this.value)
     this.switchInstance(fittestIndex)
   }

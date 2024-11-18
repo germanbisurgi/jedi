@@ -1,0 +1,128 @@
+{
+  "title": "Red Deer",
+  "type": "object",
+  "required": [
+    "occurrence"
+  ],
+  "properties": {
+    "occurrence": {
+      "title": "Did the species occur in your hunting area during the hunting year 2020/2021?",
+      "type": "string",
+      "enum": [
+        "Resident game",
+        "Transient game",
+        "Individual occurrence",
+        "No occurrence",
+        "No information"
+      ],
+      "x-options": {
+        "enforceEnumDefault": false,
+        "format": "radio"
+      }
+    }
+  },
+  "if": {
+    "properties": {
+      "occurrence": {
+        "enum": [
+          "Resident game",
+          "Transient game",
+          "Individual occurrence"
+        ]
+      }
+    }
+  },
+  "then": {
+    "properties": {
+      "huntingBag": {
+        "$ref": "#/$defs/huntingBag",
+        "required": [
+          "harvest",
+          "accidentGame",
+          "foundDead",
+          "unknown"
+        ],
+        "properties": {
+          "harvest": {
+            "$ref": "#/$defs/harvest",
+            "minimum": 0
+          },
+          "accidentGame": {
+            "$ref": "#/$defs/accidentGame",
+            "minimum": 0
+          },
+          "foundDead": {
+            "$ref": "#/$defs/foundDead",
+            "minimum": 0
+          },
+          "unknown": {
+            "$ref": "#/$defs/unknown",
+            "minimum": 0
+          }
+        }
+      },
+      "total": {
+        "$ref": "#/$defs/total",
+        "minimum": 1
+      }
+    }
+  },
+  "else": {
+    "properties": {
+      "huntingBag": {
+        "readOnly": true,
+        "$ref": "#/$defs/huntingBag",
+        "properties": {
+          "harvest": {
+            "$ref": "#/$defs/harvest",
+            "default": 0,
+            "const": 0
+          },
+          "accidentGame": {
+            "$ref": "#/$defs/accidentGame",
+            "default": 0,
+            "const": 0
+          },
+          "foundDead": {
+            "$ref": "#/$defs/foundDead",
+            "default": 0,
+            "const": 0
+          }
+        }
+      },
+      "total": {
+        "$ref": "#/$defs/total",
+        "default": 0,
+        "const": 0,
+        "x-options": {}
+      }
+    }
+  },
+  "$defs": {
+    "huntingBag": {
+      "title": "Hunting Bag 2020/21",
+      "type": "object"
+    },
+    "harvest": {
+      "title": "Harvest Count",
+      "type": "integer"
+    },
+    "accidentGame": {
+      "title": "Accident Game Count",
+      "type": "integer"
+    },
+    "foundDead": {
+      "title": "Other Found Dead Count",
+      "type": "integer"
+    },
+    "unknown": {
+      "title": "Unknown Count",
+      "type": "integer"
+    },
+    "total": {
+      "title": "Total Hunting Bag 2020/21:",
+      "type": "integer",
+      "readOnly": true
+    }
+  }
+}
