@@ -105,7 +105,13 @@
           "title": "enum",
           "type": "array",
           "minItems": 1,
-          "uniqueItems": true
+          "uniqueItems": true,
+          "x-options": {
+            "nav": {
+              "variant": "pills",
+              "stacked": true
+            }
+          }
         },
         "example": {
           "title": "example",
@@ -245,6 +251,12 @@
           "uniqueItems": true,
           "items": {
             "type": "string"
+          },
+          "x-options": {
+            "nav": {
+              "variant": "pills",
+              "stacked": true
+            }
           }
         },
         "title": {
