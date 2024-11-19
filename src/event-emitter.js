@@ -24,13 +24,17 @@ class EventEmitter {
    * Triggers the callback function of a named event listener
    * @public
    * @param {string} name - The name of the event to be emitted
-   * @param {*} payload - Payload containing data that is passed along with the callback function
+   * @param {...*} args - Arguments to be passed to the callback function
    */
-  emit (name, payload = undefined) {
+  emit (name, ...args) {
     const listeners = this.listeners.filter(listener => listener.name === name)
 
-    listeners.forEach((listener) => {
-      listener.callback(payload)
+    listeners.forEach(listener => {
+      try {
+        listener.callback(...args)
+      } catch (error) {
+        console.error(`Error in listener callback for event "${name}":`, error)
+      }
     })
   }
 
