@@ -32,8 +32,6 @@ class InstanceIfThenElse extends Instance {
     this.activeInstance = null
     this.index = 0
     this.schemas = []
-    this.switcherOptionValues = []
-    this.switcherOptionsLabels = []
     this.ifThenElseShemas = []
 
     this.traverseSchema(this.schema)
@@ -42,23 +40,13 @@ class InstanceIfThenElse extends Instance {
     delete this.schema.then
     delete this.schema.else
 
-    let index = 0
-
     this.ifThenElseShemas.forEach((item) => {
       if (isSet(item.then)) {
         this.schemas.push(mergeDeep({}, clone(this.schema), item.then))
-        this.switcherOptionValues.push(index)
-        const optionLabel = 'then'
-        this.switcherOptionsLabels.push(optionLabel)
-        index++
       }
 
       if (isSet(item.else)) {
         this.schemas.push(mergeDeep({}, clone(this.schema), item.else))
-        this.switcherOptionValues.push(index)
-        const optionLabel = 'else'
-        this.switcherOptionsLabels.push(optionLabel)
-        index++
       }
     })
 
@@ -109,12 +97,13 @@ class InstanceIfThenElse extends Instance {
 
       this.instances.forEach((instance, index) => {
         const startingValue = this.instanceStartingValues[index]
+        let instanceValue = newValue
 
         if (isObject(startingValue) && isObject(newValue)) {
-          newValue = overwriteExistingProperties(startingValue, ifValue)
+          instanceValue = overwriteExistingProperties(startingValue, ifValue)
         }
 
-        instance.setValue(newValue, false)
+        instance.setValue(instanceValue, false)
       })
 
       const fittestIndex = this.getFittestIndex(newValue)

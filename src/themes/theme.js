@@ -771,21 +771,6 @@ class Theme {
 
     const childrenSlot = this.getChildrenSlot()
 
-    const switcher = this.getSwitcher({
-      values: config.switcherOptionValues,
-      titles: config.switcherOptionsLabels,
-      id: config.id + '-switcher',
-      label: config.id + '-switcher',
-      titleHidden: true,
-      readOnly: config.readOnly
-    })
-
-    switcher.container.classList.add('jedi-switcher')
-
-    if (config.switcher) {
-      container.appendChild(switcher.container)
-    }
-
     body.appendChild(description)
     container.appendChild(messages)
     container.appendChild(childrenSlot)
@@ -798,7 +783,6 @@ class Theme {
       actions,
       messages,
       childrenSlot,
-      switcher,
       arrayActions
     }
   }

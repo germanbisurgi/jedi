@@ -24,25 +24,15 @@ class EditorIfThenElse extends Editor {
       title: 'Options',
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       id: pathToAttribute(this.instance.path),
-      description: getSchemaDescription(this.instance.schema),
-      switcherOptionValues: this.instance.switcherOptionValues,
-      switcherOptionsLabels: this.instance.switcherOptionsLabels,
-      switcher: false
+      description: getSchemaDescription(this.instance.schema)
     })
   }
 
-  addEventListeners () {
-    this.control.switcher.input.addEventListener('change', () => {
-      const index = Number(this.control.switcher.input.value)
-      this.instance.switchInstance(index)
-    })
-  }
 
   refreshUI () {
     this.refreshInteractiveElements()
     this.control.childrenSlot.innerHTML = ''
     this.control.childrenSlot.appendChild(this.instance.activeInstance.ui.control.container)
-    this.control.switcher.input.value = this.instance.index
 
     if (this.disabled || this.instance.isReadOnly()) {
       this.instance.activeInstance.ui.disable()
