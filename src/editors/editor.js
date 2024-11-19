@@ -1,4 +1,4 @@
-import { isSet } from '../helpers/utils.js'
+import { isObject, isSet } from '../helpers/utils.js'
 import { getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
@@ -46,6 +46,7 @@ class Editor {
 
     this.init()
     this.build()
+    this.setAttributes()
     this.enforceEnumDefault()
     this.addEventListeners()
     this.setContainerAttributes()
@@ -92,6 +93,24 @@ class Editor {
    * @private
    */
   build () {
+  }
+
+  /**
+   * Adds attributes to generated html elements if specified in schema x-options
+   * @private
+   */
+  setAttributes () {
+    const input = this.control.input
+
+    if (isSet(input)) {
+      const inputAttributes = getSchemaXOption(this.instance.schema, 'inputAttributes')
+
+      if (isObject(inputAttributes)) {
+        for (const [key, value] of Object.entries(inputAttributes)) {
+          input.setAttribute(key, value)
+        }
+      }
+    }
   }
 
   /**
