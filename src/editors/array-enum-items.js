@@ -64,7 +64,7 @@ class EditorArrayEnumItems extends Editor {
           }
         }
 
-        this.instance.setValue(value)
+        this.instance.setValue(value, true, 'editor')
       })
     })
   }

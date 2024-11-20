@@ -1591,10 +1591,10 @@ class Instance extends EventEmitter {
     if (this.jedi.options.container) {
       this.setUI();
     }
-    this.on("change", () => {
+    this.on("change", (context) => {
       if (this.parent) {
         this.parent.isDirty = true;
-        this.parent.onChildChange();
+        this.parent.onChildChange(context);
       }
     });
   }
@@ -1655,12 +1655,12 @@ class Instance extends EventEmitter {
    * Returns the value of the instance
    */
   getValue() {
-    return this.value;
+    return clone(this.value);
   }
   /**
    * Sets the instance value
    */
-  setValue(newValue, triggersChange = true) {
+  setValue(newValue, triggersChange = true, context = "instance") {
     const enforceConst = this.jedi.options.enforceConst || getSchemaXOption(this.schema, "enforceConst");
     if (isSet(enforceConst) && equal(enforceConst, true)) {
       const schemaConst = getSchemaConst(this.schema);
@@ -1669,17 +1669,17 @@ class Instance extends EventEmitter {
       }
     }
     this.value = newValue;
-    this.emit("set-value", newValue);
+    this.emit("set-value", newValue, context);
     if (triggersChange) {
       this.isDirty = true;
-      this.emit("change");
-      this.jedi.emit("instance-change", this);
+      this.emit("change", context);
+      this.jedi.emit("instance-change", this, context);
     }
   }
   /**
    * Fires when a child's instance state changes
    */
-  onChildChange() {
+  onChildChange(context) {
   }
   /**
    * Returns an array of validation error messages
@@ -1764,10 +1764,6 @@ class Editor {
     if (alwaysShowErrors) {
       this.showValidationErrors(this.instance.getErrors());
     }
-    this.instance.on("set-value", () => {
-      this.refreshUI();
-      this.showValidationErrors(this.instance.getErrors());
-    });
     this.instance.on("change", () => {
       this.refreshUI();
       this.showValidationErrors(this.instance.getErrors());
@@ -1983,31 +1979,36 @@ class InstanceIfThenElse extends Instance {
       });
       this.instanceStartingValues.push(instance.getValue());
       instance.off("change");
-      instance.on("change", () => {
+      instance.on("change", (context) => {
         const currentValue = this.activeInstance.getValue();
         const fittestIndex2 = this.getFittestIndex(currentValue);
         const mustSwitch = fittestIndex2 !== this.index;
         if (mustSwitch) {
-          this.setValue(currentValue);
+          this.setValue(currentValue, true, context);
         } else {
           this.value = this.activeInstance.getValue();
-          this.emit("change");
+          this.emit("change", context);
         }
       });
       this.instances.push(instance);
     });
-    this.on("set-value", (newValue) => {
+    this.on("set-value", (newValue, context) => {
       let ifValue = this.instanceWithoutIf.getValue();
       if (isObject(ifValue) && isObject(newValue)) {
         ifValue = overwriteExistingProperties(ifValue, newValue);
       }
       this.instances.forEach((instance, index2) => {
         const startingValue = this.instanceStartingValues[index2];
-        let instanceValue = newValue;
+        const currentValue = instance.getValue();
+        let instanceValue = startingValue;
         if (isObject(startingValue) && isObject(newValue)) {
-          instanceValue = overwriteExistingProperties(startingValue, ifValue);
+          if (context === "editor") {
+            instanceValue = overwriteExistingProperties(startingValue, ifValue);
+          } else {
+            instanceValue = overwriteExistingProperties(currentValue, newValue);
+          }
         }
-        instance.setValue(instanceValue, false);
+        instance.setValue(instanceValue, false, context);
       });
       const fittestIndex2 = this.getFittestIndex(newValue);
       const mustSwitch = fittestIndex2 !== this.index;
@@ -2180,9 +2181,9 @@ class InstanceMultiple extends Instance {
       }
       instance.unregister();
       instance.off("change");
-      instance.on("change", () => {
+      instance.on("change", (context) => {
         this.value = this.activeInstance.getValue();
-        this.emit("change");
+        this.emit("change", context);
       });
       this.instances.push(instance);
       this.register();
@@ -2190,14 +2191,14 @@ class InstanceMultiple extends Instance {
     const fittestIndex = this.getFittestIndex(this.value);
     this.switchInstance(fittestIndex, this.value);
   }
-  switchInstance(index2, value) {
+  switchInstance(index2, value, context = "instance") {
     this.lastIndex = this.index;
     this.index = index2;
     this.activeInstance = this.instances[index2];
     if (isSet(value)) {
-      this.activeInstance.setValue(value, false);
+      this.activeInstance.setValue(value, false, context);
     }
-    this.setValue(this.activeInstance.getValue());
+    this.setValue(this.activeInstance.getValue(), true, context);
   }
   onSetValue() {
     if (different(this.activeInstance.getValue(), this.value)) {
@@ -2262,8 +2263,8 @@ class InstanceObject extends Instance {
       });
     }
     this.refreshInstances();
-    this.on("set-value", () => {
-      this.refreshInstances();
+    this.on("set-value", (value, context) => {
+      this.refreshInstances(context);
     });
   }
   /**
@@ -2349,7 +2350,7 @@ class InstanceObject extends Instance {
     }
     return schema;
   }
-  onChildChange() {
+  onChildChange(context) {
     const value = {};
     this.children.forEach((child) => {
       if (child.isActive) {
@@ -2357,7 +2358,7 @@ class InstanceObject extends Instance {
       }
     });
     this.value = value;
-    this.emit("change");
+    this.emit("change", context);
   }
   /**
    * Sorts the children of the current instance based on their `propertyOrder` value in ascending order.
@@ -2386,7 +2387,7 @@ class InstanceObject extends Instance {
       return 0;
     });
   }
-  refreshInstances() {
+  refreshInstances(context) {
     const value = this.getValue();
     if (!isObject(value)) {
       return;
@@ -2398,7 +2399,7 @@ class InstanceObject extends Instance {
         const oldValue = child.getValue();
         const newValue = value[child.getKey()];
         if (different(oldValue, newValue)) {
-          child.setValue(newValue, false);
+          child.setValue(newValue, false, context);
         }
       } else {
         const schema = this.getPropertySchema(propertyName);
@@ -2467,13 +2468,13 @@ class InstanceArray extends Instance {
     const newValue = currentValue.filter((item, index2) => index2 !== itemIndex);
     this.setValue(newValue);
   }
-  onChildChange() {
+  onChildChange(context) {
     const value = [];
     this.children.forEach((child) => {
       value.push(child.getValue());
     });
     this.value = value;
-    this.emit("change");
+    this.emit("change", context);
   }
   refreshChildren() {
     this.children = [];
@@ -2552,7 +2553,7 @@ class EditorBoolean extends Editor {
     return Boolean(value);
   }
 }
-class EditorBooleanEnumRadio extends EditorBoolean {
+class EditorBooleanRadio extends EditorBoolean {
   static resolves(schema) {
     return getSchemaType(schema) === "boolean" && getSchemaXOption(schema, "format") === "radio";
   }
@@ -2570,7 +2571,7 @@ class EditorBooleanEnumRadio extends EditorBoolean {
     this.control.radios.forEach((radio) => {
       radio.addEventListener("change", () => {
         const radioValue = radio.value === "true";
-        this.instance.setValue(radioValue);
+        this.instance.setValue(radioValue, true, "editor");
       });
     });
   }
@@ -2600,7 +2601,7 @@ class EditorBooleanEnumSelect extends EditorBoolean {
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
       const value = this.control.input.value === "true";
-      this.instance.setValue(value);
+      this.instance.setValue(value, true, "editor");
     });
   }
   refreshUI() {
@@ -2622,7 +2623,7 @@ class EditorBooleanCheckbox extends EditorBoolean {
   }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
-      this.instance.setValue(this.control.input.checked);
+      this.instance.setValue(this.control.input.checked, true, "editor");
     });
   }
   sanitize(value) {
@@ -2655,7 +2656,7 @@ class EditorStringEnumRadio extends EditorString {
   addEventListeners() {
     this.control.radios.forEach((radio) => {
       radio.addEventListener("change", () => {
-        this.instance.setValue(radio.value);
+        this.instance.setValue(radio.value, true, "editor");
       });
     });
   }
@@ -2683,7 +2684,7 @@ class EditorStringEnumSelect extends EditorString {
   }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
-      this.instance.setValue(this.control.input.value);
+      this.instance.setValue(this.control.input.value, true, "editor");
     });
   }
   refreshUI() {
@@ -2706,7 +2707,7 @@ class EditorStringTextarea extends EditorString {
   }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
-      this.instance.setValue(this.control.input.value);
+      this.instance.setValue(this.control.input.value, true, "editor");
     });
   }
   refreshUI() {
@@ -2736,7 +2737,7 @@ class EditorStringAwesomplete extends EditorString {
   }
   addEventListeners() {
     this.control.input.addEventListener("awesomplete-selectcomplete", () => {
-      this.instance.setValue(this.control.input.value);
+      this.instance.setValue(this.control.input.value, true, "editor");
     });
   }
   refreshUI() {
@@ -2766,12 +2767,12 @@ class EditorStringInput extends EditorString {
       description: getSchemaDescription(this.instance.schema)
     });
     if (optionFormat === "color" && this.instance.value.length === 0) {
-      this.instance.setValue("#000000", false);
+      this.instance.setValue("#000000", false, "editor");
     }
   }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
-      this.instance.setValue(this.control.input.value);
+      this.instance.setValue(this.control.input.value, true, "editor");
     });
   }
   sanitize(value) {
@@ -2813,7 +2814,7 @@ class EditorNumberEnumRadio extends EditorNumber {
     this.control.radios.forEach((radio) => {
       radio.addEventListener("change", () => {
         const value = this.sanitize(radio.value);
-        this.instance.setValue(value);
+        this.instance.setValue(value, true, "editor");
       });
     });
   }
@@ -2844,7 +2845,7 @@ class EditorNumberEnumSelect extends EditorNumber {
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
       const value = this.sanitize(this.control.input.value);
-      this.instance.setValue(value);
+      this.instance.setValue(value, true, "editor");
     });
   }
   refreshUI() {
@@ -2873,7 +2874,7 @@ class EditorNumberInput extends EditorNumber {
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
       const value = this.sanitize(this.control.input.value);
-      this.instance.setValue(value);
+      this.instance.setValue(value, true, "editor");
     });
   }
   refreshUI() {
@@ -2928,7 +2929,7 @@ class EditorObject extends Editor {
       const schema = this.instance.getPropertySchema(propertyName);
       const child = this.instance.createChild(schema, propertyName);
       child.activate();
-      this.instance.setValue(this.instance.value);
+      this.instance.setValue(this.instance.value, true, "editor");
       this.control.addPropertyControl.input.value = "";
       const ariaLive = this.control.ariaLive;
       ariaLive.innerHTML = "";
@@ -3326,7 +3327,7 @@ class EditorMultiple extends Editor {
   addEventListeners() {
     this.control.switcher.input.addEventListener("change", () => {
       const index2 = Number(this.control.switcher.input.value);
-      this.instance.switchInstance(index2);
+      this.instance.switchInstance(index2, void 0, "editor");
     });
   }
   refreshUI() {
@@ -3383,7 +3384,7 @@ class EditorStringQuill extends EditorString {
     this.quill.root.addEventListener("blur", () => {
       const quillText = this.quill.getText();
       if (quillText !== this.instance.getValue()) {
-        this.instance.setValue(quillText);
+        this.instance.setValue(quillText, true, "editor");
       }
     });
   }
@@ -3421,7 +3422,7 @@ class EditorStringJodit extends EditorString {
     this.jodit.events.on("change", () => {
       const joditValue = this.jodit.value;
       if (joditValue !== this.instance.getValue()) {
-        this.instance.setValue(joditValue);
+        this.instance.setValue(joditValue, true, "editor");
       }
     });
   }
@@ -3462,7 +3463,7 @@ class EditorStringFlatpickr extends EditorString {
   }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
-      this.instance.setValue(this.control.input.value);
+      this.instance.setValue(this.control.input.value, true, "editor");
     });
   }
   refreshUI() {
@@ -3489,7 +3490,7 @@ class EditorNumberRaty extends EditorNumber {
     try {
       this.raty = new Raty(this.control.placeholder, Object.assign({}, getSchemaXOption(this.instance.schema, "raty"), {
         click: (score) => {
-          this.instance.setValue(score);
+          this.instance.setValue(score, true, "editor");
         }
       }));
       this.raty.init();
@@ -3544,7 +3545,7 @@ class EditorArrayEnumItems extends Editor {
             value.splice(index2, 1);
           }
         }
-        this.instance.setValue(value);
+        this.instance.setValue(value, true, "editor");
       });
     });
   }
@@ -3562,7 +3563,7 @@ class UiResolver {
     this.editors = [
       EditorMultiple,
       EditorIfThenElse,
-      EditorBooleanEnumRadio,
+      EditorBooleanRadio,
       EditorBooleanCheckbox,
       EditorBooleanEnumSelect,
       EditorStringEnumRadio,
@@ -3689,8 +3690,8 @@ class Jedi extends EventEmitter {
   }
   bindEventListeners() {
     if (this.root) {
-      this.root.on("change", () => {
-        this.emit("change");
+      this.root.on("change", (context) => {
+        this.emit("change", context);
       });
     }
     if (this.hiddenInput) {
@@ -5712,7 +5713,7 @@ const index = {
   Schema,
   Utils,
   EditorBoolean,
-  EditorBooleanEnumRadio,
+  EditorBooleanRadio,
   EditorBooleanEnumSelect,
   EditorBooleanCheckbox,
   EditorString,

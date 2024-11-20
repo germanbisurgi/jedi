@@ -29,7 +29,7 @@ class EditorMultiple extends Editor {
   addEventListeners () {
     this.control.switcher.input.addEventListener('change', () => {
       const index = Number(this.control.switcher.input.value)
-      this.instance.switchInstance(index)
+      this.instance.switchInstance(index, undefined, 'editor')
     })
   }
 

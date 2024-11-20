@@ -7,8 +7,8 @@ import ThemeBootstrap3 from './themes/bootstrap3.js'
 import ThemeBootstrap4 from './themes/bootstrap4.js'
 import ThemeBootstrap5 from './themes/bootstrap5.js'
 import EditorBoolean from './editors/boolean.js'
-import EditorBooleanEnumRadio from './editors/boolean-enum-radio.js'
-import EditorBooleanEnumSelect from './editors/boolean-enum-select.js'
+import EditorBooleanRadio from './editors/boolean-radio.js'
+import EditorBooleanEnumSelect from './editors/boolean-select.js'
 import EditorBooleanCheckbox from './editors/boolean-checkbox.js'
 import EditorString from './editors/string.js'
 import EditorStringEnumRadio from './editors/string-enum-radio.js'
@@ -33,7 +33,7 @@ export default {
   Schema,
   Utils,
   EditorBoolean,
-  EditorBooleanEnumRadio,
+  EditorBooleanRadio,
   EditorBooleanEnumSelect,
   EditorBooleanCheckbox,
   EditorString,

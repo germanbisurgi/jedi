@@ -29,13 +29,13 @@ class EditorStringInput extends EditorString {
 
     // fix color picker bug
     if (optionFormat === 'color' && this.instance.value.length === 0) {
-      this.instance.setValue('#000000', false)
+      this.instance.setValue('#000000', false, 'editor')
     }
   }
 
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
-      this.instance.setValue(this.control.input.value)
+      this.instance.setValue(this.control.input.value, true, 'editor')
     })
   }
 

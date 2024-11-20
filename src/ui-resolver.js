@@ -1,5 +1,5 @@
-import EditorBooleanEnumRadio from './editors/boolean-enum-radio.js'
-import EditorBooleanEnumSelect from './editors/boolean-enum-select.js'
+import EditorBooleanRadio from './editors/boolean-radio.js'
+import EditorBooleanEnumSelect from './editors/boolean-select.js'
 import EditorBooleanCheckbox from './editors/boolean-checkbox.js'
 import EditorStringEnumRadio from './editors/string-enum-radio.js'
 import EditorStringEnumSelect from './editors/string-enum-select.js'
@@ -30,7 +30,7 @@ class UiResolver {
     this.editors = [
       EditorMultiple,
       EditorIfThenElse,
-      EditorBooleanEnumRadio,
+      EditorBooleanRadio,
       EditorBooleanCheckbox,
       EditorBooleanEnumSelect,
       EditorStringEnumRadio,

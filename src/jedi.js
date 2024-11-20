@@ -163,8 +163,8 @@ class Jedi extends EventEmitter {
 
   bindEventListeners () {
     if (this.root) {
-      this.root.on('change', () => {
-        this.emit('change')
+      this.root.on('change', (context) => {
+        this.emit('change', context)
       })
     }
 

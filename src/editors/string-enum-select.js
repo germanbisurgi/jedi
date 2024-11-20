@@ -25,7 +25,7 @@ class EditorStringEnumSelect extends EditorString {
 
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
-      this.instance.setValue(this.control.input.value)
+      this.instance.setValue(this.control.input.value, true, 'editor')
     })
   }
 

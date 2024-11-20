@@ -65,7 +65,7 @@ class InstanceArray extends Instance {
     this.setValue(newValue)
   }
 
-  onChildChange () {
+  onChildChange (context) {
     const value = []
 
     this.children.forEach((child) => {
@@ -73,7 +73,7 @@ class InstanceArray extends Instance {
     })
 
     this.value = value
-    this.emit('change')
+    this.emit('change', context)
   }
 
   refreshChildren () {

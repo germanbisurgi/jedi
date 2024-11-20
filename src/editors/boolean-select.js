@@ -3,41 +3,37 @@ import { pathToAttribute } from '../helpers/utils.js'
 import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
- * Represents an EditorBooleanEnumRadio instance.
+ * Represents an EditorBooleanEnumSelect instance.
  * @extends EditorBooleanCheckbox
  */
-class EditorBooleanEnumRadio extends EditorBoolean {
+class EditorBooleanEnumSelect extends EditorBoolean {
   static resolves (schema) {
-    return getSchemaType(schema) === 'boolean' && getSchemaXOption(schema, 'format') === 'radio'
+    return getSchemaType(schema) === 'boolean'
   }
 
   build () {
-    this.control = this.theme.getRadiosControl({
+    this.control = this.theme.getSelectControl({
       values: ['false', 'true'],
       titles: getSchemaXOption(this.instance.schema, 'enumTitles') || ['false', 'true'],
       id: pathToAttribute(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
+      labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema)
     })
   }
 
   addEventListeners () {
-    this.control.radios.forEach((radio) => {
-      radio.addEventListener('change', () => {
-        const radioValue = radio.value === 'true'
-        this.instance.setValue(radioValue)
-      })
+    this.control.input.addEventListener('change', () => {
+      const value = this.control.input.value === 'true'
+      this.instance.setValue(value, true, 'editor')
     })
   }
 
   refreshUI () {
     this.refreshInteractiveElements()
-    this.control.radios.forEach((radio) => {
-      const radioValue = radio.value === 'true'
-      radio.checked = radioValue === this.instance.getValue()
-    })
+    this.control.input.value = this.instance.getValue() === true ? 'true' : 'false'
   }
 }
 
-export default EditorBooleanEnumRadio
+export default EditorBooleanEnumSelect

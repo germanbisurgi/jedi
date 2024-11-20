@@ -51,7 +51,8 @@
             }
           },
           "pairCount": {
-            "title": "Nesting Pairs Count"
+            "title": "Nesting Pairs Count",
+            "type": "integer"
           }
         },
         "if": {

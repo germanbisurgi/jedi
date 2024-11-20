@@ -74,23 +74,23 @@ class InstanceIfThenElse extends Instance {
 
       instance.off('change')
 
-      instance.on('change', () => {
+      instance.on('change', (context) => {
         const currentValue = this.activeInstance.getValue()
         const fittestIndex = this.getFittestIndex(currentValue)
         const mustSwitch = fittestIndex !== this.index
 
         if (mustSwitch) {
-          this.setValue(currentValue)
+          this.setValue(currentValue, true, context)
         } else {
           this.value = this.activeInstance.getValue()
-          this.emit('change')
+          this.emit('change', context)
         }
       })
 
       this.instances.push(instance)
     })
 
-    this.on('set-value', (newValue) => {
+    this.on('set-value', (newValue, context) => {
       let ifValue = this.instanceWithoutIf.getValue()
 
       if (isObject(ifValue) && isObject(newValue)) {
@@ -99,13 +99,18 @@ class InstanceIfThenElse extends Instance {
 
       this.instances.forEach((instance, index) => {
         const startingValue = this.instanceStartingValues[index]
-        let instanceValue = newValue
+        const currentValue = instance.getValue()
+        let instanceValue = startingValue
 
         if (isObject(startingValue) && isObject(newValue)) {
-          instanceValue = overwriteExistingProperties(startingValue, ifValue)
+          if (context === 'editor') {
+            instanceValue = overwriteExistingProperties(startingValue, ifValue)
+          } else {
+            instanceValue = overwriteExistingProperties(currentValue, newValue)
+          }
         }
 
-        instance.setValue(instanceValue, false)
+        instance.setValue(instanceValue, false, context)
       })
 
       const fittestIndex = this.getFittestIndex(newValue)
@@ -131,7 +136,6 @@ class InstanceIfThenElse extends Instance {
     this.activeInstance = this.instances[this.index]
     this.activeInstance.register()
     this.value = this.activeInstance.getValue()
-    // this.emit('change')
   }
 
   traverseSchema (schema) {

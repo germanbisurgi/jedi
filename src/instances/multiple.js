@@ -122,9 +122,9 @@ class InstanceMultiple extends Instance {
 
       instance.off('change')
 
-      instance.on('change', () => {
+      instance.on('change', (context) => {
         this.value = this.activeInstance.getValue()
-        this.emit('change')
+        this.emit('change', context)
       })
 
       this.instances.push(instance)
@@ -136,16 +136,16 @@ class InstanceMultiple extends Instance {
     this.switchInstance(fittestIndex, this.value)
   }
 
-  switchInstance (index, value) {
+  switchInstance (index, value, context = 'instance') {
     this.lastIndex = this.index
     this.index = index
     this.activeInstance = this.instances[index]
 
     if (isSet(value)) {
-      this.activeInstance.setValue(value, false)
+      this.activeInstance.setValue(value, false, context)
     }
 
-    this.setValue(this.activeInstance.getValue())
+    this.setValue(this.activeInstance.getValue(), true, context)
   }
 
   onSetValue () {

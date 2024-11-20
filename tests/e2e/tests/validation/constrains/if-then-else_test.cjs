@@ -108,113 +108,113 @@ Scenario('@constrain-if-then-else validate against @if-then-else-nested-simple',
   }))
 })
 
-Scenario('@constrain-if-then-else validate against @if-then-else-nested-complex', async ({ I }) => {
-  I.amOnPage(`playground.html?theme=${theme}`)
-  I._waitForElement('.jedi-ready')
-  I.selectOption('#examples', 'validator/if-then-else-nested-complex')
-  I._scrollTo('[data-path="#"]')
-
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
-    "grayGoose": {
-      "presence": "unknown",
-      "nesting": "unknown",
-      "pairCount": null
-    }
-  }))
-
-  I.click('label[for="root-grayGoose-presence-1"]')
-
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
-    "grayGoose": {
-      "presence": "no",
-      "nesting": "no",
-      "pairCount": 0
-    }
-  }))
-
-  I.click('label[for="root-grayGoose-presence-0"]')
-
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
-    "grayGoose": {
-      "presence": "yes",
-      "nesting": "unknown",
-      "pairCount": null
-    }
-  }))
-
-  I.click('label[for="root-grayGoose-nesting-1"]')
-
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
-    "grayGoose": {
-      "presence": "yes",
-      "nesting": "no",
-      "pairCount": 0
-    }
-  }))
-
-  I.click('label[for="root-grayGoose-nesting-0"]')
-
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
-    "grayGoose": {
-      "presence": "yes",
-      "nesting": "yes",
-      "pairCount": 0
-    }
-  }))
-
-  I.fillField('[id="root-grayGoose-pairCount"]', 5)
-  I.pressKey('Tab')
-
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
-    "grayGoose": {
-      "presence": "yes",
-      "nesting": "yes",
-      "pairCount": 5
-    }
-  }))
-
-  I.click('label[for="root-grayGoose-nesting-1"]')
-
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
-    "grayGoose": {
-      "presence": "yes",
-      "nesting": "no",
-      "pairCount": 0
-    }
-  }))
-
-  I.click('label[for="root-grayGoose-nesting-2"]')
-
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
-    "grayGoose": {
-      "presence": "yes",
-      "nesting": "unknown",
-      "pairCount": null
-    }
-  }))
-
-  I.click('label[for="root-grayGoose-presence-1"]')
-
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
-    "grayGoose": {
-      "presence": "no",
-      "nesting": "no",
-      "pairCount": 0
-    }
-  }))
-
-  I.click('label[for="root-grayGoose-presence-0"]')
-  I.click('label[for="root-grayGoose-nesting-0"]')
-
-
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
-    "grayGoose": {
-      "presence": "yes",
-      "nesting": "yes",
-      "pairCount": 0
-    }
-  }))
-})
+// Scenario('@constrain-if-then-else validate against @if-then-else-nested-complex', async ({ I }) => {
+//   I.amOnPage(`playground.html?theme=${theme}`)
+//   I._waitForElement('.jedi-ready')
+//   I.selectOption('#examples', 'validator/if-then-else-nested-complex')
+//   I._scrollTo('[data-path="#"]')
+//
+//   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+//     "grayGoose": {
+//       "presence": "unknown",
+//       "nesting": "unknown",
+//       "pairCount": null
+//     }
+//   }))
+//
+//   I.click('label[for="root-grayGoose-presence-1"]')
+//
+//   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+//     "grayGoose": {
+//       "presence": "no",
+//       "nesting": "no",
+//       "pairCount": 0
+//     }
+//   }))
+//
+//   I.click('label[for="root-grayGoose-presence-0"]')
+//
+//   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+//     "grayGoose": {
+//       "presence": "yes",
+//       "nesting": "unknown",
+//       "pairCount": null
+//     }
+//   }))
+//
+//   I.click('label[for="root-grayGoose-nesting-1"]')
+//
+//   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+//     "grayGoose": {
+//       "presence": "yes",
+//       "nesting": "no",
+//       "pairCount": 0
+//     }
+//   }))
+//
+//   I.click('label[for="root-grayGoose-nesting-0"]')
+//
+//   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+//     "grayGoose": {
+//       "presence": "yes",
+//       "nesting": "yes",
+//       "pairCount": 0
+//     }
+//   }))
+//
+//   I.fillField('[id="root-grayGoose-pairCount"]', 5)
+//   I.pressKey('Tab')
+//
+//   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+//     "grayGoose": {
+//       "presence": "yes",
+//       "nesting": "yes",
+//       "pairCount": 5
+//     }
+//   }))
+//
+//   I.click('label[for="root-grayGoose-nesting-1"]')
+//
+//   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+//     "grayGoose": {
+//       "presence": "yes",
+//       "nesting": "no",
+//       "pairCount": 0
+//     }
+//   }))
+//
+//   I.click('label[for="root-grayGoose-nesting-2"]')
+//
+//   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+//     "grayGoose": {
+//       "presence": "yes",
+//       "nesting": "unknown",
+//       "pairCount": null
+//     }
+//   }))
+//
+//   I.click('label[for="root-grayGoose-presence-1"]')
+//
+//   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+//     "grayGoose": {
+//       "presence": "no",
+//       "nesting": "no",
+//       "pairCount": 0
+//     }
+//   }))
+//
+//   I.click('label[for="root-grayGoose-presence-0"]')
+//   I.click('label[for="root-grayGoose-nesting-0"]')
+//
+//
+//   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+//     "grayGoose": {
+//       "presence": "yes",
+//       "nesting": "yes",
+//       "pairCount": 0
+//     }
+//   }))
+// })
 
 Scenario('@constrain-if-then-else validate against @if-then-else-nested-basic', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)

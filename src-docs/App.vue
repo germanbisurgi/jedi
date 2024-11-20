@@ -14,7 +14,8 @@
             <button class="btn btn-primary" id="destroy-editor" @click="destroyEditor()">Destroy</button>
           </div>
 
-          <hr>
+          <br>
+          <br>
 
           <form action="" method="POST">
             <div ref="jediContainer" id="jedi-container"></div>
@@ -123,7 +124,9 @@ import array from './json/editors/array.json'
 import arrayEnumItems from './json/editors/array-enum-items.json'
 import arrayNavPills from './json/editors/array-nav-pills.json'
 import arrayNavTabs from './json/editors/array-nav-tabs.json'
-import boolean from './json/editors/boolean.json'
+import booleanCheckbox from './json/editors/boolean-checkbox.json'
+import booleanSelect from './json/editors/boolean-select.json'
+import booleanRadio from './json/editors/boolean-radio.json'
 import integer from './json/editors/integer.json'
 import nullJson from './json/editors/null.json'
 import number from './json/editors/number.json'
@@ -198,7 +201,9 @@ export default {
           'editors/array-enum-items': arrayEnumItems,
           'editors/array-nav-pills': arrayNavPills,
           'editors/array-nav-tabs': arrayNavTabs,
-          'editors/boolean': boolean,
+          'editors/boolean-checkbox': booleanCheckbox,
+          'editors/boolean-select': booleanSelect,
+          'editors/boolean-radio': booleanRadio,
           'editors/integer': integer,
           'editors/null': nullJson,
           'editors/number': number,
@@ -436,7 +441,8 @@ export default {
       this.editorChangeHandler()
       this.editor.on('change', this.editorChangeHandler)
     },
-    editorChangeHandler() {
+    editorChangeHandler(context) {
+      console.log('editorChangeHandler', context)
       const errors = this.editor.getErrors()
       this.errorCount = errors.length
       this.$refs.editorErrors.value = JSON.stringify(errors, null, 2)

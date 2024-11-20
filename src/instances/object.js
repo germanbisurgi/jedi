@@ -49,8 +49,8 @@ class InstanceObject extends Instance {
 
     this.refreshInstances()
 
-    this.on('set-value', () => {
-      this.refreshInstances()
+    this.on('set-value', (value, context) => {
+      this.refreshInstances(context)
     })
   }
 
@@ -162,7 +162,7 @@ class InstanceObject extends Instance {
     return schema
   }
 
-  onChildChange () {
+  onChildChange (context) {
     const value = {}
 
     this.children.forEach((child) => {
@@ -172,7 +172,7 @@ class InstanceObject extends Instance {
     })
 
     this.value = value
-    this.emit('change')
+    this.emit('change', context)
   }
 
   /**
@@ -209,7 +209,7 @@ class InstanceObject extends Instance {
     })
   }
 
-  refreshInstances () {
+  refreshInstances (context) {
     const value = this.getValue()
 
     if (!isObject(value)) {
@@ -227,7 +227,7 @@ class InstanceObject extends Instance {
 
         // update child value if the old value and the new value are different
         if (different(oldValue, newValue)) {
-          child.setValue(newValue, false)
+          child.setValue(newValue, false, context)
         }
       } else {
         // create new child instance for the new value entry having the value as default

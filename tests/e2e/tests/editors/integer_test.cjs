@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('integer')
 
-Scenario('@editor-integer @description @title should have title and description', ({ I }) => {
+Scenario('@editor-integer should have @title and @description', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/integer')
   I._waitForElement('.jedi-ready')

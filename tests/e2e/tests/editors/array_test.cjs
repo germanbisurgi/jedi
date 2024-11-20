@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('array')
 
-Scenario('@editor-array @description @title should have title and description', ({ I }) => {
+Scenario('@editor @array should have @title and @description', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/array')
   I._waitForElement('.jedi-ready')
@@ -12,7 +12,7 @@ Scenario('@editor-array @description @title should have title and description', 
   I._waitForText('Arrays are used for ordered elements. In JSON, each element in an array may be of a different type.')
 })
 
-Scenario('@editor-array @items should validate against items', ({ I }) => {
+Scenario('@editor @array should validate against @items', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/array')
   I._waitForElement('.jedi-ready')

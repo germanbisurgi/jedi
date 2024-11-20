@@ -1,6 +1,7 @@
 import EventEmitter from '../event-emitter.js'
 
 import {
+  clone,
   equal,
   isSet,
   notSet,
@@ -101,10 +102,10 @@ class Instance extends EventEmitter {
       this.setUI()
     }
 
-    this.on('change', () => {
+    this.on('change', (context) => {
       if (this.parent) {
         this.parent.isDirty = true
-        this.parent.onChildChange()
+        this.parent.onChildChange(context)
       }
     })
   }
@@ -177,13 +178,13 @@ class Instance extends EventEmitter {
    * Returns the value of the instance
    */
   getValue () {
-    return this.value
+    return clone(this.value)
   }
 
   /**
    * Sets the instance value
    */
-  setValue (newValue, triggersChange = true) {
+  setValue (newValue, triggersChange = true, context = 'instance') {
     const enforceConst = this.jedi.options.enforceConst || getSchemaXOption(this.schema, 'enforceConst')
 
     if (isSet(enforceConst) && equal(enforceConst, true)) {
@@ -196,19 +197,19 @@ class Instance extends EventEmitter {
 
     this.value = newValue
 
-    this.emit('set-value', newValue)
+    this.emit('set-value', newValue, context)
 
     if (triggersChange) {
       this.isDirty = true
-      this.emit('change')
-      this.jedi.emit('instance-change', this)
+      this.emit('change', context)
+      this.jedi.emit('instance-change', this, context)
     }
   }
 
   /**
    * Fires when a child's instance state changes
    */
-  onChildChange () {
+  onChildChange (context) {
   }
 
   /**

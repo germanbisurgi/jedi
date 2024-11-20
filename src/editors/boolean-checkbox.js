@@ -22,7 +22,7 @@ class EditorBooleanCheckbox extends EditorBoolean {
 
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
-      this.instance.setValue(this.control.input.checked)
+      this.instance.setValue(this.control.input.checked, true, 'editor')
     })
   }
 

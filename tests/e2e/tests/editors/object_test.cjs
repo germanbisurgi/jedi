@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('object')
 
-Scenario('@editor-object @description @title should have title and description', ({ I }) => {
+Scenario('@editor @object should have @title and @description', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/object')
   I._waitForElement('.jedi-ready')
@@ -11,7 +11,7 @@ Scenario('@editor-object @description @title should have title and description',
   I._waitForText('Objects are the mapping type in JSON. They map “keys” to “values”. In JSON, the “keys” must always be strings. Each of these pairs is conventionally referred to as a “property”.')
 })
 
-Scenario('@editor-object @enablePropertiesToggle should add properties', ({ I }) => {
+Scenario('@editor @object @enablePropertiesToggle should add properties', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/object')
   I._waitForElement('.jedi-ready')
@@ -24,7 +24,7 @@ Scenario('@editor-object @enablePropertiesToggle should add properties', ({ I })
   I.dontSee('[data-path="#/test"')
 })
 
-Scenario('@editor-object @enablePropertiesToggle should activate and deactivate properties', ({ I }) => {
+Scenario('@editor @object @enablePropertiesToggle should activate and deactivate properties', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/object')
   I._waitForElement('.jedi-ready')
@@ -37,7 +37,7 @@ Scenario('@editor-object @enablePropertiesToggle should activate and deactivate 
   I._waitForElement('[data-path="#/notRequired"]')
 })
 
-Scenario('@editor-object @enableCollapseToggle should collapse and expand contents', ({ I }) => {
+Scenario('@editor @object @enableCollapseToggle should collapse and expand contents', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/object')
   I._waitForElement('.jedi-ready')
@@ -47,7 +47,7 @@ Scenario('@editor-object @enableCollapseToggle should collapse and expand conten
   I.waitForVisible('.jedi-editor-card-body')
 })
 
-Scenario('@editor-object @object-grid rows and columns', ({ I }) => {
+Scenario('@editor @object @object-grid rows and columns', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/object-grid')
   I._waitForElement('.jedi-ready')
@@ -134,7 +134,7 @@ Scenario('@editor-object @object-grid rows and columns', ({ I }) => {
   }
 })
 
-Scenario('@editor-object @object-nav-pills', ({ I }) => {
+Scenario('@editor @object @object-nav-pills', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/object-nav-pills')
   I._waitForElement('.jedi-ready')
@@ -161,7 +161,7 @@ Scenario('@editor-object @object-nav-pills', ({ I }) => {
   }
 })
 
-Scenario('@editor-object @object-nav-tabs', ({ I }) => {
+Scenario('@editor @object @object-nav-tabs', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/object-nav-tabs')
   I._waitForElement('.jedi-ready')

@@ -25,7 +25,7 @@ class EditorStringEnumRadio extends EditorString {
   addEventListeners () {
     this.control.radios.forEach((radio) => {
       radio.addEventListener('change', () => {
-        this.instance.setValue(radio.value)
+        this.instance.setValue(radio.value, true, 'editor')
       })
     })
   }
