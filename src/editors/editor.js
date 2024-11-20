@@ -58,10 +58,10 @@ class Editor {
       this.showValidationErrors(this.instance.getErrors())
     }
 
-    // this.instance.on('set-value', () => {
-    //   this.refreshUI()
-    //   this.showValidationErrors(this.instance.getErrors())
-    // })
+    this.instance.on('set-value', () => {
+      this.refreshUI()
+      this.showValidationErrors(this.instance.getErrors())
+    })
 
     this.instance.on('change', () => {
       this.refreshUI()
