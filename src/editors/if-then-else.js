@@ -28,7 +28,6 @@ class EditorIfThenElse extends Editor {
     })
   }
 
-
   refreshUI () {
     this.refreshInteractiveElements()
     this.control.childrenSlot.innerHTML = ''

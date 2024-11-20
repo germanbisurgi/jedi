@@ -1545,12 +1545,16 @@ class EventEmitter {
    * Triggers the callback function of a named event listener
    * @public
    * @param {string} name - The name of the event to be emitted
-   * @param {*} payload - Payload containing data that is passed along with the callback function
+   * @param {...*} args - Arguments to be passed to the callback function
    */
-  emit(name, payload = void 0) {
+  emit(name, ...args) {
     const listeners = this.listeners.filter((listener) => listener.name === name);
     listeners.forEach((listener) => {
-      listener.callback(payload);
+      try {
+        listener.callback(...args);
+      } catch (error) {
+        console.error(`Error in listener callback for event "${name}":`, error);
+      }
     });
   }
   /**
@@ -1751,6 +1755,7 @@ class Editor {
     this.showingValidationErrors = false;
     this.init();
     this.build();
+    this.setAttributes();
     this.enforceEnumDefault();
     this.addEventListeners();
     this.setContainerAttributes();
@@ -1790,6 +1795,21 @@ class Editor {
    * @private
    */
   build() {
+  }
+  /**
+   * Adds attributes to generated html elements if specified in schema x-options
+   * @private
+   */
+  setAttributes() {
+    const input = this.control.input;
+    if (isSet(input)) {
+      const inputAttributes = getSchemaXOption(this.instance.schema, "inputAttributes");
+      if (isObject(inputAttributes)) {
+        for (const [key, value] of Object.entries(inputAttributes)) {
+          input.setAttribute(key, value);
+        }
+      }
+    }
   }
   /**
    * Updates the value of the instance by making assumptions based on constrains
@@ -1903,23 +1923,13 @@ class EditorIfThenElse extends Editor {
       title: "Options",
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       id: pathToAttribute(this.instance.path),
-      description: getSchemaDescription(this.instance.schema),
-      switcherOptionValues: this.instance.switcherOptionValues,
-      switcherOptionsLabels: this.instance.switcherOptionsLabels,
-      switcher: false
-    });
-  }
-  addEventListeners() {
-    this.control.switcher.input.addEventListener("change", () => {
-      const index2 = Number(this.control.switcher.input.value);
-      this.instance.switchInstance(index2);
+      description: getSchemaDescription(this.instance.schema)
     });
   }
   refreshUI() {
     this.refreshInteractiveElements();
     this.control.childrenSlot.innerHTML = "";
     this.control.childrenSlot.appendChild(this.instance.activeInstance.ui.control.container);
-    this.control.switcher.input.value = this.instance.index;
     if (this.disabled || this.instance.isReadOnly()) {
       this.instance.activeInstance.ui.disable();
     } else {
@@ -1941,28 +1951,17 @@ class InstanceIfThenElse extends Instance {
     this.activeInstance = null;
     this.index = 0;
     this.schemas = [];
-    this.switcherOptionValues = [];
-    this.switcherOptionsLabels = [];
     this.ifThenElseShemas = [];
     this.traverseSchema(this.schema);
     delete this.schema.if;
     delete this.schema.then;
     delete this.schema.else;
-    let index2 = 0;
     this.ifThenElseShemas.forEach((item) => {
       if (isSet(item.then)) {
         this.schemas.push(mergeDeep({}, clone(this.schema), item.then));
-        this.switcherOptionValues.push(index2);
-        const optionLabel = "then";
-        this.switcherOptionsLabels.push(optionLabel);
-        index2++;
       }
       if (isSet(item.else)) {
         this.schemas.push(mergeDeep({}, clone(this.schema), item.else));
-        this.switcherOptionValues.push(index2);
-        const optionLabel = "else";
-        this.switcherOptionsLabels.push(optionLabel);
-        index2++;
       }
     });
     const schemaClone = clone(this.schema);
@@ -1983,6 +1982,7 @@ class InstanceIfThenElse extends Instance {
         parent: this.parent
       });
       this.instanceStartingValues.push(instance.getValue());
+      instance.off("change");
       instance.on("change", () => {
         const currentValue = this.activeInstance.getValue();
         const fittestIndex2 = this.getFittestIndex(currentValue);
@@ -2001,12 +2001,13 @@ class InstanceIfThenElse extends Instance {
       if (isObject(ifValue) && isObject(newValue)) {
         ifValue = overwriteExistingProperties(ifValue, newValue);
       }
-      this.instances.forEach((instance, index3) => {
-        const startingValue = this.instanceStartingValues[index3];
+      this.instances.forEach((instance, index2) => {
+        const startingValue = this.instanceStartingValues[index2];
+        let instanceValue = newValue;
         if (isObject(startingValue) && isObject(newValue)) {
-          newValue = overwriteExistingProperties(startingValue, ifValue);
+          instanceValue = overwriteExistingProperties(startingValue, ifValue);
         }
-        instance.setValue(newValue, false);
+        instance.setValue(instanceValue, false);
       });
       const fittestIndex2 = this.getFittestIndex(newValue);
       const mustSwitch = fittestIndex2 !== this.index;
@@ -4578,18 +4579,6 @@ class Theme {
     });
     const messages = this.getMessagesSlot();
     const childrenSlot = this.getChildrenSlot();
-    const switcher = this.getSwitcher({
-      values: config.switcherOptionValues,
-      titles: config.switcherOptionsLabels,
-      id: config.id + "-switcher",
-      label: config.id + "-switcher",
-      titleHidden: true,
-      readOnly: config.readOnly
-    });
-    switcher.container.classList.add("jedi-switcher");
-    if (config.switcher) {
-      container.appendChild(switcher.container);
-    }
     body.appendChild(description);
     container.appendChild(messages);
     container.appendChild(childrenSlot);
@@ -4601,7 +4590,6 @@ class Theme {
       actions,
       messages,
       childrenSlot,
-      switcher,
       arrayActions
     };
   }

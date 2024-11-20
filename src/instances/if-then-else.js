@@ -72,6 +72,8 @@ class InstanceIfThenElse extends Instance {
 
       this.instanceStartingValues.push(instance.getValue())
 
+      instance.off('change')
+
       instance.on('change', () => {
         const currentValue = this.activeInstance.getValue()
         const fittestIndex = this.getFittestIndex(currentValue)
