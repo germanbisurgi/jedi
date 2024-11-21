@@ -157,6 +157,7 @@ import ifThenElseAllOf from './json/validator/if-then-else-allOf.json'
 import ifThenElseNested from './json/validator/if-then-else-nested.json'
 import ifThenElseNestedSimple from './json/validator/if-then-else-nested-simple.json'
 import ifThenElseNestedComplex from './json/validator/if-then-else-nested-complex.json'
+import ifThenElseNestedComplex2 from './json/validator/if-then-else-nested-complex-2.json'
 import ifThenElseDeeplyNestedAndUnselected from './json/validator/if-then-else-deeply-nested-and-unselected.json'
 import items from './json/validator/items.json'
 import maxContains from './json/validator/maxContains.json'
@@ -233,6 +234,7 @@ export default {
           'validator/if-then-else-nested': ifThenElseNested,
           'validator/if-then-else-nested-simple': ifThenElseNestedSimple,
           'validator/if-then-else-nested-complex': ifThenElseNestedComplex,
+          'validator/if-then-else-nested-complex-2': ifThenElseNestedComplex2,
           'validator/if-then-else-deeply-nested-and-unselected': ifThenElseDeeplyNestedAndUnselected,
           'validator/items': items,
           'validator/maxContains': maxContains,
@@ -442,7 +444,6 @@ export default {
       this.editor.on('change', this.editorChangeHandler)
     },
     editorChangeHandler(context) {
-      console.log('editorChangeHandler', context)
       const errors = this.editor.getErrors()
       this.errorCount = errors.length
       this.$refs.editorErrors.value = JSON.stringify(errors, null, 2)

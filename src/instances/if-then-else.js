@@ -74,68 +74,68 @@ class InstanceIfThenElse extends Instance {
 
       instance.off('change')
 
-      instance.on('change', (context) => {
-        const currentValue = this.activeInstance.getValue()
-        const fittestIndex = this.getFittestIndex(currentValue)
-        const mustSwitch = fittestIndex !== this.index
-
-        if (mustSwitch) {
-          this.setValue(currentValue, true, context)
-        } else {
-          this.value = this.activeInstance.getValue()
-          this.emit('change', context)
-        }
-      })
-
       this.instances.push(instance)
     })
 
-    this.on('set-value', (newValue, context) => {
-      let ifValue = this.instanceWithoutIf.getValue()
-
-      if (isObject(ifValue) && isObject(newValue)) {
-        ifValue = overwriteExistingProperties(ifValue, newValue)
-      }
-
-      this.instances.forEach((instance, index) => {
-        const startingValue = this.instanceStartingValues[index]
-        const currentValue = instance.getValue()
-        let instanceValue = startingValue
-
-        if (isObject(startingValue) && isObject(newValue)) {
-          if (context === 'editor') {
-            instanceValue = overwriteExistingProperties(startingValue, ifValue)
-          } else {
-            instanceValue = overwriteExistingProperties(currentValue, newValue)
-          }
-        }
-
-        instance.setValue(instanceValue, false, context)
-      })
-
-      const fittestIndex = this.getFittestIndex(newValue)
-      const mustSwitch = fittestIndex !== this.index
-
-      if (mustSwitch) {
-        this.switchInstance(fittestIndex)
-      }
+    this.on('set-value', (value, context) => {
+      this.changeValue(value, context)
     })
 
-    // initial value and active instance
-    this.value = this.instanceWithoutIf.getValue()
-    const fittestIndex = this.getFittestIndex(this.value)
-    this.switchInstance(fittestIndex)
+    const ifValue = this.instanceWithoutIf.getValue()
+    this.changeValue(ifValue)
+  }
+
+  changeValue (value, context = 'instance') {
+    const ifValue = this.getIfValueFromValue(value)
+    const fittestIndex = this.getFittestIndex(ifValue)
+    const indexChanged = fittestIndex !== this.index
+    this.index = fittestIndex
+    this.activeInstance = this.instances[fittestIndex]
+
+    this.instances.forEach((instance, index) => {
+      instance.off('change')
+
+      const startingValue = this.instanceStartingValues[index]
+      const currentValue = instance.getValue()
+      let instanceValue = value
+
+      if (isObject(startingValue) && isObject(value)) {
+        if (indexChanged) {
+          instanceValue = overwriteExistingProperties(startingValue, ifValue)
+        } else {
+          instanceValue = overwriteExistingProperties(currentValue, value)
+        }
+
+        if (context === 'instance') {
+          instanceValue = overwriteExistingProperties(currentValue, value)
+        }
+      }
+
+      instance.setValue(instanceValue, false, context)
+
+      instance.on('change', (context) => {
+        const value = instance.getValue()
+        this.changeValue(value, context)
+      })
+    })
+
+    this.value = this.activeInstance.getValue()
+    this.emit('change', context)
+  }
+
+  getIfValueFromValue (value) {
+    let ifValue = this.instanceWithoutIf.getValue()
+
+    if (isObject(ifValue) && isObject(value)) {
+      ifValue = overwriteExistingProperties(ifValue, value)
+    }
+
+    return ifValue
   }
 
   switchInstance (index) {
-    if (this.activeInstance) {
-      this.activeInstance.unregister()
-    }
-
     this.index = index
     this.activeInstance = this.instances[this.index]
-    this.activeInstance.register()
-    this.value = this.activeInstance.getValue()
   }
 
   traverseSchema (schema) {
