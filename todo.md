@@ -1,70 +1,32 @@
 ## Todo
 
-- nullable option
-- check is active when switching between if the else schemas
-- titleInErrors: boolean
-- inputAttributes option, containerAttributes, ...
-- printable
-- enforceConst documentation and test
-- readOnly test
-- complementary schema (for ui stuff)
-- examples
-- on change, pass editor that changed
-- implement is dirty when value change
-- switch alternative to checkbox
-- color picker
-- playground side menu for settings form
-- configurable icons vs theme overwrite
-- multiple instance: do not transfer values between editors
-- plugin Choices
-- plugin SignaturePad
-- setValue(source) where source can be 'interaction' or 'api' 
-- fix element class jedi-error-message
-- void instance/editor?
-- correct ui.theme references
-- input range
-- input file
-- publish on NPM
-- getButton exports object { button, text, icon }
-- compact descriptions with tooltip
-- additionalItems with prefixItems validation and editing https://json-schema.org/understanding-json-schema/reference/array#additionalitems
-- append descriptions if set and not hidden
-- type hidden description
-- editor hidden description
-- better elements class names
-- ionic theme
-- integrate unevaluatedProperties "see through"
-- better NOT error messages
-- options can be global or scoped in schemas
-- property already exist message box or disable add button
-- fix/check items constrain
-- error constrain property: allOf, dependentSchemas, if-then-else
-- check for unused properties in code
-- placeholderOption
-- array copy button
-- can not set value if enum and not in enum?
-- aria live for multiple
-- aria live for arrays
-- use same invalid feedback (no alerts)
-- editor method refreshDisableState() to avoid calling refreshUI when enabling / disabling editor (to avoid re-appending editors)
-- anyOf, oneOf accessibility switcher (radios are better)
-- position and dry of errors (not, patternProperties)
-- Configurable i18n via options
-- multiple error messages (oneOf, anyOf, not, any, type undefined, etc.)
-- move switcher options and titles in editors and not in instances
-- template / titles / descriptions as html with xss lib option
-- active item after array add/move/etc. (min and max items) + test
-- active item after object add/
-- option hideButton labels
-- drafts
-- array grid
-- array table
-- header: false
-- title: false
-- documentation mode
-- use names options
-- plugins simplemde
-- edit object values
-- edit array values
-- formats: https://json-schema.org/understanding-json-schema/reference/string#format
+- Jedi
+  - complementary schema (for ui stuff)
+  - iconLib class
 
+- validation
+  - drafts
+  - formats: https://json-schema.org/understanding-json-schema/reference/string#format
+
+- plugins
+  - Choices
+  - SignaturePad
+  - simplemde
+
+- editors
+  - input range
+  - input file
+  - color picker
+  - switch
+  - tooltip
+  - array copy button
+  - titleInErrors: boolean
+  - append descriptions if set and not hidden
+  - type hidden description
+  - ionic theme
+  - property already exist message box or disable add button
+  - anyOf, oneOf accessibility switcher (radios are better)
+  - option hideButton labels
+  - array table
+
+- publish on NPM

@@ -443,7 +443,7 @@ export default {
       this.editorChangeHandler()
       this.editor.on('change', this.editorChangeHandler)
     },
-    editorChangeHandler(context) {
+    editorChangeHandler() {
       const errors = this.editor.getErrors()
       this.errorCount = errors.length
       this.$refs.editorErrors.value = JSON.stringify(errors, null, 2)
