@@ -6,6 +6,12 @@ const defaultValue = true
 
 Feature('boolean')
 
+BeforeSuite(({I}) => {
+  I.amOnPage(`playground.html?theme=${theme}`)
+  I.selectOption('#examples', pathToSchema)
+  I._waitForElement('.jedi-ready')
+});
+
 Scenario('@editor @boolean-select should have @title and @description', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', pathToSchema)
@@ -14,12 +20,12 @@ Scenario('@editor @boolean-select should have @title and @description', ({ I }) 
   I._waitForText('The boolean type matches only two special values: true and false. Note that values that evaluate to true or false, such as 1 and 0, are not accepted by the schema.')
 })
 
-Scenario('@plugin @boolean-select should have a @default value', ({I}) => {
+Scenario('@editor @boolean-select should have a @default value', ({I}) => {
   // instance
-  I.waitForValue('[id="jedi-hidden-input"]', defaultValue)
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(defaultValue))
 
   // editor
-  I.waitForValue('[id="root"]', "true")
+  I.waitForValue('[id="root"]', JSON.stringify(defaultValue))
 })
 
 Scenario('@editor @boolean-select should @setValue and @showValidationErrors', async ({I}) => {

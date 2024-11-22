@@ -11,7 +11,7 @@ exports.config = {
       url: 'http://localhost:8181/',
       show: show,
       waitForAction: 500,
-      waitForTimeout: 10000,
+      waitForTimeout: 5000,
       windowSize: '1200x600',
       restart: false,
       waitForNavigation: [ 'load', 'networkidle0' ],
