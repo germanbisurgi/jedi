@@ -14,11 +14,8 @@ BeforeSuite(({I}) => {
   I._waitForElement('.jedi-ready')
 });
 
-Scenario('@plugin @string-jodit should have @title', ({I}) => {
+Scenario('@plugin @string-jodit should have @title and @description', ({I}) => {
   I._waitForText('Jodit', 'label.jedi-title')
-})
-
-Scenario('@plugin @string-jodit should have a @description', ({I}) => {
   I._waitForText('Jodit - Best WYSIWYG Editor for You.', '.jedi-description')
 })
 

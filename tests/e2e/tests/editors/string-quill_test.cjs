@@ -14,11 +14,8 @@ BeforeSuite(({I}) => {
   I._waitForElement('.jedi-ready')
 });
 
-Scenario('@plugin @string-quill should have @title', ({I}) => {
+Scenario('@plugin @string-quill should have @title and @description', ({I}) => {
   I._waitForText('Quill', 'label.jedi-title')
-})
-
-Scenario('@plugin @string-quill should have a @description', ({I}) => {
   I._waitForText('Quill is a modern WYSIWYG editor built for compatibility and extensibility.', '.jedi-description')
 })
 

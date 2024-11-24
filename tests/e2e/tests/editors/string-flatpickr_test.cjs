@@ -14,11 +14,8 @@ BeforeSuite(({I}) => {
   I._waitForElement('.jedi-ready')
 });
 
-Scenario('@plugin @string-flatpickr should have @title', ({I}) => {
+Scenario('@plugin @string-flatpickr should have @title and @description', ({I}) => {
   I._waitForText('Flatpickr', 'label.jedi-title')
-})
-
-Scenario('@plugin @string-flatpickr should have a @description', ({I}) => {
   I._waitForText('Flatpickr is a lightweight and powerful datetime picker.', '.jedi-description')
 })
 

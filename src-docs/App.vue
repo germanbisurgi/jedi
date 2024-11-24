@@ -129,7 +129,7 @@ import booleanSelect from './json/editors/boolean-select.json'
 import booleanRadio from './json/editors/boolean-radio.json'
 import integer from './json/editors/integer.json'
 import nullJson from './json/editors/null.json'
-import number from './json/editors/number.json'
+import numberInput from './json/editors/number-input.json'
 import objectJson from './json/editors/object.json'
 import objectGrid from './json/editors/object-grid.json'
 import objectNavPills from './json/editors/object-nav-pills.json'
@@ -208,7 +208,7 @@ export default {
           'editors/boolean-radio': booleanRadio,
           'editors/integer': integer,
           'editors/null': nullJson,
-          'editors/number': number,
+          'editors/number-input': numberInput,
           'editors/object': objectJson,
           'editors/object-grid': objectGrid,
           'editors/object-nav-pills': objectNavPills,
