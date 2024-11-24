@@ -136,6 +136,7 @@ import objectNavPills from './json/editors/object-nav-pills.json'
 import objectNavTabs from './json/editors/object-nav-tabs.json'
 import objectPropertyOrder from './json/editors/object-propertyOrder.json'
 import stringInput from './json/editors/string-input.json'
+import stringTextarea from './json/editors/string-textarea.json'
 import resumeSchema from './json/examples/resume-schema.json'
 import loginExample from './json/examples/login.json'
 import contactExample from './json/examples/contact.json'
@@ -214,6 +215,7 @@ export default {
           'editors/object-nav-tabs': objectNavTabs,
           'editors/object-propertyOrder': objectPropertyOrder,
           'editors/string-input': stringInput,
+          'editors/string-textarea': stringTextarea
         },
         Validators: {
           'validator/additionalProperties': additionalProperties,
