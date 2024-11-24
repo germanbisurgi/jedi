@@ -135,7 +135,7 @@ import objectGrid from './json/editors/object-grid.json'
 import objectNavPills from './json/editors/object-nav-pills.json'
 import objectNavTabs from './json/editors/object-nav-tabs.json'
 import objectPropertyOrder from './json/editors/object-propertyOrder.json'
-import stringJson from './json/editors/string.json'
+import stringInput from './json/editors/string-input.json'
 import resumeSchema from './json/examples/resume-schema.json'
 import loginExample from './json/examples/login.json'
 import contactExample from './json/examples/contact.json'
@@ -213,7 +213,7 @@ export default {
           'editors/object-nav-pills': objectNavPills,
           'editors/object-nav-tabs': objectNavTabs,
           'editors/object-propertyOrder': objectPropertyOrder,
-          'editors/string': stringJson,
+          'editors/string-input': stringInput,
         },
         Validators: {
           'validator/additionalProperties': additionalProperties,
