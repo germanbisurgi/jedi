@@ -2,7 +2,7 @@
 const theme = process.env.THEME || 'barebones'
 const pathToSchema = 'editors/number-input'
 const invalidValue = -1
-const defaultValue = 5
+const defaultValue = 5.5
 
 Feature('number')
 

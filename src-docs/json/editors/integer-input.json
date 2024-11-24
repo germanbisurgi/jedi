@@ -1,0 +1,7 @@
+{
+  "type": "integer",
+  "title": "Integer",
+  "default": 5,
+  "minimum": 0,
+  "description": "The integer type is used for integral numbers."
+}

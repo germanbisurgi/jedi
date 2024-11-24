@@ -127,7 +127,7 @@ import arrayNavTabs from './json/editors/array-nav-tabs.json'
 import booleanCheckbox from './json/editors/boolean-checkbox.json'
 import booleanSelect from './json/editors/boolean-select.json'
 import booleanRadio from './json/editors/boolean-radio.json'
-import integer from './json/editors/integer.json'
+import integerInput from './json/editors/integer-input.json'
 import nullJson from './json/editors/null.json'
 import numberInput from './json/editors/number-input.json'
 import objectJson from './json/editors/object.json'
@@ -206,7 +206,7 @@ export default {
           'editors/boolean-checkbox': booleanCheckbox,
           'editors/boolean-select': booleanSelect,
           'editors/boolean-radio': booleanRadio,
-          'editors/integer': integer,
+          'editors/integer-input': integerInput,
           'editors/null': nullJson,
           'editors/number-input': numberInput,
           'editors/object': objectJson,
