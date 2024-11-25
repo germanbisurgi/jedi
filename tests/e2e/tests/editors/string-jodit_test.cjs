@@ -3,8 +3,7 @@
 const theme = process.env.THEME || 'barebones'
 const pathToSchema = 'plugins/jodit'
 const valueDefault = '<p>Jodit default</p>'
-const value = '<p>value set</p>'
-const valueWithErrors = ''
+const valueWithErrors = '<p>xz</p>'
 
 Feature('Jodit')
 
@@ -20,37 +19,37 @@ Scenario('@plugin @string-jodit should have @title and @description', ({I}) => {
 })
 
 Scenario('@plugin @string-jodit should have a @default value', ({I}) => {
+  // instance
   I.waitForValue('[id="jedi-hidden-input"]', valueDefault)
+
+  // editor
+  I._waitForText('default', '.jodit-wysiwyg')
+})
+
+Scenario('@plugin @string-jodit should @setValue and @showValidationErrors', ({I}) => {
+  // instance
+  I.fillField('#editor-value', JSON.stringify(valueWithErrors))
+  I._scrollTo('#set-value')
+  I._click('#set-value')
+  I._scrollTo('[data-path="#"]')
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(valueWithErrors))
+
+  // editor
+  I._waitForText('xz', '.jodit-wysiwyg')
+  I._waitForText('Jodit: Must be at least 20 characters long.', '.jedi-error-message')
 })
 
 Scenario('@plugin @string-jodit should @disable', ({I}) => {
-  I.click('#disable-editor')
+  I._click('#disable-editor')
   I.dontSeeElement('.jodit-wysiwyg[contenteditable="true"]')
 })
 
 Scenario('@plugin @string-jodit should @enable', ({I}) => {
-  I.click('#enable-editor')
+  I._click('#enable-editor')
   I._waitForElement('.jodit-wysiwyg[contenteditable="true"]')
 })
 
-Scenario('@plugin @string-jodit should @setValue', async ({I}) => {
-  I.fillField('#editor-value', JSON.stringify(value))
-  I._scrollTo('#set-value')
-  I._click('#set-value')
-  I._scrollTo('[data-path="#"]')
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(value))
-})
-
-Scenario('@plugin @string-jodit should @showErrors', async ({I}) => {
-  I.fillField('#editor-value', JSON.stringify(valueWithErrors))
-  I._scrollTo('#set-value')
-  I._click('#set-value')
-  I._click('#set-value')
-  I._scrollTo('[data-path="#"]')
-  I._waitForElement('.jedi-error-message')
-})
-
 Scenario('@plugin @string-jodit should @destroy', ({I}) => {
-  I.click('#destroy-editor')
+  I._click('#destroy-editor')
   I.dontSeeElement('[data-schemapath="root"]')
 })

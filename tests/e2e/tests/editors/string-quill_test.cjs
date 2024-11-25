@@ -2,7 +2,6 @@
 
 const theme = process.env.THEME || 'barebones'
 const pathToSchema = 'plugins/quill'
-const value = 'value set'
 const valueWithErrors = 'a'
 const valueDefault = 'Quill default'
 
@@ -20,37 +19,37 @@ Scenario('@plugin @string-quill should have @title and @description', ({I}) => {
 })
 
 Scenario('@plugin @string-quill should have a @default value', ({I}) => {
+  // instance
   I.waitForValue('[id="jedi-hidden-input"]', valueDefault)
+
+  // editor
+  I._waitForText(valueDefault, '.ql-editor')
+})
+
+Scenario('@plugin @string-quill should @setValue and @showValidationErrors', ({I}) => {
+  // instance
+  I.fillField('#editor-value', JSON.stringify(valueWithErrors))
+  I._scrollTo('#set-value')
+  I._click('#set-value')
+  I._scrollTo('[data-path="#"]')
+  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(valueWithErrors))
+
+  // editor
+  I._waitForText(valueWithErrors, '.ql-editor')
+  I._waitForText('Quill: Must be at least 3 characters long.', '.jedi-error-message')
 })
 
 Scenario('@plugin @string-quill should @disable', ({I}) => {
-  I.click('#disable-editor')
+  I._click('#disable-editor')
   I._waitForElement('.ql-disabled')
 })
 
 Scenario('@plugin @string-quill should @enable', ({I}) => {
-  I.click('#enable-editor')
+  I._click('#enable-editor')
   I.dontSeeElement('.ql-disabled')
 })
 
-Scenario('@plugin @string-quill should @setValue', async ({I}) => {
-  I.fillField('#editor-value', JSON.stringify(value))
-  I._scrollTo('#set-value')
-  I._click('#set-value')
-  I._scrollTo('[data-path="#"]')
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(value))
-})
-
-Scenario('@plugin @string-quill should @showErrors', async ({I}) => {
-  I.fillField('#editor-value', JSON.stringify(valueWithErrors))
-  I._scrollTo('#set-value')
-  I._click('#set-value')
-  I._click('#set-value')
-  I._scrollTo('[data-path="#"]')
-  I._waitForElement('.jedi-error-message')
-})
-
 Scenario('@plugin @string-quill should @destroy', ({I}) => {
-  I.click('#destroy-editor')
+  I._click('#destroy-editor')
   I.dontSeeElement('[data-schemapath="root"]')
 })

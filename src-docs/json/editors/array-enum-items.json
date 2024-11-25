@@ -10,5 +10,6 @@
       "value2"
     ]
   },
-  "default": ["value1"]
+  "default": ["value1"],
+  "minItems": 1
 }

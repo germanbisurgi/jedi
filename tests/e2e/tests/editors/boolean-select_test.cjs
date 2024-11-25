@@ -25,7 +25,7 @@ Scenario('@editor @boolean-select should have a @default value', ({I}) => {
   I.waitForValue('[id="root"]', JSON.stringify(defaultValue))
 })
 
-Scenario('@editor @boolean-select should @setValue and @showValidationErrors', async ({I}) => {
+Scenario('@editor @boolean-select should @setValue and @showValidationErrors', ({I}) => {
   // instance
   I.fillField('#editor-value', JSON.stringify(invalidValue))
   I._scrollTo('#set-value')

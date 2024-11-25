@@ -1,6 +1,9 @@
 ## Todo
 
-- Jedi
+- playground
+  - replace all.json with real life example 
+
+- jedi
   - complementary schema (for ui stuff)
   - iconLib class
 
@@ -28,5 +31,6 @@
   - anyOf, oneOf accessibility switcher (radios are better)
   - option hideButton labels
   - array table
+  - refactor select and radios to remove duplicated code
 
 - publish on NPM

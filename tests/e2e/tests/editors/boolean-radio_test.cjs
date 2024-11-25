@@ -25,7 +25,7 @@ Scenario('@editor @boolean-radio should have a @default value', ({I}) => {
   I.seeCheckboxIsChecked('[id="root-1"]')
 })
 
-Scenario('@editor @boolean-radio should @setValue and @showValidationErrors', async ({I}) => {
+Scenario('@editor @boolean-radio should @setValue and @showValidationErrors', ({I}) => {
   // instance
   I.fillField('#editor-value', JSON.stringify(invalidValue))
   I._scrollTo('#set-value')

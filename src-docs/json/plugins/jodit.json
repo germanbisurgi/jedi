@@ -3,7 +3,7 @@
   "type": "string",
   "description": "Jodit - Best WYSIWYG Editor for You.",
   "default": "Jodit default",
-  "minLength": 3,
+  "minLength": 20,
   "x-options": {
     "jodit": {}
   }

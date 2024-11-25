@@ -24,16 +24,16 @@ Scenario('@plugin @string-awesomplete should have a @default value', ({I}) => {
 })
 
 Scenario('@plugin @string-awesomplete should @disable', ({I}) => {
-  I.click('#disable-editor')
+  I._click('#disable-editor')
   I._waitForElement('#root:disabled')
 })
 
 Scenario('@plugin @string-awesomplete should @enable', ({I}) => {
-  I.click('#enable-editor')
+  I._click('#enable-editor')
   I.dontSeeElement('#root:disabled')
 })
 
-Scenario('@plugin @string-awesomplete should @setValue', async ({I}) => {
+Scenario('@plugin @string-awesomplete should @setValue', ({I}) => {
   I.fillField('#editor-value', JSON.stringify(value))
   I._scrollTo('#set-value')
   I._click('#set-value')
@@ -41,7 +41,7 @@ Scenario('@plugin @string-awesomplete should @setValue', async ({I}) => {
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(value))
 })
 
-Scenario('@plugin @string-awesomplete should @showErrors', async ({ I }) => {
+Scenario('@plugin @string-awesomplete should @showValidationErrors', ({ I }) => {
   I.fillField('#editor-value', JSON.stringify(valueWithErrors))
   I._scrollTo('#set-value')
   I._click('#set-value')
@@ -51,6 +51,6 @@ Scenario('@plugin @string-awesomplete should @showErrors', async ({ I }) => {
 })
 
 Scenario('@plugin @string-awesomplete should @destroy', ({I}) => {
-  I.click('#destroy-editor')
+  I._click('#destroy-editor')
   I.dontSeeElement('[data-schemapath="root"]')
 })
