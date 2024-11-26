@@ -3212,6 +3212,84 @@ class EditorArray extends Editor {
     }
   }
 }
+class EditorArrayTable extends EditorArray {
+  static resolves(schema) {
+    return getSchemaType(schema) === "array" && isSet(getSchemaXOption(schema, "table"));
+  }
+  init() {
+    super.init();
+    this.activeTabIndex = 0;
+  }
+  addEventListeners() {
+    this.control.addBtn.addEventListener("click", () => {
+      this.activeTabIndex = this.instance.value.length;
+      this.instance.addItem();
+    });
+  }
+  refreshUI() {
+    this.refreshInteractiveElements();
+    this.control.childrenSlot.innerHTML = "";
+    const table = this.theme.getTable();
+    this.control.childrenSlot.appendChild(table.container);
+    const tempEditor = this.instance.createItemInstance();
+    tempEditor.children.forEach((child) => {
+      const th = document.createElement("th");
+      console.log(child.ui.control);
+      if (child.ui.control.label) {
+        th.textContent = child.ui.control.label.textContent;
+      }
+      if (child.ui.control.legend) {
+        th.textContent = child.ui.control.legend.textContent;
+      }
+      table.thead.appendChild(th);
+    });
+    tempEditor.destroy();
+    this.instance.children.forEach((child, index2) => {
+      const tbodyRow = document.createElement("tr");
+      child.children.forEach((child2) => {
+        const td = document.createElement("td");
+        td.style.verticalAlign = "middle";
+        td.style.textAlign = "center";
+        td.appendChild(child2.ui.control.container);
+        tbodyRow.appendChild(td);
+        child2.ui.control.container.classList.remove("mb-3");
+        child2.ui.control.container.classList.remove("form-group");
+        if (child2.ui.control.label) {
+          this.theme.physicallyHidden(child2.ui.control.label);
+        }
+        if (child2.ui.control.legend) {
+          this.theme.physicallyHidden(child2.ui.control.legend);
+        }
+      });
+      const buttonsTd = document.createElement("td");
+      buttonsTd.style.verticalAlign = "middle";
+      const deleteBtn = this.theme.getDeleteItemBtn();
+      const moveUpBtn = this.theme.getMoveUpItemBtn();
+      const moveDownBtn = this.theme.getMoveDownItemBtn();
+      const btnGroup = this.theme.getBtnGroup();
+      deleteBtn.addEventListener("click", () => {
+        this.activeTabIndex = clamp(index2 - 1, 0, this.instance.value.length - 1);
+        this.instance.deleteItem(index2);
+      });
+      moveUpBtn.addEventListener("click", () => {
+        const toIndex = index2 - 1;
+        this.activeTabIndex = toIndex;
+        this.instance.move(index2, toIndex);
+      });
+      moveDownBtn.addEventListener("click", () => {
+        const toIndex = index2 + 1;
+        this.activeTabIndex = toIndex;
+        this.instance.move(index2, toIndex);
+      });
+      btnGroup.appendChild(deleteBtn);
+      btnGroup.appendChild(moveUpBtn);
+      btnGroup.appendChild(moveDownBtn);
+      buttonsTd.appendChild(btnGroup);
+      tbodyRow.appendChild(buttonsTd);
+      table.tbody.appendChild(tbodyRow);
+    });
+  }
+}
 class EditorArrayNav extends EditorArray {
   static resolves(schema) {
     return getSchemaType(schema) === "array" && isSet(getSchemaXOption(schema, "nav"));
@@ -3585,6 +3663,7 @@ class UiResolver {
       EditorObjectNav,
       EditorObject,
       EditorArrayEnumItems,
+      EditorArrayTable,
       EditorArrayNav,
       EditorArray,
       EditorNull
@@ -3861,11 +3940,21 @@ class RefParser {
   constructor() {
     this.refs = {};
     this.data = {};
+    this.iterations = 0;
+    this.maxIterations = 1e3;
   }
   async dereference(schema) {
     await this.collectRefs(schema);
-    while (this.refsResolved() === false) {
+    while (this.iterations < this.maxIterations) {
+      if (this.refsResolved()) {
+        break;
+      }
+      this.iterations++;
       await this.collectRefs(schema);
+    }
+    const missingRefs = Object.entries(this.refs).filter(([key, value]) => value === null).map(([key]) => key);
+    if (missingRefs.length) {
+      console.warn("Missing refs:", JSON.stringify(missingRefs));
     }
   }
   refsResolved() {
@@ -5031,6 +5120,20 @@ class Theme {
     return tabContent;
   }
   /**
+   * A simple table layout
+   * @private
+   */
+  getTable() {
+    const container = document.createElement("div");
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.appendChild(table);
+    return { container, table, thead, tbody };
+  }
+  /**
    * Set tab attributes to make it toggleable
    * @private
    */
@@ -5051,6 +5154,13 @@ class Theme {
    */
   visuallyVisible(element) {
     element.removeAttribute("style");
+  }
+  /**
+   * Makes an element physically hidden
+   * @private
+   */
+  physicallyHidden(element) {
+    element.style.display = "none";
   }
 }
 class ThemeBootstrap3 extends Theme {
@@ -5181,14 +5291,10 @@ class ThemeBootstrap3 extends Theme {
   }
   getCheckboxControl(config) {
     const control = super.getCheckboxControl(config);
-    const { container, formGroup, input, label, labelText, description, messages } = control;
-    formGroup.classList.add("checkbox");
+    const { container, formGroup, description, messages } = control;
     container.appendChild(formGroup);
-    formGroup.appendChild(label);
-    label.appendChild(input);
-    label.appendChild(labelText);
-    formGroup.appendChild(description);
-    formGroup.appendChild(messages);
+    container.appendChild(description);
+    container.appendChild(messages);
     return control;
   }
   getSelectControl(config) {
@@ -5247,6 +5353,22 @@ class ThemeBootstrap3 extends Theme {
     }
     tab.link.setAttribute("data-toggle", "tab");
     return tab;
+  }
+  /**
+   * A simple table layout
+   * @private
+   */
+  getTable() {
+    const container = document.createElement("div");
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
+    container.classList.add("table-responsive");
+    table.classList.add("table");
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.appendChild(table);
+    return { container, table, thead, tbody };
   }
   setTabPaneAttributes(element, active, id) {
     super.setTabPaneAttributes(element, active, id);
@@ -5399,15 +5521,12 @@ class ThemeBootstrap4 extends Theme {
   getCheckboxControl(config) {
     const control = super.getCheckboxControl(config);
     const { container, formGroup, input, label, description, messages } = control;
-    formGroup.classList.add("form-group");
-    formGroup.classList.add("form-check");
-    input.classList.add("form-check-input");
-    label.classList.add("form-check-label");
+    label.classList.add("mb-0");
     container.appendChild(formGroup);
     formGroup.appendChild(input);
     formGroup.appendChild(label);
-    formGroup.appendChild(description);
-    formGroup.appendChild(messages);
+    container.appendChild(description);
+    container.appendChild(messages);
     return control;
   }
   getSelectControl(config) {
@@ -5470,6 +5589,25 @@ class ThemeBootstrap4 extends Theme {
       tab.link.classList.add("active");
     }
     return tab;
+  }
+  /**
+   * A simple table layout
+   * @private
+   */
+  getTable() {
+    const container = document.createElement("div");
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
+    container.classList.add("table-responsive");
+    table.classList.add("table");
+    table.classList.add("table-borderless");
+    table.classList.add("table-sm");
+    table.classList.add("align-middle");
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.appendChild(table);
+    return { container, table, thead, tbody };
   }
   setTabPaneAttributes(element, active, id) {
     super.setTabPaneAttributes(element, active, id);
@@ -5626,7 +5764,6 @@ class ThemeBootstrap5 extends Theme {
     const control = super.getCheckboxControl(config);
     const { container, formGroup, input, label, description, messages } = control;
     container.classList.add("mb-3");
-    formGroup.classList.add("form-check");
     input.classList.add("form-check-input");
     label.classList.add("form-check-label");
     if (config.titleHidden) {
@@ -5635,8 +5772,8 @@ class ThemeBootstrap5 extends Theme {
     container.appendChild(formGroup);
     formGroup.appendChild(input);
     formGroup.appendChild(label);
-    formGroup.appendChild(description);
-    formGroup.appendChild(messages);
+    container.appendChild(description);
+    container.appendChild(messages);
     return control;
   }
   getSelectControl(config) {
@@ -5697,6 +5834,25 @@ class ThemeBootstrap5 extends Theme {
       tab.link.classList.add("active");
     }
     return tab;
+  }
+  /**
+   * A simple table layout
+   * @private
+   */
+  getTable() {
+    const container = document.createElement("div");
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
+    container.classList.add("table-responsive");
+    table.classList.add("table");
+    table.classList.add("table-borderless");
+    table.classList.add("table-sm");
+    table.classList.add("align-middle");
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.appendChild(table);
+    return { container, table, thead, tbody };
   }
   setTabPaneAttributes(element, active, id) {
     super.setTabPaneAttributes(element, active, id);

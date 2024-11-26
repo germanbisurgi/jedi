@@ -4,13 +4,26 @@ class RefParser {
   constructor () {
     this.refs = {}
     this.data = {}
+    this.iterations = 0
+    this.maxIterations = 1000
   }
 
   async dereference (schema) {
     await this.collectRefs(schema)
 
-    while (this.refsResolved() === false) {
+    while (this.iterations < this.maxIterations) {
+      if (this.refsResolved()) {
+        break
+      }
+
+      this.iterations++
       await this.collectRefs(schema)
+    }
+
+    const missingRefs = Object.entries(this.refs).filter(([key, value]) => value === null).map(([key]) => key)
+
+    if (missingRefs.length) {
+      console.warn('Missing refs:', JSON.stringify(missingRefs))
     }
   }
 
