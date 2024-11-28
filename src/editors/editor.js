@@ -95,6 +95,8 @@ class Editor {
   build () {
   }
 
+  buildTableCell () {}
+
   /**
    * Adds attributes to generated html elements if specified in schema x-options
    * @private

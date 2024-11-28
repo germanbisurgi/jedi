@@ -122,6 +122,7 @@ import Jedi from '/src/index.js'
 import all from './json/editors/all.json'
 import array from './json/editors/array.json'
 import arrayEnumItems from './json/editors/array-enum-items.json'
+import arrayNavTable from './json/editors/array-table.json'
 import arrayNavPills from './json/editors/array-nav-pills.json'
 import arrayNavTabs from './json/editors/array-nav-tabs.json'
 import booleanCheckbox from './json/editors/boolean-checkbox.json'
@@ -201,6 +202,7 @@ export default {
           'editors/all': all,
           'editors/array': array,
           'editors/array-enum-items': arrayEnumItems,
+          'editors/array-table': arrayNavTable,
           'editors/array-nav-pills': arrayNavPills,
           'editors/array-nav-tabs': arrayNavTabs,
           'editors/boolean-checkbox': booleanCheckbox,

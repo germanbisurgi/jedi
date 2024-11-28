@@ -1,0 +1,63 @@
+{
+  "title": "People",
+  "type": "array",
+  "x-options": {
+    "table": {}
+  },
+  "required": [
+    "input",
+    "select",
+    "checkbox",
+    "radio"
+  ],
+  "default": [
+    {
+      "input": "Albert",
+      "select": "male",
+      "checkbox": true,
+      "radio": ""
+    }
+  ],
+  "items": {
+    "type": "object",
+    "title": "Person",
+    "description": "Person",
+    "properties": {
+      "input": {
+        "title": "Input",
+        "type": "string"
+      },
+      "select": {
+        "title": "Select",
+        "description": "Select",
+        "type": "string",
+        "enum": [
+          "male",
+          "female",
+          "other"
+        ]
+      },
+      "checkbox": {
+        "title": "Checkbox",
+        "description": "Checkbox",
+        "type": "boolean",
+        "x-options": {
+          "format": "checkbox"
+        }
+      },
+      "radio": {
+        "type": "string",
+        "title": "Radio",
+        "description": "Radio",
+        "enum": [
+          "albert",
+          "betti",
+          "carl"
+        ],
+        "x-options": {
+          "format": "radio"
+        }
+      }
+    }
+  }
+}

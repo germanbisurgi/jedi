@@ -189,8 +189,8 @@ class ThemeBootstrap5 extends Theme {
     container.appendChild(formGroup)
     formGroup.appendChild(input)
     formGroup.appendChild(label)
-    formGroup.appendChild(description)
-    formGroup.appendChild(messages)
+    container.appendChild(description)
+    container.appendChild(messages)
     return control
   }
 
@@ -200,6 +200,11 @@ class ThemeBootstrap5 extends Theme {
     container.classList.add('mb-3')
     input.classList.add('form-select')
     return control
+  }
+
+  adaptSelectControlForTableCell (control, td) {
+    super.adaptSelectControlForTableCell(control, td)
+    control.container.classList.remove('mb-3')
   }
 
   getAlert (config) {
@@ -267,6 +272,28 @@ class ThemeBootstrap5 extends Theme {
     }
 
     return tab
+  }
+
+  /**
+   * A simple table layout
+   * @private
+   */
+  getTable () {
+    const container = document.createElement('div')
+    const table = document.createElement('table')
+    const thead = document.createElement('thead')
+    const tbody = document.createElement('tbody')
+
+    container.classList.add('table-responsive')
+    table.classList.add('table')
+    table.classList.add('table-sm')
+    table.classList.add('align-middle')
+
+    table.appendChild(thead)
+    table.appendChild(tbody)
+    container.appendChild(table)
+
+    return { container, table, thead, tbody }
   }
 
   setTabPaneAttributes (element, active, id) {

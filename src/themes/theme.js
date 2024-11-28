@@ -10,7 +10,6 @@ class Theme {
 
   /**
    * Inits some instance properties
-   * @private
    */
   init () {
     this.useToggleEvents = true
@@ -18,7 +17,6 @@ class Theme {
 
   /**
    * Used to wrap the editor UI elements
-   * @private
    */
   getEditorContainer () {
     const html = document.createElement('div')
@@ -28,7 +26,6 @@ class Theme {
 
   /**
    * Used to group several controls
-   * @private
    */
   getFieldset () {
     const html = document.createElement('fieldset')
@@ -76,7 +73,6 @@ class Theme {
 
   /**
    * Returns a icon element
-   * @private
    */
   getIcon (classes = '') {
     const icon = document.createElement('i')
@@ -94,7 +90,6 @@ class Theme {
 
   /**
    * Container for complex editors like arrays, objects and multiple
-   * @private
    */
   getCard () {
     const html = document.createElement('div')
@@ -104,7 +99,6 @@ class Theme {
 
   /**
    * Header for cards
-   * @private
    */
   getCardHeader () {
     const html = document.createElement('div')
@@ -114,7 +108,6 @@ class Theme {
 
   /**
    * A body for the cards
-   * @private
    */
   getCardBody () {
     const html = document.createElement('div')
@@ -124,7 +117,6 @@ class Theme {
 
   /**
    * Wrapper for editor actions buttons
-   * @private
    */
   getActionsSlot () {
     const html = document.createElement('div')
@@ -134,7 +126,6 @@ class Theme {
 
   /**
    * Wrapper for editor array specific actions buttons
-   * @private
    */
   getArrayActionsSlot () {
     const html = document.createElement('span')
@@ -144,7 +135,6 @@ class Theme {
 
   /**
    * Wrapper for child editors
-   * @private
    */
   getChildrenSlot () {
     const html = document.createElement('div')
@@ -154,7 +144,6 @@ class Theme {
 
   /**
    * Wrapper for error messages
-   * @private
    */
   getMessagesSlot (config = {}) {
     const html = document.createElement('div')
@@ -171,7 +160,6 @@ class Theme {
 
   /**
    * Wrapper for editor controls
-   * @private
    */
   getControlSlot () {
     const html = document.createElement('div')
@@ -181,7 +169,6 @@ class Theme {
 
   /**
    * Toggles the ObjectEditor properties wrapper visibility
-   * @private
    */
   getPropertiesToggle (config) {
     const toggle = this.getButton(config)
@@ -202,7 +189,6 @@ class Theme {
 
   /**
    * Container that will collapse and expand to show and hide it contents
-   * @private
    */
   getCollapse (config) {
     const collapse = document.createElement('div')
@@ -218,7 +204,6 @@ class Theme {
 
   /**
    * Toggle button for collapse
-   * @private
    */
   getCollapseToggle (config) {
     const toggle = this.getButton(config)
@@ -257,7 +242,6 @@ class Theme {
 
   /**
    * Container for properties editing elements like property activators
-   * @private
    */
   getPropertiesSlot (config) {
     const html = document.createElement('dialog')
@@ -275,7 +259,6 @@ class Theme {
 
   /**
    * Container for screen reader announced messages
-   * @private
    */
   getPropertiesAriaLive () {
     const html = document.createElement('div')
@@ -287,7 +270,6 @@ class Theme {
 
   /**
    * A message that will be announced by screen reader
-   * @private
    */
   getAriaLiveMessage (message) {
     const html = document.createElement('p')
@@ -299,7 +281,6 @@ class Theme {
 
   /**
    * Wrapper for property activators
-   * @private
    */
   getPropertiesActivators () {
     const html = document.createElement('div')
@@ -309,7 +290,6 @@ class Theme {
 
   /**
    * Wrapper buttons
-   * @private
    */
   getBtnGroup () {
     const html = document.createElement('span')
@@ -319,7 +299,6 @@ class Theme {
 
   /**
    * A button
-   * @private
    */
   getButton (config) {
     const button = document.createElement('button')
@@ -352,7 +331,6 @@ class Theme {
 
   /**
    * Array "add" item button
-   * @private
    */
   getArrayBtnAdd () {
     const html = this.getButton({
@@ -373,7 +351,6 @@ class Theme {
 
   /**
    * Array "delete" item button
-   * @private
    */
   getDeleteItemBtn () {
     const deleteItemBtn = this.getButton({
@@ -388,7 +365,6 @@ class Theme {
 
   /**
    * Array "move up" item button
-   * @private
    */
   getMoveUpItemBtn () {
     const moveUpItemBtn = this.getButton({
@@ -403,7 +379,6 @@ class Theme {
 
   /**
    * Array "move down" item button
-   * @private
    */
   getMoveDownItemBtn () {
     const moveDownItemBtn = this.getButton({
@@ -429,7 +404,6 @@ class Theme {
 
   /**
    * Wrapper for the editor description
-   * @private
    */
   getDescription (config = {}) {
     const description = document.createElement('small')
@@ -484,7 +458,6 @@ class Theme {
    * Object control is a card containing multiple editors.
    * Each editor is mapped to an object instance property.
    * Properties can be added, activated and deactivated depending on configuration
-   * @private
    */
   getObjectControl (config) {
     const container = document.createElement('div')
@@ -593,7 +566,6 @@ class Theme {
   /**
    * Array control is a card containing multiple editors.
    * Items can bve added, deleted or moved up or down.
-   * @private
    */
   getArrayControl (config) {
     const container = document.createElement('div')
@@ -689,7 +661,6 @@ class Theme {
    * Multiple control is a card containing multiple editors options that can be
    * selected with a switcher control. Only one editor can be active/visible
    * at a time
-   * @private
    */
   getMultipleControl (config) {
     const container = document.createElement('div')
@@ -789,7 +760,6 @@ class Theme {
 
   /**
    * Control for NullEditor
-   * @private
    */
   getNullControl (config) {
     const container = document.createElement('div')
@@ -825,7 +795,6 @@ class Theme {
 
   /**
    * A Textarea
-   * @private
    */
   getTextareaControl (config) {
     const container = document.createElement('div')
@@ -868,7 +837,6 @@ class Theme {
 
   /**
    * An Input control
-   * @private
    */
   getInputControl (config) {
     const container = document.createElement('div')
@@ -913,7 +881,6 @@ class Theme {
 
   /**
    * A radio group control
-   * @private
    */
   getRadiosControl (config) {
     const container = document.createElement('div')
@@ -1006,7 +973,6 @@ class Theme {
 
   /**
    * A checkbox control
-   * @private
    */
   getCheckboxControl (config) {
     const container = document.createElement('div')
@@ -1141,7 +1107,6 @@ class Theme {
 
   /**
    * A select control
-   * @private
    */
   getSelectControl (config) {
     const container = document.createElement('div')
@@ -1194,13 +1159,11 @@ class Theme {
 
   /**
    * Control to switch between multiple editors options
-   * @private
    */
   getSwitcher (config) {
     const container = document.createElement('span')
     const input = document.createElement('select')
     input.setAttribute('id', config.id)
-    // input.setAttribute('style', 'width: 100%;')
 
     config.values.forEach((value, index) => {
       const option = document.createElement('option')
@@ -1228,7 +1191,6 @@ class Theme {
   /**
    * Another type of error message container used for more complex editors like
    * object, array and multiple editors
-   * @private
    */
   getAlert (config) {
     return this.getInvalidFeedback(config)
@@ -1254,7 +1216,6 @@ class Theme {
 
   /**
    * Container for columns
-   * @private
    */
   getRow () {
     const row = document.createElement('div')
@@ -1264,7 +1225,6 @@ class Theme {
 
   /**
    * A column to contain content to a specific width
-   * @private
    */
   getCol (xs, md, offsetMd) {
     const col = document.createElement('div')
@@ -1280,7 +1240,6 @@ class Theme {
 
   /**
    * Tab list is a list of links that triggers tabs visibility ne at the time
-   * @private
    */
   getTabList () {
     const tabList = document.createElement('ul')
@@ -1290,7 +1249,6 @@ class Theme {
 
   /**
    * A Tab is a wrapper for content
-   * @private
    */
   getTab (config) {
     const list = document.createElement('li')
@@ -1304,7 +1262,6 @@ class Theme {
 
   /**
    * Wrapper for tabs
-   * @private
    */
   getTabContent () {
     const tabContent = document.createElement('div')
@@ -1313,8 +1270,23 @@ class Theme {
   }
 
   /**
+   * A simple table layout
+   */
+  getTable () {
+    const container = document.createElement('div')
+    const table = document.createElement('table')
+    const thead = document.createElement('thead')
+    const tbody = document.createElement('tbody')
+
+    table.appendChild(thead)
+    table.appendChild(tbody)
+    container.appendChild(table)
+
+    return { container, table, thead, tbody }
+  }
+
+  /**
    * Set tab attributes to make it toggleable
-   * @private
    */
   setTabPaneAttributes (element, active, id) {
     element.setAttribute('id', id)
@@ -1323,7 +1295,6 @@ class Theme {
 
   /**
    * Makes an element visually hidden
-   * @private
    */
   visuallyHidden (element) {
     element.setAttribute('style', 'position: absolute;width: 1px;height: 1px;padding: 0;margin: -1px;overflow: hidden;clip: rect(0,0,0,0);border: 0;')
@@ -1331,10 +1302,16 @@ class Theme {
 
   /**
    * Reveals a visually hidden element
-   * @private
    */
   visuallyVisible (element) {
     element.removeAttribute('style')
+  }
+
+  /**
+   * Makes an element physically hidden
+   */
+  physicallyHidden (element) {
+    element.style.display = 'none'
   }
 }
 

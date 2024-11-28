@@ -163,15 +163,11 @@ class ThemeBootstrap3 extends Theme {
 
   getCheckboxControl (config) {
     const control = super.getCheckboxControl(config)
-    const { container, formGroup, input, label, labelText, description, messages } = control
-    formGroup.classList.add('checkbox')
+    const { container, formGroup, description, messages } = control
 
     container.appendChild(formGroup)
-    formGroup.appendChild(label)
-    label.appendChild(input)
-    label.appendChild(labelText)
-    formGroup.appendChild(description)
-    formGroup.appendChild(messages)
+    container.appendChild(description)
+    container.appendChild(messages)
     return control
   }
 
@@ -247,6 +243,26 @@ class ThemeBootstrap3 extends Theme {
 
     tab.link.setAttribute('data-toggle', 'tab')
     return tab
+  }
+
+  /**
+   * A simple table layout
+   * @private
+   */
+  getTable () {
+    const container = document.createElement('div')
+    const table = document.createElement('table')
+    const thead = document.createElement('thead')
+    const tbody = document.createElement('tbody')
+
+    container.classList.add('table-responsive')
+    table.classList.add('table')
+
+    table.appendChild(thead)
+    table.appendChild(tbody)
+    container.appendChild(table)
+
+    return { container, table, thead, tbody }
   }
 
   setTabPaneAttributes (element, active, id) {
