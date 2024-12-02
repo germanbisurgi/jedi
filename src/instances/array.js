@@ -1,6 +1,6 @@
 import Instance from './instance.js'
 import { isSet, clone, isArray } from '../helpers/utils.js'
-import { getSchemaItems, getSchemaPrefixItems } from '../helpers/schema.js'
+import { getSchemaDefault, getSchemaItems, getSchemaPrefixItems } from '../helpers/schema.js'
 
 /**
  * Represents an InstanceArray instance.
@@ -15,7 +15,7 @@ class InstanceArray extends Instance {
     })
   }
 
-  createItemInstance (value) {
+  createItemInstance () {
     let schema
     const itemsCount = this.children.length
     const schemaItems = getSchemaItems(this.schema)
@@ -28,19 +28,20 @@ class InstanceArray extends Instance {
       schema = schemaPrefixItems[itemsCount]
     }
 
-    const child = this.jedi.createInstance({
+    return this.jedi.createInstance({
       jedi: this.jedi,
       schema: schema,
       path: this.path + this.jedi.pathSeparator + itemsCount,
-      parent: this,
-      value: clone(value)
+      parent: this
     })
+  }
 
-    if (isSet(value)) {
-      child.setValue(value, false)
+  setDefaultValue () {
+    const schemaDefault = getSchemaDefault(this.schema)
+
+    if (isSet(schemaDefault)) {
+      this.setValue(schemaDefault)
     }
-
-    return child
   }
 
   move (fromIndex, toIndex) {
@@ -73,7 +74,7 @@ class InstanceArray extends Instance {
     })
 
     this.value = value
-    this.emit('change', context)
+    this.emit('change', true, context)
   }
 
   refreshChildren () {
@@ -88,6 +89,7 @@ class InstanceArray extends Instance {
     value.forEach((itemValue) => {
       const child = this.createItemInstance(itemValue)
       this.children.push(child)
+      child.setValue(itemValue, false)
     })
   }
 }

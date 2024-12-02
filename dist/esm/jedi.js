@@ -1796,6 +1796,8 @@ class Editor {
    */
   build() {
   }
+  adaptForTable() {
+  }
   /**
    * Adds attributes to generated html elements if specified in schema x-options
    * @private
@@ -2430,7 +2432,7 @@ class InstanceArray extends Instance {
       this.refreshChildren();
     });
   }
-  createItemInstance(value) {
+  createItemInstance() {
     let schema;
     const itemsCount = this.children.length;
     const schemaItems = getSchemaItems(this.schema);
@@ -2440,17 +2442,18 @@ class InstanceArray extends Instance {
     if (hasPrefixItemsSchema) {
       schema = schemaPrefixItems[itemsCount];
     }
-    const child = this.jedi.createInstance({
+    return this.jedi.createInstance({
       jedi: this.jedi,
       schema,
       path: this.path + this.jedi.pathSeparator + itemsCount,
-      parent: this,
-      value: clone(value)
+      parent: this
     });
-    if (isSet(value)) {
-      child.setValue(value, false);
+  }
+  setDefaultValue() {
+    const schemaDefault = getSchemaDefault(this.schema);
+    if (isSet(schemaDefault)) {
+      this.setValue(schemaDefault);
     }
-    return child;
   }
   move(fromIndex, toIndex) {
     const value = clone(this.getValue());
@@ -2477,7 +2480,7 @@ class InstanceArray extends Instance {
       value.push(child.getValue());
     });
     this.value = value;
-    this.emit("change", context);
+    this.emit("change", true, context);
   }
   refreshChildren() {
     this.children = [];
@@ -2488,6 +2491,7 @@ class InstanceArray extends Instance {
     value.forEach((itemValue) => {
       const child = this.createItemInstance(itemValue);
       this.children.push(child);
+      child.setValue(itemValue, false);
     });
   }
 }
@@ -2570,6 +2574,9 @@ class EditorBooleanRadio extends EditorBoolean {
       description: getSchemaDescription(this.instance.schema)
     });
   }
+  adaptForTable() {
+    this.theme.adaptForTableRadiosControl(this.control);
+  }
   addEventListeners() {
     this.control.radios.forEach((radio) => {
       radio.addEventListener("change", () => {
@@ -2601,6 +2608,9 @@ class EditorBooleanEnumSelect extends EditorBoolean {
       description: getSchemaDescription(this.instance.schema)
     });
   }
+  adaptForTable() {
+    this.theme.adaptForTableSelectControl(this.control);
+  }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
       const value = this.control.input.value === "true";
@@ -2623,6 +2633,9 @@ class EditorBooleanCheckbox extends EditorBoolean {
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema)
     });
+  }
+  adaptForTable(td) {
+    this.theme.adaptForTableCheckboxControl(this.control, td);
   }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
@@ -2656,6 +2669,9 @@ class EditorStringEnumRadio extends EditorString {
       description: getSchemaDescription(this.instance.schema)
     });
   }
+  adaptForTable() {
+    this.theme.adaptForTableRadiosControl(this.control);
+  }
   addEventListeners() {
     this.control.radios.forEach((radio) => {
       radio.addEventListener("change", () => {
@@ -2685,6 +2701,9 @@ class EditorStringEnumSelect extends EditorString {
       description: getSchemaDescription(this.instance.schema)
     });
   }
+  adaptForTable() {
+    this.theme.adaptForTableSelectControl(this.control);
+  }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
       this.instance.setValue(this.control.input.value, true, "editor");
@@ -2707,6 +2726,9 @@ class EditorStringTextarea extends EditorString {
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema)
     });
+  }
+  adaptForTable() {
+    this.theme.adaptForTableTextareaControl(this.control);
   }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
@@ -2773,6 +2795,9 @@ class EditorStringInput extends EditorString {
       this.instance.setValue("#000000", false, "editor");
     }
   }
+  adaptForTable() {
+    this.theme.adaptForTableInputControl(this.control);
+  }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
       this.instance.setValue(this.control.input.value, true, "editor");
@@ -2813,6 +2838,9 @@ class EditorNumberEnumRadio extends EditorNumber {
       description: getSchemaDescription(this.instance.schema)
     });
   }
+  adaptForTable() {
+    this.theme.adaptForTableRadiosControl(this.control);
+  }
   addEventListeners() {
     this.control.radios.forEach((radio) => {
       radio.addEventListener("change", () => {
@@ -2845,6 +2873,9 @@ class EditorNumberEnumSelect extends EditorNumber {
       description: getSchemaDescription(this.instance.schema)
     });
   }
+  adaptForTable() {
+    this.theme.adaptForTableSelectControl(this.control);
+  }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
       const value = this.sanitize(this.control.input.value);
@@ -2873,6 +2904,10 @@ class EditorNumberInput extends EditorNumber {
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || getSchemaXOption(this.instance.schema, "format") === "hidden",
       description: getSchemaDescription(this.instance.schema)
     });
+    this.control.input.setAttribute("step", "any");
+  }
+  adaptForTable() {
+    this.theme.adaptForTableInputControl(this.control);
   }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
@@ -3151,6 +3186,21 @@ class EditorArray extends Editor {
   isSortable() {
     return window.Sortable && isSet(getSchemaXOption(this.instance.schema, "sortable"));
   }
+  refreshSortable(container) {
+    if (this.isSortable()) {
+      if (this.sortable) {
+        this.sortable.destroy();
+      }
+      this.sortable = window.Sortable.create(container, {
+        animation: 150,
+        handle: ".jedi-array-drag",
+        disabled: this.disabled || this.readOnly,
+        onEnd: (evt) => {
+          this.instance.move(evt.oldIndex, evt.newIndex);
+        }
+      });
+    }
+  }
   refreshUI() {
     const maxItems2 = getSchemaMaxItems(this.instance.schema);
     const minItems2 = getSchemaMinItems(this.instance.schema);
@@ -3194,11 +3244,95 @@ class EditorArray extends Editor {
       }
     });
     this.refreshInteractiveElements();
+    this.refreshSortable(this.control.childrenSlot);
+    if (isSet(maxItems2) && maxItems2 === this.instance.value.length) {
+      this.control.addBtn.setAttribute("disabled", "");
+    }
+  }
+}
+class EditorArrayTable extends EditorArray {
+  static resolves(schema) {
+    return getSchemaType(schema) === "array" && isSet(getSchemaXOption(schema, "table"));
+  }
+  init() {
+    super.init();
+    this.activeTabIndex = 0;
+  }
+  addEventListeners() {
+    this.control.addBtn.addEventListener("click", () => {
+      this.activeTabIndex = this.instance.value.length;
+      this.instance.addItem();
+    });
+  }
+  isSortable() {
+    return window.Sortable && isSet(getSchemaXOption(this.instance.schema, "sortable"));
+  }
+  refreshUI() {
+    this.control.childrenSlot.innerHTML = "";
+    const table = this.theme.getTable();
+    this.control.childrenSlot.appendChild(table.container);
+    const th = this.theme.getTableHeader();
+    th.textContent = "item controls";
+    table.thead.appendChild(th);
+    const tempEditor = this.instance.createItemInstance();
+    tempEditor.children.forEach((child) => {
+      const th2 = this.theme.getTableHeader();
+      if (child.ui.control.label) {
+        th2.textContent = child.ui.control.label.textContent;
+      }
+      if (child.ui.control.legend) {
+        th2.textContent = child.ui.control.legend.textContent;
+      }
+      table.thead.appendChild(th2);
+    });
+    tempEditor.destroy();
+    this.instance.children.forEach((child, index2) => {
+      const tbodyRow = document.createElement("tr");
+      const buttonsTd = this.theme.getTableDefinition();
+      const deleteBtn = this.theme.getDeleteItemBtn();
+      const moveUpBtn = this.theme.getMoveUpItemBtn();
+      const moveDownBtn = this.theme.getMoveDownItemBtn();
+      const btnGroup = this.theme.getBtnGroup();
+      deleteBtn.addEventListener("click", () => {
+        this.activeTabIndex = clamp(index2 - 1, 0, this.instance.value.length - 1);
+        this.instance.deleteItem(index2);
+      });
+      moveUpBtn.addEventListener("click", () => {
+        const toIndex = index2 - 1;
+        this.activeTabIndex = toIndex;
+        this.instance.move(index2, toIndex);
+      });
+      moveDownBtn.addEventListener("click", () => {
+        const toIndex = index2 + 1;
+        this.activeTabIndex = toIndex;
+        this.instance.move(index2, toIndex);
+      });
+      if (this.isSortable()) {
+        const dragBtn = this.theme.getDragItemBtn();
+        btnGroup.appendChild(dragBtn);
+      }
+      btnGroup.appendChild(moveUpBtn);
+      btnGroup.appendChild(moveDownBtn);
+      btnGroup.appendChild(deleteBtn);
+      buttonsTd.appendChild(btnGroup);
+      tbodyRow.appendChild(buttonsTd);
+      child.children.forEach((child2) => {
+        const td = this.theme.getTableDefinition();
+        child2.ui.adaptForTable(td);
+        td.appendChild(child2.ui.control.container);
+        tbodyRow.appendChild(td);
+      });
+      table.tbody.appendChild(tbodyRow);
+    });
+    this.refreshSortable(table.tbody);
+    this.refreshInteractiveElements();
+  }
+  refreshSortable(container) {
     if (this.isSortable()) {
       if (this.sortable) {
         this.sortable.destroy();
       }
-      this.sortable = window.Sortable.create(this.control.childrenSlot, {
+      this.sortable = window.Sortable.create(container, {
         animation: 150,
         handle: ".jedi-array-drag",
         disabled: this.disabled || this.readOnly,
@@ -3206,9 +3340,6 @@ class EditorArray extends Editor {
           this.instance.move(evt.oldIndex, evt.newIndex);
         }
       });
-    }
-    if (isSet(maxItems2) && maxItems2 === this.instance.value.length) {
-      this.control.addBtn.setAttribute("disabled", "");
     }
   }
 }
@@ -3326,6 +3457,9 @@ class EditorMultiple extends Editor {
       switcherOptionsLabels: this.instance.switcherOptionsLabels,
       switcher: true
     });
+  }
+  adaptForTable(td) {
+    this.theme.adaptForTableMultipleControl(this.control, td);
   }
   addEventListeners() {
     this.control.switcher.input.addEventListener("change", () => {
@@ -3536,6 +3670,9 @@ class EditorArrayEnumItems extends Editor {
       description: getSchemaDescription(this.instance.schema)
     });
   }
+  adaptForTable(td) {
+    this.theme.adaptForTableCheckboxesControl(this.control, td);
+  }
   addEventListeners() {
     this.control.checkboxes.forEach((checkbox) => {
       checkbox.addEventListener("change", () => {
@@ -3585,6 +3722,7 @@ class UiResolver {
       EditorObjectNav,
       EditorObject,
       EditorArrayEnumItems,
+      EditorArrayTable,
       EditorArrayNav,
       EditorArray,
       EditorNull
@@ -3948,14 +4086,12 @@ class Theme {
   }
   /**
    * Inits some instance properties
-   * @private
    */
   init() {
     this.useToggleEvents = true;
   }
   /**
    * Used to wrap the editor UI elements
-   * @private
    */
   getEditorContainer() {
     const html = document.createElement("div");
@@ -3964,7 +4100,6 @@ class Theme {
   }
   /**
    * Used to group several controls
-   * @private
    */
   getFieldset() {
     const html = document.createElement("fieldset");
@@ -4004,7 +4139,6 @@ class Theme {
   }
   /**
    * Returns a icon element
-   * @private
    */
   getIcon(classes = "") {
     const icon = document.createElement("i");
@@ -4019,7 +4153,6 @@ class Theme {
   }
   /**
    * Container for complex editors like arrays, objects and multiple
-   * @private
    */
   getCard() {
     const html = document.createElement("div");
@@ -4028,7 +4161,6 @@ class Theme {
   }
   /**
    * Header for cards
-   * @private
    */
   getCardHeader() {
     const html = document.createElement("div");
@@ -4037,7 +4169,6 @@ class Theme {
   }
   /**
    * A body for the cards
-   * @private
    */
   getCardBody() {
     const html = document.createElement("div");
@@ -4046,7 +4177,6 @@ class Theme {
   }
   /**
    * Wrapper for editor actions buttons
-   * @private
    */
   getActionsSlot() {
     const html = document.createElement("div");
@@ -4055,7 +4185,6 @@ class Theme {
   }
   /**
    * Wrapper for editor array specific actions buttons
-   * @private
    */
   getArrayActionsSlot() {
     const html = document.createElement("span");
@@ -4064,7 +4193,6 @@ class Theme {
   }
   /**
    * Wrapper for child editors
-   * @private
    */
   getChildrenSlot() {
     const html = document.createElement("div");
@@ -4073,7 +4201,6 @@ class Theme {
   }
   /**
    * Wrapper for error messages
-   * @private
    */
   getMessagesSlot(config = {}) {
     const html = document.createElement("div");
@@ -4087,7 +4214,6 @@ class Theme {
   }
   /**
    * Wrapper for editor controls
-   * @private
    */
   getControlSlot() {
     const html = document.createElement("div");
@@ -4096,7 +4222,6 @@ class Theme {
   }
   /**
    * Toggles the ObjectEditor properties wrapper visibility
-   * @private
    */
   getPropertiesToggle(config) {
     const toggle = this.getButton(config);
@@ -4112,7 +4237,6 @@ class Theme {
   }
   /**
    * Container that will collapse and expand to show and hide it contents
-   * @private
    */
   getCollapse(config) {
     const collapse = document.createElement("div");
@@ -4125,7 +4249,6 @@ class Theme {
   }
   /**
    * Toggle button for collapse
-   * @private
    */
   getCollapseToggle(config) {
     const toggle = this.getButton(config);
@@ -4156,7 +4279,6 @@ class Theme {
   }
   /**
    * Container for properties editing elements like property activators
-   * @private
    */
   getPropertiesSlot(config) {
     const html = document.createElement("dialog");
@@ -4171,7 +4293,6 @@ class Theme {
   }
   /**
    * Container for screen reader announced messages
-   * @private
    */
   getPropertiesAriaLive() {
     const html = document.createElement("div");
@@ -4182,7 +4303,6 @@ class Theme {
   }
   /**
    * A message that will be announced by screen reader
-   * @private
    */
   getAriaLiveMessage(message) {
     const html = document.createElement("p");
@@ -4193,7 +4313,6 @@ class Theme {
   }
   /**
    * Wrapper for property activators
-   * @private
    */
   getPropertiesActivators() {
     const html = document.createElement("div");
@@ -4202,7 +4321,6 @@ class Theme {
   }
   /**
    * Wrapper buttons
-   * @private
    */
   getBtnGroup() {
     const html = document.createElement("span");
@@ -4211,7 +4329,6 @@ class Theme {
   }
   /**
    * A button
-   * @private
    */
   getButton(config) {
     const button = document.createElement("button");
@@ -4236,7 +4353,6 @@ class Theme {
   }
   /**
    * Array "add" item button
-   * @private
    */
   getArrayBtnAdd() {
     const html = this.getButton({
@@ -4255,7 +4371,6 @@ class Theme {
   }
   /**
    * Array "delete" item button
-   * @private
    */
   getDeleteItemBtn() {
     const deleteItemBtn = this.getButton({
@@ -4267,7 +4382,6 @@ class Theme {
   }
   /**
    * Array "move up" item button
-   * @private
    */
   getMoveUpItemBtn() {
     const moveUpItemBtn = this.getButton({
@@ -4279,7 +4393,6 @@ class Theme {
   }
   /**
    * Array "move down" item button
-   * @private
    */
   getMoveDownItemBtn() {
     const moveDownItemBtn = this.getButton({
@@ -4299,7 +4412,6 @@ class Theme {
   }
   /**
    * Wrapper for the editor description
-   * @private
    */
   getDescription(config = {}) {
     const description = document.createElement("small");
@@ -4344,7 +4456,6 @@ class Theme {
    * Object control is a card containing multiple editors.
    * Each editor is mapped to an object instance property.
    * Properties can be added, activated and deactivated depending on configuration
-   * @private
    */
   getObjectControl(config) {
     const container = document.createElement("div");
@@ -4435,7 +4546,6 @@ class Theme {
   /**
    * Array control is a card containing multiple editors.
    * Items can bve added, deleted or moved up or down.
-   * @private
    */
   getArrayControl(config) {
     const container = document.createElement("div");
@@ -4519,7 +4629,6 @@ class Theme {
    * Multiple control is a card containing multiple editors options that can be
    * selected with a switcher control. Only one editor can be active/visible
    * at a time
-   * @private
    */
   getMultipleControl(config) {
     const container = document.createElement("div");
@@ -4568,6 +4677,8 @@ class Theme {
       arrayActions
     };
   }
+  adaptForTableMultipleControl(control, td) {
+  }
   getIfThenElseControl(config) {
     const container = document.createElement("div");
     const card = this.getCard();
@@ -4599,7 +4710,6 @@ class Theme {
   }
   /**
    * Control for NullEditor
-   * @private
    */
   getNullControl(config) {
     const container = document.createElement("div");
@@ -4628,7 +4738,6 @@ class Theme {
   }
   /**
    * A Textarea
-   * @private
    */
   getTextareaControl(config) {
     const container = document.createElement("div");
@@ -4661,9 +4770,13 @@ class Theme {
     actions.appendChild(arrayActions);
     return { container, input, label, labelText, description, messages, actions, arrayActions };
   }
+  adaptForTableTextareaControl(control) {
+    this.visuallyHidden(control.label);
+    this.visuallyHidden(control.description);
+    this.visuallyHidden(control.messages);
+  }
   /**
    * An Input control
-   * @private
    */
   getInputControl(config) {
     const container = document.createElement("div");
@@ -4698,9 +4811,13 @@ class Theme {
     actions.appendChild(arrayActions);
     return { container, input, label, labelText, description, messages, actions, arrayActions };
   }
+  adaptForTableInputControl(control) {
+    this.visuallyHidden(control.label);
+    this.visuallyHidden(control.description);
+    this.visuallyHidden(control.messages);
+  }
   /**
    * A radio group control
-   * @private
    */
   getRadiosControl(config) {
     const container = document.createElement("div");
@@ -4775,9 +4892,13 @@ class Theme {
       arrayActions
     };
   }
+  adaptForTableRadiosControl(control) {
+    this.visuallyHidden(control.legend);
+    this.visuallyHidden(control.description);
+    this.visuallyHidden(control.messages);
+  }
   /**
    * A checkbox control
-   * @private
    */
   getCheckboxControl(config) {
     const container = document.createElement("div");
@@ -4811,6 +4932,12 @@ class Theme {
     formGroup.appendChild(description);
     formGroup.appendChild(messages);
     return { container, formGroup, input, label, labelText, description, messages, actions, arrayActions };
+  }
+  adaptForTableCheckboxControl(control, td) {
+    this.visuallyHidden(control.label);
+    this.visuallyHidden(control.description);
+    this.visuallyHidden(control.messages);
+    td.style.textAlign = "center";
   }
   getCheckboxesControl(config) {
     const container = document.createElement("div");
@@ -4885,9 +5012,14 @@ class Theme {
       arrayActions
     };
   }
+  adaptForTableCheckboxesControl(control, td) {
+    this.visuallyHidden(control.legend);
+    this.visuallyHidden(control.description);
+    this.visuallyHidden(control.messages);
+    td.style.textAlign = "center";
+  }
   /**
    * A select control
-   * @private
    */
   getSelectControl(config) {
     const container = document.createElement("div");
@@ -4927,9 +5059,13 @@ class Theme {
     actions.appendChild(arrayActions);
     return { container, input, label, labelText, description, messages, actions, arrayActions };
   }
+  adaptForTableSelectControl(control) {
+    this.visuallyHidden(control.label);
+    this.visuallyHidden(control.description);
+    this.visuallyHidden(control.messages);
+  }
   /**
    * Control to switch between multiple editors options
-   * @private
    */
   getSwitcher(config) {
     const container = document.createElement("span");
@@ -4955,7 +5091,6 @@ class Theme {
   /**
    * Another type of error message container used for more complex editors like
    * object, array and multiple editors
-   * @private
    */
   getAlert(config) {
     return this.getInvalidFeedback(config);
@@ -4979,7 +5114,6 @@ class Theme {
   }
   /**
    * Container for columns
-   * @private
    */
   getRow() {
     const row = document.createElement("div");
@@ -4988,7 +5122,6 @@ class Theme {
   }
   /**
    * A column to contain content to a specific width
-   * @private
    */
   getCol(xs, md, offsetMd) {
     const col = document.createElement("div");
@@ -5001,7 +5134,6 @@ class Theme {
   }
   /**
    * Tab list is a list of links that triggers tabs visibility ne at the time
-   * @private
    */
   getTabList() {
     const tabList = document.createElement("ul");
@@ -5010,7 +5142,6 @@ class Theme {
   }
   /**
    * A Tab is a wrapper for content
-   * @private
    */
   getTab(config) {
     const list = document.createElement("li");
@@ -5023,7 +5154,6 @@ class Theme {
   }
   /**
    * Wrapper for tabs
-   * @private
    */
   getTabContent() {
     const tabContent = document.createElement("div");
@@ -5031,8 +5161,39 @@ class Theme {
     return tabContent;
   }
   /**
+   * A simple table layout
+   */
+  getTable() {
+    const container = document.createElement("div");
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.appendChild(table);
+    return { container, table, thead, tbody };
+  }
+  /**
+   * Returns a <td> element
+   */
+  getTableDefinition() {
+    const td = document.createElement("td");
+    td.style.verticalAlign = "middle";
+    return td;
+  }
+  /**
+   * Returns a <th> element
+   */
+  getTableHeader() {
+    const th = document.createElement("th");
+    th.style.verticalAlign = "middle";
+    th.style.whiteSpace = "nowrap";
+    th.style.paddingLeft = "12px";
+    th.style.paddingRight = "12px";
+    return th;
+  }
+  /**
    * Set tab attributes to make it toggleable
-   * @private
    */
   setTabPaneAttributes(element, active, id) {
     element.setAttribute("id", id);
@@ -5040,17 +5201,21 @@ class Theme {
   }
   /**
    * Makes an element visually hidden
-   * @private
    */
   visuallyHidden(element) {
     element.setAttribute("style", "position: absolute;width: 1px;height: 1px;padding: 0;margin: -1px;overflow: hidden;clip: rect(0,0,0,0);border: 0;");
   }
   /**
    * Reveals a visually hidden element
-   * @private
    */
   visuallyVisible(element) {
     element.removeAttribute("style");
+  }
+  /**
+   * Makes an element physically hidden
+   */
+  physicallyHidden(element) {
+    element.style.display = "none";
   }
 }
 class ThemeBootstrap3 extends Theme {
@@ -5143,6 +5308,10 @@ class ThemeBootstrap3 extends Theme {
     }
     return control;
   }
+  adaptForTableTextareaControl(control) {
+    super.adaptForTableTextareaControl(control);
+    control.container.classList.remove("form-group");
+  }
   getInputControl(config) {
     const control = super.getInputControl(config);
     const { container, input, label } = control;
@@ -5152,6 +5321,10 @@ class ThemeBootstrap3 extends Theme {
       this.visuallyHidden(label);
     }
     return control;
+  }
+  adaptForTableInputControl(control, td) {
+    super.adaptForTableInputControl(control, td);
+    control.container.classList.remove("form-group");
   }
   getRadiosControl(config) {
     const control = super.getRadiosControl(config);
@@ -5167,6 +5340,12 @@ class ThemeBootstrap3 extends Theme {
     body.appendChild(messages);
     return control;
   }
+  adaptForTableRadiosControl(control, td) {
+    super.adaptForTableRadiosControl(control, td);
+    control.fieldset.classList.remove("panel");
+    control.fieldset.classList.remove("panel-default");
+    control.body.classList.remove("panel-body");
+  }
   getCheckboxesControl(config) {
     const control = super.getCheckboxesControl(config);
     const { body, checkboxes, labels, labelTexts, checkboxControls } = control;
@@ -5179,17 +5358,22 @@ class ThemeBootstrap3 extends Theme {
     });
     return control;
   }
+  adaptForTableCheckboxesControl(control, td) {
+    super.adaptForTableCheckboxesControl(control, td);
+    control.fieldset.classList.remove("panel");
+    control.fieldset.classList.remove("panel-default");
+    control.body.classList.remove("panel-body");
+  }
   getCheckboxControl(config) {
     const control = super.getCheckboxControl(config);
-    const { container, formGroup, input, label, labelText, description, messages } = control;
-    formGroup.classList.add("checkbox");
+    const { container, formGroup, description, messages } = control;
     container.appendChild(formGroup);
-    formGroup.appendChild(label);
-    label.appendChild(input);
-    label.appendChild(labelText);
-    formGroup.appendChild(description);
-    formGroup.appendChild(messages);
+    container.appendChild(description);
+    container.appendChild(messages);
     return control;
+  }
+  adaptForTableCheckboxControl(control, td) {
+    super.adaptForTableCheckboxControl(control, td);
   }
   getSelectControl(config) {
     const control = super.getSelectControl(config);
@@ -5200,6 +5384,13 @@ class ThemeBootstrap3 extends Theme {
       this.visuallyHidden(label);
     }
     return control;
+  }
+  adaptForTableSelectControl(control, td) {
+    super.adaptForTableSelectControl(control, td);
+    control.container.classList.remove("form-group");
+  }
+  adaptForTableMultipleControl(control, td) {
+    super.adaptForTableMultipleControl(control, td);
   }
   getAlert(config) {
     const html = super.getAlert(config);
@@ -5247,6 +5438,22 @@ class ThemeBootstrap3 extends Theme {
     }
     tab.link.setAttribute("data-toggle", "tab");
     return tab;
+  }
+  /**
+   * A simple table layout
+   * @private
+   */
+  getTable() {
+    const container = document.createElement("div");
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
+    container.classList.add("table-responsive");
+    table.classList.add("table");
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.appendChild(table);
+    return { container, table, thead, tbody };
   }
   setTabPaneAttributes(element, active, id) {
     super.setTabPaneAttributes(element, active, id);
@@ -5358,6 +5565,10 @@ class ThemeBootstrap4 extends Theme {
     }
     return control;
   }
+  adaptForTableTextareaControl(control) {
+    super.adaptForTableTextareaControl(control);
+    control.container.classList.remove("form-group");
+  }
   getInputControl(config) {
     const control = super.getInputControl(config);
     const { container, input, label } = control;
@@ -5367,6 +5578,10 @@ class ThemeBootstrap4 extends Theme {
       this.visuallyHidden(label);
     }
     return control;
+  }
+  adaptForTableInputControl(control, td) {
+    super.adaptForTableInputControl(control, td);
+    control.container.classList.remove("form-group");
   }
   getRadiosControl(config) {
     const control = super.getRadiosControl(config);
@@ -5385,6 +5600,13 @@ class ThemeBootstrap4 extends Theme {
     body.appendChild(messages);
     return control;
   }
+  adaptForTableRadiosControl(control, td) {
+    super.adaptForTableRadiosControl(control, td);
+    control.container.classList.remove("form-group");
+    control.fieldset.classList.remove("card");
+    control.fieldset.classList.remove("mb-3");
+    control.body.classList.remove("card-body");
+  }
   getCheckboxesControl(config) {
     const control = super.getCheckboxesControl(config);
     const { checkboxes, labels, checkboxControls } = control;
@@ -5396,19 +5618,35 @@ class ThemeBootstrap4 extends Theme {
     });
     return control;
   }
+  adaptForTableCheckboxesControl(control, td) {
+    super.adaptForTableCheckboxesControl(control, td);
+    control.container.classList.remove("form-group");
+    control.fieldset.classList.remove("card");
+    control.fieldset.classList.remove("mb-3");
+    control.body.classList.remove("card-body");
+    control.body.classList.remove("card-body");
+    console.log(control);
+  }
   getCheckboxControl(config) {
     const control = super.getCheckboxControl(config);
     const { container, formGroup, input, label, description, messages } = control;
-    formGroup.classList.add("form-group");
+    container.classList.add("form-group");
     formGroup.classList.add("form-check");
     input.classList.add("form-check-input");
     label.classList.add("form-check-label");
     container.appendChild(formGroup);
     formGroup.appendChild(input);
     formGroup.appendChild(label);
-    formGroup.appendChild(description);
-    formGroup.appendChild(messages);
+    container.appendChild(description);
+    container.appendChild(messages);
     return control;
+  }
+  adaptForTableCheckboxControl(control, td) {
+    super.adaptForTableCheckboxControl(control, td);
+    control.container.classList.remove("form-group");
+    control.formGroup.classList.remove("form-check");
+    control.input.classList.remove("form-check-input");
+    control.label.classList.remove("form-check-label");
   }
   getSelectControl(config) {
     const control = super.getSelectControl(config);
@@ -5416,6 +5654,14 @@ class ThemeBootstrap4 extends Theme {
     container.classList.add("form-group");
     input.classList.add("form-control");
     return control;
+  }
+  adaptForTableSelectControl(control, td) {
+    super.adaptForTableSelectControl(control, td);
+    control.container.classList.remove("form-group");
+  }
+  adaptForTableMultipleControl(control, td) {
+    super.adaptForTableMultipleControl(control, td);
+    control.card.classList.remove("mb-3");
   }
   getAlert(config) {
     const html = super.getAlert(config);
@@ -5470,6 +5716,24 @@ class ThemeBootstrap4 extends Theme {
       tab.link.classList.add("active");
     }
     return tab;
+  }
+  /**
+   * A simple table layout
+   * @private
+   */
+  getTable() {
+    const container = document.createElement("div");
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
+    container.classList.add("table-responsive");
+    table.classList.add("table");
+    table.classList.add("table-sm");
+    table.classList.add("align-middle");
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.appendChild(table);
+    return { container, table, thead, tbody };
   }
   setTabPaneAttributes(element, active, id) {
     super.setTabPaneAttributes(element, active, id);
@@ -5584,6 +5848,10 @@ class ThemeBootstrap5 extends Theme {
     }
     return control;
   }
+  adaptForTableTextareaControl(control) {
+    super.adaptForTableTextareaControl(control);
+    control.container.classList.remove("mb-3");
+  }
   getInputControl(config) {
     const control = super.getInputControl(config);
     const { container, input, label } = control;
@@ -5593,6 +5861,10 @@ class ThemeBootstrap5 extends Theme {
       this.visuallyHidden(label);
     }
     return control;
+  }
+  adaptForTableInputControl(control, td) {
+    super.adaptForTableInputControl(control, td);
+    control.container.classList.remove("mb-3");
   }
   getRadiosControl(config) {
     const control = super.getRadiosControl(config);
@@ -5610,6 +5882,14 @@ class ThemeBootstrap5 extends Theme {
     body.appendChild(description);
     body.appendChild(messages);
     return control;
+  }
+  adaptForTableRadiosControl(control, td) {
+    super.adaptForTableRadiosControl(control, td);
+    control.container.classList.remove("mb-3");
+    control.fieldset.classList.remove("card");
+    control.fieldset.classList.remove("mb-3");
+    control.body.classList.remove("card-body");
+    control.body.classList.remove("pb-0");
   }
   getCheckboxesControl(config) {
     const control = super.getCheckboxesControl(config);
@@ -5635,9 +5915,14 @@ class ThemeBootstrap5 extends Theme {
     container.appendChild(formGroup);
     formGroup.appendChild(input);
     formGroup.appendChild(label);
-    formGroup.appendChild(description);
-    formGroup.appendChild(messages);
+    container.appendChild(description);
+    container.appendChild(messages);
     return control;
+  }
+  adaptForTableCheckboxControl(control, td) {
+    super.adaptForTableCheckboxControl(control, td);
+    control.container.classList.remove("mb-3");
+    control.formGroup.classList.remove("form-check");
   }
   getSelectControl(config) {
     const control = super.getSelectControl(config);
@@ -5645,6 +5930,14 @@ class ThemeBootstrap5 extends Theme {
     container.classList.add("mb-3");
     input.classList.add("form-select");
     return control;
+  }
+  adaptForTableSelectControl(control, td) {
+    super.adaptForTableSelectControl(control, td);
+    control.container.classList.remove("mb-3");
+  }
+  adaptForTableMultipleControl(control, td) {
+    super.adaptForTableMultipleControl(control, td);
+    control.card.classList.remove("mb-3");
   }
   getAlert(config) {
     const html = super.getAlert(config);
@@ -5697,6 +5990,24 @@ class ThemeBootstrap5 extends Theme {
       tab.link.classList.add("active");
     }
     return tab;
+  }
+  /**
+   * A simple table layout
+   * @private
+   */
+  getTable() {
+    const container = document.createElement("div");
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tbody = document.createElement("tbody");
+    container.classList.add("table-responsive");
+    table.classList.add("table");
+    table.classList.add("table-sm");
+    table.classList.add("align-middle");
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    container.appendChild(table);
+    return { container, table, thead, tbody };
   }
   setTabPaneAttributes(element, active, id) {
     super.setTabPaneAttributes(element, active, id);

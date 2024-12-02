@@ -51,6 +51,10 @@ class EditorArrayEnumItems extends Editor {
     })
   }
 
+  adaptForTable (td) {
+    this.theme.adaptForTableCheckboxesControl(this.control, td)
+  }
+
   addEventListeners () {
     this.control.checkboxes.forEach((checkbox) => {
       checkbox.addEventListener('change', () => {

@@ -5,7 +5,7 @@
     </header>
 
     <div class="row">
-      <div class="col-xs-12 col-sm-8">
+      <div class="col-xs-12 col-md-8">
         <main>
           <div class="btn-group">
             <button class="btn btn-primary" id="disable-editor" @click="disableEditor()">Disable</button>
@@ -23,7 +23,7 @@
         </main>
       </div>
 
-      <div class="col-xs-12 col-sm-4">
+      <div class="col-xs-12 col-md-4">
         <aside>
           <div class="form-group mb-3">
             <label for="examples">Examples</label>

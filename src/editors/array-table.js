@@ -24,8 +24,11 @@ class EditorArrayTable extends EditorArray {
     })
   }
 
+  isSortable () {
+    return window.Sortable && isSet(getSchemaXOption(this.instance.schema, 'sortable'))
+  }
+
   refreshUI () {
-    this.refreshInteractiveElements()
     this.control.childrenSlot.innerHTML = ''
 
     const table = this.theme.getTable()
@@ -33,10 +36,14 @@ class EditorArrayTable extends EditorArray {
     this.control.childrenSlot.appendChild(table.container)
 
     // thead labels
+    const th = this.theme.getTableHeader()
+    th.textContent = 'item controls'
+    table.thead.appendChild(th)
+
     const tempEditor = this.instance.createItemInstance()
 
     tempEditor.children.forEach((child) => {
-      const th = document.createElement('th')
+      const th = this.theme.getTableHeader()
 
       if (child.ui.control.label) {
         th.textContent = child.ui.control.label.textContent
@@ -55,21 +62,8 @@ class EditorArrayTable extends EditorArray {
     this.instance.children.forEach((child, index) => {
       const tbodyRow = document.createElement('tr')
 
-      child.children.forEach((child) => {
-        const td = document.createElement('td')
-        child.ui.buildTableCell(td)
-
-        td.style.verticalAlign = 'middle'
-        td.appendChild(child.ui.control.container)
-        tbodyRow.appendChild(td)
-
-        // todo: add aria label by table header
-      })
-
       // buttons
-      const buttonsTd = document.createElement('td')
-      buttonsTd.style.verticalAlign = 'middle'
-
+      const buttonsTd = this.theme.getTableDefinition()
       const deleteBtn = this.theme.getDeleteItemBtn()
       const moveUpBtn = this.theme.getMoveUpItemBtn()
       const moveDownBtn = this.theme.getMoveDownItemBtn()
@@ -92,14 +86,47 @@ class EditorArrayTable extends EditorArray {
         this.instance.move(index, toIndex)
       })
 
-      btnGroup.appendChild(deleteBtn)
+      if (this.isSortable()) {
+        const dragBtn = this.theme.getDragItemBtn()
+        btnGroup.appendChild(dragBtn)
+      }
+
       btnGroup.appendChild(moveUpBtn)
       btnGroup.appendChild(moveDownBtn)
+      btnGroup.appendChild(deleteBtn)
       buttonsTd.appendChild(btnGroup)
       tbodyRow.appendChild(buttonsTd)
 
+      // editors
+      child.children.forEach((child) => {
+        const td = this.theme.getTableDefinition()
+        child.ui.adaptForTable(td)
+        td.appendChild(child.ui.control.container)
+        tbodyRow.appendChild(td)
+      })
+
       table.tbody.appendChild(tbodyRow)
     })
+
+    this.refreshSortable(table.tbody)
+    this.refreshInteractiveElements()
+  }
+
+  refreshSortable (container) {
+    if (this.isSortable()) {
+      if (this.sortable) {
+        this.sortable.destroy()
+      }
+
+      this.sortable = window.Sortable.create(container, {
+        animation: 150,
+        handle: '.jedi-array-drag',
+        disabled: this.disabled || this.readOnly,
+        onEnd: (evt) => {
+          this.instance.move(evt.oldIndex, evt.newIndex)
+        }
+      })
+    }
   }
 }
 

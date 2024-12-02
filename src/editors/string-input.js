@@ -33,6 +33,10 @@ class EditorStringInput extends EditorString {
     }
   }
 
+  adaptForTable () {
+    this.theme.adaptForTableInputControl(this.control)
+  }
+
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
       this.instance.setValue(this.control.input.value, true, 'editor')

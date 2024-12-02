@@ -21,7 +21,7 @@ Scenario('@editor @array should validate against @items', ({ I }) => {
   I._waitForText('This is a number editor', '[data-path="#/items"] [data-type="number"]')
 })
 
-Scenario('@editor-array @prefixItems should validate against prefixItems', ({ I }) => {
+Scenario('@editor @array @prefixItems should validate against prefixItems', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/array')
   I._waitForElement('.jedi-ready')
@@ -46,7 +46,7 @@ Scenario('@array-object @enableCollapseToggle should collapse and expand content
   I.waitForVisible('.jedi-editor-card-body')
 })
 
-Scenario('@editor-array @array-nav-pills', ({ I }) => {
+Scenario('@editor @array @array-nav-pills', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/array-nav-pills')
   I._waitForElement('.jedi-ready')
@@ -73,7 +73,7 @@ Scenario('@editor-array @array-nav-pills', ({ I }) => {
   }
 })
 
-Scenario('@editor-array @array-nav-tabs', ({ I }) => {
+Scenario('@editor @array @array-nav-tabs', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/array-nav-tabs')
   I._waitForElement('.jedi-ready')

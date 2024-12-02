@@ -114,6 +114,11 @@ class ThemeBootstrap3 extends Theme {
     return control
   }
 
+  adaptForTableTextareaControl (control) {
+    super.adaptForTableTextareaControl(control)
+    control.container.classList.remove('form-group')
+  }
+
   getInputControl (config) {
     const control = super.getInputControl(config)
     const { container, input, label } = control
@@ -125,6 +130,11 @@ class ThemeBootstrap3 extends Theme {
     }
 
     return control
+  }
+
+  adaptForTableInputControl (control, td) {
+    super.adaptForTableInputControl(control, td)
+    control.container.classList.remove('form-group')
   }
 
   getRadiosControl (config) {
@@ -146,6 +156,13 @@ class ThemeBootstrap3 extends Theme {
     return control
   }
 
+  adaptForTableRadiosControl (control, td) {
+    super.adaptForTableRadiosControl(control, td)
+    control.fieldset.classList.remove('panel')
+    control.fieldset.classList.remove('panel-default')
+    control.body.classList.remove('panel-body')
+  }
+
   getCheckboxesControl (config) {
     const control = super.getCheckboxesControl(config)
     const { body, checkboxes, labels, labelTexts, checkboxControls } = control
@@ -161,6 +178,13 @@ class ThemeBootstrap3 extends Theme {
     return control
   }
 
+  adaptForTableCheckboxesControl (control, td) {
+    super.adaptForTableCheckboxesControl(control, td)
+    control.fieldset.classList.remove('panel')
+    control.fieldset.classList.remove('panel-default')
+    control.body.classList.remove('panel-body')
+  }
+
   getCheckboxControl (config) {
     const control = super.getCheckboxControl(config)
     const { container, formGroup, description, messages } = control
@@ -169,6 +193,10 @@ class ThemeBootstrap3 extends Theme {
     container.appendChild(description)
     container.appendChild(messages)
     return control
+  }
+
+  adaptForTableCheckboxControl (control, td) {
+    super.adaptForTableCheckboxControl(control, td)
   }
 
   getSelectControl (config) {
@@ -182,6 +210,15 @@ class ThemeBootstrap3 extends Theme {
     }
 
     return control
+  }
+
+  adaptForTableSelectControl (control, td) {
+    super.adaptForTableSelectControl(control, td)
+    control.container.classList.remove('form-group')
+  }
+
+  adaptForTableMultipleControl (control, td) {
+    super.adaptForTableMultipleControl(control, td)
   }
 
   getAlert (config) {

@@ -5,11 +5,13 @@
 
 - jedi
   - complementary schema (for ui stuff)
-  - iconLib class
+  - iconLib string|IconLib
+  - theme string|Theme
 
 - validation
   - drafts
   - formats: https://json-schema.org/understanding-json-schema/reference/string#format
+  - errorMode: 'inline|summary'
 
 - plugins
   - Choices
@@ -17,6 +19,7 @@
   - simplemde
 
 - editors
+  - number input should have step="any"
   - input range
   - input file
   - color picker

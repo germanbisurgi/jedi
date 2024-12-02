@@ -124,6 +124,11 @@ class ThemeBootstrap5 extends Theme {
     return control
   }
 
+  adaptForTableTextareaControl (control) {
+    super.adaptForTableTextareaControl(control)
+    control.container.classList.remove('mb-3')
+  }
+
   getInputControl (config) {
     const control = super.getInputControl(config)
     const { container, input, label } = control
@@ -135,6 +140,11 @@ class ThemeBootstrap5 extends Theme {
     }
 
     return control
+  }
+
+  adaptForTableInputControl (control, td) {
+    super.adaptForTableInputControl(control, td)
+    control.container.classList.remove('mb-3')
   }
 
   getRadiosControl (config) {
@@ -158,6 +168,15 @@ class ThemeBootstrap5 extends Theme {
     body.appendChild(messages)
 
     return control
+  }
+
+  adaptForTableRadiosControl (control, td) {
+    super.adaptForTableRadiosControl(control, td)
+    control.container.classList.remove('mb-3')
+    control.fieldset.classList.remove('card')
+    control.fieldset.classList.remove('mb-3')
+    control.body.classList.remove('card-body')
+    control.body.classList.remove('pb-0')
   }
 
   getCheckboxesControl (config) {
@@ -194,6 +213,12 @@ class ThemeBootstrap5 extends Theme {
     return control
   }
 
+  adaptForTableCheckboxControl (control, td) {
+    super.adaptForTableCheckboxControl(control, td)
+    control.container.classList.remove('mb-3')
+    control.formGroup.classList.remove('form-check')
+  }
+
   getSelectControl (config) {
     const control = super.getSelectControl(config)
     const { container, input } = control
@@ -202,9 +227,14 @@ class ThemeBootstrap5 extends Theme {
     return control
   }
 
-  adaptSelectControlForTableCell (control, td) {
-    super.adaptSelectControlForTableCell(control, td)
+  adaptForTableSelectControl (control, td) {
+    super.adaptForTableSelectControl(control, td)
     control.container.classList.remove('mb-3')
+  }
+
+  adaptForTableMultipleControl (control, td) {
+    super.adaptForTableMultipleControl(control, td)
+    control.card.classList.remove('mb-3')
   }
 
   getAlert (config) {

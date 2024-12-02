@@ -721,6 +721,8 @@ class Theme {
     }
   }
 
+  adaptForTableMultipleControl (control, td) {}
+
   getIfThenElseControl (config) {
     const container = document.createElement('div')
     const card = this.getCard()
@@ -835,6 +837,12 @@ class Theme {
     return { container, input, label, labelText, description, messages, actions, arrayActions }
   }
 
+  adaptForTableTextareaControl (control) {
+    this.visuallyHidden(control.label)
+    this.visuallyHidden(control.description)
+    this.visuallyHidden(control.messages)
+  }
+
   /**
    * An Input control
    */
@@ -877,6 +885,12 @@ class Theme {
     actions.appendChild(arrayActions)
 
     return { container, input, label, labelText, description, messages, actions, arrayActions }
+  }
+
+  adaptForTableInputControl (control) {
+    this.visuallyHidden(control.label)
+    this.visuallyHidden(control.description)
+    this.visuallyHidden(control.messages)
   }
 
   /**
@@ -971,6 +985,12 @@ class Theme {
     }
   }
 
+  adaptForTableRadiosControl (control) {
+    this.visuallyHidden(control.legend)
+    this.visuallyHidden(control.description)
+    this.visuallyHidden(control.messages)
+  }
+
   /**
    * A checkbox control
    */
@@ -1014,6 +1034,13 @@ class Theme {
     formGroup.appendChild(messages)
 
     return { container, formGroup, input, label, labelText, description, messages, actions, arrayActions }
+  }
+
+  adaptForTableCheckboxControl (control, td) {
+    this.visuallyHidden(control.label)
+    this.visuallyHidden(control.description)
+    this.visuallyHidden(control.messages)
+    td.style.textAlign = 'center'
   }
 
   getCheckboxesControl (config) {
@@ -1105,6 +1132,13 @@ class Theme {
     }
   }
 
+  adaptForTableCheckboxesControl (control, td) {
+    this.visuallyHidden(control.legend)
+    this.visuallyHidden(control.description)
+    this.visuallyHidden(control.messages)
+    td.style.textAlign = 'center'
+  }
+
   /**
    * A select control
    */
@@ -1155,6 +1189,12 @@ class Theme {
     actions.appendChild(arrayActions)
 
     return { container, input, label, labelText, description, messages, actions, arrayActions }
+  }
+
+  adaptForTableSelectControl (control) {
+    this.visuallyHidden(control.label)
+    this.visuallyHidden(control.description)
+    this.visuallyHidden(control.messages)
   }
 
   /**
@@ -1283,6 +1323,27 @@ class Theme {
     container.appendChild(table)
 
     return { container, table, thead, tbody }
+  }
+
+  /**
+   * Returns a <td> element
+   */
+  getTableDefinition () {
+    const td = document.createElement('td')
+    td.style.verticalAlign = 'middle'
+    return td
+  }
+
+  /**
+   * Returns a <th> element
+   */
+  getTableHeader () {
+    const th = document.createElement('th')
+    th.style.verticalAlign = 'middle'
+    th.style.whiteSpace = 'nowrap'
+    th.style.paddingLeft = '12px'
+    th.style.paddingRight = '12px'
+    return th
   }
 
   /**

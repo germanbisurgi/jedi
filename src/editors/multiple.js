@@ -26,6 +26,10 @@ class EditorMultiple extends Editor {
     })
   }
 
+  adaptForTable (td) {
+    this.theme.adaptForTableMultipleControl(this.control, td)
+  }
+
   addEventListeners () {
     this.control.switcher.input.addEventListener('change', () => {
       const index = Number(this.control.switcher.input.value)

@@ -119,6 +119,11 @@ class ThemeBootstrap4 extends Theme {
     return control
   }
 
+  adaptForTableTextareaControl (control) {
+    super.adaptForTableTextareaControl(control)
+    control.container.classList.remove('form-group')
+  }
+
   getInputControl (config) {
     const control = super.getInputControl(config)
     const { container, input, label } = control
@@ -130,6 +135,11 @@ class ThemeBootstrap4 extends Theme {
     }
 
     return control
+  }
+
+  adaptForTableInputControl (control, td) {
+    super.adaptForTableInputControl(control, td)
+    control.container.classList.remove('form-group')
   }
 
   getRadiosControl (config) {
@@ -155,6 +165,14 @@ class ThemeBootstrap4 extends Theme {
     return control
   }
 
+  adaptForTableRadiosControl (control, td) {
+    super.adaptForTableRadiosControl(control, td)
+    control.container.classList.remove('form-group')
+    control.fieldset.classList.remove('card')
+    control.fieldset.classList.remove('mb-3')
+    control.body.classList.remove('card-body')
+  }
+
   getCheckboxesControl (config) {
     const control = super.getCheckboxesControl(config)
     const { checkboxes, labels, checkboxControls } = control
@@ -167,6 +185,17 @@ class ThemeBootstrap4 extends Theme {
     })
 
     return control
+  }
+
+  adaptForTableCheckboxesControl (control, td) {
+    super.adaptForTableCheckboxesControl(control, td)
+    control.container.classList.remove('form-group')
+    control.fieldset.classList.remove('card')
+    control.fieldset.classList.remove('mb-3')
+    control.body.classList.remove('card-body')
+
+    control.body.classList.remove('card-body')
+    console.log(control)
   }
 
   getCheckboxControl (config) {
@@ -185,12 +214,30 @@ class ThemeBootstrap4 extends Theme {
     return control
   }
 
+  adaptForTableCheckboxControl (control, td) {
+    super.adaptForTableCheckboxControl(control, td)
+    control.container.classList.remove('form-group')
+    control.formGroup.classList.remove('form-check')
+    control.input.classList.remove('form-check-input')
+    control.label.classList.remove('form-check-label')
+  }
+
   getSelectControl (config) {
     const control = super.getSelectControl(config)
     const { container, input } = control
     container.classList.add('form-group')
     input.classList.add('form-control')
     return control
+  }
+
+  adaptForTableSelectControl (control, td) {
+    super.adaptForTableSelectControl(control, td)
+    control.container.classList.remove('form-group')
+  }
+
+  adaptForTableMultipleControl (control, td) {
+    super.adaptForTableMultipleControl(control, td)
+    control.card.classList.remove('mb-3')
   }
 
   getAlert (config) {

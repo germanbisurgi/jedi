@@ -1,61 +1,229 @@
 {
-  "title": "People",
+  "title": "Array",
+  "description": "Arrays are used for ordered elements. In JSON, each element in an array may be of a different type.",
   "type": "array",
+  "minItems": 2,
   "x-options": {
-    "table": {}
+    "table": {},
+    "sortable": true
   },
-  "required": [
-    "input",
-    "select",
-    "checkbox",
-    "radio"
-  ],
   "default": [
     {
-      "input": "Albert",
-      "select": "male",
-      "checkbox": true,
-      "radio": ""
+      "boolean-enum-select": true,
+      "boolean-enum-radio": true,
+      "boolean": true,
+      "string": "ut Lorem laborum quis",
+      "string-textarea": "non reprehenderit",
+      "string-enum-select": "albert",
+      "string-enum-radio": "betti",
+      "number": 16348035.233686866,
+      "number-enum-select": 1.5,
+      "number-enum-radio": 1.5,
+      "integer": 49878374,
+      "integer-enum-select": 3,
+      "integer-enum-radio": 1
+    },
+    {
+      "boolean-enum-select": false,
+      "boolean-enum-radio": false,
+      "boolean": false,
+      "string": "Lorem eu laborum nostrud",
+      "string-textarea": "ad reprehenderit exercitation est",
+      "string-enum-select": "carl",
+      "string-enum-radio": "betti",
+      "number": 59176757.926051416,
+      "number-enum-select": 2.5,
+      "number-enum-radio": 1.5,
+      "integer": 81128216,
+      "integer-enum-select": 2,
+      "integer-enum-radio": 1
     }
   ],
   "items": {
     "type": "object",
     "title": "Person",
     "description": "Person",
+    "required": [
+      "boolean-enum-select",
+      "boolean-enum-radio",
+      "boolean",
+      "string",
+      "string-textarea",
+      "string-enum-select",
+      "string-enum-radio",
+      "number",
+      "number-enum-select",
+      "number-enum-radio",
+      "integer",
+      "integer-enum-select",
+      "integer-enum-radio"
+    ],
     "properties": {
-      "input": {
-        "title": "Input",
-        "type": "string"
-      },
-      "select": {
-        "title": "Select",
-        "description": "Select",
-        "type": "string",
-        "enum": [
-          "male",
-          "female",
-          "other"
-        ]
-      },
-      "checkbox": {
-        "title": "Checkbox",
-        "description": "Checkbox",
+      "boolean-enum-select": {
         "type": "boolean",
+        "title": "Boolean enum select",
+        "description": "A boolean editor using select input.",
+        "const": true,
+        "x-options": {
+          "format": "select",
+          "enumTitles": [
+            "No",
+            "Yes"
+          ]
+        }
+      },
+      "boolean-enum-radio": {
+        "type": "boolean",
+        "title": "Boolean enum radio",
+        "description": "A boolean editor using radios.",
+        "const": true,
+        "x-options": {
+          "format": "radio",
+          "enumTitles": [
+            "No",
+            "Yes"
+          ]
+        }
+      },
+      "boolean": {
+        "type": "boolean",
+        "title": "Boolean",
+        "description": "A boolean editor checkbox.",
+        "const": true,
         "x-options": {
           "format": "checkbox"
         }
       },
-      "radio": {
+      "string": {
         "type": "string",
-        "title": "Radio",
-        "description": "Radio",
+        "title": "String input",
+        "description": "A string editor.",
+        "minLength": 1
+      },
+      "string-textarea": {
+        "type": "string",
+        "title": "String textarea",
+        "description": "A string editor using textarea.",
+        "minLength": 1,
+        "x-options": {
+          "format": "textarea"
+        }
+      },
+      "string-enum-select": {
+        "type": "string",
+        "title": "String enum select",
+        "description": "A string editor using select.",
         "enum": [
           "albert",
           "betti",
           "carl"
         ],
         "x-options": {
-          "format": "radio"
+          "enumTitles": [
+            "Albert",
+            "Betti",
+            "Carl"
+          ]
+        }
+      },
+      "string-enum-radio": {
+        "type": "string",
+        "title": "String enum radio",
+        "description": "A string editor using radios.",
+        "enum": [
+          "albert",
+          "betti",
+          "carl"
+        ],
+        "x-options": {
+          "format": "radio",
+          "enumTitles": [
+            "Albert",
+            "Betti",
+            "Carl"
+          ]
+        }
+      },
+      "number": {
+        "type": "number",
+        "title": "Number input",
+        "description": "A number editor.",
+        "minimum": 1
+      },
+      "number-enum-select": {
+        "type": "number",
+        "title": "Number enum select",
+        "description": "A number editor using select.",
+        "enum": [
+          1.5,
+          2.5,
+          3.5
+        ],
+        "x-options": {
+          "enumTitles": [
+            "small (1.5)",
+            "medium (2.5)",
+            "big (3.5)"
+          ]
+        }
+      },
+      "number-enum-radio": {
+        "type": "number",
+        "title": "Number enum radio",
+        "description": "A number editor using radios.",
+        "enum": [
+          1.5,
+          2.5,
+          3.5
+        ],
+        "x-options": {
+          "format": "radio",
+          "enumTitles": [
+            "small (1.5)",
+            "medium (2.5)",
+            "big (3.5)"
+          ]
+        }
+      },
+      "integer": {
+        "type": "integer",
+        "title": "Integer",
+        "description": "A integer editor.",
+        "minimum": 1
+      },
+      "integer-enum-select": {
+        "type": "integer",
+        "title": "Integer enum select",
+        "description": "A integer editor using select.",
+        "enum": [
+          1,
+          2,
+          3
+        ],
+        "x-options": {
+          "enumTitles": [
+            "small (1)",
+            "medium (2)",
+            "big (3)"
+          ]
+        }
+      },
+      "integer-enum-radio": {
+        "type": "number",
+        "title": "Integer enum radio",
+        "description": "A integer editor using radios.",
+        "enum": [
+          1,
+          2,
+          3
+        ],
+        "x-options": {
+          "format": "radio",
+          "enumTitles": [
+            "small (1)",
+            "medium (2)",
+            "big (3)"
+          ]
         }
       }
     }
