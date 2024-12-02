@@ -25,6 +25,10 @@ class EditorNumberEnumSelect extends EditorNumber {
     })
   }
 
+  adaptForTable () {
+    this.theme.adaptForTableSelectControl(this.control)
+  }
+
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
       const value = this.sanitize(this.control.input.value)

@@ -95,6 +95,8 @@ class Editor {
   build () {
   }
 
+  adaptForTable () {}
+
   /**
    * Adds attributes to generated html elements if specified in schema x-options
    * @private

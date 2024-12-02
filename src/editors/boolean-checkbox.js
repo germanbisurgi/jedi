@@ -20,6 +20,10 @@ class EditorBooleanCheckbox extends EditorBoolean {
     })
   }
 
+  adaptForTable (td) {
+    this.theme.adaptForTableCheckboxControl(this.control, td)
+  }
+
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
       this.instance.setValue(this.control.input.checked, true, 'editor')

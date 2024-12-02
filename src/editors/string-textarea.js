@@ -21,6 +21,10 @@ class EditorStringTextarea extends EditorString {
     })
   }
 
+  adaptForTable () {
+    this.theme.adaptForTableTextareaControl(this.control)
+  }
+
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
       this.instance.setValue(this.control.input.value, true, 'editor')

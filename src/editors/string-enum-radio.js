@@ -22,6 +22,10 @@ class EditorStringEnumRadio extends EditorString {
     })
   }
 
+  adaptForTable () {
+    this.theme.adaptForTableRadiosControl(this.control)
+  }
+
   addEventListeners () {
     this.control.radios.forEach((radio) => {
       radio.addEventListener('change', () => {

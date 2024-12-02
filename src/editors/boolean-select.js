@@ -23,6 +23,10 @@ class EditorBooleanEnumSelect extends EditorBoolean {
     })
   }
 
+  adaptForTable () {
+    this.theme.adaptForTableSelectControl(this.control)
+  }
+
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
       const value = this.control.input.value === 'true'

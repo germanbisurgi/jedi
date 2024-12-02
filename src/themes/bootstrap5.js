@@ -124,6 +124,11 @@ class ThemeBootstrap5 extends Theme {
     return control
   }
 
+  adaptForTableTextareaControl (control) {
+    super.adaptForTableTextareaControl(control)
+    control.container.classList.remove('mb-3')
+  }
+
   getInputControl (config) {
     const control = super.getInputControl(config)
     const { container, input, label } = control
@@ -135,6 +140,11 @@ class ThemeBootstrap5 extends Theme {
     }
 
     return control
+  }
+
+  adaptForTableInputControl (control, td) {
+    super.adaptForTableInputControl(control, td)
+    control.container.classList.remove('mb-3')
   }
 
   getRadiosControl (config) {
@@ -158,6 +168,15 @@ class ThemeBootstrap5 extends Theme {
     body.appendChild(messages)
 
     return control
+  }
+
+  adaptForTableRadiosControl (control, td) {
+    super.adaptForTableRadiosControl(control, td)
+    control.container.classList.remove('mb-3')
+    control.fieldset.classList.remove('card')
+    control.fieldset.classList.remove('mb-3')
+    control.body.classList.remove('card-body')
+    control.body.classList.remove('pb-0')
   }
 
   getCheckboxesControl (config) {
@@ -189,9 +208,15 @@ class ThemeBootstrap5 extends Theme {
     container.appendChild(formGroup)
     formGroup.appendChild(input)
     formGroup.appendChild(label)
-    formGroup.appendChild(description)
-    formGroup.appendChild(messages)
+    container.appendChild(description)
+    container.appendChild(messages)
     return control
+  }
+
+  adaptForTableCheckboxControl (control, td) {
+    super.adaptForTableCheckboxControl(control, td)
+    control.container.classList.remove('mb-3')
+    control.formGroup.classList.remove('form-check')
   }
 
   getSelectControl (config) {
@@ -200,6 +225,16 @@ class ThemeBootstrap5 extends Theme {
     container.classList.add('mb-3')
     input.classList.add('form-select')
     return control
+  }
+
+  adaptForTableSelectControl (control, td) {
+    super.adaptForTableSelectControl(control, td)
+    control.container.classList.remove('mb-3')
+  }
+
+  adaptForTableMultipleControl (control, td) {
+    super.adaptForTableMultipleControl(control, td)
+    control.card.classList.remove('mb-3')
   }
 
   getAlert (config) {
@@ -267,6 +302,28 @@ class ThemeBootstrap5 extends Theme {
     }
 
     return tab
+  }
+
+  /**
+   * A simple table layout
+   * @private
+   */
+  getTable () {
+    const container = document.createElement('div')
+    const table = document.createElement('table')
+    const thead = document.createElement('thead')
+    const tbody = document.createElement('tbody')
+
+    container.classList.add('table-responsive')
+    table.classList.add('table')
+    table.classList.add('table-sm')
+    table.classList.add('align-middle')
+
+    table.appendChild(thead)
+    table.appendChild(tbody)
+    container.appendChild(table)
+
+    return { container, table, thead, tbody }
   }
 
   setTabPaneAttributes (element, active, id) {

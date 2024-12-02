@@ -23,6 +23,10 @@ class EditorStringEnumSelect extends EditorString {
     })
   }
 
+  adaptForTable () {
+    this.theme.adaptForTableSelectControl(this.control)
+  }
+
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
       this.instance.setValue(this.control.input.value, true, 'editor')

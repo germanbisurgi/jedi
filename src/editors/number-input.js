@@ -25,6 +25,12 @@ class EditorNumberInput extends EditorNumber {
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden') || getSchemaXOption(this.instance.schema, 'format') === 'hidden',
       description: getSchemaDescription(this.instance.schema)
     })
+
+    this.control.input.setAttribute('step', 'any')
+  }
+
+  adaptForTable () {
+    this.theme.adaptForTableInputControl(this.control)
   }
 
   addEventListeners () {
