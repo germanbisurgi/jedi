@@ -15,7 +15,7 @@ class EditorStringEnumRadio extends EditorString {
     this.control = this.theme.getRadiosControl({
       values: getSchemaEnum(this.instance.schema),
       titles: getSchemaXOption(this.instance.schema, 'enumTitles') || getSchemaEnum(this.instance.schema),
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema)

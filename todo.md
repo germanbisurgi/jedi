@@ -19,7 +19,7 @@
   - simplemde
 
 - editors
-  - number input should have step="any"
+  - readOnly should not render buttons
   - input range
   - input file
   - color picker
@@ -33,7 +33,5 @@
   - property already exist message box or disable add button
   - anyOf, oneOf accessibility switcher (radios are better)
   - option hideButton labels
-  - array table
-  - refactor select and radios to remove duplicated code
 
 - publish on NPM

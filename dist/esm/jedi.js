@@ -1813,6 +1813,9 @@ class Editor {
       }
     }
   }
+  getIdFromPath(path) {
+    return this.instance.jedi.options.labelPrefix + pathToAttribute(path);
+  }
   /**
    * Updates the value of the instance by making assumptions based on constrains
    */
@@ -1924,7 +1927,7 @@ class EditorIfThenElse extends Editor {
     this.control = this.theme.getIfThenElseControl({
       title: "Options",
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       description: getSchemaDescription(this.instance.schema)
     });
   }
@@ -2568,7 +2571,7 @@ class EditorBooleanRadio extends EditorBoolean {
     this.control = this.theme.getRadiosControl({
       values: ["false", "true"],
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || ["false", "true"],
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema)
@@ -2601,7 +2604,7 @@ class EditorBooleanEnumSelect extends EditorBoolean {
     this.control = this.theme.getSelectControl({
       values: ["false", "true"],
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || ["false", "true"],
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
@@ -2628,7 +2631,7 @@ class EditorBooleanCheckbox extends EditorBoolean {
   }
   build() {
     this.control = this.theme.getCheckboxControl({
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema)
@@ -2663,7 +2666,7 @@ class EditorStringEnumRadio extends EditorString {
     this.control = this.theme.getRadiosControl({
       values: getSchemaEnum(this.instance.schema),
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || getSchemaEnum(this.instance.schema),
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema)
@@ -2694,7 +2697,7 @@ class EditorStringEnumSelect extends EditorString {
     this.control = this.theme.getSelectControl({
       values: getSchemaEnum(this.instance.schema),
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || getSchemaEnum(this.instance.schema),
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
@@ -2720,7 +2723,7 @@ class EditorStringTextarea extends EditorString {
   }
   build() {
     this.control = this.theme.getTextareaControl({
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
@@ -2747,7 +2750,7 @@ class EditorStringAwesomplete extends EditorString {
   build() {
     this.control = this.theme.getInputControl({
       type: "text",
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
@@ -2785,7 +2788,7 @@ class EditorStringInput extends EditorString {
     const optionFormat = getSchemaXOption(this.instance.schema, "format");
     this.control = this.theme.getInputControl({
       type: EditorStringInput.getTypes().includes(optionFormat) ? optionFormat : "text",
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || optionFormat === "hidden",
@@ -2832,7 +2835,7 @@ class EditorNumberEnumRadio extends EditorNumber {
     this.control = this.theme.getRadiosControl({
       values: getSchemaEnum(this.instance.schema),
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || getSchemaEnum(this.instance.schema),
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema)
@@ -2866,7 +2869,7 @@ class EditorNumberEnumSelect extends EditorNumber {
     this.control = this.theme.getSelectControl({
       values: getSchemaEnum(this.instance.schema),
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || getSchemaEnum(this.instance.schema),
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
@@ -2898,7 +2901,7 @@ class EditorNumberInput extends EditorNumber {
   build() {
     this.control = this.theme.getInputControl({
       type: "number",
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || getSchemaXOption(this.instance.schema, "format") === "hidden",
@@ -2945,7 +2948,7 @@ class EditorObject extends Editor {
     this.control = this.theme.getObjectControl({
       title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       description: getSchemaDescription(this.instance.schema),
       enablePropertiesToggle,
       addProperty,
@@ -3072,7 +3075,7 @@ class EditorObject extends Editor {
 }
 class EditorObjectGrid extends EditorObject {
   static resolves(schema) {
-    return getSchemaType(schema) === "object" && isSet(getSchemaXOption(schema, "grid"));
+    return getSchemaType(schema) === "object" && getSchemaXOption(schema, "format") === "grid";
   }
   refreshEditors() {
     while (this.control.childrenSlot.firstChild) {
@@ -3082,11 +3085,10 @@ class EditorObjectGrid extends EditorObject {
     this.control.childrenSlot.appendChild(row);
     this.instance.children.forEach((child) => {
       if (child.isActive) {
-        const grid = getSchemaXOption(child.schema, "grid");
-        const columns = (grid == null ? void 0 : grid.columns) || 12;
-        const offset = (grid == null ? void 0 : grid.offset) || 0;
+        const columns = getSchemaXOption(child.schema, "gridColumns") || 12;
+        const offset = getSchemaXOption(child.schema, "gridOffset") || 0;
         const col = this.theme.getCol(12, columns, offset);
-        const newRow = (grid == null ? void 0 : grid.newRow) || false;
+        const newRow = getSchemaXOption(child.schema, "gridNewRow") || false;
         if (newRow) {
           row = this.theme.getRow();
           this.control.childrenSlot.appendChild(row);
@@ -3104,7 +3106,7 @@ class EditorObjectGrid extends EditorObject {
 }
 class EditorObjectNav extends EditorObject {
   static resolves(schema) {
-    return getSchemaType(schema) === "object" && isSet(getSchemaXOption(schema, "nav"));
+    return getSchemaType(schema) === "object" && getSchemaXOption(schema, "format") === "nav";
   }
   init() {
     super.init();
@@ -3114,15 +3116,14 @@ class EditorObjectNav extends EditorObject {
     while (this.control.childrenSlot.firstChild) {
       this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild);
     }
-    const nav = getSchemaXOption(this.instance.schema, "nav");
     const row = this.theme.getRow();
-    const cols = isSet(nav.cols) ? nav.cols : 4;
+    const cols = getSchemaXOption(this.instance.schema, "navCols") || 4;
     const tabListCol = this.theme.getCol(12, cols);
     const tabContentCol = this.theme.getCol(12, 12 - cols);
     const tabContent = this.theme.getTabContent();
     const tabList = this.theme.getTabList({
-      stacked: isSet(nav.stacked) ? nav.stacked : false,
-      type: isSet(nav.variant) ? nav.variant : "pils"
+      stacked: getSchemaXOption(this.instance.schema, "navStacked") || false,
+      type: getSchemaXOption(this.instance.schema, "navType") || "pils"
     });
     this.control.childrenSlot.appendChild(row);
     row.appendChild(tabListCol);
@@ -3163,7 +3164,7 @@ class EditorArray extends Editor {
     this.control = this.theme.getArrayControl({
       title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       description: getSchemaDescription(this.instance.schema),
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed")
@@ -3252,7 +3253,7 @@ class EditorArray extends Editor {
 }
 class EditorArrayTable extends EditorArray {
   static resolves(schema) {
-    return getSchemaType(schema) === "array" && isSet(getSchemaXOption(schema, "table"));
+    return getSchemaType(schema) === "array" && getSchemaXOption(schema, "format") === "table";
   }
   init() {
     super.init();
@@ -3272,11 +3273,15 @@ class EditorArrayTable extends EditorArray {
     const table = this.theme.getTable();
     this.control.childrenSlot.appendChild(table.container);
     const th = this.theme.getTableHeader();
-    th.textContent = "item controls";
+    th.style.minWidth = "100px";
     table.thead.appendChild(th);
     const tempEditor = this.instance.createItemInstance();
+    const tableColWidth = getSchemaXOption(this.instance.schema, "tableColWidth");
     tempEditor.children.forEach((child) => {
-      const th2 = this.theme.getTableHeader();
+      const itemTableColWidth = getSchemaXOption(child.schema, "tableColWidth");
+      const th2 = this.theme.getTableHeader({
+        minWidth: itemTableColWidth || tableColWidth || "auto"
+      });
       if (child.ui.control.label) {
         th2.textContent = child.ui.control.label.textContent;
       }
@@ -3316,12 +3321,19 @@ class EditorArrayTable extends EditorArray {
       btnGroup.appendChild(deleteBtn);
       buttonsTd.appendChild(btnGroup);
       tbodyRow.appendChild(buttonsTd);
-      child.children.forEach((child2) => {
+      if (child.children.length) {
+        child.children.forEach((grandchild) => {
+          const td = this.theme.getTableDefinition();
+          grandchild.ui.adaptForTable(td);
+          td.appendChild(grandchild.ui.control.container);
+          tbodyRow.appendChild(td);
+        });
+      } else {
         const td = this.theme.getTableDefinition();
-        child2.ui.adaptForTable(td);
-        td.appendChild(child2.ui.control.container);
+        child.ui.adaptForTable(td);
+        td.appendChild(child.ui.control.container);
         tbodyRow.appendChild(td);
-      });
+      }
       table.tbody.appendChild(tbodyRow);
     });
     this.refreshSortable(table.tbody);
@@ -3345,7 +3357,7 @@ class EditorArrayTable extends EditorArray {
 }
 class EditorArrayNav extends EditorArray {
   static resolves(schema) {
-    return getSchemaType(schema) === "array" && isSet(getSchemaXOption(schema, "nav"));
+    return getSchemaType(schema) === "array" && getSchemaXOption(schema, "format") === "nav";
   }
   init() {
     super.init();
@@ -3360,15 +3372,14 @@ class EditorArrayNav extends EditorArray {
   refreshUI() {
     this.refreshInteractiveElements();
     this.control.childrenSlot.innerHTML = "";
-    const nav = getSchemaXOption(this.instance.schema, "nav");
     const row = this.theme.getRow();
-    const cols = isSet(nav.cols) ? nav.cols : 4;
+    const cols = getSchemaXOption(this.instance.schema, "navCols") || 4;
     const tabListCol = this.theme.getCol(12, cols);
     const tabContentCol = this.theme.getCol(12, 12 - cols);
     const tabContent = this.theme.getTabContent();
     const tabList = this.theme.getTabList({
-      stacked: isSet(nav.stacked) ? nav.stacked : false,
-      type: isSet(nav.type) ? nav.type : "pils"
+      stacked: getSchemaXOption(this.instance.schema, "navStacked") || false,
+      type: getSchemaXOption(this.instance.schema, "navType") || "pils"
     });
     this.control.childrenSlot.appendChild(row);
     row.appendChild(tabListCol);
@@ -3451,7 +3462,7 @@ class EditorMultiple extends Editor {
     this.control = this.theme.getMultipleControl({
       title: "Options",
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       description: getSchemaDescription(this.instance.schema),
       switcherOptionValues: this.instance.switcherOptionValues,
       switcherOptionsLabels: this.instance.switcherOptionsLabels,
@@ -3488,7 +3499,7 @@ class EditorNull extends Editor {
   }
   build() {
     this.control = this.theme.getNullControl({
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || getSchemaXOption(this.instance.schema, "format") === "hidden",
@@ -3505,7 +3516,7 @@ class EditorStringQuill extends EditorString {
   }
   build() {
     this.control = this.theme.getPlaceholderControl({
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
@@ -3543,7 +3554,7 @@ class EditorStringJodit extends EditorString {
   }
   build() {
     this.control = this.theme.getTextareaControl({
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
@@ -3586,7 +3597,7 @@ class EditorStringFlatpickr extends EditorString {
   build() {
     this.control = this.theme.getInputControl({
       type: "text",
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
@@ -3618,7 +3629,7 @@ class EditorNumberRaty extends EditorNumber {
   }
   build() {
     this.control = this.theme.getPlaceholderControl({
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
@@ -3664,7 +3675,7 @@ class EditorArrayEnumItems extends Editor {
     this.control = this.theme.getCheckboxesControl({
       values: getSchemaEnum(this.instance.schema.items),
       titles: getSchemaXOption(this.instance.schema.items, "enumTitles") || getSchemaEnum(this.instance.schema.items),
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema)
@@ -3768,7 +3779,8 @@ class Jedi extends EventEmitter {
       enforceConst: false,
       enforceEnumDefault: true,
       customEditors: [],
-      hiddenInputAttributes: {}
+      hiddenInputAttributes: {},
+      labelPrefix: ""
     }, options);
     this.rootName = "#";
     this.pathSeparator = "/";
@@ -5189,17 +5201,19 @@ class Theme {
   getTableDefinition() {
     const td = document.createElement("td");
     td.style.verticalAlign = "middle";
+    td.style.whiteSpace = "nowrap";
     return td;
   }
   /**
    * Returns a <th> element
    */
-  getTableHeader() {
+  getTableHeader(config = {}) {
     const th = document.createElement("th");
-    th.style.verticalAlign = "middle";
-    th.style.whiteSpace = "nowrap";
     th.style.paddingLeft = "12px";
     th.style.paddingRight = "12px";
+    if (config.minWidth) {
+      th.style.minWidth = config.minWidth;
+    }
     return th;
   }
   /**

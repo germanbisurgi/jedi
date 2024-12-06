@@ -9,7 +9,7 @@ import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 class EditorArrayTable extends EditorArray {
   static resolves (schema) {
     // todo: and items type object
-    return getSchemaType(schema) === 'array' && isSet(getSchemaXOption(schema, 'table'))
+    return getSchemaType(schema) === 'array' && getSchemaXOption(schema, 'format') === 'table'
   }
 
   init () {
@@ -37,13 +37,19 @@ class EditorArrayTable extends EditorArray {
 
     // thead labels
     const th = this.theme.getTableHeader()
-    th.textContent = 'item controls'
+    th.style.minWidth = '100px'
+
     table.thead.appendChild(th)
 
     const tempEditor = this.instance.createItemInstance()
 
+    const tableColWidth = getSchemaXOption(this.instance.schema, 'tableColWidth')
+
     tempEditor.children.forEach((child) => {
-      const th = this.theme.getTableHeader()
+      const itemTableColWidth = getSchemaXOption(child.schema, 'tableColWidth')
+      const th = this.theme.getTableHeader({
+        minWidth: itemTableColWidth || tableColWidth || 'auto'
+      })
 
       if (child.ui.control.label) {
         th.textContent = child.ui.control.label.textContent
@@ -98,12 +104,19 @@ class EditorArrayTable extends EditorArray {
       tbodyRow.appendChild(buttonsTd)
 
       // editors
-      child.children.forEach((child) => {
+      if (child.children.length) {
+        child.children.forEach((grandchild) => {
+          const td = this.theme.getTableDefinition()
+          grandchild.ui.adaptForTable(td)
+          td.appendChild(grandchild.ui.control.container)
+          tbodyRow.appendChild(td)
+        })
+      } else {
         const td = this.theme.getTableDefinition()
         child.ui.adaptForTable(td)
         td.appendChild(child.ui.control.container)
         tbodyRow.appendChild(td)
-      })
+      }
 
       table.tbody.appendChild(tbodyRow)
     })

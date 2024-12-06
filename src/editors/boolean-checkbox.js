@@ -13,7 +13,7 @@ class EditorBooleanCheckbox extends EditorBoolean {
 
   build () {
     this.control = this.theme.getCheckboxControl({
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema)

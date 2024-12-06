@@ -2,17 +2,15 @@
 
 # Jedi - JSON Editing and Data Integrity
 
-Jedi is a lightweight, dependency-free JavaScript library that makes JSON handling simple.
-Use it in the browser to generate forms for editing and validating JSON with JSON schemas,
-or in Node.js as a powerful JSON schema validator.
-
+Generates forms from JSON schemas. Can be used in backend to validate JSON data too.
 [Check Out the Playground](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5)
 
 ## Key Features
 
-- JSON Validation: Easily validate your JSON data using JSON schemas.
+- Dependency free
+- JSON Schema Validation: Easily validate your JSON data using JSON schemas.
 - JSON Editing: Generate user-friendly forms for smooth JSON editing in the browser.
-- Lightweight $ref parser: Dereferences JSON Schema $ref pointers.
+- Dereferences JSON Schema <code>'$ref'</code> pointers.
 - CSS libraries Integration:
     - Bootstrap 3
     - Bootstrap 4
@@ -97,7 +95,7 @@ init()
     <tr align="left">
       <td><code>iconLib</code></td>
       <td><code>string</code></td>
-      <td><code>'null'</code></td>
+      <td><code>null</code></td>
       <td>
         Specifies the icon library to use for UI components. Valid options include:
         <ul>
@@ -214,6 +212,12 @@ init()
       <td><code>boolean</code></td>
       <td><code>true</code></td>
       <td>When <code>true</code> uses the first item in the enum as the default value</td>
+    </tr>
+    <tr align="left">
+      <td><code>labelPrefix</code></td>
+      <td><code>string</code></td>
+      <td><code>''</code></td>
+      <td>Prefix used for <code>id</code> and <code>for</code> attributes</td>
     </tr>
   </tbody>
 </table>

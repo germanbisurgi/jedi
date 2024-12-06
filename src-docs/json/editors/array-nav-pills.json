@@ -3,10 +3,9 @@
   "title": "Colors",
   "x-options": {
     "itemTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
-    "nav": {
-      "variant": "pills",
-      "stacked": true
-    }
+    "format": "nav",
+    "navVariant": "pills",
+    "navStacked": true
   },
   "default": [
     {

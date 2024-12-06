@@ -21,7 +21,7 @@ Scenario('@editor @array should validate against @items', ({ I }) => {
   I._waitForText('This is a number editor', '[data-path="#/items"] [data-type="number"]')
 })
 
-Scenario('@editor @array @prefixItems should validate against prefixItems', ({ I }) => {
+Scenario('@editor @array should validate against @prefixItems', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/array')
   I._waitForElement('.jedi-ready')
@@ -32,8 +32,8 @@ Scenario('@editor @array @prefixItems should validate against prefixItems', ({ I
   I._click('[data-path="#/prefixItems"] .jedi-array-add')
   I._waitForElement('[data-path="#/prefixItems/0"][data-type="number"]')
   I._waitForElement('[data-path="#/prefixItems/1"][data-type="string"]')
-  I._waitForElement('[data-path="#/prefixItems/2"][data-type="undefined"]')
-  I._waitForElement('[data-path="#/prefixItems/3"][data-type="undefined"]')
+  I._waitForElement('[data-path="#/prefixItems/2"][data-type="string"]')
+  I._waitForElement('[data-path="#/prefixItems/3"][data-type="string"]')
 })
 
 Scenario('@array-object @enableCollapseToggle should collapse and expand contents', ({ I }) => {

@@ -44,7 +44,7 @@ class EditorArrayEnumItems extends Editor {
     this.control = this.theme.getCheckboxesControl({
       values: getSchemaEnum(this.instance.schema.items),
       titles: getSchemaXOption(this.instance.schema.items, 'enumTitles') || getSchemaEnum(this.instance.schema.items),
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema)

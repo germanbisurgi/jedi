@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <header>
       <h1>Playground</h1>
     </header>

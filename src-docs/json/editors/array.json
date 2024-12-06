@@ -30,6 +30,7 @@
           "type": "string"
         },
         {
+          "type": "string",
           "enum": [
             "Street",
             "Avenue",
@@ -37,6 +38,7 @@
           ]
         },
         {
+          "type": "string",
           "enum": [
             "NW",
             "NE",

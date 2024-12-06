@@ -1,4 +1,4 @@
-import { isObject, isSet } from '../helpers/utils.js'
+import { isObject, isSet, pathToAttribute } from '../helpers/utils.js'
 import { getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
@@ -113,6 +113,10 @@ class Editor {
         }
       }
     }
+  }
+
+  getIdFromPath (path) {
+    return this.instance.jedi.options.labelPrefix + pathToAttribute(path)
   }
 
   /**

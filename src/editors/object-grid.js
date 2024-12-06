@@ -1,6 +1,5 @@
 import EditorObject from './object.js'
 import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
-import { isSet } from '../helpers/utils.js'
 
 /**
  * Represents a EditorObjectGrid instance.
@@ -8,7 +7,7 @@ import { isSet } from '../helpers/utils.js'
  */
 class EditorObjectGrid extends EditorObject {
   static resolves (schema) {
-    return getSchemaType(schema) === 'object' && isSet(getSchemaXOption(schema, 'grid'))
+    return getSchemaType(schema) === 'object' && getSchemaXOption(schema, 'format') === 'grid'
   }
 
   refreshEditors () {
@@ -21,11 +20,10 @@ class EditorObjectGrid extends EditorObject {
 
     this.instance.children.forEach((child) => {
       if (child.isActive) {
-        const grid = getSchemaXOption(child.schema, 'grid')
-        const columns = grid?.columns || 12
-        const offset = grid?.offset || 0
+        const columns = getSchemaXOption(child.schema, 'gridColumns') || 12
+        const offset = getSchemaXOption(child.schema, 'gridOffset') || 0
         const col = this.theme.getCol(12, columns, offset)
-        const newRow = grid?.newRow || false
+        const newRow = getSchemaXOption(child.schema, 'gridNewRow') || false
 
         if (newRow) {
           row = this.theme.getRow()

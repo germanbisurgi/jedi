@@ -15,7 +15,7 @@ class EditorBooleanRadio extends EditorBoolean {
     this.control = this.theme.getRadiosControl({
       values: ['false', 'true'],
       titles: getSchemaXOption(this.instance.schema, 'enumTitles') || ['false', 'true'],
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema)

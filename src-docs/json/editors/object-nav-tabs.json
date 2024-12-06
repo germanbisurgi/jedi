@@ -1,10 +1,9 @@
 {
   "x-options": {
-    "nav": {
-      "variant": "tabs",
-      "cols": 12,
-      "stacked": false
-    }
+    "format": "nav",
+    "navType": "tabs",
+    "navCols": 12,
+    "navStacked": false
   },
   "type": "object",
   "title": "All Editors",

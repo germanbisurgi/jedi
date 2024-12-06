@@ -4,8 +4,9 @@
   "type": "array",
   "minItems": 2,
   "x-options": {
-    "table": {},
-    "sortable": true
+    "sortable": true,
+    "format": "table",
+    "tableColWidth": "100px"
   },
   "default": [
     {
@@ -65,6 +66,7 @@
         "description": "A boolean editor using select input.",
         "const": true,
         "x-options": {
+          "tableColWidth": "200px",
           "format": "select",
           "enumTitles": [
             "No",
@@ -98,7 +100,10 @@
         "type": "string",
         "title": "String input",
         "description": "A string editor.",
-        "minLength": 1
+        "minLength": 1,
+        "x-options": {
+          "tableColWidth": "200px"
+        }
       },
       "string-textarea": {
         "type": "string",
@@ -106,7 +111,8 @@
         "description": "A string editor using textarea.",
         "minLength": 1,
         "x-options": {
-          "format": "textarea"
+          "format": "textarea",
+          "tableColWidth": "200px"
         }
       },
       "string-enum-select": {
@@ -119,6 +125,7 @@
           "carl"
         ],
         "x-options": {
+          "tableColWidth": "200px",
           "enumTitles": [
             "Albert",
             "Betti",
@@ -148,7 +155,9 @@
         "type": "number",
         "title": "Number input",
         "description": "A number editor.",
-        "minimum": 1
+        "minimum": 1,
+        "x-options": {
+        }
       },
       "number-enum-select": {
         "type": "number",
@@ -160,6 +169,7 @@
           3.5
         ],
         "x-options": {
+          "tableColWidth": "200px",
           "enumTitles": [
             "small (1.5)",
             "medium (2.5)",
@@ -189,7 +199,10 @@
         "type": "integer",
         "title": "Integer",
         "description": "A integer editor.",
-        "minimum": 1
+        "minimum": 1,
+        "x-options": {
+          "tableColWidth": "200px"
+        }
       },
       "integer-enum-select": {
         "type": "integer",
@@ -201,6 +214,7 @@
           3
         ],
         "x-options": {
+          "tableColWidth": "200px",
           "enumTitles": [
             "small (1)",
             "medium (2)",

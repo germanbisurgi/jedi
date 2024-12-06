@@ -2,246 +2,198 @@
   "type": "object",
   "title": "Grid",
   "x-options": {
-    "grid": true
+    "format": "grid"
   },
   "properties": {
     "a": {
       "title": "a",
       "type": "string",
       "x-options": {
-        "grid": {
-          "columns": 1
-        }
+        "gridColumns": 1
       }
     },
     "b": {
       "title": "b",
       "type": "string",
       "x-options": {
-        "grid": {
-          "columns": 2
-        }
+        "gridColumns": 2
       }
     },
     "c": {
       "title": "c",
       "type": "string",
       "x-options": {
-        "grid": {
-          "columns": 3
-        }
+        "gridColumns": 3
       }
     },
     "d": {
       "title": "d",
       "type": "string",
       "x-options": {
-        "grid": {
-          "columns": 4
-        }
+        "gridColumns": 4
       }
     },
     "e": {
       "title": "e",
       "type": "string",
       "x-options": {
-        "grid": {
-          "columns": 5
-        }
+        "gridColumns": 5
       }
     },
     "f": {
       "title": "f",
       "type": "string",
       "x-options": {
-        "grid": {
-          "columns": 6
-        }
+        "gridColumns": 6
       }
     },
     "g": {
       "title": "g",
       "type": "string",
       "x-options": {
-        "grid": {
-          "columns": 7
-        }
+        "gridColumns": 7
       }
     },
     "h": {
       "title": "h",
       "type": "string",
       "x-options": {
-        "grid": {
-          "columns": 8
-        }
+        "gridColumns": 8
       }
     },
     "i": {
       "title": "i",
       "type": "string",
       "x-options": {
-        "grid": {
-          "columns": 9
-        }
+        "gridColumns": 9
       }
     },
     "j": {
       "title": "j",
       "type": "string",
       "x-options": {
-        "grid": {
-          "columns": 10
-        }
+        "gridColumns": 10
       }
     },
     "k": {
       "title": "k",
       "type": "string",
       "x-options": {
-        "grid": {
-          "columns": 11
-        }
+        "gridColumns": 11
       }
     },
     "l": {
       "title": "l",
       "type": "string",
       "x-options": {
-        "grid": {
-          "columns": 12,
-          "newRow": true
-        }
+        "gridColumns": 12,
+        "gridNewRow": true
       }
     },
     "m": {
       "title": "m",
       "type": "string",
       "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1
-        }
+        "gridNewRow": true,
+        "gridColumns": 1
       }
     },
     "n": {
       "title": "n",
       "type": "string",
       "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 1
-        }
+        "gridNewRow": true,
+        "gridColumns": 1,
+        "gridOffset": 1
       }
     },
     "o": {
       "title": "o",
       "type": "string",
       "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 2
-        }
+        "gridNewRow": true,
+        "gridColumns": 1,
+        "gridOffset": 2
       }
     },
     "p": {
       "title": "p",
       "type": "string",
       "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 3
-        }
+        "gridNewRow": true,
+        "gridColumns": 1,
+        "gridOffset": 3
       }
     },
     "q": {
       "title": "q",
       "type": "string",
       "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 4
-        }
+        "gridNewRow": true,
+        "gridColumns": 1,
+        "gridOffset": 4
       }
     },
     "r": {
       "title": "r",
       "type": "string",
       "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 5
-        }
+        "gridNewRow": true,
+        "gridColumns": 1,
+        "gridOffset": 5
       }
     },
     "s": {
       "title": "s",
       "type": "string",
       "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 6
-        }
+        "gridNewRow": true,
+        "gridColumns": 1,
+        "gridOffset": 6
       }
     },
     "t": {
       "title": "t",
       "type": "string",
       "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 7
-        }
+        "gridNewRow": true,
+        "gridColumns": 1,
+        "gridOffset": 7
       }
     },
     "u": {
       "title": "u",
       "type": "string",
       "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 8
-        }
+        "gridNewRow": true,
+        "gridColumns": 1,
+        "gridOffset": 8
       }
     },
     "v": {
       "title": "v",
       "type": "string",
       "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 9
-        }
+        "gridNewRow": true,
+        "gridColumns": 1,
+        "gridOffset": 9
       }
     },
     "w": {
       "title": "w",
       "type": "string",
       "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 10
-        }
+        "gridNewRow": true,
+        "gridColumns": 1,
+        "gridOffset": 10
       }
     },
     "x": {
       "title": "x",
       "type": "string",
       "x-options": {
-        "grid": {
-          "columns": 1,
-          "offset": 11
-        }
+        "gridColumns": 1,
+        "gridOffset": 11
       }
     }
   }

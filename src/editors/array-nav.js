@@ -8,7 +8,7 @@ import { getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/sche
  */
 class EditorArrayNav extends EditorArray {
   static resolves (schema) {
-    return getSchemaType(schema) === 'array' && isSet(getSchemaXOption(schema, 'nav'))
+    return getSchemaType(schema) === 'array' && getSchemaXOption(schema, 'format') === 'nav'
   }
 
   init () {
@@ -27,15 +27,14 @@ class EditorArrayNav extends EditorArray {
     this.refreshInteractiveElements()
     this.control.childrenSlot.innerHTML = ''
 
-    const nav = getSchemaXOption(this.instance.schema, 'nav')
     const row = this.theme.getRow()
-    const cols = isSet(nav.cols) ? nav.cols : 4
+    const cols = getSchemaXOption(this.instance.schema, 'navCols') || 4
     const tabListCol = this.theme.getCol(12, cols)
     const tabContentCol = this.theme.getCol(12, (12 - cols))
     const tabContent = this.theme.getTabContent()
     const tabList = this.theme.getTabList({
-      stacked: isSet(nav.stacked) ? nav.stacked : false,
-      type: isSet(nav.type) ? nav.type : 'pils'
+      stacked: getSchemaXOption(this.instance.schema, 'navStacked') || false,
+      type: getSchemaXOption(this.instance.schema, 'navType') || 'pils'
     })
 
     this.control.childrenSlot.appendChild(row)

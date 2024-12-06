@@ -20,7 +20,7 @@ class EditorArray extends Editor {
     this.control = this.theme.getArrayControl({
       title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
-      id: pathToAttribute(this.instance.path),
+      id: this.getIdFromPath(this.instance.path),
       description: getSchemaDescription(this.instance.schema),
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, 'enableCollapseToggle'),
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, 'startCollapsed')

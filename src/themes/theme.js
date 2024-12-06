@@ -1331,18 +1331,22 @@ class Theme {
   getTableDefinition () {
     const td = document.createElement('td')
     td.style.verticalAlign = 'middle'
+    td.style.whiteSpace = 'nowrap'
     return td
   }
 
   /**
    * Returns a <th> element
    */
-  getTableHeader () {
+  getTableHeader (config = {}) {
     const th = document.createElement('th')
-    th.style.verticalAlign = 'middle'
-    th.style.whiteSpace = 'nowrap'
     th.style.paddingLeft = '12px'
     th.style.paddingRight = '12px'
+
+    if (config.minWidth) {
+      th.style.minWidth = config.minWidth
+    }
+
     return th
   }
 
