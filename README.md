@@ -214,10 +214,10 @@ init()
       <td>When <code>true</code> uses the first item in the enum as the default value</td>
     </tr>
     <tr align="left">
-      <td><code>labelPrefix</code></td>
+      <td><code>id</code></td>
       <td><code>string</code></td>
       <td><code>''</code></td>
-      <td>Prefix used for <code>id</code> and <code>for</code> attributes</td>
+      <td>Used to prefix <code>id</code> and <code>for</code> attributes</td>
     </tr>
   </tbody>
 </table>

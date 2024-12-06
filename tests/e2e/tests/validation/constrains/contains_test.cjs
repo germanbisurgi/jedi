@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('contains')
 
-Scenario('@constrain-contains should display validation errors', ({ I }) => {
+Scenario('@constrain @contains should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/contains')
@@ -14,7 +14,7 @@ Scenario('@constrain-contains should display validation errors', ({ I }) => {
   I.dontSee('Must contain at least one item matching the provided schema')
 })
 
-Scenario('@constrain-minContains should display validation errors', ({ I }) => {
+Scenario('@constrain @minContains should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/minContains')
@@ -30,7 +30,7 @@ Scenario('@constrain-minContains should display validation errors', ({ I }) => {
   I.dontSee('minimum contains count of 2')
 })
 
-Scenario('@constrain-maxContains should display validation errors', ({ I }) => {
+Scenario('@constrain @maxContains should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/maxContains')

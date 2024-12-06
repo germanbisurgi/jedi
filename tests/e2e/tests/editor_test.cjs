@@ -4,13 +4,13 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('editor')
 
-Scenario('@editor-ready should have class "jedi-ready" when ready', ({ I }) => {
+Scenario('@editor @ready should have class "jedi-ready" when ready', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/all')
   I._waitForElement('.jedi-ready')
 })
 
-Scenario('@editor-create should create all kind of editors', ({ I }) => {
+Scenario('@editor @create should create all kind of editors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/all')
   I._waitForElement('.jedi-ready')
@@ -42,7 +42,7 @@ Scenario('@editor-create should create all kind of editors', ({ I }) => {
   I._waitForElement('[data-path="#/multiple/type-any"]')
 })
 
-Scenario('@editor-destroy should destroy', ({ I }) => {
+Scenario('@editor @destroy should destroy', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/all')
   I._waitForElement('.jedi-ready')
@@ -51,7 +51,7 @@ Scenario('@editor-destroy should destroy', ({ I }) => {
   I.dontSeeElement('[data-schemapath="root"]')
 })
 
-Scenario('@editor-disable Should disable and enable', ({ I }) => {
+Scenario('@editor @disable Should disable and enable', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/all')
   I._waitForElement('.jedi-ready')
@@ -72,7 +72,7 @@ Scenario('@editor-disable Should disable and enable', ({ I }) => {
   I.dontSeeElement('.jedi-ready button[disabled]')
 })
 
-Scenario('@editor-setValue() should set value', async ({ I }) => {
+Scenario('@editor @setValue() should set value', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/all')
   I._waitForElement('.jedi-ready')
@@ -96,7 +96,7 @@ Scenario('@editor-setValue() should set value', async ({ I }) => {
   I.seeInField('[id="root-integers-integer-enum-radio-2"]', '3')
 })
 
-Scenario('@editor-showErrors should determine if and when validation errors are displayed', async ({ I }) => {
+Scenario('@editor @showErrors should determine if and when validation errors are displayed', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/all')
   I._waitForElement('.jedi-ready')

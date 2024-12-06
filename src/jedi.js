@@ -55,7 +55,7 @@ class Jedi extends EventEmitter {
       enforceEnumDefault: true,
       customEditors: [],
       hiddenInputAttributes: {},
-      labelPrefix: ''
+      id: ''
     }, options)
 
     /**

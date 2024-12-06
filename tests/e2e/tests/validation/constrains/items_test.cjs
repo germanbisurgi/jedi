@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('items')
 
-Scenario('@constrain-items should edit items', ({ I }) => {
+Scenario('@constrain @items should edit items', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/items')

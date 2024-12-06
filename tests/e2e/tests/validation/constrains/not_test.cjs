@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('not')
 
-Scenario('@constrain-not should display validation errors', ({ I }) => {
+Scenario('@constrain @not should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/not')

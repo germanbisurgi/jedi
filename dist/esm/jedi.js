@@ -1814,7 +1814,7 @@ class Editor {
     }
   }
   getIdFromPath(path) {
-    return this.instance.jedi.options.labelPrefix + pathToAttribute(path);
+    return this.instance.jedi.options.id + pathToAttribute(path);
   }
   /**
    * Updates the value of the instance by making assumptions based on constrains
@@ -3780,7 +3780,7 @@ class Jedi extends EventEmitter {
       enforceEnumDefault: true,
       customEditors: [],
       hiddenInputAttributes: {},
-      labelPrefix: ""
+      id: ""
     }, options);
     this.rootName = "#";
     this.pathSeparator = "/";

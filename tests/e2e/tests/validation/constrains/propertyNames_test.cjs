@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('patternProperties')
 
-Scenario('@constrain-propertyNames should display validation errors', ({ I }) => {
+Scenario('@constrain @propertyNames should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/propertyNames')

@@ -116,7 +116,7 @@ class Editor {
   }
 
   getIdFromPath (path) {
-    return this.instance.jedi.options.labelPrefix + pathToAttribute(path)
+    return this.instance.jedi.options.id + pathToAttribute(path)
   }
 
   /**
