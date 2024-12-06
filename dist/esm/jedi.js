@@ -1814,7 +1814,8 @@ class Editor {
     }
   }
   getIdFromPath(path) {
-    return this.instance.jedi.options.id + pathToAttribute(path);
+    const optionId = this.instance.jedi.options.id;
+    return optionId ? optionId + "-" + pathToAttribute(path) : pathToAttribute(path);
   }
   /**
    * Updates the value of the instance by making assumptions based on constrains
