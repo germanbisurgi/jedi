@@ -1,74 +1,155 @@
 {
+  "title": "G\u00e4nse",
   "type": "object",
+  "x-options": {
+    "format": "grid"
+  },
   "required": [
-    "hare",
-    "rabbit",
-    "partridge",
-    "pheasant"
+    "graugans"
   ],
   "properties": {
-    "hare": {
-      "$ref": "#/$defs/animal"
+    "graugans": {
+      "title": "Graugans",
+      "$ref": "#\/$defs\/tier"
     },
-    "rabbit": {
-      "$ref": "#/$defs/animal"
+    "kanadagans": {
+      "title": "Kanadagans",
+      "$ref": "#\/$defs\/tier"
     },
-    "partridge": {
-      "$ref": "#/$defs/animal"
+    "nonnengans": {
+      "title": "Nonnengans",
+      "$ref": "#\/$defs\/tier"
     },
-    "pheasant": {
-      "$ref": "#/$defs/animal"
+    "nilgans": {
+      "title": "Nilgans",
+      "$ref": "#\/$defs\/tier"
+    },
+    "rostgans": {
+      "title": "Rostgans",
+      "$ref": "#\/$defs\/tier"
     }
   },
   "$defs": {
-    "animal": {
+    "tier": {
       "type": "object",
+      "x-options": {
+        "gridColumns": 4
+      },
       "properties": {
-        "presence": {
+        "vk": {
+          "title": "Kamen die Arten im Jagdjahr 2016\/17 in Ihrem Revier vor?",
           "type": "string",
+          "default": "unbekannt",
           "enum": [
-            "yes",
-            "no",
-            "unknown",
-            "no information"
+            "ja",
+            "nein",
+            "unbekannt"
           ],
           "x-options": {
-            "enforceEnumDefault": false,
             "format": "radio"
           }
         }
       },
       "if": {
         "properties": {
-          "presence": {
-            "const": "yes"
+          "vk": {
+            "const": "ja"
           }
         }
       },
       "then": {
         "properties": {
-          "number": {
-            "type": "integer",
-            "minimum": 0,
-            "default": 0
+          "brueten": {
+            "title": "Br\u00fcteten die Arten in Ihrem Revier?",
+            "type": "string",
+            "default": "unbekannt",
+            "enum": [
+              "ja",
+              "nein",
+              "unbekannt"
+            ],
+            "x-options": {
+              "format": "radio"
+            }
+          },
+          "anzahl": {
+            "title": "Anzahl der Brutpaare"
+          }
+        },
+        "if": {
+          "properties": {
+            "brueten": {
+              "const": "ja"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "anzahl": {
+              "title": "Anzahl der Brutpaare",
+              "type": "integer",
+              "default": 0,
+              "minimum": 1
+            }
+          }
+        },
+        "else": {
+          "if": {
+            "properties": {
+              "brueten": {
+                "const": "nein"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "anzahl": {
+                "title": "Anzahl der Brutpaare",
+                "type": "integer",
+                "default": 0,
+                "readOnly": true
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "anzahl": {
+                "title": "Anzahl der Brutpaare",
+                "description": "Null",
+                "type": "null"
+              }
+            }
           }
         }
       },
       "else": {
         "if": {
           "properties": {
-            "presence": {
-              "const": "no"
+            "vk": {
+              "const": "nein"
             }
           }
         },
         "then": {
           "properties": {
-            "number": {
+            "brueten": {
+              "title": "Br\u00fcteten die Arten in Ihrem Revier?",
+              "type": "string",
+              "default": "nein",
+              "enum": [
+                "ja",
+                "nein",
+                "unbekannt"
+              ],
+              "x-options": {
+                "format": "radio"
+              },
+              "readOnly": true
+            },
+            "anzahl": {
+              "title": "Anzahl der Brutpaare",
               "type": "integer",
               "default": 0,
-              "const": 0,
-              "minimum": 0,
               "readOnly": true
             }
           }
@@ -76,21 +157,30 @@
         "else": {
           "if": {
             "properties": {
-              "presence": {
-                "const": "unknown"
+              "vk": {
+                "const": "unbekannt"
               }
             }
           },
           "then": {
             "properties": {
-              "number": {
-                "type": "null"
-              }
-            }
-          },
-          "else": {
-            "properties": {
-              "number": {
+              "brueten": {
+                "title": "Br\u00fcteten die Arten in Ihrem Revier?",
+                "type": "string",
+                "default": "unbekannt",
+                "enum": [
+                  "ja",
+                  "nein",
+                  "unbekannt"
+                ],
+                "x-options": {
+                  "format": "radio"
+                },
+                "readOnly": true
+              },
+              "anzahl": {
+                "title": "Anzahl der Brutpaare",
+                "description": "Null",
                 "type": "null"
               }
             }

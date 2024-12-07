@@ -1297,6 +1297,15 @@ class Theme {
   }
 
   /**
+   * Clearfix fixes layout issues in some libraries like bootstrap 3
+   */
+  getClearfix () {
+    const clearfix = document.createElement('div')
+    clearfix.classList.add('clearfix')
+    return clearfix
+  }
+
+  /**
    * Tab list is a list of links that triggers tabs visibility ne at the time
    */
   getTabList () {

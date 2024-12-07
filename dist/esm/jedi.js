@@ -3087,18 +3087,26 @@ class EditorObjectGrid extends EditorObject {
     }
     let row = this.theme.getRow();
     this.control.childrenSlot.appendChild(row);
+    let colCount = 0;
     this.instance.children.forEach((child) => {
       if (child.isActive) {
         const columns = getSchemaXOption(child.schema, "gridColumns") || 12;
         const offset = getSchemaXOption(child.schema, "gridOffset") || 0;
         const col = this.theme.getCol(12, columns, offset);
         const newRow = getSchemaXOption(child.schema, "gridNewRow") || false;
+        colCount += columns + offset;
         if (newRow) {
           row = this.theme.getRow();
           this.control.childrenSlot.appendChild(row);
+          colCount = 0;
         }
         row.appendChild(col);
         col.appendChild(child.ui.control.container);
+        if (colCount >= 12) {
+          const clearfix = this.theme.getClearfix();
+          row.appendChild(clearfix);
+          colCount = 0;
+        }
         if (this.disabled || this.instance.isReadOnly()) {
           child.ui.disable();
         } else {
@@ -5168,6 +5176,14 @@ class Theme {
     return col;
   }
   /**
+   * Clearfix fixes layout issues in some libraries like bootstrap 3
+   */
+  getClearfix() {
+    const clearfix = document.createElement("div");
+    clearfix.classList.add("clearfix");
+    return clearfix;
+  }
+  /**
    * Tab list is a list of links that triggers tabs visibility ne at the time
    */
   getTabList() {
@@ -5373,7 +5389,7 @@ class ThemeBootstrap3 extends Theme {
         radioControl.style.display = "inline-flex";
         radioControl.style.alignItems = "center";
         radioControl.style.paddingLeft = "0";
-        radioControl.style.marginRight = ".75rem";
+        radioControl.style.marginRight = "30px";
       }
       body.appendChild(radioControls[index2]);
       radioControl.appendChild(labels[index2]);

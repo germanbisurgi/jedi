@@ -18,6 +18,8 @@ class EditorObjectGrid extends EditorObject {
     let row = this.theme.getRow()
     this.control.childrenSlot.appendChild(row)
 
+    let colCount = 0
+
     this.instance.children.forEach((child) => {
       if (child.isActive) {
         const columns = getSchemaXOption(child.schema, 'gridColumns') || 12
@@ -25,13 +27,22 @@ class EditorObjectGrid extends EditorObject {
         const col = this.theme.getCol(12, columns, offset)
         const newRow = getSchemaXOption(child.schema, 'gridNewRow') || false
 
+        colCount += columns + offset
+
         if (newRow) {
           row = this.theme.getRow()
           this.control.childrenSlot.appendChild(row)
+          colCount = 0
         }
 
         row.appendChild(col)
         col.appendChild(child.ui.control.container)
+
+        if (colCount >= 12) {
+          const clearfix = this.theme.getClearfix()
+          row.appendChild(clearfix)
+          colCount = 0
+        }
 
         if (this.disabled || this.instance.isReadOnly()) {
           child.ui.disable()

@@ -149,7 +149,7 @@ class ThemeBootstrap3 extends Theme {
         radioControl.style.display = 'inline-flex'
         radioControl.style.alignItems = 'center'
         radioControl.style.paddingLeft = '0'
-        radioControl.style.marginRight = '.75rem'
+        radioControl.style.marginRight = '30px'
       }
 
       body.appendChild(radioControls[index])
