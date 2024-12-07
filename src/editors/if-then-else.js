@@ -1,7 +1,6 @@
 import Editor from './editor.js'
 import {
-  isSet,
-  pathToAttribute
+  isSet
 } from '../helpers/utils.js'
 import {
   getSchemaDescription,

@@ -1,5 +1,4 @@
 import EditorBoolean from './boolean.js'
-import { pathToAttribute } from '../helpers/utils.js'
 import { getSchemaDescription, getSchemaXOption, getSchemaTitle, getSchemaType } from '../helpers/schema.js'
 
 /**

@@ -1,5 +1,5 @@
 import Editor from './editor.js'
-import { isArray, isSet, pathToAttribute } from '../helpers/utils.js'
+import { isArray, isSet } from '../helpers/utils.js'
 import {
   getSchemaDescription,
   getSchemaMaxItems,

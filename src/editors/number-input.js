@@ -1,5 +1,5 @@
 import EditorNumber from './number.js'
-import { isNumber, pathToAttribute } from '../helpers/utils.js'
+import { isNumber } from '../helpers/utils.js'
 import {
   getSchemaDescription,
   getSchemaXOption,

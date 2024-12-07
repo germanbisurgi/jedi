@@ -1,7 +1,7 @@
 /* global Raty */
 
 import EditorNumber from './number.js'
-import { isSet, pathToAttribute } from '../helpers/utils.js'
+import { isSet } from '../helpers/utils.js'
 import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**

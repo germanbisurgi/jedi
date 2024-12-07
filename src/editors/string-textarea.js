@@ -1,5 +1,4 @@
 import EditorString from './string.js'
-import { pathToAttribute } from '../helpers/utils.js'
 import { getSchemaDescription, getSchemaXOption, getSchemaTitle, getSchemaType } from '../helpers/schema.js'
 
 /**

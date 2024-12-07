@@ -1,7 +1,6 @@
 import {
   isArray,
-  isSet,
-  pathToAttribute
+  isSet
 } from '../helpers/utils.js'
 
 import {

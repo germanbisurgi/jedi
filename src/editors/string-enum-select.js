@@ -1,5 +1,5 @@
 import EditorString from './string.js'
-import { isSet, pathToAttribute } from '../helpers/utils.js'
+import { isSet } from '../helpers/utils.js'
 import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
