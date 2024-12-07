@@ -22,7 +22,8 @@ class EditorMultiple extends Editor {
       description: getSchemaDescription(this.instance.schema),
       switcherOptionValues: this.instance.switcherOptionValues,
       switcherOptionsLabels: this.instance.switcherOptionsLabels,
-      switcher: true
+      switcher: true,
+      readOnly: this.instance.isReadOnly()
     })
   }
 

@@ -1732,7 +1732,7 @@ class Instance extends EventEmitter {
     if (getSchemaReadOnly(this.schema) === true) {
       readOnly = true;
     }
-    if (this.parent && getSchemaReadOnly(this.parent.schema) === true) {
+    if (this.parent && this.parent.isReadOnly()) {
       readOnly = true;
     }
     return readOnly;
@@ -2957,7 +2957,8 @@ class EditorObject extends Editor {
       enablePropertiesToggle,
       addProperty,
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
-      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed")
+      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
+      readOnly: this.instance.isReadOnly()
     });
   }
   addEventListeners() {
@@ -3129,7 +3130,7 @@ class EditorObjectNav extends EditorObject {
       this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild);
     }
     const row = this.theme.getRow();
-    const cols = getSchemaXOption(this.instance.schema, "navCols") || 4;
+    const cols = getSchemaXOption(this.instance.schema, "navColumns") || 4;
     const tabListCol = this.theme.getCol(12, cols);
     const tabContentCol = this.theme.getCol(12, 12 - cols);
     const tabContent = this.theme.getTabContent();
@@ -3179,7 +3180,8 @@ class EditorArray extends Editor {
       id: this.getIdFromPath(this.instance.path),
       description: getSchemaDescription(this.instance.schema),
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
-      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed")
+      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
+      readOnly: this.instance.isReadOnly()
     });
   }
   addEventListeners() {
@@ -3224,7 +3226,9 @@ class EditorArray extends Editor {
       const moveUpBtn = this.theme.getMoveUpItemBtn();
       const moveDownBtn = this.theme.getMoveDownItemBtn();
       const btnGroup = this.theme.getBtnGroup();
-      const { container, arrayActions, body } = this.theme.getArrayItem();
+      const { container, arrayActions, body } = this.theme.getArrayItem({
+        readOnly: this.instance.isReadOnly()
+      });
       arrayActions.appendChild(btnGroup);
       btnGroup.appendChild(deleteBtn);
       btnGroup.appendChild(moveUpBtn);
@@ -3385,7 +3389,7 @@ class EditorArrayNav extends EditorArray {
     this.refreshInteractiveElements();
     this.control.childrenSlot.innerHTML = "";
     const row = this.theme.getRow();
-    const cols = getSchemaXOption(this.instance.schema, "navCols") || 4;
+    const cols = getSchemaXOption(this.instance.schema, "navColumns") || 4;
     const tabListCol = this.theme.getCol(12, cols);
     const tabContentCol = this.theme.getCol(12, 12 - cols);
     const tabContent = this.theme.getTabContent();
@@ -3478,7 +3482,8 @@ class EditorMultiple extends Editor {
       description: getSchemaDescription(this.instance.schema),
       switcherOptionValues: this.instance.switcherOptionValues,
       switcherOptionsLabels: this.instance.switcherOptionsLabels,
-      switcher: true
+      switcher: true,
+      readOnly: this.instance.isReadOnly()
     });
   }
   adaptForTable(td) {
@@ -4547,7 +4552,9 @@ class Theme {
       body.appendChild(description);
     }
     body.appendChild(messages);
-    legend.appendChild(actions);
+    if (config.readOnly === false) {
+      legend.appendChild(actions);
+    }
     actions.appendChild(arrayActions);
     body.appendChild(childrenSlot);
     if (config.addProperty) {
@@ -4622,7 +4629,9 @@ class Theme {
       body.appendChild(description);
     }
     body.appendChild(messages);
-    legend.appendChild(actions);
+    if (config.readOnly === false) {
+      legend.appendChild(actions);
+    }
     actions.appendChild(btnGroup);
     btnGroup.appendChild(addBtn);
     actions.appendChild(arrayActions);
@@ -4643,7 +4652,7 @@ class Theme {
       arrayActions
     };
   }
-  getArrayItem() {
+  getArrayItem(config = {}) {
     const container = document.createElement("div");
     const card = this.getCard();
     const actions = this.getActionsSlot();
@@ -4653,7 +4662,9 @@ class Theme {
     container.appendChild(card);
     card.appendChild(header);
     card.appendChild(body);
-    header.appendChild(actions);
+    if (config.readOnly === false) {
+      header.appendChild(actions);
+    }
     actions.appendChild(arrayActions);
     return {
       container,
@@ -4669,7 +4680,7 @@ class Theme {
    * selected with a switcher control. Only one editor can be active/visible
    * at a time
    */
-  getMultipleControl(config) {
+  getMultipleControl(config = {}) {
     const container = document.createElement("div");
     const card = this.getCard();
     const actions = this.getActionsSlot();
@@ -4701,7 +4712,9 @@ class Theme {
     container.appendChild(card);
     card.appendChild(header);
     card.appendChild(body);
-    header.appendChild(actions);
+    if (config.readOnly === false) {
+      header.appendChild(actions);
+    }
     if (config.switcher) {
       actions.appendChild(switcher.container);
     }

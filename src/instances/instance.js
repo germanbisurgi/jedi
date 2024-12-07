@@ -252,7 +252,7 @@ class Instance extends EventEmitter {
       readOnly = true
     }
 
-    if (this.parent && getSchemaReadOnly(this.parent.schema) === true) {
+    if (this.parent && this.parent.isReadOnly()) {
       readOnly = true
     }
 

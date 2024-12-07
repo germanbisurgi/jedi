@@ -22,7 +22,7 @@ class EditorObjectNav extends EditorObject {
     }
 
     const row = this.theme.getRow()
-    const cols = getSchemaXOption(this.instance.schema, 'navCols') || 4
+    const cols = getSchemaXOption(this.instance.schema, 'navColumns') || 4
     const tabListCol = this.theme.getCol(12, cols)
     const tabContentCol = this.theme.getCol(12, (12 - cols))
     const tabContent = this.theme.getTabContent()

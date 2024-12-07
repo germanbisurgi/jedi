@@ -532,7 +532,11 @@ class Theme {
     }
 
     body.appendChild(messages)
-    legend.appendChild(actions)
+
+    if (config.readOnly === false) {
+      legend.appendChild(actions)
+    }
+
     actions.appendChild(arrayActions)
     body.appendChild(childrenSlot)
 
@@ -620,7 +624,11 @@ class Theme {
     }
 
     body.appendChild(messages)
-    legend.appendChild(actions)
+
+    if (config.readOnly === false) {
+      legend.appendChild(actions)
+    }
+
     actions.appendChild(btnGroup)
     btnGroup.appendChild(addBtn)
     actions.appendChild(arrayActions)
@@ -644,7 +652,7 @@ class Theme {
     }
   }
 
-  getArrayItem () {
+  getArrayItem (config = {}) {
     const container = document.createElement('div')
     const card = this.getCard()
     const actions = this.getActionsSlot()
@@ -655,7 +663,11 @@ class Theme {
     container.appendChild(card)
     card.appendChild(header)
     card.appendChild(body)
-    header.appendChild(actions)
+
+    if (config.readOnly === false) {
+      header.appendChild(actions)
+    }
+
     actions.appendChild(arrayActions)
 
     return {
@@ -673,7 +685,7 @@ class Theme {
    * selected with a switcher control. Only one editor can be active/visible
    * at a time
    */
-  getMultipleControl (config) {
+  getMultipleControl (config = {}) {
     const container = document.createElement('div')
     const card = this.getCard()
     const actions = this.getActionsSlot()
@@ -716,7 +728,10 @@ class Theme {
     container.appendChild(card)
     card.appendChild(header)
     card.appendChild(body)
-    header.appendChild(actions)
+
+    if (config.readOnly === false) {
+      header.appendChild(actions)
+    }
 
     if (config.switcher) {
       actions.appendChild(switcher.container)

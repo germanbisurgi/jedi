@@ -204,14 +204,14 @@
             "path": "/Users/germanbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
                 "id": "astnode100000096",
-                "name": "navCols",
+                "name": "navColumns",
                 "type": "CallExpression",
                 "value": ""
             }
         },
         "undocumented": true,
-        "name": "navCols",
-        "longname": "<anonymous>~navCols",
+        "name": "navColumns",
+        "longname": "<anonymous>~navColumns",
         "kind": "constant",
         "memberof": "<anonymous>",
         "scope": "inner",

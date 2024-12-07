@@ -2,7 +2,7 @@
   "x-options": {
     "format": "nav",
     "navType": "tabs",
-    "navCols": 12,
+    "navColumns": 12,
     "navStacked": false
   },
   "type": "object",

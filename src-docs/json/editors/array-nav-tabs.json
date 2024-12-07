@@ -5,7 +5,7 @@
     "itemTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
     "format": "nav",
     "navType": "tabs",
-    "navCols": 12,
+    "navColumns": 12,
     "navStacked": false
   },
   "default": [
