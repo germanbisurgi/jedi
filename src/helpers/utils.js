@@ -78,7 +78,7 @@ export function hasOwn (obj, prop) {
 /**
  * Sort object properties
  * @param {object} obj - The object
- * @return {void}
+ * @return {object}
  */
 export function sortObject (obj) {
   return Object.keys(obj).sort().reduce((result, key) => {

@@ -980,9 +980,9 @@ function uniqueItems(validator, value, schema, key, path) {
     const seen = [];
     let hasDuplicatedItems = false;
     for (let i = 0; i < value.length; i++) {
-      const item = value[i];
+      let item = value[i];
       if (isObject(item)) {
-        sortObject(item);
+        item = sortObject(item);
       }
       const itemStringified = JSON.stringify(item);
       hasDuplicatedItems = seen.some((seen2) => seen2 === itemStringified);
