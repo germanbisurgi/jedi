@@ -98,6 +98,7 @@ class ThemeBootstrap3 extends Theme {
   getDescription (config) {
     const description = super.getDescription(config)
     description.classList.add('text-muted')
+    description.style.marginBottom = '15px'
     return description
   }
 

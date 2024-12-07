@@ -1,3 +1,5 @@
+import { generateRandomID } from '../helpers/utils.js'
+
 /**
  * Represents a Theme instance.
  */
@@ -524,7 +526,11 @@ class Theme {
     fieldset.appendChild(legend)
     fieldset.appendChild(collapse)
     collapse.appendChild(body)
-    body.appendChild(description)
+
+    if (config.description) {
+      body.appendChild(description)
+    }
+
     body.appendChild(messages)
     legend.appendChild(actions)
     actions.appendChild(arrayActions)
@@ -608,7 +614,11 @@ class Theme {
     fieldset.appendChild(legend)
     fieldset.appendChild(collapse)
     collapse.appendChild(body)
-    body.appendChild(description)
+
+    if (config.description) {
+      body.appendChild(description)
+    }
+
     body.appendChild(messages)
     legend.appendChild(actions)
     actions.appendChild(btnGroup)
@@ -684,11 +694,13 @@ class Theme {
 
     const childrenSlot = this.getChildrenSlot()
 
+    const randomId = generateRandomID(5)
+
     const switcher = this.getSwitcher({
       values: config.switcherOptionValues,
       titles: config.switcherOptionsLabels,
-      id: config.id + '-switcher',
-      label: config.id + '-switcher',
+      id: config.id + '-switcher' + '-' + randomId,
+      label: config.id + '-switcher' + '-' + randomId,
       titleHidden: true,
       readOnly: config.readOnly
     })
@@ -696,6 +708,11 @@ class Theme {
     switcher.container.classList.add('jedi-switcher')
 
     container.appendChild(description)
+
+    if (config.description) {
+      container.appendChild(description)
+    }
+
     container.appendChild(card)
     card.appendChild(header)
     card.appendChild(body)

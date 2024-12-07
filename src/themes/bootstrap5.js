@@ -108,6 +108,7 @@ class ThemeBootstrap5 extends Theme {
   getDescription (config) {
     const description = super.getDescription(config)
     description.classList.add('text-muted')
+    description.classList.add('mb-3')
     return description
   }
 

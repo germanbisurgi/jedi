@@ -55,7 +55,7 @@ Scenario('@constrain @const should display validation errors', ({ I }) => {
   // multiple
   I._scrollTo('[data-path="#/multiple"]')
   I._waitForText('Must have value of: "test"', '[data-path="#/multiple"]')
-  I.selectOption('[id="root-multiple-switcher"]', 'String')
+  I.selectOption('[id^="root-multiple-switcher"]', 'String')
   I.fillField('[id="root-multiple"]', 'test')
   I.pressKey('Tab')
   I.dontSee('Must have value of: "test"', '[data-path="#/multiple"]')

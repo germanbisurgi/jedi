@@ -168,6 +168,15 @@ function removeDuplicatesFromArray(arr) {
   }
   return uniqueObjects;
 }
+function generateRandomID(maxLength2) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let randomID = "";
+  for (let i = 0; i < maxLength2; i++) {
+    const randomIndex = Math.floor(Math.random() * chars.length);
+    randomID += chars[randomIndex];
+  }
+  return randomID;
+}
 const Utils = {
   getCircularReplacer,
   clone,
@@ -193,7 +202,8 @@ const Utils = {
   getValueByJSONPath,
   compileTemplate,
   clamp,
-  removeDuplicatesFromArray
+  removeDuplicatesFromArray,
+  generateRandomID
 };
 function getSchemaX(schema, keyword) {
   const key = "x-" + keyword;
@@ -1777,14 +1787,12 @@ class Editor {
   }
   /**
    * Initializes the editor
-   * @private
    */
   init() {
     this.theme = this.instance.jedi.theme;
   }
   /**
    * Sets container attributes like data-path and data-type
-   * @private
    */
   setContainerAttributes() {
     this.control.container.setAttribute("data-path", this.instance.path);
@@ -1792,7 +1800,6 @@ class Editor {
   }
   /**
    * Builds the editor control and appends it to the editor container
-   * @private
    */
   build() {
   }
@@ -1800,7 +1807,6 @@ class Editor {
   }
   /**
    * Adds attributes to generated html elements if specified in schema x-options
-   * @private
    */
   setAttributes() {
     const input = this.control.input;
@@ -1829,13 +1835,11 @@ class Editor {
   }
   /**
    * Add event listeners to ui elements
-   * @private
    */
   addEventListeners() {
   }
   /**
    * Shows validation messages in the editor container.
-   * @private
    */
   showValidationErrors(errors, force = false) {
     errors = errors.filter((error) => {
@@ -1863,7 +1867,6 @@ class Editor {
   }
   /**
    * Get an error message container
-   * @private
    */
   getInvalidFeedback(config) {
     return this.theme.getInvalidFeedback(config);
@@ -1884,7 +1887,6 @@ class Editor {
   }
   /**
    * Updates control UI when its state changes
-   * @private
    */
   refreshUI() {
     this.refreshInteractiveElements();
@@ -1901,14 +1903,12 @@ class Editor {
   }
   /**
    * Transforms the input value if necessary before value set
-   * @private
    */
   sanitize(value) {
     return value;
   }
   /**
    * Destroys the editor
-   * @private
    */
   destroy() {
     if (this.control.container && this.control.container.parentNode) {
@@ -3861,7 +3861,6 @@ class Jedi extends EventEmitter {
   /**
    * Appends a hidden input to the root container whose value will be the value
    * of the root instance.
-   * @private
    */
   appendHiddenInput() {
     const hiddenControl = this.root.ui.theme.getInputControl({
@@ -4536,7 +4535,9 @@ class Theme {
     fieldset.appendChild(legend);
     fieldset.appendChild(collapse);
     collapse.appendChild(body);
-    body.appendChild(description);
+    if (config.description) {
+      body.appendChild(description);
+    }
     body.appendChild(messages);
     legend.appendChild(actions);
     actions.appendChild(arrayActions);
@@ -4609,7 +4610,9 @@ class Theme {
     fieldset.appendChild(legend);
     fieldset.appendChild(collapse);
     collapse.appendChild(body);
-    body.appendChild(description);
+    if (config.description) {
+      body.appendChild(description);
+    }
     body.appendChild(messages);
     legend.appendChild(actions);
     actions.appendChild(btnGroup);
@@ -4673,16 +4676,20 @@ class Theme {
     });
     const messages = this.getMessagesSlot();
     const childrenSlot = this.getChildrenSlot();
+    const randomId = generateRandomID(5);
     const switcher = this.getSwitcher({
       values: config.switcherOptionValues,
       titles: config.switcherOptionsLabels,
-      id: config.id + "-switcher",
-      label: config.id + "-switcher",
+      id: config.id + "-switcher-" + randomId,
+      label: config.id + "-switcher-" + randomId,
       titleHidden: true,
       readOnly: config.readOnly
     });
     switcher.container.classList.add("jedi-switcher");
     container.appendChild(description);
+    if (config.description) {
+      container.appendChild(description);
+    }
     container.appendChild(card);
     card.appendChild(header);
     card.appendChild(body);
@@ -5326,6 +5333,7 @@ class ThemeBootstrap3 extends Theme {
   getDescription(config) {
     const description = super.getDescription(config);
     description.classList.add("text-muted");
+    description.style.marginBottom = "15px";
     return description;
   }
   getTextareaControl(config) {
@@ -5477,7 +5485,6 @@ class ThemeBootstrap3 extends Theme {
   }
   /**
    * A simple table layout
-   * @private
    */
   getTable() {
     const container = document.createElement("div");
@@ -5589,6 +5596,7 @@ class ThemeBootstrap4 extends Theme {
   getDescription(config) {
     const description = super.getDescription(config);
     description.classList.add("text-muted");
+    description.classList.add("mb-3");
     return description;
   }
   getTextareaControl(config) {
@@ -5758,7 +5766,6 @@ class ThemeBootstrap4 extends Theme {
   }
   /**
    * A simple table layout
-   * @private
    */
   getTable() {
     const container = document.createElement("div");
@@ -5875,6 +5882,7 @@ class ThemeBootstrap5 extends Theme {
   getDescription(config) {
     const description = super.getDescription(config);
     description.classList.add("text-muted");
+    description.classList.add("mb-3");
     return description;
   }
   getTextareaControl(config) {
@@ -6035,7 +6043,6 @@ class ThemeBootstrap5 extends Theme {
   }
   /**
    * A simple table layout
-   * @private
    */
   getTable() {
     const container = document.createElement("div");

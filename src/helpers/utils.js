@@ -332,6 +332,16 @@ export function removeDuplicatesFromArray (arr) {
   return uniqueObjects
 }
 
+export function generateRandomID (maxLength) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  let randomID = ''
+  for (let i = 0; i < maxLength; i++) {
+    const randomIndex = Math.floor(Math.random() * chars.length)
+    randomID += chars[randomIndex]
+  }
+  return randomID
+}
+
 export default {
   getCircularReplacer,
   clone,
@@ -357,5 +367,6 @@ export default {
   getValueByJSONPath,
   compileTemplate,
   clamp,
-  removeDuplicatesFromArray
+  removeDuplicatesFromArray,
+  generateRandomID
 }
