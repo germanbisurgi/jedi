@@ -153,6 +153,10 @@ class ThemeBootstrap4 extends Theme {
       radios[index].classList.add('form-check-input')
       labels[index].classList.add('form-check-label')
 
+      if (config.inline) {
+        radioControl.classList.add('form-check-inline')
+      }
+
       body.appendChild(radioControls[index])
       radioControl.appendChild(radios[index])
       radioControl.appendChild(labels[index])

@@ -2575,7 +2575,8 @@ class EditorBooleanRadio extends EditorBoolean {
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      inline: getSchemaXOption(this.instance.schema, "radioInline") || false
     });
   }
   adaptForTable() {
@@ -2670,7 +2671,8 @@ class EditorStringEnumRadio extends EditorString {
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      inline: getSchemaXOption(this.instance.schema, "radioInline") || false
     });
   }
   adaptForTable() {
@@ -2839,7 +2841,8 @@ class EditorNumberEnumRadio extends EditorNumber {
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      inline: getSchemaXOption(this.instance.schema, "radioInline") || false
     });
   }
   adaptForTable() {
@@ -4438,6 +4441,7 @@ class Theme {
    */
   getDescription(config = {}) {
     const description = document.createElement("small");
+    description.style.display = "block";
     description.classList.add("jedi-description");
     if (config.textContent) {
       description.textContent = config.textContent;
@@ -5356,6 +5360,12 @@ class ThemeBootstrap3 extends Theme {
     const { body, radios, labels, labelTexts, radioControls, description, messages } = control;
     radioControls.forEach((radioControl, index2) => {
       radioControl.classList.add("radio");
+      if (config.inline) {
+        radioControl.style.display = "inline-flex";
+        radioControl.style.alignItems = "center";
+        radioControl.style.paddingLeft = "0";
+        radioControl.style.marginRight = ".75rem";
+      }
       body.appendChild(radioControls[index2]);
       radioControl.appendChild(labels[index2]);
       labels[index2].appendChild(radios[index2]);
@@ -5616,6 +5626,9 @@ class ThemeBootstrap4 extends Theme {
       radioControl.classList.add("form-check");
       radios[index2].classList.add("form-check-input");
       labels[index2].classList.add("form-check-label");
+      if (config.inline) {
+        radioControl.classList.add("form-check-inline");
+      }
       body.appendChild(radioControls[index2]);
       radioControl.appendChild(radios[index2]);
       radioControl.appendChild(labels[index2]);
@@ -5899,6 +5912,9 @@ class ThemeBootstrap5 extends Theme {
       radioControl.classList.add("form-check");
       radios[index2].classList.add("form-check-input");
       labels[index2].classList.add("form-check-label");
+      if (config.inline) {
+        radioControl.classList.add("form-check-inline");
+      }
       body.appendChild(radioControls[index2]);
       radioControl.appendChild(radios[index2]);
       radioControl.appendChild(labels[index2]);

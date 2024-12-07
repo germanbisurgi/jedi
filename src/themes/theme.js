@@ -407,6 +407,7 @@ class Theme {
    */
   getDescription (config = {}) {
     const description = document.createElement('small')
+    description.style.display = 'block'
     description.classList.add('jedi-description')
 
     if (config.textContent) {

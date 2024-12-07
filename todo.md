@@ -11,7 +11,6 @@
 - validation
   - drafts
   - formats: https://json-schema.org/understanding-json-schema/reference/string#format
-  - errorMode: 'inline|summary'
 
 - plugins
   - Choices

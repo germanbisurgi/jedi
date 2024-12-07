@@ -1,5 +1,5 @@
 import EditorNumber from './number.js'
-import { isSet, pathToAttribute } from '../helpers/utils.js'
+import { isSet } from '../helpers/utils.js'
 import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
@@ -22,7 +22,8 @@ class EditorNumberEnumRadio extends EditorNumber {
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      inline: getSchemaXOption(this.instance.schema, 'radioInline') || false
     })
   }
 

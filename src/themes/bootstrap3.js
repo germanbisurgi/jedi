@@ -144,6 +144,13 @@ class ThemeBootstrap3 extends Theme {
     radioControls.forEach((radioControl, index) => {
       radioControl.classList.add('radio')
 
+      if (config.inline) {
+        radioControl.style.display = 'inline-flex'
+        radioControl.style.alignItems = 'center'
+        radioControl.style.paddingLeft = '0'
+        radioControl.style.marginRight = '.75rem'
+      }
+
       body.appendChild(radioControls[index])
       radioControl.appendChild(labels[index])
       labels[index].appendChild(radios[index])
