@@ -12,13 +12,13 @@ export function _const (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
+        path: path,
+        constrain: 'const',
         messages: [
           compileTemplate(i18n.errorConst, {
             const: JSON.stringify(schemaConst)
           })
-        ],
-        path: path,
-        constrain: 'const'
+        ]
       })
     }
   }

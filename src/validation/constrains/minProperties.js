@@ -12,13 +12,13 @@ export function minProperties (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
+        path: path,
+        constrain: 'minProperties',
         messages: [
           compileTemplate(i18n.errorMinProperties, {
             minProperties: minProperties
           })
-        ],
-        path: path,
-        constrain: 'minProperties'
+        ]
       })
     }
   }

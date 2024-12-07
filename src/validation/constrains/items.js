@@ -12,9 +12,9 @@ export function items (validator, value, schema, key, path) {
 
     if (items === false && value.length > 0 && value.length > prefixItemsSchemasCount) {
       errors.push({
-        messages: [i18n.errorItems],
         path: path,
-        constrain: 'items'
+        constrain: 'items',
+        messages: [i18n.errorItems]
       })
     }
   }

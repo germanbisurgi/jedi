@@ -25,11 +25,11 @@ export function propertyNames (validator, value, schema, key, path) {
 
       if (invalid) {
         errors.push({
+          path: path,
+          constrain: 'propertyNames',
           messages: [
             compileTemplate(i18n.errorPropertyNames, { propertyName: propertyName })
-          ],
-          path: path,
-          constrain: 'propertyNames'
+          ]
         })
       }
     })

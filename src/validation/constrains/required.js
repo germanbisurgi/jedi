@@ -20,13 +20,13 @@ export function required (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
+        path: path,
+        constrain: 'required',
         messages: [
           compileTemplate(i18n.errorRequired, {
             required: missingProperties.join(', ')
           })
-        ],
-        path: path,
-        constrain: 'required'
+        ]
       })
     }
   }

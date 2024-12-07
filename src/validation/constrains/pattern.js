@@ -12,13 +12,13 @@ export function pattern (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
+        path: path,
+        constrain: 'pattern',
         messages: [
           compileTemplate(i18n.errorPattern, {
             pattern: pattern
           })
-        ],
-        path: path,
-        constrain: 'pattern'
+        ]
       })
     }
   }

@@ -11,13 +11,13 @@ export function minimum (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
+        path: path,
+        constrain: 'minimum',
         messages: [
           compileTemplate(i18n.errorMinimum, {
             minimum: minimum
           })
-        ],
-        path: path,
-        constrain: 'minimum'
+        ]
       })
     }
   }

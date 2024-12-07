@@ -12,13 +12,13 @@ export function maxLength (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
+        path: path,
+        constrain: 'maxLength',
         messages: [
           compileTemplate(i18n.errorMaxLength, {
             maxLength: maxLength
           })
-        ],
-        path: path,
-        constrain: 'maxLength'
+        ]
       })
     }
   }

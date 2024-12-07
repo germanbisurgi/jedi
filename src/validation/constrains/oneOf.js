@@ -22,13 +22,13 @@ export function oneOf (validator, value, schema, key, path) {
 
     if (counter !== 1) {
       errors.push({
+        path: path,
+        constrain: 'oneOf',
         messages: [
           compileTemplate(i18n.errorOneOf, {
             counter: counter
           })
-        ],
-        path: path,
-        constrain: 'oneOf'
+        ]
       })
     }
   }

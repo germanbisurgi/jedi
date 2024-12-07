@@ -23,13 +23,13 @@ export function dependentRequired (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
+        path: path,
+        constrain: 'dependentRequired',
         messages: [
           compileTemplate(i18n.errorDependentRequired, {
             dependentRequired: missingProperties.join(', ')
           })
-        ],
-        path: path,
-        constrain: 'dependentRequired'
+        ]
       })
     }
   }

@@ -30,11 +30,11 @@ export function format (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
+        path: path,
+        constrain: 'format',
         messages: [
           compileTemplate(i18n.errorFormat, { format: format })
-        ],
-        path: path,
-        constrain: 'format'
+        ]
       })
     }
   }

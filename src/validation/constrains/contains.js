@@ -30,22 +30,22 @@ export function contains (validator, value, schema, key, path) {
 
       if (minContainsInvalid) {
         errors.push({
+          path: path,
+          constrain: 'minContains',
           messages: [
             compileTemplate(i18n.errorMinContains, {
               counter: counter,
               minContains: minContains
             })
-          ],
-          path: path,
-          constrain: 'minContains'
+          ]
         })
       }
     } else {
       if (containsInvalid) {
         errors.push({
-          messages: [i18n.errorContains],
           path: path,
-          constrain: 'contains'
+          constrain: 'contains',
+          messages: [i18n.errorContains]
         })
       }
     }
@@ -55,14 +55,14 @@ export function contains (validator, value, schema, key, path) {
 
       if (maxContainsInvalid) {
         errors.push({
+          path: path,
+          constrain: 'maxContains',
           messages: [
             compileTemplate(i18n.errorMaxContains, {
               counter: counter,
               maxContains: maxContains
             })
-          ],
-          path: path,
-          constrain: 'maxContains'
+          ]
         })
       }
     }

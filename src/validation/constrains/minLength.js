@@ -12,13 +12,13 @@ export function minLength (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
+        path: path,
+        constrain: 'minLength',
         messages: [
           compileTemplate(i18n.errorMinLength, {
             minLength: minLength
           })
-        ],
-        path: path,
-        constrain: 'minLength'
+        ]
       })
     }
   }

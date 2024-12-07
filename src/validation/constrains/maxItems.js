@@ -11,13 +11,13 @@ export function maxItems (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
+        path: path,
+        constrain: 'maxItems',
         messages: [
           compileTemplate(i18n.errorMaxItems, {
             maxItems: maxItems
           })
-        ],
-        path: path,
-        constrain: 'maxItems'
+        ]
       })
     }
   }

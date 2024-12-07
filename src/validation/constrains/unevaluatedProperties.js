@@ -56,13 +56,13 @@ export function unevaluatedProperties (validator, value, schema, key, path) {
 
         if (!definedInPatternProperty && unevaluatedProperties === false && !hasOwn(properties, property)) {
           errors.push({
+            path: path,
+            constrain: 'unevaluatedProperties',
             messages: [
               compileTemplate(i18n.errorUnevaluatedProperties, {
                 property: property
               })
-            ],
-            path: path,
-            constrain: 'unevaluatedProperties'
+            ]
           })
         }
 
@@ -75,9 +75,9 @@ export function unevaluatedProperties (validator, value, schema, key, path) {
 
           const unevaluatedPropertiesErrors = editor.getErrors().map((error) => {
             return {
-              messages: error.messages,
               path: property,
-              constrain: 'unevaluatedProperties'
+              constrain: 'unevaluatedProperties',
+              messages: error.messages
             }
           })
 

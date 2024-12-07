@@ -2,7 +2,7 @@ import { isObject, isSet } from '../../helpers/utils.js'
 import Jedi from '../../jedi.js'
 import { getSchemaPatternProperties } from '../../helpers/schema.js'
 
-export function patternProperties (validator, value, schema, path) {
+export function patternProperties (validator, value, schema, key, path) {
   let errors = []
   const patternProperties = getSchemaPatternProperties(schema)
 
@@ -21,9 +21,9 @@ export function patternProperties (validator, value, schema, path) {
 
           const editorErrors = editor.getErrors().map((error) => {
             return {
-              messages: error.messages,
               path: path + '/' + propertyName,
-              constrain: 'patternProperties'
+              constrain: 'patternProperties',
+              messages: error.messages
             }
           })
 

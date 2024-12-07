@@ -481,13 +481,13 @@ function minLength(validator, value, schema, key, path) {
     const invalid = value.length < minLength2;
     if (invalid) {
       errors.push({
+        path,
+        constrain: "minLength",
         messages: [
           compileTemplate(i18n.errorMinLength, {
             minLength: minLength2
           })
-        ],
-        path,
-        constrain: "minLength"
+        ]
       });
     }
   }
@@ -508,11 +508,11 @@ function anyOf(validator, value, schema, key, path) {
     });
     if (!valid) {
       errors.push({
+        path,
+        constrain: "anyOf",
         messages: [
           i18n.errorAnyOf
-        ],
-        path,
-        constrain: "anyOf"
+        ]
       });
     }
   }
@@ -525,13 +525,13 @@ function _enum(validator, value, schema, key, path) {
     const invalid = !schemaEnum.some((e) => JSON.stringify(value) === JSON.stringify(e));
     if (invalid) {
       errors.push({
+        path,
+        constrain: "enum",
         messages: [
           compileTemplate(i18n.errorEnum, {
             enum: JSON.stringify(schemaEnum)
           })
-        ],
-        path,
-        constrain: "enum"
+        ]
       });
     }
   }
@@ -544,13 +544,13 @@ function exclusiveMaximum(validator, value, schema, key, path) {
     const invalid = value >= exclusiveMaximum2;
     if (invalid) {
       errors.push({
+        path,
+        constrain: "exclusiveMaximum",
         messages: [
           compileTemplate(i18n.errorExclusiveMaximum, {
             exclusiveMaximum: exclusiveMaximum2
           })
-        ],
-        path,
-        constrain: "exclusiveMaximum"
+        ]
       });
     }
   }
@@ -563,13 +563,13 @@ function exclusiveMinimum(validator, value, schema, key, path) {
     const invalid = value <= exclusiveMinimum2;
     if (invalid) {
       errors.push({
+        path,
+        constrain: "exclusiveMinimum",
         messages: [
           compileTemplate(i18n.errorExclusiveMinimum, {
             exclusiveMinimum: exclusiveMinimum2
           })
-        ],
-        path,
-        constrain: "exclusiveMinimum"
+        ]
       });
     }
   }
@@ -596,11 +596,11 @@ function format(validator, value, schema, key, path) {
     const invalid = isSet(regexp) && !regexp.test(value);
     if (invalid) {
       errors.push({
+        path,
+        constrain: "format",
         messages: [
           compileTemplate(i18n.errorFormat, { format: format2 })
-        ],
-        path,
-        constrain: "format"
+        ]
       });
     }
   }
@@ -614,9 +614,9 @@ function items(validator, value, schema, key, path) {
     const prefixItemsSchemasCount = isSet(prefixItems2) ? prefixItems2.length : 0;
     if (items2 === false && value.length > 0 && value.length > prefixItemsSchemasCount) {
       errors.push({
-        messages: [i18n.errorItems],
         path,
-        constrain: "items"
+        constrain: "items",
+        messages: [i18n.errorItems]
       });
     }
   }
@@ -629,13 +629,13 @@ function maxItems(validator, value, schema, key, path) {
     const invalid = value.length > maxItems2;
     if (invalid) {
       errors.push({
+        path,
+        constrain: "maxItems",
         messages: [
           compileTemplate(i18n.errorMaxItems, {
             maxItems: maxItems2
           })
-        ],
-        path,
-        constrain: "maxItems"
+        ]
       });
     }
   }
@@ -649,13 +649,13 @@ function maxLength(validator, value, schema, key, path) {
     const invalid = value.length > maxLength2;
     if (invalid) {
       errors.push({
+        path,
+        constrain: "maxLength",
         messages: [
           compileTemplate(i18n.errorMaxLength, {
             maxLength: maxLength2
           })
-        ],
-        path,
-        constrain: "maxLength"
+        ]
       });
     }
   }
@@ -669,13 +669,13 @@ function maxProperties(validator, value, schema, key, path) {
     const invalid = propertiesCount > maxProperties2;
     if (invalid) {
       errors.push({
+        path,
+        constrain: "maxProperties",
         messages: [
           compileTemplate(i18n.errorMaxProperties, {
             maxProperties: maxProperties2
           })
-        ],
-        path,
-        constrain: "maxProperties"
+        ]
       });
     }
   }
@@ -688,13 +688,13 @@ function minimum(validator, value, schema, key, path) {
     const invalid = value < minimum2;
     if (invalid) {
       errors.push({
+        path,
+        constrain: "minimum",
         messages: [
           compileTemplate(i18n.errorMinimum, {
             minimum: minimum2
           })
-        ],
-        path,
-        constrain: "minimum"
+        ]
       });
     }
   }
@@ -707,13 +707,13 @@ function minItems(validator, value, schema, key, path) {
     const invalid = value.length < minItems2;
     if (invalid) {
       errors.push({
+        path,
+        constrain: "minItems",
         messages: [
           compileTemplate(i18n.errorMinItems, {
             minItems: minItems2
           })
-        ],
-        path,
-        constrain: "minItems"
+        ]
       });
     }
   }
@@ -727,13 +727,13 @@ function minProperties(validator, value, schema, key, path) {
     const invalid = propertiesCount < minProperties2;
     if (invalid) {
       errors.push({
+        path,
+        constrain: "minProperties",
         messages: [
           compileTemplate(i18n.errorMinProperties, {
             minProperties: minProperties2
           })
-        ],
-        path,
-        constrain: "minProperties"
+        ]
       });
     }
   }
@@ -750,13 +750,13 @@ function multipleOf(validator, value, schema, key, path) {
     const invalid = !isMultipleOf || value.toString().includes("e");
     if (invalid) {
       errors.push({
+        path,
+        constrain: "multipleOf",
         messages: [
           compileTemplate(i18n.errorMultipleOf, {
             multipleOf: multipleOf2
           })
-        ],
-        path,
-        constrain: "multipleOf"
+        ]
       });
     }
   }
@@ -772,11 +772,11 @@ function not(validator, value, schema, key, path) {
     const invalid = notErrors.length === 0;
     if (invalid) {
       errors.push({
+        path,
+        constrain: "not",
         messages: [
           compileTemplate(i18n.errorNot)
-        ],
-        path,
-        constrain: "not"
+        ]
       });
     }
   }
@@ -797,13 +797,13 @@ function oneOf(validator, value, schema, key, path) {
     });
     if (counter !== 1) {
       errors.push({
+        path,
+        constrain: "oneOf",
         messages: [
           compileTemplate(i18n.errorOneOf, {
             counter
           })
-        ],
-        path,
-        constrain: "oneOf"
+        ]
       });
     }
   }
@@ -817,19 +817,19 @@ function pattern(validator, value, schema, key, path) {
     const invalid = !regexp.test(value);
     if (invalid) {
       errors.push({
+        path,
+        constrain: "pattern",
         messages: [
           compileTemplate(i18n.errorPattern, {
             pattern: pattern2
           })
-        ],
-        path,
-        constrain: "pattern"
+        ]
       });
     }
   }
   return errors;
 }
-function patternProperties(validator, value, schema, path) {
+function patternProperties(validator, value, schema, key, path) {
   let errors = [];
   const patternProperties2 = getSchemaPatternProperties(schema);
   if (isObject(value) && isSet(patternProperties2)) {
@@ -845,9 +845,9 @@ function patternProperties(validator, value, schema, path) {
           });
           const editorErrors = editor.getErrors().map((error) => {
             return {
-              messages: error.messages,
               path: path + "/" + propertyName,
-              constrain: "patternProperties"
+              constrain: "patternProperties",
+              messages: error.messages
             };
           });
           errors = [...errors, ...editorErrors];
@@ -858,7 +858,7 @@ function patternProperties(validator, value, schema, path) {
   }
   return errors;
 }
-function properties(validator, value, schema, path) {
+function properties(validator, value, schema, key, path) {
   const schemaProperties = getSchemaProperties(schema);
   const invalidProperties = [];
   if (isObject(value) && isSet(schemaProperties)) {
@@ -868,7 +868,8 @@ function properties(validator, value, schema, path) {
         const editor = new Jedi({
           refParser: validator.refParser,
           schema: propertySchema,
-          data: value[propertyName]
+          data: value[propertyName],
+          rootName: path
         });
         if (editor.getErrors().length > 0) {
           invalidProperties.push(propertyName);
@@ -879,11 +880,11 @@ function properties(validator, value, schema, path) {
   }
   if (invalidProperties.length > 0) {
     return [{
+      path,
+      constraint: "properties",
       messages: [
         compileTemplate(i18n.errorProperties, { properties: invalidProperties.join(", ") })
-      ],
-      path,
-      constraint: "properties"
+      ]
     }];
   }
   return [];
@@ -902,13 +903,13 @@ function required(validator, value, schema, key, path) {
     const invalid = missingProperties.length > 0;
     if (invalid) {
       errors.push({
+        path,
+        constrain: "required",
         messages: [
           compileTemplate(i18n.errorRequired, {
             required: missingProperties.join(", ")
           })
-        ],
-        path,
-        constrain: "required"
+        ]
       });
     }
   }
@@ -940,14 +941,14 @@ function type(validator, value, schema, key, path) {
     }
     if (!valid) {
       errors.push({
+        path,
+        constrain: "type",
         messages: [
           compileTemplate(i18n.errorType, {
             type: type2,
             valueType: getType(value)
           })
-        ],
-        path,
-        constrain: "type"
+        ]
       });
     }
   }
@@ -960,13 +961,13 @@ function maximum(validator, value, schema, key, path) {
     const invalid = value > maximum2;
     if (invalid) {
       errors.push({
+        path,
+        constrain: "maximum",
         messages: [
           compileTemplate(i18n.errorMaximum, {
             maximum: maximum2
           })
-        ],
-        path,
-        constrain: "maximum"
+        ]
       });
     }
   }
@@ -979,9 +980,9 @@ function uniqueItems(validator, value, schema, key, path) {
     const seen = [];
     let hasDuplicatedItems = false;
     for (let i = 0; i < value.length; i++) {
-      let item = value[i];
+      const item = value[i];
       if (isObject(item)) {
-        item = sortObject(item);
+        sortObject(item);
       }
       const itemStringified = JSON.stringify(item);
       hasDuplicatedItems = seen.some((seen2) => seen2 === itemStringified);
@@ -1022,11 +1023,11 @@ function additionalProperties(validator, value, schema, key, path) {
       if (!definedInPatternProperty && !isDefinedInProperties) {
         if (additionalProperties2 === false) {
           errors.push({
+            path,
+            constrain: "additionalProperties",
             messages: [
               compileTemplate(i18n.errorAdditionalProperties, { property })
-            ],
-            path,
-            constrain: "additionalProperties"
+            ]
           });
         } else if (isObject(additionalProperties2)) {
           const editor = new Jedi({
@@ -1035,9 +1036,9 @@ function additionalProperties(validator, value, schema, key, path) {
             data: value[property]
           });
           const additionalPropertyErrors = editor.getErrors().map((error) => ({
-            messages: error.messages,
             path: `${path}.${property}`,
-            constrain: "additionalProperties"
+            constrain: "additionalProperties",
+            messages: error.messages
           }));
           errors.push(...additionalPropertyErrors);
           editor.destroy();
@@ -1082,13 +1083,13 @@ function _const(validator, value, schema, key, path) {
     const invalid = valueIsNotEqualConst;
     if (invalid) {
       errors.push({
+        path,
+        constrain: "const",
         messages: [
           compileTemplate(i18n.errorConst, {
             const: JSON.stringify(schemaConst)
           })
-        ],
-        path,
-        constrain: "const"
+        ]
       });
     }
   }
@@ -1114,22 +1115,22 @@ function contains(validator, value, schema, key, path) {
       const minContainsInvalid = counter < minContains;
       if (minContainsInvalid) {
         errors.push({
+          path,
+          constrain: "minContains",
           messages: [
             compileTemplate(i18n.errorMinContains, {
               counter,
               minContains
             })
-          ],
-          path,
-          constrain: "minContains"
+          ]
         });
       }
     } else {
       if (containsInvalid) {
         errors.push({
-          messages: [i18n.errorContains],
           path,
-          constrain: "contains"
+          constrain: "contains",
+          messages: [i18n.errorContains]
         });
       }
     }
@@ -1137,14 +1138,14 @@ function contains(validator, value, schema, key, path) {
       const maxContainsInvalid = counter > maxContains;
       if (maxContainsInvalid) {
         errors.push({
+          path,
+          constrain: "maxContains",
           messages: [
             compileTemplate(i18n.errorMaxContains, {
               counter,
               maxContains
             })
-          ],
-          path,
-          constrain: "maxContains"
+          ]
         });
       }
     }
@@ -1167,13 +1168,13 @@ function dependentRequired(validator, value, schema, key, path) {
     const invalid = missingProperties.length > 0;
     if (invalid) {
       errors.push({
+        path,
+        constrain: "dependentRequired",
         messages: [
           compileTemplate(i18n.errorDependentRequired, {
             dependentRequired: missingProperties.join(", ")
           })
-        ],
-        path,
-        constrain: "dependentRequired"
+        ]
       });
     }
   }
@@ -1246,13 +1247,13 @@ function prefixItems(validator, value, schema, key, path) {
         tmpEditor.destroy();
         if (tmpErrors.length > 0) {
           errors.push({
+            path,
+            constrain: "prefixItems",
             messages: [
               compileTemplate(i18n.errorPrefixItems, {
                 index: index2
               })
-            ],
-            path,
-            constrain: "prefixItems"
+            ]
           });
         }
       }
@@ -1363,13 +1364,13 @@ function unevaluatedProperties(validator, value, schema, key, path) {
         }
         if (!definedInPatternProperty && unevaluatedProperties2 === false && !hasOwn(properties2, property)) {
           errors.push({
+            path,
+            constrain: "unevaluatedProperties",
             messages: [
               compileTemplate(i18n.errorUnevaluatedProperties, {
                 property
               })
-            ],
-            path,
-            constrain: "unevaluatedProperties"
+            ]
           });
         }
         if (!definedInPatternProperty && isObject(unevaluatedProperties2) && !hasOwn(properties2, property)) {
@@ -1380,9 +1381,9 @@ function unevaluatedProperties(validator, value, schema, key, path) {
           });
           const unevaluatedPropertiesErrors = editor.getErrors().map((error) => {
             return {
-              messages: error.messages,
               path: property,
-              constrain: "unevaluatedProperties"
+              constrain: "unevaluatedProperties",
+              messages: error.messages
             };
           });
           errors = [...errors, ...unevaluatedPropertiesErrors];
@@ -1440,11 +1441,11 @@ function propertyNames(validator, value, schema, key, path) {
       const invalid = editor.getErrors().length > 0;
       if (invalid) {
         errors.push({
+          path,
+          constrain: "propertyNames",
           messages: [
             compileTemplate(i18n.errorPropertyNames, { propertyName })
-          ],
-          path,
-          constrain: "propertyNames"
+          ]
         });
       }
     });

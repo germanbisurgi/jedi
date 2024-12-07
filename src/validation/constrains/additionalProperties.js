@@ -29,11 +29,11 @@ export function additionalProperties (validator, value, schema, key, path) {
       if (!definedInPatternProperty && !isDefinedInProperties) {
         if (additionalProperties === false) {
           errors.push({
+            path,
+            constrain: 'additionalProperties',
             messages: [
               compileTemplate(i18n.errorAdditionalProperties, { property })
-            ],
-            path,
-            constrain: 'additionalProperties'
+            ]
           })
         } else if (isObject(additionalProperties)) {
           const editor = new Jedi({
@@ -43,9 +43,9 @@ export function additionalProperties (validator, value, schema, key, path) {
           })
 
           const additionalPropertyErrors = editor.getErrors().map((error) => ({
-            messages: error.messages,
             path: `${path}.${property}`,
-            constrain: 'additionalProperties'
+            constrain: 'additionalProperties',
+            messages: error.messages
           }))
 
           errors.push(...additionalPropertyErrors)

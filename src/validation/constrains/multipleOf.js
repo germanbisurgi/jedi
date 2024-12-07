@@ -16,13 +16,13 @@ export function multipleOf (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
+        path: path,
+        constrain: 'multipleOf',
         messages: [
           compileTemplate(i18n.errorMultipleOf, {
             multipleOf: multipleOf
           })
-        ],
-        path: path,
-        constrain: 'multipleOf'
+        ]
       })
     }
   }

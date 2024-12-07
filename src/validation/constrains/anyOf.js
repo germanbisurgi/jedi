@@ -22,11 +22,11 @@ export function anyOf (validator, value, schema, key, path) {
 
     if (!valid) {
       errors.push({
+        path: path,
+        constrain: 'anyOf',
         messages: [
           i18n.errorAnyOf
-        ],
-        path: path,
-        constrain: 'anyOf'
+        ]
       })
     }
   }

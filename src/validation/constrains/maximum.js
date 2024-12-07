@@ -11,13 +11,13 @@ export function maximum (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
+        path: path,
+        constrain: 'maximum',
         messages: [
           compileTemplate(i18n.errorMaximum, {
             maximum: maximum
           })
-        ],
-        path: path,
-        constrain: 'maximum'
+        ]
       })
     }
   }

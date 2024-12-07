@@ -43,14 +43,14 @@ export function type (validator, value, schema, key, path) {
 
     if (!valid) {
       errors.push({
+        path: path,
+        constrain: 'type',
         messages: [
           compileTemplate(i18n.errorType, {
             type: type,
             valueType: getType(value)
           })
-        ],
-        path: path,
-        constrain: 'type'
+        ]
       })
     }
   }

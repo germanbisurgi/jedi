@@ -3,7 +3,7 @@ import Jedi from '../../jedi.js'
 import { getSchemaProperties } from '../../helpers/schema.js'
 import { i18n } from '../../i18n.js'
 
-export function properties (validator, value, schema, path) {
+export function properties (validator, value, schema, key, path) {
   const schemaProperties = getSchemaProperties(schema)
   const invalidProperties = []
 
@@ -15,7 +15,8 @@ export function properties (validator, value, schema, path) {
         const editor = new Jedi({
           refParser: validator.refParser,
           schema: propertySchema,
-          data: value[propertyName]
+          data: value[propertyName],
+          rootName: path
         })
 
         if (editor.getErrors().length > 0) {
@@ -29,11 +30,11 @@ export function properties (validator, value, schema, path) {
 
   if (invalidProperties.length > 0) {
     return [{
+      path: path,
+      constraint: 'properties',
       messages: [
         compileTemplate(i18n.errorProperties, { properties: invalidProperties.join(', ') })
-      ],
-      path: path,
-      constraint: 'properties'
+      ]
     }]
   }
 

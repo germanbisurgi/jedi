@@ -11,13 +11,13 @@ export function _enum (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
+        path: path,
+        constrain: 'enum',
         messages: [
           compileTemplate(i18n.errorEnum, {
             enum: JSON.stringify(schemaEnum)
           })
-        ],
-        path: path,
-        constrain: 'enum'
+        ]
       })
     }
   }

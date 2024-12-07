@@ -16,11 +16,11 @@ export function not (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
+        path: path,
+        constrain: 'not',
         messages: [
           compileTemplate(i18n.errorNot)
-        ],
-        path: path,
-        constrain: 'not'
+        ]
       })
     }
   }
