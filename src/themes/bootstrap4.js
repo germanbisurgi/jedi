@@ -316,7 +316,6 @@ class ThemeBootstrap4 extends Theme {
 
   /**
    * A simple table layout
-   * @private
    */
   getTable () {
     const container = document.createElement('div')

@@ -180,7 +180,6 @@ class Jedi extends EventEmitter {
   /**
    * Appends a hidden input to the root container whose value will be the value
    * of the root instance.
-   * @private
    */
   appendHiddenInput () {
     const hiddenControl = this.root.ui.theme.getInputControl({

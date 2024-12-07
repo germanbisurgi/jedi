@@ -10,35 +10,30 @@ class Editor {
     /**
      * A reference to the Instance being controlled by this editor.
      * @type {Jedi}
-     * @private
      */
     this.instance = instance
 
     /**
      * Theme instance used to build the Editor user interface.
      * @type {Theme}
-     * @private
      */
     this.theme = null
 
     /**
      * The user interface html for this editor
      * @type {HTMLElement}
-     * @protected
      */
     this.control = null
 
     /**
      * Disabled status for this editor user interface
      * @type {boolean}
-     * @private
      */
     this.disabled = false
 
     /**
      * Read only status for this editor user interface
      * @type {boolean}
-     * @private
      */
     this.readOnly = this.instance.isReadOnly()
 
@@ -73,7 +68,6 @@ class Editor {
 
   /**
    * Initializes the editor
-   * @private
    */
   init () {
     this.theme = this.instance.jedi.theme
@@ -81,7 +75,6 @@ class Editor {
 
   /**
    * Sets container attributes like data-path and data-type
-   * @private
    */
   setContainerAttributes () {
     this.control.container.setAttribute('data-path', this.instance.path)
@@ -90,7 +83,6 @@ class Editor {
 
   /**
    * Builds the editor control and appends it to the editor container
-   * @private
    */
   build () {
   }
@@ -99,7 +91,6 @@ class Editor {
 
   /**
    * Adds attributes to generated html elements if specified in schema x-options
-   * @private
    */
   setAttributes () {
     const input = this.control.input
@@ -134,14 +125,12 @@ class Editor {
 
   /**
    * Add event listeners to ui elements
-   * @private
    */
   addEventListeners () {
   }
 
   /**
    * Shows validation messages in the editor container.
-   * @private
    */
   showValidationErrors (errors, force = false) {
     errors = errors.filter((error) => {
@@ -177,7 +166,6 @@ class Editor {
 
   /**
    * Get an error message container
-   * @private
    */
   getInvalidFeedback (config) {
     return this.theme.getInvalidFeedback(config)
@@ -201,7 +189,6 @@ class Editor {
 
   /**
    * Updates control UI when its state changes
-   * @private
    */
   refreshUI () {
     this.refreshInteractiveElements()
@@ -221,7 +208,6 @@ class Editor {
 
   /**
    * Transforms the input value if necessary before value set
-   * @private
    */
   sanitize (value) {
     return value
@@ -229,7 +215,6 @@ class Editor {
 
   /**
    * Destroys the editor
-   * @private
    */
   destroy () {
     if (this.control.container && this.control.container.parentNode) {

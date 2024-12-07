@@ -291,7 +291,6 @@ class ThemeBootstrap3 extends Theme {
 
   /**
    * A simple table layout
-   * @private
    */
   getTable () {
     const container = document.createElement('div')

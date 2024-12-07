@@ -310,7 +310,6 @@ class ThemeBootstrap5 extends Theme {
 
   /**
    * A simple table layout
-   * @private
    */
   getTable () {
     const container = document.createElement('div')

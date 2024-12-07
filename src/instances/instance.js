@@ -25,28 +25,24 @@ class Instance extends EventEmitter {
     /**
      * A reference to the Jedi instance to which this instance belongs.
      * @type {Jedi}
-     * @protected
      */
     this.jedi = config.jedi
 
     /**
      * The schema path of this instance.
      * @type {string}
-     * @private
      */
     this.path = config.path || this.jedi.rootName
 
     /**
      * A JSON schema.
      * @type {boolean|object}
-     * @private
      */
     this.schema = config.schema
 
     /**
      * The json value of this instance.
      * @type {*}
-     * @protected
      */
     this.value = isSet(config.value) ? config.value : undefined
 
@@ -54,35 +50,30 @@ class Instance extends EventEmitter {
      * The active state of this instance. If false the editor is not participating
      * in the value.
      * @type {boolean}
-     * @private
      */
     this.isActive = true
 
     /**
      * The Parent instance of this instance.
      * @type {Instance|null}
-     * @private
      */
     this.parent = config.parent || null
 
     /**
      * Child instances of this instance.
      * @type {Instance[]}
-     * @private
      */
     this.children = []
 
     /**
      * The editor controlling this Instance if any
      * @type {Editor|null}
-     * @private
      */
     this.ui = null
 
     /**
      * Indicates whether the instance value changed.
      * @type {boolean}
-     * @private
      */
     this.isDirty = false
 
