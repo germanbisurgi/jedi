@@ -5,13 +5,13 @@ import { i18n } from '../../i18n.js'
 export function format (validator, value, schema, key, path) {
   const errors = []
   const format = getSchemaFormat(schema)
-  let validateFormat = validator.validateFormat
+  let assertFormat = validator.assertFormat
 
-  if (getSchemaXOption(schema, 'validateFormat')) {
-    validateFormat = schema.options.validateFormat
+  if (getSchemaXOption(schema, 'assertFormat')) {
+    assertFormat = schema.options.assertFormat
   }
 
-  if (isSet(format) && isString(value) && validateFormat) {
+  if (isSet(format) && isString(value) && assertFormat) {
     let regexp
 
     if (format === 'email') {

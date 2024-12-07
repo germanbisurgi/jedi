@@ -49,7 +49,7 @@ class Jedi extends EventEmitter {
       schema: {},
       showErrors: 'change',
       data: undefined,
-      validateFormat: false,
+      assertFormat: false,
       mergeAllOf: false,
       enforceConst: false,
       enforceEnumDefault: true,
@@ -143,7 +143,7 @@ class Jedi extends EventEmitter {
     }
 
     this.schema = this.options.schema
-    this.validator = new Validator({ refParser: this.refParser, validateFormat: this.options.validateFormat })
+    this.validator = new Validator({ refParser: this.refParser, assertFormat: this.options.assertFormat })
 
     this.root = this.createInstance({
       jedi: this,

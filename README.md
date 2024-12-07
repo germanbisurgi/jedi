@@ -178,7 +178,7 @@ init()
       <td>Initial data to populate the form.</td>
     </tr>
     <tr align="left">
-      <td><code>validateFormat</code></td>
+      <td><code>assertFormat</code></td>
       <td><code>boolean</code></td>
       <td><code>false</code></td>
       <td>Treats <code>'format'</code> as a validator rather than just an annotation.</td>

@@ -24363,14 +24363,14 @@
             "path": "/Users/germanbisurgi/Sites/germanbisurgi/jedi/src",
             "code": {
                 "id": "astnode100010963",
-                "name": "validateFormat",
+                "name": "assertFormat",
                 "type": "Literal",
                 "value": false
             }
         },
         "undocumented": true,
-        "name": "validateFormat",
-        "longname": "validateFormat",
+        "name": "assertFormat",
+        "longname": "assertFormat",
         "kind": "member",
         "scope": "global"
     },
@@ -24749,14 +24749,14 @@
             "path": "/Users/germanbisurgi/Sites/germanbisurgi/jedi/src",
             "code": {
                 "id": "astnode100011056",
-                "name": "validateFormat",
+                "name": "assertFormat",
                 "type": "MemberExpression",
-                "value": "this.options.validateFormat"
+                "value": "this.options.assertFormat"
             }
         },
         "undocumented": true,
-        "name": "validateFormat",
-        "longname": "validateFormat",
+        "name": "assertFormat",
+        "longname": "assertFormat",
         "kind": "member",
         "scope": "global"
     },
@@ -47050,7 +47050,7 @@
             "vars": {
                 "errors": "format~errors",
                 "format": "format~format",
-                "validateFormat": "format~validateFormat",
+                "assertFormat": "format~assertFormat",
                 "regexp": "format~regexp",
                 "invalid": "format~invalid"
             }
@@ -47127,14 +47127,14 @@
             "path": "/Users/germanbisurgi/Sites/germanbisurgi/jedi/src/validation/constrains",
             "code": {
                 "id": "astnode100020169",
-                "name": "validateFormat",
+                "name": "assertFormat",
                 "type": "MemberExpression",
-                "value": "validator.validateFormat"
+                "value": "validator.assertFormat"
             }
         },
         "undocumented": true,
-        "name": "validateFormat",
-        "longname": "format~validateFormat",
+        "name": "assertFormat",
+        "longname": "format~assertFormat",
         "kind": "member",
         "memberof": "format",
         "scope": "inner",
@@ -47153,16 +47153,16 @@
             "path": "/Users/germanbisurgi/Sites/germanbisurgi/jedi/src/validation/constrains",
             "code": {
                 "id": "astnode100020181",
-                "name": "validateFormat",
+                "name": "assertFormat",
                 "type": "MemberExpression",
                 "funcscope": "format",
-                "value": "schema.options.validateFormat",
+                "value": "schema.options.assertFormat",
                 "paramnames": []
             }
         },
         "undocumented": true,
-        "name": "validateFormat",
-        "longname": "format~validateFormat",
+        "name": "assertFormat",
+        "longname": "format~assertFormat",
         "kind": "member",
         "memberof": "format",
         "scope": "inner"
@@ -58518,15 +58518,15 @@
             "path": "/Users/germanbisurgi/Sites/germanbisurgi/jedi/src/validation",
             "code": {
                 "id": "astnode100023717",
-                "name": "this.validateFormat",
+                "name": "this.assertFormat",
                 "type": "ConditionalExpression",
                 "value": "",
                 "paramnames": []
             }
         },
         "undocumented": true,
-        "name": "validateFormat",
-        "longname": "Validator#validateFormat",
+        "name": "assertFormat",
+        "longname": "Validator#assertFormat",
         "kind": "member",
         "memberof": "Validator",
         "scope": "instance"

@@ -578,11 +578,11 @@ function exclusiveMinimum(validator, value, schema, key, path) {
 function format(validator, value, schema, key, path) {
   const errors = [];
   const format2 = getSchemaFormat(schema);
-  let validateFormat = validator.validateFormat;
-  if (getSchemaXOption(schema, "validateFormat")) {
-    validateFormat = schema.options.validateFormat;
+  let assertFormat = validator.assertFormat;
+  if (getSchemaXOption(schema, "assertFormat")) {
+    assertFormat = schema.options.assertFormat;
   }
-  if (isSet(format2) && isString(value) && validateFormat) {
+  if (isSet(format2) && isString(value) && assertFormat) {
     let regexp;
     if (format2 === "email") {
       regexp = new RegExp(/^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/i);
@@ -1490,7 +1490,7 @@ const draft202012 = {
 class Validator {
   constructor(config = {}) {
     this.refParser = config.refParser;
-    this.validateFormat = config.validateFormat ? config.validateFormat : false;
+    this.assertFormat = config.assertFormat ? config.assertFormat : false;
     this.draft = draft202012;
     this.jsonSchemaDrafts = {
       "http://json-schema.org/draft-04/schema#": draft04,
@@ -3792,7 +3792,7 @@ class Jedi extends EventEmitter {
       schema: {},
       showErrors: "change",
       data: void 0,
-      validateFormat: false,
+      assertFormat: false,
       mergeAllOf: false,
       enforceConst: false,
       enforceEnumDefault: true,
@@ -3844,7 +3844,7 @@ class Jedi extends EventEmitter {
       }
     }
     this.schema = this.options.schema;
-    this.validator = new Validator({ refParser: this.refParser, validateFormat: this.options.validateFormat });
+    this.validator = new Validator({ refParser: this.refParser, assertFormat: this.options.assertFormat });
     this.root = this.createInstance({
       jedi: this,
       schema: this.options.schema,

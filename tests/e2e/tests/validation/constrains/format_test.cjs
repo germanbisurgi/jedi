@@ -9,7 +9,7 @@ Scenario('@constrain @format should display validation error', ({ I }) => {
   I.selectOption('#examples', 'validator/format')
   I.selectOption('#show-errors', 'always')
   I.dontSee('Must be a valid email', '[data-path="#/email"]')
-  I._checkOption('[id="validateFormat"]')
+  I._checkOption('[id="assertFormat"]')
   I._waitForText('Must be a valid email', '[data-path="#/email"]')
   I.fillField('[id="root-email"]', 'some@email.com')
   I.pressKey('Tab')

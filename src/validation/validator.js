@@ -12,7 +12,7 @@ import { getSchemaXOption } from '../helpers/schema.js'
 class Validator {
   constructor (config = {}) {
     this.refParser = config.refParser
-    this.validateFormat = config.validateFormat ? config.validateFormat : false
+    this.assertFormat = config.assertFormat ? config.assertFormat : false
     this.draft = draft202012
 
     this.jsonSchemaDrafts = {

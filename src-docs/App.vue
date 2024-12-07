@@ -95,8 +95,8 @@
           </div>
 
           <div class="form-group mb-3">
-            <input type="checkbox" id="validateFormat" v-model="validateFormat" @change="initEditor()">
-            <label for="validateFormat">validateFormat</label>
+            <input type="checkbox" id="assertFormat" v-model="assertFormat" @change="initEditor()">
+            <label for="assertFormat">assertFormat</label>
           </div>
 
           <div class="form-group mb-3">
@@ -309,7 +309,7 @@ export default {
       theme: 'barebones',
       iconLib: 'bootstrap-icons',
       showErrors: 'change',
-      validateFormat: false,
+      assertFormat: false,
       mergeAllOf: false,
       enforceEnumDefault: false
     }
@@ -319,7 +319,7 @@ export default {
     this.iconLib = this.getQueryParam('iconLib') || 'fontawesome5'
     this.example = this.getQueryParam('example') || 'editors/all'
     this.showErrors = this.getQueryParam('showErrors') || 'change'
-    this.validateFormat = this.getQueryParam('validateFormat') ? this.parseBooleanString(this.getQueryParam('validateFormat')) : false
+    this.assertFormat = this.getQueryParam('assertFormat') ? this.parseBooleanString(this.getQueryParam('assertFormat')) : false
     this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
     this.enforceEnumDefault = this.getQueryParam('enforceEnumDefault') ? this.parseBooleanString(this.getQueryParam('enforceEnumDefault')) : true
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
@@ -431,7 +431,7 @@ export default {
         startCollapsed: this.startCollapsed,
         iconLib: this.iconLib,
         showErrors: this.showErrors,
-        validateFormat: this.validateFormat,
+        assertFormat: this.assertFormat,
         mergeAllOf: this.mergeAllOf,
         enforceEnumDefault: this.enforceEnumDefault,
         schema: this.schema,
@@ -480,7 +480,7 @@ export default {
       newUrl += "&iconLib=" + this.iconLib
       newUrl += "&example=" + this.example
       newUrl += "&showErrors=" + this.showErrors
-      newUrl += "&validateFormat=" + this.validateFormat
+      newUrl += "&assertFormat=" + this.assertFormat
       newUrl += "&mergeAllOf=" + this.mergeAllOf
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle

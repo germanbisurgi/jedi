@@ -342,8 +342,8 @@
               "title": "mergeAllOf",
               "type": "boolean"
             },
-            "validateFormat": {
-              "title": "validateFormat",
+            "assertFormat": {
+              "title": "assertFormat",
               "type": "boolean"
             }
           }
