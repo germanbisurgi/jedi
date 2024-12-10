@@ -2,7 +2,7 @@
   "type": "array",
   "title": "array-nav-tabs",
   "x-options": {
-    "itemTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
+    "titleTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
     "format": "nav",
     "navType": "tabs",
     "navColumns": 12,

@@ -614,14 +614,14 @@
             "path": "/Users/germanbisurgi/Sites/germanbisurgi/jedi/src/editors",
             "code": {
                 "id": "astnode100000345",
-                "name": "schemaOptionItemTemplate",
+                "name": "schemaOptiontitleTemplate",
                 "type": "CallExpression",
                 "value": ""
             }
         },
         "undocumented": true,
-        "name": "schemaOptionItemTemplate",
-        "longname": "<anonymous>~schemaOptionItemTemplate",
+        "name": "schemaOptiontitleTemplate",
+        "longname": "<anonymous>~schemaOptiontitleTemplate",
         "kind": "constant",
         "memberof": "<anonymous>",
         "scope": "inner",
@@ -642,7 +642,7 @@
                 "id": "astnode100000359",
                 "name": "template",
                 "type": "Identifier",
-                "value": "schemaOptionItemTemplate"
+                "value": "schemaOptiontitleTemplate"
             }
         },
         "undocumented": true,

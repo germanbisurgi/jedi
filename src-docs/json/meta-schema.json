@@ -288,8 +288,8 @@
               "title": "labelIconClass",
               "type": "string"
             },
-            "itemTemplate": {
-              "title": "itemTemplate",
+            "titleTemplate": {
+              "title": "titleTemplate",
               "type": "string"
             },
             "switcherTitle": {

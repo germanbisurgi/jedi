@@ -2,7 +2,7 @@
   "type": "array",
   "title": "Persons",
   "x-options": {
-    "itemTemplate": "{{ i1 }}) {{ value.name }}",
+    "titleTemplate": "{{ i1 }}) {{ value.name }}",
     "nav": {
       "variant": "pills",
       "stacked": true

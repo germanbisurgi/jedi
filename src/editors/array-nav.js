@@ -56,10 +56,10 @@ class EditorArrayNav extends EditorArray {
       this.control.childrenSlot.appendChild(child.ui.control.container)
 
       let childTitle
-      const schemaOptionItemTemplate = getSchemaXOption(this.instance.schema, 'itemTemplate')
+      const schemaOptionTitleTemplate = getSchemaXOption(this.instance.schema, 'titleTemplate')
 
-      if (schemaOptionItemTemplate) {
-        const template = schemaOptionItemTemplate
+      if (schemaOptionTitleTemplate) {
+        const template = schemaOptionTitleTemplate
         const data = {
           i0: index,
           i1: (index + 1),
