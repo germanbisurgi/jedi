@@ -18,14 +18,12 @@
   - simplemde
 
 - editors
-  - readOnly should not render buttons
   - input range
   - input file
   - color picker
   - switch
   - tooltip
   - array copy button
-  - titleInErrors: boolean
   - append descriptions if set and not hidden
   - type hidden description
   - ionic theme

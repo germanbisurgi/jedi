@@ -146,7 +146,9 @@ class Editor {
       return
     }
 
-    const label = getSchemaTitle(this.instance.schema) || this.instance.getKey()
+    const title = getSchemaTitle(this.instance.schema) || this.instance.getKey()
+
+    const includeTitlesInMessages = getSchemaXOption(this.instance.schema, 'includeTitlesInMessages') || this.instance.jedi.options.includeTitlesInMessages
 
     errors.forEach((error) => {
       if (error.constraint === 'properties') {
@@ -155,8 +157,9 @@ class Editor {
 
       error.messages.forEach((message) => {
         const invalidFeedback = this.getInvalidFeedback({
-          message: label + ': ' + message
+          message: includeTitlesInMessages ? title + ': ' + message : message
         })
+
         this.control.messages.appendChild(invalidFeedback)
       })
     })

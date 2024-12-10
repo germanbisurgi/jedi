@@ -108,6 +108,11 @@
             <input type="checkbox" id="enforceEnumDefault" v-model="enforceEnumDefault" @change="initEditor()">
             <label for="enforceEnumDefault">enforceEnumDefault</label>
           </div>
+
+          <div class="form-group mb-3">
+            <input type="checkbox" id="includeTitlesInMessages" v-model="includeTitlesInMessages" @change="initEditor()">
+            <label for="includeTitlesInMessages">includeTitlesInMessages</label>
+          </div>
         </aside>
       </div>
     </div>
@@ -311,7 +316,8 @@ export default {
       showErrors: 'change',
       assertFormat: false,
       mergeAllOf: false,
-      enforceEnumDefault: false
+      enforceEnumDefault: true,
+      includeTitlesInMessages: true
     }
   },
   created() {
@@ -322,6 +328,7 @@ export default {
     this.assertFormat = this.getQueryParam('assertFormat') ? this.parseBooleanString(this.getQueryParam('assertFormat')) : false
     this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
     this.enforceEnumDefault = this.getQueryParam('enforceEnumDefault') ? this.parseBooleanString(this.getQueryParam('enforceEnumDefault')) : true
+    this.includeTitlesInMessages = this.getQueryParam('includeTitlesInMessages') ? this.parseBooleanString(this.getQueryParam('includeTitlesInMessages')) : true
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
     this.enableCollapseToggle = this.getQueryParam('enableCollapseToggle') ? this.parseBooleanString(this.getQueryParam('enableCollapseToggle')) : true
   },
@@ -434,6 +441,7 @@ export default {
         assertFormat: this.assertFormat,
         mergeAllOf: this.mergeAllOf,
         enforceEnumDefault: this.enforceEnumDefault,
+        includeTitlesInMessages: this.includeTitlesInMessages,
         schema: this.schema,
         theme: this.getThemeInstance(this.theme),
         refParser,
@@ -483,6 +491,7 @@ export default {
       newUrl += "&assertFormat=" + this.assertFormat
       newUrl += "&mergeAllOf=" + this.mergeAllOf
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
+      newUrl += "&includeTitlesInMessages=" + this.includeTitlesInMessages
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
 
