@@ -17,6 +17,16 @@ Scenario('@editor @boolean-checkbox should have @title and @description', ({ I }
   I._waitForText('The boolean type matches only two special values: true and false. Note that values that evaluate to true or false, such as 1 and 0, are not accepted by the schema.')
 })
 
+Scenario('@plugin @boolean-checkbox should have @infoButton', ({I}) => {
+  I._waitForElement('.jedi-info-button')
+  I._click('.jedi-info-button')
+  I._waitForText('Info Button title')
+  I._waitForText('Info button content')
+  I._click('.jedi-modal-close')
+  I.waitForInvisible('Info Button title')
+  I.waitForInvisible('Info button content')
+})
+
 Scenario('@editor @boolean-checkbox should have a @default value', ({I}) => {
   // instance
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(defaultValue))

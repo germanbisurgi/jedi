@@ -18,7 +18,8 @@ class EditorStringAwesomplete extends EditorString {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, 'infoButton')
     })
 
     try {

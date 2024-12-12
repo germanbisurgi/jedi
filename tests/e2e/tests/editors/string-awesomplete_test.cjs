@@ -14,9 +14,19 @@ BeforeSuite(({I}) => {
   I._waitForElement('.jedi-ready')
 });
 
-Scenario('@plugin @string-awesomplete should have @title and @description', ({I}) => {
+Scenario('@plugin @string-awesomplete should have @title, and @description', ({I}) => {
   I._waitForText('Awesomplete', 'label.jedi-title')
   I._waitForText('Awesomplete is an ultra lightweight, customizable, simple autocomplete widget with zero dependencies, built with modern standards for modern browsers.', '.jedi-description')
+})
+
+Scenario('@plugin @string-awesomplete should have @infoButton', ({I}) => {
+  I._waitForElement('.jedi-info-button')
+  I._click('.jedi-info-button')
+  I._waitForText('Info Button title')
+  I._waitForText('Info button content')
+  I._click('.jedi-modal-close')
+  I.waitForInvisible('Info Button title')
+  I.waitForInvisible('Info button content')
 })
 
 Scenario('@plugin @string-awesomplete should have a @default value', ({I}) => {

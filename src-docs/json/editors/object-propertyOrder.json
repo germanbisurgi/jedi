@@ -1,5 +1,12 @@
 {
   "type": "object",
+  "x-options": {
+    "infoButton": {
+      "type": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
+  },
   "properties": {
     "a": {
       "type": "string",

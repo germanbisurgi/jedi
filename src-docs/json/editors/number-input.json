@@ -3,5 +3,12 @@
   "title": "Number",
   "default": 5.5,
   "minimum": 0,
-  "description": "The number type is used for any numeric type, either integers or floating point numbers."
+  "description": "The number type is used for any numeric type, either integers or floating point numbers.",
+  "x-options": {
+    "infoButton": {
+      "type": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
+  }
 }

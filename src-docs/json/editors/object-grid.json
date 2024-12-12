@@ -2,7 +2,12 @@
   "type": "object",
   "title": "Grid",
   "x-options": {
-    "format": "grid"
+    "format": "grid",
+    "infoButton": {
+      "type": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
   },
   "properties": {
     "a": {

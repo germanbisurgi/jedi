@@ -18,6 +18,16 @@ Scenario('@plugin @string-quill should have @title and @description', ({I}) => {
   I._waitForText('Quill is a modern WYSIWYG editor built for compatibility and extensibility.', '.jedi-description')
 })
 
+Scenario('@plugin @string-quill should have @infoButton', ({I}) => {
+  I._waitForElement('.jedi-info-button')
+  I._click('.jedi-info-button')
+  I._waitForText('Info Button title')
+  I._waitForText('Info button content')
+  I._click('.jedi-modal-close')
+  I.waitForInvisible('Info Button title')
+  I.waitForInvisible('Info button content')
+})
+
 Scenario('@plugin @string-quill should have a @default value', ({I}) => {
   // instance
   I.waitForValue('[id="jedi-hidden-input"]', valueDefault)

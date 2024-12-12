@@ -15,7 +15,12 @@
         "type": "number"
       },
       "x-options": {
-        "sortable": true
+        "sortable": true,
+        "infoButton": {
+          "type": "modal",
+          "title": "<h4>Info Button title</h4>",
+          "content": "<p>Info button content</p>"
+        }
       }
     },
     "prefixItems": {

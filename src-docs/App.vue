@@ -141,6 +141,8 @@ import objectGrid from './json/editors/object-grid.json'
 import objectNavPills from './json/editors/object-nav-pills.json'
 import objectNavTabs from './json/editors/object-nav-tabs.json'
 import objectPropertyOrder from './json/editors/object-propertyOrder.json'
+import stringEnumRadio from './json/editors/string-enum-radio.json'
+import stringEnumSelect from './json/editors/string-enum-select.json'
 import stringInput from './json/editors/string-input.json'
 import stringTextarea from './json/editors/string-textarea.json'
 import resumeSchema from './json/examples/resume-schema.json'
@@ -207,12 +209,12 @@ export default {
           'editors/all': all,
           'editors/array': array,
           'editors/array-enum-items': arrayEnumItems,
-          'editors/array-table': arrayNavTable,
           'editors/array-nav-pills': arrayNavPills,
           'editors/array-nav-tabs': arrayNavTabs,
+          'editors/array-table': arrayNavTable,
           'editors/boolean-checkbox': booleanCheckbox,
-          'editors/boolean-select': booleanSelect,
           'editors/boolean-radio': booleanRadio,
+          'editors/boolean-select': booleanSelect,
           'editors/integer-input': integerInput,
           'editors/null': nullJson,
           'editors/number-input': numberInput,
@@ -221,8 +223,17 @@ export default {
           'editors/object-nav-pills': objectNavPills,
           'editors/object-nav-tabs': objectNavTabs,
           'editors/object-propertyOrder': objectPropertyOrder,
+          'editors/string-enum-radio': stringEnumRadio,
+          'editors/string-enum-select': stringEnumSelect,
           'editors/string-input': stringInput,
           'editors/string-textarea': stringTextarea
+        },
+        Plugins: {
+          'plugins/awesomplete': awesomplete,
+          'plugins/flatpickr': flatpickr,
+          'plugins/jodit': jodit,
+          'plugins/quill': quill,
+          'plugins/raty': raty,
         },
         Validators: {
           'validator/additionalProperties': additionalProperties,
@@ -240,17 +251,18 @@ export default {
           'validator/if-then': ifThen,
           'validator/if-then-else': ifThenElse,
           'validator/if-then-else-allOf': ifThenElseAllOf,
+          'validator/if-then-else-deeply-nested-and-unselected': ifThenElseDeeplyNestedAndUnselected,
           'validator/if-then-else-nested': ifThenElseNested,
-          'validator/if-then-else-nested-simple': ifThenElseNestedSimple,
           'validator/if-then-else-nested-complex': ifThenElseNestedComplex,
           'validator/if-then-else-nested-complex-2': ifThenElseNestedComplex2,
-          'validator/if-then-else-deeply-nested-and-unselected': ifThenElseDeeplyNestedAndUnselected,
+          'validator/if-then-else-nested-simple': ifThenElseNestedSimple,
           'validator/items': items,
           'validator/maxContains': maxContains,
           'validator/maximum': maximum,
           'validator/maxItems': maxItems,
           'validator/maxLength': maxLength,
           'validator/maxProperties': maxProperties,
+          'validator/messages': messages,
           'validator/minContains': minContains,
           'validator/minimum': minimum,
           'validator/minItems': minItems,
@@ -266,14 +278,6 @@ export default {
           'validator/required': required,
           'validator/type': typeValidator,
           'validator/uniqueItems': uniqueItems,
-          'validator/messages': messages,
-        },
-        Plugins: {
-          'plugins/awesomplete': awesomplete,
-          'plugins/quill': quill,
-          'plugins/jodit': jodit,
-          'plugins/flatpickr': flatpickr,
-          'plugins/raty': raty,
         },
         Examples: {
           'examples/resume-schema': resumeSchema,

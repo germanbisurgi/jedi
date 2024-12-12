@@ -5,6 +5,11 @@
   "default": "Jodit default",
   "minLength": 20,
   "x-options": {
-    "jodit": {}
+    "jodit": {},
+    "infoButton": {
+      "type": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
   }
 }

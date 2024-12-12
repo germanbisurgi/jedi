@@ -18,6 +18,8 @@
   - simplemde
 
 - editors
+  - better themes icons generation api
+  - fix infoButton when format table
   - input range
   - input file
   - color picker

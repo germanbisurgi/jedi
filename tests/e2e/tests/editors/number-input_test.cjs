@@ -17,6 +17,16 @@ Scenario('@editor @number-input should have @title and @description', ({ I }) =>
   I._waitForText('The number type is used for any numeric type, either integers or floating point numbers.')
 })
 
+Scenario('@editor @number-input should have @infoButton', ({I}) => {
+  I._waitForElement('.jedi-info-button')
+  I._click('.jedi-info-button')
+  I._waitForText('Info Button title')
+  I._waitForText('Info button content')
+  I._click('.jedi-modal-close')
+  I.waitForInvisible('Info Button title')
+  I.waitForInvisible('Info button content')
+})
+
 Scenario('@editor @number-input should have a @default value', ({I}) => {
   // instance
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(defaultValue))

@@ -46,7 +46,8 @@ class EditorArrayEnumItems extends Editor {
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, 'infoButton')
     })
   }
 

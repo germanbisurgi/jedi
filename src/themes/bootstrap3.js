@@ -1,4 +1,5 @@
 import Theme from './theme.js'
+import { isString } from '../helpers/utils.js'
 
 /**
  * Represents a ThemeBootstrap3 instance.
@@ -42,12 +43,13 @@ class ThemeBootstrap3 extends Theme {
   }
 
   getLegend (config) {
-    const legend = super.getLegend(config)
+    const superLegend = super.getLegend(config)
+    const { legend } = superLegend
     legend.classList.add('h5')
     legend.classList.add('panel-heading')
     legend.classList.add('pull-left')
     legend.setAttribute('style', 'margin: 0; display: flex; justify-content: space-between; align-items: center;')
-    return legend
+    return superLegend
   }
 
   getLabel (config) {
@@ -317,6 +319,50 @@ class ThemeBootstrap3 extends Theme {
       element.classList.add('in')
       element.classList.add('active')
     }
+  }
+
+  infoButtonAsModal (infoButton, id, config = {}) {
+    const modal = document.createElement('div')
+    const modalDialog = document.createElement('div')
+    const modalContent = document.createElement('div')
+    const modalHeader = document.createElement('div')
+    const modalTitle = document.createElement('div')
+    const modalBody = document.createElement('div')
+    const closeBtn = this.getButton({
+      textContent: 'Close',
+      icon: 'close'
+    })
+
+    modal.setAttribute('role', 'dialog')
+    modal.setAttribute('id', id)
+    closeBtn.setAttribute('data-dismiss', 'modal')
+    infoButton.infoButton.setAttribute('data-toggle', 'modal')
+    infoButton.infoButton.setAttribute('data-target', '#' + id)
+    modal.classList.add('modal')
+    modal.classList.add('fade')
+    modalDialog.classList.add('modal-dialog')
+    modalContent.classList.add('modal-content')
+    modalHeader.classList.add('modal-header')
+    modalTitle.classList.add('modal-title')
+    modalBody.classList.add('modal-body')
+    closeBtn.classList.add('jedi-modal-close')
+    closeBtn.classList.add('close')
+
+    if (isString(config.title)) {
+      modalTitle.innerHTML = this.purifyContent(config.title)
+    }
+
+    if (isString(config.content)) {
+      modalBody.innerHTML = this.purifyContent(config.content)
+    }
+
+    infoButton.container.appendChild(modal)
+    modal.appendChild(modalDialog)
+    modalDialog.appendChild(modalContent)
+    modalContent.appendChild(modalHeader)
+    modalHeader.appendChild(closeBtn)
+    modalHeader.appendChild(modalTitle)
+    modalContent.appendChild(modalBody)
   }
 
   visuallyHidden (element) {

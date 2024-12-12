@@ -1,20 +1,31 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'barebones'
+const pathToSchema = 'editors/object'
 
 Feature('object')
 
-Scenario('@editor @object should have @title and @description', ({ I }) => {
+BeforeSuite(({I}) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.selectOption('#examples', 'editors/object')
+  I.selectOption('#examples', pathToSchema)
   I._waitForElement('.jedi-ready')
+});
+
+Scenario('@editor @object should have @title and @description', ({ I }) => {
   I._waitForText('Object', 'legend')
   I._waitForText('Objects are the mapping type in JSON. They map “keys” to “values”. In JSON, the “keys” must always be strings. Each of these pairs is conventionally referred to as a “property”.')
 })
 
+Scenario('@editor @object should have @infoButton', ({I}) => {
+  I._waitForElement('.jedi-info-button')
+  I._click('.jedi-info-button')
+  I._waitForText('Info Button title')
+  I._waitForText('Info button content')
+  I._click('.jedi-modal-close')
+  I.waitForInvisible('Info Button title')
+  I.waitForInvisible('Info button content')
+})
+
 Scenario('@editor @object @enablePropertiesToggle should add properties', ({ I }) => {
-  I.amOnPage(`playground.html?theme=${theme}`)
-  I.selectOption('#examples', 'editors/object')
-  I._waitForElement('.jedi-ready')
   I._click('.jedi-properties-toggle')
   I.fillField('#jedi-add-property-input-root', 'test')
   I.pressKey('Tab')
@@ -25,9 +36,6 @@ Scenario('@editor @object @enablePropertiesToggle should add properties', ({ I }
 })
 
 Scenario('@editor @object @enablePropertiesToggle should activate and deactivate properties', ({ I }) => {
-  I.amOnPage(`playground.html?theme=${theme}`)
-  I.selectOption('#examples', 'editors/object')
-  I._waitForElement('.jedi-ready')
   I._click('.jedi-properties-toggle')
   I._waitForElement('[id="root-notRequired-activator"]:not(:disabled)')
   I._waitForElement('[id="root-notRequired"]')
@@ -38,9 +46,6 @@ Scenario('@editor @object @enablePropertiesToggle should activate and deactivate
 })
 
 Scenario('@editor @object @enableCollapseToggle should collapse and expand contents', ({ I }) => {
-  I.amOnPage(`playground.html?theme=${theme}`)
-  I.selectOption('#examples', 'editors/object')
-  I._waitForElement('.jedi-ready')
   I._click('.jedi-collapse-toggle')
   I.waitForInvisible('.jedi-editor-card-body')
   I._click('.jedi-collapse-toggle')

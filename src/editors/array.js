@@ -24,7 +24,8 @@ class EditorArray extends Editor {
       description: getSchemaDescription(this.instance.schema),
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, 'enableCollapseToggle'),
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, 'startCollapsed'),
-      readOnly: this.instance.isReadOnly()
+      readOnly: this.instance.isReadOnly(),
+      infoButton: getSchemaXOption(this.instance.schema, 'infoButton')
     })
   }
 

@@ -5,7 +5,9 @@ export const glyphicons = {
   moveUp: 'glyphicon glyphicon-arrow-up',
   moveDown: 'glyphicon glyphicon-arrow-down',
   collapse: 'glyphicon glyphicon-chevron-down',
-  drag: 'glyphicon glyphicon-th'
+  drag: 'glyphicon glyphicon-th',
+  infoButton: 'glyphicon glyphicon-question-sign',
+  close: 'glyphicon glyphicon-remove'
 }
 
 export const bootstrapIcons = {
@@ -15,7 +17,9 @@ export const bootstrapIcons = {
   moveUp: 'bi bi-arrow-up',
   moveDown: 'bi bi-arrow-down',
   collapse: 'bi bi-chevron-down',
-  drag: 'bi bi-grip-vertical'
+  drag: 'bi bi-grip-vertical',
+  infoButton: 'bi bi-question-circle',
+  close: 'bi bi-x'
 }
 
 export const fontAwesome3 = {
@@ -25,7 +29,9 @@ export const fontAwesome3 = {
   moveUp: 'icon-arrow-up',
   moveDown: 'icon-arrow-down',
   collapse: 'icon-chevron-down',
-  drag: 'icon-th'
+  drag: 'icon-th',
+  infoButton: 'icon-question-sign',
+  close: 'icon-remove'
 }
 
 export const fontAwesome4 = {
@@ -35,7 +41,9 @@ export const fontAwesome4 = {
   moveUp: 'fa fa-arrow-up',
   moveDown: 'fa fa-arrow-down',
   collapse: 'fa fa-chevron-down',
-  drag: 'fa fa-th'
+  drag: 'fa fa-th',
+  infoButton: 'fa fa-question-circle',
+  close: 'fa fa-times'
 }
 
 export const fontAwesome5 = {
@@ -45,7 +53,9 @@ export const fontAwesome5 = {
   moveUp: 'fas fa-arrow-up',
   moveDown: 'fas fa-arrow-down',
   collapse: 'fas fa-chevron-down',
-  drag: 'fas fa-grip-vertical'
+  drag: 'fas fa-grip-vertical',
+  infoButton: 'fas fa-question-circle',
+  close: 'fas fa-times'
 }
 
 export const fontAwesome6 = {
@@ -55,5 +65,7 @@ export const fontAwesome6 = {
   moveUp: 'fa-solid fa-arrow-up',
   moveDown: 'fa-solid fa-arrow-down',
   collapse: 'fa-solid fa-chevron-down',
-  drag: 'fa-solid fa-grip-vertical'
+  drag: 'fa-solid fa-grip-vertical',
+  infoButton: 'fa-solid fa-circle-question',
+  close: 'fa-solid fa-xmark'
 }

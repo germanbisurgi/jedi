@@ -1852,14 +1852,15 @@ class Editor {
     if (neverShowErrors && !force || errors.length === 0) {
       return;
     }
-    const label = getSchemaTitle(this.instance.schema) || this.instance.getKey();
+    const title = getSchemaTitle(this.instance.schema) || this.instance.getKey();
+    const includeTitlesInMessages = getSchemaXOption(this.instance.schema, "includeTitlesInMessages") || this.instance.jedi.options.includeTitlesInMessages;
     errors.forEach((error) => {
       if (error.constraint === "properties") {
         return;
       }
       error.messages.forEach((message) => {
         const invalidFeedback = this.getInvalidFeedback({
-          message: label + ": " + message
+          message: includeTitlesInMessages ? title + ": " + message : message
         });
         this.control.messages.appendChild(invalidFeedback);
       });
@@ -2513,7 +2514,9 @@ const glyphicons = {
   moveUp: "glyphicon glyphicon-arrow-up",
   moveDown: "glyphicon glyphicon-arrow-down",
   collapse: "glyphicon glyphicon-chevron-down",
-  drag: "glyphicon glyphicon-th"
+  drag: "glyphicon glyphicon-th",
+  infoButton: "glyphicon glyphicon-question-sign",
+  close: "glyphicon glyphicon-remove"
 };
 const bootstrapIcons = {
   properties: "bi bi-card-list",
@@ -2522,7 +2525,9 @@ const bootstrapIcons = {
   moveUp: "bi bi-arrow-up",
   moveDown: "bi bi-arrow-down",
   collapse: "bi bi-chevron-down",
-  drag: "bi bi-grip-vertical"
+  drag: "bi bi-grip-vertical",
+  infoButton: "bi bi-question-circle",
+  close: "bi bi-x"
 };
 const fontAwesome3 = {
   properties: "icon-list",
@@ -2531,7 +2536,9 @@ const fontAwesome3 = {
   moveUp: "icon-arrow-up",
   moveDown: "icon-arrow-down",
   collapse: "icon-chevron-down",
-  drag: "icon-th"
+  drag: "icon-th",
+  infoButton: "icon-question-sign",
+  close: "icon-remove"
 };
 const fontAwesome4 = {
   properties: "fa fa-list",
@@ -2540,7 +2547,9 @@ const fontAwesome4 = {
   moveUp: "fa fa-arrow-up",
   moveDown: "fa fa-arrow-down",
   collapse: "fa fa-chevron-down",
-  drag: "fa fa-th"
+  drag: "fa fa-th",
+  infoButton: "fa fa-question-circle",
+  close: "fa fa-times"
 };
 const fontAwesome5 = {
   properties: "fas fa-list",
@@ -2549,7 +2558,9 @@ const fontAwesome5 = {
   moveUp: "fas fa-arrow-up",
   moveDown: "fas fa-arrow-down",
   collapse: "fas fa-chevron-down",
-  drag: "fas fa-grip-vertical"
+  drag: "fas fa-grip-vertical",
+  infoButton: "fas fa-question-circle",
+  close: "fas fa-times"
 };
 const fontAwesome6 = {
   properties: "fa-solid fa-list",
@@ -2558,7 +2569,9 @@ const fontAwesome6 = {
   moveUp: "fa-solid fa-arrow-up",
   moveDown: "fa-solid fa-arrow-down",
   collapse: "fa-solid fa-chevron-down",
-  drag: "fa-solid fa-grip-vertical"
+  drag: "fa-solid fa-grip-vertical",
+  infoButton: "fa-solid fa-circle-question",
+  close: "fa-solid fa-xmark"
 };
 class EditorBoolean extends Editor {
   sanitize(value) {
@@ -2577,7 +2590,8 @@ class EditorBooleanRadio extends EditorBoolean {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      inline: getSchemaXOption(this.instance.schema, "radioInline") || this.instance.jedi.options.radioInline
+      inline: getSchemaXOption(this.instance.schema, "radioInline") || this.instance.jedi.options.radioInline,
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
   }
   adaptForTable() {
@@ -2611,7 +2625,8 @@ class EditorBooleanEnumSelect extends EditorBoolean {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
   }
   adaptForTable() {
@@ -2637,7 +2652,8 @@ class EditorBooleanCheckbox extends EditorBoolean {
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
   }
   adaptForTable(td) {
@@ -2673,7 +2689,8 @@ class EditorStringEnumRadio extends EditorString {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      inline: getSchemaXOption(this.instance.schema, "radioInline") || this.instance.jedi.options.radioInline
+      inline: getSchemaXOption(this.instance.schema, "radioInline") || this.instance.jedi.options.radioInline,
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
   }
   adaptForTable() {
@@ -2731,7 +2748,8 @@ class EditorStringTextarea extends EditorString {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
   }
   adaptForTable() {
@@ -2758,7 +2776,8 @@ class EditorStringAwesomplete extends EditorString {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
     try {
       this.awesomplete = new window.Awesomplete(this.control.input, getSchemaXOption(this.instance.schema, "awesomplete"));
@@ -2796,7 +2815,8 @@ class EditorStringInput extends EditorString {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || optionFormat === "hidden",
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
     if (optionFormat === "color" && this.instance.value.length === 0) {
       this.instance.setValue("#000000", false, "editor");
@@ -2843,7 +2863,8 @@ class EditorNumberEnumRadio extends EditorNumber {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      inline: getSchemaXOption(this.instance.schema, "radioInline") || this.instance.jedi.options.radioInline
+      inline: getSchemaXOption(this.instance.schema, "radioInline") || this.instance.jedi.options.radioInline,
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
   }
   adaptForTable() {
@@ -2878,7 +2899,8 @@ class EditorNumberEnumSelect extends EditorNumber {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
   }
   adaptForTable() {
@@ -2910,7 +2932,8 @@ class EditorNumberInput extends EditorNumber {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || getSchemaXOption(this.instance.schema, "format") === "hidden",
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
     this.control.input.setAttribute("step", "any");
   }
@@ -2959,7 +2982,8 @@ class EditorObject extends Editor {
       addProperty,
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
-      readOnly: this.instance.isReadOnly()
+      readOnly: this.instance.isReadOnly(),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
   }
   addEventListeners() {
@@ -3182,7 +3206,8 @@ class EditorArray extends Editor {
       description: getSchemaDescription(this.instance.schema),
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
-      readOnly: this.instance.isReadOnly()
+      readOnly: this.instance.isReadOnly(),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
   }
   addEventListeners() {
@@ -3413,9 +3438,9 @@ class EditorArrayNav extends EditorArray {
       child.ui.control.arrayActions.appendChild(moveDownBtn);
       this.control.childrenSlot.appendChild(child.ui.control.container);
       let childTitle;
-      const schemaOptionItemTemplate = getSchemaXOption(this.instance.schema, "itemTemplate");
-      if (schemaOptionItemTemplate) {
-        const template = schemaOptionItemTemplate;
+      const schemaOptionTitleTemplate = getSchemaXOption(this.instance.schema, "titleTemplate");
+      if (schemaOptionTitleTemplate) {
+        const template = schemaOptionTitleTemplate;
         const data = {
           i0: index2,
           i1: index2 + 1,
@@ -3521,7 +3546,8 @@ class EditorNull extends Editor {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || getSchemaXOption(this.instance.schema, "format") === "hidden",
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
   }
   sanitize() {
@@ -3538,7 +3564,8 @@ class EditorStringQuill extends EditorString {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
     try {
       this.quill = new window.Quill(this.control.placeholder, getSchemaXOption(this.instance.schema, "quill"));
@@ -3576,7 +3603,8 @@ class EditorStringJodit extends EditorString {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
     try {
       this.jodit = window.Jodit.make(this.control.input, getSchemaXOption(this.instance.schema, "jodit"));
@@ -3619,7 +3647,8 @@ class EditorStringFlatpickr extends EditorString {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
     try {
       this.flatpickr = window.flatpickr(this.control.input, getSchemaXOption(this.instance.schema, "flatpickr"));
@@ -3651,7 +3680,8 @@ class EditorNumberRaty extends EditorNumber {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
     try {
       this.raty = new Raty(this.control.placeholder, Object.assign({}, getSchemaXOption(this.instance.schema, "raty"), {
@@ -3696,7 +3726,8 @@ class EditorArrayEnumItems extends Editor {
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
   }
   adaptForTable(td) {
@@ -3799,7 +3830,8 @@ class Jedi extends EventEmitter {
       customEditors: [],
       hiddenInputAttributes: {},
       id: "",
-      radioInline: false
+      radioInline: false,
+      includeTitlesInMessages: true
     }, options);
     this.rootName = "#";
     this.pathSeparator = "/";
@@ -4158,7 +4190,7 @@ class Theme {
     legendText.textContent = config.textContent;
     legendText.setAttribute("id", "#legend-" + config.id);
     legend.appendChild(legendText);
-    return legend;
+    return { legend, legendText };
   }
   /**
    * Represents a caption for the content of its parent fieldset
@@ -4465,7 +4497,87 @@ class Theme {
     }
     return description;
   }
+  /**
+   * Info button to display extra information
+   */
+  getInfoButton(config = {}) {
+    const container = document.createElement("span");
+    const infoButton = document.createElement("a");
+    const infoButtonText = document.createElement("span");
+    const icon = this.getIcon(this.icons["infoButton"]);
+    icon.setAttribute("title", "More information");
+    infoButton.setAttribute("href", "#");
+    container.classList.add("jedi-info-button-container");
+    infoButton.classList.add("jedi-info-button");
+    container.style.display = "inline-block";
+    infoButton.style.marginLeft = "4px";
+    infoButtonText.textContent = "More information";
+    this.visuallyHidden(infoButtonText);
+    if (isObject(config.attributes)) {
+      for (const [key, value] of Object.entries(config.attributes)) {
+        infoButton.setAttribute(key, value);
+      }
+    }
+    infoButton.appendChild(icon);
+    infoButton.appendChild(infoButtonText);
+    container.appendChild(infoButton);
+    return { container, infoButton, icon };
+  }
+  /**
+   * Dialog or modal that contains extra information about the control
+   */
+  infoButtonAsModal(infoButton, id, config = {}) {
+    const dialog = document.createElement("dialog");
+    const title = document.createElement("div");
+    const content = document.createElement("div");
+    const closeBtn = this.getButton({
+      textContent: "Close",
+      icon: "close"
+    });
+    dialog.classList.add("jedi-modal-dialog");
+    title.classList.add("jedi-modal-title");
+    content.classList.add("jedi-modal-content");
+    closeBtn.classList.add("jedi-modal-close");
+    infoButton.container.appendChild(dialog);
+    dialog.appendChild(title);
+    dialog.appendChild(content);
+    dialog.appendChild(closeBtn);
+    window.addEventListener("click", (event) => {
+      if (event.target === dialog) {
+        dialog.close();
+      }
+    });
+    closeBtn.addEventListener("click", (event) => {
+      dialog.close();
+    });
+    infoButton.infoButton.addEventListener("click", () => {
+      dialog.showModal();
+    });
+    if (isString(config.title)) {
+      title.innerHTML = this.purifyContent(config.title);
+    }
+    if (isString(config.content)) {
+      content.innerHTML = this.purifyContent(config.content);
+    }
+  }
+  /**
+   * Clean out HTML tags from txt
+   */
+  purifyContent(content) {
+    if (window.DOMPurify) {
+      const clean = window.DOMPurify.sanitize(content);
+      if (window.DOMPurify.removed.length) {
+        console.warn("DOMPurify removed the following elements:", window.DOMPurify.removed);
+      }
+      return clean;
+    } else {
+      const tmp = document.createElement("div");
+      tmp.innerHTML = content;
+      return tmp.textContent || tmp.innerText;
+    }
+  }
   getPlaceholderControl(config) {
+    var _a;
     const container = document.createElement("div");
     const placeholder = document.createElement("div");
     const actions = this.getActionsSlot();
@@ -4485,7 +4597,14 @@ class Theme {
     const messages = this.getMessagesSlot({
       id: messagesId
     });
+    const infoButton = this.getInfoButton(config.infoButton);
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    }
     container.appendChild(label);
+    if (isObject(config.infoButton)) {
+      label.appendChild(infoButton.container);
+    }
     container.appendChild(placeholder);
     container.appendChild(description);
     container.appendChild(messages);
@@ -4499,6 +4618,7 @@ class Theme {
    * Properties can be added, activated and deactivated depending on configuration
    */
   getObjectControl(config) {
+    var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
     const arrayActions = this.getArrayActionsSlot();
@@ -4539,14 +4659,21 @@ class Theme {
     });
     const addPropertyBtn = this.getAddPropertyButton();
     const fieldset = this.getFieldset();
-    const legend = this.getLegend({
+    const { legend, legendText } = this.getLegend({
       textContent: config.title,
       id: config.id
     });
+    const infoButton = this.getInfoButton(config.infoButton);
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    }
     addPropertyBtn.classList.add("jedi-object-add");
     container.appendChild(fieldset);
     container.appendChild(propertiesContainer);
     fieldset.appendChild(legend);
+    if (isObject(config.infoButton)) {
+      legendText.appendChild(infoButton.container);
+    }
     fieldset.appendChild(collapse);
     collapse.appendChild(body);
     if (config.description) {
@@ -4593,6 +4720,7 @@ class Theme {
    * Items can bve added, deleted or moved up or down.
    */
   getArrayControl(config) {
+    var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
     const arrayActions = this.getArrayActionsSlot();
@@ -4605,7 +4733,7 @@ class Theme {
     const btnGroup = this.getBtnGroup();
     const addBtn = this.getArrayBtnAdd();
     const fieldset = this.getFieldset();
-    const legend = this.getLegend({
+    const { legend, legendText } = this.getLegend({
       textContent: config.title,
       id: config.id
     });
@@ -4622,8 +4750,15 @@ class Theme {
       collapse,
       startCollapsed: config.startCollapsed
     });
+    const infoButton = this.getInfoButton(config.infoButton);
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    }
     container.appendChild(fieldset);
     fieldset.appendChild(legend);
+    if (isObject(config.infoButton)) {
+      legendText.appendChild(infoButton.container);
+    }
     fieldset.appendChild(collapse);
     collapse.appendChild(body);
     if (config.description) {
@@ -4769,6 +4904,7 @@ class Theme {
    * Control for NullEditor
    */
   getNullControl(config) {
+    var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
     const arrayActions = this.getArrayActionsSlot();
@@ -4785,7 +4921,14 @@ class Theme {
     });
     const messages = this.getMessagesSlot();
     const br = document.createElement("br");
+    const infoButton = this.getInfoButton(config.infoButton);
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    }
     container.appendChild(label);
+    if (isObject(config.infoButton)) {
+      label.appendChild(infoButton.container);
+    }
     container.appendChild(br);
     container.appendChild(description);
     container.appendChild(messages);
@@ -4797,6 +4940,7 @@ class Theme {
    * A Textarea
    */
   getTextareaControl(config) {
+    var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
     const arrayActions = this.getArrayActionsSlot();
@@ -4819,7 +4963,14 @@ class Theme {
     });
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
+    const infoButton = this.getInfoButton(config.infoButton);
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    }
     container.appendChild(label);
+    if (isObject(config.infoButton)) {
+      label.appendChild(infoButton.container);
+    }
     container.appendChild(input);
     container.appendChild(description);
     container.appendChild(messages);
@@ -4836,6 +4987,7 @@ class Theme {
    * An Input control
    */
   getInputControl(config) {
+    var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
     const arrayActions = this.getArrayActionsSlot();
@@ -4861,12 +5013,19 @@ class Theme {
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
     container.appendChild(label);
+    const infoButton = this.getInfoButton(config.infoButton);
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    }
+    if (isObject(config.infoButton)) {
+      label.appendChild(infoButton.container);
+    }
     container.appendChild(input);
     container.appendChild(description);
     container.appendChild(messages);
     container.appendChild(actions);
     actions.appendChild(arrayActions);
-    return { container, input, label, labelText, description, messages, actions, arrayActions };
+    return { container, input, label, infoButton, labelText, description, messages, actions, arrayActions };
   }
   adaptForTableInputControl(control) {
     this.visuallyHidden(control.label);
@@ -4877,12 +5036,13 @@ class Theme {
    * A radio group control
    */
   getRadiosControl(config) {
+    var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
     const arrayActions = this.getArrayActionsSlot();
     const fieldset = this.getFieldset();
     const body = this.getCardBody();
-    const legend = this.getLegend({
+    const { legend, legendText } = this.getLegend({
       textContent: config.label,
       id: config.id
     });
@@ -4895,6 +5055,10 @@ class Theme {
       textContent: config.description,
       id: descriptionId
     });
+    const infoButton = this.getInfoButton(config.infoButton);
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    }
     if (config.titleHidden) {
       this.visuallyHidden(legend);
     }
@@ -4924,6 +5088,9 @@ class Theme {
     container.appendChild(fieldset);
     container.appendChild(actions);
     fieldset.appendChild(legend);
+    if (isObject(config.infoButton)) {
+      legendText.appendChild(infoButton.container);
+    }
     fieldset.appendChild(body);
     actions.appendChild(arrayActions);
     radioControls.forEach((radioControl, index2) => {
@@ -4938,6 +5105,7 @@ class Theme {
       container,
       fieldset,
       legend,
+      infoButton,
       body,
       radios,
       labels,
@@ -4958,6 +5126,7 @@ class Theme {
    * A checkbox control
    */
   getCheckboxControl(config) {
+    var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
     const arrayActions = this.getArrayActionsSlot();
@@ -4981,14 +5150,21 @@ class Theme {
     });
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
+    const infoButton = this.getInfoButton(config.infoButton);
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    }
     container.appendChild(formGroup);
     container.appendChild(actions);
     actions.appendChild(arrayActions);
     formGroup.appendChild(input);
     formGroup.appendChild(label);
+    if (isObject(config.infoButton)) {
+      label.appendChild(infoButton.container);
+    }
     formGroup.appendChild(description);
     formGroup.appendChild(messages);
-    return { container, formGroup, input, label, labelText, description, messages, actions, arrayActions };
+    return { container, formGroup, input, label, infoButton, labelText, description, messages, actions, arrayActions };
   }
   adaptForTableCheckboxControl(control, td) {
     this.visuallyHidden(control.label);
@@ -4997,12 +5173,13 @@ class Theme {
     td.style.textAlign = "center";
   }
   getCheckboxesControl(config) {
+    var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
     const arrayActions = this.getArrayActionsSlot();
     const fieldset = this.getFieldset();
     const body = this.getCardBody();
-    const legend = this.getLegend({
+    const { legend, legendText } = this.getLegend({
       textContent: config.label,
       id: config.id
     });
@@ -5041,9 +5218,16 @@ class Theme {
       }
       labels.push(label);
     });
+    const infoButton = this.getInfoButton(config.infoButton);
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    }
     container.appendChild(fieldset);
     container.appendChild(actions);
     fieldset.appendChild(legend);
+    if (isObject(config.infoButton)) {
+      legendText.appendChild(infoButton.container);
+    }
     fieldset.appendChild(body);
     actions.appendChild(arrayActions);
     checkboxControls.forEach((checkboxControl, index2) => {
@@ -5079,6 +5263,7 @@ class Theme {
    * A select control
    */
   getSelectControl(config) {
+    var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
     const arrayActions = this.getArrayActionsSlot();
@@ -5108,13 +5293,20 @@ class Theme {
     });
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
+    const infoButton = this.getInfoButton(config.infoButton);
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    }
     container.appendChild(label);
+    if (isObject(config.infoButton)) {
+      label.appendChild(infoButton.container);
+    }
     container.appendChild(input);
     container.appendChild(description);
     container.appendChild(messages);
     container.appendChild(actions);
     actions.appendChild(arrayActions);
-    return { container, input, label, labelText, description, messages, actions, arrayActions };
+    return { container, input, label, infoButton, labelText, description, messages, actions, arrayActions };
   }
   adaptForTableSelectControl(control) {
     this.visuallyHidden(control.label);
@@ -5316,12 +5508,13 @@ class ThemeBootstrap3 extends Theme {
     return fieldset;
   }
   getLegend(config) {
-    const legend = super.getLegend(config);
+    const superLegend = super.getLegend(config);
+    const { legend } = superLegend;
     legend.classList.add("h5");
     legend.classList.add("panel-heading");
     legend.classList.add("pull-left");
     legend.setAttribute("style", "margin: 0; display: flex; justify-content: space-between; align-items: center;");
-    return legend;
+    return superLegend;
   }
   getLabel(config) {
     const labelObj = super.getLabel(config);
@@ -5536,6 +5729,45 @@ class ThemeBootstrap3 extends Theme {
       element.classList.add("active");
     }
   }
+  infoButtonAsModal(infoButton, id, config = {}) {
+    const modal = document.createElement("div");
+    const modalDialog = document.createElement("div");
+    const modalContent = document.createElement("div");
+    const modalHeader = document.createElement("div");
+    const modalTitle = document.createElement("div");
+    const modalBody = document.createElement("div");
+    const closeBtn = this.getButton({
+      textContent: "Close",
+      icon: "close"
+    });
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("id", id);
+    closeBtn.setAttribute("data-dismiss", "modal");
+    infoButton.infoButton.setAttribute("data-toggle", "modal");
+    infoButton.infoButton.setAttribute("data-target", "#" + id);
+    modal.classList.add("modal");
+    modal.classList.add("fade");
+    modalDialog.classList.add("modal-dialog");
+    modalContent.classList.add("modal-content");
+    modalHeader.classList.add("modal-header");
+    modalTitle.classList.add("modal-title");
+    modalBody.classList.add("modal-body");
+    closeBtn.classList.add("jedi-modal-close");
+    closeBtn.classList.add("close");
+    if (isString(config.title)) {
+      modalTitle.innerHTML = this.purifyContent(config.title);
+    }
+    if (isString(config.content)) {
+      modalBody.innerHTML = this.purifyContent(config.content);
+    }
+    infoButton.container.appendChild(modal);
+    modal.appendChild(modalDialog);
+    modalDialog.appendChild(modalContent);
+    modalContent.appendChild(modalHeader);
+    modalHeader.appendChild(closeBtn);
+    modalHeader.appendChild(modalTitle);
+    modalContent.appendChild(modalBody);
+  }
   visuallyHidden(element) {
     element.classList.add("sr-only");
   }
@@ -5574,7 +5806,8 @@ class ThemeBootstrap4 extends Theme {
     return fieldset;
   }
   getLegend(config) {
-    const legend = super.getLegend(config);
+    const superLegend = super.getLegend(config);
+    const { legend } = superLegend;
     legend.classList.add("h6");
     legend.classList.add("card-header");
     legend.classList.add("d-flex");
@@ -5582,7 +5815,7 @@ class ThemeBootstrap4 extends Theme {
     legend.classList.add("align-items-center");
     legend.classList.add("float-left");
     legend.classList.add("py-2");
-    return legend;
+    return superLegend;
   }
   getLabel(config) {
     const labelObj = super.getLabel(config);
@@ -5702,7 +5935,6 @@ class ThemeBootstrap4 extends Theme {
     control.fieldset.classList.remove("mb-3");
     control.body.classList.remove("card-body");
     control.body.classList.remove("card-body");
-    console.log(control);
   }
   getCheckboxControl(config) {
     const control = super.getCheckboxControl(config);
@@ -5818,6 +6050,47 @@ class ThemeBootstrap4 extends Theme {
       element.classList.add("active");
     }
   }
+  infoButtonAsModal(infoButton, id, config = {}) {
+    const modal = document.createElement("div");
+    const modalDialog = document.createElement("div");
+    const modalContent = document.createElement("div");
+    const modalHeader = document.createElement("div");
+    const modalTitle = document.createElement("div");
+    const modalBody = document.createElement("div");
+    const closeBtn = this.getButton({
+      textContent: "Close",
+      icon: "close"
+    });
+    id = id + "-modal";
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("id", id);
+    closeBtn.setAttribute("data-dismiss", "modal");
+    infoButton.infoButton.setAttribute("data-toggle", "modal");
+    infoButton.infoButton.setAttribute("data-target", "#" + id);
+    infoButton.container.classList.add("ml-1");
+    modal.classList.add("modal");
+    modal.classList.add("fade");
+    modalDialog.classList.add("modal-dialog");
+    modalContent.classList.add("modal-content");
+    modalHeader.classList.add("modal-header");
+    modalTitle.classList.add("modal-title");
+    modalBody.classList.add("modal-body");
+    closeBtn.classList.add("jedi-modal-close");
+    closeBtn.classList.add("close");
+    if (isString(config.title)) {
+      modalTitle.innerHTML = this.purifyContent(config.title);
+    }
+    if (isString(config.content)) {
+      modalBody.innerHTML = this.purifyContent(config.content);
+    }
+    infoButton.container.appendChild(modal);
+    modal.appendChild(modalDialog);
+    modalDialog.appendChild(modalContent);
+    modalContent.appendChild(modalHeader);
+    modalHeader.appendChild(modalTitle);
+    modalHeader.appendChild(closeBtn);
+    modalContent.appendChild(modalBody);
+  }
   visuallyHidden(element) {
     element.classList.add("sr-only");
   }
@@ -5856,14 +6129,15 @@ class ThemeBootstrap5 extends Theme {
     return fieldset;
   }
   getLegend(config) {
-    const legend = super.getLegend(config);
+    const superLegend = super.getLegend(config);
+    const { legend } = superLegend;
     legend.classList.add("h6");
     legend.classList.add("card-header");
     legend.classList.add("d-flex");
     legend.classList.add("justify-content-between");
     legend.classList.add("align-items-center");
     legend.classList.add("py-2");
-    return legend;
+    return superLegend;
   }
   getLabel(config) {
     const labelObj = super.getLabel(config);
@@ -6094,6 +6368,46 @@ class ThemeBootstrap5 extends Theme {
     if (active) {
       element.classList.add("active");
     }
+  }
+  infoButtonAsModal(infoButton, id, config = {}) {
+    const modal = document.createElement("div");
+    const modalDialog = document.createElement("div");
+    const modalContent = document.createElement("div");
+    const modalHeader = document.createElement("div");
+    const modalTitle = document.createElement("div");
+    const modalBody = document.createElement("div");
+    const closeBtn = this.getButton({
+      textContent: "Close",
+      icon: "close"
+    });
+    id = id + "-modal";
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("id", id);
+    closeBtn.setAttribute("data-bs-dismiss", "modal");
+    infoButton.infoButton.setAttribute("data-bs-toggle", "modal");
+    infoButton.infoButton.setAttribute("data-bs-target", "#" + id);
+    infoButton.container.classList.add("ms-1");
+    modal.classList.add("modal");
+    modal.classList.add("fade");
+    modalDialog.classList.add("modal-dialog");
+    modalContent.classList.add("modal-content");
+    modalHeader.classList.add("modal-header");
+    modalTitle.classList.add("modal-title");
+    modalBody.classList.add("modal-body");
+    closeBtn.classList.add("jedi-modal-close");
+    if (isString(config.title)) {
+      modalTitle.innerHTML = this.purifyContent(config.title);
+    }
+    if (isString(config.content)) {
+      modalBody.innerHTML = this.purifyContent(config.content);
+    }
+    infoButton.container.appendChild(modal);
+    modal.appendChild(modalDialog);
+    modalDialog.appendChild(modalContent);
+    modalContent.appendChild(modalHeader);
+    modalHeader.appendChild(modalTitle);
+    modalHeader.appendChild(closeBtn);
+    modalContent.appendChild(modalBody);
   }
   visuallyHidden(element) {
     element.classList.add("visually-hidden");

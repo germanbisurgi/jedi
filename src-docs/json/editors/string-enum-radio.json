@@ -12,6 +12,11 @@
       "Albert",
       "Betti",
       "Carl"
-    ]
+    ],
+    "infoButton": {
+      "type": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
   }
 }

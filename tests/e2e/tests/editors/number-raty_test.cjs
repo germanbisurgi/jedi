@@ -14,12 +14,19 @@ BeforeSuite(({I}) => {
   I._waitForElement('.jedi-ready')
 });
 
-Scenario('@plugin @number-raty should have @title', ({I}) => {
+Scenario('@plugin @number-raty should have @title and @description', ({I}) => {
   I._waitForText('Raty', 'label.jedi-title')
+  I._waitForText('Raty - A Star Rating Plugin', '.jedi-description')
 })
 
-Scenario('@plugin @number-raty should have a @description', ({I}) => {
-  I._waitForText('Raty - A Star Rating Plugin', '.jedi-description')
+Scenario('@plugin @string-raty should have @infoButton', ({I}) => {
+  I._waitForElement('.jedi-info-button')
+  I._click('.jedi-info-button')
+  I._waitForText('Info Button title')
+  I._waitForText('Info button content')
+  I._click('.jedi-modal-close')
+  I.waitForInvisible('Info Button title')
+  I.waitForInvisible('Info button content')
 })
 
 Scenario('@plugin @number-raty should have a @default value', ({I}) => {

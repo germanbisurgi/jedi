@@ -5,6 +5,11 @@
   "maxLength": 8,
   "description": "The string type is used for strings of text. It may contain Unicode characters.",
   "x-options": {
-    "format": "textarea"
+    "format": "textarea",
+    "infoButton": {
+      "type": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
   }
 }

@@ -1,5 +1,12 @@
 {
   "type": "null",
   "title": "Null",
-  "description": "When a schema specifies a type of null, it has only one acceptable value: null."
+  "description": "When a schema specifies a type of null, it has only one acceptable value: null.",
+  "x-options": {
+    "infoButton": {
+      "type": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
+  }
 }

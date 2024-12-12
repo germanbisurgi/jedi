@@ -6,7 +6,12 @@
     "format": "nav",
     "navType": "tabs",
     "navColumns": 12,
-    "navStacked": false
+    "navStacked": false,
+    "infoButton": {
+      "type": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
   },
   "default": [
     {

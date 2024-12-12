@@ -17,6 +17,16 @@ Scenario('@editor @string-textarea should have @title and @description', ({ I })
   I._waitForText('The string type is used for strings of text. It may contain Unicode characters.')
 })
 
+Scenario('@editor @string-textarea should have @infoButton', ({I}) => {
+  I._waitForElement('.jedi-info-button')
+  I._click('.jedi-info-button')
+  I._waitForText('Info Button title')
+  I._waitForText('Info button content')
+  I._click('.jedi-modal-close')
+  I.waitForInvisible('Info Button title')
+  I.waitForInvisible('Info button content')
+})
+
 Scenario('@editor @string-textarea should have a @default value', ({I}) => {
   // instance
   I.waitForValue('[id="jedi-hidden-input"]', defaultValue)

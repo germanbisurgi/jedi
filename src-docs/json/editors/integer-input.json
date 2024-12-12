@@ -3,5 +3,12 @@
   "title": "Integer",
   "default": 5,
   "minimum": 0,
-  "description": "The integer type is used for integral numbers."
+  "description": "The integer type is used for integral numbers.",
+  "x-options": {
+    "infoButton": {
+      "type": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
+  }
 }

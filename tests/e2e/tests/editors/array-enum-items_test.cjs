@@ -17,6 +17,16 @@ Scenario('@editor @array-enum-items should have @title and @description', ({I}) 
   I._waitForText('Array of unique values wich item types can be string, number or integer', '.jedi-description')
 })
 
+Scenario('@editor @array-enum-items should have @infoButton', ({I}) => {
+  I._waitForElement('.jedi-info-button')
+  I._click('.jedi-info-button')
+  I._waitForText('Info Button title')
+  I._waitForText('Info button content')
+  I._click('.jedi-modal-close')
+  I.waitForInvisible('Info Button title')
+  I.waitForInvisible('Info button content')
+})
+
 Scenario('@editor @array-enum-items should have a @default value', ({I}) => {
   // instance
   I.waitForValue('[id="jedi-hidden-input"]', valueDefault)

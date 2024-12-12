@@ -5,7 +5,12 @@
     "titleTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
     "format": "nav",
     "navVariant": "pills",
-    "navStacked": true
+    "navStacked": true,
+    "infoButton": {
+      "type": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
   },
   "default": [
     {

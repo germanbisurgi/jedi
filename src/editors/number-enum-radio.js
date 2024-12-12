@@ -23,7 +23,8 @@ class EditorNumberEnumRadio extends EditorNumber {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema),
-      inline: getSchemaXOption(this.instance.schema, 'radioInline') || this.instance.jedi.options.radioInline
+      inline: getSchemaXOption(this.instance.schema, 'radioInline') || this.instance.jedi.options.radioInline,
+      infoButton: getSchemaXOption(this.instance.schema, 'infoButton')
     })
   }
 

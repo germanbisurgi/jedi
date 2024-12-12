@@ -16,7 +16,8 @@ class EditorNull extends Editor {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden') || getSchemaXOption(this.instance.schema, 'format') === 'hidden',
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, 'infoButton')
     })
   }
 

@@ -5,6 +5,11 @@
   "default": "2024-08-27",
   "minLength": 3,
   "x-options": {
-    "flatpickr": {}
+    "flatpickr": {},
+    "infoButton": {
+      "type": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
   }
 }

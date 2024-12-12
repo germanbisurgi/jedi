@@ -1,30 +1,38 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'barebones'
+const pathToSchema = 'editors/array'
 
 Feature('array')
 
-Scenario('@editor @array should have @title and @description', ({ I }) => {
+BeforeSuite(({I}) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.selectOption('#examples', 'editors/array')
+  I.selectOption('#examples', pathToSchema)
   I._waitForElement('.jedi-ready')
+});
+
+Scenario('@editor @array should have @title and @description', ({ I }) => {
   I._scrollTo('[data-path="#"]')
   I._waitForText('Array', '[data-type="array"] legend')
   I._waitForText('Arrays are used for ordered elements. In JSON, each element in an array may be of a different type.')
 })
 
+Scenario('@editor @array should have @infoButton', ({I}) => {
+  I._waitForElement('.jedi-info-button')
+  I._click('.jedi-info-button')
+  I._waitForText('Info Button title')
+  I._waitForText('Info button content')
+  I._click('.jedi-modal-close')
+  I.waitForInvisible('Info Button title')
+  I.waitForInvisible('Info button content')
+})
+
 Scenario('@editor @array should validate against @items', ({ I }) => {
-  I.amOnPage(`playground.html?theme=${theme}`)
-  I.selectOption('#examples', 'editors/array')
-  I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
   I._click('[data-path="#/items"] .jedi-array-add')
   I._waitForText('This is a number editor', '[data-path="#/items"] [data-type="number"]')
 })
 
 Scenario('@editor @array should validate against @prefixItems', ({ I }) => {
-  I.amOnPage(`playground.html?theme=${theme}`)
-  I.selectOption('#examples', 'editors/array')
-  I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
   I._click('[data-path="#/prefixItems"] .jedi-array-add')
   I._click('[data-path="#/prefixItems"] .jedi-array-add')
@@ -37,9 +45,6 @@ Scenario('@editor @array should validate against @prefixItems', ({ I }) => {
 })
 
 Scenario('@array-object @enableCollapseToggle should collapse and expand contents', ({ I }) => {
-  I.amOnPage(`playground.html?theme=${theme}`)
-  I.selectOption('#examples', 'editors/array')
-  I._waitForElement('.jedi-ready')
   I._click('.jedi-collapse-toggle')
   I.waitForInvisible('.jedi-editor-card-body')
   I._click('.jedi-collapse-toggle')
