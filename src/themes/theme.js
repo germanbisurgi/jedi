@@ -1205,7 +1205,7 @@ class Theme {
     const actions = this.getActionsSlot()
     const arrayActions = this.getArrayActionsSlot()
 
-    const formGroup = document.createElement('div')
+    const formGroup = document.createElement('span')
 
     const input = document.createElement('input')
     input.setAttribute('type', 'checkbox')
@@ -1244,7 +1244,7 @@ class Theme {
     formGroup.appendChild(label)
 
     if (isObject(config.infoButton)) {
-      label.appendChild(infoButton.container)
+      formGroup.appendChild(infoButton.container)
     }
 
     formGroup.appendChild(description)

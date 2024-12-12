@@ -1,5 +1,5 @@
 import Theme from './theme.js'
-import { isString } from '../helpers/utils.js'
+import { isObject, isString } from '../helpers/utils.js'
 
 /**
  * Represents a ThemeBootstrap5 instance.
@@ -202,7 +202,7 @@ class ThemeBootstrap5 extends Theme {
 
   getCheckboxControl (config) {
     const control = super.getCheckboxControl(config)
-    const { container, formGroup, input, label, description, messages } = control
+    const { container, formGroup, input, label, infoButton, description, messages } = control
     container.classList.add('mb-3')
     formGroup.classList.add('form-check')
     input.classList.add('form-check-input')
@@ -215,6 +215,11 @@ class ThemeBootstrap5 extends Theme {
     container.appendChild(formGroup)
     formGroup.appendChild(input)
     formGroup.appendChild(label)
+
+    if (isObject(config.infoButton)) {
+      formGroup.appendChild(infoButton.container)
+    }
+
     container.appendChild(description)
     container.appendChild(messages)
     return control

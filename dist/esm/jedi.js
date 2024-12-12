@@ -5130,7 +5130,7 @@ class Theme {
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
     const arrayActions = this.getArrayActionsSlot();
-    const formGroup = document.createElement("div");
+    const formGroup = document.createElement("span");
     const input = document.createElement("input");
     input.setAttribute("type", "checkbox");
     input.setAttribute("id", config.id);
@@ -5160,7 +5160,7 @@ class Theme {
     formGroup.appendChild(input);
     formGroup.appendChild(label);
     if (isObject(config.infoButton)) {
-      label.appendChild(infoButton.container);
+      formGroup.appendChild(infoButton.container);
     }
     formGroup.appendChild(description);
     formGroup.appendChild(messages);
@@ -5939,7 +5939,7 @@ class ThemeBootstrap4 extends Theme {
   }
   getCheckboxControl(config) {
     const control = super.getCheckboxControl(config);
-    const { container, formGroup, input, label, description, messages } = control;
+    const { container, formGroup, input, label, infoButton, description, messages } = control;
     container.classList.add("form-group");
     formGroup.classList.add("form-check");
     input.classList.add("form-check-input");
@@ -5947,6 +5947,9 @@ class ThemeBootstrap4 extends Theme {
     container.appendChild(formGroup);
     formGroup.appendChild(input);
     formGroup.appendChild(label);
+    if (isObject(config.infoButton)) {
+      formGroup.appendChild(infoButton.container);
+    }
     container.appendChild(description);
     container.appendChild(messages);
     return control;
@@ -6259,7 +6262,7 @@ class ThemeBootstrap5 extends Theme {
   }
   getCheckboxControl(config) {
     const control = super.getCheckboxControl(config);
-    const { container, formGroup, input, label, description, messages } = control;
+    const { container, formGroup, input, label, infoButton, description, messages } = control;
     container.classList.add("mb-3");
     formGroup.classList.add("form-check");
     input.classList.add("form-check-input");
@@ -6270,6 +6273,9 @@ class ThemeBootstrap5 extends Theme {
     container.appendChild(formGroup);
     formGroup.appendChild(input);
     formGroup.appendChild(label);
+    if (isObject(config.infoButton)) {
+      formGroup.appendChild(infoButton.container);
+    }
     container.appendChild(description);
     container.appendChild(messages);
     return control;
