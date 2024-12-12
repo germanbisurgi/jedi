@@ -47,17 +47,17 @@ const suites = [
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/type'),
   // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/unevaluatedItems'),
   // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/unevaluatedProperties'),
-  require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/uniqueItems'),
+  require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/uniqueItems')
   // require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/vocabulary'),
 ]
 
 for (let i = 0; i < suites.length; i++) {
-  const suite = suites[i];
+  const suite = suites[i]
   for (let j = 0; j < suite.length; j++) {
-    const scenario = suite[j];
+    const scenario = suite[j]
     describe(scenario.description, () => {
       for (let k = 0; k < scenario.tests.length; k++) {
-        const test = scenario.tests[k];
+        const test = scenario.tests[k]
         it(test.description, async () => {
           const refParser = new Jedi.RefParser()
           await refParser.dereference(scenario.schema)
@@ -65,16 +65,15 @@ for (let i = 0; i < suites.length; i++) {
           const jedi = new Jedi.Create({
             schema: scenario.schema,
             refParser
-          });
+          })
 
-          jedi.setValue(test.data);
-          const errors = jedi.getErrors();
-          const valid = errors.length === 0;
-          jedi.destroy();
-          expect(valid).toStrictEqual(test.valid);
-        });
+          jedi.setValue(test.data)
+          const errors = jedi.getErrors()
+          const valid = errors.length === 0
+          jedi.destroy()
+          expect(valid).toStrictEqual(test.valid)
+        })
       }
-    });
+    })
   }
 }
-

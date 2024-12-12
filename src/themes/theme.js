@@ -55,18 +55,17 @@ class Theme {
    */
   getLabel (config) {
     const label = document.createElement('label')
-    label.setAttribute('for', config.for)
-
+    const labelText = document.createElement('span')
     const icon = this.getIcon(config.labelIconClass)
 
-    const labelText = document.createElement('span')
+    label.setAttribute('for', config.for)
     labelText.textContent = config.text
+    label.classList.add('jedi-title')
 
     if (config.visuallyHidden) {
       this.visuallyHidden(label)
     }
 
-    label.classList.add('jedi-title')
     label.appendChild(icon)
     label.appendChild(labelText)
 
@@ -483,7 +482,7 @@ class Theme {
       }
     })
 
-    closeBtn.addEventListener('click', (event) => {
+    closeBtn.addEventListener('click', () => {
       dialog.close()
     })
 

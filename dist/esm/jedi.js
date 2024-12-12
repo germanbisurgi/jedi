@@ -4197,14 +4197,14 @@ class Theme {
    */
   getLabel(config) {
     const label = document.createElement("label");
-    label.setAttribute("for", config.for);
-    const icon = this.getIcon(config.labelIconClass);
     const labelText = document.createElement("span");
+    const icon = this.getIcon(config.labelIconClass);
+    label.setAttribute("for", config.for);
     labelText.textContent = config.text;
+    label.classList.add("jedi-title");
     if (config.visuallyHidden) {
       this.visuallyHidden(label);
     }
-    label.classList.add("jedi-title");
     label.appendChild(icon);
     label.appendChild(labelText);
     return { label, labelText, icon };
@@ -4547,7 +4547,7 @@ class Theme {
         dialog.close();
       }
     });
-    closeBtn.addEventListener("click", (event) => {
+    closeBtn.addEventListener("click", () => {
       dialog.close();
     });
     infoButton.infoButton.addEventListener("click", () => {
@@ -5740,11 +5740,12 @@ class ThemeBootstrap3 extends Theme {
       textContent: "Close",
       icon: "close"
     });
+    const modalId = id + "-modal";
     modal.setAttribute("role", "dialog");
-    modal.setAttribute("id", id);
+    modal.setAttribute("id", modalId);
     closeBtn.setAttribute("data-dismiss", "modal");
     infoButton.infoButton.setAttribute("data-toggle", "modal");
-    infoButton.infoButton.setAttribute("data-target", "#" + id);
+    infoButton.infoButton.setAttribute("data-target", "#" + modalId);
     modal.classList.add("modal");
     modal.classList.add("fade");
     modalDialog.classList.add("modal-dialog");
@@ -6061,12 +6062,12 @@ class ThemeBootstrap4 extends Theme {
       textContent: "Close",
       icon: "close"
     });
-    id = id + "-modal";
+    const modalId = id + "-modal";
     modal.setAttribute("role", "dialog");
-    modal.setAttribute("id", id);
+    modal.setAttribute("id", modalId);
     closeBtn.setAttribute("data-dismiss", "modal");
     infoButton.infoButton.setAttribute("data-toggle", "modal");
-    infoButton.infoButton.setAttribute("data-target", "#" + id);
+    infoButton.infoButton.setAttribute("data-target", "#" + modalId);
     infoButton.container.classList.add("ml-1");
     modal.classList.add("modal");
     modal.classList.add("fade");
@@ -6380,12 +6381,12 @@ class ThemeBootstrap5 extends Theme {
       textContent: "Close",
       icon: "close"
     });
-    id = id + "-modal";
+    const modalId = id + "-modal";
     modal.setAttribute("role", "dialog");
-    modal.setAttribute("id", id);
+    modal.setAttribute("id", modalId);
     closeBtn.setAttribute("data-bs-dismiss", "modal");
     infoButton.infoButton.setAttribute("data-bs-toggle", "modal");
-    infoButton.infoButton.setAttribute("data-bs-target", "#" + id);
+    infoButton.infoButton.setAttribute("data-bs-target", "#" + modalId);
     infoButton.container.classList.add("ms-1");
     modal.classList.add("modal");
     modal.classList.add("fade");

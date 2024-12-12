@@ -352,13 +352,13 @@ class ThemeBootstrap5 extends Theme {
       textContent: 'Close',
       icon: 'close'
     })
-    id = id + '-modal'
+    const modalId = id + '-modal'
 
     modal.setAttribute('role', 'dialog')
-    modal.setAttribute('id', id)
+    modal.setAttribute('id', modalId)
     closeBtn.setAttribute('data-bs-dismiss', 'modal')
     infoButton.infoButton.setAttribute('data-bs-toggle', 'modal')
-    infoButton.infoButton.setAttribute('data-bs-target', '#' + id)
+    infoButton.infoButton.setAttribute('data-bs-target', '#' + modalId)
     infoButton.container.classList.add('ms-1')
     modal.classList.add('modal')
     modal.classList.add('fade')
