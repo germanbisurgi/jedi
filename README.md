@@ -23,10 +23,11 @@ Generates forms from JSON schemas. Can be used in backend to validate JSON data 
     - FontAwesome 5
     - FontAwesome 6
 - Plugin Editors:
-    - Quill
-    - Flatpickr
-    - Awesomplete
-    - Jodit
+    - Quill - powerful rich text editor
+    - Flatpickr - lightweight and powerful datetime picker
+    - Awesomplete - Ultra lightweight, customizable, simple autocomplete widget with zero dependencies
+    - Jodit - WYSIWYG Editor
+    - Raty - star Rating Plugin
 
 ## Getting Started
 

@@ -1,7 +1,7 @@
 ## Todo
 
 - playground
-  - replace all.json with real life example 
+  - first example should be real life form
 
 - jedi
   - complementary schema (for ui stuff)
@@ -20,6 +20,7 @@
 - editors
   - better themes icons generation api
   - fix infoButton when format table
+  - null editors don't need <label> because they don't have an input
   - input range
   - input file
   - color picker

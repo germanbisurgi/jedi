@@ -4209,6 +4209,19 @@ class Theme {
     label.appendChild(labelText);
     return { label, labelText, icon };
   }
+  getFakeLabel(config) {
+    const label = document.createElement("span");
+    const labelText = document.createElement("span");
+    const icon = this.getIcon(config.labelIconClass);
+    labelText.textContent = config.text;
+    label.classList.add("jedi-title");
+    if (config.visuallyHidden) {
+      this.visuallyHidden(label);
+    }
+    label.appendChild(icon);
+    label.appendChild(labelText);
+    return { label, labelText, icon };
+  }
   /**
    * Returns a icon element
    */
@@ -4489,8 +4502,8 @@ class Theme {
     const description = document.createElement("small");
     description.style.display = "block";
     description.classList.add("jedi-description");
-    if (config.textContent) {
-      description.textContent = config.textContent;
+    if (config.content) {
+      description.innerHTML = this.purifyContent(config.content);
     }
     if (config.id) {
       description.setAttribute("id", config.id);
@@ -4590,7 +4603,7 @@ class Theme {
     });
     const descriptionId = config.id + "-description";
     const description = this.getDescription({
-      textContent: config.description,
+      content: config.description,
       id: descriptionId
     });
     const messagesId = config.id + "-messages";
@@ -4625,7 +4638,7 @@ class Theme {
     const body = this.getCardBody();
     const ariaLive = this.getPropertiesAriaLive();
     const description = this.getDescription({
-      textContent: config.description
+      content: config.description
     });
     const messages = this.getMessagesSlot();
     const childrenSlot = this.getChildrenSlot();
@@ -4726,7 +4739,7 @@ class Theme {
     const arrayActions = this.getArrayActionsSlot();
     const body = this.getCardBody();
     const description = this.getDescription({
-      textContent: config.description
+      content: config.description
     });
     const messages = this.getMessagesSlot();
     const childrenSlot = this.getChildrenSlot();
@@ -4827,7 +4840,7 @@ class Theme {
     });
     const body = this.getCardBody();
     const description = this.getDescription({
-      textContent: config.description
+      content: config.description
     });
     const messages = this.getMessagesSlot();
     const childrenSlot = this.getChildrenSlot();
@@ -4882,7 +4895,7 @@ class Theme {
     });
     const body = this.getCardBody();
     const description = this.getDescription({
-      textContent: config.description
+      content: config.description
     });
     const messages = this.getMessagesSlot();
     const childrenSlot = this.getChildrenSlot();
@@ -4908,7 +4921,7 @@ class Theme {
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
     const arrayActions = this.getArrayActionsSlot();
-    const { label, labelText } = this.getLabel({
+    const { label, labelText } = this.getFakeLabel({
       for: config.id,
       text: config.label,
       visuallyHidden: config.titleHidden,
@@ -4916,7 +4929,7 @@ class Theme {
     });
     const descriptionId = config.id + "-description";
     const description = this.getDescription({
-      textContent: config.description,
+      content: config.description,
       id: descriptionId
     });
     const messages = this.getMessagesSlot();
@@ -4954,7 +4967,7 @@ class Theme {
     });
     const descriptionId = config.id + "-description";
     const description = this.getDescription({
-      textContent: config.description,
+      content: config.description,
       id: descriptionId
     });
     const messagesId = config.id + "-messages";
@@ -5003,7 +5016,7 @@ class Theme {
     });
     const descriptionId = config.id + "-description";
     const description = this.getDescription({
-      textContent: config.description,
+      content: config.description,
       id: descriptionId
     });
     const messagesId = config.id + "-messages";
@@ -5052,7 +5065,7 @@ class Theme {
     });
     const descriptionId = config.id + "-description";
     const description = this.getDescription({
-      textContent: config.description,
+      content: config.description,
       id: descriptionId
     });
     const infoButton = this.getInfoButton(config.infoButton);
@@ -5141,7 +5154,7 @@ class Theme {
     });
     const descriptionId = config.id + "-description";
     const description = this.getDescription({
-      textContent: config.description,
+      content: config.description,
       id: descriptionId
     });
     const messagesId = config.id + "-messages";
@@ -5189,7 +5202,7 @@ class Theme {
     });
     const descriptionId = config.id + "-description";
     const description = this.getDescription({
-      textContent: config.description,
+      content: config.description,
       id: descriptionId
     });
     if (config.titleHidden) {
@@ -5284,7 +5297,7 @@ class Theme {
     });
     const descriptionId = config.id + "-description";
     const description = this.getDescription({
-      textContent: config.description,
+      content: config.description,
       id: descriptionId
     });
     const messagesId = config.id + "-messages";
