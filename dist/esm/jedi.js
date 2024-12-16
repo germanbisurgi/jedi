@@ -4226,7 +4226,7 @@ class Theme {
     legend.classList.add("jedi-editor-legend");
     legendText.classList.add("jedi-editor-legend-text");
     legend.setAttribute("aria-labelledby", "#legend-" + config.id);
-    legendText.textContent = config.textContent;
+    legendText.innerHTML = this.purifyContent(config.textContent);
     legendText.setAttribute("id", "#legend-" + config.id);
     legend.appendChild(legendText);
     return { legend, legendText };
@@ -4239,7 +4239,7 @@ class Theme {
     const labelText = document.createElement("span");
     const icon = this.getIcon(config.labelIconClass);
     label.setAttribute("for", config.for);
-    labelText.textContent = config.text;
+    labelText.innerHTML = this.purifyContent(config.text);
     label.classList.add("jedi-title");
     if (config.visuallyHidden) {
       this.visuallyHidden(label);

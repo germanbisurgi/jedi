@@ -107,10 +107,9 @@
           "minItems": 1,
           "uniqueItems": true,
           "x-options": {
-            "nav": {
-              "variant": "pills",
-              "stacked": true
-            }
+            "format": "nav",
+            "navVariant": "pills",
+            "navStacked": true
           }
         },
         "example": {
@@ -235,10 +234,9 @@
             "$ref": "#/$defs/schema"
           },
           "x-options": {
-            "nav": {
-              "variant": "pills",
-              "stacked": true
-            }
+            "format": "nav",
+            "navVariant": "pills",
+            "navStacked": true
           }
         },
         "readOnly": {
@@ -253,10 +251,9 @@
             "type": "string"
           },
           "x-options": {
-            "nav": {
-              "variant": "pills",
-              "stacked": true
-            }
+            "format": "nav",
+            "navVariant": "pills",
+            "navStacked": true
           }
         },
         "title": {
@@ -295,10 +292,6 @@
             "switcherTitle": {
               "title": "switcherTitle",
               "type": "string"
-            },
-            "nav": {
-              "title": "nav",
-              "type": "object"
             },
             "grid": {
               "title": "grid",
