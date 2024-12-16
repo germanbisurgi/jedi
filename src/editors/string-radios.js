@@ -1,18 +1,13 @@
-import EditorNumber from './number.js'
-import { isSet } from '../helpers/utils.js'
+import EditorString from './string.js'
 import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
- * Represents an EditorNumberEnumRadio instance.
- * @extends EditorNumber
+ * Represents a EditorStringRadios instance.
+ * @extends EditorString
  */
-class EditorNumberEnumRadio extends EditorNumber {
+class EditorStringRadios extends EditorString {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    const schemaEnum = getSchemaEnum(schema)
-    const optionFormat = getSchemaXOption(schema, 'format')
-    const typeIsNumeric = schemaType === 'number' || schemaType === 'integer'
-    return typeIsNumeric && isSet(schemaEnum) && optionFormat === 'radio'
+    return getSchemaType(schema) === 'string' && getSchemaXOption(schema, 'format') === 'radios'
   }
 
   build () {
@@ -35,8 +30,7 @@ class EditorNumberEnumRadio extends EditorNumber {
   addEventListeners () {
     this.control.radios.forEach((radio) => {
       radio.addEventListener('change', () => {
-        const value = this.sanitize(radio.value)
-        this.instance.setValue(value, true, 'editor')
+        this.instance.setValue(radio.value, true, 'editor')
       })
     })
   }
@@ -44,9 +38,9 @@ class EditorNumberEnumRadio extends EditorNumber {
   refreshUI () {
     this.refreshInteractiveElements()
     this.control.radios.forEach((radio) => {
-      radio.checked = (Number(radio.value) === Number(this.instance.getValue()))
+      radio.checked = (radio.value === this.instance.getValue())
     })
   }
 }
 
-export default EditorNumberEnumRadio
+export default EditorStringRadios

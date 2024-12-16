@@ -1,0 +1,17 @@
+{
+  "title": "Quill",
+  "type": "string",
+  "description": "Quill is a modern WYSIWYG editor built for compatibility and extensibility.",
+  "default": "Quill default",
+  "minLength": 3,
+  "x-options": {
+    "quill": {
+      "theme": "snow"
+    },
+    "infoButton": {
+      "variant": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
+  }
+}

@@ -1,14 +1,16 @@
-import EditorString from './string.js'
-import { isSet } from '../helpers/utils.js'
+import EditorNumber from './number.js'
+import { isNumber, isSet } from '../helpers/utils.js'
 import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
- * Represents a EditorStringEnumSelect instance.
- * @extends EditorString
+ * Represents an EditorNumberSelect instance.
+ * @extends EditorNumber
  */
-class EditorStringEnumSelect extends EditorString {
+class EditorNumberSelect extends EditorNumber {
   static resolves (schema) {
-    return getSchemaType(schema) === 'string' && isSet(getSchemaEnum(schema))
+    const schemaType = getSchemaType(schema)
+    const typeIsNumeric = schemaType === 'number' || schemaType === 'integer'
+    return typeIsNumeric && isSet(getSchemaEnum(schema))
   }
 
   build () {
@@ -19,7 +21,8 @@ class EditorStringEnumSelect extends EditorString {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, 'infoButton')
     })
   }
 
@@ -29,14 +32,19 @@ class EditorStringEnumSelect extends EditorString {
 
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
-      this.instance.setValue(this.control.input.value, true, 'editor')
+      const value = this.sanitize(this.control.input.value)
+      this.instance.setValue(value, true, 'editor')
     })
   }
 
   refreshUI () {
     this.refreshInteractiveElements()
-    this.control.input.value = this.instance.getValue()
+    const value = this.instance.getValue()
+
+    if (isNumber(value)) {
+      this.control.input.value = this.instance.getValue()
+    }
   }
 }
 
-export default EditorStringEnumSelect
+export default EditorNumberSelect

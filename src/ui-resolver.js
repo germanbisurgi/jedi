@@ -1,13 +1,13 @@
-import EditorBooleanRadio from './editors/boolean-radio.js'
-import EditorBooleanEnumSelect from './editors/boolean-select.js'
+import EditorBooleanRadios from './editors/boolean-radios.js'
+import EditorBooleanSelect from './editors/boolean-select.js'
 import EditorBooleanCheckbox from './editors/boolean-checkbox.js'
-import EditorStringEnumRadio from './editors/string-enum-radio.js'
-import EditorStringEnumSelect from './editors/string-enum-select.js'
+import EditorStringRadios from './editors/string-radios.js'
+import EditorStringSelect from './editors/string-select.js'
 import EditorStringTextarea from './editors/string-textarea.js'
 import EditorStringAwesomplete from './editors/string-awesomplete.js'
 import EditorStringInput from './editors/string-input.js'
-import EditorNumberEnumRadio from './editors/number-enum-radio.js'
-import EditorNumberEnumSelect from './editors/number-enum-select.js'
+import EditorNumberRadio from './editors/number-radios.js'
+import EditorNumberSelect from './editors/number-select.js'
 import EditorNumberInput from './editors/number-input.js'
 import EditorObjectGrid from './editors/object-grid.js'
 import EditorObjectNav from './editors/object-nav.js'
@@ -22,7 +22,7 @@ import EditorStringJodit from './editors/string-jodit.js'
 import EditorStringFlatpickr from './editors/string-flatpickr.js'
 import EditorNumberRaty from './editors/number-raty.js'
 import EditorIfThenElse from './editors/if-then-else.js'
-import EditorArrayEnumItems from './editors/array-enum-items.js'
+import EditorArrayCheckboxes from './editors/array-checkboxes.js'
 
 class UiResolver {
   constructor (options) {
@@ -31,11 +31,11 @@ class UiResolver {
     this.editors = [
       EditorMultiple,
       EditorIfThenElse,
-      EditorBooleanRadio,
+      EditorBooleanRadios,
       EditorBooleanCheckbox,
-      EditorBooleanEnumSelect,
-      EditorStringEnumRadio,
-      EditorStringEnumSelect,
+      EditorBooleanSelect,
+      EditorStringRadios,
+      EditorStringSelect,
       EditorStringTextarea,
       EditorStringAwesomplete,
       EditorStringQuill,
@@ -43,13 +43,13 @@ class UiResolver {
       EditorStringFlatpickr,
       EditorStringInput,
       EditorNumberRaty,
-      EditorNumberEnumRadio,
-      EditorNumberEnumSelect,
+      EditorNumberRadio,
+      EditorNumberSelect,
       EditorNumberInput,
       EditorObjectGrid,
       EditorObjectNav,
       EditorObject,
-      EditorArrayEnumItems,
+      EditorArrayCheckboxes,
       EditorArrayTable,
       EditorArrayNav,
       EditorArray,

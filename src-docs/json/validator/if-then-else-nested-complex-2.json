@@ -34,7 +34,7 @@
           ],
           "x-options": {
             "enforceEnumDefault": false,
-            "format": "radio"
+            "format": "radios"
           }
         }
       },

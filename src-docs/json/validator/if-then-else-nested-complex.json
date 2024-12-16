@@ -24,7 +24,7 @@
             "unknown"
           ],
           "x-options": {
-            "format": "radio"
+            "format": "radios"
           }
         }
       },
@@ -47,7 +47,7 @@
               "unknown"
             ],
             "x-options": {
-              "format": "radio"
+              "format": "radios"
             }
           },
           "pairCount": {
@@ -121,7 +121,7 @@
                 "unknown"
               ],
               "x-options": {
-                "format": "radio"
+                "format": "radios"
               },
               "readOnly": true
             },
@@ -153,7 +153,7 @@
                   "unknown"
                 ],
                 "x-options": {
-                  "format": "radio"
+                  "format": "radios"
                 },
                 "readOnly": true
               },

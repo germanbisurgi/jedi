@@ -2,12 +2,12 @@ import EditorBoolean from './boolean.js'
 import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
- * Represents an EditorBooleanRadio instance.
+ * Represents an EditorRadios instance.
  * @extends EditorBooleanCheckbox
  */
-class EditorBooleanRadio extends EditorBoolean {
+class EditorRadios extends EditorBoolean {
   static resolves (schema) {
-    return getSchemaType(schema) === 'boolean' && getSchemaXOption(schema, 'format') === 'radio'
+    return getSchemaType(schema) === 'boolean' && getSchemaXOption(schema, 'format') === 'radios'
   }
 
   build () {
@@ -45,4 +45,4 @@ class EditorBooleanRadio extends EditorBoolean {
   }
 }
 
-export default EditorBooleanRadio
+export default EditorRadios

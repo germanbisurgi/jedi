@@ -106,6 +106,13 @@ class Jedi extends EventEmitter {
      */
     this.refParser = this.options.refParser ? this.options.refParser : null
 
+    /**
+     * The id of the last focused element.
+     * Used to reapply focus to the element that was removed and re-appended to the DOM
+     * @type String
+     */
+    this.lastFocusedId = null
+
     this.init()
     this.bindEventListeners()
   }
@@ -172,9 +179,54 @@ class Jedi extends EventEmitter {
     }
 
     if (this.hiddenInput) {
-      this.on('change', () => {
+      this.on('change', (context) => {
         this.hiddenInput.value = JSON.stringify(this.getValue())
+
+        if (context === 'editor') {
+          this.refreshFocus()
+        }
       })
+
+      document.addEventListener('focus', (event) => {
+        this.lastFocusedId = event.target.id
+      }, true)
+
+      document.addEventListener('keydown', (event) => {
+        this.lastKeyEvent = event
+      })
+    }
+  }
+
+  /**
+   * Reapplies focus to the element that was removed and re-appended to the DOM
+   * @type String
+   */
+  refreshFocus () {
+    const el = document.getElementById(this.lastFocusedId)
+
+    if (el) {
+      el.focus()
+
+      if (this.lastKeyEvent && this.lastKeyEvent.key === 'Tab') {
+        this.simulateTab(el, this.lastKeyEvent.shiftKey)
+      }
+    }
+  }
+
+  simulateTab (currentElement, shift) {
+    const focusableElements = document.querySelectorAll('input, button, select, textarea, a[href], [tabindex]:not([tabindex="-1"])')
+    const index = Array.prototype.indexOf.call(focusableElements, currentElement)
+
+    if (index !== -1) {
+      if (shift) {
+        if (index > 0) {
+          focusableElements[index - 1].focus()
+        }
+      } else {
+        if (index + 1 < focusableElements.length) {
+          focusableElements[index + 1].focus()
+        }
+      }
     }
   }
 

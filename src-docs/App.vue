@@ -126,23 +126,25 @@ import EditorStringCustom from "./js/custom-editor.js";
 import Jedi from '/src/index.js'
 import all from './json/editors/all.json'
 import array from './json/editors/array.json'
-import arrayEnumItems from './json/editors/array-enum-items.json'
+import arrayCheckboxes from './json/editors/array-checkboxes.json'
 import arrayNavTable from './json/editors/array-table.json'
 import arrayNavPills from './json/editors/array-nav-pills.json'
 import arrayNavTabs from './json/editors/array-nav-tabs.json'
 import booleanCheckbox from './json/editors/boolean-checkbox.json'
 import booleanSelect from './json/editors/boolean-select.json'
-import booleanRadio from './json/editors/boolean-radio.json'
+import booleanRadios from './json/editors/boolean-radios.json'
 import integerInput from './json/editors/integer-input.json'
 import nullJson from './json/editors/null.json'
 import numberInput from './json/editors/number-input.json'
+import numberRadio from './json/editors/number-radios.json'
+import numberSelect from './json/editors/number-select.json'
 import objectJson from './json/editors/object.json'
 import objectGrid from './json/editors/object-grid.json'
 import objectNavPills from './json/editors/object-nav-pills.json'
 import objectNavTabs from './json/editors/object-nav-tabs.json'
 import objectPropertyOrder from './json/editors/object-propertyOrder.json'
-import stringEnumRadio from './json/editors/string-enum-radio.json'
-import stringEnumSelect from './json/editors/string-enum-select.json'
+import stringRadios from './json/editors/string-radios.json'
+import stringSelect from './json/editors/string-select.json'
 import stringInput from './json/editors/string-input.json'
 import stringTextarea from './json/editors/string-textarea.json'
 import resumeSchema from './json/examples/resume-schema.json'
@@ -190,11 +192,11 @@ import required from './json/validator/required.json'
 import typeValidator from './json/validator/type.json'
 import uniqueItems from './json/validator/uniqueItems.json'
 import messages from './json/validator/messages.json'
-import awesomplete from './json/plugins/awesomplete.json'
-import quill from './json/plugins/quill.json'
-import jodit from './json/plugins/jodit.json'
-import flatpickr from './json/plugins/flatpickr.json'
-import raty from './json/plugins/raty.json'
+import awesomplete from './json/plugins/string-awesomplete.json'
+import quill from './json/plugins/string-quill.json'
+import jodit from './json/plugins/string-jodit.json'
+import flatpickr from './json/plugins/string-flatpickr.json'
+import raty from './json/plugins/number-raty.json'
 import custom from './json/custom/custom.json'
 import metaSchema from './json/meta-schema.json'
 import europass from './json/europass.json'
@@ -208,23 +210,25 @@ export default {
         Editors: {
           'editors/all': all,
           'editors/array': array,
-          'editors/array-enum-items': arrayEnumItems,
+          'editors/array-checkboxes': arrayCheckboxes,
           'editors/array-nav-pills': arrayNavPills,
           'editors/array-nav-tabs': arrayNavTabs,
           'editors/array-table': arrayNavTable,
           'editors/boolean-checkbox': booleanCheckbox,
-          'editors/boolean-radio': booleanRadio,
+          'editors/boolean-radios': booleanRadios,
           'editors/boolean-select': booleanSelect,
           'editors/integer-input': integerInput,
           'editors/null': nullJson,
           'editors/number-input': numberInput,
+          'editors/number-radios': numberRadio,
+          'editors/number-select': numberSelect,
           'editors/object': objectJson,
           'editors/object-grid': objectGrid,
           'editors/object-nav-pills': objectNavPills,
           'editors/object-nav-tabs': objectNavTabs,
           'editors/object-propertyOrder': objectPropertyOrder,
-          'editors/string-enum-radio': stringEnumRadio,
-          'editors/string-enum-select': stringEnumSelect,
+          'editors/string-radios': stringRadios,
+          'editors/string-select': stringSelect,
           'editors/string-input': stringInput,
           'editors/string-textarea': stringTextarea
         },

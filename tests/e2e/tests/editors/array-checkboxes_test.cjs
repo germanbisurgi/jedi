@@ -1,10 +1,10 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'barebones'
-const pathToSchema = 'editors/array-enum-items'
+const pathToSchema = 'editors/array-checkboxes'
 const valueWithErrors = []
 const valueDefault = ["value1"]
 
-Feature('array-enum-items')
+Feature('array-checkboxes')
 
 BeforeSuite(({I}) => {
   I.amOnPage(`playground.html?theme=${theme}`)
@@ -12,12 +12,12 @@ BeforeSuite(({I}) => {
   I._waitForElement('.jedi-ready')
 });
 
-Scenario('@editor @array-enum-items should have @title and @description', ({I}) => {
-  I._waitForText('array-enum-titles', 'legend .jedi-editor-legend-text')
+Scenario('@editor @array-checkboxes should have @title and @description', ({I}) => {
+  I._waitForText('Array', 'legend .jedi-editor-legend-text')
   I._waitForText('Array of unique values wich item types can be string, number or integer', '.jedi-description')
 })
 
-Scenario('@editor @array-enum-items should have @infoButton', ({I}) => {
+Scenario('@editor @array-checkboxes should have @infoButton', ({I}) => {
   I._waitForElement('.jedi-info-button')
   I._click('.jedi-info-button')
   I._waitForText('Info Button title')
@@ -27,7 +27,7 @@ Scenario('@editor @array-enum-items should have @infoButton', ({I}) => {
   I.waitForInvisible('Info button content')
 })
 
-Scenario('@editor @array-enum-items should have a @default value', ({I}) => {
+Scenario('@editor @array-checkboxes should have a @default value', ({I}) => {
   // instance
   I.waitForValue('[id="jedi-hidden-input"]', valueDefault)
 
@@ -36,7 +36,7 @@ Scenario('@editor @array-enum-items should have a @default value', ({I}) => {
   I.dontSeeCheckboxIsChecked('[id="root-1"]')
 })
 
-Scenario('@editor @array-enum-items should @setValue and @showValidationErrors', ({I}) => {
+Scenario('@editor @array-checkboxes should @setValue and @showValidationErrors', ({I}) => {
   // instance
   I.fillField('#editor-value', JSON.stringify(valueWithErrors))
   I._scrollTo('#set-value')
@@ -48,22 +48,22 @@ Scenario('@editor @array-enum-items should @setValue and @showValidationErrors',
   I.dontSeeCheckboxIsChecked('[id="root-0"]')
   I.dontSeeCheckboxIsChecked('[id="root-1"]')
 
-  I._waitForText('array-enum-titles: Must have at least 1 items.', '.jedi-error-message')
+  I._waitForText('Array: Must have at least 1 items.', '.jedi-error-message')
 })
 
-Scenario('@editor @array-enum-items should @disable', ({I}) => {
+Scenario('@editor @array-checkboxes should @disable', ({I}) => {
   I._click('#disable-editor')
   I._waitForElement('#root-0:disabled')
   I._waitForElement('#root-1:disabled')
 })
 
-Scenario('@editor @array-enum-items should @enable', ({I}) => {
+Scenario('@editor @array-checkboxes should @enable', ({I}) => {
   I._click('#enable-editor')
   I.dontSeeElement('#root-0:disabled')
   I.dontSeeElement('#root-1:disabled')
 })
 
-Scenario('@editor @array-enum-items should @destroy', ({I}) => {
+Scenario('@editor @array-checkboxes should @destroy', ({I}) => {
   I._click('#destroy-editor')
   I.dontSeeElement('[data-schemapath="root"]')
 })

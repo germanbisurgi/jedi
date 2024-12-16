@@ -16,10 +16,10 @@ import {
 import Editor from './editor.js'
 
 /**
- * Represents an EditorArrayEnumItems instance.
+ * Represents an EditorArrayCheckboxes instance.
  * @extends Editor
  */
-class EditorArrayEnumItems extends Editor {
+class EditorArrayCheckboxes extends Editor {
   static resolves (schema) {
     const schemaType = getSchemaType(schema)
     const schemaItems = getSchemaItems(schema)
@@ -84,4 +84,4 @@ class EditorArrayEnumItems extends Editor {
   }
 }
 
-export default EditorArrayEnumItems
+export default EditorArrayCheckboxes

@@ -10,34 +10,34 @@
   },
   "default": [
     {
-      "boolean-enum-select": true,
-      "boolean-enum-radio": true,
+      "boolean-select": true,
+      "boolean-radios": true,
       "boolean": true,
       "string": "ut Lorem laborum quis",
       "string-textarea": "non reprehenderit",
-      "string-enum-select": "albert",
-      "string-enum-radio": "betti",
+      "string-select": "albert",
+      "string-radios": "betti",
       "number": 16348035.233686866,
-      "number-enum-select": 1.5,
-      "number-enum-radio": 1.5,
+      "number-select": 1.5,
+      "number-radios": 1.5,
       "integer": 49878374,
-      "integer-enum-select": 3,
-      "integer-enum-radio": 1
+      "integer-select": 3,
+      "integer-radios": 1
     },
     {
-      "boolean-enum-select": false,
-      "boolean-enum-radio": false,
+      "boolean-select": false,
+      "boolean-radios": false,
       "boolean": false,
       "string": "Lorem eu laborum nostrud",
       "string-textarea": "ad reprehenderit exercitation est",
-      "string-enum-select": "carl",
-      "string-enum-radio": "betti",
+      "string-select": "carl",
+      "string-radios": "betti",
       "number": 59176757.926051416,
-      "number-enum-select": 2.5,
-      "number-enum-radio": 1.5,
+      "number-select": 2.5,
+      "number-radios": 1.5,
       "integer": 81128216,
-      "integer-enum-select": 2,
-      "integer-enum-radio": 1
+      "integer-select": 2,
+      "integer-radios": 1
     }
   ],
   "items": {
@@ -45,24 +45,24 @@
     "title": "Person",
     "description": "Person",
     "required": [
-      "boolean-enum-select",
-      "boolean-enum-radio",
+      "boolean-select",
+      "boolean-radios",
       "boolean",
       "string",
       "string-textarea",
-      "string-enum-select",
-      "string-enum-radio",
+      "string-select",
+      "string-radios",
       "number",
-      "number-enum-select",
-      "number-enum-radio",
+      "number-select",
+      "number-radios",
       "integer",
-      "integer-enum-select",
-      "integer-enum-radio"
+      "integer-select",
+      "integer-radios"
     ],
     "properties": {
-      "boolean-enum-select": {
+      "boolean-select": {
         "type": "boolean",
-        "title": "Boolean enum select",
+        "title": "Boolean select",
         "description": "A boolean editor using select input.",
         "const": true,
         "x-options": {
@@ -74,13 +74,13 @@
           ]
         }
       },
-      "boolean-enum-radio": {
+      "boolean-radios": {
         "type": "boolean",
-        "title": "Boolean enum radio",
+        "title": "Boolean radios",
         "description": "A boolean editor using radios.",
         "const": true,
         "x-options": {
-          "format": "radio",
+          "format": "radios",
           "enumTitles": [
             "No",
             "Yes"
@@ -115,9 +115,9 @@
           "tableColWidth": "200px"
         }
       },
-      "string-enum-select": {
+      "string-select": {
         "type": "string",
-        "title": "String enum select",
+        "title": "String select",
         "description": "A string editor using select.",
         "enum": [
           "albert",
@@ -133,9 +133,9 @@
           ]
         }
       },
-      "string-enum-radio": {
+      "string-radios": {
         "type": "string",
-        "title": "String enum radio",
+        "title": "String radios",
         "description": "A string editor using radios.",
         "enum": [
           "albert",
@@ -143,7 +143,7 @@
           "carl"
         ],
         "x-options": {
-          "format": "radio",
+          "format": "radios",
           "enumTitles": [
             "Albert",
             "Betti",
@@ -159,9 +159,9 @@
         "x-options": {
         }
       },
-      "number-enum-select": {
+      "number-select": {
         "type": "number",
-        "title": "Number enum select",
+        "title": "Number select",
         "description": "A number editor using select.",
         "enum": [
           1.5,
@@ -177,9 +177,9 @@
           ]
         }
       },
-      "number-enum-radio": {
+      "number-radios": {
         "type": "number",
-        "title": "Number enum radio",
+        "title": "Number radios",
         "description": "A number editor using radios.",
         "enum": [
           1.5,
@@ -187,7 +187,7 @@
           3.5
         ],
         "x-options": {
-          "format": "radio",
+          "format": "radios",
           "enumTitles": [
             "small (1.5)",
             "medium (2.5)",
@@ -204,9 +204,9 @@
           "tableColWidth": "200px"
         }
       },
-      "integer-enum-select": {
+      "integer-select": {
         "type": "integer",
-        "title": "Integer enum select",
+        "title": "Integer select",
         "description": "A integer editor using select.",
         "enum": [
           1,
@@ -222,9 +222,9 @@
           ]
         }
       },
-      "integer-enum-radio": {
+      "integer-radios": {
         "type": "number",
-        "title": "Integer enum radio",
+        "title": "Integer radios",
         "description": "A integer editor using radios.",
         "enum": [
           1,
@@ -232,7 +232,7 @@
           3
         ],
         "x-options": {
-          "format": "radio",
+          "format": "radios",
           "enumTitles": [
             "small (1)",
             "medium (2)",

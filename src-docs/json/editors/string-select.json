@@ -1,20 +1,21 @@
 {
   "type": "string",
-  "title": "String enum radio",
+  "title": "String select",
+  "description": "The string type is used for strings of text. It may contain Unicode characters.",
+  "default": "betti",
   "enum": [
     "albert",
     "betti",
     "carl"
   ],
   "x-options": {
-    "format": "radio",
     "enumTitles": [
       "Albert",
       "Betti",
       "Carl"
     ],
     "infoButton": {
-      "type": "modal",
+      "variant": "modal",
       "title": "<h4>Info Button title</h4>",
       "content": "<p>Info button content</p>"
     }

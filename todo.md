@@ -34,4 +34,7 @@
   - anyOf, oneOf accessibility switcher (radios are better)
   - option hideButton labels
 
+- tests
+  - refreshFocus() 
+
 - publish on NPM

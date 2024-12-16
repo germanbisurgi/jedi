@@ -7,9 +7,9 @@
       "type": "object",
       "title": "Booleans",
       "properties": {
-        "boolean-enum-select": {
+        "boolean-select": {
           "type": "boolean",
-          "title": "Boolean enum select",
+          "title": "Boolean select",
           "description": "A boolean editor using select input.",
           "const": true,
           "x-options": {
@@ -20,13 +20,13 @@
             ]
           }
         },
-        "boolean-enum-radio": {
+        "boolean-radios": {
           "type": "boolean",
-          "title": "Boolean enum radio",
+          "title": "Boolean radios",
           "description": "A boolean editor using radios.",
           "const": true,
           "x-options": {
-            "format": "radio",
+            "format": "radios",
             "enumTitles": [
               "No",
               "Yes"
@@ -35,7 +35,7 @@
         },
         "boolean": {
           "type": "boolean",
-          "title": "Boolean",
+          "title": "Boolean checkbox",
           "description": "A boolean editor checkbox.",
           "const": true,
           "x-options": {
@@ -50,7 +50,7 @@
       "properties": {
         "string": {
           "type": "string",
-          "title": "String",
+          "title": "String input",
           "description": "A string editor.",
           "minLength": 1
         },
@@ -63,9 +63,9 @@
             "format": "textarea"
           }
         },
-        "string-enum-select": {
+        "string-select": {
           "type": "string",
-          "title": "String enum select",
+          "title": "String select",
           "description": "A string editor using select.",
           "enum": [
             "albert",
@@ -80,9 +80,9 @@
             ]
           }
         },
-        "string-enum-radio": {
+        "string-radios": {
           "type": "string",
-          "title": "String enum radio",
+          "title": "String radios",
           "description": "A string editor using radios.",
           "enum": [
             "albert",
@@ -90,7 +90,7 @@
             "carl"
           ],
           "x-options": {
-            "format": "radio",
+            "format": "radios",
             "enumTitles": [
               "Albert",
               "Betti",
@@ -106,13 +106,13 @@
       "properties": {
         "number": {
           "type": "number",
-          "title": "Number",
+          "title": "Number input",
           "description": "A number editor.",
           "minimum": 1
         },
-        "number-enum-select": {
+        "number-select": {
           "type": "number",
-          "title": "Number enum select",
+          "title": "Number select",
           "description": "A number editor using select.",
           "enum": [
             1.5,
@@ -127,9 +127,9 @@
             ]
           }
         },
-        "number-enum-radio": {
+        "number-radios": {
           "type": "number",
-          "title": "Number enum radio",
+          "title": "Number radios",
           "description": "A number editor using radios.",
           "enum": [
             1.5,
@@ -137,7 +137,7 @@
             3.5
           ],
           "x-options": {
-            "format": "radio",
+            "format": "radios",
             "enumTitles": [
               "small (1.5)",
               "medium (2.5)",
@@ -153,13 +153,13 @@
       "properties": {
         "integer": {
           "type": "integer",
-          "title": "Integer",
+          "title": "Integer input",
           "description": "A integer editor.",
           "minimum": 1
         },
-        "integer-enum-select": {
+        "integer-select": {
           "type": "integer",
-          "title": "Integer enum select",
+          "title": "Integer select",
           "description": "A integer editor using select.",
           "enum": [
             1,
@@ -174,9 +174,9 @@
             ]
           }
         },
-        "integer-enum-radio": {
+        "integer-radios": {
           "type": "number",
-          "title": "Integer enum radio",
+          "title": "Integer radios",
           "description": "A integer editor using radios.",
           "enum": [
             1,
@@ -184,7 +184,7 @@
             3
           ],
           "x-options": {
-            "format": "radio",
+            "format": "radios",
             "enumTitles": [
               "small (1)",
               "medium (2)",

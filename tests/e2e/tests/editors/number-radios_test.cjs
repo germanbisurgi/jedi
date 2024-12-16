@@ -1,8 +1,8 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'barebones'
-const pathToSchema = 'editors/boolean-radio'
-const invalidValue = false
-const defaultValue = true
+const pathToSchema = 'editors/number-radios'
+const invalidValue = 4
+const defaultValue = 1
 
 Feature('boolean')
 
@@ -12,12 +12,12 @@ BeforeSuite(({I}) => {
   I._waitForElement('.jedi-ready')
 });
 
-Scenario('@editor @boolean-radio should have @title and @description', ({ I }) => {
-  I._waitForText('Boolean', 'legend')
-  I._waitForText('The boolean type matches only two special values: true and false. Note that values that evaluate to true or false, such as 1 and 0, are not accepted by the schema.')
+Scenario('@editor @number-radios should have @title and @description', ({ I }) => {
+  I._waitForText('Number radios', 'legend')
+  I._waitForText('The number type is used for any numeric type, either integers or floating point numbers.')
 })
 
-Scenario('@plugin @boolean-radio should have @infoButton', ({I}) => {
+Scenario('@plugin @number-radios should have @infoButton', ({I}) => {
   I._waitForElement('.jedi-info-button')
   I._click('.jedi-info-button')
   I._waitForText('Info Button title')
@@ -27,7 +27,7 @@ Scenario('@plugin @boolean-radio should have @infoButton', ({I}) => {
   I.waitForInvisible('Info button content')
 })
 
-Scenario('@editor @boolean-radio should have a @default value', ({I}) => {
+Scenario('@editor @number-radios should have a @default value', ({I}) => {
   // instance
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(defaultValue))
 
@@ -35,7 +35,7 @@ Scenario('@editor @boolean-radio should have a @default value', ({I}) => {
   I.seeCheckboxIsChecked('[id="root-1"]')
 })
 
-Scenario('@editor @boolean-radio should @setValue and @showValidationErrors', ({I}) => {
+Scenario('@editor @number-radios should @setValue and @showValidationErrors', ({I}) => {
   // instance
   I.fillField('#editor-value', JSON.stringify(invalidValue))
   I._scrollTo('#set-value')
@@ -44,24 +44,27 @@ Scenario('@editor @boolean-radio should @setValue and @showValidationErrors', ({
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(invalidValue))
 
   // editor
-  I.seeCheckboxIsChecked('[id="root-0"]')
+  I.dontSeeCheckboxIsChecked('[id="root-0"]')
   I.dontSeeCheckboxIsChecked('[id="root-1"]')
-  I._waitForText('Boolean: Must have value of: true.', '.jedi-error-message')
+  I.dontSeeCheckboxIsChecked('[id="root-2"]')
+  I._waitForText('Number radios: Must be one of the enumerated values: [0,1,2].', '.jedi-error-message')
 })
 
-Scenario('@editor @boolean-radio should @disable', ({I}) => {
+Scenario('@editor @number-radios should @disable', ({I}) => {
   I._click('#disable-editor')
   I._waitForElement('#root-0:disabled')
   I._waitForElement('#root-1:disabled')
+  I._waitForElement('#root-2:disabled')
 })
 
-Scenario('@editor @boolean-radio should @enable', ({I}) => {
+Scenario('@editor @number-radios should @enable', ({I}) => {
   I._click('#enable-editor')
   I.dontSeeElement('#root-0:disabled')
   I.dontSeeElement('#root-1:disabled')
+  I.dontSeeElement('#root-2:disabled')
 })
 
-Scenario('@editor @boolean-radio should @destroy', ({I}) => {
+Scenario('@editor @number-radios should @destroy', ({I}) => {
   I._click('#destroy-editor')
   I.dontSeeElement('[data-schemapath="root"]')
 })

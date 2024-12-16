@@ -1,16 +1,14 @@
-import EditorNumber from './number.js'
-import { isNumber, isSet } from '../helpers/utils.js'
+import EditorString from './string.js'
+import { isSet } from '../helpers/utils.js'
 import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
- * Represents an EditorNumberEnumSelect instance.
- * @extends EditorNumber
+ * Represents a EditorStringSelect instance.
+ * @extends EditorString
  */
-class EditorNumberEnumSelect extends EditorNumber {
+class EditorStringSelect extends EditorString {
   static resolves (schema) {
-    const schemaType = getSchemaType(schema)
-    const typeIsNumeric = schemaType === 'number' || schemaType === 'integer'
-    return typeIsNumeric && isSet(getSchemaEnum(schema))
+    return getSchemaType(schema) === 'string' && isSet(getSchemaEnum(schema))
   }
 
   build () {
@@ -32,19 +30,14 @@ class EditorNumberEnumSelect extends EditorNumber {
 
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
-      const value = this.sanitize(this.control.input.value)
-      this.instance.setValue(value, true, 'editor')
+      this.instance.setValue(this.control.input.value, true, 'editor')
     })
   }
 
   refreshUI () {
     this.refreshInteractiveElements()
-    const value = this.instance.getValue()
-
-    if (isNumber(value)) {
-      this.control.input.value = this.instance.getValue()
-    }
+    this.control.input.value = this.instance.getValue()
   }
 }
 
-export default EditorNumberEnumSelect
+export default EditorStringSelect

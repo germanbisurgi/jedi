@@ -11,7 +11,7 @@
         "no"
       ],
       "x-options": {
-        "format": "radio"
+        "format": "radios"
       }
     }
   },

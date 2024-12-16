@@ -5,9 +5,9 @@
   "const": true,
   "description": "The boolean type matches only two special values: true and false. Note that values that evaluate to true or false, such as 1 and 0, are not accepted by the schema.",
   "x-options": {
-    "format": "radio",
+    "format": "radios",
     "infoButton": {
-      "type": "modal",
+      "variant": "modal",
       "title": "<h4>Info Button title</h4>",
       "content": "<p>Info button content</p>"
     }

@@ -2,10 +2,10 @@ import EditorBoolean from './boolean.js'
 import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
- * Represents an EditorBooleanEnumSelect instance.
+ * Represents an EditorBooleanSelect instance.
  * @extends EditorBooleanCheckbox
  */
-class EditorBooleanEnumSelect extends EditorBoolean {
+class EditorBooleanSelect extends EditorBoolean {
   static resolves (schema) {
     return getSchemaType(schema) === 'boolean'
   }
@@ -40,4 +40,4 @@ class EditorBooleanEnumSelect extends EditorBoolean {
   }
 }
 
-export default EditorBooleanEnumSelect
+export default EditorBooleanSelect

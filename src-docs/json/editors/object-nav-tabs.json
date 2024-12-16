@@ -5,7 +5,7 @@
     "navColumns": 12,
     "navStacked": false,
     "infoButton": {
-      "type": "modal",
+      "variant": "modal",
       "title": "<h4>Info Button title</h4>",
       "content": "<p>Info button content</p>"
     }
@@ -20,9 +20,9 @@
       "title": "Booleans",
       "description": "Description",
       "properties": {
-        "boolean-enum-select": {
+        "boolean-select": {
           "type": "boolean",
-          "title": "Boolean enum select",
+          "title": "Boolean select",
           "description": "Description",
           "const": true,
           "x-options": {
@@ -33,13 +33,13 @@
             ]
           }
         },
-        "boolean-enum-radio": {
+        "boolean-radios": {
           "type": "boolean",
-          "title": "Boolean enum radio",
+          "title": "Boolean radios",
           "description": "Description",
           "const": true,
           "x-options": {
-            "format": "radio",
+            "format": "radios",
             "enumTitles": [
               "No",
               "Yes"
@@ -74,9 +74,9 @@
             "format": "textarea"
           }
         },
-        "string-enum-select": {
+        "string-select": {
           "type": "string",
-          "title": "String enum select",
+          "title": "String select",
           "description": "Description",
           "enum": [
             "albert",
@@ -91,9 +91,9 @@
             ]
           }
         },
-        "string-enum-radio": {
+        "string-radios": {
           "type": "string",
-          "title": "String enum radio",
+          "title": "String radios",
           "description": "Description",
           "enum": [
             "albert",
@@ -101,7 +101,7 @@
             "carl"
           ],
           "x-options": {
-            "format": "radio",
+            "format": "radios",
             "enumTitles": [
               "Albert",
               "Betti",
@@ -122,9 +122,9 @@
           "description": "Description",
           "minimum": 1
         },
-        "number-enum-select": {
+        "number-select": {
           "type": "number",
-          "title": "Number enum select",
+          "title": "Number select",
           "description": "Description",
           "enum": [
             1.5,
@@ -139,9 +139,9 @@
             ]
           }
         },
-        "number-enum-radio": {
+        "number-radios": {
           "type": "number",
-          "title": "Number enum radio",
+          "title": "Number radios",
           "description": "Description",
           "enum": [
             1.5,
@@ -149,7 +149,7 @@
             3.5
           ],
           "x-options": {
-            "format": "radio",
+            "format": "radios",
             "enumTitles": [
               "small (1.5)",
               "medium (2.5)",
@@ -170,9 +170,9 @@
           "description": "Description",
           "minimum": 1
         },
-        "integer-enum-select": {
+        "integer-select": {
           "type": "integer",
-          "title": "Integer enum select",
+          "title": "Integer select",
           "description": "Description",
           "enum": [
             1,
@@ -187,9 +187,9 @@
             ]
           }
         },
-        "integer-enum-radio": {
+        "integer-radios": {
           "type": "number",
-          "title": "Integer enum radio",
+          "title": "Integer radios",
           "description": "Description",
           "enum": [
             1,
@@ -197,7 +197,7 @@
             3
           ],
           "x-options": {
-            "format": "radio",
+            "format": "radios",
             "enumTitles": [
               "small (1)",
               "medium (2)",

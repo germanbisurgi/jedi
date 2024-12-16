@@ -4,7 +4,7 @@
   "x-options": {
     "format": "grid",
     "infoButton": {
-      "type": "modal",
+      "variant": "modal",
       "title": "<h4>Info Button title</h4>",
       "content": "<p>Info button content</p>"
     }

@@ -2578,9 +2578,9 @@ class EditorBoolean extends Editor {
     return Boolean(value);
   }
 }
-class EditorBooleanRadio extends EditorBoolean {
+class EditorRadios extends EditorBoolean {
   static resolves(schema) {
-    return getSchemaType(schema) === "boolean" && getSchemaXOption(schema, "format") === "radio";
+    return getSchemaType(schema) === "boolean" && getSchemaXOption(schema, "format") === "radios";
   }
   build() {
     this.control = this.theme.getRadiosControl({
@@ -2613,7 +2613,7 @@ class EditorBooleanRadio extends EditorBoolean {
     });
   }
 }
-class EditorBooleanEnumSelect extends EditorBoolean {
+class EditorBooleanSelect extends EditorBoolean {
   static resolves(schema) {
     return getSchemaType(schema) === "boolean";
   }
@@ -2677,9 +2677,9 @@ class EditorString extends Editor {
     return String(value);
   }
 }
-class EditorStringEnumRadio extends EditorString {
+class EditorStringRadios extends EditorString {
   static resolves(schema) {
-    return getSchemaType(schema) === "string" && getSchemaXOption(schema, "format") === "radio";
+    return getSchemaType(schema) === "string" && getSchemaXOption(schema, "format") === "radios";
   }
   build() {
     this.control = this.theme.getRadiosControl({
@@ -2710,7 +2710,7 @@ class EditorStringEnumRadio extends EditorString {
     });
   }
 }
-class EditorStringEnumSelect extends EditorString {
+class EditorStringSelect extends EditorString {
   static resolves(schema) {
     return getSchemaType(schema) === "string" && isSet(getSchemaEnum(schema));
   }
@@ -2722,7 +2722,8 @@ class EditorStringEnumSelect extends EditorString {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema)
+      description: getSchemaDescription(this.instance.schema),
+      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
     });
   }
   adaptForTable() {
@@ -2847,13 +2848,13 @@ class EditorNumber extends Editor {
     }
   }
 }
-class EditorNumberEnumRadio extends EditorNumber {
+class EditorNumberRadios extends EditorNumber {
   static resolves(schema) {
     const schemaType = getSchemaType(schema);
     const schemaEnum = getSchemaEnum(schema);
     const optionFormat = getSchemaXOption(schema, "format");
     const typeIsNumeric = schemaType === "number" || schemaType === "integer";
-    return typeIsNumeric && isSet(schemaEnum) && optionFormat === "radio";
+    return typeIsNumeric && isSet(schemaEnum) && optionFormat === "radios";
   }
   build() {
     this.control = this.theme.getRadiosControl({
@@ -2885,7 +2886,7 @@ class EditorNumberEnumRadio extends EditorNumber {
     });
   }
 }
-class EditorNumberEnumSelect extends EditorNumber {
+class EditorNumberSelect extends EditorNumber {
   static resolves(schema) {
     const schemaType = getSchemaType(schema);
     const typeIsNumeric = schemaType === "number" || schemaType === "integer";
@@ -3706,7 +3707,7 @@ class EditorNumberRaty extends EditorNumber {
     this.raty.score(this.instance.getValue());
   }
 }
-class EditorArrayEnumItems extends Editor {
+class EditorArrayCheckboxes extends Editor {
   static resolves(schema) {
     const schemaType = getSchemaType(schema);
     const schemaItems = getSchemaItems(schema);
@@ -3763,11 +3764,11 @@ class UiResolver {
     this.editors = [
       EditorMultiple,
       EditorIfThenElse,
-      EditorBooleanRadio,
+      EditorRadios,
       EditorBooleanCheckbox,
-      EditorBooleanEnumSelect,
-      EditorStringEnumRadio,
-      EditorStringEnumSelect,
+      EditorBooleanSelect,
+      EditorStringRadios,
+      EditorStringSelect,
       EditorStringTextarea,
       EditorStringAwesomplete,
       EditorStringQuill,
@@ -3775,13 +3776,13 @@ class UiResolver {
       EditorStringFlatpickr,
       EditorStringInput,
       EditorNumberRaty,
-      EditorNumberEnumRadio,
-      EditorNumberEnumSelect,
+      EditorNumberRadios,
+      EditorNumberSelect,
       EditorNumberInput,
       EditorObjectGrid,
       EditorObjectNav,
       EditorObject,
-      EditorArrayEnumItems,
+      EditorArrayCheckboxes,
       EditorArrayTable,
       EditorArrayNav,
       EditorArray,
@@ -3842,6 +3843,7 @@ class Jedi extends EventEmitter {
     this.theme = null;
     this.uiResolver = null;
     this.refParser = this.options.refParser ? this.options.refParser : null;
+    this.lastFocusedId = null;
     this.init();
     this.bindEventListeners();
   }
@@ -3899,9 +3901,46 @@ class Jedi extends EventEmitter {
       });
     }
     if (this.hiddenInput) {
-      this.on("change", () => {
+      this.on("change", (context) => {
         this.hiddenInput.value = JSON.stringify(this.getValue());
+        if (context === "editor") {
+          this.refreshFocus();
+        }
       });
+      document.addEventListener("focus", (event) => {
+        this.lastFocusedId = event.target.id;
+      }, true);
+      document.addEventListener("keydown", (event) => {
+        this.lastKeyEvent = event;
+      });
+    }
+  }
+  /**
+   * Reapplies focus to the element that was removed and re-appended to the DOM
+   * @type String
+   */
+  refreshFocus() {
+    const el = document.getElementById(this.lastFocusedId);
+    if (el) {
+      el.focus();
+      if (this.lastKeyEvent && this.lastKeyEvent.key === "Tab") {
+        this.simulateTab(el, this.lastKeyEvent.shiftKey);
+      }
+    }
+  }
+  simulateTab(currentElement, shift) {
+    const focusableElements = document.querySelectorAll('input, button, select, textarea, a[href], [tabindex]:not([tabindex="-1"])');
+    const index2 = Array.prototype.indexOf.call(focusableElements, currentElement);
+    if (index2 !== -1) {
+      if (shift) {
+        if (index2 > 0) {
+          focusableElements[index2 - 1].focus();
+        }
+      } else {
+        if (index2 + 1 < focusableElements.length) {
+          focusableElements[index2 + 1].focus();
+        }
+      }
     }
   }
   /**
@@ -4517,8 +4556,6 @@ class Theme {
     const container = document.createElement("span");
     const infoButton = document.createElement("a");
     const infoButtonText = document.createElement("span");
-    const icon = this.getIcon(this.icons["infoButton"]);
-    icon.setAttribute("title", "More information");
     infoButton.setAttribute("href", "#");
     container.classList.add("jedi-info-button-container");
     infoButton.classList.add("jedi-info-button");
@@ -4531,10 +4568,14 @@ class Theme {
         infoButton.setAttribute(key, value);
       }
     }
-    infoButton.appendChild(icon);
+    if (this.icons) {
+      const icon = this.getIcon(this.icons["infoButton"]);
+      icon.setAttribute("title", "More information");
+      infoButton.appendChild(icon);
+    }
     infoButton.appendChild(infoButtonText);
     container.appendChild(infoButton);
-    return { container, infoButton, icon };
+    return { container, infoButton };
   }
   /**
    * Dialog or modal that contains extra information about the control
@@ -4611,7 +4652,7 @@ class Theme {
       id: messagesId
     });
     const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton);
     }
     container.appendChild(label);
@@ -4677,7 +4718,7 @@ class Theme {
       id: config.id
     });
     const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton);
     }
     addPropertyBtn.classList.add("jedi-object-add");
@@ -4764,7 +4805,7 @@ class Theme {
       startCollapsed: config.startCollapsed
     });
     const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton);
     }
     container.appendChild(fieldset);
@@ -4935,7 +4976,7 @@ class Theme {
     const messages = this.getMessagesSlot();
     const br = document.createElement("br");
     const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton);
     }
     container.appendChild(label);
@@ -4977,7 +5018,7 @@ class Theme {
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
     const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton);
     }
     container.appendChild(label);
@@ -5027,7 +5068,7 @@ class Theme {
     input.setAttribute("aria-describedby", describedBy);
     container.appendChild(label);
     const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton);
     }
     if (isObject(config.infoButton)) {
@@ -5069,7 +5110,7 @@ class Theme {
       id: descriptionId
     });
     const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton);
     }
     if (config.titleHidden) {
@@ -5085,6 +5126,7 @@ class Theme {
       const radio = document.createElement("input");
       radio.setAttribute("type", "radio");
       radio.setAttribute("id", config.id + "-" + index2);
+      radio.setAttribute("name", config.id);
       radio.setAttribute("value", value);
       radios.push(radio);
       const describedBy = messagesId + " " + descriptionId;
@@ -5093,8 +5135,8 @@ class Theme {
       label.setAttribute("for", config.id + "-" + index2);
       const labelText = document.createElement("span");
       labelTexts.push(labelText);
-      if (config.titles && config.titles[index2]) {
-        labelText.textContent = config.titles[index2];
+      if (isSet(config.titles) && isSet(config.titles[index2])) {
+        labelText.textContent = config.titles[index2] ?? value;
       }
       labels.push(label);
     });
@@ -5164,7 +5206,7 @@ class Theme {
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
     const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton);
     }
     container.appendChild(formGroup);
@@ -5232,7 +5274,7 @@ class Theme {
       labels.push(label);
     });
     const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton);
     }
     container.appendChild(fieldset);
@@ -5307,7 +5349,7 @@ class Theme {
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
     const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.type) === "modal") {
+    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton);
     }
     container.appendChild(label);
@@ -6440,18 +6482,18 @@ const index = {
   Schema,
   Utils,
   EditorBoolean,
-  EditorBooleanRadio,
-  EditorBooleanEnumSelect,
+  EditorBooleanRadios: EditorRadios,
+  EditorBooleanSelect,
   EditorBooleanCheckbox,
   EditorString,
-  EditorStringEnumRadio,
-  EditorStringEnumSelect,
+  EditorStringRadios,
+  EditorStringSelect,
   EditorStringTextarea,
   EditorStringAwesomplete,
   EditorStringInput,
   EditorNumber,
-  EditorNumberEnumRadio,
-  EditorNumberEnumSelect,
+  EditorNumberRadios,
+  EditorNumberSelect,
   EditorNumberInput,
   EditorObjectGrid,
   EditorObjectNav,

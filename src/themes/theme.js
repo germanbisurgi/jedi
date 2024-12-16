@@ -1,4 +1,4 @@
-import { generateRandomID, isObject, isString } from '../helpers/utils.js'
+import { generateRandomID, isObject, isSet, isString } from '../helpers/utils.js'
 
 /**
  * Represents a Theme instance.
@@ -447,9 +447,7 @@ class Theme {
     const container = document.createElement('span')
     const infoButton = document.createElement('a')
     const infoButtonText = document.createElement('span')
-    const icon = this.getIcon(this.icons['infoButton'])
 
-    icon.setAttribute('title', 'More information')
     infoButton.setAttribute('href', '#')
     container.classList.add('jedi-info-button-container')
     infoButton.classList.add('jedi-info-button')
@@ -465,11 +463,16 @@ class Theme {
       }
     }
 
-    infoButton.appendChild(icon)
+    if (this.icons) {
+      const icon = this.getIcon(this.icons['infoButton'])
+      icon.setAttribute('title', 'More information')
+      infoButton.appendChild(icon)
+    }
+
     infoButton.appendChild(infoButtonText)
     container.appendChild(infoButton)
 
-    return { container, infoButton, icon }
+    return { container, infoButton }
   }
 
   /**
@@ -562,7 +565,7 @@ class Theme {
 
     const infoButton = this.getInfoButton(config.infoButton)
 
-    if (config?.infoButton?.type === 'modal') {
+    if (config?.infoButton?.variant === 'modal') {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton)
     }
 
@@ -645,7 +648,7 @@ class Theme {
 
     const infoButton = this.getInfoButton(config.infoButton)
 
-    if (config?.infoButton?.type === 'modal') {
+    if (config?.infoButton?.variant === 'modal') {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton)
     }
 
@@ -751,7 +754,7 @@ class Theme {
 
     const infoButton = this.getInfoButton(config.infoButton)
 
-    if (config?.infoButton?.type === 'modal') {
+    if (config?.infoButton?.variant === 'modal') {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton)
     }
 
@@ -966,7 +969,7 @@ class Theme {
 
     const infoButton = this.getInfoButton(config.infoButton)
 
-    if (config?.infoButton?.type === 'modal') {
+    if (config?.infoButton?.variant === 'modal') {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton)
     }
 
@@ -1019,7 +1022,7 @@ class Theme {
 
     const infoButton = this.getInfoButton(config.infoButton)
 
-    if (config?.infoButton?.type === 'modal') {
+    if (config?.infoButton?.variant === 'modal') {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton)
     }
 
@@ -1082,7 +1085,7 @@ class Theme {
 
     const infoButton = this.getInfoButton(config.infoButton)
 
-    if (config?.infoButton?.type === 'modal') {
+    if (config?.infoButton?.variant === 'modal') {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton)
     }
 
@@ -1132,7 +1135,7 @@ class Theme {
 
     const infoButton = this.getInfoButton(config.infoButton)
 
-    if (config?.infoButton?.type === 'modal') {
+    if (config?.infoButton?.variant === 'modal') {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton)
     }
 
@@ -1152,6 +1155,7 @@ class Theme {
       const radio = document.createElement('input')
       radio.setAttribute('type', 'radio')
       radio.setAttribute('id', config.id + '-' + index)
+      radio.setAttribute('name', config.id)
       radio.setAttribute('value', value)
       radios.push(radio)
 
@@ -1164,8 +1168,8 @@ class Theme {
       const labelText = document.createElement('span')
       labelTexts.push(labelText)
 
-      if (config.titles && config.titles[index]) {
-        labelText.textContent = config.titles[index]
+      if (isSet(config.titles) && isSet(config.titles[index])) {
+        labelText.textContent = config.titles[index] ?? value
       }
 
       labels.push(label)
@@ -1251,7 +1255,7 @@ class Theme {
 
     const infoButton = this.getInfoButton(config.infoButton)
 
-    if (config?.infoButton?.type === 'modal') {
+    if (config?.infoButton?.variant === 'modal') {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton)
     }
 
@@ -1337,7 +1341,7 @@ class Theme {
 
     const infoButton = this.getInfoButton(config.infoButton)
 
-    if (config?.infoButton?.type === 'modal') {
+    if (config?.infoButton?.variant === 'modal') {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton)
     }
 
@@ -1429,7 +1433,7 @@ class Theme {
 
     const infoButton = this.getInfoButton(config.infoButton)
 
-    if (config?.infoButton?.type === 'modal') {
+    if (config?.infoButton?.variant === 'modal') {
       this.infoButtonAsModal(infoButton, config.id, config.infoButton)
     }
 

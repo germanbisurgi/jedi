@@ -1,10 +1,14 @@
 {
+  "title": "Raty",
   "type": "number",
-  "title": "Number",
-  "default": 5.5,
-  "minimum": 0,
-  "description": "The number type is used for any numeric type, either integers or floating point numbers.",
+  "description": "Raty - A Star Rating Plugin",
+  "default": 3,
+  "minimum": 0.5,
   "x-options": {
+    "raty": {
+      "half": true,
+      "starType": "i"
+    },
     "infoButton": {
       "variant": "modal",
       "title": "<h4>Info Button title</h4>",

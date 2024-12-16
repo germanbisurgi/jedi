@@ -1,9 +1,13 @@
 {
   "type": "number",
-  "title": "Number",
-  "default": 5.5,
-  "minimum": 0,
+  "title": "Number select",
   "description": "The number type is used for any numeric type, either integers or floating point numbers.",
+  "default": 1,
+  "enum": [
+    0,
+    1,
+    2
+  ],
   "x-options": {
     "infoButton": {
       "variant": "modal",
