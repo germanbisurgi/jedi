@@ -45,7 +45,7 @@ Scenario('@editor @number-select should @setValue and @showValidationErrors', ({
 
   // editor
   I.waitForValue('[id="root"]', "")
-  I._waitForText('Number select: Must be one of the enumerated values: [0,1,2].')
+  I._waitForText('Must be one of the enumerated values: [0,1,2].')
 })
 
 Scenario('@editor @number-select should @disable', ({I}) => {

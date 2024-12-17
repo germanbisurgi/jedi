@@ -45,7 +45,7 @@ Scenario('@editor @integer-input should @setValue and @showValidationErrors', ({
 
   // editor
   I.waitForValue('[id="root"]', JSON.stringify(invalidValue))
-  I._waitForText('Integer: Must be at least 0.', '.jedi-error-message')
+  I._waitForText('Must be at least 0.', '.jedi-error-message')
 })
 
 Scenario('@editor @integer-input should @disable', ({I}) => {

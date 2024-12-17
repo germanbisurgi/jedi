@@ -45,7 +45,7 @@ Scenario('@editor @string-select should @setValue and @showValidationErrors', ({
 
   // editor
   I.waitForValue('[id="root"]', "")
-  I._waitForText('String select: Must be one of the enumerated values: ["albert","betti","carl"].')
+  I._waitForText('Must be one of the enumerated values: ["albert","betti","carl"].')
 })
 
 Scenario('@editor @string-select should @disable', ({I}) => {

@@ -47,7 +47,7 @@ Scenario('@editor @number-radios should @setValue and @showValidationErrors', ({
   I.dontSeeCheckboxIsChecked('[id="root-0"]')
   I.dontSeeCheckboxIsChecked('[id="root-1"]')
   I.dontSeeCheckboxIsChecked('[id="root-2"]')
-  I._waitForText('Number radios: Must be one of the enumerated values: [0,1,2].', '.jedi-error-message')
+  I._waitForText('Must be one of the enumerated values: [0,1,2].', '.jedi-error-message')
 })
 
 Scenario('@editor @number-radios should @disable', ({I}) => {

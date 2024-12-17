@@ -46,7 +46,7 @@ Scenario('@plugin @string-quill should @setValue and @showValidationErrors', ({I
 
   // editor
   I._waitForText(valueWithErrors, '.ql-editor')
-  I._waitForText('Quill: Must be at least 3 characters long.', '.jedi-error-message')
+  I._waitForText('Must be at least 3 characters long.', '.jedi-error-message')
 })
 
 Scenario('@plugin @string-quill should @disable', ({I}) => {

@@ -46,7 +46,7 @@ Scenario('@editor @boolean-radios should @setValue and @showValidationErrors', (
   // editor
   I.seeCheckboxIsChecked('[id="root-0"]')
   I.dontSeeCheckboxIsChecked('[id="root-1"]')
-  I._waitForText('Boolean: Must have value of: true.', '.jedi-error-message')
+  I._waitForText('Must have value of: true.', '.jedi-error-message')
 })
 
 Scenario('@editor @boolean-radios should @disable', ({I}) => {

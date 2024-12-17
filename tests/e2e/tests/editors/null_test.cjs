@@ -42,7 +42,7 @@ Scenario('@editor @null should @setValue and @showValidationErrors', ({I}) => {
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(invalidValue))
 
   // editor
-  I._waitForText('Null: Must be of type null.')
+  I._waitForText('Must be of type null.')
 })
 
 Scenario('@editor @null should @destroy', ({I}) => {

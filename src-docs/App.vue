@@ -325,7 +325,7 @@ export default {
       assertFormat: false,
       mergeAllOf: false,
       enforceEnumDefault: true,
-      includeTitlesInMessages: true
+      includeTitlesInMessages: false
     }
   },
   created() {
@@ -336,7 +336,7 @@ export default {
     this.assertFormat = this.getQueryParam('assertFormat') ? this.parseBooleanString(this.getQueryParam('assertFormat')) : false
     this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
     this.enforceEnumDefault = this.getQueryParam('enforceEnumDefault') ? this.parseBooleanString(this.getQueryParam('enforceEnumDefault')) : true
-    this.includeTitlesInMessages = this.getQueryParam('includeTitlesInMessages') ? this.parseBooleanString(this.getQueryParam('includeTitlesInMessages')) : true
+    this.includeTitlesInMessages = this.getQueryParam('includeTitlesInMessages') ? this.parseBooleanString(this.getQueryParam('includeTitlesInMessages')) : false
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
     this.enableCollapseToggle = this.getQueryParam('enableCollapseToggle') ? this.parseBooleanString(this.getQueryParam('enableCollapseToggle')) : true
   },

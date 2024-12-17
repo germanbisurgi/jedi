@@ -45,7 +45,7 @@ Scenario('@editor @boolean-checkbox should @setValue and @showValidationErrors',
 
   // editor
   I.dontSeeCheckboxIsChecked('[id="root"]')
-  I._waitForText('Boolean: Must have value of: true.', '.jedi-error-message')
+  I._waitForText('Must have value of: true.', '.jedi-error-message')
 })
 
 Scenario('@editor @boolean-checkbox should @disable', ({I}) => {

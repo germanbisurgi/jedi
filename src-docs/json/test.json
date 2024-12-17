@@ -1,1 +1,122 @@
-{"title":"Lebensraumverbessernde Ma\u00dfnahmen","type":"object","properties":{"massnahmen":{"title":"Wurden im Jagdjahr 2021\/2022 in Ihrem Revier biotopverbessernde Ma\u00dfnahmen durchgef\u00fchrt?","type":"string","enum":["ja","nein"],"x-options":{"enforceEnumDefault":false,"format":"radios"}}},"if":{"properties":{"massnahmen":{"const":"ja"}}},"then":{"properties":{"offenland":{"title":"Ma\u00dfnahmen im Offenland:","type":"object","properties":{"bluehflaeche":{"title":"ha Bl\u00fchfl\u00e4che\/ Bl\u00fchstreifen\/ Brache angelegt","type":"number","minimum":0,"default":0},"hecken":{"title":"lfd. m Hecken angelegt bzw. gepflegt","type":"number","minimum":0,"default":0},"rebhuhn":{"title":"F\u00fctterung","type":"array","uniqueItems":true,"items":{"type":"string","enum":["F\u00fctterung von Rebhuhn und\/oder Fasan"]}}}},"wald":{"title":"Ma\u00dfnahmen im Wald:","type":"object","properties":{"aesungsflaeche":{"title":"ha \u00c4sungsfl\u00e4che angelegt","type":"number","minimum":0,"default":0},"bepflanzung":{"title":"Bepflanzung","type":"array","uniqueItems":true,"items":{"type":"string","enum":["Baumpflanzung (Obstgeh\u00f6lz, Verbissgeh\u00f6lz, Mastb\u00e4ume etc.)","Anlage von Kleinstgew\u00e4ssern"]}}}},"sonstige":{"title":"Sonstige lebensraumverbessernde Ma\u00dfnahmen:","type":"string","x-options":{"format":"textarea"}}}},"else":{"if":{"properties":{"massnahmen":{"const":"nein"}}},"then":{"properties":{"offenland":{"title":"Ma\u00dfnahmen im Offenland:","type":"object","properties":{"bluehflaeche":{"title":"ha Bl\u00fchfl\u00e4che\/ Bl\u00fchstreifen\/ Brache angelegt","type":"number","minimum":0,"default":0,"const":0,"readOnly":true},"hecken":{"title":"lfd. m Hecken angelegt bzw. gepflegt","type":"number","minimum":0,"default":0,"const":0,"readOnly":true},"rebhuhn":{"title":"F\u00fctterung","type":"array","readOnly":true,"uniqueItems":true,"const":[""],"items":{"type":"string","enum":["F\u00fctterung von Rebhuhn und\/oder Fasan"]}}}},"wald":{"title":"Ma\u00dfnahmen im Wald:","type":"object","properties":{"aesungsflaeche":{"title":"ha \u00c4sungsfl\u00e4che angelegt","type":"number","readOnly":true,"minimum":0,"default":0,"const":0},"bepflanzung":{"title":"Bepflanzung","type":"array","readOnly":true,"uniqueItems":true,"items":{"type":"string","enum":["Baumpflanzung (Obstgeh\u00f6lz, Verbissgeh\u00f6lz, Mastb\u00e4ume etc.)","Anlage von Kleinstgew\u00e4ssern"]}}}},"sonstige":{"title":"Sonstige lebensraumverbessernde Ma\u00dfnahmen:","type":"string","readOnly":true,"const":"","x-options":{"format":"textarea"}}}},"else":{"if":{"properties":{"massnahmen":{"const":""}}},"then":{"properties":{"offenland":{"title":"Ma\u00dfnahmen im Offenland:","type":"object","properties":{"bluehflaeche":{"title":"ha Bl\u00fchfl\u00e4che\/ Bl\u00fchstreifen\/ Brache angelegt","type":"null","description":"keine Angabe"},"hecken":{"title":"lfd. m Hecken angelegt bzw. gepflegt","type":"null","description":"keine Angabe"},"rebhuhn":{"title":"F\u00fctterung","type":"array","readOnly":true,"uniqueItems":true,"const":[""],"items":{"type":"string","enum":["F\u00fctterung von Rebhuhn und\/oder Fasan"]}}}},"wald":{"title":"Ma\u00dfnahmen im Wald:","type":"object","properties":{"aesungsflaeche":{"title":"ha \u00c4sungsfl\u00e4che angelegt","type":"null","description":"keine Angabe"},"bepflanzung":{"title":"Bepflanzung","type":"array","readOnly":true,"uniqueItems":true,"items":{"type":"string","enum":["Baumpflanzung (Obstgeh\u00f6lz, Verbissgeh\u00f6lz, Mastb\u00e4ume etc.)","Anlage von Kleinstgew\u00e4ssern"]}}}},"sonstige":{"title":"Sonstige lebensraumverbessernde Ma\u00dfnahmen:","type":"string","readOnly":true,"const":"","x-options":{"format":"textarea"}}}}}}}
+{
+  "title": "Niederwild",
+  "type": "object",
+  "required": [
+    "feldhase",
+    "wildkaninchen",
+    "rebhuhn",
+    "fasan"
+  ],
+  "properties": {
+    "feldhase": {
+      "title": "Feldhase",
+      "$ref": "#/$defs/tier"
+    },
+    "wildkaninchen": {
+      "title": "Wildkaninchen",
+      "$ref": "#/$defs/tier"
+    },
+    "rebhuhn": {
+      "title": "Rebhuhn",
+      "$ref": "#/$defs/tier"
+    },
+    "fasan": {
+      "title": "Fasan",
+      "$ref": "#/$defs/tier"
+    }
+  },
+  "$defs": {
+    "tier": {
+      "type": "object",
+      "properties": {
+        "vk": {
+          "title": "Kamen die Arten im Frühjahr 2025 in Ihrem Revier vor?",
+          "type": "string",
+          "enum": [
+            "ja",
+            "nein",
+            "unbekannt",
+            "keine Angabe"
+          ],
+          "x-options": {
+            "enforceEnumDefault": false,
+            "format": "radios",
+            "messages": [
+              "Bitte wählen Sie eine Antwortmöglichkeit aus."
+            ]
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "vk": {
+            "const": "ja"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "anzahl": {
+            "title": "Geschätzte Anzahl im Frühjahr 2025",
+            "type": "integer",
+            "minimum": 0,
+            "default": 0,
+            "x-options": {
+              "inputAttributes": {
+                "min": 0
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "if": {
+          "properties": {
+            "vk": {
+              "const": "nein"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "anzahl": {
+              "title": "Geschätzte Anzahl im Frühjahr 2025",
+              "type": "integer",
+              "default": 0,
+              "const": 0,
+              "minimum": 0,
+              "readOnly": true
+            }
+          }
+        },
+        "else": {
+          "if": {
+            "properties": {
+              "vk": {
+                "const": "unbekannt"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "anzahl": {
+                "title": "Geschätzte Anzahl im Frühjahr 2025",
+                "description": "unbekannt",
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "anzahl": {
+                "title": "Geschätzte Anzahl im Frühjahr 2025",
+                "description": "Keine Angabe",
+                "type": "null"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -48,7 +48,7 @@ Scenario('@editor @array-checkboxes should @setValue and @showValidationErrors',
   I.dontSeeCheckboxIsChecked('[id="root-0"]')
   I.dontSeeCheckboxIsChecked('[id="root-1"]')
 
-  I._waitForText('Array: Must have at least 1 items.', '.jedi-error-message')
+  I._waitForText('Must have at least 1 items.', '.jedi-error-message')
 })
 
 Scenario('@editor @array-checkboxes should @disable', ({I}) => {

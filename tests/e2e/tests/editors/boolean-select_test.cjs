@@ -45,7 +45,7 @@ Scenario('@editor @boolean-select should @setValue and @showValidationErrors', (
 
   // editor
   I.waitForValue('[id="root"]', "false")
-  I._waitForText('Boolean: Must have value of: true.', '.jedi-error-message')
+  I._waitForText('Must have value of: true.', '.jedi-error-message')
 })
 
 Scenario('@editor @boolean-select should @disable', ({I}) => {

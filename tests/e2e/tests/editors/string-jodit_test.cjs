@@ -46,7 +46,7 @@ Scenario('@plugin @string-jodit should @setValue and @showValidationErrors', ({I
 
   // editor
   I._waitForText('xz', '.jodit-wysiwyg')
-  I._waitForText('Jodit: Must be at least 20 characters long.', '.jedi-error-message')
+  I._waitForText('Must be at least 20 characters long.', '.jedi-error-message')
 })
 
 Scenario('@plugin @string-jodit should @disable', ({I}) => {

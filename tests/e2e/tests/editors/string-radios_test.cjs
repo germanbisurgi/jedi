@@ -47,7 +47,7 @@ Scenario('@editor @string-radios should @setValue and @showValidationErrors', ({
   I.dontSeeCheckboxIsChecked('[id="root-0"]')
   I.dontSeeCheckboxIsChecked('[id="root-1"]')
   I.dontSeeCheckboxIsChecked('[id="root-2"]')
-  I._waitForText('String radios: Must be one of the enumerated values: ["albert","betti","carl"].', '.jedi-error-message')
+  I._waitForText('Must be one of the enumerated values: ["albert","betti","carl"].', '.jedi-error-message')
 })
 
 Scenario('@editor @string-radios should @disable', ({I}) => {

@@ -1,0 +1,32 @@
+{
+  "title": "Feldhase",
+  "type": "object",
+  "required": [
+    "vk"
+  ],
+  "properties": {
+    "vk": {
+      "title": "Kamen die Arten im Frühjahr 2025 in Ihrem Revier vor?",
+      "type": "string",
+      "enum": [
+        "ja",
+        "nein",
+        "unbekannt",
+        "keine Angabe"
+      ],
+      "x-options": {
+        "format": "radios",
+        "enforceEnumDefault": false,
+        "messages": [
+          "Bitte wählen Sie eine Antwortmöglichkeit aus."
+        ],
+        "infoButton": {
+          "variant": "modal",
+          "title": "Informationen zur Frühjahrsbeobachtung 2025",
+          "content": "Geben Sie an, ob die Arten im Frühjahr 2025 in Ihrem Revier vorkamen: Ja, Nein, Unbekannt oder Keine Angabe."
+        }
+      },
+      "default": ""
+    }
+  }
+}
