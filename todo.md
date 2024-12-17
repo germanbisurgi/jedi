@@ -1,15 +1,15 @@
 ## Todo
 
 - playground
-  - first example should be real life form
+  - first example in playground should be real life form
 
 - jedi
   - complementary schema (for ui stuff)
-  - iconLib string|IconLib
-  - theme string|Theme
+  - iconLib option can be string or IconLib instance
+  - theme option can be string or Theme instance
 
 - validation
-  - drafts
+  - support multiple drafts
   - formats: https://json-schema.org/understanding-json-schema/reference/string#format
 
 - plugins
@@ -18,14 +18,16 @@
   - simplemde
 
 - editors
-  - better themes icons generation api
+  - infoButton -> info
+  - remove not needed action containers
+  - getComputedStyle for font sizes
   - fix infoButton when format table
-  - null editors don't need <label> because they don't have an input
   - input range
   - input file
   - color picker
-  - switch
-  - tooltip
+  - format switch (booleans and/or not required properties)
+  - infoButton variant tooltip
+  - infoButton variant popover
   - array copy button
   - append descriptions if set and not hidden
   - type hidden description
@@ -33,8 +35,10 @@
   - property already exist message box or disable add button
   - anyOf, oneOf accessibility switcher (radios are better)
   - option hideButton labels
+  - set input names like id
+  - make theme methods options more consistent (text, textContent, content, getIcon, etc)
 
 - tests
-  - refreshFocus() 
+  - navigate with Tab key
 
 - publish on NPM

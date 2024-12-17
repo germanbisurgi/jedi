@@ -7,6 +7,8 @@ class Theme {
   constructor (icons = null) {
     this.icons = icons
     this.useToggleEvents = true
+    // const span = document.querySelector('span')
+    // this.defaultFontSize = window.getComputedStyle(span).fontSize
     this.init()
   }
 
@@ -51,6 +53,31 @@ class Theme {
   }
 
   /**
+   * Used to group several controls
+   */
+  getRadioFieldset () {
+    const fieldset = document.createElement('fieldset')
+    fieldset.classList.add('jedi-editor-radio-fieldset')
+    fieldset.style.marginBottom = '15px'
+    return fieldset
+  }
+
+  /**
+   * Represents a caption for the content of its parent fieldset
+   */
+  getRadioLegend (config) {
+    const legend = document.createElement('legend')
+    const legendText = document.createElement('span')
+    legend.classList.add('jedi-editor-legend')
+    legendText.classList.add('jedi-editor-legend-text')
+    legend.setAttribute('aria-labelledby', '#legend-' + config.id)
+    legendText.innerHTML = this.purifyContent(config.textContent)
+    legendText.setAttribute('id', '#legend-' + config.id)
+    legend.appendChild(legendText)
+    return { legend, legendText }
+  }
+
+  /**
    * Represents a caption for the content of its parent fieldset
    */
   getLabel (config) {
@@ -77,7 +104,7 @@ class Theme {
     const labelText = document.createElement('span')
     const icon = this.getIcon(config.labelIconClass)
 
-    labelText.textContent = config.text
+    labelText.innerHTML = this.purifyContent(config.text)
     label.classList.add('jedi-title')
 
     if (config.visuallyHidden) {
@@ -1113,11 +1140,8 @@ class Theme {
    */
   getRadiosControl (config) {
     const container = document.createElement('div')
-    const actions = this.getActionsSlot()
-    const arrayActions = this.getArrayActionsSlot()
-    const fieldset = this.getFieldset()
-    const body = this.getCardBody()
-    const { legend, legendText } = this.getLegend({
+    const fieldset = this.getRadioFieldset()
+    const { legend, legendText } = this.getRadioLegend({
       textContent: config.label,
       id: config.id
     })
@@ -1176,18 +1200,15 @@ class Theme {
     })
 
     container.appendChild(fieldset)
-    container.appendChild(actions)
     fieldset.appendChild(legend)
 
     if (isObject(config.infoButton)) {
       legendText.appendChild(infoButton.container)
     }
 
-    fieldset.appendChild(body)
-    actions.appendChild(arrayActions)
 
     radioControls.forEach((radioControl, index) => {
-      body.appendChild(radioControls[index])
+      fieldset.appendChild(radioControls[index])
       radioControl.appendChild(radios[index])
       radioControl.appendChild(labels[index])
       labels[index].appendChild(labelTexts[index])
@@ -1201,15 +1222,12 @@ class Theme {
       fieldset,
       legend,
       infoButton,
-      body,
       radios,
       labels,
       labelTexts,
       radioControls,
       description,
-      messages,
-      actions,
-      arrayActions
+      messages
     }
   }
 

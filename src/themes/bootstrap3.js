@@ -39,6 +39,7 @@ class ThemeBootstrap3 extends Theme {
     const fieldset = document.createElement('fieldset')
     fieldset.classList.add('panel')
     fieldset.classList.add('panel-default')
+    fieldset.style.marginBottom = '15px'
     return fieldset
   }
 
@@ -50,6 +51,15 @@ class ThemeBootstrap3 extends Theme {
     legend.classList.add('pull-left')
     legend.setAttribute('style', 'margin: 0; display: flex; justify-content: space-between; align-items: center;')
     return superLegend
+  }
+
+  getRadioLegend (config) {
+    const superRadioLegend = super.getRadioLegend(config)
+    const { legend } = superRadioLegend
+    legend.style.border = 'none'
+    legend.style.fontSize = window.getComputedStyle(document.body).fontSize
+    legend.style.marginBottom = '0'
+    return superRadioLegend
   }
 
   getLabel (config) {
@@ -80,6 +90,7 @@ class ThemeBootstrap3 extends Theme {
     const html = super.getCardBody()
     html.classList.add('panel-body')
     html.style.clear = 'both'
+    html.style.paddingBottom = '0'
     return html
   }
 
@@ -100,7 +111,7 @@ class ThemeBootstrap3 extends Theme {
   getDescription (config) {
     const description = super.getDescription(config)
     description.classList.add('text-muted')
-    description.style.marginBottom = '15px'
+    description.style.marginBottom = '5px'
     return description
   }
 
@@ -142,7 +153,7 @@ class ThemeBootstrap3 extends Theme {
 
   getRadiosControl (config) {
     const control = super.getRadiosControl(config)
-    const { body, radios, labels, labelTexts, radioControls, description, messages } = control
+    const { fieldset, radios, labels, labelTexts, radioControls, description, messages } = control
 
     radioControls.forEach((radioControl, index) => {
       radioControl.classList.add('radio')
@@ -154,14 +165,14 @@ class ThemeBootstrap3 extends Theme {
         radioControl.style.marginRight = '30px'
       }
 
-      body.appendChild(radioControls[index])
+      fieldset.appendChild(radioControls[index])
       radioControl.appendChild(labels[index])
       labels[index].appendChild(radios[index])
       labels[index].appendChild(labelTexts[index])
     })
 
-    body.appendChild(description)
-    body.appendChild(messages)
+    fieldset.appendChild(description)
+    fieldset.appendChild(messages)
 
     return control
   }
@@ -170,7 +181,6 @@ class ThemeBootstrap3 extends Theme {
     super.adaptForTableRadiosControl(control, td)
     control.fieldset.classList.remove('panel')
     control.fieldset.classList.remove('panel-default')
-    control.body.classList.remove('panel-body')
   }
 
   getCheckboxesControl (config) {

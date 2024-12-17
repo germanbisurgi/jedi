@@ -4232,6 +4232,29 @@ class Theme {
     return { legend, legendText };
   }
   /**
+   * Used to group several controls
+   */
+  getRadioFieldset() {
+    const fieldset = document.createElement("fieldset");
+    fieldset.classList.add("jedi-editor-radio-fieldset");
+    fieldset.style.marginBottom = "15px";
+    return fieldset;
+  }
+  /**
+   * Represents a caption for the content of its parent fieldset
+   */
+  getRadioLegend(config) {
+    const legend = document.createElement("legend");
+    const legendText = document.createElement("span");
+    legend.classList.add("jedi-editor-legend");
+    legendText.classList.add("jedi-editor-legend-text");
+    legend.setAttribute("aria-labelledby", "#legend-" + config.id);
+    legendText.innerHTML = this.purifyContent(config.textContent);
+    legendText.setAttribute("id", "#legend-" + config.id);
+    legend.appendChild(legendText);
+    return { legend, legendText };
+  }
+  /**
    * Represents a caption for the content of its parent fieldset
    */
   getLabel(config) {
@@ -4252,7 +4275,7 @@ class Theme {
     const label = document.createElement("span");
     const labelText = document.createElement("span");
     const icon = this.getIcon(config.labelIconClass);
-    labelText.textContent = config.text;
+    labelText.innerHTML = this.purifyContent(config.text);
     label.classList.add("jedi-title");
     if (config.visuallyHidden) {
       this.visuallyHidden(label);
@@ -5092,11 +5115,8 @@ class Theme {
   getRadiosControl(config) {
     var _a;
     const container = document.createElement("div");
-    const actions = this.getActionsSlot();
-    const arrayActions = this.getArrayActionsSlot();
-    const fieldset = this.getFieldset();
-    const body = this.getCardBody();
-    const { legend, legendText } = this.getLegend({
+    const fieldset = this.getRadioFieldset();
+    const { legend, legendText } = this.getRadioLegend({
       textContent: config.label,
       id: config.id
     });
@@ -5141,15 +5161,12 @@ class Theme {
       labels.push(label);
     });
     container.appendChild(fieldset);
-    container.appendChild(actions);
     fieldset.appendChild(legend);
     if (isObject(config.infoButton)) {
       legendText.appendChild(infoButton.container);
     }
-    fieldset.appendChild(body);
-    actions.appendChild(arrayActions);
     radioControls.forEach((radioControl, index2) => {
-      body.appendChild(radioControls[index2]);
+      fieldset.appendChild(radioControls[index2]);
       radioControl.appendChild(radios[index2]);
       radioControl.appendChild(labels[index2]);
       labels[index2].appendChild(labelTexts[index2]);
@@ -5161,15 +5178,12 @@ class Theme {
       fieldset,
       legend,
       infoButton,
-      body,
       radios,
       labels,
       labelTexts,
       radioControls,
       description,
-      messages,
-      actions,
-      arrayActions
+      messages
     };
   }
   adaptForTableRadiosControl(control) {
@@ -5560,6 +5574,7 @@ class ThemeBootstrap3 extends Theme {
     const fieldset = document.createElement("fieldset");
     fieldset.classList.add("panel");
     fieldset.classList.add("panel-default");
+    fieldset.style.marginBottom = "15px";
     return fieldset;
   }
   getLegend(config) {
@@ -5570,6 +5585,14 @@ class ThemeBootstrap3 extends Theme {
     legend.classList.add("pull-left");
     legend.setAttribute("style", "margin: 0; display: flex; justify-content: space-between; align-items: center;");
     return superLegend;
+  }
+  getRadioLegend(config) {
+    const superRadioLegend = super.getRadioLegend(config);
+    const { legend } = superRadioLegend;
+    legend.style.border = "none";
+    legend.style.fontSize = window.getComputedStyle(document.body).fontSize;
+    legend.style.marginBottom = "0";
+    return superRadioLegend;
   }
   getLabel(config) {
     const labelObj = super.getLabel(config);
@@ -5594,6 +5617,7 @@ class ThemeBootstrap3 extends Theme {
     const html = super.getCardBody();
     html.classList.add("panel-body");
     html.style.clear = "both";
+    html.style.paddingBottom = "0";
     return html;
   }
   getBtnGroup() {
@@ -5611,7 +5635,7 @@ class ThemeBootstrap3 extends Theme {
   getDescription(config) {
     const description = super.getDescription(config);
     description.classList.add("text-muted");
-    description.style.marginBottom = "15px";
+    description.style.marginBottom = "5px";
     return description;
   }
   getTextareaControl(config) {
@@ -5644,7 +5668,7 @@ class ThemeBootstrap3 extends Theme {
   }
   getRadiosControl(config) {
     const control = super.getRadiosControl(config);
-    const { body, radios, labels, labelTexts, radioControls, description, messages } = control;
+    const { fieldset, radios, labels, labelTexts, radioControls, description, messages } = control;
     radioControls.forEach((radioControl, index2) => {
       radioControl.classList.add("radio");
       if (config.inline) {
@@ -5653,20 +5677,19 @@ class ThemeBootstrap3 extends Theme {
         radioControl.style.paddingLeft = "0";
         radioControl.style.marginRight = "30px";
       }
-      body.appendChild(radioControls[index2]);
+      fieldset.appendChild(radioControls[index2]);
       radioControl.appendChild(labels[index2]);
       labels[index2].appendChild(radios[index2]);
       labels[index2].appendChild(labelTexts[index2]);
     });
-    body.appendChild(description);
-    body.appendChild(messages);
+    fieldset.appendChild(description);
+    fieldset.appendChild(messages);
     return control;
   }
   adaptForTableRadiosControl(control, td) {
     super.adaptForTableRadiosControl(control, td);
     control.fieldset.classList.remove("panel");
     control.fieldset.classList.remove("panel-default");
-    control.body.classList.remove("panel-body");
   }
   getCheckboxesControl(config) {
     const control = super.getCheckboxesControl(config);
@@ -5861,6 +5884,12 @@ class ThemeBootstrap4 extends Theme {
     fieldset.classList.add("mb-3");
     return fieldset;
   }
+  getRadioLegend(config) {
+    const superRadioLegend = super.getRadioLegend(config);
+    const { legend } = superRadioLegend;
+    legend.style.fontSize = window.getComputedStyle(document.body).fontSize;
+    return superRadioLegend;
+  }
   getLegend(config) {
     const superLegend = super.getLegend(config);
     const { legend } = superLegend;
@@ -5915,7 +5944,8 @@ class ThemeBootstrap4 extends Theme {
   getDescription(config) {
     const description = super.getDescription(config);
     description.classList.add("text-muted");
-    description.classList.add("mb-3");
+    description.classList.add("fs-sm");
+    description.classList.add("mb-1");
     return description;
   }
   getTextareaControl(config) {
@@ -5948,7 +5978,7 @@ class ThemeBootstrap4 extends Theme {
   }
   getRadiosControl(config) {
     const control = super.getRadiosControl(config);
-    const { container, body, radios, labels, labelTexts, radioControls, description, messages } = control;
+    const { container, fieldset, radios, labels, labelTexts, radioControls, description, messages } = control;
     container.classList.add("form-group");
     radioControls.forEach((radioControl, index2) => {
       radioControl.classList.add("form-check");
@@ -5957,13 +5987,13 @@ class ThemeBootstrap4 extends Theme {
       if (config.inline) {
         radioControl.classList.add("form-check-inline");
       }
-      body.appendChild(radioControls[index2]);
+      fieldset.appendChild(radioControls[index2]);
       radioControl.appendChild(radios[index2]);
       radioControl.appendChild(labels[index2]);
       labels[index2].appendChild(labelTexts[index2]);
     });
-    body.appendChild(description);
-    body.appendChild(messages);
+    fieldset.appendChild(description);
+    fieldset.appendChild(messages);
     return control;
   }
   adaptForTableRadiosControl(control, td) {
@@ -5971,7 +6001,6 @@ class ThemeBootstrap4 extends Theme {
     control.container.classList.remove("form-group");
     control.fieldset.classList.remove("card");
     control.fieldset.classList.remove("mb-3");
-    control.body.classList.remove("card-body");
   }
   getCheckboxesControl(config) {
     const control = super.getCheckboxesControl(config);
@@ -6198,6 +6227,12 @@ class ThemeBootstrap5 extends Theme {
     legend.classList.add("py-2");
     return superLegend;
   }
+  getRadioLegend(config) {
+    const superRadioLegend = super.getRadioLegend(config);
+    const { legend } = superRadioLegend;
+    legend.style.fontSize = window.getComputedStyle(document.body).fontSize;
+    return superRadioLegend;
+  }
   getLabel(config) {
     const labelObj = super.getLabel(config);
     if (labelObj.icon.classList) {
@@ -6245,7 +6280,7 @@ class ThemeBootstrap5 extends Theme {
   getDescription(config) {
     const description = super.getDescription(config);
     description.classList.add("text-muted");
-    description.classList.add("mb-3");
+    description.classList.add("mb-1");
     return description;
   }
   getTextareaControl(config) {
@@ -6278,7 +6313,7 @@ class ThemeBootstrap5 extends Theme {
   }
   getRadiosControl(config) {
     const control = super.getRadiosControl(config);
-    const { container, body, radios, labels, labelTexts, radioControls, description, messages } = control;
+    const { container, fieldset, radios, labels, labelTexts, radioControls, description, messages } = control;
     container.classList.add("mb-3");
     radioControls.forEach((radioControl, index2) => {
       radioControl.classList.add("form-check");
@@ -6287,13 +6322,13 @@ class ThemeBootstrap5 extends Theme {
       if (config.inline) {
         radioControl.classList.add("form-check-inline");
       }
-      body.appendChild(radioControls[index2]);
+      fieldset.appendChild(radioControls[index2]);
       radioControl.appendChild(radios[index2]);
       radioControl.appendChild(labels[index2]);
       labels[index2].appendChild(labelTexts[index2]);
     });
-    body.appendChild(description);
-    body.appendChild(messages);
+    fieldset.appendChild(description);
+    fieldset.appendChild(messages);
     return control;
   }
   adaptForTableRadiosControl(control, td) {
@@ -6301,8 +6336,6 @@ class ThemeBootstrap5 extends Theme {
     control.container.classList.remove("mb-3");
     control.fieldset.classList.remove("card");
     control.fieldset.classList.remove("mb-3");
-    control.body.classList.remove("card-body");
-    control.body.classList.remove("pb-0");
   }
   getCheckboxesControl(config) {
     const control = super.getCheckboxesControl(config);

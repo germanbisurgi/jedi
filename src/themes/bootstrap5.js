@@ -54,6 +54,13 @@ class ThemeBootstrap5 extends Theme {
     return superLegend
   }
 
+  getRadioLegend (config) {
+    const superRadioLegend = super.getRadioLegend(config)
+    const { legend } = superRadioLegend
+    legend.style.fontSize = window.getComputedStyle(document.body).fontSize
+    return superRadioLegend
+  }
+
   getLabel (config) {
     const labelObj = super.getLabel(config)
 
@@ -110,7 +117,7 @@ class ThemeBootstrap5 extends Theme {
   getDescription (config) {
     const description = super.getDescription(config)
     description.classList.add('text-muted')
-    description.classList.add('mb-3')
+    description.classList.add('mb-1')
     return description
   }
 
@@ -152,7 +159,7 @@ class ThemeBootstrap5 extends Theme {
 
   getRadiosControl (config) {
     const control = super.getRadiosControl(config)
-    const { container, body, radios, labels, labelTexts, radioControls, description, messages } = control
+    const { container, fieldset, radios, labels, labelTexts, radioControls, description, messages } = control
 
     container.classList.add('mb-3')
 
@@ -165,14 +172,14 @@ class ThemeBootstrap5 extends Theme {
         radioControl.classList.add('form-check-inline')
       }
 
-      body.appendChild(radioControls[index])
+      fieldset.appendChild(radioControls[index])
       radioControl.appendChild(radios[index])
       radioControl.appendChild(labels[index])
       labels[index].appendChild(labelTexts[index])
     })
 
-    body.appendChild(description)
-    body.appendChild(messages)
+    fieldset.appendChild(description)
+    fieldset.appendChild(messages)
 
     return control
   }
@@ -182,8 +189,6 @@ class ThemeBootstrap5 extends Theme {
     control.container.classList.remove('mb-3')
     control.fieldset.classList.remove('card')
     control.fieldset.classList.remove('mb-3')
-    control.body.classList.remove('card-body')
-    control.body.classList.remove('pb-0')
   }
 
   getCheckboxesControl (config) {
