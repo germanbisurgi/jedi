@@ -19,7 +19,7 @@ class EditorRadios extends EditorBoolean {
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema),
       inline: getSchemaXOption(this.instance.schema, 'radioInline') || this.instance.jedi.options.radioInline,
-      infoButton: getSchemaXOption(this.instance.schema, 'infoButton')
+      info: getSchemaXOption(this.instance.schema, 'info')
     })
   }
 
@@ -37,7 +37,7 @@ class EditorRadios extends EditorBoolean {
   }
 
   refreshUI () {
-    this.refreshInteractiveElements()
+    this.refreshDisabledState()
     this.control.radios.forEach((radio) => {
       const radioValue = radio.value === 'true'
       radio.checked = radioValue === this.instance.getValue()

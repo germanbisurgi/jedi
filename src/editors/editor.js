@@ -194,14 +194,14 @@ class Editor {
    * Updates control UI when its state changes
    */
   refreshUI () {
-    this.refreshInteractiveElements()
+    this.refreshDisabledState()
   }
 
-  refreshInteractiveElements () {
+  refreshDisabledState () {
     const interactiveElements = this.control.container.querySelectorAll('button, input, select, textarea')
 
     interactiveElements.forEach((element) => {
-      if (this.disabled || this.readOnly) {
+      if (this.disabled || this.readOnly || element.hasAttribute('always-disabled')) {
         element.setAttribute('disabled', '')
       } else {
         element.removeAttribute('disabled', '')

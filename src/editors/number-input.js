@@ -24,7 +24,7 @@ class EditorNumberInput extends EditorNumber {
       labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden') || getSchemaXOption(this.instance.schema, 'format') === 'hidden',
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, 'infoButton')
+      info: getSchemaXOption(this.instance.schema, 'info')
     })
 
     this.control.input.setAttribute('step', 'any')
@@ -42,7 +42,7 @@ class EditorNumberInput extends EditorNumber {
   }
 
   refreshUI () {
-    this.refreshInteractiveElements()
+    this.refreshDisabledState()
     const value = this.instance.getValue()
 
     if (isNumber(value)) {

@@ -19,7 +19,7 @@ class EditorStringFlatpickr extends EditorString {
       labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, 'infoButton')
+      info: getSchemaXOption(this.instance.schema, 'info')
     })
 
     try {
@@ -36,7 +36,7 @@ class EditorStringFlatpickr extends EditorString {
   }
 
   refreshUI () {
-    this.refreshInteractiveElements()
+    this.refreshDisabledState()
     this.flatpickr.setDate(this.instance.getValue())
   }
 

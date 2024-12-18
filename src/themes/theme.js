@@ -470,42 +470,42 @@ class Theme {
   /**
    * Info button to display extra information
    */
-  getInfoButton (config = {}) {
+  getinfo (config = {}) {
     const container = document.createElement('span')
-    const infoButton = document.createElement('a')
-    const infoButtonText = document.createElement('span')
+    const info = document.createElement('a')
+    const infoText = document.createElement('span')
 
-    infoButton.setAttribute('href', '#')
+    info.setAttribute('href', '#')
     container.classList.add('jedi-info-button-container')
-    infoButton.classList.add('jedi-info-button')
+    info.classList.add('jedi-info-button')
     container.style.display = 'inline-block'
-    infoButton.style.marginLeft = '4px'
-    infoButtonText.textContent = 'More information'
+    info.style.marginLeft = '4px'
+    infoText.textContent = 'More information'
 
-    this.visuallyHidden(infoButtonText)
+    this.visuallyHidden(infoText)
 
     if (isObject(config.attributes)) {
       for (const [key, value] of Object.entries(config.attributes)) {
-        infoButton.setAttribute(key, value)
+        info.setAttribute(key, value)
       }
     }
 
     if (this.icons) {
-      const icon = this.getIcon(this.icons['infoButton'])
+      const icon = this.getIcon(this.icons['info'])
       icon.setAttribute('title', 'More information')
-      infoButton.appendChild(icon)
+      info.appendChild(icon)
     }
 
-    infoButton.appendChild(infoButtonText)
-    container.appendChild(infoButton)
+    info.appendChild(infoText)
+    container.appendChild(info)
 
-    return { container, infoButton }
+    return { container, info }
   }
 
   /**
    * Dialog or modal that contains extra information about the control
    */
-  infoButtonAsModal (infoButton, id, config = {}) {
+  infoAsModal (info, id, config = {}) {
     const dialog = document.createElement('dialog')
     const title = document.createElement('div')
     const content = document.createElement('div')
@@ -519,7 +519,7 @@ class Theme {
     content.classList.add('jedi-modal-content')
     closeBtn.classList.add('jedi-modal-close')
 
-    infoButton.container.appendChild(dialog)
+    info.container.appendChild(dialog)
     dialog.appendChild(title)
     dialog.appendChild(content)
     dialog.appendChild(closeBtn)
@@ -534,7 +534,7 @@ class Theme {
       dialog.close()
     })
 
-    infoButton.infoButton.addEventListener('click', () => {
+    info.info.addEventListener('click', () => {
       dialog.showModal()
     })
 
@@ -590,16 +590,16 @@ class Theme {
       id: messagesId
     })
 
-    const infoButton = this.getInfoButton(config.infoButton)
+    const info = this.getinfo(config.info)
 
-    if (config?.infoButton?.variant === 'modal') {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton)
+    if (config?.info?.variant === 'modal') {
+      this.infoAsModal(info, config.id, config.info)
     }
 
     container.appendChild(label)
 
-    if (isObject(config.infoButton)) {
-      label.appendChild(infoButton.container)
+    if (isObject(config.info)) {
+      label.appendChild(info.container)
     }
 
     container.appendChild(placeholder)
@@ -673,10 +673,10 @@ class Theme {
       id: config.id
     })
 
-    const infoButton = this.getInfoButton(config.infoButton)
+    const info = this.getinfo(config.info)
 
-    if (config?.infoButton?.variant === 'modal') {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton)
+    if (config?.info?.variant === 'modal') {
+      this.infoAsModal(info, config.id, config.info)
     }
 
     addPropertyBtn.classList.add('jedi-object-add')
@@ -685,8 +685,8 @@ class Theme {
     container.appendChild(propertiesContainer)
     fieldset.appendChild(legend)
 
-    if (isObject(config.infoButton)) {
-      legendText.appendChild(infoButton.container)
+    if (isObject(config.info)) {
+      legendText.appendChild(info.container)
     }
 
     fieldset.appendChild(collapse)
@@ -779,17 +779,17 @@ class Theme {
       startCollapsed: config.startCollapsed
     })
 
-    const infoButton = this.getInfoButton(config.infoButton)
+    const info = this.getinfo(config.info)
 
-    if (config?.infoButton?.variant === 'modal') {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton)
+    if (config?.info?.variant === 'modal') {
+      this.infoAsModal(info, config.id, config.info)
     }
 
     container.appendChild(fieldset)
     fieldset.appendChild(legend)
 
-    if (isObject(config.infoButton)) {
-      legendText.appendChild(infoButton.container)
+    if (isObject(config.info)) {
+      legendText.appendChild(info.container)
     }
 
     fieldset.appendChild(collapse)
@@ -994,16 +994,16 @@ class Theme {
 
     const br = document.createElement('br')
 
-    const infoButton = this.getInfoButton(config.infoButton)
+    const info = this.getinfo(config.info)
 
-    if (config?.infoButton?.variant === 'modal') {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton)
+    if (config?.info?.variant === 'modal') {
+      this.infoAsModal(info, config.id, config.info)
     }
 
     container.appendChild(label)
 
-    if (isObject(config.infoButton)) {
-      label.appendChild(infoButton.container)
+    if (isObject(config.info)) {
+      label.appendChild(info.container)
     }
 
     container.appendChild(br)
@@ -1047,16 +1047,16 @@ class Theme {
     const describedBy = messagesId + ' ' + descriptionId
     input.setAttribute('aria-describedby', describedBy)
 
-    const infoButton = this.getInfoButton(config.infoButton)
+    const info = this.getinfo(config.info)
 
-    if (config?.infoButton?.variant === 'modal') {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton)
+    if (config?.info?.variant === 'modal') {
+      this.infoAsModal(info, config.id, config.info)
     }
 
     container.appendChild(label)
 
-    if (isObject(config.infoButton)) {
-      label.appendChild(infoButton.container)
+    if (isObject(config.info)) {
+      label.appendChild(info.container)
     }
 
     container.appendChild(input)
@@ -1110,14 +1110,14 @@ class Theme {
 
     container.appendChild(label)
 
-    const infoButton = this.getInfoButton(config.infoButton)
+    const info = this.getinfo(config.info)
 
-    if (config?.infoButton?.variant === 'modal') {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton)
+    if (config?.info?.variant === 'modal') {
+      this.infoAsModal(info, config.id, config.info)
     }
 
-    if (isObject(config.infoButton)) {
-      label.appendChild(infoButton.container)
+    if (isObject(config.info)) {
+      label.appendChild(info.container)
     }
 
     container.appendChild(input)
@@ -1126,7 +1126,7 @@ class Theme {
     container.appendChild(actions)
     actions.appendChild(arrayActions)
 
-    return { container, input, label, infoButton, labelText, description, messages, actions, arrayActions }
+    return { container, input, label, info, labelText, description, messages, actions, arrayActions }
   }
 
   adaptForTableInputControl (control) {
@@ -1157,10 +1157,10 @@ class Theme {
       id: descriptionId
     })
 
-    const infoButton = this.getInfoButton(config.infoButton)
+    const info = this.getinfo(config.info)
 
-    if (config?.infoButton?.variant === 'modal') {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton)
+    if (config?.info?.variant === 'modal') {
+      this.infoAsModal(info, config.id, config.info)
     }
 
     if (config.titleHidden) {
@@ -1202,10 +1202,9 @@ class Theme {
     container.appendChild(fieldset)
     fieldset.appendChild(legend)
 
-    if (isObject(config.infoButton)) {
-      legendText.appendChild(infoButton.container)
+    if (isObject(config.info)) {
+      legendText.appendChild(info.container)
     }
-
 
     radioControls.forEach((radioControl, index) => {
       fieldset.appendChild(radioControls[index])
@@ -1221,7 +1220,7 @@ class Theme {
       container,
       fieldset,
       legend,
-      infoButton,
+      info,
       radios,
       labels,
       labelTexts,
@@ -1271,10 +1270,10 @@ class Theme {
     const describedBy = messagesId + ' ' + descriptionId
     input.setAttribute('aria-describedby', describedBy)
 
-    const infoButton = this.getInfoButton(config.infoButton)
+    const info = this.getinfo(config.info)
 
-    if (config?.infoButton?.variant === 'modal') {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton)
+    if (config?.info?.variant === 'modal') {
+      this.infoAsModal(info, config.id, config.info)
     }
 
     container.appendChild(formGroup)
@@ -1283,14 +1282,14 @@ class Theme {
     formGroup.appendChild(input)
     formGroup.appendChild(label)
 
-    if (isObject(config.infoButton)) {
-      formGroup.appendChild(infoButton.container)
+    if (isObject(config.info)) {
+      formGroup.appendChild(info.container)
     }
 
     formGroup.appendChild(description)
     formGroup.appendChild(messages)
 
-    return { container, formGroup, input, label, infoButton, labelText, description, messages, actions, arrayActions }
+    return { container, formGroup, input, label, info, labelText, description, messages, actions, arrayActions }
   }
 
   adaptForTableCheckboxControl (control, td) {
@@ -1357,18 +1356,18 @@ class Theme {
       labels.push(label)
     })
 
-    const infoButton = this.getInfoButton(config.infoButton)
+    const info = this.getinfo(config.info)
 
-    if (config?.infoButton?.variant === 'modal') {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton)
+    if (config?.info?.variant === 'modal') {
+      this.infoAsModal(info, config.id, config.info)
     }
 
     container.appendChild(fieldset)
     container.appendChild(actions)
     fieldset.appendChild(legend)
 
-    if (isObject(config.infoButton)) {
-      legendText.appendChild(infoButton.container)
+    if (isObject(config.info)) {
+      legendText.appendChild(info.container)
     }
 
     fieldset.appendChild(body)
@@ -1449,16 +1448,16 @@ class Theme {
     const describedBy = messagesId + ' ' + descriptionId
     input.setAttribute('aria-describedby', describedBy)
 
-    const infoButton = this.getInfoButton(config.infoButton)
+    const info = this.getinfo(config.info)
 
-    if (config?.infoButton?.variant === 'modal') {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton)
+    if (config?.info?.variant === 'modal') {
+      this.infoAsModal(info, config.id, config.info)
     }
 
     container.appendChild(label)
 
-    if (isObject(config.infoButton)) {
-      label.appendChild(infoButton.container)
+    if (isObject(config.info)) {
+      label.appendChild(info.container)
     }
 
     container.appendChild(input)
@@ -1467,7 +1466,7 @@ class Theme {
     container.appendChild(actions)
     actions.appendChild(arrayActions)
 
-    return { container, input, label, infoButton, labelText, description, messages, actions, arrayActions }
+    return { container, input, label, info, labelText, description, messages, actions, arrayActions }
   }
 
   adaptForTableSelectControl (control) {

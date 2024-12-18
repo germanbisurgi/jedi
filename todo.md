@@ -18,16 +18,14 @@
   - simplemde
 
 - editors
-  - infoButton -> info
   - remove not needed action containers
-  - getComputedStyle for font sizes
   - fix infoButton when format table
   - input range
   - input file
   - color picker
   - format switch (booleans and/or not required properties)
-  - infoButton variant tooltip
-  - infoButton variant popover
+  - info variant tooltip
+  - info variant popover
   - array copy button
   - append descriptions if set and not hidden
   - type hidden description

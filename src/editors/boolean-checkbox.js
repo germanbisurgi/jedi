@@ -16,7 +16,7 @@ class EditorBooleanCheckbox extends EditorBoolean {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, 'infoButton')
+      info: getSchemaXOption(this.instance.schema, 'info')
     })
   }
 
@@ -35,7 +35,7 @@ class EditorBooleanCheckbox extends EditorBoolean {
   }
 
   refreshUI () {
-    this.refreshInteractiveElements()
+    this.refreshDisabledState()
     this.control.input.checked = this.instance.getValue()
   }
 }

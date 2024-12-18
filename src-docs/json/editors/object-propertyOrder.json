@@ -1,7 +1,7 @@
 {
   "type": "object",
   "x-options": {
-    "infoButton": {
+    "info": {
       "variant": "modal",
       "title": "<h4>Info Button title</h4>",
       "content": "<p>Info button content</p>"

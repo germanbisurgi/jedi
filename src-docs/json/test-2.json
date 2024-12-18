@@ -20,7 +20,7 @@
         "messages": [
           "Bitte wählen Sie eine Antwortmöglichkeit aus."
         ],
-        "infoButton": {
+        "info": {
           "variant": "modal",
           "title": "Informationen zur Frühjahrsbeobachtung 2025",
           "content": "Geben Sie an, ob die Arten im Frühjahr 2025 in Ihrem Revier vorkamen: Ja, Nein, Unbekannt oder Keine Angabe."

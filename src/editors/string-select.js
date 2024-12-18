@@ -20,7 +20,7 @@ class EditorStringSelect extends EditorString {
       labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, 'infoButton')
+      info: getSchemaXOption(this.instance.schema, 'info')
     })
   }
 
@@ -35,7 +35,7 @@ class EditorStringSelect extends EditorString {
   }
 
   refreshUI () {
-    this.refreshInteractiveElements()
+    this.refreshDisabledState()
     this.control.input.value = this.instance.getValue()
   }
 }

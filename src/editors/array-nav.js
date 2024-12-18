@@ -24,7 +24,7 @@ class EditorArrayNav extends EditorArray {
   }
 
   refreshUI () {
-    this.refreshInteractiveElements()
+    this.refreshDisabledState()
     this.control.childrenSlot.innerHTML = ''
 
     const navOptions = getSchemaXOption(this.instance.schema, 'nav') || {}

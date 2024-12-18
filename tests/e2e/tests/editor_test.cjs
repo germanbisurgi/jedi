@@ -66,10 +66,10 @@ Scenario('@editor @disable Should disable and enable', ({ I }) => {
   I.dontSeeElement('.jedi-ready button:not(:disabled)')
   I._scrollTo('#enable-editor')
   I._click('#enable-editor')
-  I.dontSeeElement('.jedi-ready input[disabled]')
-  I.dontSeeElement('.jedi-ready textarea[disabled]')
-  I.dontSeeElement('.jedi-ready select[disabled]')
-  I.dontSeeElement('.jedi-ready button[disabled]')
+  I.dontSeeElement('.jedi-ready input[disabled]:not([always-disabled])')
+  I.dontSeeElement('.jedi-ready textarea[disabled]:not([always-disabled])')
+  I.dontSeeElement('.jedi-ready select[disabled]:not([always-disabled])')
+  I.dontSeeElement('.jedi-ready button[disabled]:not([always-disabled])')
 })
 
 Scenario('@editor @setValue() should set value', async ({ I }) => {

@@ -75,6 +75,14 @@ class EditorArrayTable extends EditorArray {
       const moveDownBtn = this.theme.getMoveDownItemBtn()
       const btnGroup = this.theme.getBtnGroup()
 
+      if (index === 0) {
+        moveUpBtn.setAttribute('always-disabled', true)
+      }
+
+      if (index === this.instance.children.length - 1) {
+        moveDownBtn.setAttribute('always-disabled', true)
+      }
+
       deleteBtn.addEventListener('click', () => {
         this.activeTabIndex = clamp((index - 1), 0, (this.instance.value.length - 1))
         this.instance.deleteItem(index)
@@ -122,7 +130,7 @@ class EditorArrayTable extends EditorArray {
     })
 
     this.refreshSortable(table.tbody)
-    this.refreshInteractiveElements()
+    this.refreshDisabledState()
   }
 
   refreshSortable (container) {

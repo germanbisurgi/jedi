@@ -184,7 +184,7 @@ class ThemeBootstrap4 extends Theme {
     super.adaptForTableRadiosControl(control, td)
     control.container.classList.remove('form-group')
     control.fieldset.classList.remove('card')
-    control.fieldset.classList.remove('mb-3')
+    control.fieldset.style.marginBottom = '0'
   }
 
   getCheckboxesControl (config) {
@@ -213,7 +213,7 @@ class ThemeBootstrap4 extends Theme {
 
   getCheckboxControl (config) {
     const control = super.getCheckboxControl(config)
-    const { container, formGroup, input, label, infoButton, description, messages } = control
+    const { container, formGroup, input, label, info, description, messages } = control
     container.classList.add('form-group')
     formGroup.classList.add('form-check')
     input.classList.add('form-check-input')
@@ -223,8 +223,8 @@ class ThemeBootstrap4 extends Theme {
     formGroup.appendChild(input)
     formGroup.appendChild(label)
 
-    if (isObject(config.infoButton)) {
-      formGroup.appendChild(infoButton.container)
+    if (isObject(config.info)) {
+      formGroup.appendChild(info.container)
     }
 
     container.appendChild(description)
@@ -358,7 +358,7 @@ class ThemeBootstrap4 extends Theme {
     }
   }
 
-  infoButtonAsModal (infoButton, id, config = {}) {
+  infoAsModal (info, id, config = {}) {
     const modal = document.createElement('div')
     const modalDialog = document.createElement('div')
     const modalContent = document.createElement('div')
@@ -374,9 +374,9 @@ class ThemeBootstrap4 extends Theme {
     modal.setAttribute('role', 'dialog')
     modal.setAttribute('id', modalId)
     closeBtn.setAttribute('data-dismiss', 'modal')
-    infoButton.infoButton.setAttribute('data-toggle', 'modal')
-    infoButton.infoButton.setAttribute('data-target', '#' + modalId)
-    infoButton.container.classList.add('ml-1')
+    info.info.setAttribute('data-toggle', 'modal')
+    info.info.setAttribute('data-target', '#' + modalId)
+    info.container.classList.add('ml-1')
     modal.classList.add('modal')
     modal.classList.add('fade')
     modalDialog.classList.add('modal-dialog')
@@ -395,7 +395,7 @@ class ThemeBootstrap4 extends Theme {
       modalBody.innerHTML = this.purifyContent(config.content)
     }
 
-    infoButton.container.appendChild(modal)
+    info.container.appendChild(modal)
     modal.appendChild(modalDialog)
     modalDialog.appendChild(modalContent)
     modalContent.appendChild(modalHeader)

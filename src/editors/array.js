@@ -25,7 +25,7 @@ class EditorArray extends Editor {
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, 'enableCollapseToggle'),
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, 'startCollapsed'),
       readOnly: this.instance.isReadOnly(),
-      infoButton: getSchemaXOption(this.instance.schema, 'infoButton')
+      info: getSchemaXOption(this.instance.schema, 'info')
     })
   }
 
@@ -74,7 +74,7 @@ class EditorArray extends Editor {
 
     this.control.childrenSlot.innerHTML = ''
 
-    this.instance.children.forEach((child) => {
+    this.instance.children.forEach((child, index) => {
       const itemIndex = Number(child.getKey())
       const deleteBtn = this.theme.getDeleteItemBtn()
       const moveUpBtn = this.theme.getMoveUpItemBtn()
@@ -88,6 +88,14 @@ class EditorArray extends Editor {
       btnGroup.appendChild(deleteBtn)
       btnGroup.appendChild(moveUpBtn)
       btnGroup.appendChild(moveDownBtn)
+
+      if (index === 0) {
+        moveUpBtn.setAttribute('always-disabled', true)
+      }
+
+      if (index === this.instance.children.length - 1) {
+        moveDownBtn.setAttribute('always-disabled', true)
+      }
 
       if (this.isSortable()) {
         const dragBtn = this.theme.getDragItemBtn()
@@ -123,7 +131,7 @@ class EditorArray extends Editor {
       }
     })
 
-    this.refreshInteractiveElements()
+    this.refreshDisabledState()
     this.refreshSortable(this.control.childrenSlot)
 
     if (isSet(maxItems) && maxItems === this.instance.value.length) {

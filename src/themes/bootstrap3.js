@@ -181,6 +181,7 @@ class ThemeBootstrap3 extends Theme {
     super.adaptForTableRadiosControl(control, td)
     control.fieldset.classList.remove('panel')
     control.fieldset.classList.remove('panel-default')
+    control.fieldset.style.marginBottom = '0'
   }
 
   getCheckboxesControl (config) {
@@ -331,7 +332,7 @@ class ThemeBootstrap3 extends Theme {
     }
   }
 
-  infoButtonAsModal (infoButton, id, config = {}) {
+  infoAsModal (info, id, config = {}) {
     const modal = document.createElement('div')
     const modalDialog = document.createElement('div')
     const modalContent = document.createElement('div')
@@ -347,8 +348,8 @@ class ThemeBootstrap3 extends Theme {
     modal.setAttribute('role', 'dialog')
     modal.setAttribute('id', modalId)
     closeBtn.setAttribute('data-dismiss', 'modal')
-    infoButton.infoButton.setAttribute('data-toggle', 'modal')
-    infoButton.infoButton.setAttribute('data-target', '#' + modalId)
+    info.info.setAttribute('data-toggle', 'modal')
+    info.info.setAttribute('data-target', '#' + modalId)
     modal.classList.add('modal')
     modal.classList.add('fade')
     modalDialog.classList.add('modal-dialog')
@@ -367,7 +368,7 @@ class ThemeBootstrap3 extends Theme {
       modalBody.innerHTML = this.purifyContent(config.content)
     }
 
-    infoButton.container.appendChild(modal)
+    info.container.appendChild(modal)
     modal.appendChild(modalDialog)
     modalDialog.appendChild(modalContent)
     modalContent.appendChild(modalHeader)

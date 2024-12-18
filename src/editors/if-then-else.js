@@ -28,7 +28,7 @@ class EditorIfThenElse extends Editor {
   }
 
   refreshUI () {
-    this.refreshInteractiveElements()
+    this.refreshDisabledState()
     this.control.childrenSlot.innerHTML = ''
     this.control.childrenSlot.appendChild(this.instance.activeInstance.ui.control.container)
 

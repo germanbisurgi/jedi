@@ -22,7 +22,7 @@ class EditorNumberSelect extends EditorNumber {
       labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, 'infoButton')
+      info: getSchemaXOption(this.instance.schema, 'info')
     })
   }
 
@@ -38,7 +38,7 @@ class EditorNumberSelect extends EditorNumber {
   }
 
   refreshUI () {
-    this.refreshInteractiveElements()
+    this.refreshDisabledState()
     const value = this.instance.getValue()
 
     if (isNumber(value)) {

@@ -81,6 +81,8 @@
         "const": true,
         "x-options": {
           "format": "radios",
+          "radiosInline":  true,
+          "tableColWidth": "200px",
           "enumTitles": [
             "No",
             "Yes"
@@ -144,6 +146,8 @@
         ],
         "x-options": {
           "format": "radios",
+          "radiosInline": true,
+          "tableColWidth": "200px",
           "enumTitles": [
             "Albert",
             "Betti",
@@ -188,6 +192,8 @@
         ],
         "x-options": {
           "format": "radios",
+          "radiosInline": true,
+          "tableColWidth": "200px",
           "enumTitles": [
             "small (1.5)",
             "medium (2.5)",
@@ -233,6 +239,8 @@
         ],
         "x-options": {
           "format": "radios",
+          "radiosInline": true,
+          "tableColWidth": "200px",
           "enumTitles": [
             "small (1)",
             "medium (2)",

@@ -1,122 +1,27 @@
 {
-  "title": "Niederwild",
+  "title": "Feldhase",
   "type": "object",
   "required": [
-    "feldhase",
-    "wildkaninchen",
-    "rebhuhn",
-    "fasan"
+    "vk"
   ],
   "properties": {
-    "feldhase": {
-      "title": "Feldhase",
-      "$ref": "#/$defs/tier"
-    },
-    "wildkaninchen": {
-      "title": "Wildkaninchen",
-      "$ref": "#/$defs/tier"
-    },
-    "rebhuhn": {
-      "title": "Rebhuhn",
-      "$ref": "#/$defs/tier"
-    },
-    "fasan": {
-      "title": "Fasan",
-      "$ref": "#/$defs/tier"
-    }
-  },
-  "$defs": {
-    "tier": {
-      "type": "object",
-      "properties": {
-        "vk": {
-          "title": "Kamen die Arten im Frühjahr 2025 in Ihrem Revier vor?",
-          "type": "string",
-          "enum": [
-            "ja",
-            "nein",
-            "unbekannt",
-            "keine Angabe"
-          ],
-          "x-options": {
-            "enforceEnumDefault": false,
-            "format": "radios",
-            "messages": [
-              "Bitte wählen Sie eine Antwortmöglichkeit aus."
-            ]
-          }
-        }
+    "vk": {
+      "title": "Kam die Art im <b>Frühjahr 2025</b> in Ihrem Revier vor?",
+      "type": "string",
+      "enum": [
+        "ja",
+        "nein",
+        "unbekannt",
+        "keine Angabe"
+      ],
+      "x-options": {
+        "format": "radios",
+        "enforceEnumDefault": false,
+        "messages": [
+          "Bitte wählen Sie eine Antwortmöglichkeit aus."
+        ]
       },
-      "if": {
-        "properties": {
-          "vk": {
-            "const": "ja"
-          }
-        }
-      },
-      "then": {
-        "properties": {
-          "anzahl": {
-            "title": "Geschätzte Anzahl im Frühjahr 2025",
-            "type": "integer",
-            "minimum": 0,
-            "default": 0,
-            "x-options": {
-              "inputAttributes": {
-                "min": 0
-              }
-            }
-          }
-        }
-      },
-      "else": {
-        "if": {
-          "properties": {
-            "vk": {
-              "const": "nein"
-            }
-          }
-        },
-        "then": {
-          "properties": {
-            "anzahl": {
-              "title": "Geschätzte Anzahl im Frühjahr 2025",
-              "type": "integer",
-              "default": 0,
-              "const": 0,
-              "minimum": 0,
-              "readOnly": true
-            }
-          }
-        },
-        "else": {
-          "if": {
-            "properties": {
-              "vk": {
-                "const": "unbekannt"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "anzahl": {
-                "title": "Geschätzte Anzahl im Frühjahr 2025",
-                "description": "unbekannt",
-                "type": "null"
-              }
-            }
-          },
-          "else": {
-            "properties": {
-              "anzahl": {
-                "title": "Geschätzte Anzahl im Frühjahr 2025",
-                "description": "Keine Angabe",
-                "type": "null"
-              }
-            }
-          }
-        }
-      }
+      "default": ""
     }
   }
 }

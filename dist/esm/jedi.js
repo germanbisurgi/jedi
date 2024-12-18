@@ -2515,7 +2515,7 @@ const glyphicons = {
   moveDown: "glyphicon glyphicon-arrow-down",
   collapse: "glyphicon glyphicon-chevron-down",
   drag: "glyphicon glyphicon-th",
-  infoButton: "glyphicon glyphicon-question-sign",
+  info: "glyphicon glyphicon-question-sign",
   close: "glyphicon glyphicon-remove"
 };
 const bootstrapIcons = {
@@ -2526,7 +2526,7 @@ const bootstrapIcons = {
   moveDown: "bi bi-arrow-down",
   collapse: "bi bi-chevron-down",
   drag: "bi bi-grip-vertical",
-  infoButton: "bi bi-question-circle",
+  info: "bi bi-question-circle",
   close: "bi bi-x"
 };
 const fontAwesome3 = {
@@ -2537,7 +2537,7 @@ const fontAwesome3 = {
   moveDown: "icon-arrow-down",
   collapse: "icon-chevron-down",
   drag: "icon-th",
-  infoButton: "icon-question-sign",
+  info: "icon-question-sign",
   close: "icon-remove"
 };
 const fontAwesome4 = {
@@ -2548,7 +2548,7 @@ const fontAwesome4 = {
   moveDown: "fa fa-arrow-down",
   collapse: "fa fa-chevron-down",
   drag: "fa fa-th",
-  infoButton: "fa fa-question-circle",
+  info: "fa fa-question-circle",
   close: "fa fa-times"
 };
 const fontAwesome5 = {
@@ -2559,7 +2559,7 @@ const fontAwesome5 = {
   moveDown: "fas fa-arrow-down",
   collapse: "fas fa-chevron-down",
   drag: "fas fa-grip-vertical",
-  infoButton: "fas fa-question-circle",
+  info: "fas fa-question-circle",
   close: "fas fa-times"
 };
 const fontAwesome6 = {
@@ -2570,7 +2570,7 @@ const fontAwesome6 = {
   moveDown: "fa-solid fa-arrow-down",
   collapse: "fa-solid fa-chevron-down",
   drag: "fa-solid fa-grip-vertical",
-  infoButton: "fa-solid fa-circle-question",
+  info: "fa-solid fa-circle-question",
   close: "fa-solid fa-xmark"
 };
 class EditorBoolean extends Editor {
@@ -2591,7 +2591,7 @@ class EditorRadios extends EditorBoolean {
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
       inline: getSchemaXOption(this.instance.schema, "radioInline") || this.instance.jedi.options.radioInline,
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
   }
   adaptForTable() {
@@ -2626,7 +2626,7 @@ class EditorBooleanSelect extends EditorBoolean {
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
   }
   adaptForTable() {
@@ -2653,7 +2653,7 @@ class EditorBooleanCheckbox extends EditorBoolean {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
   }
   adaptForTable(td) {
@@ -2690,7 +2690,7 @@ class EditorStringRadios extends EditorString {
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
       inline: getSchemaXOption(this.instance.schema, "radioInline") || this.instance.jedi.options.radioInline,
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
   }
   adaptForTable() {
@@ -2723,7 +2723,7 @@ class EditorStringSelect extends EditorString {
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
   }
   adaptForTable() {
@@ -2750,7 +2750,7 @@ class EditorStringTextarea extends EditorString {
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
   }
   adaptForTable() {
@@ -2778,7 +2778,7 @@ class EditorStringAwesomplete extends EditorString {
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
     try {
       this.awesomplete = new window.Awesomplete(this.control.input, getSchemaXOption(this.instance.schema, "awesomplete"));
@@ -2817,7 +2817,7 @@ class EditorStringInput extends EditorString {
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || optionFormat === "hidden",
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
     if (optionFormat === "color" && this.instance.value.length === 0) {
       this.instance.setValue("#000000", false, "editor");
@@ -2865,7 +2865,7 @@ class EditorNumberRadios extends EditorNumber {
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
       inline: getSchemaXOption(this.instance.schema, "radioInline") || this.instance.jedi.options.radioInline,
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
   }
   adaptForTable() {
@@ -2901,7 +2901,7 @@ class EditorNumberSelect extends EditorNumber {
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
   }
   adaptForTable() {
@@ -2934,7 +2934,7 @@ class EditorNumberInput extends EditorNumber {
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || getSchemaXOption(this.instance.schema, "format") === "hidden",
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
     this.control.input.setAttribute("step", "any");
   }
@@ -2984,7 +2984,7 @@ class EditorObject extends Editor {
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
       readOnly: this.instance.isReadOnly(),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
   }
   addEventListeners() {
@@ -3211,7 +3211,7 @@ class EditorArray extends Editor {
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
       readOnly: this.instance.isReadOnly(),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
   }
   addEventListeners() {
@@ -3554,7 +3554,7 @@ class EditorNull extends Editor {
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || getSchemaXOption(this.instance.schema, "format") === "hidden",
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
   }
   sanitize() {
@@ -3572,7 +3572,7 @@ class EditorStringQuill extends EditorString {
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
     try {
       this.quill = new window.Quill(this.control.placeholder, getSchemaXOption(this.instance.schema, "quill"));
@@ -3611,7 +3611,7 @@ class EditorStringJodit extends EditorString {
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
     try {
       this.jodit = window.Jodit.make(this.control.input, getSchemaXOption(this.instance.schema, "jodit"));
@@ -3655,7 +3655,7 @@ class EditorStringFlatpickr extends EditorString {
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
     try {
       this.flatpickr = window.flatpickr(this.control.input, getSchemaXOption(this.instance.schema, "flatpickr"));
@@ -3688,7 +3688,7 @@ class EditorNumberRaty extends EditorNumber {
       labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
     try {
       this.raty = new Raty(this.control.placeholder, Object.assign({}, getSchemaXOption(this.instance.schema, "raty"), {
@@ -3734,7 +3734,7 @@ class EditorArrayCheckboxes extends Editor {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      infoButton: getSchemaXOption(this.instance.schema, "infoButton")
+      info: getSchemaXOption(this.instance.schema, "info")
     });
   }
   adaptForTable(td) {
@@ -4583,35 +4583,35 @@ class Theme {
   /**
    * Info button to display extra information
    */
-  getInfoButton(config = {}) {
+  getinfo(config = {}) {
     const container = document.createElement("span");
-    const infoButton = document.createElement("a");
-    const infoButtonText = document.createElement("span");
-    infoButton.setAttribute("href", "#");
+    const info = document.createElement("a");
+    const infoText = document.createElement("span");
+    info.setAttribute("href", "#");
     container.classList.add("jedi-info-button-container");
-    infoButton.classList.add("jedi-info-button");
+    info.classList.add("jedi-info-button");
     container.style.display = "inline-block";
-    infoButton.style.marginLeft = "4px";
-    infoButtonText.textContent = "More information";
-    this.visuallyHidden(infoButtonText);
+    info.style.marginLeft = "4px";
+    infoText.textContent = "More information";
+    this.visuallyHidden(infoText);
     if (isObject(config.attributes)) {
       for (const [key, value] of Object.entries(config.attributes)) {
-        infoButton.setAttribute(key, value);
+        info.setAttribute(key, value);
       }
     }
     if (this.icons) {
-      const icon = this.getIcon(this.icons["infoButton"]);
+      const icon = this.getIcon(this.icons["info"]);
       icon.setAttribute("title", "More information");
-      infoButton.appendChild(icon);
+      info.appendChild(icon);
     }
-    infoButton.appendChild(infoButtonText);
-    container.appendChild(infoButton);
-    return { container, infoButton };
+    info.appendChild(infoText);
+    container.appendChild(info);
+    return { container, info };
   }
   /**
    * Dialog or modal that contains extra information about the control
    */
-  infoButtonAsModal(infoButton, id, config = {}) {
+  infoAsModal(info, id, config = {}) {
     const dialog = document.createElement("dialog");
     const title = document.createElement("div");
     const content = document.createElement("div");
@@ -4623,7 +4623,7 @@ class Theme {
     title.classList.add("jedi-modal-title");
     content.classList.add("jedi-modal-content");
     closeBtn.classList.add("jedi-modal-close");
-    infoButton.container.appendChild(dialog);
+    info.container.appendChild(dialog);
     dialog.appendChild(title);
     dialog.appendChild(content);
     dialog.appendChild(closeBtn);
@@ -4635,7 +4635,7 @@ class Theme {
     closeBtn.addEventListener("click", () => {
       dialog.close();
     });
-    infoButton.infoButton.addEventListener("click", () => {
+    info.info.addEventListener("click", () => {
       dialog.showModal();
     });
     if (isString(config.title)) {
@@ -4682,13 +4682,13 @@ class Theme {
     const messages = this.getMessagesSlot({
       id: messagesId
     });
-    const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    const info = this.getinfo(config.info);
+    if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
+      this.infoAsModal(info, config.id, config.info);
     }
     container.appendChild(label);
-    if (isObject(config.infoButton)) {
-      label.appendChild(infoButton.container);
+    if (isObject(config.info)) {
+      label.appendChild(info.container);
     }
     container.appendChild(placeholder);
     container.appendChild(description);
@@ -4748,16 +4748,16 @@ class Theme {
       textContent: config.title,
       id: config.id
     });
-    const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    const info = this.getinfo(config.info);
+    if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
+      this.infoAsModal(info, config.id, config.info);
     }
     addPropertyBtn.classList.add("jedi-object-add");
     container.appendChild(fieldset);
     container.appendChild(propertiesContainer);
     fieldset.appendChild(legend);
-    if (isObject(config.infoButton)) {
-      legendText.appendChild(infoButton.container);
+    if (isObject(config.info)) {
+      legendText.appendChild(info.container);
     }
     fieldset.appendChild(collapse);
     collapse.appendChild(body);
@@ -4835,14 +4835,14 @@ class Theme {
       collapse,
       startCollapsed: config.startCollapsed
     });
-    const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    const info = this.getinfo(config.info);
+    if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
+      this.infoAsModal(info, config.id, config.info);
     }
     container.appendChild(fieldset);
     fieldset.appendChild(legend);
-    if (isObject(config.infoButton)) {
-      legendText.appendChild(infoButton.container);
+    if (isObject(config.info)) {
+      legendText.appendChild(info.container);
     }
     fieldset.appendChild(collapse);
     collapse.appendChild(body);
@@ -5006,13 +5006,13 @@ class Theme {
     });
     const messages = this.getMessagesSlot();
     const br = document.createElement("br");
-    const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    const info = this.getinfo(config.info);
+    if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
+      this.infoAsModal(info, config.id, config.info);
     }
     container.appendChild(label);
-    if (isObject(config.infoButton)) {
-      label.appendChild(infoButton.container);
+    if (isObject(config.info)) {
+      label.appendChild(info.container);
     }
     container.appendChild(br);
     container.appendChild(description);
@@ -5048,13 +5048,13 @@ class Theme {
     });
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
-    const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    const info = this.getinfo(config.info);
+    if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
+      this.infoAsModal(info, config.id, config.info);
     }
     container.appendChild(label);
-    if (isObject(config.infoButton)) {
-      label.appendChild(infoButton.container);
+    if (isObject(config.info)) {
+      label.appendChild(info.container);
     }
     container.appendChild(input);
     container.appendChild(description);
@@ -5098,19 +5098,19 @@ class Theme {
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
     container.appendChild(label);
-    const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    const info = this.getinfo(config.info);
+    if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
+      this.infoAsModal(info, config.id, config.info);
     }
-    if (isObject(config.infoButton)) {
-      label.appendChild(infoButton.container);
+    if (isObject(config.info)) {
+      label.appendChild(info.container);
     }
     container.appendChild(input);
     container.appendChild(description);
     container.appendChild(messages);
     container.appendChild(actions);
     actions.appendChild(arrayActions);
-    return { container, input, label, infoButton, labelText, description, messages, actions, arrayActions };
+    return { container, input, label, info, labelText, description, messages, actions, arrayActions };
   }
   adaptForTableInputControl(control) {
     this.visuallyHidden(control.label);
@@ -5137,9 +5137,9 @@ class Theme {
       content: config.description,
       id: descriptionId
     });
-    const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    const info = this.getinfo(config.info);
+    if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
+      this.infoAsModal(info, config.id, config.info);
     }
     if (config.titleHidden) {
       this.visuallyHidden(legend);
@@ -5170,8 +5170,8 @@ class Theme {
     });
     container.appendChild(fieldset);
     fieldset.appendChild(legend);
-    if (isObject(config.infoButton)) {
-      legendText.appendChild(infoButton.container);
+    if (isObject(config.info)) {
+      legendText.appendChild(info.container);
     }
     radioControls.forEach((radioControl, index2) => {
       fieldset.appendChild(radioControls[index2]);
@@ -5185,7 +5185,7 @@ class Theme {
       container,
       fieldset,
       legend,
-      infoButton,
+      info,
       radios,
       labels,
       labelTexts,
@@ -5227,21 +5227,21 @@ class Theme {
     });
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
-    const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    const info = this.getinfo(config.info);
+    if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
+      this.infoAsModal(info, config.id, config.info);
     }
     container.appendChild(formGroup);
     container.appendChild(actions);
     actions.appendChild(arrayActions);
     formGroup.appendChild(input);
     formGroup.appendChild(label);
-    if (isObject(config.infoButton)) {
-      formGroup.appendChild(infoButton.container);
+    if (isObject(config.info)) {
+      formGroup.appendChild(info.container);
     }
     formGroup.appendChild(description);
     formGroup.appendChild(messages);
-    return { container, formGroup, input, label, infoButton, labelText, description, messages, actions, arrayActions };
+    return { container, formGroup, input, label, info, labelText, description, messages, actions, arrayActions };
   }
   adaptForTableCheckboxControl(control, td) {
     this.visuallyHidden(control.label);
@@ -5295,15 +5295,15 @@ class Theme {
       }
       labels.push(label);
     });
-    const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    const info = this.getinfo(config.info);
+    if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
+      this.infoAsModal(info, config.id, config.info);
     }
     container.appendChild(fieldset);
     container.appendChild(actions);
     fieldset.appendChild(legend);
-    if (isObject(config.infoButton)) {
-      legendText.appendChild(infoButton.container);
+    if (isObject(config.info)) {
+      legendText.appendChild(info.container);
     }
     fieldset.appendChild(body);
     actions.appendChild(arrayActions);
@@ -5370,20 +5370,20 @@ class Theme {
     });
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
-    const infoButton = this.getInfoButton(config.infoButton);
-    if (((_a = config == null ? void 0 : config.infoButton) == null ? void 0 : _a.variant) === "modal") {
-      this.infoButtonAsModal(infoButton, config.id, config.infoButton);
+    const info = this.getinfo(config.info);
+    if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
+      this.infoAsModal(info, config.id, config.info);
     }
     container.appendChild(label);
-    if (isObject(config.infoButton)) {
-      label.appendChild(infoButton.container);
+    if (isObject(config.info)) {
+      label.appendChild(info.container);
     }
     container.appendChild(input);
     container.appendChild(description);
     container.appendChild(messages);
     container.appendChild(actions);
     actions.appendChild(arrayActions);
-    return { container, input, label, infoButton, labelText, description, messages, actions, arrayActions };
+    return { container, input, label, info, labelText, description, messages, actions, arrayActions };
   }
   adaptForTableSelectControl(control) {
     this.visuallyHidden(control.label);
@@ -5815,7 +5815,7 @@ class ThemeBootstrap3 extends Theme {
       element.classList.add("active");
     }
   }
-  infoButtonAsModal(infoButton, id, config = {}) {
+  infoAsModal(info, id, config = {}) {
     const modal = document.createElement("div");
     const modalDialog = document.createElement("div");
     const modalContent = document.createElement("div");
@@ -5830,8 +5830,8 @@ class ThemeBootstrap3 extends Theme {
     modal.setAttribute("role", "dialog");
     modal.setAttribute("id", modalId);
     closeBtn.setAttribute("data-dismiss", "modal");
-    infoButton.infoButton.setAttribute("data-toggle", "modal");
-    infoButton.infoButton.setAttribute("data-target", "#" + modalId);
+    info.info.setAttribute("data-toggle", "modal");
+    info.info.setAttribute("data-target", "#" + modalId);
     modal.classList.add("modal");
     modal.classList.add("fade");
     modalDialog.classList.add("modal-dialog");
@@ -5847,7 +5847,7 @@ class ThemeBootstrap3 extends Theme {
     if (isString(config.content)) {
       modalBody.innerHTML = this.purifyContent(config.content);
     }
-    infoButton.container.appendChild(modal);
+    info.container.appendChild(modal);
     modal.appendChild(modalDialog);
     modalDialog.appendChild(modalContent);
     modalContent.appendChild(modalHeader);
@@ -6031,7 +6031,7 @@ class ThemeBootstrap4 extends Theme {
   }
   getCheckboxControl(config) {
     const control = super.getCheckboxControl(config);
-    const { container, formGroup, input, label, infoButton, description, messages } = control;
+    const { container, formGroup, input, label, info, description, messages } = control;
     container.classList.add("form-group");
     formGroup.classList.add("form-check");
     input.classList.add("form-check-input");
@@ -6039,8 +6039,8 @@ class ThemeBootstrap4 extends Theme {
     container.appendChild(formGroup);
     formGroup.appendChild(input);
     formGroup.appendChild(label);
-    if (isObject(config.infoButton)) {
-      formGroup.appendChild(infoButton.container);
+    if (isObject(config.info)) {
+      formGroup.appendChild(info.container);
     }
     container.appendChild(description);
     container.appendChild(messages);
@@ -6146,7 +6146,7 @@ class ThemeBootstrap4 extends Theme {
       element.classList.add("active");
     }
   }
-  infoButtonAsModal(infoButton, id, config = {}) {
+  infoAsModal(info, id, config = {}) {
     const modal = document.createElement("div");
     const modalDialog = document.createElement("div");
     const modalContent = document.createElement("div");
@@ -6161,9 +6161,9 @@ class ThemeBootstrap4 extends Theme {
     modal.setAttribute("role", "dialog");
     modal.setAttribute("id", modalId);
     closeBtn.setAttribute("data-dismiss", "modal");
-    infoButton.infoButton.setAttribute("data-toggle", "modal");
-    infoButton.infoButton.setAttribute("data-target", "#" + modalId);
-    infoButton.container.classList.add("ml-1");
+    info.info.setAttribute("data-toggle", "modal");
+    info.info.setAttribute("data-target", "#" + modalId);
+    info.container.classList.add("ml-1");
     modal.classList.add("modal");
     modal.classList.add("fade");
     modalDialog.classList.add("modal-dialog");
@@ -6179,7 +6179,7 @@ class ThemeBootstrap4 extends Theme {
     if (isString(config.content)) {
       modalBody.innerHTML = this.purifyContent(config.content);
     }
-    infoButton.container.appendChild(modal);
+    info.container.appendChild(modal);
     modal.appendChild(modalDialog);
     modalDialog.appendChild(modalContent);
     modalContent.appendChild(modalHeader);
@@ -6358,7 +6358,7 @@ class ThemeBootstrap5 extends Theme {
   }
   getCheckboxControl(config) {
     const control = super.getCheckboxControl(config);
-    const { container, formGroup, input, label, infoButton, description, messages } = control;
+    const { container, formGroup, input, label, info, description, messages } = control;
     container.classList.add("mb-3");
     formGroup.classList.add("form-check");
     input.classList.add("form-check-input");
@@ -6369,8 +6369,8 @@ class ThemeBootstrap5 extends Theme {
     container.appendChild(formGroup);
     formGroup.appendChild(input);
     formGroup.appendChild(label);
-    if (isObject(config.infoButton)) {
-      formGroup.appendChild(infoButton.container);
+    if (isObject(config.info)) {
+      formGroup.appendChild(info.container);
     }
     container.appendChild(description);
     container.appendChild(messages);
@@ -6472,7 +6472,7 @@ class ThemeBootstrap5 extends Theme {
       element.classList.add("active");
     }
   }
-  infoButtonAsModal(infoButton, id, config = {}) {
+  infoAsModal(info, id, config = {}) {
     const modal = document.createElement("div");
     const modalDialog = document.createElement("div");
     const modalContent = document.createElement("div");
@@ -6487,9 +6487,9 @@ class ThemeBootstrap5 extends Theme {
     modal.setAttribute("role", "dialog");
     modal.setAttribute("id", modalId);
     closeBtn.setAttribute("data-bs-dismiss", "modal");
-    infoButton.infoButton.setAttribute("data-bs-toggle", "modal");
-    infoButton.infoButton.setAttribute("data-bs-target", "#" + modalId);
-    infoButton.container.classList.add("ms-1");
+    info.info.setAttribute("data-bs-toggle", "modal");
+    info.info.setAttribute("data-bs-target", "#" + modalId);
+    info.container.classList.add("ms-1");
     modal.classList.add("modal");
     modal.classList.add("fade");
     modalDialog.classList.add("modal-dialog");
@@ -6504,7 +6504,7 @@ class ThemeBootstrap5 extends Theme {
     if (isString(config.content)) {
       modalBody.innerHTML = this.purifyContent(config.content);
     }
-    infoButton.container.appendChild(modal);
+    info.container.appendChild(modal);
     modal.appendChild(modalDialog);
     modalDialog.appendChild(modalContent);
     modalContent.appendChild(modalHeader);

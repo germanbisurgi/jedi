@@ -6,7 +6,7 @@ export const glyphicons = {
   moveDown: 'glyphicon glyphicon-arrow-down',
   collapse: 'glyphicon glyphicon-chevron-down',
   drag: 'glyphicon glyphicon-th',
-  infoButton: 'glyphicon glyphicon-question-sign',
+  info: 'glyphicon glyphicon-question-sign',
   close: 'glyphicon glyphicon-remove'
 }
 
@@ -18,7 +18,7 @@ export const bootstrapIcons = {
   moveDown: 'bi bi-arrow-down',
   collapse: 'bi bi-chevron-down',
   drag: 'bi bi-grip-vertical',
-  infoButton: 'bi bi-question-circle',
+  info: 'bi bi-question-circle',
   close: 'bi bi-x'
 }
 
@@ -30,7 +30,7 @@ export const fontAwesome3 = {
   moveDown: 'icon-arrow-down',
   collapse: 'icon-chevron-down',
   drag: 'icon-th',
-  infoButton: 'icon-question-sign',
+  info: 'icon-question-sign',
   close: 'icon-remove'
 }
 
@@ -42,7 +42,7 @@ export const fontAwesome4 = {
   moveDown: 'fa fa-arrow-down',
   collapse: 'fa fa-chevron-down',
   drag: 'fa fa-th',
-  infoButton: 'fa fa-question-circle',
+  info: 'fa fa-question-circle',
   close: 'fa fa-times'
 }
 
@@ -54,7 +54,7 @@ export const fontAwesome5 = {
   moveDown: 'fas fa-arrow-down',
   collapse: 'fas fa-chevron-down',
   drag: 'fas fa-grip-vertical',
-  infoButton: 'fas fa-question-circle',
+  info: 'fas fa-question-circle',
   close: 'fas fa-times'
 }
 
@@ -66,6 +66,6 @@ export const fontAwesome6 = {
   moveDown: 'fa-solid fa-arrow-down',
   collapse: 'fa-solid fa-chevron-down',
   drag: 'fa-solid fa-grip-vertical',
-  infoButton: 'fa-solid fa-circle-question',
+  info: 'fa-solid fa-circle-question',
   close: 'fa-solid fa-xmark'
 }

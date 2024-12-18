@@ -88,8 +88,7 @@ Scenario('@editor @array-table should @setValue and @showValidationErrors', ({I}
 
 Scenario('@editor @array-table should @disable', ({I}) => {
   I._click('#disable-editor')
-  // I._waitForElement('#root-0:disabled')
-  // I._waitForElement('#root-1:disabled')
+  I.dontSeeElement('[always-disabled]:not(:disabled)')
 
   I.dontSeeElement('.jedi-ready input:not(:disabled)')
   I.dontSeeElement('.jedi-ready textarea:not(:disabled)')
@@ -99,13 +98,12 @@ Scenario('@editor @array-table should @disable', ({I}) => {
 
 Scenario('@editor @array-table should @enable', ({I}) => {
   I._click('#enable-editor')
-  // I.dontSeeElement('#root-0:disabled')
-  // I.dontSeeElement('#root-1:disabled')
+  I.dontSeeElement('[always-disabled]:not(:disabled)')
 
-  I.dontSeeElement('.jedi-ready input[disabled]')
-  I.dontSeeElement('.jedi-ready textarea[disabled]')
-  I.dontSeeElement('.jedi-ready select[disabled]')
-  I.dontSeeElement('.jedi-ready button[disabled]')
+  I.dontSeeElement('.jedi-ready input[disabled]:not([always-disabled])')
+  I.dontSeeElement('.jedi-ready textarea[disabled]:not([always-disabled])')
+  I.dontSeeElement('.jedi-ready select[disabled]:not([always-disabled])')
+  I.dontSeeElement('.jedi-ready button[disabled]:not([always-disabled])')
 })
 
 Scenario('@editor @array-table should @destroy', ({I}) => {
