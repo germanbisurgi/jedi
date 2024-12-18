@@ -4,8 +4,10 @@
   "x-options": {
     "titleTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
     "format": "nav",
-    "navVariant": "pills",
-    "navStacked": true,
+    "nav": {
+      "variant": "pills",
+      "stacked": true
+    },
     "infoButton": {
       "variant": "modal",
       "title": "<h4>Info Button title</h4>",

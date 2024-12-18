@@ -3155,14 +3155,17 @@ class EditorObjectNav extends EditorObject {
     while (this.control.childrenSlot.firstChild) {
       this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild);
     }
+    const navOptions = getSchemaXOption(this.instance.schema, "nav") || {};
+    const navVariant = navOptions.variant ?? "pills";
+    const navStacked = navOptions.stacked ?? false;
+    const navColumns = navOptions.columns ?? 4;
     const row = this.theme.getRow();
-    const cols = getSchemaXOption(this.instance.schema, "navColumns") || 4;
-    const tabListCol = this.theme.getCol(12, cols);
-    const tabContentCol = this.theme.getCol(12, 12 - cols);
+    const tabListCol = this.theme.getCol(12, navColumns);
+    const tabContentCol = this.theme.getCol(12, 12 - navColumns);
     const tabContent = this.theme.getTabContent();
     const tabList = this.theme.getTabList({
-      stacked: getSchemaXOption(this.instance.schema, "navStacked") || false,
-      type: getSchemaXOption(this.instance.schema, "navType") || "pils"
+      stacked: navStacked,
+      variant: navVariant
     });
     this.control.childrenSlot.appendChild(row);
     row.appendChild(tabListCol);
@@ -3415,14 +3418,17 @@ class EditorArrayNav extends EditorArray {
   refreshUI() {
     this.refreshInteractiveElements();
     this.control.childrenSlot.innerHTML = "";
+    const navOptions = getSchemaXOption(this.instance.schema, "nav") || {};
+    const navVariant = navOptions.variant ?? "pills";
+    const navStacked = navOptions.stacked ?? false;
+    const navColumns = navOptions.columns ?? 4;
     const row = this.theme.getRow();
-    const cols = getSchemaXOption(this.instance.schema, "navColumns") || 4;
-    const tabListCol = this.theme.getCol(12, cols);
-    const tabContentCol = this.theme.getCol(12, 12 - cols);
+    const tabListCol = this.theme.getCol(12, navColumns);
+    const tabContentCol = this.theme.getCol(12, 12 - navColumns);
     const tabContent = this.theme.getTabContent();
     const tabList = this.theme.getTabList({
-      stacked: getSchemaXOption(this.instance.schema, "navStacked") || false,
-      type: getSchemaXOption(this.instance.schema, "navType") || "pils"
+      stacked: navStacked,
+      variant: navVariant
     });
     this.control.childrenSlot.appendChild(row);
     row.appendChild(tabListCol);
@@ -4193,6 +4199,8 @@ class Theme {
   constructor(icons = null) {
     this.icons = icons;
     this.useToggleEvents = true;
+    const span = document.querySelector("span");
+    this.defaultFontSize = window.getComputedStyle(span).fontSize;
     this.init();
   }
   /**
@@ -5579,8 +5587,8 @@ class ThemeBootstrap3 extends Theme {
   }
   getLegend(config) {
     const superLegend = super.getLegend(config);
-    const { legend } = superLegend;
-    legend.classList.add("h5");
+    const { legend, legendText } = superLegend;
+    legendText.style.fontSize = this.defaultFontSize;
     legend.classList.add("panel-heading");
     legend.classList.add("pull-left");
     legend.setAttribute("style", "margin: 0; display: flex; justify-content: space-between; align-items: center;");
@@ -5590,7 +5598,7 @@ class ThemeBootstrap3 extends Theme {
     const superRadioLegend = super.getRadioLegend(config);
     const { legend } = superRadioLegend;
     legend.style.border = "none";
-    legend.style.fontSize = window.getComputedStyle(document.body).fontSize;
+    legend.style.fontSize = this.defaultFontSize;
     legend.style.marginBottom = "0";
     return superRadioLegend;
   }
@@ -5765,7 +5773,7 @@ class ThemeBootstrap3 extends Theme {
   getTabList(config) {
     const tabList = super.getTabList(config);
     tabList.classList.add("nav");
-    if (config.type === "tabs") {
+    if (config.variant === "tabs") {
       tabList.classList.add("nav-tabs");
     } else {
       tabList.classList.add("nav-pills");
@@ -5886,14 +5894,14 @@ class ThemeBootstrap4 extends Theme {
   }
   getRadioLegend(config) {
     const superRadioLegend = super.getRadioLegend(config);
-    const { legend } = superRadioLegend;
-    legend.style.fontSize = window.getComputedStyle(document.body).fontSize;
+    const { legendText } = superRadioLegend;
+    legendText.style.fontSize = this.defaultFontSize;
     return superRadioLegend;
   }
   getLegend(config) {
     const superLegend = super.getLegend(config);
-    const { legend } = superLegend;
-    legend.classList.add("h6");
+    const { legend, legendText } = superLegend;
+    legendText.style.fontSize = this.defaultFontSize;
     legend.classList.add("card-header");
     legend.classList.add("d-flex");
     legend.classList.add("justify-content-between");
@@ -6093,7 +6101,7 @@ class ThemeBootstrap4 extends Theme {
   getTabList(config) {
     const tabList = super.getTabList();
     tabList.classList.add("nav");
-    if (config.type === "tabs") {
+    if (config.variant === "tabs") {
       tabList.classList.add("nav-tabs");
     } else {
       tabList.classList.add("nav-pills");
@@ -6218,8 +6226,8 @@ class ThemeBootstrap5 extends Theme {
   }
   getLegend(config) {
     const superLegend = super.getLegend(config);
-    const { legend } = superLegend;
-    legend.classList.add("h6");
+    const { legend, legendText } = superLegend;
+    legendText.style.fontSize = this.defaultFontSize;
     legend.classList.add("card-header");
     legend.classList.add("d-flex");
     legend.classList.add("justify-content-between");
@@ -6229,8 +6237,8 @@ class ThemeBootstrap5 extends Theme {
   }
   getRadioLegend(config) {
     const superRadioLegend = super.getRadioLegend(config);
-    const { legend } = superRadioLegend;
-    legend.style.fontSize = window.getComputedStyle(document.body).fontSize;
+    const { legendText } = superRadioLegend;
+    legendText.style.fontSize = this.defaultFontSize;
     return superRadioLegend;
   }
   getLabel(config) {
@@ -6419,7 +6427,7 @@ class ThemeBootstrap5 extends Theme {
   getTabList(config) {
     const tabList = super.getTabList(config);
     tabList.classList.add("nav");
-    if (config.type === "tabs") {
+    if (config.variant === "tabs") {
       tabList.classList.add("nav-tabs");
     } else {
       tabList.classList.add("nav-pills");

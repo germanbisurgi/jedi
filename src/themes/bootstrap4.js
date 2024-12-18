@@ -44,15 +44,15 @@ class ThemeBootstrap4 extends Theme {
 
   getRadioLegend (config) {
     const superRadioLegend = super.getRadioLegend(config)
-    const { legend } = superRadioLegend
-    legend.style.fontSize = window.getComputedStyle(document.body).fontSize
+    const { legendText } = superRadioLegend
+    legendText.style.fontSize = this.defaultFontSize
     return superRadioLegend
   }
 
   getLegend (config) {
     const superLegend = super.getLegend(config)
-    const { legend } = superLegend
-    legend.classList.add('h6')
+    const { legend, legendText } = superLegend
+    legendText.style.fontSize = this.defaultFontSize
     legend.classList.add('card-header')
     legend.classList.add('d-flex')
     legend.classList.add('justify-content-between')
@@ -299,7 +299,7 @@ class ThemeBootstrap4 extends Theme {
     const tabList = super.getTabList()
     tabList.classList.add('nav')
 
-    if (config.type === 'tabs') {
+    if (config.variant === 'tabs') {
       tabList.classList.add('nav-tabs')
     } else {
       tabList.classList.add('nav-pills')

@@ -45,8 +45,8 @@ class ThemeBootstrap3 extends Theme {
 
   getLegend (config) {
     const superLegend = super.getLegend(config)
-    const { legend } = superLegend
-    legend.classList.add('h5')
+    const { legend, legendText } = superLegend
+    legendText.style.fontSize = this.defaultFontSize
     legend.classList.add('panel-heading')
     legend.classList.add('pull-left')
     legend.setAttribute('style', 'margin: 0; display: flex; justify-content: space-between; align-items: center;')
@@ -57,7 +57,7 @@ class ThemeBootstrap3 extends Theme {
     const superRadioLegend = super.getRadioLegend(config)
     const { legend } = superRadioLegend
     legend.style.border = 'none'
-    legend.style.fontSize = window.getComputedStyle(document.body).fontSize
+    legend.style.fontSize = this.defaultFontSize
     legend.style.marginBottom = '0'
     return superRadioLegend
   }
@@ -276,7 +276,7 @@ class ThemeBootstrap3 extends Theme {
     const tabList = super.getTabList(config)
     tabList.classList.add('nav')
 
-    if (config.type === 'tabs') {
+    if (config.variant === 'tabs') {
       tabList.classList.add('nav-tabs')
     } else {
       tabList.classList.add('nav-pills')

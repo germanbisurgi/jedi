@@ -7,8 +7,8 @@ class Theme {
   constructor (icons = null) {
     this.icons = icons
     this.useToggleEvents = true
-    // const span = document.querySelector('span')
-    // this.defaultFontSize = window.getComputedStyle(span).fontSize
+    const span = document.querySelector('span')
+    this.defaultFontSize = window.getComputedStyle(span).fontSize
     this.init()
   }
 

@@ -27,14 +27,18 @@ class EditorArrayNav extends EditorArray {
     this.refreshInteractiveElements()
     this.control.childrenSlot.innerHTML = ''
 
+    const navOptions = getSchemaXOption(this.instance.schema, 'nav') || {}
+    const navVariant = navOptions.variant ?? 'pills'
+    const navStacked = navOptions.stacked ?? false
+    const navColumns = navOptions.columns ?? 4
+
     const row = this.theme.getRow()
-    const cols = getSchemaXOption(this.instance.schema, 'navColumns') || 4
-    const tabListCol = this.theme.getCol(12, cols)
-    const tabContentCol = this.theme.getCol(12, (12 - cols))
+    const tabListCol = this.theme.getCol(12, navColumns)
+    const tabContentCol = this.theme.getCol(12, (12 - navColumns))
     const tabContent = this.theme.getTabContent()
     const tabList = this.theme.getTabList({
-      stacked: getSchemaXOption(this.instance.schema, 'navStacked') || false,
-      type: getSchemaXOption(this.instance.schema, 'navType') || 'pils'
+      stacked: navStacked,
+      variant: navVariant
     })
 
     this.control.childrenSlot.appendChild(row)

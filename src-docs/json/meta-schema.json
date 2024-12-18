@@ -108,8 +108,10 @@
           "uniqueItems": true,
           "x-options": {
             "format": "nav",
-            "navVariant": "pills",
-            "navStacked": true
+            "nav": {
+              "variant": "pills",
+              "stacked": true
+            }
           }
         },
         "example": {
@@ -235,8 +237,10 @@
           },
           "x-options": {
             "format": "nav",
-            "navVariant": "pills",
-            "navStacked": true
+            "nav": {
+              "variant": "pills",
+              "stacked": true
+            }
           }
         },
         "readOnly": {
@@ -252,8 +256,10 @@
           },
           "x-options": {
             "format": "nav",
-            "navVariant": "pills",
-            "navStacked": true
+            "nav": {
+              "variant": "pills",
+              "stacked": true
+            }
           }
         },
         "title": {
