@@ -487,8 +487,12 @@ export default {
       this.editor.setValue(JSON.parse(this.$refs.editorValue.value))
     },
     setSchema() {
-      this.schema = JSON.parse(this.$refs.schema.value)
-      this.initEditor(this.schema)
+      try {
+        this.schema = JSON.parse(this.$refs.schema.value)
+        this.initEditor(this.schema)
+      } catch (error) {
+        alert('Invalid Schema: ' + error.message)
+      }
     },
     reload() {
       let newUrl = window.location.origin + window.location.pathname
