@@ -1891,12 +1891,12 @@ class Editor {
    * Updates control UI when its state changes
    */
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
   }
-  refreshInteractiveElements() {
+  refreshDisabledState() {
     const interactiveElements = this.control.container.querySelectorAll("button, input, select, textarea");
     interactiveElements.forEach((element) => {
-      if (this.disabled || this.readOnly) {
+      if (this.disabled || this.readOnly || element.hasAttribute("always-disabled")) {
         element.setAttribute("disabled", "");
       } else {
         element.removeAttribute("disabled", "");
@@ -1935,7 +1935,7 @@ class EditorIfThenElse extends Editor {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.control.childrenSlot.innerHTML = "";
     this.control.childrenSlot.appendChild(this.instance.activeInstance.ui.control.container);
     if (this.disabled || this.instance.isReadOnly()) {
@@ -2606,7 +2606,7 @@ class EditorRadios extends EditorBoolean {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.control.radios.forEach((radio) => {
       const radioValue = radio.value === "true";
       radio.checked = radioValue === this.instance.getValue();
@@ -2639,7 +2639,7 @@ class EditorBooleanSelect extends EditorBoolean {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.control.input.value = this.instance.getValue() === true ? "true" : "false";
   }
 }
@@ -2668,7 +2668,7 @@ class EditorBooleanCheckbox extends EditorBoolean {
     return Boolean(value);
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.control.input.checked = this.instance.getValue();
   }
 }
@@ -2704,7 +2704,7 @@ class EditorStringRadios extends EditorString {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.control.radios.forEach((radio) => {
       radio.checked = radio.value === this.instance.getValue();
     });
@@ -2735,7 +2735,7 @@ class EditorStringSelect extends EditorString {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.control.input.value = this.instance.getValue();
   }
 }
@@ -2762,7 +2762,7 @@ class EditorStringTextarea extends EditorString {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.control.input.value = this.instance.getValue();
   }
 }
@@ -2793,7 +2793,7 @@ class EditorStringAwesomplete extends EditorString {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.control.input.value = this.instance.getValue();
   }
   destroy() {
@@ -2835,7 +2835,7 @@ class EditorStringInput extends EditorString {
     return String(value);
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.control.input.value = this.instance.getValue();
   }
 }
@@ -2880,7 +2880,7 @@ class EditorNumberRadios extends EditorNumber {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.control.radios.forEach((radio) => {
       radio.checked = Number(radio.value) === Number(this.instance.getValue());
     });
@@ -2914,7 +2914,7 @@ class EditorNumberSelect extends EditorNumber {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     const value = this.instance.getValue();
     if (isNumber(value)) {
       this.control.input.value = this.instance.getValue();
@@ -2948,7 +2948,7 @@ class EditorNumberInput extends EditorNumber {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     const value = this.instance.getValue();
     if (isNumber(value)) {
       this.control.input.value = this.instance.getValue();
@@ -3099,7 +3099,7 @@ class EditorObject extends Editor {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.refreshPropertiesSlot();
     this.refreshEditors();
   }
@@ -3250,7 +3250,7 @@ class EditorArray extends Editor {
     const maxItems2 = getSchemaMaxItems(this.instance.schema);
     const minItems2 = getSchemaMinItems(this.instance.schema);
     this.control.childrenSlot.innerHTML = "";
-    this.instance.children.forEach((child) => {
+    this.instance.children.forEach((child, index2) => {
       const itemIndex = Number(child.getKey());
       const deleteBtn = this.theme.getDeleteItemBtn();
       const moveUpBtn = this.theme.getMoveUpItemBtn();
@@ -3263,6 +3263,12 @@ class EditorArray extends Editor {
       btnGroup.appendChild(deleteBtn);
       btnGroup.appendChild(moveUpBtn);
       btnGroup.appendChild(moveDownBtn);
+      if (index2 === 0) {
+        moveUpBtn.setAttribute("always-disabled", true);
+      }
+      if (index2 === this.instance.children.length - 1) {
+        moveDownBtn.setAttribute("always-disabled", true);
+      }
       if (this.isSortable()) {
         const dragBtn = this.theme.getDragItemBtn();
         btnGroup.appendChild(dragBtn);
@@ -3290,7 +3296,7 @@ class EditorArray extends Editor {
         deleteBtn.setAttribute("disabled", "");
       }
     });
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.refreshSortable(this.control.childrenSlot);
     if (isSet(maxItems2) && maxItems2 === this.instance.value.length) {
       this.control.addBtn.setAttribute("disabled", "");
@@ -3344,6 +3350,12 @@ class EditorArrayTable extends EditorArray {
       const moveUpBtn = this.theme.getMoveUpItemBtn();
       const moveDownBtn = this.theme.getMoveDownItemBtn();
       const btnGroup = this.theme.getBtnGroup();
+      if (index2 === 0) {
+        moveUpBtn.setAttribute("always-disabled", true);
+      }
+      if (index2 === this.instance.children.length - 1) {
+        moveDownBtn.setAttribute("always-disabled", true);
+      }
       deleteBtn.addEventListener("click", () => {
         this.activeTabIndex = clamp(index2 - 1, 0, this.instance.value.length - 1);
         this.instance.deleteItem(index2);
@@ -3383,7 +3395,7 @@ class EditorArrayTable extends EditorArray {
       table.tbody.appendChild(tbodyRow);
     });
     this.refreshSortable(table.tbody);
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
   }
   refreshSortable(container) {
     if (this.isSortable()) {
@@ -3416,7 +3428,7 @@ class EditorArrayNav extends EditorArray {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.control.childrenSlot.innerHTML = "";
     const navOptions = getSchemaXOption(this.instance.schema, "nav") || {};
     const navVariant = navOptions.variant ?? "pills";
@@ -3529,7 +3541,7 @@ class EditorMultiple extends Editor {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.control.childrenSlot.innerHTML = "";
     this.control.childrenSlot.appendChild(this.instance.activeInstance.ui.control.container);
     this.control.switcher.input.value = this.instance.index;
@@ -3588,7 +3600,7 @@ class EditorStringQuill extends EditorString {
       }
     });
   }
-  refreshInteractiveElements() {
+  refreshDisabledState() {
     if (this.disabled || this.readOnly) {
       this.quill.disable();
     } else {
@@ -3627,7 +3639,7 @@ class EditorStringJodit extends EditorString {
       }
     });
   }
-  refreshInteractiveElements() {
+  refreshDisabledState() {
     if (this.disabled || this.readOnly) {
       this.jodit.setReadOnly(true);
     } else {
@@ -3669,7 +3681,7 @@ class EditorStringFlatpickr extends EditorString {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     this.flatpickr.setDate(this.instance.getValue());
   }
   destroy() {
@@ -3701,7 +3713,7 @@ class EditorNumberRaty extends EditorNumber {
       console.error("Raty is not available or not loaded correctly.", e);
     }
   }
-  refreshInteractiveElements() {
+  refreshDisabledState() {
     if (this.disabled || this.readOnly) {
       this.raty.readOnly(true);
     } else {
@@ -3757,7 +3769,7 @@ class EditorArrayCheckboxes extends Editor {
     });
   }
   refreshUI() {
-    this.refreshInteractiveElements();
+    this.refreshDisabledState();
     const value = this.instance.getValue();
     this.control.checkboxes.forEach((checkbox) => {
       checkbox.checked = value.includes(checkbox.value);
@@ -5698,6 +5710,7 @@ class ThemeBootstrap3 extends Theme {
     super.adaptForTableRadiosControl(control, td);
     control.fieldset.classList.remove("panel");
     control.fieldset.classList.remove("panel-default");
+    control.fieldset.style.marginBottom = "0";
   }
   getCheckboxesControl(config) {
     const control = super.getCheckboxesControl(config);
@@ -6008,7 +6021,7 @@ class ThemeBootstrap4 extends Theme {
     super.adaptForTableRadiosControl(control, td);
     control.container.classList.remove("form-group");
     control.fieldset.classList.remove("card");
-    control.fieldset.classList.remove("mb-3");
+    control.fieldset.style.marginBottom = "0";
   }
   getCheckboxesControl(config) {
     const control = super.getCheckboxesControl(config);
@@ -6343,7 +6356,7 @@ class ThemeBootstrap5 extends Theme {
     super.adaptForTableRadiosControl(control, td);
     control.container.classList.remove("mb-3");
     control.fieldset.classList.remove("card");
-    control.fieldset.classList.remove("mb-3");
+    control.fieldset.style.marginBottom = "0";
   }
   getCheckboxesControl(config) {
     const control = super.getCheckboxesControl(config);
