@@ -25,6 +25,10 @@
 
       <div class="col-xs-12 col-md-4">
         <aside>
+          <div class="btn-group">
+            <button class="btn btn-primary" id="disable-editor" @click="shareLink()">Share Link</button>
+          </div>
+
           <div class="form-group mb-3">
             <label for="examples">Examples</label>
             <select class="form-control" id="examples" v-model="example" @change="reload">
@@ -434,7 +438,10 @@ export default {
         this.editor.destroy()
       }
 
-      this.schema = schema ?? this.getSchema()
+      const querySchema = JSON.parse(this.getQueryParam('schema'))
+      const queryData = JSON.parse(this.getQueryParam('data'))
+
+      this.schema = querySchema ?? schema ?? this.getSchema()
 
       const refParser = new Jedi.RefParser()
       await refParser.dereference(this.schema)
@@ -457,6 +464,12 @@ export default {
           EditorStringCustom
         ]
       }
+
+      if (queryData) {
+        options.data = queryData
+      }
+
+      console.log(options)
 
       this.editor = new Jedi.Create(options)
       window.editor = this.editor
@@ -508,6 +521,31 @@ export default {
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
 
       window.open(newUrl, '_self')
+    },
+    shareLink() {
+      let newUrl = window.location.origin + window.location.pathname
+      newUrl += "?theme=" + this.theme
+      newUrl += "&iconLib=" + this.iconLib
+      newUrl += "&example=" + this.example
+      newUrl += "&showErrors=" + this.showErrors
+      newUrl += "&assertFormat=" + this.assertFormat
+      newUrl += "&mergeAllOf=" + this.mergeAllOf
+      newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
+      newUrl += "&includeTitlesInMessages=" + this.includeTitlesInMessages
+      newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
+      newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
+      newUrl += "&schema=" + JSON.stringify(this.schema)
+      newUrl += "&data=" + JSON.stringify(this.editor.getValue())
+
+      // Copy newUrl to the clipboard
+      navigator.clipboard.writeText(newUrl)
+      .then(() => {
+        alert('The shareable link has been copied to your clipboard!')
+      })
+      .catch(err => {
+        console.error('Failed to copy the link: ', err)
+        alert('An error occurred while copying the link. Please try again.')
+      })
     },
     getQueryParam(name) {
       const match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search)
