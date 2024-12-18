@@ -106,14 +106,12 @@ Scenario('@editor @array-table should @enable', ({I}) => {
   I.dontSeeElement('.jedi-ready button[disabled]:not([always-disabled])')
 })
 
-Scenario('@editor @array-table should @delete-item', async ({I}) => {
-  let numOfDeleteButtons = await I.grabNumberOfVisibleElements('.jedi-array-delete');
-  I.assertEqual(numOfDeleteButtons, 2)
+Scenario('@editor @array-table should @delete-item', ({I}) => {
+  I.seeNumberOfElements('.jedi-array-delete', 2);
   I._click('.jedi-array-delete')
   I.seeInPopup('Are you sure you want to delete this item?')
   I.acceptPopup()
-  numOfDeleteButtons = await I.grabNumberOfVisibleElements('.jedi-array-delete');
-  I.assertEqual(numOfDeleteButtons, 1)
+  I.seeNumberOfElements('.jedi-array-delete', 1);
 })
 
 Scenario('@editor @array-table should @destroy', ({I}) => {
