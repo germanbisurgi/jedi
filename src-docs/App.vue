@@ -29,6 +29,8 @@
             <button class="btn btn-primary" id="disable-editor" @click="shareLink()">Share Link</button>
           </div>
 
+          <br><br>
+
           <div class="form-group mb-3">
             <label for="examples">Examples</label>
             <select class="form-control" id="examples" v-model="example" @change="reload">
@@ -468,8 +470,6 @@ export default {
       if (queryData) {
         options.data = queryData
       }
-
-      console.log(options)
 
       this.editor = new Jedi.Create(options)
       window.editor = this.editor
