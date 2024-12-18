@@ -84,8 +84,12 @@ class EditorArrayTable extends EditorArray {
       }
 
       deleteBtn.addEventListener('click', () => {
-        this.activeTabIndex = clamp((index - 1), 0, (this.instance.value.length - 1))
-        this.instance.deleteItem(index)
+        const confirmDeletion = window.confirm('Are you sure you want to delete this item?')
+
+        if (confirmDeletion) {
+          this.activeTabIndex = clamp((index - 1), 0, (this.instance.value.length - 1))
+          this.instance.deleteItem(index)
+        }
       })
 
       moveUpBtn.addEventListener('click', () => {

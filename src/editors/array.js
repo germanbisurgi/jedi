@@ -106,8 +106,12 @@ class EditorArray extends Editor {
       body.appendChild(child.ui.control.container)
 
       deleteBtn.addEventListener('click', () => {
-        const itemIndex = Number(child.path.split(this.instance.jedi.pathSeparator).pop())
-        this.instance.deleteItem(itemIndex)
+        const confirmDeletion = window.confirm('Are you sure you want to delete this item?')
+
+        if (confirmDeletion) {
+          const itemIndex = Number(child.path.split(this.instance.jedi.pathSeparator).pop())
+          this.instance.deleteItem(itemIndex)
+        }
       })
 
       moveUpBtn.addEventListener('click', () => {

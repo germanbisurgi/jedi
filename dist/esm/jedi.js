@@ -3276,8 +3276,11 @@ class EditorArray extends Editor {
       this.control.childrenSlot.appendChild(container);
       body.appendChild(child.ui.control.container);
       deleteBtn.addEventListener("click", () => {
-        const itemIndex2 = Number(child.path.split(this.instance.jedi.pathSeparator).pop());
-        this.instance.deleteItem(itemIndex2);
+        const confirmDeletion = window.confirm("Are you sure you want to delete this item?");
+        if (confirmDeletion) {
+          const itemIndex2 = Number(child.path.split(this.instance.jedi.pathSeparator).pop());
+          this.instance.deleteItem(itemIndex2);
+        }
       });
       moveUpBtn.addEventListener("click", () => {
         const toIndex = itemIndex - 1;
@@ -3357,8 +3360,11 @@ class EditorArrayTable extends EditorArray {
         moveDownBtn.setAttribute("always-disabled", true);
       }
       deleteBtn.addEventListener("click", () => {
-        this.activeTabIndex = clamp(index2 - 1, 0, this.instance.value.length - 1);
-        this.instance.deleteItem(index2);
+        const confirmDeletion = window.confirm("Are you sure you want to delete this item?");
+        if (confirmDeletion) {
+          this.activeTabIndex = clamp(index2 - 1, 0, this.instance.value.length - 1);
+          this.instance.deleteItem(index2);
+        }
       });
       moveUpBtn.addEventListener("click", () => {
         const toIndex = index2 - 1;
@@ -3471,8 +3477,11 @@ class EditorArrayNav extends EditorArray {
         childTitle = isSet(schemaTitle) ? schemaTitle + " " + (index2 + 1) : child.getKey();
       }
       deleteBtn.addEventListener("click", () => {
-        this.activeTabIndex = clamp(index2 - 1, 0, this.instance.value.length - 1);
-        this.instance.deleteItem(index2);
+        const confirmDeletion = window.confirm("Are you sure you want to delete this item?");
+        if (confirmDeletion) {
+          this.activeTabIndex = clamp(index2 - 1, 0, this.instance.value.length - 1);
+          this.instance.deleteItem(index2);
+        }
       });
       moveUpBtn.addEventListener("click", () => {
         const toIndex = index2 - 1;
