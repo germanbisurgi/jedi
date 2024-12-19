@@ -440,10 +440,10 @@ export default {
         this.editor.destroy()
       }
 
-      const querySchema = JSON.parse(this.getQueryParam('schema'))
-      const queryData = JSON.parse(this.getQueryParam('data'))
+      const querySchema = this.getQueryParam('schema')
 
-      this.schema = querySchema ?? schema ?? this.getSchema()
+      this.schema = querySchema ? JSON.parse(this.decompress(querySchema)) : schema ?? this.getSchema()
+
 
       const refParser = new Jedi.RefParser()
       await refParser.dereference(this.schema)
@@ -467,8 +467,10 @@ export default {
         ]
       }
 
+      const queryData = this.getQueryParam('data')
+
       if (queryData) {
-        options.data = queryData
+        options.data = JSON.parse(this.decompress(queryData))
       }
 
       this.editor = new Jedi.Create(options)
@@ -534,8 +536,8 @@ export default {
       newUrl += "&includeTitlesInMessages=" + this.includeTitlesInMessages
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
-      newUrl += "&schema=" + JSON.stringify(this.schema)
-      newUrl += "&data=" + JSON.stringify(this.editor.getValue())
+      newUrl += "&schema=" + this.compress(JSON.stringify(this.schema))
+      newUrl += "&data=" + this.compress(JSON.stringify(this.editor.getValue()))
 
       // Copy newUrl to the clipboard
       navigator.clipboard.writeText(newUrl)
@@ -546,6 +548,12 @@ export default {
         console.error('Failed to copy the link: ', err)
         alert('An error occurred while copying the link. Please try again.')
       })
+    },
+    compress(string) {
+      return LZString.compressToEncodedURIComponent(string)
+    },
+    decompress(string) {
+      return LZString.decompressFromEncodedURIComponent(string);
     },
     getQueryParam(name) {
       const match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search)
