@@ -12,6 +12,7 @@
             <button class="btn btn-primary" id="enable-editor" @click="enableEditor()">Enable</button>
             <button class="btn btn-primary" id="show-validation-errors" @click="showValidationErrors()">Show validation errors</button>
             <button class="btn btn-primary" id="destroy-editor" @click="destroyEditor()">Destroy</button>
+            <button class="btn btn-primary" id="init-editor" @click="initEditor()">Init</button>
           </div>
 
           <br>
@@ -491,6 +492,7 @@ export default {
     },
     destroyEditor() {
       this.editor.destroy()
+      this.editor = null
     },
     enableEditor() {
       this.editor.enable()
