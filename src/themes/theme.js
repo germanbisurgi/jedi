@@ -1638,7 +1638,6 @@ class Theme {
    */
   getTableDefinition () {
     const td = document.createElement('td')
-    td.style.verticalAlign = 'middle'
     td.style.whiteSpace = 'nowrap'
     return td
   }
