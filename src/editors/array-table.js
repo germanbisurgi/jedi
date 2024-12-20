@@ -37,6 +37,7 @@ class EditorArrayTable extends EditorArray {
     // thead labels
     const th = this.theme.getTableHeader()
     th.textContent = 'Controls'
+    th.style.minWidth = '100px'
 
     table.thead.appendChild(th)
 

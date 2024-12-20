@@ -3329,6 +3329,7 @@ class EditorArrayTable extends EditorArray {
     this.control.childrenSlot.appendChild(table.container);
     const th = this.theme.getTableHeader();
     th.textContent = "Controls";
+    th.style.minWidth = "100px";
     table.thead.appendChild(th);
     const tempEditor = this.instance.createItemInstance();
     const tableColMinWidth = getSchemaXOption(this.instance.schema, "tableColMinWidth");
