@@ -3328,8 +3328,11 @@ class EditorArrayTable extends EditorArray {
     const table = this.theme.getTable();
     this.control.childrenSlot.appendChild(table.container);
     const th = this.theme.getTableHeader();
-    th.textContent = "Controls";
-    th.style.minWidth = "100px";
+    const { label } = this.theme.getFakeLabel({
+      text: "Controls",
+      visuallyHidden: true
+    });
+    th.appendChild(label);
     table.thead.appendChild(th);
     const tempEditor = this.instance.createItemInstance();
     const tableColMinWidth = getSchemaXOption(this.instance.schema, "tableColMinWidth");
@@ -3340,11 +3343,11 @@ class EditorArrayTable extends EditorArray {
       });
       if (child.ui.control.label) {
         th2.appendChild(child.ui.control.label);
-        th2.appendChild(child.ui.control.description);
+        child.ui.control.label.setAttribute("title", child.ui.control.description.textContent);
       }
       if (child.ui.control.legend) {
         th2.appendChild(child.ui.control.legend);
-        th2.appendChild(child.ui.control.description);
+        child.ui.control.legend.setAttribute("title", child.ui.control.description.textContent);
       }
       table.thead.appendChild(th2);
     });
@@ -5560,7 +5563,6 @@ class Theme {
    */
   getTableDefinition() {
     const td = document.createElement("td");
-    td.style.verticalAlign = "middle";
     td.style.whiteSpace = "nowrap";
     return td;
   }
@@ -5572,8 +5574,11 @@ class Theme {
     th.style.paddingLeft = "12px";
     th.style.paddingRight = "12px";
     th.style.textWrap = "nowrap";
-    th.style.verticalAlign = "top";
-    if (config.minWidth) ;
+    th.style.verticalAlign = "bottom";
+    th.style.minWidth = "100px";
+    if (config.minWidth) {
+      th.style.minWidth = config.minWidth;
+    }
     return th;
   }
   /**
