@@ -214,7 +214,7 @@ class ThemeBootstrap5 extends Theme {
     formGroup.appendChild(label)
 
     if (isObject(config.info)) {
-      formGroup.appendChild(info.container)
+      label.appendChild(info.container)
     }
 
     container.appendChild(description)

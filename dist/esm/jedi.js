@@ -6090,7 +6090,7 @@ class ThemeBootstrap4 extends Theme {
     formGroup.appendChild(input);
     formGroup.appendChild(label);
     if (isObject(config.info)) {
-      formGroup.appendChild(info.container);
+      label.appendChild(info.container);
     }
     container.appendChild(description);
     container.appendChild(messages);
@@ -6413,7 +6413,7 @@ class ThemeBootstrap5 extends Theme {
     formGroup.appendChild(input);
     formGroup.appendChild(label);
     if (isObject(config.info)) {
-      formGroup.appendChild(info.container);
+      label.appendChild(info.container);
     }
     container.appendChild(description);
     container.appendChild(messages);
