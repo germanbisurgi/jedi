@@ -2590,7 +2590,7 @@ class EditorRadios extends EditorBoolean {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      inline: getSchemaXOption(this.instance.schema, "radioInline") || this.instance.jedi.options.radioInline,
+      inline: getSchemaXOption(this.instance.schema, "radiosInline") || this.instance.jedi.options.radiosInline,
       info: getSchemaXOption(this.instance.schema, "info")
     });
   }
@@ -2689,7 +2689,7 @@ class EditorStringRadios extends EditorString {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      inline: getSchemaXOption(this.instance.schema, "radioInline") || this.instance.jedi.options.radioInline,
+      inline: getSchemaXOption(this.instance.schema, "radiosInline") || this.instance.jedi.options.radiosInline,
       info: getSchemaXOption(this.instance.schema, "info")
     });
   }
@@ -2864,7 +2864,7 @@ class EditorNumberRadios extends EditorNumber {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      inline: getSchemaXOption(this.instance.schema, "radioInline") || this.instance.jedi.options.radioInline,
+      inline: getSchemaXOption(this.instance.schema, "radiosInline") || this.instance.jedi.options.radiosInline,
       info: getSchemaXOption(this.instance.schema, "info")
     });
   }
@@ -3328,20 +3328,22 @@ class EditorArrayTable extends EditorArray {
     const table = this.theme.getTable();
     this.control.childrenSlot.appendChild(table.container);
     const th = this.theme.getTableHeader();
-    th.style.minWidth = "100px";
+    th.textContent = "Controls";
     table.thead.appendChild(th);
     const tempEditor = this.instance.createItemInstance();
-    const tableColWidth = getSchemaXOption(this.instance.schema, "tableColWidth");
+    const tableColMinWidth = getSchemaXOption(this.instance.schema, "tableColMinWidth");
     tempEditor.children.forEach((child) => {
-      const itemTableColWidth = getSchemaXOption(child.schema, "tableColWidth");
+      const itemTableColWidth = getSchemaXOption(child.schema, "tableColMinWidth");
       const th2 = this.theme.getTableHeader({
-        minWidth: itemTableColWidth || tableColWidth || "auto"
+        minWidth: itemTableColWidth || tableColMinWidth || "auto"
       });
       if (child.ui.control.label) {
-        th2.textContent = child.ui.control.label.textContent;
+        th2.appendChild(child.ui.control.label);
+        th2.appendChild(child.ui.control.description);
       }
       if (child.ui.control.legend) {
-        th2.textContent = child.ui.control.legend.textContent;
+        th2.appendChild(child.ui.control.legend);
+        th2.appendChild(child.ui.control.description);
       }
       table.thead.appendChild(th2);
     });
@@ -3402,6 +3404,17 @@ class EditorArrayTable extends EditorArray {
     });
     this.refreshSortable(table.tbody);
     this.refreshDisabledState();
+    this.refreshScrollPosition(table.container);
+    table.container.addEventListener("scroll", () => {
+      this.lastScrollTop = table.container.scrollTop;
+      this.lastScrollLeft = table.container.scrollLeft;
+    });
+  }
+  refreshScrollPosition(element) {
+    element.scroll({
+      top: this.lastScrollTop,
+      left: this.lastScrollLeft
+    });
   }
   refreshSortable(container) {
     if (this.isSortable()) {
@@ -3858,7 +3871,7 @@ class Jedi extends EventEmitter {
       customEditors: [],
       hiddenInputAttributes: {},
       id: "",
-      radioInline: false,
+      radiosInline: false,
       includeTitlesInMessages: false
     }, options);
     this.rootName = "#";
@@ -4220,8 +4233,6 @@ class Theme {
   constructor(icons = null) {
     this.icons = icons;
     this.useToggleEvents = true;
-    const span = document.querySelector("span");
-    this.defaultFontSize = window.getComputedStyle(span).fontSize;
     this.init();
   }
   /**
@@ -4251,13 +4262,20 @@ class Theme {
    */
   getLegend(config) {
     const legend = document.createElement("legend");
-    const legendText = document.createElement("span");
+    legend.style.fontSize = "inherit";
     legend.classList.add("jedi-editor-legend");
-    legendText.classList.add("jedi-editor-legend-text");
     legend.setAttribute("aria-labelledby", "#legend-" + config.id);
-    legendText.innerHTML = this.purifyContent(config.textContent);
+    const legendText = document.createElement("label");
+    legendText.innerHTML = this.purifyContent(config.content);
+    legendText.classList.add("jedi-editor-legend-text");
     legendText.setAttribute("id", "#legend-" + config.id);
+    legendText.setAttribute("for", config.id + "-dummy-input");
+    const dummyInput = document.createElement("input");
+    this.visuallyHidden(dummyInput);
+    dummyInput.setAttribute("id", config.id + "-dummy-input");
+    dummyInput.setAttribute("aria-hidde", "true");
     legend.appendChild(legendText);
+    legend.appendChild(dummyInput);
     return { legend, legendText };
   }
   /**
@@ -4267,6 +4285,7 @@ class Theme {
     const fieldset = document.createElement("fieldset");
     fieldset.classList.add("jedi-editor-radio-fieldset");
     fieldset.style.marginBottom = "15px";
+    fieldset.style.fontSize = "inherit";
     return fieldset;
   }
   /**
@@ -4274,13 +4293,20 @@ class Theme {
    */
   getRadioLegend(config) {
     const legend = document.createElement("legend");
-    const legendText = document.createElement("span");
+    legend.style.fontSize = "inherit !important";
     legend.classList.add("jedi-editor-legend");
-    legendText.classList.add("jedi-editor-legend-text");
     legend.setAttribute("aria-labelledby", "#legend-" + config.id);
-    legendText.innerHTML = this.purifyContent(config.textContent);
+    const legendText = document.createElement("label");
+    legendText.innerHTML = this.purifyContent(config.content);
+    legendText.classList.add("jedi-editor-legend-text");
     legendText.setAttribute("id", "#legend-" + config.id);
+    legendText.setAttribute("for", config.id + "-dummy-input");
+    const dummyInput = document.createElement("input");
+    this.visuallyHidden(dummyInput);
+    dummyInput.setAttribute("id", config.id + "-dummy-input");
+    dummyInput.setAttribute("aria-hidde", "true");
     legend.appendChild(legendText);
+    legend.appendChild(dummyInput);
     return { legend, legendText };
   }
   /**
@@ -4517,10 +4543,10 @@ class Theme {
       button.setAttribute("id", config.id);
     }
     const text = document.createElement("span");
-    text.textContent = config.textContent;
+    text.textContent = config.content;
     if (this.icons && config.icon) {
       const icon = this.getIcon(this.icons[config.icon]);
-      icon.setAttribute("title", config.textContent);
+      icon.setAttribute("title", config.content);
       button.appendChild(icon);
       this.visuallyHidden(text);
     }
@@ -4532,7 +4558,7 @@ class Theme {
    */
   getArrayBtnAdd() {
     const html = this.getButton({
-      textContent: "Add item",
+      content: "Add item",
       icon: "add"
     });
     html.classList.add("jedi-array-add");
@@ -4540,7 +4566,7 @@ class Theme {
   }
   getAddPropertyButton() {
     const html = this.getButton({
-      textContent: "Add property"
+      content: "Add property"
     });
     html.classList.add("jedi-add-property-btn");
     return html;
@@ -4550,7 +4576,7 @@ class Theme {
    */
   getDeleteItemBtn() {
     const deleteItemBtn = this.getButton({
-      textContent: "Delete item",
+      content: "Delete item",
       icon: "delete"
     });
     deleteItemBtn.classList.add("jedi-array-delete");
@@ -4561,7 +4587,7 @@ class Theme {
    */
   getMoveUpItemBtn() {
     const moveUpItemBtn = this.getButton({
-      textContent: "Move up",
+      content: "Move up",
       icon: "moveUp"
     });
     moveUpItemBtn.classList.add("jedi-array-move-up");
@@ -4572,7 +4598,7 @@ class Theme {
    */
   getMoveDownItemBtn() {
     const moveDownItemBtn = this.getButton({
-      textContent: "Move down",
+      content: "Move down",
       icon: "moveDown"
     });
     moveDownItemBtn.classList.add("jedi-array-move-down");
@@ -4580,7 +4606,7 @@ class Theme {
   }
   getDragItemBtn() {
     const dragItemBtn = this.getButton({
-      textContent: "Drag",
+      content: "Drag",
       icon: "drag"
     });
     dragItemBtn.classList.add("jedi-array-drag");
@@ -4604,7 +4630,7 @@ class Theme {
   /**
    * Info button to display extra information
    */
-  getinfo(config = {}) {
+  getInfo(config = {}) {
     const container = document.createElement("span");
     const info = document.createElement("a");
     const infoText = document.createElement("span");
@@ -4637,7 +4663,7 @@ class Theme {
     const title = document.createElement("div");
     const content = document.createElement("div");
     const closeBtn = this.getButton({
-      textContent: "Close",
+      content: "Close",
       icon: "close"
     });
     dialog.classList.add("jedi-modal-dialog");
@@ -4703,7 +4729,7 @@ class Theme {
     const messages = this.getMessagesSlot({
       id: messagesId
     });
-    const info = this.getinfo(config.info);
+    const info = this.getInfo(config.info);
     if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
       this.infoAsModal(info, config.id, config.info);
     }
@@ -4739,7 +4765,7 @@ class Theme {
       id: "properties-slot-" + config.id
     });
     const propertiesToggle = this.getPropertiesToggle({
-      textContent: config.title + " properties",
+      content: config.title + " properties",
       id: "properties-slot-toggle-" + config.id,
       icon: "properties",
       propertiesContainer
@@ -4750,7 +4776,7 @@ class Theme {
       startCollapsed: config.startCollapsed
     });
     const collapseToggle = this.getCollapseToggle({
-      textContent: config.title + " properties",
+      content: config.title + " properties",
       id: "collapse-toggle-" + config.id,
       icon: "collapse",
       collapseId,
@@ -4766,10 +4792,10 @@ class Theme {
     const addPropertyBtn = this.getAddPropertyButton();
     const fieldset = this.getFieldset();
     const { legend, legendText } = this.getLegend({
-      textContent: config.title,
+      content: config.title,
       id: config.id
     });
-    const info = this.getinfo(config.info);
+    const info = this.getInfo(config.info);
     if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
       this.infoAsModal(info, config.id, config.info);
     }
@@ -4818,7 +4844,9 @@ class Theme {
       addPropertyBtn,
       ariaLive,
       propertiesActivators,
-      arrayActions
+      arrayActions,
+      legend,
+      legendText
     };
   }
   /**
@@ -4840,7 +4868,7 @@ class Theme {
     const addBtn = this.getArrayBtnAdd();
     const fieldset = this.getFieldset();
     const { legend, legendText } = this.getLegend({
-      textContent: config.title,
+      content: config.title,
       id: config.id
     });
     const collapseId = "collapse-" + config.id;
@@ -4849,14 +4877,14 @@ class Theme {
       startCollapsed: config.startCollapsed
     });
     const collapseToggle = this.getCollapseToggle({
-      textContent: config.title + " properties",
+      content: config.title + " properties",
       id: "collapse-toggle-" + config.id,
       icon: "collapse",
       collapseId,
       collapse,
       startCollapsed: config.startCollapsed
     });
-    const info = this.getinfo(config.info);
+    const info = this.getInfo(config.info);
     if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
       this.infoAsModal(info, config.id, config.info);
     }
@@ -4891,7 +4919,9 @@ class Theme {
       childrenSlot,
       btnGroup,
       addBtn,
-      arrayActions
+      arrayActions,
+      legend,
+      legendText
     };
   }
   getArrayItem(config = {}) {
@@ -4928,7 +4958,7 @@ class Theme {
     const actions = this.getActionsSlot();
     const arrayActions = this.getArrayActionsSlot();
     const header = this.getCardHeader({
-      textContent: config.title,
+      content: config.title,
       titleHidden: config.titleHidden
     });
     const body = this.getCardBody();
@@ -4983,7 +5013,7 @@ class Theme {
     const actions = this.getActionsSlot();
     const arrayActions = this.getArrayActionsSlot();
     const header = this.getCardHeader({
-      textContent: config.title,
+      content: config.title,
       titleHidden: config.titleHidden
     });
     const body = this.getCardBody();
@@ -5027,7 +5057,7 @@ class Theme {
     });
     const messages = this.getMessagesSlot();
     const br = document.createElement("br");
-    const info = this.getinfo(config.info);
+    const info = this.getInfo(config.info);
     if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
       this.infoAsModal(info, config.id, config.info);
     }
@@ -5069,7 +5099,7 @@ class Theme {
     });
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
-    const info = this.getinfo(config.info);
+    const info = this.getInfo(config.info);
     if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
       this.infoAsModal(info, config.id, config.info);
     }
@@ -5087,7 +5117,7 @@ class Theme {
   adaptForTableTextareaControl(control) {
     this.visuallyHidden(control.label);
     this.visuallyHidden(control.description);
-    this.visuallyHidden(control.messages);
+    control.input.setAttribute("rows", "1");
   }
   /**
    * An Input control
@@ -5119,7 +5149,7 @@ class Theme {
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
     container.appendChild(label);
-    const info = this.getinfo(config.info);
+    const info = this.getInfo(config.info);
     if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
       this.infoAsModal(info, config.id, config.info);
     }
@@ -5136,7 +5166,6 @@ class Theme {
   adaptForTableInputControl(control) {
     this.visuallyHidden(control.label);
     this.visuallyHidden(control.description);
-    this.visuallyHidden(control.messages);
   }
   /**
    * A radio group control
@@ -5146,8 +5175,9 @@ class Theme {
     const container = document.createElement("div");
     const fieldset = this.getRadioFieldset();
     const { legend, legendText } = this.getRadioLegend({
-      textContent: config.label,
-      id: config.id
+      content: config.label,
+      id: config.id,
+      for: config.id
     });
     const messagesId = config.id + "-messages";
     const messages = this.getMessagesSlot({
@@ -5158,7 +5188,7 @@ class Theme {
       content: config.description,
       id: descriptionId
     });
-    const info = this.getinfo(config.info);
+    const info = this.getInfo(config.info);
     if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
       this.infoAsModal(info, config.id, config.info);
     }
@@ -5206,6 +5236,7 @@ class Theme {
       container,
       fieldset,
       legend,
+      legendText,
       info,
       radios,
       labels,
@@ -5218,7 +5249,6 @@ class Theme {
   adaptForTableRadiosControl(control) {
     this.visuallyHidden(control.legend);
     this.visuallyHidden(control.description);
-    this.visuallyHidden(control.messages);
   }
   /**
    * A checkbox control
@@ -5248,7 +5278,7 @@ class Theme {
     });
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
-    const info = this.getinfo(config.info);
+    const info = this.getInfo(config.info);
     if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
       this.infoAsModal(info, config.id, config.info);
     }
@@ -5258,7 +5288,7 @@ class Theme {
     formGroup.appendChild(input);
     formGroup.appendChild(label);
     if (isObject(config.info)) {
-      formGroup.appendChild(info.container);
+      label.appendChild(info.container);
     }
     formGroup.appendChild(description);
     formGroup.appendChild(messages);
@@ -5267,8 +5297,6 @@ class Theme {
   adaptForTableCheckboxControl(control, td) {
     this.visuallyHidden(control.label);
     this.visuallyHidden(control.description);
-    this.visuallyHidden(control.messages);
-    td.style.textAlign = "center";
   }
   getCheckboxesControl(config) {
     var _a;
@@ -5278,7 +5306,7 @@ class Theme {
     const fieldset = this.getFieldset();
     const body = this.getCardBody();
     const { legend, legendText } = this.getLegend({
-      textContent: config.label,
+      content: config.label,
       id: config.id
     });
     const messagesId = config.id + "-messages";
@@ -5316,7 +5344,7 @@ class Theme {
       }
       labels.push(label);
     });
-    const info = this.getinfo(config.info);
+    const info = this.getInfo(config.info);
     if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
       this.infoAsModal(info, config.id, config.info);
     }
@@ -5340,6 +5368,7 @@ class Theme {
       container,
       fieldset,
       legend,
+      legendText,
       body,
       checkboxes,
       labels,
@@ -5354,8 +5383,6 @@ class Theme {
   adaptForTableCheckboxesControl(control, td) {
     this.visuallyHidden(control.legend);
     this.visuallyHidden(control.description);
-    this.visuallyHidden(control.messages);
-    td.style.textAlign = "center";
   }
   /**
    * A select control
@@ -5391,7 +5418,7 @@ class Theme {
     });
     const describedBy = messagesId + " " + descriptionId;
     input.setAttribute("aria-describedby", describedBy);
-    const info = this.getinfo(config.info);
+    const info = this.getInfo(config.info);
     if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
       this.infoAsModal(info, config.id, config.info);
     }
@@ -5409,7 +5436,6 @@ class Theme {
   adaptForTableSelectControl(control) {
     this.visuallyHidden(control.label);
     this.visuallyHidden(control.description);
-    this.visuallyHidden(control.messages);
   }
   /**
    * Control to switch between multiple editors options
@@ -5448,7 +5474,7 @@ class Theme {
    */
   getInvalidFeedback(config) {
     const html = document.createElement("div");
-    const invalidFeedbackText = document.createElement("span");
+    const invalidFeedbackText = document.createElement("small");
     const invalidFeedbackIcon = document.createElement("span");
     invalidFeedbackText.textContent = config.message;
     invalidFeedbackIcon.textContent = "⚠ ";
@@ -5544,9 +5570,9 @@ class Theme {
     const th = document.createElement("th");
     th.style.paddingLeft = "12px";
     th.style.paddingRight = "12px";
-    if (config.minWidth) {
-      th.style.minWidth = config.minWidth;
-    }
+    th.style.textWrap = "nowrap";
+    th.style.verticalAlign = "top";
+    if (config.minWidth) ;
     return th;
   }
   /**
@@ -5560,7 +5586,14 @@ class Theme {
    * Makes an element visually hidden
    */
   visuallyHidden(element) {
-    element.setAttribute("style", "position: absolute;width: 1px;height: 1px;padding: 0;margin: -1px;overflow: hidden;clip: rect(0,0,0,0);border: 0;");
+    element.style.position = "absolute";
+    element.style.width = "1px";
+    element.style.height = "1px";
+    element.style.padding = "0";
+    element.style.margin = "-1px";
+    element.style.overflow = "hidden";
+    element.style.clip = "rect(0,0,0,0)";
+    element.style.border = "0";
   }
   /**
    * Reveals a visually hidden element
@@ -5600,7 +5633,7 @@ class ThemeBootstrap3 extends Theme {
     return collapse;
   }
   getFieldset() {
-    const fieldset = document.createElement("fieldset");
+    const fieldset = super.getFieldset();
     fieldset.classList.add("panel");
     fieldset.classList.add("panel-default");
     fieldset.style.marginBottom = "15px";
@@ -5608,25 +5641,27 @@ class ThemeBootstrap3 extends Theme {
   }
   getLegend(config) {
     const superLegend = super.getLegend(config);
-    const { legend, legendText } = superLegend;
-    legendText.style.fontSize = this.defaultFontSize;
+    const { legend } = superLegend;
     legend.classList.add("panel-heading");
     legend.classList.add("pull-left");
-    legend.setAttribute("style", "margin: 0; display: flex; justify-content: space-between; align-items: center;");
+    legend.style.margin = "0";
+    legend.style.display = "flex";
+    legend.style.justifyContent = "space-between";
+    legend.style.alignItems = "center";
     return superLegend;
   }
   getRadioLegend(config) {
     const superRadioLegend = super.getRadioLegend(config);
     const { legend } = superRadioLegend;
+    legend.style.fontWeight = "inherit";
     legend.style.border = "none";
-    legend.style.fontSize = this.defaultFontSize;
     legend.style.marginBottom = "0";
     return superRadioLegend;
   }
   getLabel(config) {
     const labelObj = super.getLabel(config);
     if (labelObj.icon.classList) {
-      labelObj.icon.setAttribute("style", "margin-right: 5px;");
+      labelObj.icon.style.marginRight = "5px";
     }
     return labelObj;
   }
@@ -5845,7 +5880,7 @@ class ThemeBootstrap3 extends Theme {
     const modalTitle = document.createElement("div");
     const modalBody = document.createElement("div");
     const closeBtn = this.getButton({
-      textContent: "Close",
+      content: "Close",
       icon: "close"
     });
     const modalId = id + "-modal";
@@ -5914,16 +5949,9 @@ class ThemeBootstrap4 extends Theme {
     fieldset.classList.add("mb-3");
     return fieldset;
   }
-  getRadioLegend(config) {
-    const superRadioLegend = super.getRadioLegend(config);
-    const { legendText } = superRadioLegend;
-    legendText.style.fontSize = this.defaultFontSize;
-    return superRadioLegend;
-  }
   getLegend(config) {
     const superLegend = super.getLegend(config);
-    const { legend, legendText } = superLegend;
-    legendText.style.fontSize = this.defaultFontSize;
+    const { legend } = superLegend;
     legend.classList.add("card-header");
     legend.classList.add("d-flex");
     legend.classList.add("justify-content-between");
@@ -6176,7 +6204,7 @@ class ThemeBootstrap4 extends Theme {
     const modalTitle = document.createElement("div");
     const modalBody = document.createElement("div");
     const closeBtn = this.getButton({
-      textContent: "Close",
+      content: "Close",
       icon: "close"
     });
     const modalId = id + "-modal";
@@ -6248,20 +6276,13 @@ class ThemeBootstrap5 extends Theme {
   }
   getLegend(config) {
     const superLegend = super.getLegend(config);
-    const { legend, legendText } = superLegend;
-    legendText.style.fontSize = this.defaultFontSize;
+    const { legend } = superLegend;
     legend.classList.add("card-header");
     legend.classList.add("d-flex");
     legend.classList.add("justify-content-between");
     legend.classList.add("align-items-center");
     legend.classList.add("py-2");
     return superLegend;
-  }
-  getRadioLegend(config) {
-    const superRadioLegend = super.getRadioLegend(config);
-    const { legendText } = superRadioLegend;
-    legendText.style.fontSize = this.defaultFontSize;
-    return superRadioLegend;
   }
   getLabel(config) {
     const labelObj = super.getLabel(config);
@@ -6502,7 +6523,7 @@ class ThemeBootstrap5 extends Theme {
     const modalTitle = document.createElement("div");
     const modalBody = document.createElement("div");
     const closeBtn = this.getButton({
-      textContent: "Close",
+      content: "Close",
       icon: "close"
     });
     const modalId = id + "-modal";

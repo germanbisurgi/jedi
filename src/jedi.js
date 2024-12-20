@@ -56,7 +56,7 @@ class Jedi extends EventEmitter {
       customEditors: [],
       hiddenInputAttributes: {},
       id: '',
-      radioInline: false,
+      radiosInline: false,
       includeTitlesInMessages: false
     }, options)
 

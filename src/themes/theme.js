@@ -7,8 +7,6 @@ class Theme {
   constructor (icons = null) {
     this.icons = icons
     this.useToggleEvents = true
-    const span = document.querySelector('span')
-    this.defaultFontSize = window.getComputedStyle(span).fontSize
     this.init()
   }
 
@@ -42,13 +40,24 @@ class Theme {
    */
   getLegend (config) {
     const legend = document.createElement('legend')
-    const legendText = document.createElement('span')
+    legend.style.fontSize = 'inherit'
     legend.classList.add('jedi-editor-legend')
-    legendText.classList.add('jedi-editor-legend-text')
     legend.setAttribute('aria-labelledby', '#legend-' + config.id)
-    legendText.innerHTML = this.purifyContent(config.textContent)
+
+    const legendText = document.createElement('label')
+    legendText.innerHTML = this.purifyContent(config.content)
+    legendText.classList.add('jedi-editor-legend-text')
     legendText.setAttribute('id', '#legend-' + config.id)
+    legendText.setAttribute('for', config.id + '-dummy-input')
+
+    const dummyInput = document.createElement('input')
+    this.visuallyHidden(dummyInput)
+    dummyInput.setAttribute('id', config.id + '-dummy-input')
+    dummyInput.setAttribute('aria-hidde', 'true')
+
     legend.appendChild(legendText)
+    legend.appendChild(dummyInput)
+
     return { legend, legendText }
   }
 
@@ -59,6 +68,7 @@ class Theme {
     const fieldset = document.createElement('fieldset')
     fieldset.classList.add('jedi-editor-radio-fieldset')
     fieldset.style.marginBottom = '15px'
+    fieldset.style.fontSize = 'inherit'
     return fieldset
   }
 
@@ -67,13 +77,24 @@ class Theme {
    */
   getRadioLegend (config) {
     const legend = document.createElement('legend')
-    const legendText = document.createElement('span')
+    legend.style.fontSize = 'inherit !important'
     legend.classList.add('jedi-editor-legend')
-    legendText.classList.add('jedi-editor-legend-text')
     legend.setAttribute('aria-labelledby', '#legend-' + config.id)
-    legendText.innerHTML = this.purifyContent(config.textContent)
+
+    const legendText = document.createElement('label')
+    legendText.innerHTML = this.purifyContent(config.content)
+    legendText.classList.add('jedi-editor-legend-text')
     legendText.setAttribute('id', '#legend-' + config.id)
+    legendText.setAttribute('for', config.id + '-dummy-input')
+
+    const dummyInput = document.createElement('input')
+    this.visuallyHidden(dummyInput)
+    dummyInput.setAttribute('id', config.id + '-dummy-input')
+    dummyInput.setAttribute('aria-hidde', 'true')
+
     legend.appendChild(legendText)
+    legend.appendChild(dummyInput)
+
     return { legend, legendText }
   }
 
@@ -361,11 +382,11 @@ class Theme {
     }
 
     const text = document.createElement('span')
-    text.textContent = config.textContent
+    text.textContent = config.content
 
     if (this.icons && config.icon) {
       const icon = this.getIcon(this.icons[config.icon])
-      icon.setAttribute('title', config.textContent)
+      icon.setAttribute('title', config.content)
       button.appendChild(icon)
       this.visuallyHidden(text)
     }
@@ -380,7 +401,7 @@ class Theme {
    */
   getArrayBtnAdd () {
     const html = this.getButton({
-      textContent: 'Add item',
+      content: 'Add item',
       icon: 'add'
     })
     html.classList.add('jedi-array-add')
@@ -389,7 +410,7 @@ class Theme {
 
   getAddPropertyButton () {
     const html = this.getButton({
-      textContent: 'Add property'
+      content: 'Add property'
     })
     html.classList.add('jedi-add-property-btn')
     return html
@@ -400,7 +421,7 @@ class Theme {
    */
   getDeleteItemBtn () {
     const deleteItemBtn = this.getButton({
-      textContent: 'Delete item',
+      content: 'Delete item',
       icon: 'delete'
     })
 
@@ -414,7 +435,7 @@ class Theme {
    */
   getMoveUpItemBtn () {
     const moveUpItemBtn = this.getButton({
-      textContent: 'Move up',
+      content: 'Move up',
       icon: 'moveUp'
     })
 
@@ -428,7 +449,7 @@ class Theme {
    */
   getMoveDownItemBtn () {
     const moveDownItemBtn = this.getButton({
-      textContent: 'Move down',
+      content: 'Move down',
       icon: 'moveDown'
     })
 
@@ -439,7 +460,7 @@ class Theme {
 
   getDragItemBtn () {
     const dragItemBtn = this.getButton({
-      textContent: 'Drag',
+      content: 'Drag',
       icon: 'drag'
     })
 
@@ -470,7 +491,7 @@ class Theme {
   /**
    * Info button to display extra information
    */
-  getinfo (config = {}) {
+  getInfo (config = {}) {
     const container = document.createElement('span')
     const info = document.createElement('a')
     const infoText = document.createElement('span')
@@ -510,7 +531,7 @@ class Theme {
     const title = document.createElement('div')
     const content = document.createElement('div')
     const closeBtn = this.getButton({
-      textContent: 'Close',
+      content: 'Close',
       icon: 'close'
     })
 
@@ -590,7 +611,7 @@ class Theme {
       id: messagesId
     })
 
-    const info = this.getinfo(config.info)
+    const info = this.getInfo(config.info)
 
     if (config?.info?.variant === 'modal') {
       this.infoAsModal(info, config.id, config.info)
@@ -635,7 +656,7 @@ class Theme {
     })
 
     const propertiesToggle = this.getPropertiesToggle({
-      textContent: config.title + ' ' + 'properties',
+      content: config.title + ' ' + 'properties',
       id: 'properties-slot-toggle-' + config.id,
       icon: 'properties',
       propertiesContainer: propertiesContainer
@@ -649,7 +670,7 @@ class Theme {
     })
 
     const collapseToggle = this.getCollapseToggle({
-      textContent: config.title + ' ' + 'properties',
+      content: config.title + ' ' + 'properties',
       id: 'collapse-toggle-' + config.id,
       icon: 'collapse',
       collapseId: collapseId,
@@ -669,11 +690,11 @@ class Theme {
 
     const fieldset = this.getFieldset()
     const { legend, legendText } = this.getLegend({
-      textContent: config.title,
+      content: config.title,
       id: config.id
     })
 
-    const info = this.getinfo(config.info)
+    const info = this.getInfo(config.info)
 
     if (config?.info?.variant === 'modal') {
       this.infoAsModal(info, config.id, config.info)
@@ -735,7 +756,9 @@ class Theme {
       addPropertyBtn,
       ariaLive,
       propertiesActivators,
-      arrayActions
+      arrayActions,
+      legend,
+      legendText
     }
   }
 
@@ -759,7 +782,7 @@ class Theme {
     const addBtn = this.getArrayBtnAdd()
     const fieldset = this.getFieldset()
     const { legend, legendText } = this.getLegend({
-      textContent: config.title,
+      content: config.title,
       id: config.id
     })
 
@@ -771,7 +794,7 @@ class Theme {
     })
 
     const collapseToggle = this.getCollapseToggle({
-      textContent: config.title + ' ' + 'properties',
+      content: config.title + ' ' + 'properties',
       id: 'collapse-toggle-' + config.id,
       icon: 'collapse',
       collapseId: collapseId,
@@ -779,7 +802,7 @@ class Theme {
       startCollapsed: config.startCollapsed
     })
 
-    const info = this.getinfo(config.info)
+    const info = this.getInfo(config.info)
 
     if (config?.info?.variant === 'modal') {
       this.infoAsModal(info, config.id, config.info)
@@ -824,7 +847,9 @@ class Theme {
       childrenSlot,
       btnGroup,
       addBtn,
-      arrayActions
+      arrayActions,
+      legend,
+      legendText
     }
   }
 
@@ -868,7 +893,7 @@ class Theme {
     const arrayActions = this.getArrayActionsSlot()
 
     const header = this.getCardHeader({
-      textContent: config.title,
+      content: config.title,
       titleHidden: config.titleHidden
     })
 
@@ -939,7 +964,7 @@ class Theme {
     const arrayActions = this.getArrayActionsSlot()
 
     const header = this.getCardHeader({
-      textContent: config.title,
+      content: config.title,
       titleHidden: config.titleHidden
     })
 
@@ -994,7 +1019,7 @@ class Theme {
 
     const br = document.createElement('br')
 
-    const info = this.getinfo(config.info)
+    const info = this.getInfo(config.info)
 
     if (config?.info?.variant === 'modal') {
       this.infoAsModal(info, config.id, config.info)
@@ -1047,7 +1072,7 @@ class Theme {
     const describedBy = messagesId + ' ' + descriptionId
     input.setAttribute('aria-describedby', describedBy)
 
-    const info = this.getinfo(config.info)
+    const info = this.getInfo(config.info)
 
     if (config?.info?.variant === 'modal') {
       this.infoAsModal(info, config.id, config.info)
@@ -1071,7 +1096,7 @@ class Theme {
   adaptForTableTextareaControl (control) {
     this.visuallyHidden(control.label)
     this.visuallyHidden(control.description)
-    this.visuallyHidden(control.messages)
+    control.input.setAttribute('rows', '1')
   }
 
   /**
@@ -1110,7 +1135,7 @@ class Theme {
 
     container.appendChild(label)
 
-    const info = this.getinfo(config.info)
+    const info = this.getInfo(config.info)
 
     if (config?.info?.variant === 'modal') {
       this.infoAsModal(info, config.id, config.info)
@@ -1132,7 +1157,6 @@ class Theme {
   adaptForTableInputControl (control) {
     this.visuallyHidden(control.label)
     this.visuallyHidden(control.description)
-    this.visuallyHidden(control.messages)
   }
 
   /**
@@ -1142,8 +1166,9 @@ class Theme {
     const container = document.createElement('div')
     const fieldset = this.getRadioFieldset()
     const { legend, legendText } = this.getRadioLegend({
-      textContent: config.label,
-      id: config.id
+      content: config.label,
+      id: config.id,
+      for: config.id
     })
 
     const messagesId = config.id + '-messages'
@@ -1157,7 +1182,7 @@ class Theme {
       id: descriptionId
     })
 
-    const info = this.getinfo(config.info)
+    const info = this.getInfo(config.info)
 
     if (config?.info?.variant === 'modal') {
       this.infoAsModal(info, config.id, config.info)
@@ -1220,6 +1245,7 @@ class Theme {
       container,
       fieldset,
       legend,
+      legendText,
       info,
       radios,
       labels,
@@ -1233,7 +1259,6 @@ class Theme {
   adaptForTableRadiosControl (control) {
     this.visuallyHidden(control.legend)
     this.visuallyHidden(control.description)
-    this.visuallyHidden(control.messages)
   }
 
   /**
@@ -1270,7 +1295,7 @@ class Theme {
     const describedBy = messagesId + ' ' + descriptionId
     input.setAttribute('aria-describedby', describedBy)
 
-    const info = this.getinfo(config.info)
+    const info = this.getInfo(config.info)
 
     if (config?.info?.variant === 'modal') {
       this.infoAsModal(info, config.id, config.info)
@@ -1283,7 +1308,7 @@ class Theme {
     formGroup.appendChild(label)
 
     if (isObject(config.info)) {
-      formGroup.appendChild(info.container)
+      label.appendChild(info.container)
     }
 
     formGroup.appendChild(description)
@@ -1295,8 +1320,6 @@ class Theme {
   adaptForTableCheckboxControl (control, td) {
     this.visuallyHidden(control.label)
     this.visuallyHidden(control.description)
-    this.visuallyHidden(control.messages)
-    td.style.textAlign = 'center'
   }
 
   getCheckboxesControl (config) {
@@ -1306,7 +1329,7 @@ class Theme {
     const fieldset = this.getFieldset()
     const body = this.getCardBody()
     const { legend, legendText } = this.getLegend({
-      textContent: config.label,
+      content: config.label,
       id: config.id
     })
 
@@ -1356,7 +1379,7 @@ class Theme {
       labels.push(label)
     })
 
-    const info = this.getinfo(config.info)
+    const info = this.getInfo(config.info)
 
     if (config?.info?.variant === 'modal') {
       this.infoAsModal(info, config.id, config.info)
@@ -1387,6 +1410,7 @@ class Theme {
       container,
       fieldset,
       legend,
+      legendText,
       body,
       checkboxes,
       labels,
@@ -1402,8 +1426,6 @@ class Theme {
   adaptForTableCheckboxesControl (control, td) {
     this.visuallyHidden(control.legend)
     this.visuallyHidden(control.description)
-    this.visuallyHidden(control.messages)
-    td.style.textAlign = 'center'
   }
 
   /**
@@ -1448,7 +1470,7 @@ class Theme {
     const describedBy = messagesId + ' ' + descriptionId
     input.setAttribute('aria-describedby', describedBy)
 
-    const info = this.getinfo(config.info)
+    const info = this.getInfo(config.info)
 
     if (config?.info?.variant === 'modal') {
       this.infoAsModal(info, config.id, config.info)
@@ -1472,7 +1494,6 @@ class Theme {
   adaptForTableSelectControl (control) {
     this.visuallyHidden(control.label)
     this.visuallyHidden(control.description)
-    this.visuallyHidden(control.messages)
   }
 
   /**
@@ -1520,7 +1541,7 @@ class Theme {
    */
   getInvalidFeedback (config) {
     const html = document.createElement('div')
-    const invalidFeedbackText = document.createElement('span')
+    const invalidFeedbackText = document.createElement('small')
     const invalidFeedbackIcon = document.createElement('span')
     invalidFeedbackText.textContent = config.message
     invalidFeedbackIcon.textContent = '⚠ '
@@ -1629,9 +1650,12 @@ class Theme {
     const th = document.createElement('th')
     th.style.paddingLeft = '12px'
     th.style.paddingRight = '12px'
+    th.style.textWrap = 'nowrap'
+    th.style.verticalAlign = 'top'
+    // th.style.minWidth = '100px'
 
     if (config.minWidth) {
-      th.style.minWidth = config.minWidth
+      // th.style.minWidth = config.minWidth
     }
 
     return th
@@ -1649,7 +1673,14 @@ class Theme {
    * Makes an element visually hidden
    */
   visuallyHidden (element) {
-    element.setAttribute('style', 'position: absolute;width: 1px;height: 1px;padding: 0;margin: -1px;overflow: hidden;clip: rect(0,0,0,0);border: 0;')
+    element.style.position = 'absolute'
+    element.style.width = '1px'
+    element.style.height = '1px'
+    element.style.padding = '0'
+    element.style.margin = '-1px'
+    element.style.overflow = 'hidden'
+    element.style.clip = 'rect(0,0,0,0)'
+    element.style.border = '0'
   }
 
   /**

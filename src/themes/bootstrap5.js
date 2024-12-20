@@ -44,21 +44,13 @@ class ThemeBootstrap5 extends Theme {
 
   getLegend (config) {
     const superLegend = super.getLegend(config)
-    const { legend, legendText } = superLegend
-    legendText.style.fontSize = this.defaultFontSize
+    const { legend } = superLegend
     legend.classList.add('card-header')
     legend.classList.add('d-flex')
     legend.classList.add('justify-content-between')
     legend.classList.add('align-items-center')
     legend.classList.add('py-2')
     return superLegend
-  }
-
-  getRadioLegend (config) {
-    const superRadioLegend = super.getRadioLegend(config)
-    const { legendText } = superRadioLegend
-    legendText.style.fontSize = this.defaultFontSize
-    return superRadioLegend
   }
 
   getLabel (config) {
@@ -359,7 +351,7 @@ class ThemeBootstrap5 extends Theme {
     const modalTitle = document.createElement('div')
     const modalBody = document.createElement('div')
     const closeBtn = this.getButton({
-      textContent: 'Close',
+      content: 'Close',
       icon: 'close'
     })
     const modalId = id + '-modal'

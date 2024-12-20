@@ -36,7 +36,7 @@ class ThemeBootstrap3 extends Theme {
   }
 
   getFieldset () {
-    const fieldset = document.createElement('fieldset')
+    const fieldset = super.getFieldset()
     fieldset.classList.add('panel')
     fieldset.classList.add('panel-default')
     fieldset.style.marginBottom = '15px'
@@ -45,19 +45,21 @@ class ThemeBootstrap3 extends Theme {
 
   getLegend (config) {
     const superLegend = super.getLegend(config)
-    const { legend, legendText } = superLegend
-    legendText.style.fontSize = this.defaultFontSize
+    const { legend } = superLegend
     legend.classList.add('panel-heading')
     legend.classList.add('pull-left')
-    legend.setAttribute('style', 'margin: 0; display: flex; justify-content: space-between; align-items: center;')
+    legend.style.margin = '0'
+    legend.style.display = 'flex'
+    legend.style.justifyContent = 'space-between'
+    legend.style.alignItems = 'center'
     return superLegend
   }
 
   getRadioLegend (config) {
     const superRadioLegend = super.getRadioLegend(config)
     const { legend } = superRadioLegend
+    legend.style.fontWeight = 'inherit'
     legend.style.border = 'none'
-    legend.style.fontSize = this.defaultFontSize
     legend.style.marginBottom = '0'
     return superRadioLegend
   }
@@ -66,7 +68,7 @@ class ThemeBootstrap3 extends Theme {
     const labelObj = super.getLabel(config)
 
     if (labelObj.icon.classList) {
-      labelObj.icon.setAttribute('style', 'margin-right: 5px;')
+      labelObj.icon.style.marginRight = '5px'
     }
 
     return labelObj
@@ -340,7 +342,7 @@ class ThemeBootstrap3 extends Theme {
     const modalTitle = document.createElement('div')
     const modalBody = document.createElement('div')
     const closeBtn = this.getButton({
-      textContent: 'Close',
+      content: 'Close',
       icon: 'close'
     })
     const modalId = id + '-modal'

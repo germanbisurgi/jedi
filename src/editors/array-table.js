@@ -8,7 +8,6 @@ import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
  */
 class EditorArrayTable extends EditorArray {
   static resolves (schema) {
-    // todo: and items type object
     return getSchemaType(schema) === 'array' && getSchemaXOption(schema, 'format') === 'table'
   }
 
@@ -37,26 +36,28 @@ class EditorArrayTable extends EditorArray {
 
     // thead labels
     const th = this.theme.getTableHeader()
-    th.style.minWidth = '100px'
+    th.textContent = 'Controls'
 
     table.thead.appendChild(th)
 
     const tempEditor = this.instance.createItemInstance()
 
-    const tableColWidth = getSchemaXOption(this.instance.schema, 'tableColWidth')
+    const tableColMinWidth = getSchemaXOption(this.instance.schema, 'tableColMinWidth')
 
     tempEditor.children.forEach((child) => {
-      const itemTableColWidth = getSchemaXOption(child.schema, 'tableColWidth')
+      const itemTableColWidth = getSchemaXOption(child.schema, 'tableColMinWidth')
       const th = this.theme.getTableHeader({
-        minWidth: itemTableColWidth || tableColWidth || 'auto'
+        minWidth: itemTableColWidth || tableColMinWidth || 'auto'
       })
 
       if (child.ui.control.label) {
-        th.textContent = child.ui.control.label.textContent
+        th.appendChild(child.ui.control.label)
+        th.appendChild(child.ui.control.description)
       }
 
       if (child.ui.control.legend) {
-        th.textContent = child.ui.control.legend.textContent
+        th.appendChild(child.ui.control.legend)
+        th.appendChild(child.ui.control.description)
       }
 
       table.thead.appendChild(th)
@@ -135,6 +136,19 @@ class EditorArrayTable extends EditorArray {
 
     this.refreshSortable(table.tbody)
     this.refreshDisabledState()
+    this.refreshScrollPosition(table.container)
+
+    table.container.addEventListener('scroll', () => {
+      this.lastScrollTop = table.container.scrollTop
+      this.lastScrollLeft = table.container.scrollLeft
+    })
+  }
+
+  refreshScrollPosition (element) {
+    element.scroll({
+      top: this.lastScrollTop,
+      left: this.lastScrollLeft
+    })
   }
 
   refreshSortable (container) {

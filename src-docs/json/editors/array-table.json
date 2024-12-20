@@ -6,7 +6,7 @@
   "x-options": {
     "sortable": true,
     "format": "table",
-    "tableColWidth": "100px"
+    "tableColMinWidth": "100px"
   },
   "default": [
     {
@@ -66,12 +66,17 @@
         "description": "A boolean editor using select input.",
         "const": true,
         "x-options": {
-          "tableColWidth": "200px",
+          "tableColMinWidth": "300px",
           "format": "select",
           "enumTitles": [
             "No",
             "Yes"
-          ]
+          ],
+          "info": {
+            "variant": "modal",
+            "title": "<h4>Info Button title</h4>",
+            "content": "<p>Info button content</p>"
+          }
         }
       },
       "boolean-radios": {
@@ -81,12 +86,17 @@
         "const": true,
         "x-options": {
           "format": "radios",
-          "radiosInline":  true,
-          "tableColWidth": "200px",
+          "radiosInline": true,
+          "tableColMinWidth": "300px",
           "enumTitles": [
             "No",
             "Yes"
-          ]
+          ],
+          "info": {
+            "variant": "modal",
+            "title": "<h4>Info Button title</h4>",
+            "content": "<p>Info button content</p>"
+          }
         }
       },
       "boolean": {
@@ -95,7 +105,13 @@
         "description": "A boolean editor checkbox.",
         "const": true,
         "x-options": {
-          "format": "checkbox"
+          "tableColMinWidth": "300px",
+          "format": "checkbox",
+          "info": {
+            "variant": "modal",
+            "title": "<h4>Info Button title</h4>",
+            "content": "<p>Info button content</p>"
+          }
         }
       },
       "string": {
@@ -104,7 +120,12 @@
         "description": "A string editor.",
         "minLength": 1,
         "x-options": {
-          "tableColWidth": "200px"
+          "tableColMinWidth": "300px",
+          "info": {
+            "variant": "modal",
+            "title": "<h4>Info Button title</h4>",
+            "content": "<p>Info button content</p>"
+          }
         }
       },
       "string-textarea": {
@@ -114,7 +135,12 @@
         "minLength": 1,
         "x-options": {
           "format": "textarea",
-          "tableColWidth": "200px"
+          "tableColMinWidth": "300px",
+          "info": {
+            "variant": "modal",
+            "title": "<h4>Info Button title</h4>",
+            "content": "<p>Info button content</p>"
+          }
         }
       },
       "string-select": {
@@ -127,12 +153,17 @@
           "carl"
         ],
         "x-options": {
-          "tableColWidth": "200px",
+          "tableColMinWidth": "300px",
           "enumTitles": [
             "Albert",
             "Betti",
             "Carl"
-          ]
+          ],
+          "info": {
+            "variant": "modal",
+            "title": "<h4>Info Button title</h4>",
+            "content": "<p>Info button content</p>"
+          }
         }
       },
       "string-radios": {
@@ -147,12 +178,17 @@
         "x-options": {
           "format": "radios",
           "radiosInline": true,
-          "tableColWidth": "200px",
+          "tableColMinWidth": "300px",
           "enumTitles": [
             "Albert",
             "Betti",
             "Carl"
-          ]
+          ],
+          "info": {
+            "variant": "modal",
+            "title": "<h4>Info Button title</h4>",
+            "content": "<p>Info button content</p>"
+          }
         }
       },
       "number": {
@@ -161,6 +197,12 @@
         "description": "A number editor.",
         "minimum": 1,
         "x-options": {
+          "tableColMinWidth": "300px",
+          "info": {
+            "variant": "modal",
+            "title": "<h4>Info Button title</h4>",
+            "content": "<p>Info button content</p>"
+          }
         }
       },
       "number-select": {
@@ -173,12 +215,17 @@
           3.5
         ],
         "x-options": {
-          "tableColWidth": "200px",
+          "tableColMinWidth": "300px",
           "enumTitles": [
             "small (1.5)",
             "medium (2.5)",
             "big (3.5)"
-          ]
+          ],
+          "info": {
+            "variant": "modal",
+            "title": "<h4>Info Button title</h4>",
+            "content": "<p>Info button content</p>"
+          }
         }
       },
       "number-radios": {
@@ -193,12 +240,17 @@
         "x-options": {
           "format": "radios",
           "radiosInline": true,
-          "tableColWidth": "200px",
+          "tableColMinWidth": "300px",
           "enumTitles": [
             "small (1.5)",
             "medium (2.5)",
             "big (3.5)"
-          ]
+          ],
+          "info": {
+            "variant": "modal",
+            "title": "<h4>Info Button title</h4>",
+            "content": "<p>Info button content</p>"
+          }
         }
       },
       "integer": {
@@ -207,7 +259,12 @@
         "description": "A integer editor.",
         "minimum": 1,
         "x-options": {
-          "tableColWidth": "200px"
+          "tableColMinWidth": "300px",
+          "info": {
+            "variant": "modal",
+            "title": "<h4>Info Button title</h4>",
+            "content": "<p>Info button content</p>"
+          }
         }
       },
       "integer-select": {
@@ -220,12 +277,17 @@
           3
         ],
         "x-options": {
-          "tableColWidth": "200px",
+          "tableColMinWidth": "300px",
           "enumTitles": [
             "small (1)",
             "medium (2)",
             "big (3)"
-          ]
+          ],
+          "info": {
+            "variant": "modal",
+            "title": "<h4>Info Button title</h4>",
+            "content": "<p>Info button content</p>"
+          }
         }
       },
       "integer-radios": {
@@ -240,12 +302,17 @@
         "x-options": {
           "format": "radios",
           "radiosInline": true,
-          "tableColWidth": "200px",
+          "tableColMinWidth": "300px",
           "enumTitles": [
             "small (1)",
             "medium (2)",
             "big (3)"
-          ]
+          ],
+          "info": {
+            "variant": "modal",
+            "title": "<h4>Info Button title</h4>",
+            "content": "<p>Info button content</p>"
+          }
         }
       }
     }
