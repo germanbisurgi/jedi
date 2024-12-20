@@ -36,8 +36,12 @@ class EditorArrayTable extends EditorArray {
 
     // thead labels
     const th = this.theme.getTableHeader()
-    th.textContent = 'Controls'
-    th.style.minWidth = '100px'
+    const { label } = this.theme.getFakeLabel({
+      text: 'Controls',
+      visuallyHidden: true
+    })
+
+    th.appendChild(label)
 
     table.thead.appendChild(th)
 
@@ -53,12 +57,12 @@ class EditorArrayTable extends EditorArray {
 
       if (child.ui.control.label) {
         th.appendChild(child.ui.control.label)
-        th.appendChild(child.ui.control.description)
+        child.ui.control.label.setAttribute('title', child.ui.control.description.textContent)
       }
 
       if (child.ui.control.legend) {
         th.appendChild(child.ui.control.legend)
-        th.appendChild(child.ui.control.description)
+        child.ui.control.legend.setAttribute('title', child.ui.control.description.textContent)
       }
 
       table.thead.appendChild(th)
