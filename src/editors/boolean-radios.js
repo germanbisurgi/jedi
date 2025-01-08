@@ -7,7 +7,7 @@ import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption }
  */
 class EditorRadios extends EditorBoolean {
   static resolves (schema) {
-    return getSchemaType(schema) === 'boolean' && getSchemaXOption(schema, 'format') === 'radios'
+    return getSchemaType(schema) === 'boolean' && (getSchemaXOption(schema, 'format') === 'radios' || getSchemaXOption(schema, 'format') === 'radios-inline')
   }
 
   build () {
@@ -18,7 +18,7 @@ class EditorRadios extends EditorBoolean {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema),
-      inline: getSchemaXOption(this.instance.schema, 'radiosInline') || this.instance.jedi.options.radiosInline,
+      inline: getSchemaXOption(this.instance.schema, 'format') === 'radios-inline',
       info: getSchemaXOption(this.instance.schema, 'info')
     })
   }

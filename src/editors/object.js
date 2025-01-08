@@ -50,7 +50,7 @@ class EditorObject extends Editor {
       enablePropertiesToggle: enablePropertiesToggle,
       addProperty: addProperty,
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, 'enableCollapseToggle'),
-      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, 'startCollapsed'),
+      startCollapsed: getSchemaXOption(this.instance.schema, 'startCollapsed'),
       readOnly: this.instance.isReadOnly(),
       info: getSchemaXOption(this.instance.schema, 'info')
     })

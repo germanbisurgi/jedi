@@ -16,7 +16,7 @@
       "type": "string",
       "format": "email",
       "x-options": {
-        "labelIconClass": "fas fa-envelope"
+        "titleIconClass": "fas fa-envelope"
       }
     },
     "password": {
@@ -25,7 +25,7 @@
       "minLength": 8,
       "x-options": {
         "format": "password",
-        "labelIconClass": "fas fa-lock"
+        "titleIconClass": "fas fa-lock"
       }
     },
     "keep": {

@@ -104,7 +104,7 @@ class Theme {
   getLabel (config) {
     const label = document.createElement('label')
     const labelText = document.createElement('span')
-    const icon = this.getIcon(config.labelIconClass)
+    const icon = this.getIcon(config.titleIconClass)
 
     label.setAttribute('for', config.for)
     labelText.innerHTML = this.purifyContent(config.text)
@@ -123,7 +123,7 @@ class Theme {
   getFakeLabel (config) {
     const label = document.createElement('span')
     const labelText = document.createElement('span')
-    const icon = this.getIcon(config.labelIconClass)
+    const icon = this.getIcon(config.titleIconClass)
 
     labelText.innerHTML = this.purifyContent(config.text)
     label.classList.add('jedi-title')
@@ -597,7 +597,7 @@ class Theme {
       for: config.id,
       text: config.label,
       visuallyHidden: config.titleHidden,
-      labelIconClass: config.labelIconClass
+      titleIconClass: config.titleIconClass
     })
 
     const descriptionId = config.id + '-description'
@@ -1006,7 +1006,7 @@ class Theme {
       for: config.id,
       text: config.label,
       visuallyHidden: config.titleHidden,
-      labelIconClass: config.labelIconClass
+      titleIconClass: config.titleIconClass
     })
 
     const descriptionId = config.id + '-description'
@@ -1116,7 +1116,7 @@ class Theme {
       for: config.id,
       text: config.label,
       visuallyHidden: config.titleHidden,
-      labelIconClass: config.labelIconClass
+      titleIconClass: config.titleIconClass
     })
 
     const descriptionId = config.id + '-description'

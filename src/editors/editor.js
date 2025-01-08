@@ -1,5 +1,5 @@
 import { isObject, isSet, pathToAttribute } from '../helpers/utils.js'
-import { getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaEnum, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an Editor instance.
@@ -146,10 +146,6 @@ class Editor {
       return
     }
 
-    const title = getSchemaTitle(this.instance.schema) || this.instance.getKey()
-
-    const includeTitlesInMessages = getSchemaXOption(this.instance.schema, 'includeTitlesInMessages') || this.instance.jedi.options.includeTitlesInMessages
-
     errors.forEach((error) => {
       if (error.constraint === 'properties') {
         return
@@ -157,7 +153,7 @@ class Editor {
 
       error.messages.forEach((message) => {
         const invalidFeedback = this.getInvalidFeedback({
-          message: includeTitlesInMessages ? title + ': ' + message : message
+          message: message
         })
 
         this.control.messages.appendChild(invalidFeedback)

@@ -1,27 +1,18 @@
 {
-  "title": "Feldhase",
-  "type": "object",
-  "required": [
-    "vk"
-  ],
-  "properties": {
-    "vk": {
-      "title": "Kam die Art im <b>Frühjahr 2025</b> in Ihrem Revier vor?",
+  "anyOf": [
+    {
+      "title": "Card Number",
       "type": "string",
-      "enum": [
-        "ja",
-        "nein",
-        "unbekannt",
-        "keine Angabe"
-      ],
       "x-options": {
-        "format": "radios",
-        "enforceEnumDefault": false,
-        "messages": [
-          "Bitte wählen Sie eine Antwortmöglichkeit aus."
-        ]
-      },
-      "default": ""
+        "switcherTitle": "I want to pay with Credit Card"
+      }
+    },
+    {
+      "title": "Email",
+      "type": "string",
+      "x-options": {
+        "switcherTitle": "I want to pay with PayPal"
+      }
     }
-  }
+  ]
 }

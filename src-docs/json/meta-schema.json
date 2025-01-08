@@ -287,8 +287,8 @@
               "title": "format",
               "type": "string"
             },
-            "labelIconClass": {
-              "title": "labelIconClass",
+            "titleIconClass": {
+              "title": "titleIconClass",
               "type": "string"
             },
             "titleTemplate": {

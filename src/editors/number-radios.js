@@ -12,7 +12,7 @@ class EditorNumberRadios extends EditorNumber {
     const schemaEnum = getSchemaEnum(schema)
     const optionFormat = getSchemaXOption(schema, 'format')
     const typeIsNumeric = schemaType === 'number' || schemaType === 'integer'
-    return typeIsNumeric && isSet(schemaEnum) && optionFormat === 'radios'
+    return typeIsNumeric && isSet(schemaEnum) && (optionFormat === 'radios' || optionFormat === 'radios-inline')
   }
 
   build () {
@@ -23,7 +23,7 @@ class EditorNumberRadios extends EditorNumber {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema),
-      inline: getSchemaXOption(this.instance.schema, 'radiosInline') || this.instance.jedi.options.radiosInline,
+      inline: getSchemaXOption(this.instance.schema, 'format') === 'radios-inline',
       info: getSchemaXOption(this.instance.schema, 'info')
     })
   }

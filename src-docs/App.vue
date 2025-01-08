@@ -97,28 +97,13 @@
           </div>
 
           <div class="form-group mb-3">
-            <input type="checkbox" id="startCollapsed" v-model="startCollapsed" @change="initEditor()">
-            <label for="startCollapsed">startCollapsed</label>
-          </div>
-
-          <div class="form-group mb-3">
             <input type="checkbox" id="assertFormat" v-model="assertFormat" @change="initEditor()">
             <label for="assertFormat">assertFormat</label>
           </div>
 
           <div class="form-group mb-3">
-            <input type="checkbox" id="mergeAllOf" v-model="mergeAllOf" @change="initEditor()">
-            <label for="mergeAllOf">mergeAllOf</label>
-          </div>
-
-          <div class="form-group mb-3">
             <input type="checkbox" id="enforceEnumDefault" v-model="enforceEnumDefault" @change="initEditor()">
             <label for="enforceEnumDefault">enforceEnumDefault</label>
-          </div>
-
-          <div class="form-group mb-3">
-            <input type="checkbox" id="includeTitlesInMessages" v-model="includeTitlesInMessages" @change="initEditor()">
-            <label for="includeTitlesInMessages">includeTitlesInMessages</label>
           </div>
         </aside>
       </div>
@@ -323,16 +308,13 @@ export default {
       ],
       enablePropertiesToggle: true,
       enableCollapseToggle: true,
-      startCollapsed: false,
       schema: all,
       editor: null,
       theme: 'barebones',
       iconLib: 'bootstrap-icons',
       showErrors: 'change',
       assertFormat: false,
-      mergeAllOf: false,
-      enforceEnumDefault: true,
-      includeTitlesInMessages: false
+      enforceEnumDefault: true
     }
   },
   created() {
@@ -341,9 +323,7 @@ export default {
     this.example = this.getQueryParam('example') || 'editors/all'
     this.showErrors = this.getQueryParam('showErrors') || 'change'
     this.assertFormat = this.getQueryParam('assertFormat') ? this.parseBooleanString(this.getQueryParam('assertFormat')) : false
-    this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
     this.enforceEnumDefault = this.getQueryParam('enforceEnumDefault') ? this.parseBooleanString(this.getQueryParam('enforceEnumDefault')) : true
-    this.includeTitlesInMessages = this.getQueryParam('includeTitlesInMessages') ? this.parseBooleanString(this.getQueryParam('includeTitlesInMessages')) : false
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
     this.enableCollapseToggle = this.getQueryParam('enableCollapseToggle') ? this.parseBooleanString(this.getQueryParam('enableCollapseToggle')) : true
   },
@@ -453,13 +433,10 @@ export default {
         container: document.querySelector('#jedi-container'),
         enablePropertiesToggle: this.enablePropertiesToggle,
         enableCollapseToggle: this.enableCollapseToggle,
-        startCollapsed: this.startCollapsed,
         iconLib: this.iconLib,
         showErrors: this.showErrors,
         assertFormat: this.assertFormat,
-        mergeAllOf: this.mergeAllOf,
         enforceEnumDefault: this.enforceEnumDefault,
-        includeTitlesInMessages: this.includeTitlesInMessages,
         schema: this.schema,
         theme: this.getThemeInstance(this.theme),
         refParser,
@@ -518,9 +495,7 @@ export default {
       newUrl += "&example=" + this.example
       newUrl += "&showErrors=" + this.showErrors
       newUrl += "&assertFormat=" + this.assertFormat
-      newUrl += "&mergeAllOf=" + this.mergeAllOf
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
-      newUrl += "&includeTitlesInMessages=" + this.includeTitlesInMessages
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
 
@@ -533,9 +508,7 @@ export default {
       newUrl += "&example=" + this.example
       newUrl += "&showErrors=" + this.showErrors
       newUrl += "&assertFormat=" + this.assertFormat
-      newUrl += "&mergeAllOf=" + this.mergeAllOf
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
-      newUrl += "&includeTitlesInMessages=" + this.includeTitlesInMessages
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
       newUrl += "&schema=" + this.compress(JSON.stringify(this.schema))

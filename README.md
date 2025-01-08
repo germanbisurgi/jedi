@@ -5,6 +5,30 @@
 Generates forms from JSON schemas. Can be used in backend to validate JSON data too.
 [Check Out the Playground](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5)
 
+# Table of Contents
+
+- [Key Features](#key-features)
+- [Getting Started](#getting-started)
+    - [As a Validator](#as-a-validator)
+    - [As an Editor](#as-an-editor)
+- [Instance Options](#instance-options)
+- [Schema Options](#schema-options)
+    - [titleHidden](#titlehidden)
+    - [titleIconClass](#titleiconclass)
+    - [showErrors](#showerrors)
+    - [assertFormat](#assertformat)
+    - [messages](#messages)
+    - [info](#info)
+    - [inputAttributes](#inputattributes)
+    - [enumTitles](#enumtitles)
+    - [enforceEnumDefault](#enforceenumdefault)
+    - [enforceConst](#enforceconst)
+    - [switcherTitle](#switchertitle)
+    - [format](#format)
+- [License](#license)
+- [Resources](#resources)
+
+
 ## Key Features
 
 - Dependency free
@@ -53,6 +77,7 @@ init()
 ### As an Editor
 
 ```html
+
 <div id="jedi-container"></div>
 ```
 
@@ -142,12 +167,6 @@ init()
       <td>Allows sections to be collapsible in the UI.</td>
     </tr>
     <tr align="left">
-      <td><code>startCollapsed</code></td>
-      <td><code>boolean</code></td>
-      <td><code>false</code></td>
-      <td>If set to <code>true</code>, the UI starts in a collapsed state.</td>
-    </tr>
-    <tr align="left">
       <td><code>deactivateNonRequired</code></td>
       <td><code>boolean</code></td>
       <td><code>false</code></td>
@@ -185,12 +204,6 @@ init()
       <td>Treats <code>'format'</code> as a validator rather than just an annotation.</td>
     </tr>
     <tr align="left">
-      <td><code>mergeAllOf</code></td>
-      <td><code>boolean</code></td>
-      <td><code>false</code></td>
-      <td>If set to <code>true</code>, merges all <code>allOf</code> schemas into one.</td>
-    </tr>
-    <tr align="left">
       <td><code>enforceConst</code></td>
       <td><code>boolean</code></td>
       <td><code>false</code></td>
@@ -223,79 +236,502 @@ init()
   </tbody>
 </table>
 
-## Events
-coming soon
-
 ## Schema options
-coming soon
 
-## Development
+The `x-options` [custom annotation](https://json-schema.org/blog/posts/custom-annotations-will-continue#what's-the-solution)
+can be used in JSON Schemas to changes how instances and editors behave. When setting the same option as
+Jedi options and as `x-options`, the `x-options` one will be applied. `x-options` must be of type object.
 
-Install dependencies:
-
-```bash
-yarn install
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "x-options": {
+    "format": "textarea"
+  }
+}
 ```
 
-Start dev server, watch for changes and opens the playground page in the browser.
+Some options depend on other options to be set. In the example the option `"nav"` depends on the schema having 
+the option `"format": "nav"` set.
 
-```bash
-yarn dev
+```json
+{
+  "title": "Person",
+  "type": "object",
+  "x-options": {
+    "format": "nav",
+    "nav": {
+      "variant": "pills",
+      "stacked": true
+    }
+  }
+}
 ```
 
-Builds the production-ready version of the library.
+### `titleHidden`
 
-```bash
-yarn build
+- Type: `boolean`
+- Default: `false`
+- Description: Hides the editor title.
+- Examples:
+
+Hide editor title.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "x-options": {
+    "titleHidden": true
+  }
+}
 ```
 
-Runs end-to-end tests using CodeceptJS with the barebones theme.
+### `titleIconClass`
 
-```bash
-yarn e2e
+- Type: `string`
+- Description: Icon class to use in titles if using any.
+- Examples:
+
+Show a fontawesome envelope icon in the title.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "x-options": {
+    "titleIconClass": "fas fa-envelope"
+  }
+}
 ```
 
-Runs end-to-end tests using CodeceptJS with the bootstrap 3 theme.
+### `showErrors`
 
-```bash
-yarn e2e:b3
+- Type: `string`
+- Default: `"change"`
+- Options: `"never"`, `"change"`, `"always"`
+- Description: Determines when to display validation errors.
+- Examples:
+
+Always show errors for this editor even if the value didn't change.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "x-options": {
+    "showErrors": "always"
+  }
+}
 ```
 
-Runs end-to-end tests using CodeceptJS with the bootstrap 4 theme.
+### `assertFormat`
 
-```bash
-yarn e2e:b4
+- Type: `boolean`
+- Default: `"false"`
+- Options: `"never"`, `"change"`, `"always"`
+- Description: Treats `"format"` as a validator rather than just an annotation.
+- Examples:
+
+Treat `"format": "email"` as a constraint keyword instead of an annotation.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "format": "email",
+  "x-options": {
+    "assertFormat": true
+  }
+}
 ```
 
-Runs end-to-end tests using CodeceptJS with the bootstrap 5 theme.
+### `messages`
 
-```bash
-yarn e2e:b5
+- Type: `string[]`
+- Description: Used to define custom error messages.
+- Examples:
+
+If editor has any error, displays 2 custom error messages.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "minLength": "10",
+  "maxLength": "100",
+  "x-options": {
+    "messages": [
+      "Must be at least 10 characters long",
+      "Must be at most 100 characters long"
+    ]
+  }
+}
 ```
 
-Runs end-to-end tests using CodeceptJS with all the themes.
+### `info`
 
-```bash
-yarn e2e:*
+- Type: `object`
+- Description: Used to display extra information. If HTML will be rendered only DOMPurify is available, otherwise only the textContent will be displayed without any HTML tags.
+- Options:
+    - `variant`: `"modal"`
+    - `title`: Plain text or HTML.
+    - `content`:  Plain text or HTML.
+- Examples:
+
+Displays an info button right after the title, that opens a modal with title and content.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "x-options": {
+    "info": {
+      "variant": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
+  }
+}
 ```
 
-Runs unit tests using Jest.
+### `inputAttributes`
 
-```bash
-yarn unit
+- Type: `object`
+- Description: Used to set attributes for the editor input.
+- Examples:
+
+Add `placeholder` attribute to textarea.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "x-options": {
+    "format": "textarea",
+    "inputAttributes": {
+      "placeholder": "Your message here..."
+    }
+  }
+}
 ```
 
-Runs ESLint to check for linting errors.
+### `enumTitles`
 
-```bash
-yarn lint
+- Type: `string[]`
+- Depends on: `"enum"`
+- Description: Used to display user-friendly labels in the editor instead of those listen in `"enum"`.
+- Examples:
+
+Display color names instead of hex codes.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "enum": [
+    "ff0000",
+    "00ff00",
+    "0000ff"
+  ],
+  "x-options": {
+    "enumTitles": [
+      "Red",
+      "Green",
+      "Blue"
+    ]
+  }
+}
 ```
 
-Runs ESLint with the --fix option to automatically fix linting errors.
+### `enforceEnumDefault`
 
-```bash
-yarn lint:fix
+- Type: `boolean`
+- Default: `false`
+- Depends on: `"enum"`
+- Description: Whether the editor initial value will be the first item in the `"enum"`.
+- Examples:
+
+Default value for this editor will be  `""`.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "enum": [
+    "ff0000",
+    "00ff00",
+    "0000ff"
+  ],
+  "x-options": {
+    "enforceEnumDefault": false
+  }
+}
 ```
+Default value for this editor will be `"ff0000"`.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "enum": [
+    "ff0000",
+    "00ff00",
+    "0000ff"
+  ],
+  "x-options": {
+    "enforceEnumDefault": true
+  }
+}
+```
+
+### `enforceConst`
+
+- Type: `boolean`
+- Default: `false`
+- Depends on: `"const"`
+- Description: Value will remain whatever is defined in schema `"const"`.
+- Examples:
+
+Default value for this editor will be `"ff0000"`.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "const": "ff0000",
+  "x-options": {
+    "enforceConst": true
+  }
+}
+```
+
+### `switcherTitle`
+
+- Type: `string`
+- Default: "undefined". The property name or the title will be used instead.
+- Depends on: `"oneOf"`, `"anyOf"`
+- Description: The text displayed in the multiple editor switcher to select this sub-schema editor.
+- Examples:
+
+Switcher options displayed are:
+- "I want to pay with Credit Card"
+- "I want to pay with PayPal"
+
+But in the sub-editors the titles remain:
+- "Card Number"
+- "Email"
+
+```json
+{
+  "anyOf": [
+    {
+      "title": "Card Number",
+      "type": "string",
+      "x-options": {
+        "switcherTitle": "I want to pay with Credit Card"
+      }
+    },
+    {
+      "title": "Email",
+      "type": "string",
+      "x-options": {
+        "switcherTitle": "I want to pay with PayPal"
+      }
+    }
+  ]
+}
+```
+
+### `format`
+
+- Type: `string`
+- Description: Determines editor UI and behaviours. The effect of `"format"` depends on the schema `"type"` keyword.
+- Options:
+    - Boolean:
+        - `"select"` (default)
+        - `"radios"`
+        - `"radios-inline"`
+        - `"checkbox"`
+    - String:
+        - `"text"` (default)
+        - `"hidden"`
+        - `"color"`
+        - `"date"`
+        - `"datetime-local"`
+        - `"email"`
+        - `"number"`
+        - `"month"`
+        - `"password"`
+        - `"search"`
+        - `"time"`
+        - `"tel"`
+        - `"url"`
+        - `"week"`
+        - `"textarea"`
+    - Number:
+        - `"number"` (default)
+        - `"select"`
+        - `"radios"`
+        - `"radios-inline"`
+    - integer:
+        - `"number"` (default)
+        - `"select"`
+        - `"radios"`
+        - `"radios-inline"`
+    - Array:
+        - `"list"` (default)
+        - `"nav"`
+        - `"table"`
+    - Object:
+        - `"list"` (default)
+        - `"nav"`
+        - `"grid"`
+- Examples:
+
+Use radios to display color names instead of hex codes.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "enum": [
+    "Red",
+    "Green",
+    "Blue"
+  ],
+  "x-options": {
+    "format": "radios"
+  }
+}
+```
+
+### `nav`
+
+- Type: `object`
+- Description: Extra configuration for `"format": "nav"` depends on the schema `"type"` keyword.
+- Options:
+    - `variant`: `"pills"` | `"tabs"`.
+    - `stacked`: To stack nav items
+    - `columns`:  Number of columns occupied by the nav items container
+- Examples:
+    - [editors/object-nav-pills](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-pills&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+    - [editors/object-nav-tabs](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-tabs&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+
+### `gridColumns`
+
+- Type: `number`
+- Description: Number of columns occupied by the editor when parent editor has `"format": "grid"`
+- Examples:
+    - [editors/object-grid](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-grid&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+
+### `gridOffset`
+
+- Type: `number`
+- Description: Number of offset columns the editor when parent editor has `"format": "grid"`
+- Examples:
+    - [editors/object-grid](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-grid&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+
+### `gridNewRow`
+
+- Type: `boolean`
+- Description: Whether the editor should be placed into a new row. Works only if parent editor has `"format": "grid"`
+- Examples:
+  - [editors/object-grid](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-grid&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+
+
+### `enableCollapseToggle`
+
+- Type: `boolean`
+- Description: Display a collapse button used to collapse or expand editors that support collapse like `object` and `arrays`
+- Examples:
+    - [editors/object](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+    - [editors/array](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/array&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+
+### `startCollapsed`
+
+- Type: `boolean`
+- Description: Whether the editor should start expanded or collapsed. Works on editors that support collapse like `object` and `arrays`
+- Examples:
+
+```json
+{
+  "title": "Person",
+  "type": "object",
+  "x-options": {
+    "startCollapsed": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    }
+  }
+}
+```
+
+### `deactivateNonRequired`
+
+- Type: `boolean`
+- Description: Whether the editor should deactivate (hide) or activate (show) non required properties. Works on only with `object` type editors.
+- Examples:
+
+```json
+{
+  "title": "Person",
+  "type": "object",
+  "x-options": {
+    "deactivateNonRequired": true
+  },
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "age": {
+      "type": "integer",
+      "title": "Age"
+    }
+  }
+}
+```
+
+### `sortable`
+
+- Type: `boolean`
+- Description: Allows drag and drop if Sortable.js is installed. Works only with `array` type editors.
+- Examples:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "title": "items",
+      "items": {
+        "title": "This is a number editor",
+        "type": "number"
+      },
+      "x-options": {
+        "sortable": true
+      }
+    }
+  }
+}
+```
+
+### `titleTemplate`
+
+- Type: `string`
+- Description: A template to form titles dynamically.
+- Examples:
+    - [editors/object-nav-pills](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-pills&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+    - [editors/object-nav-tabs](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-tabs&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
 
 ## License
 

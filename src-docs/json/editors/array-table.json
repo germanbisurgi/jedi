@@ -85,8 +85,7 @@
         "description": "A boolean editor using radios.",
         "const": true,
         "x-options": {
-          "format": "radios",
-          "radiosInline": true,
+          "format": "radios-inline",
           "tableColMinWidth": "300px",
           "enumTitles": [
             "No",
@@ -176,8 +175,7 @@
           "carl"
         ],
         "x-options": {
-          "format": "radios",
-          "radiosInline": true,
+          "format": "radios-inline",
           "tableColMinWidth": "300px",
           "enumTitles": [
             "Albert",
@@ -238,8 +236,7 @@
           3.5
         ],
         "x-options": {
-          "format": "radios",
-          "radiosInline": true,
+          "format": "radios-inline",
           "tableColMinWidth": "300px",
           "enumTitles": [
             "small (1.5)",
@@ -300,8 +297,7 @@
           3
         ],
         "x-options": {
-          "format": "radios",
-          "radiosInline": true,
+          "format": "radios-inline",
           "tableColMinWidth": "300px",
           "enumTitles": [
             "small (1)",

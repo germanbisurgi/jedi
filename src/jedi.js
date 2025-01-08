@@ -44,7 +44,6 @@ class Jedi extends EventEmitter {
       refParser: null,
       enablePropertiesToggle: false,
       enableCollapseToggle: false,
-      startCollapsed: false,
       deactivateNonRequired: false,
       schema: {},
       showErrors: 'change',
@@ -56,8 +55,7 @@ class Jedi extends EventEmitter {
       customEditors: [],
       hiddenInputAttributes: {},
       id: '',
-      radiosInline: false,
-      includeTitlesInMessages: false
+      radiosInline: false
     }, options)
 
     /**

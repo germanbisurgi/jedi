@@ -1852,15 +1852,13 @@ class Editor {
     if (neverShowErrors && !force || errors.length === 0) {
       return;
     }
-    const title = getSchemaTitle(this.instance.schema) || this.instance.getKey();
-    const includeTitlesInMessages = getSchemaXOption(this.instance.schema, "includeTitlesInMessages") || this.instance.jedi.options.includeTitlesInMessages;
     errors.forEach((error) => {
       if (error.constraint === "properties") {
         return;
       }
       error.messages.forEach((message) => {
         const invalidFeedback = this.getInvalidFeedback({
-          message: includeTitlesInMessages ? title + ": " + message : message
+          message
         });
         this.control.messages.appendChild(invalidFeedback);
       });
@@ -2580,7 +2578,7 @@ class EditorBoolean extends Editor {
 }
 class EditorRadios extends EditorBoolean {
   static resolves(schema) {
-    return getSchemaType(schema) === "boolean" && getSchemaXOption(schema, "format") === "radios";
+    return getSchemaType(schema) === "boolean" && (getSchemaXOption(schema, "format") === "radios" || getSchemaXOption(schema, "format") === "radios-inline");
   }
   build() {
     this.control = this.theme.getRadiosControl({
@@ -2590,7 +2588,7 @@ class EditorRadios extends EditorBoolean {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      inline: getSchemaXOption(this.instance.schema, "radiosInline") || this.instance.jedi.options.radiosInline,
+      inline: getSchemaXOption(this.instance.schema, "format") === "radios-inline",
       info: getSchemaXOption(this.instance.schema, "info")
     });
   }
@@ -2623,7 +2621,7 @@ class EditorBooleanSelect extends EditorBoolean {
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || ["false", "true"],
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
@@ -2679,7 +2677,7 @@ class EditorString extends Editor {
 }
 class EditorStringRadios extends EditorString {
   static resolves(schema) {
-    return getSchemaType(schema) === "string" && getSchemaXOption(schema, "format") === "radios";
+    return getSchemaType(schema) === "string" && (getSchemaXOption(schema, "format") === "radios" || getSchemaXOption(schema, "format") === "radios-inline");
   }
   build() {
     this.control = this.theme.getRadiosControl({
@@ -2689,7 +2687,7 @@ class EditorStringRadios extends EditorString {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      inline: getSchemaXOption(this.instance.schema, "radiosInline") || this.instance.jedi.options.radiosInline,
+      inline: getSchemaXOption(this.instance.schema, "format") === "radios-inline",
       info: getSchemaXOption(this.instance.schema, "info")
     });
   }
@@ -2720,7 +2718,7 @@ class EditorStringSelect extends EditorString {
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || getSchemaEnum(this.instance.schema),
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
@@ -2747,7 +2745,7 @@ class EditorStringTextarea extends EditorString {
     this.control = this.theme.getTextareaControl({
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
@@ -2775,7 +2773,7 @@ class EditorStringAwesomplete extends EditorString {
       type: "text",
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
@@ -2814,7 +2812,7 @@ class EditorStringInput extends EditorString {
       type: EditorStringInput.getTypes().includes(optionFormat) ? optionFormat : "text",
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || optionFormat === "hidden",
       description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
@@ -2854,7 +2852,7 @@ class EditorNumberRadios extends EditorNumber {
     const schemaEnum = getSchemaEnum(schema);
     const optionFormat = getSchemaXOption(schema, "format");
     const typeIsNumeric = schemaType === "number" || schemaType === "integer";
-    return typeIsNumeric && isSet(schemaEnum) && optionFormat === "radios";
+    return typeIsNumeric && isSet(schemaEnum) && (optionFormat === "radios" || optionFormat === "radios-inline");
   }
   build() {
     this.control = this.theme.getRadiosControl({
@@ -2864,7 +2862,7 @@ class EditorNumberRadios extends EditorNumber {
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
-      inline: getSchemaXOption(this.instance.schema, "radiosInline") || this.instance.jedi.options.radiosInline,
+      inline: getSchemaXOption(this.instance.schema, "format") === "radios-inline",
       info: getSchemaXOption(this.instance.schema, "info")
     });
   }
@@ -2898,7 +2896,7 @@ class EditorNumberSelect extends EditorNumber {
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || getSchemaEnum(this.instance.schema),
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
@@ -2931,7 +2929,7 @@ class EditorNumberInput extends EditorNumber {
       type: "number",
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || getSchemaXOption(this.instance.schema, "format") === "hidden",
       description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
@@ -2982,7 +2980,7 @@ class EditorObject extends Editor {
       enablePropertiesToggle,
       addProperty,
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
-      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
+      startCollapsed: getSchemaXOption(this.instance.schema, "startCollapsed"),
       readOnly: this.instance.isReadOnly(),
       info: getSchemaXOption(this.instance.schema, "info")
     });
@@ -3209,7 +3207,7 @@ class EditorArray extends Editor {
       id: this.getIdFromPath(this.instance.path),
       description: getSchemaDescription(this.instance.schema),
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
-      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
+      startCollapsed: getSchemaXOption(this.instance.schema, "startCollapsed"),
       readOnly: this.instance.isReadOnly(),
       info: getSchemaXOption(this.instance.schema, "info")
     });
@@ -3589,7 +3587,7 @@ class EditorNull extends Editor {
     this.control = this.theme.getNullControl({
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || getSchemaXOption(this.instance.schema, "format") === "hidden",
       description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
@@ -3607,7 +3605,7 @@ class EditorStringQuill extends EditorString {
     this.control = this.theme.getPlaceholderControl({
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
@@ -3646,7 +3644,7 @@ class EditorStringJodit extends EditorString {
     this.control = this.theme.getTextareaControl({
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
@@ -3690,7 +3688,7 @@ class EditorStringFlatpickr extends EditorString {
       type: "text",
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
@@ -3723,7 +3721,7 @@ class EditorNumberRaty extends EditorNumber {
     this.control = this.theme.getPlaceholderControl({
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      labelIconClass: getSchemaXOption(this.instance.schema, "labelIconClass"),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
@@ -3863,7 +3861,6 @@ class Jedi extends EventEmitter {
       refParser: null,
       enablePropertiesToggle: false,
       enableCollapseToggle: false,
-      startCollapsed: false,
       deactivateNonRequired: false,
       schema: {},
       showErrors: "change",
@@ -3875,8 +3872,7 @@ class Jedi extends EventEmitter {
       customEditors: [],
       hiddenInputAttributes: {},
       id: "",
-      radiosInline: false,
-      includeTitlesInMessages: false
+      radiosInline: false
     }, options);
     this.rootName = "#";
     this.pathSeparator = "/";
@@ -4319,7 +4315,7 @@ class Theme {
   getLabel(config) {
     const label = document.createElement("label");
     const labelText = document.createElement("span");
-    const icon = this.getIcon(config.labelIconClass);
+    const icon = this.getIcon(config.titleIconClass);
     label.setAttribute("for", config.for);
     labelText.innerHTML = this.purifyContent(config.text);
     label.classList.add("jedi-title");
@@ -4333,7 +4329,7 @@ class Theme {
   getFakeLabel(config) {
     const label = document.createElement("span");
     const labelText = document.createElement("span");
-    const icon = this.getIcon(config.labelIconClass);
+    const icon = this.getIcon(config.titleIconClass);
     labelText.innerHTML = this.purifyContent(config.text);
     label.classList.add("jedi-title");
     if (config.visuallyHidden) {
@@ -4722,7 +4718,7 @@ class Theme {
       for: config.id,
       text: config.label,
       visuallyHidden: config.titleHidden,
-      labelIconClass: config.labelIconClass
+      titleIconClass: config.titleIconClass
     });
     const descriptionId = config.id + "-description";
     const description = this.getDescription({
@@ -5052,7 +5048,7 @@ class Theme {
       for: config.id,
       text: config.label,
       visuallyHidden: config.titleHidden,
-      labelIconClass: config.labelIconClass
+      titleIconClass: config.titleIconClass
     });
     const descriptionId = config.id + "-description";
     const description = this.getDescription({
@@ -5139,7 +5135,7 @@ class Theme {
       for: config.id,
       text: config.label,
       visuallyHidden: config.titleHidden,
-      labelIconClass: config.labelIconClass
+      titleIconClass: config.titleIconClass
     });
     const descriptionId = config.id + "-description";
     const description = this.getDescription({

@@ -15,7 +15,7 @@ class EditorStringQuill extends EditorString {
     this.control = this.theme.getPlaceholderControl({
       id: this.getIdFromPath(this.instance.path),
       label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
-      labelIconClass: getSchemaXOption(this.instance.schema, 'labelIconClass'),
+      titleIconClass: getSchemaXOption(this.instance.schema, 'titleIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, 'info')
