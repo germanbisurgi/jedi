@@ -1,0 +1,24 @@
+{
+  "type": "string",
+  "title": "String radios",
+  "description": "The string type is used for strings of text. It may contain Unicode characters.",
+  "default": "betti",
+  "enum": [
+    "albert",
+    "betti",
+    "carl"
+  ],
+  "x-options": {
+    "format": "radios-inline",
+    "enumTitles": [
+      "Albert",
+      "Betti",
+      "Carl"
+    ],
+    "info": {
+      "variant": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
+  }
+}

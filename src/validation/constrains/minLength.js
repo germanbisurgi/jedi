@@ -1,6 +1,5 @@
 import { compileTemplate, isSet, isString } from '../../helpers/utils.js'
 import { getSchemaMinLength } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function minLength (validator, value, schema, key, path) {
   const errors = []
@@ -15,7 +14,7 @@ export function minLength (validator, value, schema, key, path) {
         path: path,
         constrain: 'minLength',
         messages: [
-          compileTemplate(i18n.errorMinLength, {
+          compileTemplate(validator.translator.translate('errorMinLength'), {
             minLength: minLength
           })
         ]

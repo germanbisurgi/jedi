@@ -1,6 +1,6 @@
 import { compileTemplate, isSet } from '../../helpers/utils.js'
 import { getSchemaNot } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
+
 import Jedi from '../../jedi.js'
 
 export function not (validator, value, schema, key, path) {
@@ -19,7 +19,7 @@ export function not (validator, value, schema, key, path) {
         path: path,
         constrain: 'not',
         messages: [
-          compileTemplate(i18n.errorNot)
+          compileTemplate(validator.translator.translate('errorNot'))
         ]
       })
     }

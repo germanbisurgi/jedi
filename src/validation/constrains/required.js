@@ -1,6 +1,5 @@
 import { compileTemplate, isObject, isSet } from '../../helpers/utils.js'
 import { getSchemaRequired } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function required (validator, value, schema, key, path) {
   const errors = []
@@ -23,7 +22,7 @@ export function required (validator, value, schema, key, path) {
         path: path,
         constrain: 'required',
         messages: [
-          compileTemplate(i18n.errorRequired, {
+          compileTemplate(validator.translator.translate('errorRequired'), {
             required: missingProperties.join(', ')
           })
         ]

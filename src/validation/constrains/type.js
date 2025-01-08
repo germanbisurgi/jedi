@@ -10,7 +10,6 @@ import {
   isString
 } from '../../helpers/utils.js'
 import { getSchemaType } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function type (validator, value, schema, key, path) {
   const errors = []
@@ -46,7 +45,7 @@ export function type (validator, value, schema, key, path) {
         path: path,
         constrain: 'type',
         messages: [
-          compileTemplate(i18n.errorType, {
+          compileTemplate(validator.translator.translate('errorType'), {
             type: type,
             valueType: getType(value)
           })

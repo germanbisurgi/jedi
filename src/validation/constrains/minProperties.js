@@ -1,6 +1,5 @@
 import { compileTemplate, isObject, isSet } from '../../helpers/utils.js'
 import { getSchemaMinProperties } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function minProperties (validator, value, schema, key, path) {
   const errors = []
@@ -15,7 +14,7 @@ export function minProperties (validator, value, schema, key, path) {
         path: path,
         constrain: 'minProperties',
         messages: [
-          compileTemplate(i18n.errorMinProperties, {
+          compileTemplate(validator.translator.translate('errorMinProperties'), {
             minProperties: minProperties
           })
         ]

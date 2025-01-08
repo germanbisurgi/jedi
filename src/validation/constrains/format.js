@@ -1,6 +1,5 @@
 import { compileTemplate, isSet, isString } from '../../helpers/utils.js'
 import { getSchemaFormat, getSchemaXOption } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function format (validator, value, schema, key, path) {
   const errors = []
@@ -33,7 +32,7 @@ export function format (validator, value, schema, key, path) {
         path: path,
         constrain: 'format',
         messages: [
-          compileTemplate(i18n.errorFormat, { format: format })
+          compileTemplate(validator.translator.translate('errorFormat'), { format: format })
         ]
       })
     }

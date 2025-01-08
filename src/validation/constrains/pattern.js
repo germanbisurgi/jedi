@@ -1,6 +1,5 @@
 import { compileTemplate, isSet, isString } from '../../helpers/utils.js'
 import { getSchemaPattern } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function pattern (validator, value, schema, key, path) {
   const errors = []
@@ -15,7 +14,7 @@ export function pattern (validator, value, schema, key, path) {
         path: path,
         constrain: 'pattern',
         messages: [
-          compileTemplate(i18n.errorPattern, {
+          compileTemplate(validator.translator.translate('errorPattern'), {
             pattern: pattern
           })
         ]

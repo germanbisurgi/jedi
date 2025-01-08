@@ -1,6 +1,5 @@
 import { compileTemplate, isNumber, isSet } from '../../helpers/utils.js'
 import { getSchemaExclusiveMinimum } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function exclusiveMinimum (validator, value, schema, key, path) {
   const errors = []
@@ -14,7 +13,7 @@ export function exclusiveMinimum (validator, value, schema, key, path) {
         path: path,
         constrain: 'exclusiveMinimum',
         messages: [
-          compileTemplate(i18n.errorExclusiveMinimum, {
+          compileTemplate(validator.translator.translate('errorExclusiveMinimum'), {
             exclusiveMinimum: exclusiveMinimum
           })
         ]

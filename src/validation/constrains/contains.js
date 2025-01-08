@@ -1,7 +1,6 @@
 import { compileTemplate, isArray, isSet } from '../../helpers/utils.js'
 import Jedi from '../../jedi.js'
 import { getSchemaContains, getSchemaMaxContains, getSchemaMinContains } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function contains (validator, value, schema, key, path) {
   const errors = []
@@ -33,7 +32,7 @@ export function contains (validator, value, schema, key, path) {
           path: path,
           constrain: 'minContains',
           messages: [
-            compileTemplate(i18n.errorMinContains, {
+            compileTemplate(validator.translator.translate('errorMinContains'), {
               counter: counter,
               minContains: minContains
             })
@@ -45,7 +44,7 @@ export function contains (validator, value, schema, key, path) {
         errors.push({
           path: path,
           constrain: 'contains',
-          messages: [i18n.errorContains]
+          messages: [validator.translator.translate('errorContains')]
         })
       }
     }
@@ -58,7 +57,7 @@ export function contains (validator, value, schema, key, path) {
           path: path,
           constrain: 'maxContains',
           messages: [
-            compileTemplate(i18n.errorMaxContains, {
+            compileTemplate(validator.translator.translate('errorMaxContains'), {
               counter: counter,
               maxContains: maxContains
             })

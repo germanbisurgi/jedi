@@ -13,6 +13,7 @@ class Validator {
   constructor (config = {}) {
     this.refParser = config.refParser
     this.assertFormat = config.assertFormat ? config.assertFormat : false
+    this.translator = config.translator ? config.translator : false
     this.draft = draft202012
 
     this.jsonSchemaDrafts = {

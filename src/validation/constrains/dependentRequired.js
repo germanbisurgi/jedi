@@ -1,6 +1,5 @@
 import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils.js'
 import { getSchemaDependentRequired } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function dependentRequired (validator, value, schema, key, path) {
   const errors = []
@@ -26,7 +25,7 @@ export function dependentRequired (validator, value, schema, key, path) {
         path: path,
         constrain: 'dependentRequired',
         messages: [
-          compileTemplate(i18n.errorDependentRequired, {
+          compileTemplate(validator.translator.translate('errorDependentRequired'), {
             dependentRequired: missingProperties.join(', ')
           })
         ]

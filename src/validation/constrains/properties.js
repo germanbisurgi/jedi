@@ -1,7 +1,6 @@
 import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils.js'
 import Jedi from '../../jedi.js'
 import { getSchemaProperties } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function properties (validator, value, schema, key, path) {
   const schemaProperties = getSchemaProperties(schema)
@@ -33,7 +32,7 @@ export function properties (validator, value, schema, key, path) {
       path: path,
       constraint: 'properties',
       messages: [
-        compileTemplate(i18n.errorProperties, { properties: invalidProperties.join(', ') })
+        compileTemplate(validator.translator.translate('errorProperties'), { properties: invalidProperties.join(', ') })
       ]
     }]
   }

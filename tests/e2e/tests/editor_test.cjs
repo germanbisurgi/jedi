@@ -132,3 +132,18 @@ Scenario('@editor @showValidationErrors should programmatically display validati
   I._waitForText('Must have value of: {"test":"test"}', '[data-path="#/object"]')
   I._waitForText('Must have value of: "test"', '[data-path="#/multiple"]')
 })
+
+Scenario('@editor be abler to use @translations', ({ I }) => {
+  I.amOnPage(`playground.html?theme=${theme}`)
+  I._waitForElement('.jedi-ready')
+  I.selectOption('#examples', 'validator/const')
+  I.selectOption('#language', 'de')
+  I._click('#show-validation-errors')
+  I._waitForText('Muss den Wert "test" haben', '[data-path="#/string"]')
+  I._waitForText('Muss den Wert 2.5 haben', '[data-path="#/number"]')
+  I._waitForText('Muss den Wert 3 haben', '[data-path="#/integer"]')
+  I._waitForText('Muss den Wert true haben', '[data-path="#/boolean"]')
+  I._waitForText('Muss den Wert ["test"] haben', '[data-path="#/array"]')
+  I._waitForText('Muss den Wert {"test":"test"} haben', '[data-path="#/object"]')
+  I._waitForText('Muss den Wert "test" haben', '[data-path="#/multiple"]')
+})

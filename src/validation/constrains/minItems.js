@@ -1,6 +1,5 @@
 import { compileTemplate, isArray, isSet } from '../../helpers/utils.js'
 import { getSchemaMinItems } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function minItems (validator, value, schema, key, path) {
   const errors = []
@@ -14,7 +13,7 @@ export function minItems (validator, value, schema, key, path) {
         path: path,
         constrain: 'minItems',
         messages: [
-          compileTemplate(i18n.errorMinItems, {
+          compileTemplate(validator.translator.translate('errorMinItems'), {
             minItems: minItems
           })
         ]

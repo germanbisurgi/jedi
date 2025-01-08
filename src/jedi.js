@@ -23,6 +23,8 @@ import {
 } from './helpers/schema.js'
 import { bootstrapIcons, fontAwesome3, fontAwesome4, fontAwesome5, fontAwesome6, glyphicons } from './themes/icons/icons.js'
 import UiResolver from './ui-resolver.js'
+import translations from './i18n/translations.js'
+import Translator from './i18n/translator.js'
 
 /**
  * Represents a Jedi instance.
@@ -55,7 +57,9 @@ class Jedi extends EventEmitter {
       customEditors: [],
       hiddenInputAttributes: {},
       id: '',
-      radiosInline: false
+      radiosInline: false,
+      language: 'en',
+      translations: translations
     }, options)
 
     /**
@@ -81,6 +85,14 @@ class Jedi extends EventEmitter {
      * @type {Jedi}
      */
     this.root = null
+
+    /**
+     * The Validator instance used to translate UI texts and error messages
+     * @type {Translator}
+     */
+    this.translator = new Translator({
+      language: this.options.language
+    })
 
     /**
      * The Validator instance used to validate instance values
@@ -149,7 +161,11 @@ class Jedi extends EventEmitter {
     }
 
     this.schema = this.options.schema
-    this.validator = new Validator({ refParser: this.refParser, assertFormat: this.options.assertFormat })
+    this.validator = new Validator({
+      refParser: this.refParser,
+      assertFormat: this.options.assertFormat,
+      translator: this.translator
+    })
 
     this.root = this.createInstance({
       jedi: this,

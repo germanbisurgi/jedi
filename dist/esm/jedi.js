@@ -440,39 +440,6 @@ function allOf(validator, value, schema, key, path) {
   }
   return errors;
 }
-const i18n = {
-  errorAdditionalProperties: 'Has additional property "{{ property }}" but no additional properties are allowed.',
-  errorAnyOf: "Must validate against at least one of the provided schemas.",
-  errorConst: "Must have value of: {{ const }}.",
-  errorContains: "Must contain at least one item matching the provided schema.",
-  errorDependentRequired: "Must have the required properties: {{ dependentRequired }}.",
-  errorEnum: "Must be one of the enumerated values: {{ enum }}.",
-  errorExclusiveMaximum: "Must be less than {{ exclusiveMaximum }}.",
-  errorExclusiveMinimum: "Must be greater than {{ exclusiveMinimum }}.",
-  errorFormat: "Must be a valid {{ format }}.",
-  errorItems: "Must have items that validate against the provided schema.",
-  errorMaximum: "Must be at most {{ maximum }}.",
-  errorMaxItems: "Must have at most {{ maxItems }} items.",
-  errorMaxLength: "Must be at most {{ maxLength }} characters long.",
-  errorMaxProperties: "Must have at most {{ maxProperties }} properties.",
-  errorMaxContains: "Must contain at most {{ maxContains }} items matching the provided schema. It currently contains {{ counter }}.",
-  errorMinContains: "Must contain at least {{ minContains }} items matching the provided schema. It currently contains {{ counter }}.",
-  errorMinimum: "Must be at least {{ minimum }}.",
-  errorMinItems: "Must have at least {{ minItems }} items.",
-  errorMinLength: "Must be at least {{ minLength }} characters long.",
-  errorMinProperties: "Must have at least {{ minProperties }} properties.",
-  errorMultipleOf: "Must be multiple of {{ multipleOf }}.",
-  errorNot: "Must not validate against the provided schema.",
-  errorOneOf: "Must validate against exactly one of the provided schemas. It currently validates against {{ counter }} of the schemas.",
-  errorPattern: 'Must match the pattern: "{{ pattern }}".',
-  errorPrefixItems: "Item {{ index }} fails validation.",
-  errorPropertyNames: 'Property name "{{ propertyName }}" fails validation.',
-  errorProperties: "The following properties do not comply with their schemas: {{ properties }}",
-  errorRequired: "Must have the required properties: {{ required }}.",
-  errorType: "Must be of type {{ type }}.",
-  errorUnevaluatedProperties: 'Has invalid unevaluated property "{{ property }}"',
-  errorUniqueItems: "Must have unique items."
-};
 function minLength(validator, value, schema, key, path) {
   const errors = [];
   const minLength2 = getSchemaMinLength(schema);
@@ -484,7 +451,7 @@ function minLength(validator, value, schema, key, path) {
         path,
         constrain: "minLength",
         messages: [
-          compileTemplate(i18n.errorMinLength, {
+          compileTemplate(validator.translator.translate("errorMinLength"), {
             minLength: minLength2
           })
         ]
@@ -511,7 +478,7 @@ function anyOf(validator, value, schema, key, path) {
         path,
         constrain: "anyOf",
         messages: [
-          i18n.errorAnyOf
+          validator.translator.translate("errorAnyOf")
         ]
       });
     }
@@ -528,7 +495,7 @@ function _enum(validator, value, schema, key, path) {
         path,
         constrain: "enum",
         messages: [
-          compileTemplate(i18n.errorEnum, {
+          compileTemplate(validator.translator.translate("errorEnum"), {
             enum: JSON.stringify(schemaEnum)
           })
         ]
@@ -547,7 +514,7 @@ function exclusiveMaximum(validator, value, schema, key, path) {
         path,
         constrain: "exclusiveMaximum",
         messages: [
-          compileTemplate(i18n.errorExclusiveMaximum, {
+          compileTemplate(validator.translator.translate("errorExclusiveMaximum"), {
             exclusiveMaximum: exclusiveMaximum2
           })
         ]
@@ -566,7 +533,7 @@ function exclusiveMinimum(validator, value, schema, key, path) {
         path,
         constrain: "exclusiveMinimum",
         messages: [
-          compileTemplate(i18n.errorExclusiveMinimum, {
+          compileTemplate(validator.translator.translate("errorExclusiveMinimum"), {
             exclusiveMinimum: exclusiveMinimum2
           })
         ]
@@ -599,7 +566,7 @@ function format(validator, value, schema, key, path) {
         path,
         constrain: "format",
         messages: [
-          compileTemplate(i18n.errorFormat, { format: format2 })
+          compileTemplate(validator.translator.translate("errorFormat"), { format: format2 })
         ]
       });
     }
@@ -616,7 +583,7 @@ function items(validator, value, schema, key, path) {
       errors.push({
         path,
         constrain: "items",
-        messages: [i18n.errorItems]
+        messages: [validator.translator.translate("errorItems")]
       });
     }
   }
@@ -632,7 +599,7 @@ function maxItems(validator, value, schema, key, path) {
         path,
         constrain: "maxItems",
         messages: [
-          compileTemplate(i18n.errorMaxItems, {
+          compileTemplate(validator.translator.translate("errorMaxItems"), {
             maxItems: maxItems2
           })
         ]
@@ -652,7 +619,7 @@ function maxLength(validator, value, schema, key, path) {
         path,
         constrain: "maxLength",
         messages: [
-          compileTemplate(i18n.errorMaxLength, {
+          compileTemplate(validator.translator.translate("errorMaxLength"), {
             maxLength: maxLength2
           })
         ]
@@ -672,7 +639,7 @@ function maxProperties(validator, value, schema, key, path) {
         path,
         constrain: "maxProperties",
         messages: [
-          compileTemplate(i18n.errorMaxProperties, {
+          compileTemplate(validator.translator.translate("errorMaxProperties"), {
             maxProperties: maxProperties2
           })
         ]
@@ -691,7 +658,7 @@ function minimum(validator, value, schema, key, path) {
         path,
         constrain: "minimum",
         messages: [
-          compileTemplate(i18n.errorMinimum, {
+          compileTemplate(validator.translator.translate("errorMinimum"), {
             minimum: minimum2
           })
         ]
@@ -710,7 +677,7 @@ function minItems(validator, value, schema, key, path) {
         path,
         constrain: "minItems",
         messages: [
-          compileTemplate(i18n.errorMinItems, {
+          compileTemplate(validator.translator.translate("errorMinItems"), {
             minItems: minItems2
           })
         ]
@@ -730,7 +697,7 @@ function minProperties(validator, value, schema, key, path) {
         path,
         constrain: "minProperties",
         messages: [
-          compileTemplate(i18n.errorMinProperties, {
+          compileTemplate(validator.translator.translate("errorMinProperties"), {
             minProperties: minProperties2
           })
         ]
@@ -753,7 +720,7 @@ function multipleOf(validator, value, schema, key, path) {
         path,
         constrain: "multipleOf",
         messages: [
-          compileTemplate(i18n.errorMultipleOf, {
+          compileTemplate(validator.translator.translate("errorMultipleOf"), {
             multipleOf: multipleOf2
           })
         ]
@@ -775,7 +742,7 @@ function not(validator, value, schema, key, path) {
         path,
         constrain: "not",
         messages: [
-          compileTemplate(i18n.errorNot)
+          compileTemplate(validator.translator.translate("errorNot"))
         ]
       });
     }
@@ -800,7 +767,7 @@ function oneOf(validator, value, schema, key, path) {
         path,
         constrain: "oneOf",
         messages: [
-          compileTemplate(i18n.errorOneOf, {
+          compileTemplate(validator.translator.translate("errorOneOf"), {
             counter
           })
         ]
@@ -820,7 +787,7 @@ function pattern(validator, value, schema, key, path) {
         path,
         constrain: "pattern",
         messages: [
-          compileTemplate(i18n.errorPattern, {
+          compileTemplate(validator.translator.translate("errorPattern"), {
             pattern: pattern2
           })
         ]
@@ -883,7 +850,7 @@ function properties(validator, value, schema, key, path) {
       path,
       constraint: "properties",
       messages: [
-        compileTemplate(i18n.errorProperties, { properties: invalidProperties.join(", ") })
+        compileTemplate(validator.translator.translate("errorProperties"), { properties: invalidProperties.join(", ") })
       ]
     }];
   }
@@ -906,7 +873,7 @@ function required(validator, value, schema, key, path) {
         path,
         constrain: "required",
         messages: [
-          compileTemplate(i18n.errorRequired, {
+          compileTemplate(validator.translator.translate("errorRequired"), {
             required: missingProperties.join(", ")
           })
         ]
@@ -944,7 +911,7 @@ function type(validator, value, schema, key, path) {
         path,
         constrain: "type",
         messages: [
-          compileTemplate(i18n.errorType, {
+          compileTemplate(validator.translator.translate("errorType"), {
             type: type2,
             valueType: getType(value)
           })
@@ -964,7 +931,7 @@ function maximum(validator, value, schema, key, path) {
         path,
         constrain: "maximum",
         messages: [
-          compileTemplate(i18n.errorMaximum, {
+          compileTemplate(validator.translator.translate("errorMaximum"), {
             maximum: maximum2
           })
         ]
@@ -996,7 +963,7 @@ function uniqueItems(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         messages: [
-          i18n.errorUniqueItems
+          validator.translator.translate("errorUniqueItems")
         ],
         path,
         constrain: "uniqueItems"
@@ -1026,7 +993,7 @@ function additionalProperties(validator, value, schema, key, path) {
             path,
             constrain: "additionalProperties",
             messages: [
-              compileTemplate(i18n.errorAdditionalProperties, { property })
+              compileTemplate(validator.translator.translate("errorAdditionalProperties"), { property })
             ]
           });
         } else if (isObject(additionalProperties2)) {
@@ -1086,7 +1053,7 @@ function _const(validator, value, schema, key, path) {
         path,
         constrain: "const",
         messages: [
-          compileTemplate(i18n.errorConst, {
+          compileTemplate(validator.translator.translate("errorConst"), {
             const: JSON.stringify(schemaConst)
           })
         ]
@@ -1118,7 +1085,7 @@ function contains(validator, value, schema, key, path) {
           path,
           constrain: "minContains",
           messages: [
-            compileTemplate(i18n.errorMinContains, {
+            compileTemplate(validator.translator.translate("errorMinContains"), {
               counter,
               minContains
             })
@@ -1130,7 +1097,7 @@ function contains(validator, value, schema, key, path) {
         errors.push({
           path,
           constrain: "contains",
-          messages: [i18n.errorContains]
+          messages: [validator.translator.translate("errorContains")]
         });
       }
     }
@@ -1141,7 +1108,7 @@ function contains(validator, value, schema, key, path) {
           path,
           constrain: "maxContains",
           messages: [
-            compileTemplate(i18n.errorMaxContains, {
+            compileTemplate(validator.translator.translate("errorMaxContains"), {
               counter,
               maxContains
             })
@@ -1171,7 +1138,7 @@ function dependentRequired(validator, value, schema, key, path) {
         path,
         constrain: "dependentRequired",
         messages: [
-          compileTemplate(i18n.errorDependentRequired, {
+          compileTemplate(validator.translator.translate("errorDependentRequired"), {
             dependentRequired: missingProperties.join(", ")
           })
         ]
@@ -1250,7 +1217,7 @@ function prefixItems(validator, value, schema, key, path) {
             path,
             constrain: "prefixItems",
             messages: [
-              compileTemplate(i18n.errorPrefixItems, {
+              compileTemplate(validator.translator.translate("errorPrefixItems"), {
                 index: index2
               })
             ]
@@ -1367,7 +1334,7 @@ function unevaluatedProperties(validator, value, schema, key, path) {
             path,
             constrain: "unevaluatedProperties",
             messages: [
-              compileTemplate(i18n.errorUnevaluatedProperties, {
+              compileTemplate(validator.translator.translate("errorUnevaluatedProperties"), {
                 property
               })
             ]
@@ -1444,7 +1411,7 @@ function propertyNames(validator, value, schema, key, path) {
           path,
           constrain: "propertyNames",
           messages: [
-            compileTemplate(i18n.errorPropertyNames, { propertyName })
+            compileTemplate(validator.translator.translate("errorPropertyNames"), { propertyName })
           ]
         });
       }
@@ -1491,6 +1458,7 @@ class Validator {
   constructor(config = {}) {
     this.refParser = config.refParser;
     this.assertFormat = config.assertFormat ? config.assertFormat : false;
+    this.translator = config.translator ? config.translator : false;
     this.draft = draft202012;
     this.jsonSchemaDrafts = {
       "http://json-schema.org/draft-04/schema#": draft04,
@@ -3846,6 +3814,129 @@ class UiResolver {
     return null;
   }
 }
+const translations = {
+  en: {
+    errorAdditionalProperties: 'Has additional property "{{ property }}" but no additional properties are allowed.',
+    errorAnyOf: "Must validate against at least one of the provided schemas.",
+    errorConst: "Must have value of: {{ const }}.",
+    errorContains: "Must contain at least one item matching the provided schema.",
+    errorDependentRequired: "Must have the required properties: {{ dependentRequired }}.",
+    errorEnum: "Must be one of the enumerated values: {{ enum }}.",
+    errorExclusiveMaximum: "Must be less than {{ exclusiveMaximum }}.",
+    errorExclusiveMinimum: "Must be greater than {{ exclusiveMinimum }}.",
+    errorFormat: "Must be a valid {{ format }}.",
+    errorItems: "Must have items that validate against the provided schema.",
+    errorMaximum: "Must be at most {{ maximum }}.",
+    errorMaxItems: "Must have at most {{ maxItems }} items.",
+    errorMaxLength: "Must be at most {{ maxLength }} characters long.",
+    errorMaxProperties: "Must have at most {{ maxProperties }} properties.",
+    errorMaxContains: "Must contain at most {{ maxContains }} items matching the provided schema. It currently contains {{ counter }}.",
+    errorMinContains: "Must contain at least {{ minContains }} items matching the provided schema. It currently contains {{ counter }}.",
+    errorMinimum: "Must be at least {{ minimum }}.",
+    errorMinItems: "Must have at least {{ minItems }} items.",
+    errorMinLength: "Must be at least {{ minLength }} characters long.",
+    errorMinProperties: "Must have at least {{ minProperties }} properties.",
+    errorMultipleOf: "Must be multiple of {{ multipleOf }}.",
+    errorNot: "Must not validate against the provided schema.",
+    errorOneOf: "Must validate against exactly one of the provided schemas. It currently validates against {{ counter }} of the schemas.",
+    errorPattern: 'Must match the pattern: "{{ pattern }}".',
+    errorPrefixItems: "Item {{ index }} fails validation.",
+    errorPropertyNames: 'Property name "{{ propertyName }}" fails validation.',
+    errorProperties: "The following properties do not comply with their schemas: {{ properties }}",
+    errorRequired: "Must have the required properties: {{ required }}.",
+    errorType: "Must be of type {{ type }}.",
+    errorUnevaluatedProperties: 'Has invalid unevaluated property "{{ property }}"',
+    errorUniqueItems: "Must have unique items."
+  },
+  de: {
+    errorAdditionalProperties: 'Hat die zusätzliche Eigenschaft "{{ property }}", aber keine zusätzlichen Eigenschaften sind erlaubt.',
+    errorAnyOf: "Muss mindestens einem der bereitgestellten Schemata entsprechen.",
+    errorConst: "Muss den Wert {{ const }} haben.",
+    errorContains: "Muss mindestens ein Element enthalten, das dem bereitgestellten Schema entspricht.",
+    errorDependentRequired: "Muss die erforderlichen Eigenschaften haben: {{ dependentRequired }}.",
+    errorEnum: "Muss einer der aufgeführten Werte sein: {{ enum }}.",
+    errorExclusiveMaximum: "Muss kleiner als {{ exclusiveMaximum }} sein.",
+    errorExclusiveMinimum: "Muss größer als {{ exclusiveMinimum }} sein.",
+    errorFormat: "Muss ein gültiges {{ format }} sein.",
+    errorItems: "Muss Elemente enthalten, die dem bereitgestellten Schema entsprechen.",
+    errorMaximum: "Muss höchstens {{ maximum }} sein.",
+    errorMaxItems: "Darf höchstens {{ maxItems }} Elemente enthalten.",
+    errorMaxLength: "Darf höchstens {{ maxLength }} Zeichen lang sein.",
+    errorMaxProperties: "Darf höchstens {{ maxProperties }} Eigenschaften haben.",
+    errorMaxContains: "Darf höchstens {{ maxContains }} Elemente enthalten, die dem bereitgestellten Schema entsprechen. Aktuell enthält es {{ counter }}.",
+    errorMinContains: "Muss mindestens {{ minContains }} Elemente enthalten, die dem bereitgestellten Schema entsprechen. Aktuell enthält es {{ counter }}.",
+    errorMinimum: "Muss mindestens {{ minimum }} sein.",
+    errorMinItems: "Muss mindestens {{ minItems }} Elemente enthalten.",
+    errorMinLength: "Muss mindestens {{ minLength }} Zeichen lang sein.",
+    errorMinProperties: "Muss mindestens {{ minProperties }} Eigenschaften haben.",
+    errorMultipleOf: "Muss ein Vielfaches von {{ multipleOf }} sein.",
+    errorNot: "Darf nicht dem bereitgestellten Schema entsprechen.",
+    errorOneOf: "Muss genau einem der bereitgestellten Schemata entsprechen. Derzeit entspricht es {{ counter }} der Schemata.",
+    errorPattern: 'Muss dem Muster "{{ pattern }}" entsprechen.',
+    errorPrefixItems: "Element {{ index }} entspricht nicht der Validierung.",
+    errorPropertyNames: 'Der Eigenschaftsname "{{ propertyName }}" entspricht nicht der Validierung.',
+    errorProperties: "Die folgenden Eigenschaften entsprechen nicht ihren Schemata: {{ properties }}",
+    errorRequired: "Muss die erforderlichen Eigenschaften haben: {{ required }}.",
+    errorType: "Muss vom Typ {{ type }} sein.",
+    errorUnevaluatedProperties: 'Hat eine ungültige nicht bewertete Eigenschaft "{{ property }}"',
+    errorUniqueItems: "Muss eindeutige Elemente haben."
+  }
+};
+const defaultTranslations = {
+  errorAdditionalProperties: 'Has additional property "{{ property }}" but no additional properties are allowed.',
+  errorAnyOf: "Must validate against at least one of the provided schemas.",
+  errorConst: "Must have value of: {{ const }}.",
+  errorContains: "Must contain at least one item matching the provided schema.",
+  errorDependentRequired: "Must have the required properties: {{ dependentRequired }}.",
+  errorEnum: "Must be one of the enumerated values: {{ enum }}.",
+  errorExclusiveMaximum: "Must be less than {{ exclusiveMaximum }}.",
+  errorExclusiveMinimum: "Must be greater than {{ exclusiveMinimum }}.",
+  errorFormat: "Must be a valid {{ format }}.",
+  errorItems: "Must have items that validate against the provided schema.",
+  errorMaximum: "Must be at most {{ maximum }}.",
+  errorMaxItems: "Must have at most {{ maxItems }} items.",
+  errorMaxLength: "Must be at most {{ maxLength }} characters long.",
+  errorMaxProperties: "Must have at most {{ maxProperties }} properties.",
+  errorMaxContains: "Must contain at most {{ maxContains }} items matching the provided schema. It currently contains {{ counter }}.",
+  errorMinContains: "Must contain at least {{ minContains }} items matching the provided schema. It currently contains {{ counter }}.",
+  errorMinimum: "Must be at least {{ minimum }}.",
+  errorMinItems: "Must have at least {{ minItems }} items.",
+  errorMinLength: "Must be at least {{ minLength }} characters long.",
+  errorMinProperties: "Must have at least {{ minProperties }} properties.",
+  errorMultipleOf: "Must be multiple of {{ multipleOf }}.",
+  errorNot: "Must not validate against the provided schema.",
+  errorOneOf: "Must validate against exactly one of the provided schemas. It currently validates against {{ counter }} of the schemas.",
+  errorPattern: 'Must match the pattern: "{{ pattern }}".',
+  errorPrefixItems: "Item {{ index }} fails validation.",
+  errorPropertyNames: 'Property name "{{ propertyName }}" fails validation.',
+  errorProperties: "The following properties do not comply with their schemas: {{ properties }}",
+  errorRequired: "Must have the required properties: {{ required }}.",
+  errorType: "Must be of type {{ type }}.",
+  errorUnevaluatedProperties: 'Has invalid unevaluated property "{{ property }}"',
+  errorUniqueItems: "Must have unique items."
+};
+class Translator {
+  constructor(config) {
+    this.language = config.language || "en";
+    this.defaultTranslations = defaultTranslations;
+    this.translations = translations;
+  }
+  translate(message) {
+    let translation = this.translations[this.language][message];
+    if (notSet(translation)) {
+      translation = this.defaultTranslations[message];
+    }
+    return translation;
+  }
+  /**
+   * Deletes all properties of the class
+   */
+  destroy() {
+    Object.keys(this).forEach((key) => {
+      delete this[key];
+    });
+  }
+}
 class Jedi extends EventEmitter {
   /**
    * Creates a Jedi instance.
@@ -3873,12 +3964,17 @@ class Jedi extends EventEmitter {
       customEditors: [],
       hiddenInputAttributes: {},
       id: "",
-      radiosInline: false
+      radiosInline: false,
+      language: "en",
+      translations
     }, options);
     this.rootName = "#";
     this.pathSeparator = "/";
     this.instances = {};
     this.root = null;
+    this.translator = new Translator({
+      language: this.options.language
+    });
     this.validator = null;
     this.schema = {};
     this.theme = null;
@@ -3919,7 +4015,11 @@ class Jedi extends EventEmitter {
       }
     }
     this.schema = this.options.schema;
-    this.validator = new Validator({ refParser: this.refParser, assertFormat: this.options.assertFormat });
+    this.validator = new Validator({
+      refParser: this.refParser,
+      assertFormat: this.options.assertFormat,
+      translator: this.translator
+    });
     this.root = this.createInstance({
       jedi: this,
       schema: this.options.schema,

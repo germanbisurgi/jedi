@@ -1,7 +1,6 @@
 import { compileTemplate, isArray, isSet } from '../../helpers/utils.js'
 import Jedi from '../../jedi.js'
 import { getSchemaPrefixItems } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function prefixItems (validator, value, schema, key, path) {
   const errors = []
@@ -21,7 +20,7 @@ export function prefixItems (validator, value, schema, key, path) {
             path: path,
             constrain: 'prefixItems',
             messages: [
-              compileTemplate(i18n.errorPrefixItems, {
+              compileTemplate(validator.translator.translate('errorPrefixItems'), {
                 index: index
               })
             ]

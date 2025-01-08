@@ -1,0 +1,19 @@
+{
+  "type": "number",
+  "title": "Number radios",
+  "description": "The number type is used for any numeric type, either integers or floating point numbers.",
+  "default": 1,
+  "enum": [
+    0,
+    1,
+    2
+  ],
+  "x-options": {
+    "format": "radios-inline",
+    "info": {
+      "variant": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
+  }
+}

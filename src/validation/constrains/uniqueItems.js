@@ -1,6 +1,5 @@
 import { isArray, isObject, isSet, sortObject } from '../../helpers/utils.js'
 import { getSchemaUniqueItems } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function uniqueItems (validator, value, schema, key, path) {
   const errors = []
@@ -32,7 +31,7 @@ export function uniqueItems (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         messages: [
-          i18n.errorUniqueItems
+          validator.translator.translate('errorUniqueItems')
         ],
         path: path,
         constrain: 'uniqueItems'

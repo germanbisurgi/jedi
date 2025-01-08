@@ -1,6 +1,5 @@
 import { compileTemplate, isSet } from '../../helpers/utils.js'
 import { getSchemaEnum } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function _enum (validator, value, schema, key, path) {
   const errors = []
@@ -14,7 +13,7 @@ export function _enum (validator, value, schema, key, path) {
         path: path,
         constrain: 'enum',
         messages: [
-          compileTemplate(i18n.errorEnum, {
+          compileTemplate(validator.translator.translate('errorEnum'), {
             enum: JSON.stringify(schemaEnum)
           })
         ]

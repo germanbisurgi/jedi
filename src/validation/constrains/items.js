@@ -1,6 +1,5 @@
 import { isArray, isSet } from '../../helpers/utils.js'
 import { getSchemaItems, getSchemaPrefixItems } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function items (validator, value, schema, key, path) {
   const errors = []
@@ -14,7 +13,7 @@ export function items (validator, value, schema, key, path) {
       errors.push({
         path: path,
         constrain: 'items',
-        messages: [i18n.errorItems]
+        messages: [validator.translator.translate('errorItems')]
       })
     }
   }

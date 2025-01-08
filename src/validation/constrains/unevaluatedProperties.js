@@ -10,7 +10,6 @@ import {
   getSchemaProperties,
   getSchemaAnyOf, getSchemaAllOf, getSchemaOneOf
 } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function unevaluatedProperties (validator, value, schema, key, path) {
   let errors = []
@@ -59,7 +58,7 @@ export function unevaluatedProperties (validator, value, schema, key, path) {
             path: path,
             constrain: 'unevaluatedProperties',
             messages: [
-              compileTemplate(i18n.errorUnevaluatedProperties, {
+              compileTemplate(validator.translator.translate('errorUnevaluatedProperties'), {
                 property: property
               })
             ]

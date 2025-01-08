@@ -1,7 +1,6 @@
 import Jedi from '../../jedi.js'
 import { isSet } from '../../helpers/utils.js'
 import { getSchemaAnyOf } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function anyOf (validator, value, schema, key, path) {
   const errors = []
@@ -25,7 +24,7 @@ export function anyOf (validator, value, schema, key, path) {
         path: path,
         constrain: 'anyOf',
         messages: [
-          i18n.errorAnyOf
+          validator.translator.translate('errorAnyOf')
         ]
       })
     }

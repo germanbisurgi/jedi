@@ -5,7 +5,6 @@
 import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils.js'
 import Jedi from '../../jedi.js'
 import { getSchemaAdditionalProperties, getSchemaPatternProperties, getSchemaProperties } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function additionalProperties (validator, value, schema, key, path) {
   const errors = []
@@ -32,7 +31,7 @@ export function additionalProperties (validator, value, schema, key, path) {
             path,
             constrain: 'additionalProperties',
             messages: [
-              compileTemplate(i18n.errorAdditionalProperties, { property })
+              compileTemplate(validator.translator.translate('errorAdditionalProperties'), { property })
             ]
           })
         } else if (isObject(additionalProperties)) {

@@ -1,6 +1,5 @@
 import { compileTemplate, isSet, isString } from '../../helpers/utils.js'
 import { getSchemaMaxLength } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function maxLength (validator, value, schema, key, path) {
   const errors = []
@@ -15,7 +14,7 @@ export function maxLength (validator, value, schema, key, path) {
         path: path,
         constrain: 'maxLength',
         messages: [
-          compileTemplate(i18n.errorMaxLength, {
+          compileTemplate(validator.translator.translate('errorMaxLength'), {
             maxLength: maxLength
           })
         ]

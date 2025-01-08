@@ -80,6 +80,13 @@
           </div>
 
           <div class="form-group mb-3">
+            <label for="language">language</label>
+            <select class="form-control" id="language" v-model="language" @change="reload()">
+              <option v-for="language in languageOptions" :value="language">{{ language }}</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-3">
             <label for="show-errors">showErrors</label>
             <select class="form-control" id="show-errors" v-model="showErrors" @change="reload()">
               <option v-for="showErrors in showErrorsOptions" :value="showErrors">{{ showErrors }}</option>
@@ -125,10 +132,12 @@ import arrayNavTabs from './json/editors/array-nav-tabs.json'
 import booleanCheckbox from './json/editors/boolean-checkbox.json'
 import booleanSelect from './json/editors/boolean-select.json'
 import booleanRadios from './json/editors/boolean-radios.json'
+import booleanRadiosInline from './json/editors/boolean-radios-inline.json'
 import integerInput from './json/editors/integer-input.json'
 import nullJson from './json/editors/null.json'
 import numberInput from './json/editors/number-input.json'
-import numberRadio from './json/editors/number-radios.json'
+import numberRadios from './json/editors/number-radios.json'
+import numberRadiosInline from './json/editors/number-radios-inline.json'
 import numberSelect from './json/editors/number-select.json'
 import objectJson from './json/editors/object.json'
 import objectGrid from './json/editors/object-grid.json'
@@ -136,6 +145,7 @@ import objectNavPills from './json/editors/object-nav-pills.json'
 import objectNavTabs from './json/editors/object-nav-tabs.json'
 import objectPropertyOrder from './json/editors/object-propertyOrder.json'
 import stringRadios from './json/editors/string-radios.json'
+import stringRadiosInline from './json/editors/string-radios-inline.json'
 import stringSelect from './json/editors/string-select.json'
 import stringInput from './json/editors/string-input.json'
 import stringTextarea from './json/editors/string-textarea.json'
@@ -208,11 +218,13 @@ export default {
           'editors/array-table': arrayNavTable,
           'editors/boolean-checkbox': booleanCheckbox,
           'editors/boolean-radios': booleanRadios,
+          'editors/boolean-radios-inline': booleanRadiosInline,
           'editors/boolean-select': booleanSelect,
           'editors/integer-input': integerInput,
           'editors/null': nullJson,
           'editors/number-input': numberInput,
-          'editors/number-radios': numberRadio,
+          'editors/number-radios': numberRadios,
+          'editors/number-radios-inline': numberRadiosInline,
           'editors/number-select': numberSelect,
           'editors/object': objectJson,
           'editors/object-grid': objectGrid,
@@ -220,6 +232,7 @@ export default {
           'editors/object-nav-tabs': objectNavTabs,
           'editors/object-propertyOrder': objectPropertyOrder,
           'editors/string-radios': stringRadios,
+          'editors/string-radios-inline': stringRadiosInline,
           'editors/string-select': stringSelect,
           'editors/string-input': stringInput,
           'editors/string-textarea': stringTextarea
@@ -306,6 +319,10 @@ export default {
         'change',
         'always'
       ],
+      languageOptions: [
+        'en',
+        'de'
+      ],
       enablePropertiesToggle: true,
       enableCollapseToggle: true,
       schema: all,
@@ -313,6 +330,7 @@ export default {
       theme: 'barebones',
       iconLib: 'bootstrap-icons',
       showErrors: 'change',
+      language: 'en',
       assertFormat: false,
       enforceEnumDefault: true
     }
@@ -322,6 +340,7 @@ export default {
     this.iconLib = this.getQueryParam('iconLib') || 'fontawesome5'
     this.example = this.getQueryParam('example') || 'editors/all'
     this.showErrors = this.getQueryParam('showErrors') || 'change'
+    this.language = this.getQueryParam('language') || 'en'
     this.assertFormat = this.getQueryParam('assertFormat') ? this.parseBooleanString(this.getQueryParam('assertFormat')) : false
     this.enforceEnumDefault = this.getQueryParam('enforceEnumDefault') ? this.parseBooleanString(this.getQueryParam('enforceEnumDefault')) : true
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
@@ -431,10 +450,16 @@ export default {
 
       const options = {
         container: document.querySelector('#jedi-container'),
+        translations: {
+          en: {
+            errorEnum: 'LOL'
+          }
+        },
         enablePropertiesToggle: this.enablePropertiesToggle,
         enableCollapseToggle: this.enableCollapseToggle,
         iconLib: this.iconLib,
         showErrors: this.showErrors,
+        language: this.language,
         assertFormat: this.assertFormat,
         enforceEnumDefault: this.enforceEnumDefault,
         schema: this.schema,
@@ -494,6 +519,7 @@ export default {
       newUrl += "&iconLib=" + this.iconLib
       newUrl += "&example=" + this.example
       newUrl += "&showErrors=" + this.showErrors
+      newUrl += "&language=" + this.language
       newUrl += "&assertFormat=" + this.assertFormat
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
@@ -507,6 +533,7 @@ export default {
       newUrl += "&iconLib=" + this.iconLib
       newUrl += "&example=" + this.example
       newUrl += "&showErrors=" + this.showErrors
+      newUrl += "&language=" + this.language
       newUrl += "&assertFormat=" + this.assertFormat
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle

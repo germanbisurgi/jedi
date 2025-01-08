@@ -1,6 +1,5 @@
 import { compileTemplate, isArray, isSet } from '../../helpers/utils.js'
 import { getSchemaMaxItems } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function maxItems (validator, value, schema, key, path) {
   const errors = []
@@ -14,7 +13,7 @@ export function maxItems (validator, value, schema, key, path) {
         path: path,
         constrain: 'maxItems',
         messages: [
-          compileTemplate(i18n.errorMaxItems, {
+          compileTemplate(validator.translator.translate('errorMaxItems'), {
             maxItems: maxItems
           })
         ]

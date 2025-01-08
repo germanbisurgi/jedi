@@ -1,6 +1,5 @@
 import { compileTemplate, isNumber, isSet } from '../../helpers/utils.js'
 import { getSchemaMultipleOf } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function multipleOf (validator, value, schema, key, path) {
   const errors = []
@@ -19,7 +18,7 @@ export function multipleOf (validator, value, schema, key, path) {
         path: path,
         constrain: 'multipleOf',
         messages: [
-          compileTemplate(i18n.errorMultipleOf, {
+          compileTemplate(validator.translator.translate('errorMultipleOf'), {
             multipleOf: multipleOf
           })
         ]

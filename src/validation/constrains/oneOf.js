@@ -1,7 +1,6 @@
 import { compileTemplate, isSet } from '../../helpers/utils.js'
 import Jedi from '../../jedi.js'
 import { getSchemaOneOf } from '../../helpers/schema.js'
-import { i18n } from '../../i18n.js'
 
 export function oneOf (validator, value, schema, key, path) {
   const errors = []
@@ -25,7 +24,7 @@ export function oneOf (validator, value, schema, key, path) {
         path: path,
         constrain: 'oneOf',
         messages: [
-          compileTemplate(i18n.errorOneOf, {
+          compileTemplate(validator.translator.translate('errorOneOf'), {
             counter: counter
           })
         ]
