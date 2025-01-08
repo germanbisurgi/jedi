@@ -619,27 +619,16 @@ Use radios to display color names instead of hex codes.
     - [editors/object-nav-pills](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-pills&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
     - [editors/object-nav-tabs](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-tabs&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
 
-### `gridColumns`
+### `grid`
 
-- Type: `number`
-- Description: Number of columns occupied by the editor when parent editor has `"format": "grid"`
+- Type: `object`
+- Description: A configuration object to determine the position of the property editor in the parent's grid.
+- Options:
+    - `columns`: How many columns should the editor occupy.
+    - `offset`: How many columns should the editor be offseted.
+    - `newRow`: Whether the editor should be put in a new row.
 - Examples:
     - [editors/object-grid](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-grid&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-
-### `gridOffset`
-
-- Type: `number`
-- Description: Number of offset columns the editor when parent editor has `"format": "grid"`
-- Examples:
-    - [editors/object-grid](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-grid&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-
-### `gridNewRow`
-
-- Type: `boolean`
-- Description: Whether the editor should be placed into a new row. Works only if parent editor has `"format": "grid"`
-- Examples:
-  - [editors/object-grid](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-grid&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-
 
 ### `enableCollapseToggle`
 
