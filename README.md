@@ -233,6 +233,24 @@ init()
       <td><code>''</code></td>
       <td>Used to prefix <code>id</code> and <code>for</code> attributes</td>
     </tr>
+    <tr align="left">
+      <td><code>laguage</code></td>
+      <td><code>string</code></td>
+      <td><code>'en'</code></td>
+      <td>Set default language for error messages and UI texts</td>
+    </tr>
+    <tr align="left">
+      <td><code>translations</code></td>
+      <td><code>object</code></td>
+      <td><code>'{}'</code></td>
+      <td>Used to add new translations or override the default ones.
+<pre>translations: {
+  en: {
+    errorEnum: 'LOL'
+  }
+}</pre>
+</td>
+    </tr>
   </tbody>
 </table>
 

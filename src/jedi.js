@@ -23,7 +23,6 @@ import {
 } from './helpers/schema.js'
 import { bootstrapIcons, fontAwesome3, fontAwesome4, fontAwesome5, fontAwesome6, glyphicons } from './themes/icons/icons.js'
 import UiResolver from './ui-resolver.js'
-import translations from './i18n/translations.js'
 import Translator from './i18n/translator.js'
 
 /**
@@ -59,7 +58,7 @@ class Jedi extends EventEmitter {
       id: '',
       radiosInline: false,
       language: 'en',
-      translations: translations
+      translations: {}
     }, options)
 
     /**
@@ -91,7 +90,8 @@ class Jedi extends EventEmitter {
      * @type {Translator}
      */
     this.translator = new Translator({
-      language: this.options.language
+      language: this.options.language,
+      translations: this.options.translations
     })
 
     /**
