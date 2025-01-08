@@ -450,11 +450,6 @@ export default {
 
       const options = {
         container: document.querySelector('#jedi-container'),
-        translations: {
-          en: {
-            errorEnum: 'LOL'
-          }
-        },
         enablePropertiesToggle: this.enablePropertiesToggle,
         enableCollapseToggle: this.enableCollapseToggle,
         iconLib: this.iconLib,
