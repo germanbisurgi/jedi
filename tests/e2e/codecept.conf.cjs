@@ -15,6 +15,9 @@ exports.config = {
       windowSize: '1200x600',
       restart: false,
       waitForNavigation: [ 'load', 'networkidle0' ],
+      chrome: {
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+      }
     },
     ChaiWrapper: {
       require: 'codeceptjs-chai'
