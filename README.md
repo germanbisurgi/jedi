@@ -25,6 +25,7 @@ Generates forms from JSON schemas. Can be used in backend to validate JSON data 
     - [enforceConst](#enforceconst)
     - [switcherTitle](#switchertitle)
     - [format](#format)
+- [Language and Translations](#language-and-translations)
 - [License](#license)
 - [Resources](#resources)
 
@@ -739,6 +740,81 @@ Use radios to display color names instead of hex codes.
 - Examples:
     - [editors/object-nav-pills](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-pills&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
     - [editors/object-nav-tabs](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-tabs&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+
+## Language and Translations
+
+The default language for UI and error messages is `en` (english). The language can be set to any of
+the supported languages in the instance options.
+
+This will set german as the default language:
+
+```javascript
+  const jedi = new Jedi.Create({
+    language: 'de'
+  })
+```
+
+Currently, the supported languages are `en` (english), `de` (german), `it` (italian) and `es` (spanish).
+New languages can be added to the `translations` option. To use them the `language` options
+should be set to the language specified.
+
+The default translation can be overridden in the instance options as well.
+
+```javascript
+  const jedi = new Jedi.Create({
+    language: 'de',
+    translations: {
+      de: {
+        errorAdditionalProperties: 'Hat die zusätzliche Eigenschaft "{{ property }}", aber keine zusätzlichen Eigenschaften sind erlaubt.',
+        errorAnyOf: 'Muss mindestens einem der bereitgestellten Schemata entsprechen.',
+        errorConst: 'Muss den Wert {{ const }} haben.',
+        errorContains: 'Muss mindestens ein Element enthalten, das dem bereitgestellten Schema entspricht.',
+        errorDependentRequired: 'Muss die erforderlichen Eigenschaften haben: {{ dependentRequired }}.',
+        errorEnum: 'Muss einer der aufgeführten Werte sein: {{ enum }}.',
+        errorExclusiveMaximum: 'Muss kleiner als {{ exclusiveMaximum }} sein.',
+        errorExclusiveMinimum: 'Muss größer als {{ exclusiveMinimum }} sein.',
+        errorFormat: 'Muss ein gültiges {{ format }} sein.',
+        errorItems: 'Muss Elemente enthalten, die dem bereitgestellten Schema entsprechen.',
+        errorMaximum: 'Muss höchstens {{ maximum }} sein.',
+        errorMaxItems: 'Darf höchstens {{ maxItems }} Elemente enthalten.',
+        errorMaxLength: 'Darf höchstens {{ maxLength }} Zeichen lang sein.',
+        errorMaxProperties: 'Darf höchstens {{ maxProperties }} Eigenschaften haben.',
+        errorMaxContains: 'Darf höchstens {{ maxContains }} Elemente enthalten, die dem bereitgestellten Schema entsprechen. Aktuell enthält es {{ counter }}.',
+        errorMinContains: 'Muss mindestens {{ minContains }} Elemente enthalten, die dem bereitgestellten Schema entsprechen. Aktuell enthält es {{ counter }}.',
+        errorMinimum: 'Muss mindestens {{ minimum }} sein.',
+        errorMinItems: 'Muss mindestens {{ minItems }} Elemente enthalten.',
+        errorMinLength: 'Muss mindestens {{ minLength }} Zeichen lang sein.',
+        errorMinProperties: 'Muss mindestens {{ minProperties }} Eigenschaften haben.',
+        errorMultipleOf: 'Muss ein Vielfaches von {{ multipleOf }} sein.',
+        errorNot: 'Darf nicht dem bereitgestellten Schema entsprechen.',
+        errorOneOf: 'Muss genau einem der bereitgestellten Schemata entsprechen. Derzeit entspricht es {{ counter }} der Schemata.',
+        errorPattern: 'Muss dem Muster "{{ pattern }}" entsprechen.',
+        errorPrefixItems: 'Element {{ index }} entspricht nicht der Validierung.',
+        errorPropertyNames: 'Der Eigenschaftsname "{{ propertyName }}" entspricht nicht der Validierung.',
+        errorProperties: 'Die folgenden Eigenschaften entsprechen nicht ihren Schemata: {{ properties }}',
+        errorRequired: 'Muss die erforderlichen Eigenschaften haben: {{ required }}.',
+        errorType: 'Muss vom Typ {{ type }} sein.',
+        errorUnevaluatedProperties: 'Hat eine ungültige nicht bewertete Eigenschaft "{{ property }}"',
+        errorUniqueItems: 'Muss eindeutige Elemente haben.'
+      }
+    }
+  })
+```
+
+The text between brackets like `{{ minimum }}` or `{{ minLength }}` are templates.
+This templates will be replaced dynamically with values specified in constrains.
+
+The error message for the following schema will be "Muss mindestens `3` Zeichen lang sein."
+because of the `minLength: 3`.
+
+```json
+{
+  "title": "Email",
+  "format": "email",
+  "type": "string",
+  "minLength": 3
+}
+```
 
 ## License
 

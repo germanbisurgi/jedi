@@ -1,6 +1,6 @@
 import defaultTranslations from './default-translations.js'
 import translations from './translations.js'
-import {mergeDeep, notSet} from '../helpers/utils.js'
+import { mergeDeep, notSet } from '../helpers/utils.js'
 
 class Translator {
   constructor (config) {
