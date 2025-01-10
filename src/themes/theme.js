@@ -31,6 +31,7 @@ class Theme {
    */
   getFieldset () {
     const html = document.createElement('fieldset')
+    html.setAttribute('role', 'group')
     html.classList.add('jedi-editor-fieldset')
     return html
   }
@@ -39,24 +40,24 @@ class Theme {
    * Represents a caption for the content of its parent fieldset
    */
   getLegend (config) {
+    const legendLabelId = 'legend-label-' + config.id
     const legend = document.createElement('legend')
     legend.style.fontSize = 'inherit'
     legend.classList.add('jedi-editor-legend')
-    legend.setAttribute('aria-labelledby', '#legend-' + config.id)
+    legend.setAttribute('aria-labelledby', legendLabelId)
 
     const legendText = document.createElement('label')
     legendText.innerHTML = this.purifyContent(config.content)
     legendText.classList.add('jedi-editor-legend-text')
-    legendText.setAttribute('id', '#legend-' + config.id)
-    legendText.setAttribute('for', config.id + '-dummy-input')
+    legendText.setAttribute('id', legendLabelId)
 
     const dummyInput = document.createElement('input')
     this.visuallyHidden(dummyInput)
-    dummyInput.setAttribute('id', config.id + '-dummy-input')
-    dummyInput.setAttribute('aria-hidde', 'true')
+    dummyInput.setAttribute('aria-hidden', 'true')
+    dummyInput.setAttribute('type', 'hidden')
 
     legend.appendChild(legendText)
-    legend.appendChild(dummyInput)
+    legendText.appendChild(dummyInput)
 
     return { legend, legendText }
   }
@@ -66,6 +67,7 @@ class Theme {
    */
   getRadioFieldset () {
     const fieldset = document.createElement('fieldset')
+    fieldset.setAttribute('role', 'group')
     fieldset.classList.add('jedi-editor-radio-fieldset')
     fieldset.style.marginBottom = '15px'
     fieldset.style.fontSize = 'inherit'
@@ -76,24 +78,24 @@ class Theme {
    * Represents a caption for the content of its parent fieldset
    */
   getRadioLegend (config) {
+    const legendLabelId = 'legend-label-' + config.id
     const legend = document.createElement('legend')
     legend.style.fontSize = 'inherit !important'
     legend.classList.add('jedi-editor-legend')
-    legend.setAttribute('aria-labelledby', '#legend-' + config.id)
+    legend.setAttribute('aria-labelledby', legendLabelId)
 
     const legendText = document.createElement('label')
     legendText.innerHTML = this.purifyContent(config.content)
     legendText.classList.add('jedi-editor-legend-text')
-    legendText.setAttribute('id', '#legend-' + config.id)
-    legendText.setAttribute('for', config.id + '-dummy-input')
+    legendText.setAttribute('id', legendLabelId)
 
     const dummyInput = document.createElement('input')
     this.visuallyHidden(dummyInput)
-    dummyInput.setAttribute('id', config.id + '-dummy-input')
-    dummyInput.setAttribute('aria-hidde', 'true')
+    dummyInput.setAttribute('aria-hidden', 'true')
+    dummyInput.setAttribute('type', 'hidden')
 
     legend.appendChild(legendText)
-    legend.appendChild(dummyInput)
+    legendText.appendChild(dummyInput)
 
     return { legend, legendText }
   }
@@ -287,6 +289,12 @@ class Theme {
     }
 
     let collapsed = config.startCollapsed
+
+    if (collapsed) {
+      toggle.setAttribute('aria-expanded', 'false')
+    } else {
+      toggle.setAttribute('aria-expanded', 'true')
+    }
 
     toggle.style.transition = 'transform 0.1s ease'
 
@@ -1547,6 +1555,7 @@ class Theme {
     invalidFeedbackIcon.textContent = '⚠ '
     invalidFeedbackIcon.classList.add('jedi-error-message')
     invalidFeedbackIcon.setAttribute('aria-hidden', 'true')
+
     html.classList.add('jedi-error-message')
     html.appendChild(invalidFeedbackIcon)
     html.appendChild(invalidFeedbackText)

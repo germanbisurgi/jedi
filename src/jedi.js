@@ -257,6 +257,7 @@ class Jedi extends EventEmitter {
     this.hiddenInput = hiddenControl.input
     this.hiddenInput.setAttribute('name', 'json')
     this.hiddenInput.removeAttribute('aria-describedby')
+    this.hiddenInput.removeAttribute('aria-hidden', 'true')
 
     if (this.options.hiddenInputAttributes && isObject(this.options.hiddenInputAttributes)) {
       Object.keys(this.options.hiddenInputAttributes).forEach(attr => {

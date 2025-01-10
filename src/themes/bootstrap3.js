@@ -348,6 +348,7 @@ class ThemeBootstrap3 extends Theme {
     const modalId = id + '-modal'
 
     modal.setAttribute('role', 'dialog')
+    modal.setAttribute('aria-modal', 'true')
     modal.setAttribute('id', modalId)
     closeBtn.setAttribute('data-dismiss', 'modal')
     info.info.setAttribute('data-toggle', 'modal')

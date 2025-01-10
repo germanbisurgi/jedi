@@ -321,7 +321,9 @@ export default {
       ],
       languageOptions: [
         'en',
-        'de'
+        'de',
+        'it',
+        'es'
       ],
       enablePropertiesToggle: true,
       enableCollapseToggle: true,

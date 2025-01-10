@@ -37,6 +37,7 @@ class ThemeBootstrap5 extends Theme {
 
   getFieldset () {
     const fieldset = document.createElement('fieldset')
+    fieldset.setAttribute('role', 'group')
     fieldset.classList.add('card')
     fieldset.classList.add('mb-3')
     return fieldset
@@ -357,6 +358,7 @@ class ThemeBootstrap5 extends Theme {
     const modalId = id + '-modal'
 
     modal.setAttribute('role', 'dialog')
+    modal.setAttribute('aria-modal', 'true')
     modal.setAttribute('id', modalId)
     closeBtn.setAttribute('data-bs-dismiss', 'modal')
     info.info.setAttribute('data-bs-toggle', 'modal')
