@@ -1,57 +1,17 @@
 {
-  "type": "object",
-  "properties": {
-    "array": {
-      "type": "array",
-      "title": "Array",
-      "description": "Arrays are used for ordered elements. In JSON, each element in an array may be of a different type."
-    },
-    "items": {
-      "type": "array",
-      "title": "items",
-      "description": "List validation is useful for arrays of arbitrary length where each item matches the same schema. For this kind of array, set the items keyword to a single schema that will be used to validate all of the items in the array. In the following example, we define that each item in an array is a number:",
-      "items": {
-        "title": "This is a number editor",
-        "type": "number"
-      },
-      "x-options": {
-        "sortable": true,
-        "info": {
-          "variant": "modal",
-          "title": "<h4>Info Button title</h4>",
-          "content": "<p>Info button content</p>"
-        }
-      }
-    },
-    "prefixItems": {
-      "type": "array",
-      "title": "prefixItems",
-      "description": "prefixItems is an array, where each item is a schema that corresponds to each index of the document’s array. That is, an array where the first element validates the first element of the input array, the second element validates the second element of the input array, etc.",
-      "prefixItems": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "string"
-        },
-        {
-          "type": "string",
-          "enum": [
-            "Street",
-            "Avenue",
-            "Boulevard"
-          ]
-        },
-        {
-          "type": "string",
-          "enum": [
-            "NW",
-            "NE",
-            "SW",
-            "SE"
-          ]
-        }
-      ]
+  "type": "array",
+  "title": "Array",
+  "description": "Arrays are used for ordered elements. In JSON, each element in an array may be of a different type.",
+  "items": {
+    "title": "I am an array item editor",
+    "type": "string"
+  },
+  "x-options": {
+    "sortable": true,
+    "info": {
+      "variant": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
     }
   }
 }

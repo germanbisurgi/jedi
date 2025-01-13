@@ -1,6 +1,6 @@
 {
   "type": "array",
-  "title": "Colors",
+  "title": "People",
   "x-options": {
     "titleTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
     "format": "nav",

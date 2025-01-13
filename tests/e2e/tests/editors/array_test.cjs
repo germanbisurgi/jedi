@@ -26,24 +26,6 @@ Scenario('@editor @array should have @infoButton', ({I}) => {
   I.waitForInvisible('Info button content')
 })
 
-Scenario('@editor @array should validate against @items', ({ I }) => {
-  I._scrollTo('[data-path="#"]')
-  I._click('[data-path="#/items"] .jedi-array-add')
-  I._waitForText('This is a number editor', '[data-path="#/items"] [data-type="number"]')
-})
-
-Scenario('@editor @array should validate against @prefixItems', ({ I }) => {
-  I._scrollTo('[data-path="#"]')
-  I._click('[data-path="#/prefixItems"] .jedi-array-add')
-  I._click('[data-path="#/prefixItems"] .jedi-array-add')
-  I._click('[data-path="#/prefixItems"] .jedi-array-add')
-  I._click('[data-path="#/prefixItems"] .jedi-array-add')
-  I._waitForElement('[data-path="#/prefixItems/0"][data-type="number"]')
-  I._waitForElement('[data-path="#/prefixItems/1"][data-type="string"]')
-  I._waitForElement('[data-path="#/prefixItems/2"][data-type="string"]')
-  I._waitForElement('[data-path="#/prefixItems/3"][data-type="string"]')
-})
-
 Scenario('@array-object @enableCollapseToggle should collapse and expand contents', ({ I }) => {
   I._click('.jedi-collapse-toggle')
   I.waitForInvisible('.jedi-editor-card-body')

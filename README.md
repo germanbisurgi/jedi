@@ -26,6 +26,25 @@ Generates forms from JSON schemas. Can be used in backend to validate JSON data 
     - [switcherTitle](#switchertitle)
     - [format](#format)
 - [Language and Translations](#language-and-translations)
+- [Editors](#editors)
+  - [Array](#array)
+  - [Array checkboxes](#array-checkboxes)
+  - [Array nav](#array-nav)
+  - [Array table](#array-table)
+  - [Boolean checkbox](#boolean-checkbox)
+  - [Boolean radios](#boolean-radios)
+  - [Boolean select](#boolean-select)
+  - [Number input](#number-input)
+  - [Number radios](#number-radios)
+  - [Number select](#number-select)
+  - [Number select](#number-select)
+  - [Object select](#object)
+  - [Object grid](#object-grid)
+  - [Object nav](#object-nav)
+  - [String input](#string-input)
+  - [String radios](#string-radios)
+  - [String select](#string-select)
+  - [String textarea](#string-textarea)
 - [License](#license)
 - [Resources](#resources)
 
@@ -813,6 +832,502 @@ because of the `minLength: 3`.
   "format": "email",
   "type": "string",
   "minLength": 3
+}
+```
+
+## Editors
+
+An editor is a UI that allows users to input data and finally edit the relative json instance.
+Editors can be as simple as a checkbox input filed for a boolean, or as complex as a wysiwyg rich text editor
+for a string representing html.
+The type of editor greatly depends on the type of json data that it's connected to and the keywords
+present in it's json schema.
+
+Virtually all editors can have the following features:
+- `title`: text for labels or legends
+- `description`: text for descriptions
+- `info`: `x-options` to configure extra info about the editor.
+- `inputAttributes`: `x-options` to add or override input attributes if the editor has an input.
+
+```json
+{
+  "type": "string",
+  "title": "label text for this editor",
+  "description": "description text for this editor",
+  "x-options": {
+    "info": {
+      "variant": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    },
+    "inputAttributes": {
+      "placeholder": "placeholder text"
+    }
+  }
+}
+```
+
+### Array
+A fieldset that can contain list of child editors. Each child editor correspond to an items in the array.
+Child editors are placed from top to bottom and occupy the whole with available.
+
+- Has buttons to add, delete and sort items.
+- Can be collapsed and expanded.
+- Items can be sort via drag and drop if Sortable.js is present and `"soratble": true` is set in `x-options` 
+
+```json
+{
+  "type": "array",
+  "title": "Array",
+  "description": "Arrays are used for ordered elements. In JSON, each element in an array may be of a different type.",
+  "items": {
+    "title": "I am an array item editor",
+    "type": "string"
+  },
+  "x-options": {
+    "sortable": true
+  }
+}
+```
+
+### Array checkboxes
+A fieldset to containing a list of enumerated editors. Each editor is represented by a checkboxes.
+Works only if the items are of type `string`, `number` or `integer`.
+
+```json
+{
+  "title": "Array",
+  "description": "Array of unique values wich item types can be string, number or integer",
+  "type": "array",
+  "uniqueItems": true,
+  "items": {
+    "enum": [
+      "value1",
+      "value2"
+    ]
+  }
+}
+```
+
+### Array nav
+A fieldset to containing a list of enumerated editors. Each editor is represented by a checkboxes.
+Works only if the items are of type `string`, `number` or `integer`.
+
+options:
+- `nav` Nav configuration options:
+    - `variant`: `"pills` | `"tabs`
+    - `stacked` Whether to stack navi items.
+    - `columns` Number of columns occupied by the nav.
+- `titleTemplate` is used to dynamically generate the nav items text. The parameters available are:
+  - `{{ i0 }}` is the index of the item starting by 0. 
+  - `{{ i1 }}` is the index of the item starting by 1. More useful for end users.
+  - `{{ value }}` The value of the items.
+
+```json
+{
+  "type": "array",
+  "title": "People",
+  "x-options": {
+    "format": "nav",
+    "nav": {
+      "variant": "pills",
+      "stacked": true,
+      "columns": 12
+    },
+    "titleTemplate": "{{ i1 }} {{ value.name }}"
+  },
+  "items": {
+    "type": "object",
+    "title": "Person",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string"
+      }
+    }
+  },
+  "default": [
+    {
+      "name": "Albert"
+    }
+  ]
+}
+```
+
+### Array table
+A table where each item editor is rendered in a new table row. Useful for array of objects.
+
+```json
+{
+  "title": "users",
+  "type": "array",
+  "x-options": {
+    "sortable": true,
+    "format": "table"
+  },
+  "items": {
+    "type": "object",
+    "title": "Person",
+    "description": "User",
+    "properties": {
+      "name": {
+        "type": "string",
+        "title": "Name"
+      }
+    }
+  },
+  "default": [
+    { "name": "Albert" },
+    { "name": "Betti" }
+  ]
+}
+```
+
+### Boolean checkbox
+Renders a type checkbox input
+
+```json
+{
+  "type": "boolean",
+  "title": "Boolean",
+  "x-options": {
+    "format": "checkbox"
+  }
+}
+```
+
+### Boolean radios
+Renders two type radio inputs. The radio labels can be customized with the 
+`enumTitles` option. 
+
+```json
+{
+  "type": "boolean",
+  "title": "Boolean",
+  "x-options": {
+    "format": "radios",
+    "enumTitles": [
+      "Yes",
+      "No"
+    ]
+  }
+}
+```
+
+Inline variant
+
+```json
+{
+  "type": "boolean",
+  "title": "Boolean",
+  "x-options": {
+    "format": "radios-inline",
+    "enumTitles": [
+      "Yes",
+      "No"
+    ]
+  }
+}
+```
+
+### Boolean select
+Renders type select input with 2 options. The options labels can be customized with the
+`enumTitles` option.
+
+```json
+{
+  "type": "boolean",
+  "title": "Boolean",
+  "x-options": {
+    "format": "select",
+    "enumTitles": [
+      "Yes",
+      "No"
+    ]
+  }
+}
+```
+
+### Number input
+Renders type number input. Handles `number`and `integer` types.
+
+```json
+{
+  "type": "number",
+  "title": "Number"
+}
+```
+
+### Number radios
+Renders as many radio type inputs as values in the `enum` constraint. The radio labels can be customized with the
+`enumTitles` option. Handles `number`and `integer` types.
+
+```json
+{
+  "type": "number",
+  "title": "Quantity",
+  "enum": [
+    0,
+    1,
+    2
+  ],
+  "x-options": {
+    "format": "radios",
+    "enumTitles": [
+      "None",
+      "One",
+      "A pair"
+    ]
+  }
+}
+```
+
+Inline variant
+
+```json
+{
+  "type": "number",
+  "title": "Quantity",
+  "enum": [
+    0,
+    1,
+    2
+  ],
+  "x-options": {
+    "format": "radios-inline",
+    "enumTitles": [
+      "None",
+      "One",
+      "A pair"
+    ]
+  }
+}
+```
+
+### Number select
+Renders as many radio type inputs as values in the `enum` constraint. The options labels can be customized with the
+`enumTitles` option. Handles `number`and `integer` types.
+
+```json
+{
+  "type": "number",
+  "title": "Quantity",
+  "enum": [
+    0,
+    1,
+    2
+  ],
+  "x-options": {
+    "enumTitles": [
+      "None",
+      "One",
+      "A pair"
+    ]
+  }
+}
+```
+
+### Object
+Renders a fieldset that will contain it properties editors.
+The fieldset can be collapsed or expanded.
+
+```json
+{
+  "type": "object",
+  "title": "Login",
+  "properties": {
+    "email": {
+      "title": "E-Mail",
+      "type": "string",
+      "format": "email"
+    },
+    "password": {
+      "title": "Password",
+      "type": "string",
+      "minLength": 8
+    }
+  }
+}
+```
+
+### Object grid
+Renders a fieldset that will contain it properties editors and use a grid system to position
+its property editors.
+The fieldset can be collapsed or expanded.
+
+```json
+{
+  "type": "object",
+  "title": "Login",
+  "x-options": {
+    "format": "grid"
+  },
+  "properties": {
+    "email": {
+      "title": "E-Mail",
+      "type": "string",
+      "format": "email",
+      "x-options": {
+        "grid": {
+          "columns": 6
+        }
+      }
+    },
+    "password": {
+      "title": "Password",
+      "type": "string",
+      "minLength": 8,
+      "x-options": {
+        "grid": {
+          "columns": 6
+        }
+      }
+    }
+  }
+}
+```
+
+### Object nav
+Renders a fieldset that will contain it properties editors.
+The fieldset can be collapsed or expanded.
+
+options:
+- `nav` Nav configuration options:
+    - `variant`: `"pills` | `"tabs`
+    - `stacked` Whether to stack navi items.
+    - `columns` Number of columns occupied by the nav.
+
+```json
+{
+  "x-options": {
+    "format": "nav",
+    "nav": {
+      "variant": "pills",
+      "stacked": true
+    }
+  },
+  "type": "object",
+  "title": "All Editors",
+  "properties": {
+    "personA": {
+      "title": "Person A",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "personB": {
+      "title": "Person B",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}
+```
+
+### String input
+Renders type text input.
+
+```json
+{
+  "type": "string",
+  "title": "String"
+}
+```
+
+### String radios
+Renders as many radio type inputs as values in the `enum` constraint. The radio labels can be customized with the
+`enumTitles` option.
+
+```json
+{
+  "type": "string",
+  "title": "String radios",
+  "enum": [
+    "albert",
+    "betti",
+    "carl"
+  ],
+  "x-options": {
+    "format": "radios",
+    "enumTitles": [
+      "Albert",
+      "Betti",
+      "Carl"
+    ]
+  }
+}
+```
+
+Inline variant
+
+```json
+{
+  "type": "string",
+  "title": "String radios",
+  "enum": [
+    "albert",
+    "betti",
+    "carl"
+  ],
+  "x-options": {
+    "format": "radios-inline",
+    "enumTitles": [
+      "Albert",
+      "Betti",
+      "Carl"
+    ]
+  }
+}
+```
+
+### String select
+Renders as many radio type inputs as values in the `enum` constraint. The options labels can be customized with the
+`enumTitles` option.
+
+```json
+{
+  "type": "string",
+  "title": "String select",
+  "enum": [
+    "albert",
+    "betti",
+    "carl"
+  ],
+  "x-options": {
+    "enumTitles": [
+      "Albert",
+      "Betti",
+      "Carl"
+    ]
+  }
+}
+```
+
+### String textarea
+Renders a textarea.
+
+```json
+{
+  "type": "string",
+  "title": "String",
+  "x-options": {
+    "format": "textarea"
+  }
 }
 ```
 

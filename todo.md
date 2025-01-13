@@ -1,7 +1,10 @@
 ## Todo
 
+- README
+  -  
+
 - playground
-  - first example in playground should be real life form
+  - array titleTemplate
 
 - jedi
   - complementary schema (for ui stuff)
@@ -18,6 +21,7 @@
   - simplemde
 
 - editors
+  - Add inout attributes based on constrains (min max,...) but allow overwriting
   - remove not needed action containers
   - fix infoButton when format table
   - input range
@@ -35,6 +39,7 @@
   - option hideButton labels
   - set input names like id
   - make theme methods options more consistent (text, textContent, content, getIcon, etc)
+  - array-checkbox not limited by item type?
 
 - tests
   - navigate with Tab key
