@@ -1,11 +1,6 @@
 {
   "x-options": {
-    "format": "nav",
-    "nav": {
-      "variant": "tabs",
-      "stacked": false,
-      "columns": 12
-    },
+    "format": "nav-vertical",
     "info": {
       "variant": "modal",
       "title": "<h4>Info Button title</h4>",

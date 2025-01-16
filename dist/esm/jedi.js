@@ -3112,7 +3112,10 @@ class EditorObjectGrid extends EditorObject {
 }
 class EditorObjectNav extends EditorObject {
   static resolves(schema) {
-    return getSchemaType(schema) === "object" && getSchemaXOption(schema, "format") === "nav";
+    const format2 = getSchemaXOption(schema, "format");
+    const regex = /^nav-(horizontal|vertical(?:-\d+)?)$/;
+    const hasNavFormat = regex.test(format2);
+    return getSchemaType(schema) === "object" && hasNavFormat;
   }
   init() {
     super.init();
@@ -3122,17 +3125,17 @@ class EditorObjectNav extends EditorObject {
     while (this.control.childrenSlot.firstChild) {
       this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild);
     }
-    const navOptions = getSchemaXOption(this.instance.schema, "nav") || {};
-    const navVariant = navOptions.variant ?? "pills";
-    const navStacked = navOptions.stacked ?? false;
-    const navColumns = navOptions.columns ?? 4;
+    const format2 = getSchemaXOption(this.instance.schema, "format");
+    const formatParts = format2.split("-");
+    const variant = formatParts[1];
+    const columns = formatParts[2];
+    const navColumns = variant === "horizontal" ? 12 : columns ?? 4;
     const row = this.theme.getRow();
     const tabListCol = this.theme.getCol(12, navColumns);
     const tabContentCol = this.theme.getCol(12, 12 - navColumns);
     const tabContent = this.theme.getTabContent();
     const tabList = this.theme.getTabList({
-      stacked: navStacked,
-      variant: navVariant
+      variant
     });
     this.control.childrenSlot.appendChild(row);
     row.appendChild(tabListCol);
@@ -3405,7 +3408,10 @@ class EditorArrayTable extends EditorArray {
 }
 class EditorArrayNav extends EditorArray {
   static resolves(schema) {
-    return getSchemaType(schema) === "array" && getSchemaXOption(schema, "format") === "nav";
+    const format2 = getSchemaXOption(schema, "format");
+    const regex = /^nav-(horizontal|vertical(?:-\d+)?)$/;
+    const hasNavFormat = regex.test(format2);
+    return getSchemaType(schema) === "array" && hasNavFormat;
   }
   init() {
     super.init();
@@ -3420,17 +3426,17 @@ class EditorArrayNav extends EditorArray {
   refreshUI() {
     this.refreshDisabledState();
     this.control.childrenSlot.innerHTML = "";
-    const navOptions = getSchemaXOption(this.instance.schema, "nav") || {};
-    const navVariant = navOptions.variant ?? "pills";
-    const navStacked = navOptions.stacked ?? false;
-    const navColumns = navOptions.columns ?? 4;
+    const format2 = getSchemaXOption(this.instance.schema, "format");
+    const formatParts = format2.split("-");
+    const variant = formatParts[1];
+    const columns = formatParts[2];
+    const navColumns = variant === "horizontal" ? 12 : columns ?? 4;
     const row = this.theme.getRow();
     const tabListCol = this.theme.getCol(12, navColumns);
     const tabContentCol = this.theme.getCol(12, 12 - navColumns);
     const tabContent = this.theme.getTabContent();
     const tabList = this.theme.getTabList({
-      stacked: navStacked,
-      variant: navVariant
+      variant
     });
     this.control.childrenSlot.appendChild(row);
     row.appendChild(tabListCol);
@@ -6008,14 +6014,11 @@ class ThemeBootstrap3 extends Theme {
   getTabList(config) {
     const tabList = super.getTabList(config);
     tabList.classList.add("nav");
-    if (config.variant === "tabs") {
+    if (config.variant === "horizontal") {
       tabList.classList.add("nav-tabs");
     } else {
       tabList.classList.add("nav-pills");
-    }
-    tabList.classList.add("nav-stacked");
-    if (config.stacked === false) {
-      tabList.classList.remove("nav-stacked");
+      tabList.classList.add("nav-stacked");
     }
     return tabList;
   }
@@ -6331,14 +6334,11 @@ class ThemeBootstrap4 extends Theme {
   getTabList(config) {
     const tabList = super.getTabList();
     tabList.classList.add("nav");
-    if (config.variant === "tabs") {
+    if (config.variant === "horizontal") {
       tabList.classList.add("nav-tabs");
     } else {
       tabList.classList.add("nav-pills");
-    }
-    tabList.classList.add("flex-column");
-    if (config.stacked === false) {
-      tabList.classList.remove("flex-column");
+      tabList.classList.add("flex-column");
     }
     return tabList;
   }
@@ -6652,14 +6652,11 @@ class ThemeBootstrap5 extends Theme {
   getTabList(config) {
     const tabList = super.getTabList(config);
     tabList.classList.add("nav");
-    if (config.variant === "tabs") {
+    if (config.variant === "horizontal") {
       tabList.classList.add("nav-tabs");
     } else {
       tabList.classList.add("nav-pills");
-    }
-    tabList.classList.add("flex-column");
-    if (config.stacked === false) {
-      tabList.classList.remove("flex-column");
+      tabList.classList.add("flex-column");
     }
     return tabList;
   }

@@ -107,11 +107,7 @@
           "minItems": 1,
           "uniqueItems": true,
           "x-options": {
-            "format": "nav",
-            "nav": {
-              "variant": "pills",
-              "stacked": true
-            }
+            "format": "nav-vertical"
           }
         },
         "example": {
@@ -236,11 +232,7 @@
             "$ref": "#/$defs/schema"
           },
           "x-options": {
-            "format": "nav",
-            "nav": {
-              "variant": "pills",
-              "stacked": true
-            }
+            "format": "nav-vertical"
           }
         },
         "readOnly": {
@@ -255,11 +247,7 @@
             "type": "string"
           },
           "x-options": {
-            "format": "nav",
-            "nav": {
-              "variant": "pills",
-              "stacked": true
-            }
+            "format": "nav-vertical"
           }
         },
         "title": {

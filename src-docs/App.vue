@@ -127,8 +127,8 @@ import all from './json/editors/all.json'
 import array from './json/editors/array.json'
 import arrayCheckboxes from './json/editors/array-checkboxes.json'
 import arrayNavTable from './json/editors/array-table.json'
-import arrayNavPills from './json/editors/array-nav-pills.json'
-import arrayNavTabs from './json/editors/array-nav-tabs.json'
+import arrayNavVertical from './json/editors/array-nav-vertical.json'
+import arrayNavHorizontal from './json/editors/array-nav-horizontal.json'
 import booleanCheckbox from './json/editors/boolean-checkbox.json'
 import booleanSelect from './json/editors/boolean-select.json'
 import booleanRadios from './json/editors/boolean-radios.json'
@@ -141,8 +141,8 @@ import numberRadiosInline from './json/editors/number-radios-inline.json'
 import numberSelect from './json/editors/number-select.json'
 import objectJson from './json/editors/object.json'
 import objectGrid from './json/editors/object-grid.json'
-import objectNavPills from './json/editors/object-nav-pills.json'
-import objectNavTabs from './json/editors/object-nav-tabs.json'
+import objectNavVertical from './json/editors/object-nav-vertical.json'
+import objectNavHorizontal from './json/editors/object-nav-horizontal.json'
 import objectPropertyOrder from './json/editors/object-propertyOrder.json'
 import stringRadios from './json/editors/string-radios.json'
 import stringRadiosInline from './json/editors/string-radios-inline.json'
@@ -213,8 +213,8 @@ export default {
           'editors/all': all,
           'editors/array': array,
           'editors/array-checkboxes': arrayCheckboxes,
-          'editors/array-nav-pills': arrayNavPills,
-          'editors/array-nav-tabs': arrayNavTabs,
+          'editors/array-nav-vertical': arrayNavVertical,
+          'editors/array-nav-horizontal': arrayNavHorizontal,
           'editors/array-table': arrayNavTable,
           'editors/boolean-checkbox': booleanCheckbox,
           'editors/boolean-radios': booleanRadios,
@@ -228,8 +228,8 @@ export default {
           'editors/number-select': numberSelect,
           'editors/object': objectJson,
           'editors/object-grid': objectGrid,
-          'editors/object-nav-pills': objectNavPills,
-          'editors/object-nav-tabs': objectNavTabs,
+          'editors/object-nav-vertical': objectNavVertical,
+          'editors/object-nav-horizontal': objectNavHorizontal,
           'editors/object-propertyOrder': objectPropertyOrder,
           'editors/string-radios': stringRadios,
           'editors/string-radios-inline': stringRadiosInline,

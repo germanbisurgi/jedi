@@ -139,9 +139,9 @@ Scenario('@editor @object @object-grid rows and columns', ({ I }) => {
   }
 })
 
-Scenario('@editor @object @object-nav-pills', ({ I }) => {
+Scenario('@editor @object @object-nav-vertical', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.selectOption('#examples', 'editors/object-nav-pills')
+  I.selectOption('#examples', 'editors/object-nav-vertical')
   I._waitForElement('.jedi-ready')
 
   if (theme === 'barebones') {
@@ -166,9 +166,9 @@ Scenario('@editor @object @object-nav-pills', ({ I }) => {
   }
 })
 
-Scenario('@editor @object @object-nav-tabs', ({ I }) => {
+Scenario('@editor @object @object-nav-horizontal', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.selectOption('#examples', 'editors/object-nav-tabs')
+  I.selectOption('#examples', 'editors/object-nav-horizontal')
   I._waitForElement('.jedi-ready')
 
   if (theme === 'barebones') {

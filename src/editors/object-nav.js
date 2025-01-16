@@ -8,7 +8,10 @@ import { getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/sche
  */
 class EditorObjectNav extends EditorObject {
   static resolves (schema) {
-    return getSchemaType(schema) === 'object' && getSchemaXOption(schema, 'format') === 'nav'
+    const format = getSchemaXOption(schema, 'format')
+    const regex = /^nav-(horizontal|vertical(?:-\d+)?)$/
+    const hasNavFormat = regex.test(format)
+    return getSchemaType(schema) === 'object' && hasNavFormat
   }
 
   init () {
@@ -21,18 +24,17 @@ class EditorObjectNav extends EditorObject {
       this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild)
     }
 
-    const navOptions = getSchemaXOption(this.instance.schema, 'nav') || {}
-    const navVariant = navOptions.variant ?? 'pills'
-    const navStacked = navOptions.stacked ?? false
-    const navColumns = navOptions.columns ?? 4
-
+    const format = getSchemaXOption(this.instance.schema, 'format')
+    const formatParts = format.split('-')
+    const variant = formatParts[1]
+    const columns = formatParts[2]
+    const navColumns = variant === 'horizontal' ? 12 : columns ?? 4
     const row = this.theme.getRow()
     const tabListCol = this.theme.getCol(12, navColumns)
     const tabContentCol = this.theme.getCol(12, (12 - navColumns))
     const tabContent = this.theme.getTabContent()
     const tabList = this.theme.getTabList({
-      stacked: navStacked,
-      variant: navVariant
+      variant: variant
     })
 
     this.control.childrenSlot.appendChild(row)

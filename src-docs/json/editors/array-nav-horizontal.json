@@ -3,12 +3,7 @@
   "title": "array-nav-tabs",
   "x-options": {
     "titleTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
-    "format": "nav",
-    "nav": {
-      "variant": "tabs",
-      "stacked": false,
-      "columns": 12
-    },
+    "format": "nav-horizontal",
     "info": {
       "variant": "modal",
       "title": "<h4>Info Button title</h4>",

@@ -279,16 +279,11 @@ class ThemeBootstrap3 extends Theme {
     const tabList = super.getTabList(config)
     tabList.classList.add('nav')
 
-    if (config.variant === 'tabs') {
+    if (config.variant === 'horizontal') {
       tabList.classList.add('nav-tabs')
     } else {
       tabList.classList.add('nav-pills')
-    }
-
-    tabList.classList.add('nav-stacked')
-
-    if (config.stacked === false) {
-      tabList.classList.remove('nav-stacked')
+      tabList.classList.add('nav-stacked')
     }
 
     return tabList

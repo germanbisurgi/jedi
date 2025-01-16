@@ -33,9 +33,9 @@ Scenario('@array-object @enableCollapseToggle should collapse and expand content
   I.waitForVisible('.jedi-editor-card-body')
 })
 
-Scenario('@editor @array @array-nav-pills', ({ I }) => {
+Scenario('@editor @array @array-nav-vertical', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.selectOption('#examples', 'editors/array-nav-pills')
+  I.selectOption('#examples', 'editors/array-nav-vertical')
   I._waitForElement('.jedi-ready')
 
   if (theme === 'barebones') {
@@ -60,9 +60,9 @@ Scenario('@editor @array @array-nav-pills', ({ I }) => {
   }
 })
 
-Scenario('@editor @array @array-nav-tabs', ({ I }) => {
+Scenario('@editor @array @array-nav-horizontal', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
-  I.selectOption('#examples', 'editors/array-nav-tabs')
+  I.selectOption('#examples', 'editors/array-nav-horizontal')
   I._waitForElement('.jedi-ready')
 
   if (theme === 'barebones') {

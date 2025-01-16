@@ -290,19 +290,22 @@ Jedi options and as `x-options`, the `x-options` one will be applied. `x-options
 }
 ```
 
-Some options depend on other options to be set. In the example the option `"nav"` depends on the schema having 
-the option `"format": "nav"` set.
+Some options depend on other options to be set. In the example the option `"enumTitles"`
+depends on the option `"enum"`.
 
 ```json
 {
-  "title": "Person",
-  "type": "object",
+  "title": "Type",
+  "type": "string",
+  "enum": [
+    "#000000",
+    "#ffffff"
+  ],
   "x-options": {
-    "format": "nav",
-    "nav": {
-      "variant": "pills",
-      "stacked": true
-    }
+    "enumTitles": [
+      "Black",
+      "White"
+    ]
   }
 }
 ```
@@ -620,11 +623,13 @@ But in the sub-editors the titles remain:
         - `"radios-inline"`
     - Array:
         - `"list"` (default)
-        - `"nav"`
+        - `"nav-vertical"`
+        - `"nav-horizontal"`
         - `"table"`
     - Object:
         - `"list"` (default)
-        - `"nav"`
+        - `"nav-vertical"`
+        - `"nav-horizontal"`
         - `"grid"`
 - Examples:
 
@@ -644,18 +649,6 @@ Use radios to display color names instead of hex codes.
   }
 }
 ```
-
-### `nav`
-
-- Type: `object`
-- Description: Extra configuration for `"format": "nav"` depends on the schema `"type"` keyword.
-- Options:
-    - `variant`: `"pills"` | `"tabs"`.
-    - `stacked`: To stack nav items
-    - `columns`:  Number of columns occupied by the nav items container
-- Examples:
-    - [editors/object-nav-pills](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-pills&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-    - [editors/object-nav-tabs](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-tabs&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
 
 ### `grid`
 
@@ -757,8 +750,8 @@ Use radios to display color names instead of hex codes.
 - Type: `string`
 - Description: A template to form titles dynamically.
 - Examples:
-    - [editors/object-nav-pills](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-pills&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-    - [editors/object-nav-tabs](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-tabs&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+    - [editors/object-nav-vertical](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-vertical&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+    - [editors/object-nav-horizontal](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-horizontal&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
 
 ## Language and Translations
 
@@ -914,26 +907,47 @@ A fieldset to containing a list of enumerated editors. Each editor is represente
 Works only if the items are of type `string`, `number` or `integer`.
 
 options:
-- `nav` Nav configuration options:
-    - `variant`: `"pills` | `"tabs`
-    - `stacked` Whether to stack navi items.
-    - `columns` Number of columns occupied by the nav.
 - `titleTemplate` is used to dynamically generate the nav items text. The parameters available are:
   - `{{ i0 }}` is the index of the item starting by 0. 
   - `{{ i1 }}` is the index of the item starting by 1. More useful for end users.
   - `{{ value }}` The value of the items.
+
+With vertical nav
 
 ```json
 {
   "type": "array",
   "title": "People",
   "x-options": {
-    "format": "nav",
-    "nav": {
-      "variant": "pills",
-      "stacked": true,
-      "columns": 12
-    },
+    "format": "nav-vertical",
+    "titleTemplate": "{{ i1 }} {{ value.name }}"
+  },
+  "items": {
+    "type": "object",
+    "title": "Person",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string"
+      }
+    }
+  },
+  "default": [
+    {
+      "name": "Albert"
+    }
+  ]
+}
+```
+
+With horizontal nav
+
+```json
+{
+  "type": "array",
+  "title": "People",
+  "x-options": {
+    "format": "nav-horizontal",
     "titleTemplate": "{{ i1 }} {{ value.name }}"
   },
   "items": {
@@ -1191,20 +1205,52 @@ The fieldset can be collapsed or expanded.
 Renders a fieldset that will contain it properties editors.
 The fieldset can be collapsed or expanded.
 
-options:
-- `nav` Nav configuration options:
-    - `variant`: `"pills` | `"tabs`
-    - `stacked` Whether to stack navi items.
-    - `columns` Number of columns occupied by the nav.
+With vertical nav
 
 ```json
 {
   "x-options": {
-    "format": "nav",
-    "nav": {
-      "variant": "pills",
-      "stacked": true
+    "format": "nav-vertical"
+  },
+  "type": "object",
+  "title": "All Editors",
+  "properties": {
+    "personA": {
+      "title": "Person A",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "personB": {
+      "title": "Person B",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
     }
+  }
+}
+```
+
+With horizontal nav
+
+```json
+{
+  "x-options": {
+    "format": "nav-horizontal"
   },
   "type": "object",
   "title": "All Editors",
