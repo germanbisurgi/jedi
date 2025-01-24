@@ -78,6 +78,7 @@ Generates forms from JSON schemas. Can be used in backend to validate JSON data 
 ### As a Validator
 
 ```javascript
+const schema = {"type": "string"}
 const refParser = new Jedi.RefParser()
 
 const init = async () => {
@@ -85,9 +86,7 @@ const init = async () => {
 
   const jedi = new Jedi.Create({
     refParser: refParser,
-    schema: {
-      "type": "string"
-    }
+    schema: schema
   })
 }
 
@@ -102,6 +101,7 @@ init()
 ```
 
 ```javascript
+const schema = {"type": "string"}
 const refParser = new Jedi.RefParser()
 
 const init = async () => {
@@ -111,9 +111,7 @@ const init = async () => {
     container: document.querySelector('#jedi-container'),
     theme: new Jedi.ThemeBootstrap3(),
     refParser: refParser,
-    schema: {
-      "type": "string"
-    }
+    schema: schema
   })
 }
 
