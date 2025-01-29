@@ -11,6 +11,7 @@ Generates forms from JSON schemas. Can be used in backend to validate JSON data 
 - [Getting Started](#getting-started)
     - [As a Validator](#as-a-validator)
     - [As an Editor](#as-an-editor)
+- [RefParser](#refParser)
 - [Instance Options](#instance-options)
 - [Schema Options](#schema-options)
     - [titleHidden](#titlehidden)
@@ -116,6 +117,37 @@ const init = async () => {
 }
 
 init()
+```
+
+## RefParser
+
+# JSON Schema Ref Parser
+
+A `RefParser` resolves `$ref` references in JSON Schemas by dereferencing then.
+
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "user": {
+      "$ref": "#/$defs/User"
+    }
+  },
+  "$defs": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string", "format": "email"
+        }
+      }
+    }
+  }
+}
 ```
 
 ## Instance Options
