@@ -8,7 +8,6 @@ import {
 } from '../helpers/utils.js'
 import {
   getSchemaAdditionalProperties,
-  getSchemaDescription,
   getSchemaTitle, getSchemaType,
   getSchemaXOption
 } from '../helpers/schema.js'
@@ -43,10 +42,10 @@ class EditorObject extends Editor {
     }
 
     this.control = this.theme.getObjectControl({
-      title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
+      title: this.getTitle(),
+      description: this.getDescription(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       id: this.getIdFromPath(this.instance.path),
-      description: getSchemaDescription(this.instance.schema),
       enablePropertiesToggle: enablePropertiesToggle,
       addProperty: addProperty,
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, 'enableCollapseToggle'),
@@ -109,8 +108,9 @@ class EditorObject extends Editor {
     const schemaOptionEnablePropertiesToggle = getSchemaXOption(this.instance.schema, 'enablePropertiesToggle')
 
     if (equal(this.instance.jedi.options.enablePropertiesToggle, true) || equal(schemaOptionEnablePropertiesToggle, true)) {
-      // todo: delete "this.properties and this.instance.properties"
-      const properties = this.instance.children.map((child) => child.getKey())
+      const declaredProperties = Object.keys(this.instance.properties)
+      const instanceProperties = this.instance.children.map((child) => child.getKey())
+      const properties = [...new Set([...declaredProperties, ...instanceProperties])]
 
       while (this.control.propertiesActivators.firstChild) {
         this.control.propertiesActivators.removeChild(this.control.propertiesActivators.firstChild)
@@ -200,7 +200,7 @@ class EditorObject extends Editor {
   }
 
   refreshUI () {
-    this.refreshDisabledState()
+    super.refreshUI()
     this.refreshPropertiesSlot()
     this.refreshEditors()
   }

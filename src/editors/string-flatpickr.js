@@ -1,6 +1,6 @@
 import EditorString from './string.js'
 import { isSet } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents a EditorStringFlatpickr instance.
@@ -13,12 +13,12 @@ class EditorStringFlatpickr extends EditorString {
 
   build () {
     this.control = this.theme.getInputControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       type: 'text',
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, 'titleIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, 'info')
     })
 

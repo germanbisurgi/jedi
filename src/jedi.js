@@ -58,7 +58,8 @@ class Jedi extends EventEmitter {
       id: '',
       radiosInline: false,
       language: 'en',
-      translations: {}
+      translations: {},
+      params: {}
     }, options)
 
     /**

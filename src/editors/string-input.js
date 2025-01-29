@@ -1,5 +1,5 @@
 import EditorString from './string.js'
-import { getSchemaDescription, getSchemaXOption, getSchemaTitle, getSchemaType } from '../helpers/schema.js'
+import { getSchemaXOption, getSchemaType } from '../helpers/schema.js'
 
 /**
  * Represents a EditorString instance.
@@ -18,12 +18,12 @@ class EditorStringInput extends EditorString {
     const optionFormat = getSchemaXOption(this.instance.schema, 'format')
 
     this.control = this.theme.getInputControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       type: EditorStringInput.getTypes().includes(optionFormat) ? optionFormat : 'text',
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, 'titleIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden') || optionFormat === 'hidden',
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, 'info')
     })
 
@@ -48,7 +48,7 @@ class EditorStringInput extends EditorString {
   }
 
   refreshUI () {
-    this.refreshDisabledState()
+    super.refreshUI()
     this.control.input.value = this.instance.getValue()
   }
 }

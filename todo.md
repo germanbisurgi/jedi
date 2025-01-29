@@ -1,13 +1,13 @@
 ## Todo
 
 - README
-  -  
+  - Improve TOC
 
 - playground
   - array titleTemplate
 
 - jedi
-  - complementary schema (for ui stuff)
+  - refresh ui from parent to child and not vice versa?
   - iconLib option can be string or IconLib instance
   - theme option can be string or Theme instance
 
@@ -21,9 +21,8 @@
   - simplemde
 
 - editors
-  - Add inout attributes based on constrains (min max,...) but allow overwriting
+  - enumSource
   - remove not needed action containers
-  - fix infoButton when format table
   - input range
   - input file
   - color picker
@@ -35,11 +34,12 @@
   - type hidden description
   - ionic theme
   - property already exist message box or disable add button
-  - anyOf, oneOf accessibility switcher (radios are better)
   - option hideButton labels
   - set input names like id
-  - make theme methods options more consistent (text, textContent, content, getIcon, etc)
-  - array-checkbox not limited by item type?
+
+- themes
+  - ionic
+  - material
 
 - tests
   - navigate with Tab key

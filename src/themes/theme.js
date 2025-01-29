@@ -617,7 +617,7 @@ class Theme {
 
     const { label, labelText } = this.getLabel({
       for: config.id,
-      text: config.label,
+      text: config.title,
       visuallyHidden: config.titleHidden,
       titleIconClass: config.titleIconClass
     })
@@ -1027,7 +1027,7 @@ class Theme {
 
     const { label, labelText } = this.getFakeLabel({
       for: config.id,
-      text: config.label,
+      text: config.title,
       visuallyHidden: config.titleHidden,
       titleIconClass: config.titleIconClass
     })
@@ -1077,7 +1077,7 @@ class Theme {
 
     const { label, labelText } = this.getLabel({
       for: config.id,
-      text: config.label,
+      text: config.title,
       visuallyHidden: config.titleHidden
     })
 
@@ -1137,7 +1137,7 @@ class Theme {
 
     const { label, labelText } = this.getLabel({
       for: config.id,
-      text: config.label,
+      text: config.title,
       visuallyHidden: config.titleHidden,
       titleIconClass: config.titleIconClass
     })
@@ -1189,7 +1189,7 @@ class Theme {
     const container = document.createElement('div')
     const fieldset = this.getRadioFieldset()
     const { legend, legendText } = this.getRadioLegend({
-      content: config.label,
+      content: config.title,
       id: config.id,
       for: config.id
     })
@@ -1300,7 +1300,7 @@ class Theme {
 
     const { label, labelText } = this.getLabel({
       for: config.id,
-      text: config.label,
+      text: config.title,
       visuallyHidden: config.titleHidden
     })
 
@@ -1352,7 +1352,7 @@ class Theme {
     const fieldset = this.getFieldset()
     const body = this.getCardBody()
     const { legend, legendText } = this.getLegend({
-      content: config.label,
+      content: config.title,
       id: config.id
     })
 
@@ -1475,7 +1475,7 @@ class Theme {
 
     const { label, labelText } = this.getLabel({
       for: config.id,
-      text: config.label,
+      text: config.title,
       visuallyHidden: config.titleHidden
     })
 

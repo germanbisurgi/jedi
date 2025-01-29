@@ -1,9 +1,8 @@
 import EditorNumber from './number.js'
 import { isNumber } from '../helpers/utils.js'
 import {
-  getSchemaDescription,
   getSchemaXOption,
-  getSchemaTitle, getSchemaType
+  getSchemaType
 } from '../helpers/schema.js'
 
 /**
@@ -18,12 +17,12 @@ class EditorNumberInput extends EditorNumber {
 
   build () {
     this.control = this.theme.getInputControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       type: 'number',
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, 'titleIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden') || getSchemaXOption(this.instance.schema, 'format') === 'hidden',
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, 'info')
     })
 

@@ -1,5 +1,5 @@
 import EditorBoolean from './boolean.js'
-import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorRadios instance.
@@ -12,12 +12,12 @@ class EditorRadios extends EditorBoolean {
 
   build () {
     this.control = this.theme.getRadiosControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       values: ['false', 'true'],
       titles: getSchemaXOption(this.instance.schema, 'enumTitles') || ['false', 'true'],
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
-      description: getSchemaDescription(this.instance.schema),
       inline: getSchemaXOption(this.instance.schema, 'format') === 'radios-inline',
       info: getSchemaXOption(this.instance.schema, 'info')
     })

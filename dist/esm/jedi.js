@@ -1853,11 +1853,33 @@ class Editor {
     this.disabled = false;
     this.refreshUI();
   }
+  getTitle() {
+    let title = this.instance.getKey();
+    const schemaTitle = getSchemaTitle(this.instance.schema);
+    if (isSet(schemaTitle)) {
+      title = compileTemplate(schemaTitle, {
+        value: this.instance.getValue(),
+        params: this.instance.jedi.options.params
+      });
+    }
+    return title;
+  }
+  getDescription() {
+    let schemaDescription = getSchemaDescription(this.instance.schema);
+    if (isSet(schemaDescription)) {
+      schemaDescription = compileTemplate(schemaDescription, {
+        value: this.instance.getValue(),
+        params: this.instance.jedi.options.params
+      });
+    }
+    return schemaDescription;
+  }
   /**
    * Updates control UI when its state changes
    */
   refreshUI() {
     this.refreshDisabledState();
+    this.refreshTemplates();
   }
   refreshDisabledState() {
     const interactiveElements = this.control.container.querySelectorAll("button, input, select, textarea");
@@ -1867,7 +1889,21 @@ class Editor {
       } else {
         element.removeAttribute("disabled", "");
       }
+      if (element.hasAttribute("always-enabled")) {
+        element.removeAttribute("disabled", "");
+      }
     });
+  }
+  refreshTemplates() {
+    if (this.control.legendText) {
+      this.control.legendText.textContent = this.getTitle();
+    }
+    if (this.control.labelText) {
+      this.control.labelText.textContent = this.getTitle();
+    }
+    if (this.control.description) {
+      this.control.description.textContent = this.getDescription();
+    }
   }
   /**
    * Transforms the input value if necessary before value set
@@ -2187,20 +2223,19 @@ class InstanceMultiple extends Instance {
    * Returns the index of the instance that has less validation errors
    */
   getFittestIndex(value) {
-    let index2 = 0;
     let fittestIndex;
     let championErrors;
-    for (const instance of this.instances) {
+    for (let index2 = 0; index2 < this.instances.length; index2++) {
+      const instance = this.instances[index2];
       const instanceErrors = this.jedi.validator.getErrors(value, instance.schema, instance.getKey(), instance.path);
-      if (notSet(fittestIndex) || notSet(championErrors)) {
+      if (instanceErrors.length === 0) {
+        fittestIndex = index2;
+        break;
+      }
+      if (fittestIndex === void 0 || championErrors === void 0 || instanceErrors.length < championErrors.length) {
         fittestIndex = index2;
         championErrors = instanceErrors;
       }
-      if (instanceErrors.length < championErrors.length) {
-        fittestIndex = index2;
-        championErrors = instanceErrors;
-      }
-      index2++;
     }
     return fittestIndex;
   }
@@ -2550,12 +2585,12 @@ class EditorRadios extends EditorBoolean {
   }
   build() {
     this.control = this.theme.getRadiosControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       values: ["false", "true"],
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || ["false", "true"],
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema),
       inline: getSchemaXOption(this.instance.schema, "format") === "radios-inline",
       info: getSchemaXOption(this.instance.schema, "info")
     });
@@ -2585,13 +2620,13 @@ class EditorBooleanSelect extends EditorBoolean {
   }
   build() {
     this.control = this.theme.getSelectControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       values: ["false", "true"],
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || ["false", "true"],
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
     });
   }
@@ -2615,10 +2650,10 @@ class EditorBooleanCheckbox extends EditorBoolean {
   }
   build() {
     this.control = this.theme.getCheckboxControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
     });
   }
@@ -2649,12 +2684,12 @@ class EditorStringRadios extends EditorString {
   }
   build() {
     this.control = this.theme.getRadiosControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       values: getSchemaEnum(this.instance.schema),
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || getSchemaEnum(this.instance.schema),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema),
       inline: getSchemaXOption(this.instance.schema, "format") === "radios-inline",
       info: getSchemaXOption(this.instance.schema, "info")
     });
@@ -2682,13 +2717,13 @@ class EditorStringSelect extends EditorString {
   }
   build() {
     this.control = this.theme.getSelectControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       values: getSchemaEnum(this.instance.schema),
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || getSchemaEnum(this.instance.schema),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
     });
   }
@@ -2711,11 +2746,11 @@ class EditorStringTextarea extends EditorString {
   }
   build() {
     this.control = this.theme.getTextareaControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
     });
   }
@@ -2738,12 +2773,12 @@ class EditorStringAwesomplete extends EditorString {
   }
   build() {
     this.control = this.theme.getInputControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       type: "text",
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
     });
     try {
@@ -2777,12 +2812,12 @@ class EditorStringInput extends EditorString {
   build() {
     const optionFormat = getSchemaXOption(this.instance.schema, "format");
     this.control = this.theme.getInputControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       type: EditorStringInput.getTypes().includes(optionFormat) ? optionFormat : "text",
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || optionFormat === "hidden",
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
     });
     if (optionFormat === "color" && this.instance.value.length === 0) {
@@ -2801,7 +2836,7 @@ class EditorStringInput extends EditorString {
     return String(value);
   }
   refreshUI() {
-    this.refreshDisabledState();
+    super.refreshUI();
     this.control.input.value = this.instance.getValue();
   }
 }
@@ -2824,12 +2859,12 @@ class EditorNumberRadios extends EditorNumber {
   }
   build() {
     this.control = this.theme.getRadiosControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       values: getSchemaEnum(this.instance.schema),
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || getSchemaEnum(this.instance.schema),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema),
       inline: getSchemaXOption(this.instance.schema, "format") === "radios-inline",
       info: getSchemaXOption(this.instance.schema, "info")
     });
@@ -2860,13 +2895,13 @@ class EditorNumberSelect extends EditorNumber {
   }
   build() {
     this.control = this.theme.getSelectControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       values: getSchemaEnum(this.instance.schema),
       titles: getSchemaXOption(this.instance.schema, "enumTitles") || getSchemaEnum(this.instance.schema),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
     });
   }
@@ -2894,12 +2929,12 @@ class EditorNumberInput extends EditorNumber {
   }
   build() {
     this.control = this.theme.getInputControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       type: "number",
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || getSchemaXOption(this.instance.schema, "format") === "hidden",
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
     });
     this.control.input.setAttribute("step", "any");
@@ -2941,10 +2976,10 @@ class EditorObject extends Editor {
       enablePropertiesToggle = schemaOptions.enablePropertiesToggle;
     }
     this.control = this.theme.getObjectControl({
-      title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
+      title: this.getTitle(),
+      description: this.getDescription(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       id: this.getIdFromPath(this.instance.path),
-      description: getSchemaDescription(this.instance.schema),
       enablePropertiesToggle,
       addProperty,
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
@@ -2992,7 +3027,9 @@ class EditorObject extends Editor {
   refreshPropertiesSlot() {
     const schemaOptionEnablePropertiesToggle = getSchemaXOption(this.instance.schema, "enablePropertiesToggle");
     if (equal(this.instance.jedi.options.enablePropertiesToggle, true) || equal(schemaOptionEnablePropertiesToggle, true)) {
-      const properties2 = this.instance.children.map((child) => child.getKey());
+      const declaredProperties = Object.keys(this.instance.properties);
+      const instanceProperties = this.instance.children.map((child) => child.getKey());
+      const properties2 = [.../* @__PURE__ */ new Set([...declaredProperties, ...instanceProperties])];
       while (this.control.propertiesActivators.firstChild) {
         this.control.propertiesActivators.removeChild(this.control.propertiesActivators.firstChild);
       }
@@ -3065,7 +3102,7 @@ class EditorObject extends Editor {
     });
   }
   refreshUI() {
-    this.refreshDisabledState();
+    super.refreshUI();
     this.refreshPropertiesSlot();
     this.refreshEditors();
   }
@@ -3078,16 +3115,19 @@ class EditorObjectGrid extends EditorObject {
     while (this.control.childrenSlot.firstChild) {
       this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild);
     }
+    const gridOptions = getSchemaXOption(this.instance.schema, "grid") || {
+      columns: 12
+    };
     let row = this.theme.getRow();
     this.control.childrenSlot.appendChild(row);
     let colCount = 0;
     this.instance.children.forEach((child) => {
       if (child.isActive) {
-        const gridOptions = getSchemaXOption(child.schema, "grid");
-        const columns = gridOptions.columns || 12;
-        const offset = gridOptions.offset || 0;
+        const childGridOptions = getSchemaXOption(child.schema, "grid") || {};
+        const columns = childGridOptions.columns || gridOptions.columns;
+        const offset = childGridOptions.offset || 0;
         const col = this.theme.getCol(12, columns, offset);
-        const newRow = gridOptions.newRow || false;
+        const newRow = childGridOptions.newRow || false;
         colCount += columns + offset;
         if (newRow) {
           row = this.theme.getRow();
@@ -3174,10 +3214,10 @@ class EditorArray extends Editor {
   }
   build() {
     this.control = this.theme.getArrayControl({
-      title: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
+      title: this.getTitle(),
+      description: this.getDescription(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       id: this.getIdFromPath(this.instance.path),
-      description: getSchemaDescription(this.instance.schema),
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
       startCollapsed: getSchemaXOption(this.instance.schema, "startCollapsed"),
       readOnly: this.instance.isReadOnly(),
@@ -3459,7 +3499,8 @@ class EditorArrayNav extends EditorArray {
         const data = {
           i0: index2,
           i1: index2 + 1,
-          value: child.getValue()
+          value: child.getValue(),
+          params: this.instance.jedi.options.params
         };
         childTitle = compileTemplate(template, data);
       } else {
@@ -3521,9 +3562,9 @@ class EditorMultiple extends Editor {
   build() {
     this.control = this.theme.getMultipleControl({
       title: "Options",
+      description: this.getDescription(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       id: this.getIdFromPath(this.instance.path),
-      description: getSchemaDescription(this.instance.schema),
       switcherOptionValues: this.instance.switcherOptionValues,
       switcherOptionsLabels: this.instance.switcherOptionsLabels,
       switcher: true,
@@ -3560,11 +3601,11 @@ class EditorNull extends Editor {
   }
   build() {
     this.control = this.theme.getNullControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || getSchemaXOption(this.instance.schema, "format") === "hidden",
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
     });
   }
@@ -3578,11 +3619,11 @@ class EditorStringQuill extends EditorString {
   }
   build() {
     this.control = this.theme.getPlaceholderControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
     });
     try {
@@ -3617,11 +3658,11 @@ class EditorStringJodit extends EditorString {
   }
   build() {
     this.control = this.theme.getTextareaControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
     });
     try {
@@ -3660,12 +3701,12 @@ class EditorStringFlatpickr extends EditorString {
   }
   build() {
     this.control = this.theme.getInputControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       type: "text",
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
     });
     try {
@@ -3694,11 +3735,11 @@ class EditorNumberRaty extends EditorNumber {
   }
   build() {
     this.control = this.theme.getPlaceholderControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
     });
     try {
@@ -3739,12 +3780,12 @@ class EditorArrayCheckboxes extends Editor {
   }
   build() {
     this.control = this.theme.getCheckboxesControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       values: getSchemaEnum(this.instance.schema.items),
       titles: getSchemaXOption(this.instance.schema.items, "enumTitles") || getSchemaEnum(this.instance.schema.items),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, "info")
     });
   }
@@ -4038,7 +4079,8 @@ class Jedi extends EventEmitter {
       id: "",
       radiosInline: false,
       language: "en",
-      translations: {}
+      translations: {},
+      params: {}
     }, options);
     this.rootName = "#";
     this.pathSeparator = "/";
@@ -4437,6 +4479,10 @@ class Theme {
    * Represents a caption for the content of its parent fieldset
    */
   getLegend(config) {
+    const left = document.createElement("div");
+    left.classList.add("jedi-editor-legend-left");
+    const right = document.createElement("div");
+    right.classList.add("jedi-editor-legend-right");
     const legendLabelId = "legend-label-" + config.id;
     const legend = document.createElement("legend");
     legend.style.fontSize = "inherit";
@@ -4446,13 +4492,18 @@ class Theme {
     legendText.innerHTML = this.purifyContent(config.content);
     legendText.classList.add("jedi-editor-legend-text");
     legendText.setAttribute("id", legendLabelId);
+    const infoContainer = document.createElement("label");
+    infoContainer.classList.add("jedi-editor-info-container");
     const dummyInput = document.createElement("input");
     this.visuallyHidden(dummyInput);
     dummyInput.setAttribute("aria-hidden", "true");
     dummyInput.setAttribute("type", "hidden");
-    legend.appendChild(legendText);
+    legend.appendChild(left);
+    legend.appendChild(right);
+    left.appendChild(legendText);
+    left.appendChild(infoContainer);
     legendText.appendChild(dummyInput);
-    return { legend, legendText };
+    return { left, right, legend, legendText, infoContainer };
   }
   /**
    * Used to group several controls
@@ -4632,6 +4683,7 @@ class Theme {
   getCollapseToggle(config) {
     const toggle = this.getButton(config);
     toggle.classList.add("jedi-collapse-toggle");
+    toggle.setAttribute("always-enabled", "");
     if (this.useToggleEvents) {
       toggle.addEventListener("click", () => {
         if (config.collapse.style.display === "none") {
@@ -4852,6 +4904,7 @@ class Theme {
     title.classList.add("jedi-modal-title");
     content.classList.add("jedi-modal-content");
     closeBtn.classList.add("jedi-modal-close");
+    closeBtn.setAttribute("always-enabled", "");
     info.container.appendChild(dialog);
     dialog.appendChild(title);
     dialog.appendChild(content);
@@ -4898,7 +4951,7 @@ class Theme {
     const arrayActions = this.getArrayActionsSlot();
     const { label, labelText } = this.getLabel({
       for: config.id,
-      text: config.label,
+      text: config.title,
       visuallyHidden: config.titleHidden,
       titleIconClass: config.titleIconClass
     });
@@ -4947,7 +5000,7 @@ class Theme {
       id: "properties-slot-" + config.id
     });
     const propertiesToggle = this.getPropertiesToggle({
-      content: config.title + " properties",
+      content: "properties",
       id: "properties-slot-toggle-" + config.id,
       icon: "properties",
       propertiesContainer
@@ -4958,7 +5011,7 @@ class Theme {
       startCollapsed: config.startCollapsed
     });
     const collapseToggle = this.getCollapseToggle({
-      content: config.title + " properties",
+      content: "collapse",
       id: "collapse-toggle-" + config.id,
       icon: "collapse",
       collapseId,
@@ -4973,7 +5026,7 @@ class Theme {
     });
     const addPropertyBtn = this.getAddPropertyButton();
     const fieldset = this.getFieldset();
-    const { legend, legendText } = this.getLegend({
+    const { legend, infoContainer } = this.getLegend({
       content: config.title,
       id: config.id
     });
@@ -4986,7 +5039,7 @@ class Theme {
     container.appendChild(propertiesContainer);
     fieldset.appendChild(legend);
     if (isObject(config.info)) {
-      legendText.appendChild(info.container);
+      infoContainer.appendChild(info.container);
     }
     fieldset.appendChild(collapse);
     collapse.appendChild(body);
@@ -5016,6 +5069,7 @@ class Theme {
       container,
       collapse,
       collapseToggle,
+      description,
       body,
       actions,
       messages,
@@ -5028,7 +5082,7 @@ class Theme {
       propertiesActivators,
       arrayActions,
       legend,
-      legendText
+      infoContainer
     };
   }
   /**
@@ -5228,7 +5282,7 @@ class Theme {
     const arrayActions = this.getArrayActionsSlot();
     const { label, labelText } = this.getFakeLabel({
       for: config.id,
-      text: config.label,
+      text: config.title,
       visuallyHidden: config.titleHidden,
       titleIconClass: config.titleIconClass
     });
@@ -5267,7 +5321,7 @@ class Theme {
     input.style.width = "100%";
     const { label, labelText } = this.getLabel({
       for: config.id,
-      text: config.label,
+      text: config.title,
       visuallyHidden: config.titleHidden
     });
     const descriptionId = config.id + "-description";
@@ -5315,7 +5369,7 @@ class Theme {
     input.style.width = "100%";
     const { label, labelText } = this.getLabel({
       for: config.id,
-      text: config.label,
+      text: config.title,
       visuallyHidden: config.titleHidden,
       titleIconClass: config.titleIconClass
     });
@@ -5357,7 +5411,7 @@ class Theme {
     const container = document.createElement("div");
     const fieldset = this.getRadioFieldset();
     const { legend, legendText } = this.getRadioLegend({
-      content: config.label,
+      content: config.title,
       id: config.id,
       for: config.id
     });
@@ -5446,7 +5500,7 @@ class Theme {
     input.setAttribute("id", config.id);
     const { label, labelText } = this.getLabel({
       for: config.id,
-      text: config.label,
+      text: config.title,
       visuallyHidden: config.titleHidden
     });
     const descriptionId = config.id + "-description";
@@ -5488,7 +5542,7 @@ class Theme {
     const fieldset = this.getFieldset();
     const body = this.getCardBody();
     const { legend, legendText } = this.getLegend({
-      content: config.label,
+      content: config.title,
       id: config.id
     });
     const messagesId = config.id + "-messages";
@@ -5586,7 +5640,7 @@ class Theme {
     });
     const { label, labelText } = this.getLabel({
       for: config.id,
-      text: config.label,
+      text: config.title,
       visuallyHidden: config.titleHidden
     });
     const descriptionId = config.id + "-description";
@@ -5806,6 +5860,7 @@ class ThemeBootstrap3 extends Theme {
     const toggle = super.getCollapseToggle(config);
     toggle.setAttribute("href", "#" + config.collapseId);
     toggle.setAttribute("data-toggle", "collapse");
+    toggle.setAttribute("always-enabled", "");
     return toggle;
   }
   getCollapse(config) {
@@ -6069,6 +6124,7 @@ class ThemeBootstrap3 extends Theme {
     modal.setAttribute("aria-modal", "true");
     modal.setAttribute("id", modalId);
     closeBtn.setAttribute("data-dismiss", "modal");
+    closeBtn.setAttribute("always-enabled", "");
     info.info.setAttribute("data-toggle", "modal");
     info.info.setAttribute("data-target", "#" + modalId);
     modal.classList.add("modal");
@@ -6115,6 +6171,7 @@ class ThemeBootstrap4 extends Theme {
     const toggle = super.getCollapseToggle(config);
     toggle.setAttribute("href", "#" + config.collapseId);
     toggle.setAttribute("data-toggle", "collapse");
+    toggle.setAttribute("always-enabled", "");
     return toggle;
   }
   getCollapse(config) {
@@ -6392,6 +6449,7 @@ class ThemeBootstrap4 extends Theme {
     modal.setAttribute("aria-modal", "true");
     modal.setAttribute("id", modalId);
     closeBtn.setAttribute("data-dismiss", "modal");
+    closeBtn.setAttribute("always-enabled", "");
     info.info.setAttribute("data-toggle", "modal");
     info.info.setAttribute("data-target", "#" + modalId);
     info.container.classList.add("ml-1");
@@ -6439,6 +6497,7 @@ class ThemeBootstrap5 extends Theme {
     const toggle = super.getCollapseToggle(config);
     toggle.setAttribute("href", "#" + config.collapseId);
     toggle.setAttribute("data-bs-toggle", "collapse");
+    toggle.setAttribute("always-enabled", "");
     return toggle;
   }
   getCollapse(config) {
@@ -6710,6 +6769,7 @@ class ThemeBootstrap5 extends Theme {
     modal.setAttribute("aria-modal", "true");
     modal.setAttribute("id", modalId);
     closeBtn.setAttribute("data-bs-dismiss", "modal");
+    closeBtn.setAttribute("always-enabled", "");
     info.info.setAttribute("data-bs-toggle", "modal");
     info.info.setAttribute("data-bs-target", "#" + modalId);
     info.container.classList.add("ms-1");

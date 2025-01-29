@@ -69,7 +69,8 @@ class EditorArrayNav extends EditorArray {
         const data = {
           i0: index,
           i1: (index + 1),
-          value: child.getValue()
+          value: child.getValue(),
+          params: this.instance.jedi.options.params
         }
         childTitle = compileTemplate(template, data)
       } else {

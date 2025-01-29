@@ -4,10 +4,8 @@ import {
 } from '../helpers/utils.js'
 
 import {
-  getSchemaDescription,
   getSchemaEnum,
   getSchemaItems,
-  getSchemaTitle,
   getSchemaType,
   getSchemaUniqueItems,
   getSchemaXOption
@@ -41,12 +39,12 @@ class EditorArrayCheckboxes extends Editor {
 
   build () {
     this.control = this.theme.getCheckboxesControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       values: getSchemaEnum(this.instance.schema.items),
       titles: getSchemaXOption(this.instance.schema.items, 'enumTitles') || getSchemaEnum(this.instance.schema.items),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, 'info')
     })
   }

@@ -1,6 +1,6 @@
 import EditorString from './string.js'
 import { isSet } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaEnum, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents a EditorStringSelect instance.
@@ -13,13 +13,13 @@ class EditorStringSelect extends EditorString {
 
   build () {
     this.control = this.theme.getSelectControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       values: getSchemaEnum(this.instance.schema),
       titles: getSchemaXOption(this.instance.schema, 'enumTitles') || getSchemaEnum(this.instance.schema),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, 'titleIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, 'info')
     })
   }

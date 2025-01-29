@@ -1,5 +1,5 @@
 import EditorBoolean from './boolean.js'
-import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorBooleanSelect instance.
@@ -12,13 +12,13 @@ class EditorBooleanSelect extends EditorBoolean {
 
   build () {
     this.control = this.theme.getSelectControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       values: ['false', 'true'],
       titles: getSchemaXOption(this.instance.schema, 'enumTitles') || ['false', 'true'],
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, 'titleIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, 'info')
     })
   }

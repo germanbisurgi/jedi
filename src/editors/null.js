@@ -1,5 +1,8 @@
 import Editor from './editor.js'
-import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import {
+  getSchemaType,
+  getSchemaXOption
+} from '../helpers/schema.js'
 
 /**
  * Represents a EditorNull instance.
@@ -12,11 +15,11 @@ class EditorNull extends Editor {
 
   build () {
     this.control = this.theme.getNullControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleIconClass: getSchemaXOption(this.instance.schema, 'titleIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden') || getSchemaXOption(this.instance.schema, 'format') === 'hidden',
-      description: getSchemaDescription(this.instance.schema),
       info: getSchemaXOption(this.instance.schema, 'info')
     })
   }

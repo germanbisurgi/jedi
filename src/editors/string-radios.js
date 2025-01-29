@@ -1,5 +1,5 @@
 import EditorString from './string.js'
-import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaEnum, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents a EditorStringRadios instance.
@@ -12,12 +12,12 @@ class EditorStringRadios extends EditorString {
 
   build () {
     this.control = this.theme.getRadiosControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
       values: getSchemaEnum(this.instance.schema),
       titles: getSchemaXOption(this.instance.schema, 'enumTitles') || getSchemaEnum(this.instance.schema),
       id: this.getIdFromPath(this.instance.path),
-      label: getSchemaTitle(this.instance.schema) || this.instance.getKey(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
-      description: getSchemaDescription(this.instance.schema),
       inline: getSchemaXOption(this.instance.schema, 'format') === 'radios-inline',
       info: getSchemaXOption(this.instance.schema, 'info')
     })

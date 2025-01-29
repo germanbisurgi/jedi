@@ -1,5 +1,5 @@
-import { isObject, isSet, pathToAttribute } from '../helpers/utils.js'
-import { getSchemaEnum, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { compileTemplate, isObject, isSet, pathToAttribute } from '../helpers/utils.js'
+import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an Editor instance.
@@ -186,11 +186,39 @@ class Editor {
     this.refreshUI()
   }
 
+  getTitle () {
+    let title = this.instance.getKey()
+    const schemaTitle = getSchemaTitle(this.instance.schema)
+
+    if (isSet(schemaTitle)) {
+      title = compileTemplate(schemaTitle, {
+        value: this.instance.getValue(),
+        params: this.instance.jedi.options.params
+      })
+    }
+
+    return title
+  }
+
+  getDescription () {
+    let schemaDescription = getSchemaDescription(this.instance.schema)
+
+    if (isSet(schemaDescription)) {
+      schemaDescription = compileTemplate(schemaDescription, {
+        value: this.instance.getValue(),
+        params: this.instance.jedi.options.params
+      })
+    }
+
+    return schemaDescription
+  }
+
   /**
    * Updates control UI when its state changes
    */
   refreshUI () {
     this.refreshDisabledState()
+    this.refreshTemplates()
   }
 
   refreshDisabledState () {
@@ -202,7 +230,25 @@ class Editor {
       } else {
         element.removeAttribute('disabled', '')
       }
+
+      if (element.hasAttribute('always-enabled')) {
+        element.removeAttribute('disabled', '')
+      }
     })
+  }
+
+  refreshTemplates () {
+    if (this.control.legendText) {
+      this.control.legendText.textContent = this.getTitle()
+    }
+
+    if (this.control.labelText) {
+      this.control.labelText.textContent = this.getTitle()
+    }
+
+    if (this.control.description) {
+      this.control.description.textContent = this.getDescription()
+    }
   }
 
   /**
