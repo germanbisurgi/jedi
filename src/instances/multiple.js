@@ -3,7 +3,6 @@ import {
   isSet,
   isArray,
   different,
-  notSet,
   clone,
   mergeDeep
 } from '../helpers/utils.js'
@@ -159,24 +158,23 @@ class InstanceMultiple extends Instance {
    * Returns the index of the instance that has less validation errors
    */
   getFittestIndex (value) {
-    let index = 0
     let fittestIndex
     let championErrors
 
-    for (const instance of this.instances) {
+    for (let index = 0; index < this.instances.length; index++) {
+      const instance = this.instances[index]
       const instanceErrors = this.jedi.validator.getErrors(value, instance.schema, instance.getKey(), instance.path)
 
-      if (notSet(fittestIndex) || notSet(championErrors)) {
+      // If an instance has no errors, return its index immediately
+      if (instanceErrors.length === 0) {
+        fittestIndex = index
+        break
+      }
+
+      if (fittestIndex === undefined || championErrors === undefined || instanceErrors.length < championErrors.length) {
         fittestIndex = index
         championErrors = instanceErrors
       }
-
-      if (instanceErrors.length < championErrors.length) {
-        fittestIndex = index
-        championErrors = instanceErrors
-      }
-
-      index++
     }
 
     return fittestIndex
