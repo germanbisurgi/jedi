@@ -1196,15 +1196,25 @@ The fieldset can be collapsed or expanded.
 
 ### Object grid
 Renders a fieldset that will contain it properties editors and use a grid system to position
-its property editors.
-The fieldset can be collapsed or expanded.
+its property editors. The fieldset can be collapsed or expanded.
+
+The object editor the option `grid` can be used to set a default columns size. It's child editors
+can also have the option `grid`. The child option will override the parent option.
+
+Child editors can have more options:
+- `columns`: How many columns should the editor occupy.
+- `offset`: How many columns should the editor be offset.
+- `newRow`: Whether the editor should be put in a new row.
 
 ```json
 {
   "type": "object",
   "title": "Login",
   "x-options": {
-    "format": "grid"
+    "format": "grid",
+    "grid": {
+      "columns": 6
+    }
   },
   "properties": {
     "email": {
