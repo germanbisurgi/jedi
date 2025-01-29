@@ -126,6 +126,7 @@ import Jedi from '/src/index.js'
 import all from './json/editors/all.json'
 import array from './json/editors/array.json'
 import arrayCheckboxes from './json/editors/array-checkboxes.json'
+import arrayCheckboxesInline from './json/editors/array-checkboxes-inline.json'
 import arrayNavTable from './json/editors/array-table.json'
 import arrayNavVertical from './json/editors/array-nav-vertical.json'
 import arrayNavHorizontal from './json/editors/array-nav-horizontal.json'
@@ -213,6 +214,7 @@ export default {
           'editors/all': all,
           'editors/array': array,
           'editors/array-checkboxes': arrayCheckboxes,
+          'editors/array-checkboxes-inline': arrayCheckboxesInline,
           'editors/array-nav-vertical': arrayNavVertical,
           'editors/array-nav-horizontal': arrayNavHorizontal,
           'editors/array-table': arrayNavTable,

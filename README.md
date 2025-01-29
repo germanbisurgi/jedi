@@ -932,6 +932,27 @@ Works only if the items are of type `string`, `number` or `integer`.
 }
 ```
 
+checkbox inline variant
+
+```json
+{
+  "title": "Array",
+  "description": "Array of unique values wich item types can be string, number or integer",
+  "type": "array",
+  "uniqueItems": true,
+  "items": {
+    "type": "string",
+    "enum": [
+      "value1",
+      "value2"
+    ]
+  },
+  "x-options": {
+    "format": "checkboxes-inline"
+  }
+}
+```
+
 ### Array nav
 A fieldset to containing a list of enumerated editors. Each editor is represented by a checkboxes.
 Works only if the items are of type `string`, `number` or `integer`.

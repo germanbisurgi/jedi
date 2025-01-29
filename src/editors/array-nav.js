@@ -53,11 +53,11 @@ class EditorArrayNav extends EditorArray {
       const deleteBtn = this.theme.getDeleteItemBtn()
       const moveUpBtn = this.theme.getMoveUpItemBtn()
       const moveDownBtn = this.theme.getMoveDownItemBtn()
+      const btnGroup = this.theme.getBtnGroup()
 
-      child.ui.control.arrayActions.innerHTML = ''
-      child.ui.control.arrayActions.appendChild(deleteBtn)
-      child.ui.control.arrayActions.appendChild(moveUpBtn)
-      child.ui.control.arrayActions.appendChild(moveDownBtn)
+      btnGroup.appendChild(deleteBtn)
+      btnGroup.appendChild(moveUpBtn)
+      btnGroup.appendChild(moveDownBtn)
 
       this.control.childrenSlot.appendChild(child.ui.control.container)
 
@@ -102,19 +102,21 @@ class EditorArrayNav extends EditorArray {
       const active = index === this.activeTabIndex
       const id = pathToAttribute(child.path)
 
-      const tab = this.theme.getTab({
+      const { arrayActions, list } = this.theme.getTab({
         hasErrors: child.children.some((grandChild) => grandChild.ui.showingValidationErrors),
         title: childTitle,
         id: id,
         active: active
       })
 
-      tab.list.addEventListener('click', () => {
+      arrayActions.appendChild(btnGroup)
+
+      list.addEventListener('click', () => {
         this.activeTabIndex = index
       })
 
       this.theme.setTabPaneAttributes(child.ui.control.container, active, id)
-      tabList.appendChild(tab.list)
+      tabList.appendChild(list)
       tabContent.appendChild(child.ui.control.container)
 
       if (this.disabled || this.instance.isReadOnly()) {

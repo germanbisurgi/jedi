@@ -189,11 +189,19 @@ class ThemeBootstrap3 extends Theme {
 
   getCheckboxesControl (config) {
     const control = super.getCheckboxesControl(config)
-    const { body, checkboxes, labels, labelTexts, checkboxControls } = control
+    const { fieldset, checkboxes, labels, labelTexts, checkboxControls } = control
 
     checkboxControls.forEach((checkboxControl, index) => {
       checkboxControl.classList.add('checkbox')
-      body.appendChild(checkboxControls[index])
+
+      if (config.inline) {
+        checkboxControl.style.display = 'inline-flex'
+        checkboxControl.style.alignItems = 'center'
+        checkboxControl.style.paddingLeft = '0'
+        checkboxControl.style.marginRight = '30px'
+      }
+
+      fieldset.appendChild(checkboxControls[index])
       checkboxControl.appendChild(labels[index])
       labels[index].appendChild(checkboxes[index])
       labels[index].appendChild(labelTexts[index])

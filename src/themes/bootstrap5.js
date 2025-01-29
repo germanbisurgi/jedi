@@ -194,6 +194,10 @@ class ThemeBootstrap5 extends Theme {
       checkboxControl.classList.add('form-check')
       checkboxes[index].classList.add('form-check-input')
       labels[index].classList.add('form-check-label')
+
+      if (config.inline) {
+        checkboxControl.classList.add('form-check-inline')
+      }
     })
 
     return control

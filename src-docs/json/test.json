@@ -1,593 +1,73 @@
 {
+  "title": "test",
   "type": "object",
-  "title": "All Editors",
-  "minProperties": 6,
-  "x-options": {
-    "format": "grid",
-    "grid": {
-      "columns": 6
-    },
-    "info": {
-      "variant": "modal",
-      "title": "<h4>Info Button title</h4>",
-      "content": "<p>Info button content</p>"
-    }
-  },
   "properties": {
-    "booleans": {
-      "type": "object",
-      "title": "Booleans",
-      "x-options": {
-        "info": {
-          "variant": "modal",
-          "title": "<h4>Info Button title</h4>",
-          "content": "<p>Info button content</p>"
-        }
-      },
-      "properties": {
-        "boolean-select": {
+    "anyOf": {
+      "title": "anyOf",
+      "description": "this is an anyOf",
+      "anyOf": [
+        {
+          "type": "string",
+          "x-options": {
+            "switcherTitle": "As string"
+          }
+        },
+        {
           "type": "boolean",
-          "title": "Boolean select",
-          "description": "A boolean editor using select input.",
-          "const": true,
           "x-options": {
-            "format": "select",
-            "enumTitles": [
-              "No",
-              "Yes"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
+            "switcherTitle": "As boolean"
+          }
+        }
+      ]
+    },
+    "oneOf": {
+      "title": "oneOf",
+      "description": "this is an oneOf",
+      "oneOf": [
+        {
+          "type": "string",
+          "x-options": {
+            "switcherTitle": "As string"
           }
         },
-        "boolean-radios": {
+        {
           "type": "boolean",
-          "title": "Boolean radios",
-          "description": "A boolean editor using radios.",
-          "const": true,
           "x-options": {
-            "format": "radios",
-            "enumTitles": [
-              "No",
-              "Yes"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          }
-        },
-        "boolean": {
-          "type": "boolean",
-          "title": "Boolean checkbox",
-          "description": "A boolean editor checkbox.",
-          "const": true,
-          "x-options": {
-            "format": "checkbox",
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
+            "switcherTitle": "As boolean"
           }
         }
+      ]
+    },
+    "any": {},
+    "checkboxes": {
+      "title": "Bejagung",
+      "description": "Fand im Jagdjahr 2024\/25 eine Bejagung von Waschb\u00e4ren f\u00fcr Dritte \/ im Auftrag statt?",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "ja, in Siedlungsbereichen",
+          "ja, f\u00fcr Artenschutzprojekte",
+          "ja, sonstige"
+        ]
       }
     },
-    "strings": {
-      "type": "object",
-      "title": "Strings",
+    "checkboxesInline": {
       "x-options": {
-        "info": {
-          "variant": "modal",
-          "title": "<h4>Info Button title</h4>",
-          "content": "<p>Info button content</p>"
-        }
+        "format": "checkboxes-inline"
       },
-      "properties": {
-        "string": {
-          "type": "string",
-          "title": "String input",
-          "description": "A string editor.",
-          "minLength": 1,
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          }
-        },
-        "string-textarea": {
-          "type": "string",
-          "title": "String textarea",
-          "description": "A string editor using textarea.",
-          "minLength": 1,
-          "x-options": {
-            "format": "textarea",
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          }
-        },
-        "string-select": {
-          "type": "string",
-          "title": "String select",
-          "description": "A string editor using select.",
-          "enum": [
-            "albert",
-            "betti",
-            "carl"
-          ],
-          "x-options": {
-            "enumTitles": [
-              "Albert",
-              "Betti",
-              "Carl"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          }
-        },
-        "string-radios": {
-          "type": "string",
-          "title": "String radios",
-          "description": "A string editor using radios.",
-          "enum": [
-            "albert",
-            "betti",
-            "carl"
-          ],
-          "x-options": {
-            "format": "radios",
-            "enumTitles": [
-              "Albert",
-              "Betti",
-              "Carl"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          }
-        }
-      }
-    },
-    "numbers": {
-      "type": "object",
-      "title": "Numbers",
-      "x-options": {
-        "info": {
-          "variant": "modal",
-          "title": "<h4>Info Button title</h4>",
-          "content": "<p>Info button content</p>"
-        }
-      },
-      "properties": {
-        "number": {
-          "type": "number",
-          "title": "Number input",
-          "description": "A number editor.",
-          "minimum": 1,
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          }
-        },
-        "number-select": {
-          "type": "number",
-          "title": "Number select",
-          "description": "A number editor using select.",
-          "enum": [
-            1.5,
-            2.5,
-            3.5
-          ],
-          "x-options": {
-            "enumTitles": [
-              "small (1.5)",
-              "medium (2.5)",
-              "big (3.5)"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          }
-        },
-        "number-radios": {
-          "type": "number",
-          "title": "Number radios",
-          "description": "A number editor using radios.",
-          "enum": [
-            1.5,
-            2.5,
-            3.5
-          ],
-          "x-options": {
-            "format": "radios",
-            "enumTitles": [
-              "small (1.5)",
-              "medium (2.5)",
-              "big (3.5)"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          }
-        }
-      }
-    },
-    "integers": {
-      "type": "object",
-      "title": "Integers",
-      "x-options": {
-        "info": {
-          "variant": "modal",
-          "title": "<h4>Info Button title</h4>",
-          "content": "<p>Info button content</p>"
-        }
-      },
-      "properties": {
-        "integer": {
-          "type": "integer",
-          "title": "Integer input",
-          "description": "A integer editor.",
-          "minimum": 1,
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          }
-        },
-        "integer-select": {
-          "type": "integer",
-          "title": "Integer select",
-          "description": "A integer editor using select.",
-          "enum": [
-            1,
-            2,
-            3
-          ],
-          "x-options": {
-            "enumTitles": [
-              "small (1)",
-              "medium (2)",
-              "big (3)"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          }
-        },
-        "integer-radios": {
-          "type": "number",
-          "title": "Integer radios",
-          "description": "A integer editor using radios.",
-          "enum": [
-            1,
-            2,
-            3
-          ],
-          "x-options": {
-            "format": "radios",
-            "enumTitles": [
-              "small (1)",
-              "medium (2)",
-              "big (3)"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          }
-        }
-      }
-    },
-    "arrays": {
-      "type": "object",
-      "title": "Arrays",
-      "description": "Object editor with array editors properties.",
-      "properties": {
-        "string-array": {
-          "type": "array",
-          "title": "Colors",
-          "description": "Array of colors",
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          },
-          "items": {
-            "type": "string",
-            "title": "Color",
-            "not": {
-              "const": "#000000"
-            },
-            "x-options": {
-              "format": "color",
-              "info": {
-                "variant": "modal",
-                "title": "<h4>Info Button title</h4>",
-                "content": "<p>Info button content</p>"
-              }
-            }
-          },
-          "default": [
-            "#e8f3ee",
-            "#fff9e6",
-            "#ffffff"
-          ],
-          "minItems": 2
-        }
-      },
-      "x-options": {
-        "info": {
-          "variant": "modal",
-          "title": "<h4>Info Button title</h4>",
-          "content": "<p>Info button content</p>"
-        }
-      }
-    },
-    "multiple": {
-      "type": "object",
-      "title": "Multiple",
-      "x-options": {
-        "info": {
-          "variant": "modal",
-          "title": "<h4>Info Button title</h4>",
-          "content": "<p>Info button content</p>"
-        }
-      },
-      "properties": {
-        "nestedOf": {
-          "title": "Nested of",
-          "oneOf": [
-            {
-              "type": "string",
-              "x-options": {
-                "switcherTitle": "String",
-                "info": {
-                  "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
-                }
-              }
-            },
-            {
-              "type": "boolean",
-              "x-options": {
-                "switcherTitle": "Boolean",
-                "info": {
-                  "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
-                }
-              }
-            },
-            {
-              "title": "Any of",
-              "x-options": {
-                "switcherTitle": "Any of",
-                "info": {
-                  "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
-                }
-              },
-              "anyOf": [
-                {
-                  "type": "integer",
-                  "x-options": {
-                    "switcherTitle": "Integer",
-                    "info": {
-                      "variant": "modal",
-                      "title": "<h4>Info Button title</h4>",
-                      "content": "<p>Info button content</p>"
-                    }
-                  }
-                },
-                {
-                  "type": "number",
-                  "x-options": {
-                    "switcherTitle": "Number",
-                    "info": {
-                      "variant": "modal",
-                      "title": "<h4>Info Button title</h4>",
-                      "content": "<p>Info button content</p>"
-                    }
-                  }
-                },
-                {
-                  "title": "One of",
-                  "x-options": {
-                    "switcherTitle": "One of",
-                    "info": {
-                      "variant": "modal",
-                      "title": "<h4>Info Button title</h4>",
-                      "content": "<p>Info button content</p>"
-                    }
-                  },
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "x-options": {
-                        "switcherTitle": "Object",
-                        "info": {
-                          "variant": "modal",
-                          "title": "<h4>Info Button title</h4>",
-                          "content": "<p>Info button content</p>"
-                        }
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "x-options": {
-                        "switcherTitle": "Array",
-                        "info": {
-                          "variant": "modal",
-                          "title": "<h4>Info Button title</h4>",
-                          "content": "<p>Info button content</p>"
-                        }
-                      }
-                    },
-                    {
-                      "type": "null",
-                      "x-options": {
-                        "switcherTitle": "Null",
-                        "info": {
-                          "variant": "modal",
-                          "title": "<h4>Info Button title</h4>",
-                          "content": "<p>Info button content</p>"
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        "oneof": {
-          "title": "One of",
-          "oneOf": [
-            {
-              "type": "boolean",
-              "x-options": {
-                "switcherTitle": "Boolean",
-                "info": {
-                  "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
-                }
-              }
-            },
-            {
-              "type": "string",
-              "x-options": {
-                "switcherTitle": "String",
-                "info": {
-                  "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
-                }
-              }
-            },
-            {
-              "type": "integer",
-              "x-options": {
-                "switcherTitle": "Integer",
-                "info": {
-                  "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
-                }
-              }
-            }
-          ]
-        },
-        "anyof": {
-          "title": "Any Of",
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          },
-          "anyOf": [
-            {
-              "type": "array",
-              "x-options": {
-                "switcherTitle": "Array",
-                "info": {
-                  "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
-                }
-              }
-            },
-            {
-              "type": "object",
-              "x-options": {
-                "switcherTitle": "Object",
-                "info": {
-                  "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
-                }
-              }
-            },
-            {
-              "type": "null",
-              "x-options": {
-                "switcherTitle": "Null",
-                "info": {
-                  "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
-                }
-              }
-            }
-          ]
-        },
-        "type-array": {
-          "title": "Type string or boolean",
-          "type": [
-            "string",
-            "boolean"
-          ],
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          }
-        },
-        "type-undefined": {
-          "title": "Type is undefined",
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          }
-        },
-        "type-any": {
-          "type": "any",
-          "title": "Type: any",
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
-            }
-          }
-        }
+      "title": "Bejagung",
+      "description": "Fand im Jagdjahr 2024\/25 eine Bejagung von Waschb\u00e4ren f\u00fcr Dritte \/ im Auftrag statt?",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "ja, in Siedlungsbereichen",
+          "ja, f\u00fcr Artenschutzprojekte",
+          "ja, sonstige"
+        ]
       }
     }
   }

@@ -3487,10 +3487,10 @@ class EditorArrayNav extends EditorArray {
       const deleteBtn = this.theme.getDeleteItemBtn();
       const moveUpBtn = this.theme.getMoveUpItemBtn();
       const moveDownBtn = this.theme.getMoveDownItemBtn();
-      child.ui.control.arrayActions.innerHTML = "";
-      child.ui.control.arrayActions.appendChild(deleteBtn);
-      child.ui.control.arrayActions.appendChild(moveUpBtn);
-      child.ui.control.arrayActions.appendChild(moveDownBtn);
+      const btnGroup = this.theme.getBtnGroup();
+      btnGroup.appendChild(deleteBtn);
+      btnGroup.appendChild(moveUpBtn);
+      btnGroup.appendChild(moveDownBtn);
       this.control.childrenSlot.appendChild(child.ui.control.container);
       let childTitle;
       const schemaOptionTitleTemplate = getSchemaXOption(this.instance.schema, "titleTemplate");
@@ -3526,17 +3526,18 @@ class EditorArrayNav extends EditorArray {
       });
       const active = index2 === this.activeTabIndex;
       const id = pathToAttribute(child.path);
-      const tab = this.theme.getTab({
+      const { arrayActions, list } = this.theme.getTab({
         hasErrors: child.children.some((grandChild) => grandChild.ui.showingValidationErrors),
         title: childTitle,
         id,
         active
       });
-      tab.list.addEventListener("click", () => {
+      arrayActions.appendChild(btnGroup);
+      list.addEventListener("click", () => {
         this.activeTabIndex = index2;
       });
       this.theme.setTabPaneAttributes(child.ui.control.container, active, id);
-      tabList.appendChild(tab.list);
+      tabList.appendChild(list);
       tabContent.appendChild(child.ui.control.container);
       if (this.disabled || this.instance.isReadOnly()) {
         child.ui.disable();
@@ -3561,8 +3562,6 @@ class EditorMultiple extends Editor {
   }
   build() {
     this.control = this.theme.getMultipleControl({
-      title: "Options",
-      description: this.getDescription(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       id: this.getIdFromPath(this.instance.path),
       switcherOptionValues: this.instance.switcherOptionValues,
@@ -3786,6 +3785,7 @@ class EditorArrayCheckboxes extends Editor {
       titles: getSchemaXOption(this.instance.schema.items, "enumTitles") || getSchemaEnum(this.instance.schema.items),
       id: this.getIdFromPath(this.instance.path),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
+      inline: getSchemaXOption(this.instance.schema, "format") === "checkboxes-inline",
       info: getSchemaXOption(this.instance.schema, "info")
     });
   }
@@ -4582,7 +4582,7 @@ class Theme {
     return icon;
   }
   /**
-   * Container for complex editors like arrays, objects and multiple
+   * Container for complex editors like arrays and objects
    */
   getCard() {
     const html = document.createElement("div");
@@ -4948,7 +4948,6 @@ class Theme {
     const container = document.createElement("div");
     const placeholder = document.createElement("div");
     const actions = this.getActionsSlot();
-    const arrayActions = this.getArrayActionsSlot();
     const { label, labelText } = this.getLabel({
       for: config.id,
       text: config.title,
@@ -4976,8 +4975,7 @@ class Theme {
     container.appendChild(description);
     container.appendChild(messages);
     container.appendChild(actions);
-    actions.appendChild(arrayActions);
-    return { container, placeholder, label, labelText, description, messages, actions, arrayActions };
+    return { container, placeholder, label, labelText, description, messages, actions };
   }
   /**
    * Object control is a card containing multiple editors.
@@ -4988,7 +4986,6 @@ class Theme {
     var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
-    const arrayActions = this.getArrayActionsSlot();
     const body = this.getCardBody();
     const ariaLive = this.getPropertiesAriaLive();
     const description = this.getDescription({
@@ -5050,7 +5047,6 @@ class Theme {
     if (config.readOnly === false) {
       legend.appendChild(actions);
     }
-    actions.appendChild(arrayActions);
     body.appendChild(childrenSlot);
     if (config.addProperty) {
       propertiesContainer.appendChild(addPropertyControl.container);
@@ -5080,7 +5076,6 @@ class Theme {
       addPropertyBtn,
       ariaLive,
       propertiesActivators,
-      arrayActions,
       legend,
       infoContainer
     };
@@ -5093,7 +5088,6 @@ class Theme {
     var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
-    const arrayActions = this.getArrayActionsSlot();
     const body = this.getCardBody();
     const description = this.getDescription({
       content: config.description
@@ -5140,7 +5134,6 @@ class Theme {
     }
     actions.appendChild(btnGroup);
     btnGroup.appendChild(addBtn);
-    actions.appendChild(arrayActions);
     body.appendChild(childrenSlot);
     if (config.enableCollapseToggle) {
       actions.appendChild(collapseToggle);
@@ -5155,7 +5148,6 @@ class Theme {
       childrenSlot,
       btnGroup,
       addBtn,
-      arrayActions,
       legend,
       legendText
     };
@@ -5190,17 +5182,8 @@ class Theme {
    */
   getMultipleControl(config = {}) {
     const container = document.createElement("div");
-    const card = this.getCard();
-    const actions = this.getActionsSlot();
-    const arrayActions = this.getArrayActionsSlot();
-    const header = this.getCardHeader({
-      content: config.title,
-      titleHidden: config.titleHidden
-    });
-    const body = this.getCardBody();
-    const description = this.getDescription({
-      content: config.description
-    });
+    const header = document.createElement("div");
+    const body = document.createElement("div");
     const messages = this.getMessagesSlot();
     const childrenSlot = this.getChildrenSlot();
     const randomId = generateRandomID(5);
@@ -5213,32 +5196,20 @@ class Theme {
       readOnly: config.readOnly
     });
     switcher.container.classList.add("jedi-switcher");
-    container.appendChild(description);
-    if (config.description) {
-      container.appendChild(description);
-    }
-    container.appendChild(card);
-    card.appendChild(header);
-    card.appendChild(body);
-    if (config.readOnly === false) {
-      header.appendChild(actions);
-    }
+    container.appendChild(header);
+    container.appendChild(body);
     if (config.switcher) {
-      actions.appendChild(switcher.container);
+      header.appendChild(switcher.container);
     }
-    actions.appendChild(arrayActions);
     body.appendChild(messages);
     body.appendChild(childrenSlot);
     return {
       container,
-      card,
       header,
       body,
-      actions,
       messages,
       childrenSlot,
-      switcher,
-      arrayActions
+      switcher
     };
   }
   adaptForTableMultipleControl(control, td) {
@@ -5247,7 +5218,6 @@ class Theme {
     const container = document.createElement("div");
     const card = this.getCard();
     const actions = this.getActionsSlot();
-    const arrayActions = this.getArrayActionsSlot();
     const header = this.getCardHeader({
       content: config.title,
       titleHidden: config.titleHidden
@@ -5268,8 +5238,7 @@ class Theme {
       body,
       actions,
       messages,
-      childrenSlot,
-      arrayActions
+      childrenSlot
     };
   }
   /**
@@ -5279,7 +5248,6 @@ class Theme {
     var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
-    const arrayActions = this.getArrayActionsSlot();
     const { label, labelText } = this.getFakeLabel({
       for: config.id,
       text: config.title,
@@ -5305,8 +5273,7 @@ class Theme {
     container.appendChild(description);
     container.appendChild(messages);
     container.appendChild(actions);
-    actions.appendChild(arrayActions);
-    return { container, label, labelText, description, messages, actions, arrayActions };
+    return { container, label, labelText, description, messages, actions };
   }
   /**
    * A Textarea
@@ -5315,7 +5282,6 @@ class Theme {
     var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
-    const arrayActions = this.getArrayActionsSlot();
     const input = document.createElement("textarea");
     input.setAttribute("id", config.id);
     input.style.width = "100%";
@@ -5347,8 +5313,7 @@ class Theme {
     container.appendChild(description);
     container.appendChild(messages);
     container.appendChild(actions);
-    actions.appendChild(arrayActions);
-    return { container, input, label, labelText, description, messages, actions, arrayActions };
+    return { container, input, label, labelText, description, messages, actions };
   }
   adaptForTableTextareaControl(control) {
     this.visuallyHidden(control.label);
@@ -5362,7 +5327,6 @@ class Theme {
     var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
-    const arrayActions = this.getArrayActionsSlot();
     const input = document.createElement("input");
     input.setAttribute("type", config.type);
     input.setAttribute("id", config.id);
@@ -5396,8 +5360,7 @@ class Theme {
     container.appendChild(description);
     container.appendChild(messages);
     container.appendChild(actions);
-    actions.appendChild(arrayActions);
-    return { container, input, label, info, labelText, description, messages, actions, arrayActions };
+    return { container, input, label, info, labelText, description, messages, actions };
   }
   adaptForTableInputControl(control) {
     this.visuallyHidden(control.label);
@@ -5493,7 +5456,6 @@ class Theme {
     var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
-    const arrayActions = this.getArrayActionsSlot();
     const formGroup = document.createElement("span");
     const input = document.createElement("input");
     input.setAttribute("type", "checkbox");
@@ -5520,7 +5482,6 @@ class Theme {
     }
     container.appendChild(formGroup);
     container.appendChild(actions);
-    actions.appendChild(arrayActions);
     formGroup.appendChild(input);
     formGroup.appendChild(label);
     if (isObject(config.info)) {
@@ -5528,7 +5489,7 @@ class Theme {
     }
     formGroup.appendChild(description);
     formGroup.appendChild(messages);
-    return { container, formGroup, input, label, info, labelText, description, messages, actions, arrayActions };
+    return { container, formGroup, input, label, info, labelText, description, messages, actions };
   }
   adaptForTableCheckboxControl(control, td) {
     this.visuallyHidden(control.label);
@@ -5537,13 +5498,11 @@ class Theme {
   getCheckboxesControl(config) {
     var _a;
     const container = document.createElement("div");
-    const actions = this.getActionsSlot();
-    const arrayActions = this.getArrayActionsSlot();
-    const fieldset = this.getFieldset();
-    const body = this.getCardBody();
-    const { legend, legendText } = this.getLegend({
+    const fieldset = this.getRadioFieldset();
+    const { legend, legendText } = this.getRadioLegend({
       content: config.title,
-      id: config.id
+      id: config.id,
+      for: config.id
     });
     const messagesId = config.id + "-messages";
     const messages = this.getMessagesSlot({
@@ -5585,35 +5544,29 @@ class Theme {
       this.infoAsModal(info, config.id, config.info);
     }
     container.appendChild(fieldset);
-    container.appendChild(actions);
     fieldset.appendChild(legend);
     if (isObject(config.info)) {
       legendText.appendChild(info.container);
     }
-    fieldset.appendChild(body);
-    actions.appendChild(arrayActions);
     checkboxControls.forEach((checkboxControl, index2) => {
-      body.appendChild(checkboxControls[index2]);
+      fieldset.appendChild(checkboxControls[index2]);
       checkboxControl.appendChild(checkboxes[index2]);
       checkboxControl.appendChild(labels[index2]);
       labels[index2].appendChild(labelTexts[index2]);
     });
-    body.appendChild(description);
-    body.appendChild(messages);
+    fieldset.appendChild(description);
+    fieldset.appendChild(messages);
     return {
       container,
       fieldset,
       legend,
       legendText,
-      body,
       checkboxes,
       labels,
       labelTexts,
       checkboxControls,
       description,
-      messages,
-      actions,
-      arrayActions
+      messages
     };
   }
   adaptForTableCheckboxesControl(control, td) {
@@ -5627,7 +5580,6 @@ class Theme {
     var _a;
     const container = document.createElement("div");
     const actions = this.getActionsSlot();
-    const arrayActions = this.getArrayActionsSlot();
     const input = document.createElement("select");
     input.setAttribute("id", config.id);
     config.values.forEach((value, index2) => {
@@ -5666,8 +5618,7 @@ class Theme {
     container.appendChild(description);
     container.appendChild(messages);
     container.appendChild(actions);
-    actions.appendChild(arrayActions);
-    return { container, input, label, info, labelText, description, messages, actions, arrayActions };
+    return { container, input, label, info, labelText, description, messages, actions };
   }
   adaptForTableSelectControl(control) {
     this.visuallyHidden(control.label);
@@ -5763,11 +5714,14 @@ class Theme {
   getTab(config) {
     const list = document.createElement("li");
     const link = document.createElement("a");
+    const arrayActions = this.getArrayActionsSlot();
+    arrayActions.style.marginLeft = "5px";
     link.classList.add("jedi-nav-link");
     link.setAttribute("href", "#" + config.id);
     link.textContent = config.hasErrors ? "⚠ " + config.title : config.title;
     list.appendChild(link);
-    return { list, link };
+    link.appendChild(arrayActions);
+    return { list, link, arrayActions };
   }
   /**
    * Wrapper for tabs
@@ -5997,10 +5951,16 @@ class ThemeBootstrap3 extends Theme {
   }
   getCheckboxesControl(config) {
     const control = super.getCheckboxesControl(config);
-    const { body, checkboxes, labels, labelTexts, checkboxControls } = control;
+    const { fieldset, checkboxes, labels, labelTexts, checkboxControls } = control;
     checkboxControls.forEach((checkboxControl, index2) => {
       checkboxControl.classList.add("checkbox");
-      body.appendChild(checkboxControls[index2]);
+      if (config.inline) {
+        checkboxControl.style.display = "inline-flex";
+        checkboxControl.style.alignItems = "center";
+        checkboxControl.style.paddingLeft = "0";
+        checkboxControl.style.marginRight = "30px";
+      }
+      fieldset.appendChild(checkboxControls[index2]);
       checkboxControl.appendChild(labels[index2]);
       labels[index2].appendChild(checkboxes[index2]);
       labels[index2].appendChild(labelTexts[index2]);
@@ -6308,6 +6268,9 @@ class ThemeBootstrap4 extends Theme {
       checkboxControl.classList.add("form-check");
       checkboxes[index2].classList.add("form-check-input");
       labels[index2].classList.add("form-check-label");
+      if (config.inline) {
+        checkboxControl.classList.add("form-check-inline");
+      }
     });
     return control;
   }
@@ -6637,6 +6600,9 @@ class ThemeBootstrap5 extends Theme {
       checkboxControl.classList.add("form-check");
       checkboxes[index2].classList.add("form-check-input");
       labels[index2].classList.add("form-check-label");
+      if (config.inline) {
+        checkboxControl.classList.add("form-check-inline");
+      }
     });
     return control;
   }

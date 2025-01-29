@@ -170,7 +170,7 @@ class Theme {
   }
 
   /**
-   * Container for complex editors like arrays, objects and multiple
+   * Container for complex editors like arrays and objects
    */
   getCard () {
     const html = document.createElement('div')
@@ -613,7 +613,6 @@ class Theme {
     const container = document.createElement('div')
     const placeholder = document.createElement('div')
     const actions = this.getActionsSlot()
-    const arrayActions = this.getArrayActionsSlot()
 
     const { label, labelText } = this.getLabel({
       for: config.id,
@@ -649,9 +648,8 @@ class Theme {
     container.appendChild(description)
     container.appendChild(messages)
     container.appendChild(actions)
-    actions.appendChild(arrayActions)
 
-    return { container, placeholder, label, labelText, description, messages, actions, arrayActions }
+    return { container, placeholder, label, labelText, description, messages, actions }
   }
 
   /**
@@ -662,7 +660,6 @@ class Theme {
   getObjectControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
-    const arrayActions = this.getArrayActionsSlot()
     const body = this.getCardBody()
     const ariaLive = this.getPropertiesAriaLive()
 
@@ -745,7 +742,6 @@ class Theme {
       legend.appendChild(actions)
     }
 
-    actions.appendChild(arrayActions)
     body.appendChild(childrenSlot)
 
     if (config.addProperty) {
@@ -779,7 +775,6 @@ class Theme {
       addPropertyBtn,
       ariaLive,
       propertiesActivators,
-      arrayActions,
       legend,
       infoContainer
     }
@@ -792,7 +787,6 @@ class Theme {
   getArrayControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
-    const arrayActions = this.getArrayActionsSlot()
     const body = this.getCardBody()
 
     const description = this.getDescription({
@@ -853,7 +847,6 @@ class Theme {
 
     actions.appendChild(btnGroup)
     btnGroup.appendChild(addBtn)
-    actions.appendChild(arrayActions)
     body.appendChild(childrenSlot)
 
     if (config.enableCollapseToggle) {
@@ -870,7 +863,6 @@ class Theme {
       childrenSlot,
       btnGroup,
       addBtn,
-      arrayActions,
       legend,
       legendText
     }
@@ -911,25 +903,10 @@ class Theme {
    */
   getMultipleControl (config = {}) {
     const container = document.createElement('div')
-    const card = this.getCard()
-    const actions = this.getActionsSlot()
-    const arrayActions = this.getArrayActionsSlot()
-
-    const header = this.getCardHeader({
-      content: config.title,
-      titleHidden: config.titleHidden
-    })
-
-    const body = this.getCardBody()
-
-    const description = this.getDescription({
-      content: config.description
-    })
-
+    const header = document.createElement('div')
+    const body = document.createElement('div')
     const messages = this.getMessagesSlot()
-
     const childrenSlot = this.getChildrenSlot()
-
     const randomId = generateRandomID(5)
 
     const switcher = this.getSwitcher({
@@ -943,38 +920,23 @@ class Theme {
 
     switcher.container.classList.add('jedi-switcher')
 
-    container.appendChild(description)
-
-    if (config.description) {
-      container.appendChild(description)
-    }
-
-    container.appendChild(card)
-    card.appendChild(header)
-    card.appendChild(body)
-
-    if (config.readOnly === false) {
-      header.appendChild(actions)
-    }
+    container.appendChild(header)
+    container.appendChild(body)
 
     if (config.switcher) {
-      actions.appendChild(switcher.container)
+      header.appendChild(switcher.container)
     }
 
-    actions.appendChild(arrayActions)
     body.appendChild(messages)
     body.appendChild(childrenSlot)
 
     return {
       container,
-      card,
       header,
       body,
-      actions,
       messages,
       childrenSlot,
-      switcher,
-      arrayActions
+      switcher
     }
   }
 
@@ -984,7 +946,6 @@ class Theme {
     const container = document.createElement('div')
     const card = this.getCard()
     const actions = this.getActionsSlot()
-    const arrayActions = this.getArrayActionsSlot()
 
     const header = this.getCardHeader({
       content: config.title,
@@ -1012,8 +973,7 @@ class Theme {
       body,
       actions,
       messages,
-      childrenSlot,
-      arrayActions
+      childrenSlot
     }
   }
 
@@ -1023,7 +983,6 @@ class Theme {
   getNullControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
-    const arrayActions = this.getArrayActionsSlot()
 
     const { label, labelText } = this.getFakeLabel({
       for: config.id,
@@ -1058,9 +1017,8 @@ class Theme {
     container.appendChild(description)
     container.appendChild(messages)
     container.appendChild(actions)
-    actions.appendChild(arrayActions)
 
-    return { container, label, labelText, description, messages, actions, arrayActions }
+    return { container, label, labelText, description, messages, actions }
   }
 
   /**
@@ -1069,7 +1027,6 @@ class Theme {
   getTextareaControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
-    const arrayActions = this.getArrayActionsSlot()
 
     const input = document.createElement('textarea')
     input.setAttribute('id', config.id)
@@ -1111,9 +1068,8 @@ class Theme {
     container.appendChild(description)
     container.appendChild(messages)
     container.appendChild(actions)
-    actions.appendChild(arrayActions)
 
-    return { container, input, label, labelText, description, messages, actions, arrayActions }
+    return { container, input, label, labelText, description, messages, actions }
   }
 
   adaptForTableTextareaControl (control) {
@@ -1128,7 +1084,6 @@ class Theme {
   getInputControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
-    const arrayActions = this.getArrayActionsSlot()
 
     const input = document.createElement('input')
     input.setAttribute('type', config.type)
@@ -1172,9 +1127,8 @@ class Theme {
     container.appendChild(description)
     container.appendChild(messages)
     container.appendChild(actions)
-    actions.appendChild(arrayActions)
 
-    return { container, input, label, info, labelText, description, messages, actions, arrayActions }
+    return { container, input, label, info, labelText, description, messages, actions }
   }
 
   adaptForTableInputControl (control) {
@@ -1290,7 +1244,6 @@ class Theme {
   getCheckboxControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
-    const arrayActions = this.getArrayActionsSlot()
 
     const formGroup = document.createElement('span')
 
@@ -1326,7 +1279,6 @@ class Theme {
 
     container.appendChild(formGroup)
     container.appendChild(actions)
-    actions.appendChild(arrayActions)
     formGroup.appendChild(input)
     formGroup.appendChild(label)
 
@@ -1337,7 +1289,7 @@ class Theme {
     formGroup.appendChild(description)
     formGroup.appendChild(messages)
 
-    return { container, formGroup, input, label, info, labelText, description, messages, actions, arrayActions }
+    return { container, formGroup, input, label, info, labelText, description, messages, actions }
   }
 
   adaptForTableCheckboxControl (control, td) {
@@ -1347,13 +1299,11 @@ class Theme {
 
   getCheckboxesControl (config) {
     const container = document.createElement('div')
-    const actions = this.getActionsSlot()
-    const arrayActions = this.getArrayActionsSlot()
-    const fieldset = this.getFieldset()
-    const body = this.getCardBody()
-    const { legend, legendText } = this.getLegend({
+    const fieldset = this.getRadioFieldset()
+    const { legend, legendText } = this.getRadioLegend({
       content: config.title,
-      id: config.id
+      id: config.id,
+      for: config.id
     })
 
     const messagesId = config.id + '-messages'
@@ -1409,40 +1359,33 @@ class Theme {
     }
 
     container.appendChild(fieldset)
-    container.appendChild(actions)
     fieldset.appendChild(legend)
 
     if (isObject(config.info)) {
       legendText.appendChild(info.container)
     }
 
-    fieldset.appendChild(body)
-    actions.appendChild(arrayActions)
-
     checkboxControls.forEach((checkboxControl, index) => {
-      body.appendChild(checkboxControls[index])
+      fieldset.appendChild(checkboxControls[index])
       checkboxControl.appendChild(checkboxes[index])
       checkboxControl.appendChild(labels[index])
       labels[index].appendChild(labelTexts[index])
     })
 
-    body.appendChild(description)
-    body.appendChild(messages)
+    fieldset.appendChild(description)
+    fieldset.appendChild(messages)
 
     return {
       container,
       fieldset,
       legend,
       legendText,
-      body,
       checkboxes,
       labels,
       labelTexts,
       checkboxControls,
       description,
-      messages,
-      actions,
-      arrayActions
+      messages
     }
   }
 
@@ -1457,7 +1400,6 @@ class Theme {
   getSelectControl (config) {
     const container = document.createElement('div')
     const actions = this.getActionsSlot()
-    const arrayActions = this.getArrayActionsSlot()
 
     const input = document.createElement('select')
     input.setAttribute('id', config.id)
@@ -1509,9 +1451,8 @@ class Theme {
     container.appendChild(description)
     container.appendChild(messages)
     container.appendChild(actions)
-    actions.appendChild(arrayActions)
 
-    return { container, input, label, info, labelText, description, messages, actions, arrayActions }
+    return { container, input, label, info, labelText, description, messages, actions }
   }
 
   adaptForTableSelectControl (control) {
@@ -1625,11 +1566,14 @@ class Theme {
   getTab (config) {
     const list = document.createElement('li')
     const link = document.createElement('a')
+    const arrayActions = this.getArrayActionsSlot()
+    arrayActions.style.marginLeft = '5px'
     link.classList.add('jedi-nav-link')
     link.setAttribute('href', '#' + config.id)
     link.textContent = config.hasErrors ? '⚠ ' + config.title : config.title
     list.appendChild(link)
-    return { list, link }
+    link.appendChild(arrayActions)
+    return { list, link, arrayActions }
   }
 
   /**

@@ -16,8 +16,6 @@ class EditorMultiple extends Editor {
 
   build () {
     this.control = this.theme.getMultipleControl({
-      title: 'Options',
-      description: this.getDescription(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       id: this.getIdFromPath(this.instance.path),
       switcherOptionValues: this.instance.switcherOptionValues,

@@ -45,6 +45,7 @@ class EditorArrayCheckboxes extends Editor {
       titles: getSchemaXOption(this.instance.schema.items, 'enumTitles') || getSchemaEnum(this.instance.schema.items),
       id: this.getIdFromPath(this.instance.path),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
+      inline: getSchemaXOption(this.instance.schema, 'format') === 'checkboxes-inline',
       info: getSchemaXOption(this.instance.schema, 'info')
     })
   }
