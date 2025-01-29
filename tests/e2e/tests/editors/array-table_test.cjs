@@ -73,6 +73,14 @@ Scenario('@editor @array-table should have a @default value', ({I}) => {
   I.seeInField('[id="root-1-boolean-select"]', 'false')
 })
 
+Scenario('@editor @array-table should @delete-item', ({I}) => {
+  I.seeNumberOfElements('.jedi-array-delete', 2);
+  I._click('.jedi-array-delete')
+  I.seeInPopup('Are you sure you want to delete this item?')
+  I.acceptPopup()
+  I.seeNumberOfElements('.jedi-array-delete', 1);
+})
+
 Scenario('@editor @array-table should @setValue and @showValidationErrors', ({I}) => {
   // instance
   I.fillField('#editor-value', JSON.stringify(valueWithErrors))
@@ -90,10 +98,10 @@ Scenario('@editor @array-table should @disable', ({I}) => {
   I._click('#disable-editor')
   I.dontSeeElement('[always-disabled]:not(:disabled)')
 
-  I.dontSeeElement('.jedi-ready input:not(:disabled)')
-  I.dontSeeElement('.jedi-ready textarea:not(:disabled)')
-  I.dontSeeElement('.jedi-ready select:not(:disabled)')
-  I.dontSeeElement('.jedi-ready button:not(:disabled)')
+  I.dontSeeElement('.jedi-ready input:not(:disabled):not([always-enabled])')
+  I.dontSeeElement('.jedi-ready textarea:not(:disabled):not([always-enabled])')
+  I.dontSeeElement('.jedi-ready select:not(:disabled):not([always-enabled])')
+  I.dontSeeElement('.jedi-ready button:not(:disabled):not([always-enabled])')
 })
 
 Scenario('@editor @array-table should @enable', ({I}) => {
@@ -104,14 +112,6 @@ Scenario('@editor @array-table should @enable', ({I}) => {
   I.dontSeeElement('.jedi-ready textarea[disabled]:not([always-disabled])')
   I.dontSeeElement('.jedi-ready select[disabled]:not([always-disabled])')
   I.dontSeeElement('.jedi-ready button[disabled]:not([always-disabled])')
-})
-
-Scenario('@editor @array-table should @delete-item', ({I}) => {
-  I.seeNumberOfElements('.jedi-array-delete', 2);
-  I._click('.jedi-array-delete')
-  I.seeInPopup('Are you sure you want to delete this item?')
-  I.acceptPopup()
-  I.seeNumberOfElements('.jedi-array-delete', 1);
 })
 
 Scenario('@editor @array-table should @destroy', ({I}) => {

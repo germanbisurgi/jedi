@@ -21,6 +21,7 @@ class ThemeBootstrap4 extends Theme {
     const toggle = super.getCollapseToggle(config)
     toggle.setAttribute('href', '#' + config.collapseId)
     toggle.setAttribute('data-toggle', 'collapse')
+    toggle.setAttribute('always-enabled', '')
     return toggle
   }
 
@@ -363,6 +364,7 @@ class ThemeBootstrap4 extends Theme {
     modal.setAttribute('aria-modal', 'true')
     modal.setAttribute('id', modalId)
     closeBtn.setAttribute('data-dismiss', 'modal')
+    closeBtn.setAttribute('always-enabled', '')
     info.info.setAttribute('data-toggle', 'modal')
     info.info.setAttribute('data-target', '#' + modalId)
     info.container.classList.add('ml-1')

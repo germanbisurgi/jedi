@@ -40,6 +40,12 @@ class Theme {
    * Represents a caption for the content of its parent fieldset
    */
   getLegend (config) {
+    const left = document.createElement('div')
+    left.classList.add('jedi-editor-legend-left')
+
+    const right = document.createElement('div')
+    right.classList.add('jedi-editor-legend-right')
+
     const legendLabelId = 'legend-label-' + config.id
     const legend = document.createElement('legend')
     legend.style.fontSize = 'inherit'
@@ -51,15 +57,21 @@ class Theme {
     legendText.classList.add('jedi-editor-legend-text')
     legendText.setAttribute('id', legendLabelId)
 
+    const infoContainer = document.createElement('label')
+    infoContainer.classList.add('jedi-editor-info-container')
+
     const dummyInput = document.createElement('input')
     this.visuallyHidden(dummyInput)
     dummyInput.setAttribute('aria-hidden', 'true')
     dummyInput.setAttribute('type', 'hidden')
 
-    legend.appendChild(legendText)
+    legend.appendChild(left)
+    legend.appendChild(right)
+    left.appendChild(legendText)
+    left.appendChild(infoContainer)
     legendText.appendChild(dummyInput)
 
-    return { legend, legendText }
+    return { left, right, legend, legendText, infoContainer }
   }
 
   /**
@@ -277,6 +289,7 @@ class Theme {
   getCollapseToggle (config) {
     const toggle = this.getButton(config)
     toggle.classList.add('jedi-collapse-toggle')
+    toggle.setAttribute('always-enabled', '')
 
     if (this.useToggleEvents) {
       toggle.addEventListener('click', () => {
@@ -547,6 +560,7 @@ class Theme {
     title.classList.add('jedi-modal-title')
     content.classList.add('jedi-modal-content')
     closeBtn.classList.add('jedi-modal-close')
+    closeBtn.setAttribute('always-enabled', '')
 
     info.container.appendChild(dialog)
     dialog.appendChild(title)
@@ -664,7 +678,7 @@ class Theme {
     })
 
     const propertiesToggle = this.getPropertiesToggle({
-      content: config.title + ' ' + 'properties',
+      content: 'properties',
       id: 'properties-slot-toggle-' + config.id,
       icon: 'properties',
       propertiesContainer: propertiesContainer
@@ -678,7 +692,7 @@ class Theme {
     })
 
     const collapseToggle = this.getCollapseToggle({
-      content: config.title + ' ' + 'properties',
+      content: 'collapse',
       id: 'collapse-toggle-' + config.id,
       icon: 'collapse',
       collapseId: collapseId,
@@ -697,7 +711,7 @@ class Theme {
     const addPropertyBtn = this.getAddPropertyButton()
 
     const fieldset = this.getFieldset()
-    const { legend, legendText } = this.getLegend({
+    const { legend, infoContainer } = this.getLegend({
       content: config.title,
       id: config.id
     })
@@ -715,7 +729,7 @@ class Theme {
     fieldset.appendChild(legend)
 
     if (isObject(config.info)) {
-      legendText.appendChild(info.container)
+      infoContainer.appendChild(info.container)
     }
 
     fieldset.appendChild(collapse)
@@ -754,6 +768,7 @@ class Theme {
       container,
       collapse,
       collapseToggle,
+      description,
       body,
       actions,
       messages,
@@ -766,7 +781,7 @@ class Theme {
       propertiesActivators,
       arrayActions,
       legend,
-      legendText
+      infoContainer
     }
   }
 

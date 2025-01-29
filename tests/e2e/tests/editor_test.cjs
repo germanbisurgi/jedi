@@ -51,7 +51,7 @@ Scenario('@editor @destroy should destroy', ({ I }) => {
   I.dontSeeElement('[data-schemapath="root"]')
 })
 
-Scenario('@editor @disable Should disable and enable', ({ I }) => {
+Scenario('@editor should @disable and @enable', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/all')
   I._waitForElement('.jedi-ready')
@@ -60,10 +60,10 @@ Scenario('@editor @disable Should disable and enable', ({ I }) => {
   I._waitForElement('#disable-editor')
   I._scrollTo('#disable-editor')
   I._click('#disable-editor')
-  I.dontSeeElement('.jedi-ready input:not(:disabled)')
-  I.dontSeeElement('.jedi-ready textarea:not(:disabled)')
-  I.dontSeeElement('.jedi-ready select:not(:disabled)')
-  I.dontSeeElement('.jedi-ready button:not(:disabled)')
+  I.dontSeeElement('.jedi-ready input:not(:disabled):not([always-enabled])')
+  I.dontSeeElement('.jedi-ready textarea:not(:disabled):not([always-enabled])')
+  I.dontSeeElement('.jedi-ready select:not(:disabled):not([always-enabled])')
+  I.dontSeeElement('.jedi-ready button:not(:disabled):not([always-enabled])')
   I._scrollTo('#enable-editor')
   I._click('#enable-editor')
   I.dontSeeElement('.jedi-ready input[disabled]:not([always-disabled])')
