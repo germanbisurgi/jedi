@@ -2938,6 +2938,17 @@ class EditorNumberInput extends EditorNumber {
       info: getSchemaXOption(this.instance.schema, "info")
     });
     this.control.input.setAttribute("step", "any");
+    const useConstraintAttributes = getSchemaXOption(this.instance.schema, "useConstraintAttributes") ?? this.instance.jedi.options.useConstraintAttributes;
+    if (useConstraintAttributes === true) {
+      const schemaMinimum = getSchemaMinimum(this.instance.schema);
+      const schemaMaximum = getSchemaMaximum(this.instance.schema);
+      if (isSet(schemaMinimum)) {
+        this.control.input.setAttribute("min", schemaMinimum);
+      }
+      if (isSet(schemaMaximum)) {
+        this.control.input.setAttribute("max", schemaMaximum);
+      }
+    }
   }
   adaptForTable() {
     this.theme.adaptForTableInputControl(this.control);
@@ -2949,10 +2960,10 @@ class EditorNumberInput extends EditorNumber {
     });
   }
   refreshUI() {
-    this.refreshDisabledState();
+    super.refreshUI();
     const value = this.instance.getValue();
     if (isNumber(value)) {
-      this.control.input.value = this.instance.getValue();
+      this.control.input.value = value;
     }
   }
 }
@@ -4080,7 +4091,8 @@ class Jedi extends EventEmitter {
       radiosInline: false,
       language: "en",
       translations: {},
-      params: {}
+      params: {},
+      useConstraintAttributes: true
     }, options);
     this.rootName = "#";
     this.pathSeparator = "/";
@@ -4522,7 +4534,7 @@ class Theme {
   getRadioLegend(config) {
     const legendLabelId = "legend-label-" + config.id;
     const legend = document.createElement("legend");
-    legend.style.fontSize = "inherit !important";
+    legend.style.fontSize = "inherit";
     legend.classList.add("jedi-editor-legend");
     legend.setAttribute("aria-labelledby", legendLabelId);
     const legendText = document.createElement("label");

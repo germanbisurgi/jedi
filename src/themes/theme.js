@@ -92,7 +92,7 @@ class Theme {
   getRadioLegend (config) {
     const legendLabelId = 'legend-label-' + config.id
     const legend = document.createElement('legend')
-    legend.style.fontSize = 'inherit !important'
+    legend.style.fontSize = 'inherit'
     legend.classList.add('jedi-editor-legend')
     legend.setAttribute('aria-labelledby', legendLabelId)
 

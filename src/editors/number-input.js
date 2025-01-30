@@ -1,8 +1,8 @@
 import EditorNumber from './number.js'
-import { isNumber } from '../helpers/utils.js'
+import { isNumber, isSet } from '../helpers/utils.js'
 import {
   getSchemaXOption,
-  getSchemaType
+  getSchemaType, getSchemaMinimum, getSchemaMaximum
 } from '../helpers/schema.js'
 
 /**
@@ -27,6 +27,21 @@ class EditorNumberInput extends EditorNumber {
     })
 
     this.control.input.setAttribute('step', 'any')
+
+    const useConstraintAttributes = getSchemaXOption(this.instance.schema, 'useConstraintAttributes') ?? this.instance.jedi.options.useConstraintAttributes
+
+    if (useConstraintAttributes === true) {
+      const schemaMinimum = getSchemaMinimum(this.instance.schema)
+      const schemaMaximum = getSchemaMaximum(this.instance.schema)
+
+      if (isSet(schemaMinimum)) {
+        this.control.input.setAttribute('min', schemaMinimum)
+      }
+
+      if (isSet(schemaMaximum)) {
+        this.control.input.setAttribute('max', schemaMaximum)
+      }
+    }
   }
 
   adaptForTable () {
@@ -41,11 +56,11 @@ class EditorNumberInput extends EditorNumber {
   }
 
   refreshUI () {
-    this.refreshDisabledState()
+    super.refreshUI()
     const value = this.instance.getValue()
 
     if (isNumber(value)) {
-      this.control.input.value = this.instance.getValue()
+      this.control.input.value = value
     }
   }
 }
