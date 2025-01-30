@@ -125,12 +125,12 @@ class EditorObject extends Editor {
         const schemaTitle = getSchemaTitle(schema)
         const path = this.instance.path + this.instance.jedi.pathSeparator + property
         const id = pathToAttribute(path) + '-activator'
-        const label = isSet(schemaTitle) ? schemaTitle : property
+        const title = isSet(schemaTitle) ? schemaTitle : property
 
         if (notRequired) {
           const checkboxControl = this.theme.getCheckboxControl({
             id: id,
-            label: label,
+            title: title,
             titleHidden: false
           })
 
@@ -149,11 +149,11 @@ class EditorObject extends Editor {
               }
 
               this.instance.getChild(property).activate()
-              ariaLiveMessage.textContent = label + ' field was added to the form'
+              ariaLiveMessage.textContent = title + ' field was added to the form'
               ariaLive.appendChild(ariaLiveMessage)
             } else {
               this.instance.getChild(property).deactivate()
-              ariaLiveMessage.textContent = label + ' field was removed from the form'
+              ariaLiveMessage.textContent = title + ' field was removed from the form'
               ariaLive.appendChild(ariaLiveMessage)
             }
 
