@@ -13,7 +13,7 @@ BeforeSuite(({I}) => {
 })
 
 Scenario('@editor @string-input should have @title and @description', ({ I }) => {
-  I._waitForText('String', 'label')
+  I._waitForText('String', '[data-path="#"] label')
   I._waitForText('The string type is used for strings of text. It may contain Unicode characters.')
 })
 

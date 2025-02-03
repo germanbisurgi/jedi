@@ -1,9 +1,14 @@
 {
-  "title": "test",
+  "title": "Test",
   "type": "object",
+  "x-options": {
+    "format": "grid",
+    "grid": {
+      "columns": 6
+    }
+  },
   "properties": {
-    "anyOf": {
-      "title": "anyOf",
+    "propertyA": {
       "description": "this is an anyOf",
       "anyOf": [
         {
@@ -20,8 +25,7 @@
         }
       ]
     },
-    "oneOf": {
-      "title": "oneOf",
+    "propertyB": {
       "description": "this is an oneOf",
       "oneOf": [
         {
@@ -37,38 +41,6 @@
           }
         }
       ]
-    },
-    "any": {},
-    "checkboxes": {
-      "title": "Bejagung",
-      "description": "Fand im Jagdjahr 2024\/25 eine Bejagung von Waschb\u00e4ren f\u00fcr Dritte \/ im Auftrag statt?",
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "type": "string",
-        "enum": [
-          "ja, in Siedlungsbereichen",
-          "ja, f\u00fcr Artenschutzprojekte",
-          "ja, sonstige"
-        ]
-      }
-    },
-    "checkboxesInline": {
-      "x-options": {
-        "format": "checkboxes-inline"
-      },
-      "title": "Bejagung",
-      "description": "Fand im Jagdjahr 2024\/25 eine Bejagung von Waschb\u00e4ren f\u00fcr Dritte \/ im Auftrag statt?",
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "type": "string",
-        "enum": [
-          "ja, in Siedlungsbereichen",
-          "ja, f\u00fcr Artenschutzprojekte",
-          "ja, sonstige"
-        ]
-      }
     }
   }
 }

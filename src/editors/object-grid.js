@@ -15,7 +15,7 @@ class EditorObjectGrid extends EditorObject {
       this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild)
     }
 
-    const gridOptions = getSchemaXOption(this.instance.schema, 'grid') || {
+    const gridOptions = getSchemaXOption(this.instance.schema, 'grid') ?? {
       columns: 12
     }
     let row = this.theme.getRow()

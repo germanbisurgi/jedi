@@ -13,7 +13,7 @@ BeforeSuite(({I}) => {
 })
 
 Scenario('@editor @number-input should have @title and @description', ({ I }) => {
-  I._waitForText('Number', 'label')
+  I._waitForText('Number', '[data-path="#"] label')
   I._waitForText('The number type is used for any numeric type, either integers or floating point numbers.')
 })
 

@@ -5,7 +5,92 @@
     </header>
 
     <div class="row">
-      <div class="col-xs-12 col-md-8">
+      <div class="col-xs-12 col-md-12">
+        <div class="form-group mb-3">
+          <label for="examples">Examples</label>
+          <select class="form-control" id="examples" v-model="example" @change="reload">
+            <optgroup v-for="(options, category) in examples" :label="category" :key="category">
+              <option v-for="(value, key) in options" :value="key" :key="key">
+                {{ key }}
+              </option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-3">
+        <aside>
+          <div class="form-group mb-0">
+            <label for="schema"><code>schema</code></label>
+            <textarea ref="schema" class="form-control" id="schema" style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
+          </div>
+
+          <button class="btn btn-primary btn-block w-100 mb-3" id="set-schema" @click="setSchema()">Set schema</button>
+
+          <br><br>
+
+          <div class="form-group mb-3">
+            <label for="theme"><code>theme</code></label>
+            <select class="form-control" id="theme" v-model="theme" @change="reload()">
+              <option v-for="theme in themes" :value="theme">{{ theme }}</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="icon-lib"><code>iconLib</code></label>
+            <select class="form-control" id="icon-lib" v-model="iconLib" @change="reload()">
+              <option v-for="iconLib in iconLibs" :value="iconLib">{{ iconLib }}</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="language"><code>language</code></label>
+            <select class="form-control" id="language" v-model="language" @change="reload()">
+              <option v-for="language in languageOptions" :value="language">{{ language }}</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="show-errors"><code>showErrors</code></label>
+            <select class="form-control" id="show-errors" v-model="showErrors" @change="reload()">
+              <option v-for="showErrors in showErrorsOptions" :value="showErrors">{{ showErrors }}</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="switcher-inputs"><code>switcherInput</code></label>
+            <select class="form-control" id="switcher-inputs" v-model="switcherInput" @change="reload()">
+              <option v-for="switcherInput in switcherInputOptions" :value="switcherInput">{{ switcherInput }}</option>
+            </select>
+          </div>
+
+          <br><br>
+
+          <div class="form-group mb-3">
+            <input type="checkbox" id="enablePropertiesToggle" v-model="enablePropertiesToggle" @change="initEditor()">
+            <label for="enablePropertiesToggle"><code>enablePropertiesToggle</code></label>
+          </div>
+
+          <div class="form-group mb-3">
+            <input type="checkbox" id="enableCollapseToggle" v-model="enableCollapseToggle" @change="initEditor()">
+            <label for="enableCollapseToggle"><code>enableCollapseToggle</code></label>
+          </div>
+
+          <div class="form-group mb-3">
+            <input type="checkbox" id="assertFormat" v-model="assertFormat" @change="initEditor()">
+            <label for="assertFormat"><code>assertFormat</code></label>
+          </div>
+
+          <div class="form-group mb-3">
+            <input type="checkbox" id="enforceEnumDefault" v-model="enforceEnumDefault" @change="initEditor()">
+            <label for="enforceEnumDefault"><code>enforceEnumDefault</code></label>
+          </div>
+        </aside>
+      </div>
+
+      <div class="col-xs-12 col-md-6">
         <main>
           <div class="btn-group">
             <button class="btn btn-primary" id="disable-editor" @click="disableEditor()">Disable</button>
@@ -24,31 +109,22 @@
         </main>
       </div>
 
-      <div class="col-xs-12 col-md-4">
+      <div class="col-xs-12 col-md-3">
         <aside>
-          <div class="btn-group">
+          <div class="btn-group btn-block w-100">
             <button class="btn btn-primary" id="disable-editor" @click="shareLink()">Share Link</button>
           </div>
 
           <br><br>
 
-          <div class="form-group mb-3">
-            <label for="examples">Examples</label>
-            <select class="form-control" id="examples" v-model="example" @change="reload">
-              <optgroup v-for="(options, category) in examples" :label="category" :key="category">
-                <option v-for="(value, key) in options" :value="key" :key="key">
-                  {{ key }}
-                </option>
-              </optgroup>
-            </select>
-          </div>
-
-          <div class="form-group mb-3">
+          <div class="form-group mb-0">
             <label for="editor-value">Value</label>
             <textarea ref="editorValue" class="form-control" id="editor-value" style="font-size: 14px; font-family: monospace;height: 200px;"></textarea>
           </div>
 
-          <button class="btn btn-primary btn-block mb-3" id="set-value" @click="setEditorValue()">Set value</button>
+          <button class="btn btn-primary btn-block w-100 mb-3" id="set-value" @click="setEditorValue()">Set value</button>
+
+          <br><br>
 
           <div class="form-group mb-3">
             <label for="editor-errors">
@@ -56,61 +132,6 @@
               <span>{{ errorCount }}</span>
             </label>
             <textarea ref="editorErrors" class="form-control" id="editor-errors" style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
-          </div>
-
-          <div class="form-group mb-3">
-            <label for="schema">Schema</label>
-            <textarea ref="schema" class="form-control" id="schema" style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>
-          </div>
-
-          <button class="btn btn-primary btn-block mb-3" id="set-schema" @click="setSchema()">Set schema</button>
-
-          <div class="form-group mb-3">
-            <label for="theme">theme</label>
-            <select class="form-control" id="theme" v-model="theme" @change="reload()">
-              <option v-for="theme in themes" :value="theme">{{ theme }}</option>
-            </select>
-          </div>
-
-          <div class="form-group mb-3">
-            <label for="icon-lib">iconLib</label>
-            <select class="form-control" id="icon-lib" v-model="iconLib" @change="reload()">
-              <option v-for="iconLib in iconLibs" :value="iconLib">{{ iconLib }}</option>
-            </select>
-          </div>
-
-          <div class="form-group mb-3">
-            <label for="language">language</label>
-            <select class="form-control" id="language" v-model="language" @change="reload()">
-              <option v-for="language in languageOptions" :value="language">{{ language }}</option>
-            </select>
-          </div>
-
-          <div class="form-group mb-3">
-            <label for="show-errors">showErrors</label>
-            <select class="form-control" id="show-errors" v-model="showErrors" @change="reload()">
-              <option v-for="showErrors in showErrorsOptions" :value="showErrors">{{ showErrors }}</option>
-            </select>
-          </div>
-
-          <div class="form-group mb-3">
-            <input type="checkbox" id="enablePropertiesToggle" v-model="enablePropertiesToggle" @change="initEditor()">
-            <label for="enablePropertiesToggle">enablePropertiesToggle</label>
-          </div>
-
-          <div class="form-group mb-3">
-            <input type="checkbox" id="enableCollapseToggle" v-model="enableCollapseToggle" @change="initEditor()">
-            <label for="enableCollapseToggle">enableCollapseToggle</label>
-          </div>
-
-          <div class="form-group mb-3">
-            <input type="checkbox" id="assertFormat" v-model="assertFormat" @change="initEditor()">
-            <label for="assertFormat">assertFormat</label>
-          </div>
-
-          <div class="form-group mb-3">
-            <input type="checkbox" id="enforceEnumDefault" v-model="enforceEnumDefault" @change="initEditor()">
-            <label for="enforceEnumDefault">enforceEnumDefault</label>
           </div>
         </aside>
       </div>
@@ -321,6 +342,11 @@ export default {
         'change',
         'always'
       ],
+      switcherInputOptions: [
+        'select',
+        'radios',
+        'radios-inline'
+      ],
       languageOptions: [
         'en',
         'de',
@@ -334,6 +360,7 @@ export default {
       theme: 'barebones',
       iconLib: 'bootstrap-icons',
       showErrors: 'change',
+      switcherInput: 'select',
       language: 'en',
       assertFormat: false,
       enforceEnumDefault: true
@@ -344,6 +371,7 @@ export default {
     this.iconLib = this.getQueryParam('iconLib') || 'fontawesome5'
     this.example = this.getQueryParam('example') || 'editors/all'
     this.showErrors = this.getQueryParam('showErrors') || 'change'
+    this.switcherInput = this.getQueryParam('switcherInput') || 'select'
     this.language = this.getQueryParam('language') || 'en'
     this.assertFormat = this.getQueryParam('assertFormat') ? this.parseBooleanString(this.getQueryParam('assertFormat')) : false
     this.enforceEnumDefault = this.getQueryParam('enforceEnumDefault') ? this.parseBooleanString(this.getQueryParam('enforceEnumDefault')) : true
@@ -458,6 +486,7 @@ export default {
         enableCollapseToggle: this.enableCollapseToggle,
         iconLib: this.iconLib,
         showErrors: this.showErrors,
+        switcherInput: this.switcherInput,
         language: this.language,
         assertFormat: this.assertFormat,
         enforceEnumDefault: this.enforceEnumDefault,
@@ -518,6 +547,7 @@ export default {
       newUrl += "&iconLib=" + this.iconLib
       newUrl += "&example=" + this.example
       newUrl += "&showErrors=" + this.showErrors
+      newUrl += "&switcherInput=" + this.switcherInput
       newUrl += "&language=" + this.language
       newUrl += "&assertFormat=" + this.assertFormat
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
@@ -532,6 +562,7 @@ export default {
       newUrl += "&iconLib=" + this.iconLib
       newUrl += "&example=" + this.example
       newUrl += "&showErrors=" + this.showErrors
+      newUrl += "&switcherInput=" + this.switcherInput
       newUrl += "&language=" + this.language
       newUrl += "&assertFormat=" + this.assertFormat
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault

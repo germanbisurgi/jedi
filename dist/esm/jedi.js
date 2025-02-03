@@ -3126,7 +3126,7 @@ class EditorObjectGrid extends EditorObject {
     while (this.control.childrenSlot.firstChild) {
       this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild);
     }
-    const gridOptions = getSchemaXOption(this.instance.schema, "grid") || {
+    const gridOptions = getSchemaXOption(this.instance.schema, "grid") ?? {
       columns: 12
     };
     let row = this.theme.getRow();
@@ -3572,12 +3572,13 @@ class EditorMultiple extends Editor {
     return isSet(schemaAnyOf) || isSet(schemaOneOf) || schemaType === "any" || isArray(schemaType) || notSet(schemaType);
   }
   build() {
+    this.switcherInput = getSchemaXOption(this.instance.schema, "switcherInput") ?? this.instance.jedi.options.switcherInput;
     this.control = this.theme.getMultipleControl({
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       id: this.getIdFromPath(this.instance.path),
       switcherOptionValues: this.instance.switcherOptionValues,
       switcherOptionsLabels: this.instance.switcherOptionsLabels,
-      switcher: true,
+      switcher: this.switcherInput,
       readOnly: this.instance.isReadOnly()
     });
   }
@@ -3585,16 +3586,34 @@ class EditorMultiple extends Editor {
     this.theme.adaptForTableMultipleControl(this.control, td);
   }
   addEventListeners() {
-    this.control.switcher.input.addEventListener("change", () => {
-      const index2 = Number(this.control.switcher.input.value);
-      this.instance.switchInstance(index2, void 0, "editor");
-    });
+    if (this.switcherInput === "select") {
+      this.control.switcher.input.addEventListener("change", () => {
+        const index2 = Number(this.control.switcher.input.value);
+        this.instance.switchInstance(index2, void 0, "editor");
+      });
+    }
+    if (this.switcherInput === "radios" || this.switcherInput === "radios-inline") {
+      this.control.switcher.radios.forEach((radio) => {
+        radio.addEventListener("change", () => {
+          const index2 = Number(radio.value);
+          this.instance.switchInstance(index2, void 0, "editor");
+        });
+      });
+    }
   }
   refreshUI() {
     this.refreshDisabledState();
     this.control.childrenSlot.innerHTML = "";
     this.control.childrenSlot.appendChild(this.instance.activeInstance.ui.control.container);
-    this.control.switcher.input.value = this.instance.index;
+    if (this.switcherInput === "select") {
+      this.control.switcher.input.value = this.instance.index;
+    }
+    if (this.switcherInput === "radios" || this.switcherInput === "radios-inline") {
+      this.control.switcher.radios.forEach((radio) => {
+        const radioIndex = Number(radio.value);
+        radio.checked = radioIndex === this.instance.index;
+      });
+    }
     if (this.disabled || this.instance.isReadOnly()) {
       this.instance.activeInstance.ui.disable();
     } else {
@@ -4080,6 +4099,7 @@ class Jedi extends EventEmitter {
       deactivateNonRequired: false,
       schema: {},
       showErrors: "change",
+      switcherInput: "select",
       data: void 0,
       assertFormat: false,
       mergeAllOf: false,
@@ -5199,20 +5219,34 @@ class Theme {
     const messages = this.getMessagesSlot();
     const childrenSlot = this.getChildrenSlot();
     const randomId = generateRandomID(5);
-    const switcher = this.getSwitcher({
-      values: config.switcherOptionValues,
-      titles: config.switcherOptionsLabels,
-      id: config.id + "-switcher-" + randomId,
-      label: config.id + "-switcher-" + randomId,
-      titleHidden: true,
-      readOnly: config.readOnly
-    });
+    let switcher;
+    if (config.switcher === "select") {
+      switcher = this.getSwitcherSelect({
+        values: config.switcherOptionValues,
+        titles: config.switcherOptionsLabels,
+        title: config.id + "-switcher",
+        id: config.id + "-switcher-" + randomId,
+        label: config.id + "-switcher-" + randomId,
+        titleHidden: true,
+        readOnly: config.readOnly
+      });
+    }
+    if (config.switcher === "radios" || config.switcher === "radios-inline") {
+      switcher = this.getSwitcherRadios({
+        values: config.switcherOptionValues,
+        titles: config.switcherOptionsLabels,
+        title: config.id + "-switcher",
+        id: config.id + "-switcher-" + randomId,
+        label: config.id + "-switcher-" + randomId,
+        titleHidden: true,
+        readOnly: config.readOnly,
+        inline: config.switcher === "radios-inline"
+      });
+    }
     switcher.container.classList.add("jedi-switcher");
     container.appendChild(header);
     container.appendChild(body);
-    if (config.switcher) {
-      header.appendChild(switcher.container);
-    }
+    header.appendChild(switcher.container);
     body.appendChild(messages);
     body.appendChild(childrenSlot);
     return {
@@ -5639,26 +5673,14 @@ class Theme {
   /**
    * Control to switch between multiple editors options
    */
-  getSwitcher(config) {
-    const container = document.createElement("span");
-    const input = document.createElement("select");
-    input.setAttribute("id", config.id);
-    config.values.forEach((value, index2) => {
-      const option = document.createElement("option");
-      option.setAttribute("value", value);
-      if (config.titles && config.titles[index2]) {
-        option.textContent = config.titles[index2];
-      }
-      input.appendChild(option);
-    });
-    const { label, labelText } = this.getLabel({
-      for: config.id,
-      text: config.label,
-      visuallyHidden: config.titleHidden
-    });
-    container.appendChild(label);
-    container.appendChild(input);
-    return { container, input, label, labelText };
+  getSwitcherSelect(config) {
+    return this.getSelectControl(config);
+  }
+  /**
+   * Control to switch between multiple editors options
+   */
+  getSwitcherRadios(config) {
+    return this.getRadiosControl(config);
   }
   /**
    * Another type of error message container used for more complex editors like

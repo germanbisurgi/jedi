@@ -21,6 +21,10 @@
   - simplemde
 
 - editors
+  - disable option
+  - compact array items
+  - x-option flat options "x-enumTitles", "x-grid-columns", etc
+  - void instance (for buttons, and other stuff). Does not register
   - enumSource
   - remove not needed action containers
   - input range

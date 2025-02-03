@@ -15,12 +15,14 @@ class EditorMultiple extends Editor {
   }
 
   build () {
+    this.switcherInput = getSchemaXOption(this.instance.schema, 'switcherInput') ?? this.instance.jedi.options.switcherInput
+
     this.control = this.theme.getMultipleControl({
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       id: this.getIdFromPath(this.instance.path),
       switcherOptionValues: this.instance.switcherOptionValues,
       switcherOptionsLabels: this.instance.switcherOptionsLabels,
-      switcher: true,
+      switcher: this.switcherInput,
       readOnly: this.instance.isReadOnly()
     })
   }
@@ -30,17 +32,38 @@ class EditorMultiple extends Editor {
   }
 
   addEventListeners () {
-    this.control.switcher.input.addEventListener('change', () => {
-      const index = Number(this.control.switcher.input.value)
-      this.instance.switchInstance(index, undefined, 'editor')
-    })
+    if (this.switcherInput === 'select') {
+      this.control.switcher.input.addEventListener('change', () => {
+        const index = Number(this.control.switcher.input.value)
+        this.instance.switchInstance(index, undefined, 'editor')
+      })
+    }
+
+    if (this.switcherInput === 'radios' || this.switcherInput === 'radios-inline') {
+      this.control.switcher.radios.forEach((radio) => {
+        radio.addEventListener('change', () => {
+          const index = Number(radio.value)
+          this.instance.switchInstance(index, undefined, 'editor')
+        })
+      })
+    }
   }
 
   refreshUI () {
     this.refreshDisabledState()
     this.control.childrenSlot.innerHTML = ''
     this.control.childrenSlot.appendChild(this.instance.activeInstance.ui.control.container)
-    this.control.switcher.input.value = this.instance.index
+
+    if (this.switcherInput === 'select') {
+      this.control.switcher.input.value = this.instance.index
+    }
+
+    if (this.switcherInput === 'radios' || this.switcherInput === 'radios-inline') {
+      this.control.switcher.radios.forEach((radio) => {
+        const radioIndex = Number(radio.value)
+        radio.checked = radioIndex === this.instance.index
+      })
+    }
 
     if (this.disabled || this.instance.isReadOnly()) {
       this.instance.activeInstance.ui.disable()

@@ -10,6 +10,6 @@ Scenario('@constrain @not should display validation errors', ({ I }) => {
   I.selectOption('#show-errors', 'always')
   I._scrollTo('[data-path="#/test"]')
   I._waitForText('Must not validate against the provided schema', '[data-path="#/test"]')
-  I.fillField('root-test-switcher', 'Number')
+  I.fillField('[id^="root-test-switcher"]', 'Number')
   I.dontSee('Must not validate against the provided schema', '[data-path="#/test"]')
 })

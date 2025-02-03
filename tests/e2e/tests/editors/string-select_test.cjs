@@ -13,7 +13,7 @@ BeforeSuite(({I}) => {
 });
 
 Scenario('@editor @string-select should have @title and @description', ({ I }) => {
-  I._waitForText('String select', 'label')
+  I._waitForText('String select', '[data-path="#"] label')
   I._waitForText('The string type is used for strings of text. It may contain Unicode characters.')
 })
 

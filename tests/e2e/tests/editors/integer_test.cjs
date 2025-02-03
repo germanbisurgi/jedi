@@ -13,7 +13,8 @@ BeforeSuite(({I}) => {
 })
 
 Scenario('@editor @integer-input should have @title and @description', ({ I }) => {
-  I._waitForText('Integer', 'label')
+  pause()
+  I._waitForText('Integer', '[data-path="#"] label')
   I._waitForText('The integer type is used for integral numbers.')
 })
 

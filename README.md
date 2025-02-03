@@ -290,6 +290,19 @@ A `RefParser` resolves `$ref` references in JSON Schemas by dereferencing then.
       <td>Set default language for error messages and UI texts</td>
     </tr>
     <tr align="left">
+      <td><code>switcherInput</code></td>
+      <td><code>string</code></td>
+      <td><code>'select'</code></td>
+      <td>
+        Sets the input type that will be used to witch between multiple editors
+        <ul>
+          <li><code>select</code></li>
+          <li><code>radios</code></li>
+          <li><code>radios-inline</code></li>
+        </ul>
+      </td>
+    </tr>
+    <tr align="left">
       <td><code>translations</code></td>
       <td><code>object</code></td>
       <td><code>'{}'</code></td>

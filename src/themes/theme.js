@@ -909,24 +909,38 @@ class Theme {
     const childrenSlot = this.getChildrenSlot()
     const randomId = generateRandomID(5)
 
-    const switcher = this.getSwitcher({
-      values: config.switcherOptionValues,
-      titles: config.switcherOptionsLabels,
-      id: config.id + '-switcher' + '-' + randomId,
-      label: config.id + '-switcher' + '-' + randomId,
-      titleHidden: true,
-      readOnly: config.readOnly
-    })
+    let switcher
+
+    if (config.switcher === 'select') {
+      switcher = this.getSwitcherSelect({
+        values: config.switcherOptionValues,
+        titles: config.switcherOptionsLabels,
+        title: config.id + '-switcher',
+        id: config.id + '-switcher' + '-' + randomId,
+        label: config.id + '-switcher' + '-' + randomId,
+        titleHidden: true,
+        readOnly: config.readOnly
+      })
+    }
+
+    if (config.switcher === 'radios' || config.switcher === 'radios-inline') {
+      switcher = this.getSwitcherRadios({
+        values: config.switcherOptionValues,
+        titles: config.switcherOptionsLabels,
+        title: config.id + '-switcher',
+        id: config.id + '-switcher' + '-' + randomId,
+        label: config.id + '-switcher' + '-' + randomId,
+        titleHidden: true,
+        readOnly: config.readOnly,
+        inline: config.switcher === 'radios-inline'
+      })
+    }
 
     switcher.container.classList.add('jedi-switcher')
 
     container.appendChild(header)
     container.appendChild(body)
-
-    if (config.switcher) {
-      header.appendChild(switcher.container)
-    }
-
+    header.appendChild(switcher.container)
     body.appendChild(messages)
     body.appendChild(childrenSlot)
 
@@ -1463,32 +1477,15 @@ class Theme {
   /**
    * Control to switch between multiple editors options
    */
-  getSwitcher (config) {
-    const container = document.createElement('span')
-    const input = document.createElement('select')
-    input.setAttribute('id', config.id)
+  getSwitcherSelect (config) {
+    return this.getSelectControl(config)
+  }
 
-    config.values.forEach((value, index) => {
-      const option = document.createElement('option')
-      option.setAttribute('value', value)
-
-      if (config.titles && config.titles[index]) {
-        option.textContent = config.titles[index]
-      }
-
-      input.appendChild(option)
-    })
-
-    const { label, labelText } = this.getLabel({
-      for: config.id,
-      text: config.label,
-      visuallyHidden: config.titleHidden
-    })
-
-    container.appendChild(label)
-    container.appendChild(input)
-
-    return { container, input, label, labelText }
+  /**
+   * Control to switch between multiple editors options
+   */
+  getSwitcherRadios (config) {
+    return this.getRadiosControl(config)
   }
 
   /**

@@ -48,6 +48,7 @@ class Jedi extends EventEmitter {
       deactivateNonRequired: false,
       schema: {},
       showErrors: 'change',
+      switcherInput: 'select',
       data: undefined,
       assertFormat: false,
       mergeAllOf: false,
