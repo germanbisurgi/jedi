@@ -149,7 +149,7 @@ A `RefParser` resolves `$ref` references in JSON Schemas by dereferencing then.
   }
 }
 ```
-
+ 
 ## Instance Options
 
 <table>
@@ -176,11 +176,11 @@ A `RefParser` resolves `$ref` references in JSON Schemas by dereferencing then.
         Specifies the icon library to use for UI components. Valid options include:
         <ul>
           <li><code>'glyphicons'</code></li>
-          <li><code>'bootstrapIcons'</code></li>
-          <li><code>'fontAwesome3'</code></li>
-          <li><code>'fontAwesome4'</code></li>
-          <li><code>'fontAwesome5'</code></li>
-          <li><code>'fontAwesome6'</code></li>
+          <li><code>'bootstrap-icons'</code></li>
+          <li><code>'fontawesome3'</code></li>
+          <li><code>'fontawesome4'</code></li>
+          <li><code>'fontawesome5'</code></li>
+          <li><code>'fontawesome6'</code></li>
         </ul>
       </td>
     </tr>
