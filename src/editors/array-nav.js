@@ -102,14 +102,14 @@ class EditorArrayNav extends EditorArray {
       const active = index === this.activeTabIndex
       const id = pathToAttribute(child.path)
 
-      const { arrayActions, list } = this.theme.getTab({
+      const { list } = this.theme.getTab({
         hasErrors: child.children.some((grandChild) => grandChild.ui.showingValidationErrors),
         title: childTitle,
         id: id,
         active: active
       })
 
-      arrayActions.appendChild(btnGroup)
+      list.appendChild(btnGroup)
 
       list.addEventListener('click', () => {
         this.activeTabIndex = index

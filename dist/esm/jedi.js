@@ -3537,13 +3537,13 @@ class EditorArrayNav extends EditorArray {
       });
       const active = index2 === this.activeTabIndex;
       const id = pathToAttribute(child.path);
-      const { arrayActions, list } = this.theme.getTab({
+      const { list } = this.theme.getTab({
         hasErrors: child.children.some((grandChild) => grandChild.ui.showingValidationErrors),
         title: childTitle,
         id,
         active
       });
-      arrayActions.appendChild(btnGroup);
+      list.appendChild(btnGroup);
       list.addEventListener("click", () => {
         this.activeTabIndex = index2;
       });
@@ -5748,14 +5748,11 @@ class Theme {
   getTab(config) {
     const list = document.createElement("li");
     const link = document.createElement("a");
-    const arrayActions = this.getArrayActionsSlot();
-    arrayActions.style.marginLeft = "5px";
     link.classList.add("jedi-nav-link");
     link.setAttribute("href", "#" + config.id);
     link.textContent = config.hasErrors ? "⚠ " + config.title : config.title;
     list.appendChild(link);
-    link.appendChild(arrayActions);
-    return { list, link, arrayActions };
+    return { list, link };
   }
   /**
    * Wrapper for tabs

@@ -1563,14 +1563,11 @@ class Theme {
   getTab (config) {
     const list = document.createElement('li')
     const link = document.createElement('a')
-    const arrayActions = this.getArrayActionsSlot()
-    arrayActions.style.marginLeft = '5px'
     link.classList.add('jedi-nav-link')
     link.setAttribute('href', '#' + config.id)
     link.textContent = config.hasErrors ? '⚠ ' + config.title : config.title
     list.appendChild(link)
-    link.appendChild(arrayActions)
-    return { list, link, arrayActions }
+    return { list, link }
   }
 
   /**

@@ -37,26 +37,27 @@ Scenario('@editor @array @array-nav-vertical', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/array-nav-vertical')
   I._waitForElement('.jedi-ready')
+  pause()
 
   if (theme === 'barebones') {
     I._waitForElement('.jedi-nav-list')
     I.seeNumberOfVisibleElements('.jedi-nav-link', 2)
     I._click('.jedi-nav-list [href="#root-1"]')
-    I.waitForValue('[id="root-0-name"]', 'Albert')
+    I.waitForValue('[id="root-1-name"]', 'Betti')
   }
 
   if (theme === 'bootstrap3') {
     I._waitForElement('.nav-pills')
     I.seeNumberOfVisibleElements('.nav-pills li', 2)
     I._click('.nav-pills [href="#root-1"]')
-    I.waitForValue('[id="root-0-name"]', 'Albert')
+    I.waitForValue('[id="root-1-name"]', 'Betti')
   }
 
   if (theme === 'bootstrap4' || theme === 'bootstrap5') {
     I._waitForElement('.nav-pills')
     I.seeNumberOfVisibleElements('.nav-link', 2)
     I._click('.nav-pills [href="#root-1"]')
-    I.waitForValue('[id="root-0-name"]', 'Albert')
+    I.waitForValue('[id="root-1-name"]', 'Betti')
   }
 })
 
@@ -69,20 +70,20 @@ Scenario('@editor @array @array-nav-horizontal', ({ I }) => {
     I._waitForElement('.jedi-nav-list')
     I.seeNumberOfVisibleElements('.jedi-nav-link', 2)
     I._click('.jedi-nav-list [href="#root-1"]')
-    I.waitForValue('[id="root-0-name"]', 'Albert')
+    I.waitForValue('[id="root-1-name"]', 'Betti')
   }
 
   if (theme === 'bootstrap3') {
     I._waitForElement('.nav-tabs')
     I.seeNumberOfVisibleElements('.nav-tabs li', 2)
     I._click('.nav-tabs [href="#root-1"]')
-    I.waitForValue('[id="root-0-name"]', 'Albert')
+    I.waitForValue('[id="root-1-name"]', 'Betti')
   }
 
   if (theme === 'bootstrap4' || theme === 'bootstrap5') {
     I._waitForElement('.nav-tabs')
     I.seeNumberOfVisibleElements('.nav-link', 2)
     I._click('.nav-tabs [href="#root-1"]')
-    I.waitForValue('[id="root-0-name"]', 'Albert')
+    I.waitForValue('[id="root-1-name"]', 'Betti')
   }
 })
