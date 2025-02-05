@@ -4550,6 +4550,9 @@ class Theme {
     left.appendChild(legendText);
     left.appendChild(infoContainer);
     legendText.appendChild(dummyInput);
+    if (config.titleHidden) {
+      this.visuallyHidden(legendText);
+    }
     return { left, right, legend, legendText, infoContainer };
   }
   /**
@@ -5072,7 +5075,8 @@ class Theme {
     const fieldset = this.getFieldset();
     const { legend, infoContainer } = this.getLegend({
       content: config.title,
-      id: config.id
+      id: config.id,
+      titleHidden: config.titleHidden
     });
     const info = this.getInfo(config.info);
     if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
@@ -5146,7 +5150,8 @@ class Theme {
     const fieldset = this.getFieldset();
     const { legend, legendText } = this.getLegend({
       content: config.title,
-      id: config.id
+      id: config.id,
+      titleHidden: config.titleHidden
     });
     const collapseId = "collapse-" + config.id;
     const collapse = this.getCollapse({

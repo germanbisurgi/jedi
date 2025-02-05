@@ -71,6 +71,10 @@ class Theme {
     left.appendChild(infoContainer)
     legendText.appendChild(dummyInput)
 
+    if (config.titleHidden) {
+      this.visuallyHidden(legendText)
+    }
+
     return { left, right, legend, legendText, infoContainer }
   }
 
@@ -710,7 +714,8 @@ class Theme {
     const fieldset = this.getFieldset()
     const { legend, infoContainer } = this.getLegend({
       content: config.title,
-      id: config.id
+      id: config.id,
+      titleHidden: config.titleHidden
     })
 
     const info = this.getInfo(config.info)
@@ -800,7 +805,8 @@ class Theme {
     const fieldset = this.getFieldset()
     const { legend, legendText } = this.getLegend({
       content: config.title,
-      id: config.id
+      id: config.id,
+      titleHidden: config.titleHidden
     })
 
     const collapseId = 'collapse-' + config.id
