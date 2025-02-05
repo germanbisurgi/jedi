@@ -17,6 +17,16 @@ class InstanceObject extends Instance {
   prepare () {
     this.properties = {}
     const schemaProperties = getSchemaProperties(this.schema)
+    const schemaRequired = getSchemaRequired(this.schema)
+
+    // Add properties listed in schema required too if not present in schema properties
+    if (isSet(schemaRequired)) {
+      schemaRequired.forEach((requiredProperty) => {
+        if (!hasOwn(this.properties, requiredProperty)) {
+          this.properties[requiredProperty] = {}
+        }
+      })
+    }
 
     if (isSet(schemaProperties)) {
       Object.keys(schemaProperties).forEach((key) => {

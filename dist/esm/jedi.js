@@ -2252,6 +2252,14 @@ class InstanceObject extends Instance {
   prepare() {
     this.properties = {};
     const schemaProperties = getSchemaProperties(this.schema);
+    const schemaRequired = getSchemaRequired(this.schema);
+    if (isSet(schemaRequired)) {
+      schemaRequired.forEach((requiredProperty) => {
+        if (!hasOwn(this.properties, requiredProperty)) {
+          this.properties[requiredProperty] = {};
+        }
+      });
+    }
     if (isSet(schemaProperties)) {
       Object.keys(schemaProperties).forEach((key) => {
         const schema = schemaProperties[key];
@@ -2514,7 +2522,9 @@ const glyphicons = {
   add: "glyphicon glyphicon-plus",
   moveUp: "glyphicon glyphicon-arrow-up",
   moveDown: "glyphicon glyphicon-arrow-down",
-  collapse: "glyphicon glyphicon-chevron-down",
+  collapse: "glyphicon glyphicon-minus",
+  expand: "glyphicon glyphicon-plus",
+  // Expand set to plus
   drag: "glyphicon glyphicon-th",
   info: "glyphicon glyphicon-question-sign",
   close: "glyphicon glyphicon-remove"
@@ -2525,7 +2535,8 @@ const bootstrapIcons = {
   add: "bi bi-plus",
   moveUp: "bi bi-arrow-up",
   moveDown: "bi bi-arrow-down",
-  collapse: "bi bi-chevron-down",
+  collapse: "bi bi-minus",
+  expand: "bi bi-plus",
   drag: "bi bi-grip-vertical",
   info: "bi bi-question-circle",
   close: "bi bi-x"
@@ -2536,7 +2547,8 @@ const fontAwesome3 = {
   add: "icon-plus",
   moveUp: "icon-arrow-up",
   moveDown: "icon-arrow-down",
-  collapse: "icon-chevron-down",
+  collapse: "icon-minus",
+  expand: "icon-plus",
   drag: "icon-th",
   info: "icon-question-sign",
   close: "icon-remove"
@@ -2547,7 +2559,8 @@ const fontAwesome4 = {
   add: "fa fa-plus",
   moveUp: "fa fa-arrow-up",
   moveDown: "fa fa-arrow-down",
-  collapse: "fa fa-chevron-down",
+  collapse: "fa fa-minus",
+  expand: "fa fa-plus",
   drag: "fa fa-th",
   info: "fa fa-question-circle",
   close: "fa fa-times"
@@ -2558,7 +2571,8 @@ const fontAwesome5 = {
   add: "fas fa-plus",
   moveUp: "fas fa-arrow-up",
   moveDown: "fas fa-arrow-down",
-  collapse: "fas fa-chevron-down",
+  collapse: "fas fa-minus",
+  expand: "fas fa-plus",
   drag: "fas fa-grip-vertical",
   info: "fas fa-question-circle",
   close: "fas fa-times"
@@ -2569,7 +2583,8 @@ const fontAwesome6 = {
   add: "fa-solid fa-plus",
   moveUp: "fa-solid fa-arrow-up",
   moveDown: "fa-solid fa-arrow-down",
-  collapse: "fa-solid fa-chevron-down",
+  collapse: "fa-solid fa-minus",
+  expand: "fa-solid fa-plus",
   drag: "fa-solid fa-grip-vertical",
   info: "fa-solid fa-circle-question",
   close: "fa-solid fa-xmark"
