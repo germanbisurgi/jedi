@@ -1,46 +1,28 @@
 {
   "title": "Test",
   "type": "object",
-  "x-options": {
-    "format": "grid",
-    "grid": {
-      "columns": 6
-    }
-  },
   "properties": {
-    "propertyA": {
-      "description": "this is an anyOf",
-      "anyOf": [
-        {
-          "type": "string",
-          "x-options": {
-            "switcherTitle": "As string"
-          }
-        },
-        {
-          "type": "boolean",
-          "x-options": {
-            "switcherTitle": "As boolean"
-          }
-        }
-      ]
+    "null": {
+      "type": "null"
     },
-    "propertyB": {
-      "description": "this is an oneOf",
-      "oneOf": [
-        {
-          "type": "string",
-          "x-options": {
-            "switcherTitle": "As string"
-          }
-        },
-        {
-          "type": "boolean",
-          "x-options": {
-            "switcherTitle": "As boolean"
-          }
-        }
-      ]
-    }
+    "boolean": {
+      "type": "boolean"
+    },
+    "string": {
+      "type": "string"
+    },
+    "number": {
+      "type": "number"
+    },
+    "integer": {
+      "type": "integer"
+    },
+    "object": {
+      "type": "object"
+    },
+    "array": {
+      "type": "array"
+    },
+    "multiple": {}
   }
 }

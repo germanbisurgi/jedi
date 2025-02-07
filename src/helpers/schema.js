@@ -174,6 +174,12 @@ export function getSchemaNot (schema) {
 }
 
 export function getSchemaXOption (schema, option) {
+  const xOption = 'x-' + option
+
+  if (isSet(schema[xOption])) {
+    return schema[xOption]
+  }
+
   return (schema['x-options'] && isSet(schema['x-options'][option])) ? schema['x-options'][option] : undefined
 }
 

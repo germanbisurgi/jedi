@@ -336,6 +336,10 @@ function getSchemaNot(schema) {
   return isObject(schema.not) || isBoolean(schema.not) ? schema.not : void 0;
 }
 function getSchemaXOption(schema, option) {
+  const xOption = "x-" + option;
+  if (isSet(schema[xOption])) {
+    return schema[xOption];
+  }
   return schema["x-options"] && isSet(schema["x-options"][option]) ? schema["x-options"][option] : void 0;
 }
 function getSchemaPattern(schema) {
@@ -4583,6 +4587,7 @@ class Theme {
     this.visuallyHidden(dummyInput);
     dummyInput.setAttribute("aria-hidden", "true");
     dummyInput.setAttribute("type", "hidden");
+    dummyInput.setAttribute("disabled", "");
     legend.appendChild(legendText);
     legendText.appendChild(dummyInput);
     return { legend, legendText };
@@ -4605,17 +4610,25 @@ class Theme {
     return { label, labelText, icon };
   }
   getFakeLabel(config) {
-    const label = document.createElement("span");
+    const label = document.createElement("label");
     const labelText = document.createElement("span");
     const icon = this.getIcon(config.titleIconClass);
+    label.setAttribute("for", config.for);
     labelText.innerHTML = this.purifyContent(config.text);
     label.classList.add("jedi-title");
     if (config.visuallyHidden) {
       this.visuallyHidden(label);
     }
+    const dummyInput = document.createElement("input");
+    this.visuallyHidden(dummyInput);
+    dummyInput.setAttribute("aria-hidden", "true");
+    dummyInput.setAttribute("type", "hidden");
+    dummyInput.setAttribute("disabled", "");
+    dummyInput.setAttribute("id", config.for);
     label.appendChild(icon);
     label.appendChild(labelText);
-    return { label, labelText, icon };
+    label.appendChild(dummyInput);
+    return { label, labelText, icon, dummyInput };
   }
   /**
    * Returns a icon element

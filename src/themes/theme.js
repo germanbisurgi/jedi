@@ -109,6 +109,7 @@ class Theme {
     this.visuallyHidden(dummyInput)
     dummyInput.setAttribute('aria-hidden', 'true')
     dummyInput.setAttribute('type', 'hidden')
+    dummyInput.setAttribute('disabled', '')
 
     legend.appendChild(legendText)
     legendText.appendChild(dummyInput)
@@ -139,9 +140,11 @@ class Theme {
   }
 
   getFakeLabel (config) {
-    const label = document.createElement('span')
+    const label = document.createElement('label')
     const labelText = document.createElement('span')
     const icon = this.getIcon(config.titleIconClass)
+
+    label.setAttribute('for', config.for)
 
     labelText.innerHTML = this.purifyContent(config.text)
     label.classList.add('jedi-title')
@@ -150,10 +153,18 @@ class Theme {
       this.visuallyHidden(label)
     }
 
+    const dummyInput = document.createElement('input')
+    this.visuallyHidden(dummyInput)
+    dummyInput.setAttribute('aria-hidden', 'true')
+    dummyInput.setAttribute('type', 'hidden')
+    dummyInput.setAttribute('disabled', '')
+    dummyInput.setAttribute('id', config.for)
+
     label.appendChild(icon)
     label.appendChild(labelText)
+    label.appendChild(dummyInput)
 
-    return { label, labelText, icon }
+    return { label, labelText, icon, dummyInput }
   }
 
   /**
