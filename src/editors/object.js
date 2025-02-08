@@ -181,9 +181,32 @@ class EditorObject extends Editor {
     }
 
     this.instance.children.forEach((child) => {
+      const showOptIn = true
+
+      const optIn = this.theme.getCheckboxControl({
+        id: child.path + '-opt-in',
+        title: child.path + '-opt-in',
+        titleHidden: true
+      })
+
+      optIn.input.checked = child.isActive
+
+      optIn.input.addEventListener('change', () => {
+        if (child.isActive) {
+          child.deactivate()
+        } else {
+          child.activate()
+        }
+      })
+
       if (child.isActive) {
         if (child.ui.control.container.parentNode === null) {
           this.control.childrenSlot.appendChild(child.ui.control.container)
+
+          // append optIn toggle
+          if (showOptIn && child.ui.control.optInContainer) {
+            child.ui.control.optInContainer.appendChild(optIn.container)
+          }
         }
 
         if (this.disabled || this.instance.isReadOnly()) {

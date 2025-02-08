@@ -2,17 +2,29 @@
   "title": "Test",
   "type": "object",
   "properties": {
-    "null": {
-      "type": "null"
+    "checkbox": {
+      "type": "boolean",
+      "x-format": "checkbox"
     },
-    "boolean": {
-      "type": "boolean"
+    "select": {
+      "type": "boolean",
+      "x-format": "select"
+    },
+    "radio": {
+      "type": "string",
+      "enum": [
+        "a", "b"
+      ],
+      "x-format": "radios"
     },
     "string": {
       "type": "string"
     },
     "number": {
       "type": "number"
+    },
+    "null": {
+      "type": "null"
     },
     "integer": {
       "type": "integer"

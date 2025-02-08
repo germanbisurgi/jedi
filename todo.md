@@ -21,6 +21,7 @@
   - simplemde
 
 - editors
+  - refactor theme.getCollapseToggle
   - disable option
   - compact array items
   - x-option flat options "x-enumTitles", "x-grid-columns", etc
