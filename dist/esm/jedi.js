@@ -1633,6 +1633,13 @@ class Instance extends EventEmitter {
     if (isSet(schemaDefault)) {
       this.setValue(schemaDefault, false);
     }
+    const enforceConst = this.jedi.options.enforceConst || getSchemaXOption(this.schema, "enforceConst");
+    if (isSet(enforceConst) && equal(enforceConst, true)) {
+      const schemaConst = getSchemaConst(this.schema);
+      if (isSet(schemaConst)) {
+        this.setValue(schemaConst, false);
+      }
+    }
   }
   /**
    * Returns the value of the instance

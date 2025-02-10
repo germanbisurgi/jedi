@@ -1,7 +1,7 @@
 ## Todo
 
-- README
-  - Improve TOC
+- perf
+  - setInitialValue and setDefault (setValue to this value = value?)
 
 - playground
   - array titleTemplate
