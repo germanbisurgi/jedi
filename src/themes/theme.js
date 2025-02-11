@@ -721,6 +721,7 @@ class Theme {
     const messages = this.getMessagesSlot()
     const childrenSlot = this.getChildrenSlot()
     const propertiesActivators = this.getPropertiesActivators()
+    const info = this.getInfo(config.info)
     const description = this.getDescription({
       content: config.description
     })
@@ -748,7 +749,7 @@ class Theme {
     const addPropertyControl = this.getInputControl({
       type: 'text',
       id: 'jedi-add-property-input-' + config.id,
-      label: 'Property'
+      title: 'Property'
     })
     const addPropertyBtn = this.getAddPropertyButton()
     const fieldset = this.getFieldset()
@@ -757,7 +758,6 @@ class Theme {
       id: config.id,
       titleHidden: config.titleHidden
     })
-    const info = this.getInfo(config.info)
 
     if (config?.info?.variant === 'modal') {
       this.infoAsModal(info, config.id, config.info)

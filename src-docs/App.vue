@@ -79,6 +79,11 @@
           </div>
 
           <div class="form-group mb-3">
+            <input type="checkbox" id="startCollapsed" v-model="startCollapsed" @change="initEditor()">
+            <label for="startCollapsed"><code>startCollapsed</code></label>
+          </div>
+
+          <div class="form-group mb-3">
             <input type="checkbox" id="assertFormat" v-model="assertFormat" @change="initEditor()">
             <label for="assertFormat"><code>assertFormat</code></label>
           </div>
@@ -216,6 +221,7 @@ import required from './json/validator/required.json'
 import typeValidator from './json/validator/type.json'
 import uniqueItems from './json/validator/uniqueItems.json'
 import messages from './json/validator/messages.json'
+import choices from './json/plugins/array-choices.json'
 import awesomplete from './json/plugins/string-awesomplete.json'
 import quill from './json/plugins/string-quill.json'
 import jodit from './json/plugins/string-jodit.json'
@@ -261,6 +267,7 @@ export default {
           'editors/string-textarea': stringTextarea
         },
         Plugins: {
+          'plugins/choices': choices,
           'plugins/awesomplete': awesomplete,
           'plugins/flatpickr': flatpickr,
           'plugins/jodit': jodit,
@@ -355,6 +362,7 @@ export default {
       ],
       enablePropertiesToggle: true,
       enableCollapseToggle: true,
+      startCollapsed: false,
       schema: all,
       editor: null,
       theme: 'barebones',
@@ -377,6 +385,7 @@ export default {
     this.enforceEnumDefault = this.getQueryParam('enforceEnumDefault') ? this.parseBooleanString(this.getQueryParam('enforceEnumDefault')) : true
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
     this.enableCollapseToggle = this.getQueryParam('enableCollapseToggle') ? this.parseBooleanString(this.getQueryParam('enableCollapseToggle')) : true
+    this.startCollapsed = this.getQueryParam('startCollapsed') ? this.parseBooleanString(this.getQueryParam('startCollapsed')) : false
   },
   mounted() {
     switch (this.theme) {
@@ -484,6 +493,7 @@ export default {
         container: document.querySelector('#jedi-container'),
         enablePropertiesToggle: this.enablePropertiesToggle,
         enableCollapseToggle: this.enableCollapseToggle,
+        startCollapsed: this.startCollapsed,
         iconLib: this.iconLib,
         showErrors: this.showErrors,
         switcherInput: this.switcherInput,
@@ -553,6 +563,7 @@ export default {
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
+      newUrl += "&startCollapsed=" + this.startCollapsed
 
       window.open(newUrl, '_self')
     },
@@ -568,6 +579,7 @@ export default {
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
+      newUrl += "&startCollapsed=" + this.startCollapsed
       newUrl += "&schema=" + this.compress(JSON.stringify(this.schema))
       newUrl += "&data=" + this.compress(JSON.stringify(this.editor.getValue()))
 

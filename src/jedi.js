@@ -45,6 +45,7 @@ class Jedi extends EventEmitter {
       refParser: null,
       enablePropertiesToggle: false,
       enableCollapseToggle: false,
+      startCollapsed: false,
       deactivateNonRequired: false,
       schema: {},
       showErrors: 'change',

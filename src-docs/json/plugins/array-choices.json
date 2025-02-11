@@ -1,6 +1,6 @@
 {
   "title": "Choices",
-  "description": "Array of unique values representing country names with their corresponding country codes.",
+  "description": "A vanilla JS customisable select box/text input plugin.",
   "type": "array",
   "uniqueItems": true,
   "items": {
@@ -32,5 +32,12 @@
   },
   "default": ["US"],
   "minItems": 1,
-  "x-format": "choices"
+  "x-format": "choices",
+  "x-options": {
+    "info": {
+      "variant": "modal",
+      "title": "<h4>Info Button title</h4>",
+      "content": "<p>Info button content</p>"
+    }
+  }
 }

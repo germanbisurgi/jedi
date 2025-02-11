@@ -1,13 +1,6 @@
 ## Todo
 
-- perf
-  - setInitialValue and setDefault (setValue to this value = value?)
-
-- playground
-  - array titleTemplate
-
 - jedi
-  - refresh ui from parent to child and not vice versa?
   - iconLib option can be string or IconLib instance
   - theme option can be string or Theme instance
 
@@ -21,6 +14,10 @@
   - simplemde
 
 - editors
+  - accordion / collapse
+  - collapse children
+  - enumSource
+  - Object activators sort by property order
   - refactor theme.getCollapseToggle
   - disable option
   - compact array items
@@ -47,6 +44,7 @@
   - material
 
 - tests
+  - enforceConst 
   - navigate with Tab key
 
 - publish on NPM

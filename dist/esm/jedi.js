@@ -2533,7 +2533,7 @@ const glyphicons = {
   add: "glyphicon glyphicon-plus",
   moveUp: "glyphicon glyphicon-arrow-up",
   moveDown: "glyphicon glyphicon-arrow-down",
-  collapse: "glyphicon glyphicon-minus",
+  collapse: "glyphicon glyphicon-chevron-down",
   expand: "glyphicon glyphicon-plus",
   // Expand set to plus
   drag: "glyphicon glyphicon-th",
@@ -2546,7 +2546,7 @@ const bootstrapIcons = {
   add: "bi bi-plus",
   moveUp: "bi bi-arrow-up",
   moveDown: "bi bi-arrow-down",
-  collapse: "bi bi-minus",
+  collapse: "bi bi-chevron-down",
   expand: "bi bi-plus",
   drag: "bi bi-grip-vertical",
   info: "bi bi-question-circle",
@@ -2557,8 +2557,7 @@ const fontAwesome3 = {
   delete: "icon-trash",
   add: "icon-plus",
   moveUp: "icon-arrow-up",
-  moveDown: "icon-arrow-down",
-  collapse: "icon-minus",
+  collapse: "icon-chevron-down",
   expand: "icon-plus",
   drag: "icon-th",
   info: "icon-question-sign",
@@ -2570,7 +2569,7 @@ const fontAwesome4 = {
   add: "fa fa-plus",
   moveUp: "fa fa-arrow-up",
   moveDown: "fa fa-arrow-down",
-  collapse: "fa fa-minus",
+  collapse: "fa fa-chevron-down",
   expand: "fa fa-plus",
   drag: "fa fa-th",
   info: "fa fa-question-circle",
@@ -2582,7 +2581,7 @@ const fontAwesome5 = {
   add: "fas fa-plus",
   moveUp: "fas fa-arrow-up",
   moveDown: "fas fa-arrow-down",
-  collapse: "fas fa-minus",
+  collapse: "fas fa-chevron-down",
   expand: "fas fa-plus",
   drag: "fas fa-grip-vertical",
   info: "fas fa-question-circle",
@@ -2594,7 +2593,7 @@ const fontAwesome6 = {
   add: "fa-solid fa-plus",
   moveUp: "fa-solid fa-arrow-up",
   moveDown: "fa-solid fa-arrow-down",
-  collapse: "fa-solid fa-minus",
+  collapse: "fa-solid fa-chevron-down",
   expand: "fa-solid fa-plus",
   drag: "fa-solid fa-grip-vertical",
   info: "fa-solid fa-circle-question",
@@ -3020,7 +3019,7 @@ class EditorObject extends Editor {
       enablePropertiesToggle,
       addProperty,
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
-      startCollapsed: getSchemaXOption(this.instance.schema, "startCollapsed"),
+      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
       readOnly: this.instance.isReadOnly(),
       info: getSchemaXOption(this.instance.schema, "info")
     });
@@ -3272,7 +3271,7 @@ class EditorArray extends Editor {
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       id: this.getIdFromPath(this.instance.path),
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
-      startCollapsed: getSchemaXOption(this.instance.schema, "startCollapsed"),
+      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
       readOnly: this.instance.isReadOnly(),
       info: getSchemaXOption(this.instance.schema, "info")
     });
@@ -3497,6 +3496,83 @@ class EditorArrayTable extends EditorArray {
         }
       });
     }
+  }
+}
+class EditorArrayChoices extends Editor {
+  static resolves(schema) {
+    const choicesInstalled = window.Choices;
+    const schemaType = getSchemaType(schema);
+    const schemaItems = getSchemaItems(schema);
+    const schemaItemsType = isSet(schemaItems) && getSchemaType(schemaItems);
+    const isArrayType = isSet(schemaType) && schemaType === "array";
+    const isUniqueItems = getSchemaUniqueItems(schema) === true;
+    const hasEnum = isSet(schemaItems) && isSet(getSchemaEnum(schema.items));
+    const hasTypes = isSet(schemaItems) && isSet(schemaItemsType);
+    const validTypes = ["string", "number", "integer"];
+    const hasValidItemType = isSet(schemaItems) && isSet(schemaItemsType) && (validTypes.includes(schemaItemsType) || isArray(schemaItemsType) && schemaItemsType.some((type2) => validTypes.includes(type2)));
+    return choicesInstalled && isArrayType && isUniqueItems && hasEnum && hasTypes && hasValidItemType;
+  }
+  build() {
+    this.control = this.theme.getSelectControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
+      values: [],
+      titles: [],
+      id: this.getIdFromPath(this.instance.path),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
+      titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
+      info: getSchemaXOption(this.instance.schema, "info")
+    });
+    this.control.input.setAttribute("multiple", "");
+    try {
+      const value = this.instance.getValue();
+      const itemEnum = this.instance.schema.items.enum;
+      const itemEnumTitles = getSchemaXOption(this.instance.schema.items, "enumTitles");
+      if (this.choicesInstance) {
+        this.choicesInstance.destroy();
+      }
+      this.choices = itemEnum.map((item, index2) => ({
+        value: item,
+        label: itemEnumTitles[index2] || item,
+        selected: value.includes(item)
+      }));
+      this.choicesInstance = new window.Choices(this.control.input, {
+        duplicateItemsAllowed: false,
+        removeItemButton: true,
+        choices: this.choices
+      });
+    } catch (e) {
+      console.error("Choices is not available or not loaded correctly.", e);
+    }
+  }
+  addEventListeners() {
+    this.control.input.addEventListener("change", () => {
+      const value = this.choicesInstance.getValue(true);
+      if (value !== this.instance.getValue()) {
+        this.instance.setValue(value, true, "editor");
+      }
+    });
+  }
+  refreshDisabledState() {
+    if (this.disabled || this.readOnly) {
+      this.choicesInstance.disable();
+    } else {
+      this.choicesInstance.enable();
+    }
+  }
+  refreshUI() {
+    super.refreshUI();
+    const value = this.instance.getValue();
+    this.choicesInstance.removeActiveItems();
+    if (Array.isArray(value)) {
+      value.forEach((val) => {
+        this.choicesInstance.setChoiceByValue(val);
+      });
+    }
+  }
+  destroy() {
+    this.choicesInstance.destroy();
+    super.destroy();
   }
 }
 class EditorArrayNav extends EditorArray {
@@ -3912,6 +3988,7 @@ class UiResolver {
       EditorObjectGrid,
       EditorObjectNav,
       EditorObject,
+      EditorArrayChoices,
       EditorArrayCheckboxes,
       EditorArrayTable,
       EditorArrayNav,
@@ -4138,6 +4215,7 @@ class Jedi extends EventEmitter {
       refParser: null,
       enablePropertiesToggle: false,
       enableCollapseToggle: false,
+      startCollapsed: false,
       deactivateNonRequired: false,
       schema: {},
       showErrors: "change",
@@ -5105,6 +5183,7 @@ class Theme {
     const messages = this.getMessagesSlot();
     const childrenSlot = this.getChildrenSlot();
     const propertiesActivators = this.getPropertiesActivators();
+    const info = this.getInfo(config.info);
     const description = this.getDescription({
       content: config.description
     });
@@ -5132,7 +5211,7 @@ class Theme {
     const addPropertyControl = this.getInputControl({
       type: "text",
       id: "jedi-add-property-input-" + config.id,
-      label: "Property"
+      title: "Property"
     });
     const addPropertyBtn = this.getAddPropertyButton();
     const fieldset = this.getFieldset();
@@ -5141,7 +5220,6 @@ class Theme {
       id: config.id,
       titleHidden: config.titleHidden
     });
-    const info = this.getInfo(config.info);
     if (((_a = config == null ? void 0 : config.info) == null ? void 0 : _a.variant) === "modal") {
       this.infoAsModal(info, config.id, config.info);
     }
@@ -6903,6 +6981,7 @@ const index = {
   EditorObjectGrid,
   EditorObjectNav,
   EditorObject,
+  EditorArrayChoices,
   EditorArrayNav,
   EditorArray,
   EditorMultiple,

@@ -23,7 +23,7 @@ class EditorArray extends Editor {
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       id: this.getIdFromPath(this.instance.path),
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, 'enableCollapseToggle'),
-      startCollapsed: getSchemaXOption(this.instance.schema, 'startCollapsed'),
+      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, 'startCollapsed'),
       readOnly: this.instance.isReadOnly(),
       info: getSchemaXOption(this.instance.schema, 'info')
     })

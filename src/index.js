@@ -23,6 +23,7 @@ import EditorNumberInput from './editors/number-input.js'
 import EditorObjectGrid from './editors/object-grid.js'
 import EditorObjectNav from './editors/object-nav.js'
 import EditorObject from './editors/object.js'
+import EditorArrayChoices from './editors/array-choices.js'
 import EditorArrayNav from './editors/array-nav.js'
 import EditorArray from './editors/array.js'
 import EditorMultiple from './editors/multiple.js'
@@ -49,6 +50,7 @@ export default {
   EditorObjectGrid,
   EditorObjectNav,
   EditorObject,
+  EditorArrayChoices,
   EditorArrayNav,
   EditorArray,
   EditorMultiple,

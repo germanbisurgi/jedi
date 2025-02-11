@@ -13,6 +13,7 @@ import EditorObjectGrid from './editors/object-grid.js'
 import EditorObjectNav from './editors/object-nav.js'
 import EditorObject from './editors/object.js'
 import EditorArrayTable from './editors/array-table.js'
+import EditorArrayChoices from './editors/array-choices.js'
 import EditorArrayNav from './editors/array-nav.js'
 import EditorArray from './editors/array.js'
 import EditorMultiple from './editors/multiple.js'
@@ -49,6 +50,7 @@ class UiResolver {
       EditorObjectGrid,
       EditorObjectNav,
       EditorObject,
+      EditorArrayChoices,
       EditorArrayCheckboxes,
       EditorArrayTable,
       EditorArrayNav,
