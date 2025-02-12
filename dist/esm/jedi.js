@@ -3500,6 +3500,7 @@ class EditorArrayTable extends EditorArray {
 }
 class EditorArrayChoices extends Editor {
   static resolves(schema) {
+    const hasChoicesFormat = getSchemaXOption(schema, "format") === "choices";
     const choicesInstalled = window.Choices;
     const schemaType = getSchemaType(schema);
     const schemaItems = getSchemaItems(schema);
@@ -3510,7 +3511,7 @@ class EditorArrayChoices extends Editor {
     const hasTypes = isSet(schemaItems) && isSet(schemaItemsType);
     const validTypes = ["string", "number", "integer"];
     const hasValidItemType = isSet(schemaItems) && isSet(schemaItemsType) && (validTypes.includes(schemaItemsType) || isArray(schemaItemsType) && schemaItemsType.some((type2) => validTypes.includes(type2)));
-    return choicesInstalled && isArrayType && isUniqueItems && hasEnum && hasTypes && hasValidItemType;
+    return hasChoicesFormat && choicesInstalled && isArrayType && isUniqueItems && hasEnum && hasTypes && hasValidItemType;
   }
   build() {
     this.control = this.theme.getSelectControl({

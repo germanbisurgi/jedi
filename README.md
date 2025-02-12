@@ -966,6 +966,54 @@ checkbox inline variant
 }
 ```
 
+### Array choices
+A fieldset to containing a list of enumerated editors. Each editor is represented by an item in the choices input.
+Works only if the items are of type `string`, `number` or `integer`.
+Choices.js musst be installed and available for this to work.
+
+```json
+{
+  "title": "Choices",
+  "description": "A vanilla JS customisable select box/text input plugin.",
+  "type": "array",
+  "uniqueItems": true,
+  "items": {
+    "type": "string",
+    "enum": [
+      "US",
+      "CA",
+      "GB",
+      "FR",
+      "DE",
+      "IT",
+      "IN",
+      "JP",
+      "BR",
+      "AU"
+    ],
+    "x-options": {
+      "enumTitles": [
+        "United States (US)",
+        "Canada (CA)",
+        "United Kingdom (GB)",
+        "France (FR)",
+        "Germany (DE)",
+        "Italy (IT)",
+        "India (IN)",
+        "Japan (JP)",
+        "Brazil (BR)",
+        "Australia (AU)"
+      ]
+    }
+  },
+  "default": ["US"],
+  "minItems": 1,
+  "x-options": {
+    "format": "choices"
+  }
+}
+```
+
 ### Array nav
 A fieldset to containing a list of enumerated editors. Each editor is represented by a checkboxes.
 Works only if the items are of type `string`, `number` or `integer`.

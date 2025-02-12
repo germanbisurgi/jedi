@@ -9,7 +9,6 @@
   - formats: https://json-schema.org/understanding-json-schema/reference/string#format
 
 - plugins
-  - Choices
   - SignaturePad
   - simplemde
 

@@ -8,6 +8,7 @@ import { getSchemaEnum, getSchemaItems, getSchemaType, getSchemaUniqueItems, get
  */
 class EditorArrayChoices extends Editor {
   static resolves (schema) {
+    const hasChoicesFormat = getSchemaXOption(schema, 'format') === 'choices'
     const choicesInstalled = window.Choices
     const schemaType = getSchemaType(schema)
     const schemaItems = getSchemaItems(schema)
@@ -24,7 +25,7 @@ class EditorArrayChoices extends Editor {
       (validTypes.includes(schemaItemsType) ||
         (isArray(schemaItemsType) && schemaItemsType.some(type => validTypes.includes(type))))
 
-    return choicesInstalled && isArrayType && isUniqueItems && hasEnum && hasTypes && hasValidItemType
+    return hasChoicesFormat && choicesInstalled && isArrayType && isUniqueItems && hasEnum && hasTypes && hasValidItemType
   }
 
   build () {
