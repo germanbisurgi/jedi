@@ -74,6 +74,7 @@ class InstanceArray extends Instance {
     })
 
     this.value = value
+    this.jedi.emit('instance-change', this, context)
     this.emit('change', true, context)
   }
 

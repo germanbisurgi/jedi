@@ -1540,6 +1540,7 @@ class Theme {
    */
   getCol (xs, md, offsetMd) {
     const col = document.createElement('div')
+    col.classList.add('jedi-col')
     col.classList.add('jedi-col-xs-' + xs)
     col.classList.add('jedi-col-md-' + md)
 

@@ -1561,6 +1561,8 @@ class Instance extends EventEmitter {
     this.children = [];
     this.ui = null;
     this.isDirty = false;
+    this.watched = {};
+    this.enumSource = null;
     this.init();
   }
   /**
@@ -1571,6 +1573,10 @@ class Instance extends EventEmitter {
     this.setInitialValue();
     this.prepare();
     this.setDefaultValue();
+    this.registerWatcher();
+    this.setEnumSource();
+    this.setValueFormTemplate();
+    this.setValueFormCalc();
     if (this.jedi.options.container) {
       this.setUI();
     }
@@ -1593,6 +1599,12 @@ class Instance extends EventEmitter {
    */
   getKey() {
     return this.path.split(this.jedi.pathSeparator).pop();
+  }
+  /**
+   * Return the instance schema
+   */
+  getSchema() {
+    return this.schema;
   }
   /**
    * Adds a child instance pointer to the instances list
@@ -1640,6 +1652,68 @@ class Instance extends EventEmitter {
         this.setValue(schemaConst, false);
       }
     }
+  }
+  registerWatcher() {
+    const watch = getSchemaXOption(this.schema, "watch");
+    if (!isSet(watch)) return;
+    Object.entries(watch).forEach(([name, path]) => {
+      this.updateWatchedData(name, path);
+      this.jedi.watch(path, () => {
+        this.updateWatchedData(name, path);
+      });
+    });
+  }
+  updateWatchedData(name, path) {
+    let instance;
+    if (path === ".." && this.parent) {
+      instance = this.parent;
+    } else if (path === ".") {
+      instance = this;
+    } else {
+      instance = this.jedi.getInstance(path);
+    }
+    if (!instance) {
+      return;
+    }
+    if (instance) {
+      this.watched[name] = {
+        value: instance.getValue(),
+        schema: instance.getSchema(),
+        properties: instance.schema.properties ? Object.keys(instance.schema.properties) : []
+      };
+    }
+    this.setValueFormTemplate();
+    this.setValueFormCalc();
+  }
+  setValueFormTemplate() {
+    const template = getSchemaXOption(this.schema, "template");
+    if (!isSet(template)) return;
+    if (template) {
+      this.setValue(compileTemplate(template, this.watched));
+    }
+  }
+  setValueFormCalc() {
+    const calc = getSchemaXOption(this.schema, "calc");
+    if (!isSet(calc)) {
+      return;
+    }
+    if (!window.math) {
+      return;
+    }
+    if (calc) {
+      try {
+        const scope = Object.fromEntries(
+          Object.entries(this.watched).map(([key, value]) => [key, value.value])
+        );
+        this.setValue(window.math.evaluate(calc, scope));
+      } catch (e) {
+      }
+    }
+  }
+  setEnumSource() {
+    const enumSource = getSchemaXOption(this.schema, "enumSource");
+    if (!isSet(enumSource)) return;
+    this.enumSource = getValueByJSONPath(this.watched, enumSource);
   }
   /**
    * Returns the value of the instance
@@ -2389,6 +2463,7 @@ class InstanceObject extends Instance {
       }
     });
     this.value = value;
+    this.jedi.emit("instance-change", this, context);
     this.emit("change", context);
   }
   /**
@@ -2506,6 +2581,7 @@ class InstanceArray extends Instance {
       value.push(child.getValue());
     });
     this.value = value;
+    this.jedi.emit("instance-change", this, context);
     this.emit("change", true, context);
   }
   refreshChildren() {
@@ -3176,10 +3252,11 @@ class EditorObjectGrid extends EditorObject {
     this.instance.children.forEach((child) => {
       if (child.isActive) {
         const childGridOptions = getSchemaXOption(child.schema, "grid") || {};
-        const columns = childGridOptions.columns || gridOptions.columns;
-        const offset = childGridOptions.offset || 0;
+        const columns = childGridOptions.columns ?? getSchemaXOption(child.schema, "gridColumns") ?? gridOptions.columns;
+        const offset = childGridOptions.offset ?? getSchemaXOption(child.schema, "gridOffset") ?? 0;
         const col = this.theme.getCol(12, columns, offset);
         const newRow = childGridOptions.newRow || false;
+        console.log(col);
         colCount += columns + offset;
         if (newRow) {
           row = this.theme.getRow();
@@ -3507,11 +3584,10 @@ class EditorArrayChoices extends Editor {
     const schemaItemsType = isSet(schemaItems) && getSchemaType(schemaItems);
     const isArrayType = isSet(schemaType) && schemaType === "array";
     const isUniqueItems = getSchemaUniqueItems(schema) === true;
-    const hasEnum = isSet(schemaItems) && isSet(getSchemaEnum(schema.items));
     const hasTypes = isSet(schemaItems) && isSet(schemaItemsType);
     const validTypes = ["string", "number", "integer"];
     const hasValidItemType = isSet(schemaItems) && isSet(schemaItemsType) && (validTypes.includes(schemaItemsType) || isArray(schemaItemsType) && schemaItemsType.some((type2) => validTypes.includes(type2)));
-    return hasChoicesFormat && choicesInstalled && isArrayType && isUniqueItems && hasEnum && hasTypes && hasValidItemType;
+    return hasChoicesFormat && choicesInstalled && isArrayType && isUniqueItems && hasTypes && hasValidItemType;
   }
   build() {
     this.control = this.theme.getSelectControl({
@@ -3526,9 +3602,14 @@ class EditorArrayChoices extends Editor {
     });
     this.control.input.setAttribute("multiple", "");
     try {
-      const value = this.instance.getValue();
-      const itemEnum = this.instance.schema.items.enum;
-      const itemEnumTitles = getSchemaXOption(this.instance.schema.items, "enumTitles");
+      let enumSource = this.instance.enumSource;
+      if (isObject(enumSource)) {
+        enumSource = Object.keys(enumSource);
+      }
+      const value = enumSource ?? this.instance.getValue();
+      const itemEnum = enumSource ?? this.instance.schema.items.enum ?? [];
+      const itemEnumTitles = getSchemaXOption(this.instance.schema.items, "enumTitles") ?? enumSource ?? this.instance.getValue();
+      const choicesOptions = getSchemaXOption(this.instance.schema, "choicesOptions") ?? {};
       if (this.choicesInstance) {
         this.choicesInstance.destroy();
       }
@@ -3540,7 +3621,8 @@ class EditorArrayChoices extends Editor {
       this.choicesInstance = new window.Choices(this.control.input, {
         duplicateItemsAllowed: false,
         removeItemButton: true,
-        choices: this.choices
+        choices: this.choices,
+        ...choicesOptions
       });
     } catch (e) {
       console.error("Choices is not available or not loaded correctly.", e);
@@ -4245,12 +4327,14 @@ class Jedi extends EventEmitter {
     });
     this.validator = null;
     this.schema = {};
+    this.watched = {};
     this.theme = null;
     this.uiResolver = null;
     this.refParser = this.options.refParser ? this.options.refParser : null;
     this.lastFocusedId = null;
     this.init();
     this.bindEventListeners();
+    this.updateInstancesWatchedData();
   }
   /**
    * Initializes instance properties
@@ -4309,6 +4393,15 @@ class Jedi extends EventEmitter {
         this.emit("change", context);
       });
     }
+    this.on("instance-change", (instance) => {
+      for (const [path, callbacks] of Object.entries(this.watched)) {
+        if (instance.path === path) {
+          callbacks.forEach((callback) => {
+            callback();
+          });
+        }
+      }
+    });
     if (this.hiddenInput) {
       this.on("change", (context) => {
         this.hiddenInput.value = JSON.stringify(this.getValue());
@@ -4323,6 +4416,13 @@ class Jedi extends EventEmitter {
         this.lastKeyEvent = event;
       });
     }
+  }
+  updateInstancesWatchedData() {
+    Object.values(this.watched).forEach((callbacks) => {
+      callbacks.forEach((callback) => {
+        callback();
+      });
+    });
   }
   /**
    * Reapplies focus to the element that was removed and re-appended to the DOM
@@ -4443,6 +4543,7 @@ class Jedi extends EventEmitter {
    */
   setValue() {
     this.root.setValue(...arguments);
+    this.updateInstancesWatchedData();
   }
   /**
    * Returns an instance by path
@@ -4492,6 +4593,21 @@ class Jedi extends EventEmitter {
       const instance = this.instances[key];
       instance.ui.showValidationErrors(errors, true);
     });
+  }
+  watch(path, callback) {
+    if (!this.watched[path]) {
+      this.watched[path] = [];
+    }
+    this.watched[path].push(callback);
+  }
+  unwatch(path, callback) {
+    if (!this.watched[path]) {
+      return;
+    }
+    this.watched[path] = this.watched[path].filter((cb) => cb !== callback);
+    if (this.watched[path].length === 0) {
+      delete this.watched[path];
+    }
   }
   /**
    * Destroy the root instance and it's children
@@ -5882,6 +5998,7 @@ class Theme {
    */
   getCol(xs, md, offsetMd) {
     const col = document.createElement("div");
+    col.classList.add("jedi-col");
     col.classList.add("jedi-col-xs-" + xs);
     col.classList.add("jedi-col-md-" + md);
     if (offsetMd) {
@@ -6212,7 +6329,7 @@ class ThemeBootstrap3 extends Theme {
     return row;
   }
   getCol(xs, md, offsetMd) {
-    const col = super.getRow();
+    const col = super.getCol();
     col.classList.add("col-xs-" + xs);
     col.classList.add("col-md-" + md);
     if (offsetMd) {
@@ -6537,7 +6654,7 @@ class ThemeBootstrap4 extends Theme {
     return row;
   }
   getCol(xs, md, offsetMd) {
-    const col = super.getRow(xs, md, offsetMd);
+    const col = super.getCol(xs, md, offsetMd);
     col.classList.add("col-" + xs);
     col.classList.add("col-md-" + md);
     if (offsetMd) {
@@ -6860,7 +6977,7 @@ class ThemeBootstrap5 extends Theme {
     return row;
   }
   getCol(xs, md, offsetMd) {
-    const col = super.getRow(xs, md, offsetMd);
+    const col = super.getCol(xs, md, offsetMd);
     col.classList.add("col-" + xs);
     col.classList.add("col-md-" + md);
     if (offsetMd) {

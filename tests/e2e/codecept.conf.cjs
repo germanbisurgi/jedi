@@ -12,7 +12,7 @@ exports.config = {
       show: show,
       waitForAction: 500,
       waitForTimeout: 5000,
-      windowSize: '1200x600',
+      windowSize: '1200x3000',
       restart: false,
       waitForNavigation: [ 'load', 'networkidle0' ],
       chrome: {

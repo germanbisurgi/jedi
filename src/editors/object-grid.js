@@ -26,10 +26,12 @@ class EditorObjectGrid extends EditorObject {
     this.instance.children.forEach((child) => {
       if (child.isActive) {
         const childGridOptions = getSchemaXOption(child.schema, 'grid') || {}
-        const columns = childGridOptions.columns || gridOptions.columns
-        const offset = childGridOptions.offset || 0
+        const columns = childGridOptions.columns ?? getSchemaXOption(child.schema, 'gridColumns') ?? gridOptions.columns
+        const offset = childGridOptions.offset ?? getSchemaXOption(child.schema, 'gridOffset') ?? 0
         const col = this.theme.getCol(12, columns, offset)
         const newRow = childGridOptions.newRow || false
+
+        console.log(col)
 
         colCount += columns + offset
 

@@ -275,7 +275,7 @@ class ThemeBootstrap5 extends Theme {
   }
 
   getCol (xs, md, offsetMd) {
-    const col = super.getRow(xs, md, offsetMd)
+    const col = super.getCol(xs, md, offsetMd)
     col.classList.add('col-' + xs)
     col.classList.add('col-md-' + md)
 

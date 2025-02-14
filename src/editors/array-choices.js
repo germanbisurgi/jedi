@@ -1,6 +1,6 @@
 import Editor from './editor.js'
-import { isArray, isSet } from '../helpers/utils.js'
-import { getSchemaEnum, getSchemaItems, getSchemaType, getSchemaUniqueItems, getSchemaXOption } from '../helpers/schema.js'
+import { isArray, isObject, isSet } from '../helpers/utils.js'
+import { getSchemaItems, getSchemaType, getSchemaUniqueItems, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents a EditorArrayChoices instance.
@@ -15,7 +15,6 @@ class EditorArrayChoices extends Editor {
     const schemaItemsType = isSet(schemaItems) && getSchemaType(schemaItems)
     const isArrayType = isSet(schemaType) && schemaType === 'array'
     const isUniqueItems = getSchemaUniqueItems(schema) === true
-    const hasEnum = isSet(schemaItems) && isSet(getSchemaEnum(schema.items))
     const hasTypes = isSet(schemaItems) && isSet(schemaItemsType)
 
     const validTypes = ['string', 'number', 'integer']
@@ -25,7 +24,7 @@ class EditorArrayChoices extends Editor {
       (validTypes.includes(schemaItemsType) ||
         (isArray(schemaItemsType) && schemaItemsType.some(type => validTypes.includes(type))))
 
-    return hasChoicesFormat && choicesInstalled && isArrayType && isUniqueItems && hasEnum && hasTypes && hasValidItemType
+    return hasChoicesFormat && choicesInstalled && isArrayType && isUniqueItems && hasTypes && hasValidItemType
   }
 
   build () {
@@ -43,9 +42,16 @@ class EditorArrayChoices extends Editor {
     this.control.input.setAttribute('multiple', '')
 
     try {
-      const value = this.instance.getValue()
-      const itemEnum = this.instance.schema.items.enum
-      const itemEnumTitles = getSchemaXOption(this.instance.schema.items, 'enumTitles')
+      let enumSource = this.instance.enumSource
+
+      if (isObject(enumSource)) {
+        enumSource = Object.keys(enumSource)
+      }
+
+      const value = enumSource ?? this.instance.getValue()
+      const itemEnum = enumSource ?? this.instance.schema.items.enum ?? []
+      const itemEnumTitles = getSchemaXOption(this.instance.schema.items, 'enumTitles') ?? enumSource ?? this.instance.getValue()
+      const choicesOptions = getSchemaXOption(this.instance.schema, 'choicesOptions') ?? {}
 
       if (this.choicesInstance) {
         this.choicesInstance.destroy()
@@ -60,7 +66,8 @@ class EditorArrayChoices extends Editor {
       this.choicesInstance = new window.Choices(this.control.input, {
         duplicateItemsAllowed: false,
         removeItemButton: true,
-        choices: this.choices
+        choices: this.choices,
+        ...choicesOptions
       })
     } catch (e) {
       console.error('Choices is not available or not loaded correctly.', e)

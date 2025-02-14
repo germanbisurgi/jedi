@@ -176,9 +176,6 @@ import stringRadiosInline from './json/editors/string-radios-inline.json'
 import stringSelect from './json/editors/string-select.json'
 import stringInput from './json/editors/string-input.json'
 import stringTextarea from './json/editors/string-textarea.json'
-import resumeSchema from './json/examples/resume-schema.json'
-import loginExample from './json/examples/login.json'
-import contactExample from './json/examples/contact.json'
 import additionalProperties from './json/validator/additionalProperties.json'
 import allOf from './json/validator/allOf.json'
 import anyOf from './json/validator/anyOf.json'
@@ -230,7 +227,13 @@ import raty from './json/plugins/number-raty.json'
 import custom from './json/custom/custom.json'
 import metaSchema from './json/meta-schema.json'
 import europass from './json/europass.json'
+import resumeSchema from './json/examples/resume-schema.json'
+import loginExample from './json/examples/login.json'
+import contactExample from './json/examples/contact.json'
 import testJson from './json/test.json'
+// import template from './json/dangerzone/template.json'
+import calc from './json/dangerzone/calc.json'
+
 
 export default {
   data() {
@@ -326,6 +329,10 @@ export default {
           'meta-schema': metaSchema,
           'europass-xml-3.3.0': europass,
           'test': testJson,
+        },
+        DangerZone: {
+          // 'dangerzone/template': template,
+          'dangerzone/calc': calc
         }
       },
       example: 'editors/all',

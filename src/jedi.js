@@ -110,6 +110,12 @@ class Jedi extends EventEmitter {
      */
     this.schema = {}
 
+    /**
+     * A list of watched instances and their callbacks
+     * @type {*}
+     */
+    this.watched = {}
+
     this.theme = null
 
     this.uiResolver = null
@@ -129,6 +135,7 @@ class Jedi extends EventEmitter {
 
     this.init()
     this.bindEventListeners()
+    this.updateInstancesWatchedData()
   }
 
   /**
@@ -196,6 +203,16 @@ class Jedi extends EventEmitter {
       })
     }
 
+    this.on('instance-change', (instance) => {
+      for (const [path, callbacks] of Object.entries(this.watched)) {
+        if (instance.path === path) {
+          callbacks.forEach((callback) => {
+            callback()
+          })
+        }
+      }
+    })
+
     if (this.hiddenInput) {
       this.on('change', (context) => {
         this.hiddenInput.value = JSON.stringify(this.getValue())
@@ -213,6 +230,14 @@ class Jedi extends EventEmitter {
         this.lastKeyEvent = event
       })
     }
+  }
+
+  updateInstancesWatchedData () {
+    Object.values(this.watched).forEach((callbacks) => {
+      callbacks.forEach((callback) => {
+        callback()
+      })
+    })
   }
 
   /**
@@ -359,6 +384,7 @@ class Jedi extends EventEmitter {
    */
   setValue () {
     this.root.setValue(...arguments)
+    this.updateInstancesWatchedData()
   }
 
   /**
@@ -417,6 +443,26 @@ class Jedi extends EventEmitter {
       const instance = this.instances[key]
       instance.ui.showValidationErrors(errors, true)
     })
+  }
+
+  watch (path, callback) {
+    if (!this.watched[path]) {
+      this.watched[path] = []
+    }
+
+    this.watched[path].push(callback)
+  }
+
+  unwatch (path, callback) {
+    if (!this.watched[path]) {
+      return
+    }
+
+    this.watched[path] = this.watched[path].filter(cb => cb !== callback)
+
+    if (this.watched[path].length === 0) {
+      delete this.watched[path]
+    }
   }
 
   /**

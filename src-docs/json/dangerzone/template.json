@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "default": "John"
+    },
+    "surname": {
+      "type": "string",
+      "default": "Doe"
+    },
+    "role": {
+      "default": "Editor",
+      "type": "string"
+    },
+    "roles": {
+      "type": "array",
+      "default": ["Editor", "Collaborator"],
+      "items": {
+        "type": "string"
+      }
+    },
+    "template": {
+      "type": "string",
+      "readOnly": true,
+      "x-watch": {
+        "name": "#/name",
+        "surname": "#/surname",
+        "role": "#/role"
+      },
+      "x-template": "{{ name.value }} {{ surname.value }} {{ role.value }} ({{ concat(roles.value) }})"
+    }
+  }
+}

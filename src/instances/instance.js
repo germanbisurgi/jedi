@@ -1,8 +1,9 @@
 import EventEmitter from '../event-emitter.js'
 
 import {
-  clone,
+  clone, compileTemplate,
   equal,
+  getValueByJSONPath,
   isSet,
   notSet,
   removeDuplicatesFromArray
@@ -77,6 +78,10 @@ class Instance extends EventEmitter {
      */
     this.isDirty = false
 
+    this.watched = {}
+
+    this.enumSource = null
+
     this.init()
   }
 
@@ -88,6 +93,11 @@ class Instance extends EventEmitter {
     this.setInitialValue()
     this.prepare()
     this.setDefaultValue()
+
+    this.registerWatcher()
+    this.setEnumSource()
+    this.setValueFormTemplate()
+    this.setValueFormCalc()
 
     if (this.jedi.options.container) {
       this.setUI()
@@ -114,6 +124,13 @@ class Instance extends EventEmitter {
    */
   getKey () {
     return this.path.split(this.jedi.pathSeparator).pop()
+  }
+
+  /**
+   * Return the instance schema
+   */
+  getSchema () {
+    return this.schema
   }
 
   /**
@@ -173,6 +190,89 @@ class Instance extends EventEmitter {
         this.setValue(schemaConst, false)
       }
     }
+  }
+
+  registerWatcher () {
+    const watch = getSchemaXOption(this.schema, 'watch')
+
+    if (!isSet(watch)) return
+
+    Object.entries(watch).forEach(([name, path]) => {
+      this.updateWatchedData(name, path)
+      this.jedi.watch(path, () => {
+        this.updateWatchedData(name, path)
+      })
+    })
+  }
+
+  updateWatchedData (name, path) {
+    let instance
+
+    if (path === '..' && this.parent) {
+      instance = this.parent
+    } else if (path === '.') {
+      instance = this
+    } else {
+      instance = this.jedi.getInstance(path)
+    }
+
+    if (!instance) {
+      return
+    }
+
+    if (instance) {
+      this.watched[name] = {
+        value: instance.getValue(),
+        schema: instance.getSchema(),
+        properties: instance.schema.properties ? Object.keys(instance.schema.properties) : []
+      }
+    }
+
+    this.setValueFormTemplate()
+    this.setValueFormCalc()
+  }
+
+  setValueFormTemplate () {
+    const template = getSchemaXOption(this.schema, 'template')
+
+    if (!isSet(template)) return
+
+    if (template) {
+      this.setValue(compileTemplate(template, this.watched))
+    }
+  }
+
+  setValueFormCalc () {
+    const calc = getSchemaXOption(this.schema, 'calc')
+
+    if (!isSet(calc)) {
+      return
+    }
+
+    if (!window.math) {
+      return
+    }
+
+    if (calc) {
+      try {
+        // just values are needed
+        const scope = Object.fromEntries(
+          Object.entries(this.watched).map(([key, value]) => [key, value.value])
+        )
+
+        this.setValue(window.math.evaluate(calc, scope))
+      } catch (e) {
+        // console.log(e)
+      }
+    }
+  }
+
+  setEnumSource () {
+    const enumSource = getSchemaXOption(this.schema, 'enumSource')
+
+    if (!isSet(enumSource)) return
+
+    this.enumSource = getValueByJSONPath(this.watched, enumSource)
   }
 
   /**

@@ -1,5 +1,8 @@
 ## Todo
 
+- README
+  - section about exposing external libraries window.['__LIBRARY__'] when importing esm
+
 - jedi
   - iconLib option can be string or IconLib instance
   - theme option can be string or Theme instance

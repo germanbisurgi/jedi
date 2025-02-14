@@ -273,7 +273,7 @@ class ThemeBootstrap3 extends Theme {
   }
 
   getCol (xs, md, offsetMd) {
-    const col = super.getRow()
+    const col = super.getCol()
     col.classList.add('col-xs-' + xs)
     col.classList.add('col-md-' + md)
 
