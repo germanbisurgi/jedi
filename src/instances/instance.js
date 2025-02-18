@@ -198,8 +198,6 @@ class Instance extends EventEmitter {
     if (!isSet(watch)) return
 
     Object.entries(watch).forEach(([name, path]) => {
-      console.log('path', path)
-
       this.jedi.watch(path, () => {
         this.updateWatchedData(name, path)
       })
@@ -251,8 +249,6 @@ class Instance extends EventEmitter {
       const scope = Object.fromEntries(
         Object.entries(this.watched).map(([key, value]) => [key, value.value])
       )
-
-      // console.log('scope', JSON.stringify(scope))
 
       this.setValue(window.math.evaluate(calc, scope))
     } catch (e) {}

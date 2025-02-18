@@ -1686,7 +1686,6 @@ class Instance extends EventEmitter {
     const watch = getSchemaXOption(this.schema, "watch");
     if (!isSet(watch)) return;
     Object.entries(watch).forEach(([name, path]) => {
-      console.log("path", path);
       this.jedi.watch(path, () => {
         this.updateWatchedData(name, path);
       });
