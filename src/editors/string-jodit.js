@@ -33,7 +33,7 @@ class EditorStringJodit extends EditorString {
       const joditValue = this.jodit.value
 
       if (joditValue !== this.instance.getValue()) {
-        this.instance.setValue(joditValue, true, 'editor')
+        this.instance.setValue(joditValue, true, 'user')
       }
     })
   }

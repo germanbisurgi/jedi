@@ -231,9 +231,9 @@ import resumeSchema from './json/examples/resume-schema.json'
 import loginExample from './json/examples/login.json'
 import contactExample from './json/examples/contact.json'
 import testJson from './json/test.json'
-// import template from './json/dangerzone/template.json'
-import calc from './json/dangerzone/calc.json'
-import calcIfThenElse from './json/dangerzone/calc-if-then-else.json'
+// import template from './json/experimental/template.json'
+import calc from './json/experimental/calc.json'
+import calcIfThenElse from './json/experimental/calc-if-then-else.json'
 
 
 export default {
@@ -331,10 +331,10 @@ export default {
           'europass-xml-3.3.0': europass,
           'test': testJson,
         },
-        DangerZone: {
-          // 'dangerzone/template': template,
-          'dangerzone/calc': calc,
-          'dangerzone/calc-if-then-else': calcIfThenElse
+        experimental: {
+          // 'experimental/template': template,
+          'experimental/calc': calc,
+          'experimental/calc-if-then-else': calcIfThenElse
         }
       },
       example: 'editors/all',

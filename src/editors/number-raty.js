@@ -26,7 +26,7 @@ class EditorNumberRaty extends EditorNumber {
     try {
       this.raty = new Raty(this.control.placeholder, Object.assign({}, getSchemaXOption(this.instance.schema, 'raty'), {
         click: (score) => {
-          this.instance.setValue(score, true, 'editor')
+          this.instance.setValue(score, true, 'user')
         }
       }))
       this.raty.init()

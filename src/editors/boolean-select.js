@@ -30,7 +30,7 @@ class EditorBooleanSelect extends EditorBoolean {
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
       const value = this.control.input.value === 'true'
-      this.instance.setValue(value, true, 'editor')
+      this.instance.setValue(value, true, 'user')
     })
   }
 

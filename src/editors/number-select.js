@@ -33,7 +33,7 @@ class EditorNumberSelect extends EditorNumber {
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
       const value = this.sanitize(this.control.input.value)
-      this.instance.setValue(value, true, 'editor')
+      this.instance.setValue(value, true, 'user')
     })
   }
 

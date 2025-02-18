@@ -29,7 +29,7 @@ class EditorStringInput extends EditorString {
 
     // fix color picker bug
     if (optionFormat === 'color' && this.instance.value.length === 0) {
-      this.instance.setValue('#000000', false, 'editor')
+      this.instance.setValue('#000000', false, 'user')
     }
   }
 
@@ -39,7 +39,7 @@ class EditorStringInput extends EditorString {
 
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
-      this.instance.setValue(this.control.input.value, true, 'editor')
+      this.instance.setValue(this.control.input.value, true, 'user')
     })
   }
 

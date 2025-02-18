@@ -198,8 +198,8 @@ class Jedi extends EventEmitter {
 
   bindEventListeners () {
     if (this.root) {
-      this.root.on('change', (context) => {
-        this.emit('change', context)
+      this.root.on('change', (initiator) => {
+        this.emit('change', initiator)
       })
     }
 
@@ -214,10 +214,10 @@ class Jedi extends EventEmitter {
     })
 
     if (this.hiddenInput) {
-      this.on('change', (context) => {
+      this.on('change', (initiator) => {
         this.hiddenInput.value = JSON.stringify(this.getValue())
 
-        if (context === 'editor') {
+        if (initiator === 'user') {
           this.refreshFocus()
         }
       })

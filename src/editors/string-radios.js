@@ -30,7 +30,7 @@ class EditorStringRadios extends EditorString {
   addEventListeners () {
     this.control.radios.forEach((radio) => {
       radio.addEventListener('change', () => {
-        this.instance.setValue(radio.value, true, 'editor')
+        this.instance.setValue(radio.value, true, 'user')
       })
     })
   }

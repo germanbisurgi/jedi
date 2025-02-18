@@ -31,7 +31,7 @@ class EditorRadios extends EditorBoolean {
     this.control.radios.forEach((radio) => {
       radio.addEventListener('change', () => {
         const radioValue = radio.value === 'true'
-        this.instance.setValue(radioValue, true, 'editor')
+        this.instance.setValue(radioValue, true, 'user')
       })
     })
   }

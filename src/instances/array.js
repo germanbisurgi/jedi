@@ -66,7 +66,7 @@ class InstanceArray extends Instance {
     this.setValue(newValue)
   }
 
-  onChildChange (context) {
+  onChildChange (initiator) {
     const value = []
 
     this.children.forEach((child) => {
@@ -74,8 +74,8 @@ class InstanceArray extends Instance {
     })
 
     this.value = value
-    this.jedi.emit('instance-change', this, context)
-    this.emit('change', true, context)
+    this.jedi.emit('instance-change', this, initiator)
+    this.emit('change', true, initiator)
   }
 
   refreshChildren () {

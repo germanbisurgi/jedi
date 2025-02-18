@@ -32,7 +32,7 @@ class EditorStringAwesomplete extends EditorString {
 
   addEventListeners () {
     this.control.input.addEventListener('awesomplete-selectcomplete', () => {
-      this.instance.setValue(this.control.input.value, true, 'editor')
+      this.instance.setValue(this.control.input.value, true, 'user')
     })
   }
 

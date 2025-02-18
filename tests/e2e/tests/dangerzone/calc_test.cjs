@@ -1,6 +1,6 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'barebones'
-const pathToSchema = 'dangerzone/calc'
+const pathToSchema = 'experimental/calc'
 const startValue = {
   "a": 3,
   "b": 7,

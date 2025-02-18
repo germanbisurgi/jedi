@@ -36,7 +36,7 @@ class EditorNumberRadios extends EditorNumber {
     this.control.radios.forEach((radio) => {
       radio.addEventListener('change', () => {
         const value = this.sanitize(radio.value)
-        this.instance.setValue(value, true, 'editor')
+        this.instance.setValue(value, true, 'user')
       })
     })
   }

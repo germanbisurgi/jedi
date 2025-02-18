@@ -103,10 +103,10 @@ class Instance extends EventEmitter {
       this.setUI()
     }
 
-    this.on('change', (context) => {
+    this.on('change', (initiator) => {
       if (this.parent) {
         this.parent.isDirty = true
-        this.parent.onChildChange(context)
+        this.parent.onChildChange(initiator)
       }
     })
   }
@@ -198,6 +198,8 @@ class Instance extends EventEmitter {
     if (!isSet(watch)) return
 
     Object.entries(watch).forEach(([name, path]) => {
+      console.log('path', path)
+
       this.jedi.watch(path, () => {
         this.updateWatchedData(name, path)
       })
@@ -205,15 +207,7 @@ class Instance extends EventEmitter {
   }
 
   updateWatchedData (name, path) {
-    let instance
-
-    if (path === '..' && this.parent) {
-      instance = this.parent
-    } else if (path === '.') {
-      instance = this
-    } else {
-      instance = this.jedi.getInstance(path)
-    }
+    const instance = this.jedi.getInstance(path)
 
     if (!isSet(instance)) {
       return
@@ -252,16 +246,16 @@ class Instance extends EventEmitter {
       return
     }
 
-    if (calc) {
-      try {
-        // just values are needed
-        const scope = Object.fromEntries(
-          Object.entries(this.watched).map(([key, value]) => [key, value.value])
-        )
+    try {
+      // just values are needed
+      const scope = Object.fromEntries(
+        Object.entries(this.watched).map(([key, value]) => [key, value.value])
+      )
 
-        this.setValue(window.math.evaluate(calc, scope))
-      } catch (e) {}
-    }
+      // console.log('scope', JSON.stringify(scope))
+
+      this.setValue(window.math.evaluate(calc, scope))
+    } catch (e) {}
   }
 
   setEnumSource () {
@@ -282,7 +276,7 @@ class Instance extends EventEmitter {
   /**
    * Sets the instance value
    */
-  setValue (newValue, triggersChange = true, context = 'instance') {
+  setValue (newValue, triggersChange = true, initiator = 'api') {
     const enforceConst = this.jedi.options.enforceConst || getSchemaXOption(this.schema, 'enforceConst')
 
     if (isSet(enforceConst) && equal(enforceConst, true)) {
@@ -295,19 +289,19 @@ class Instance extends EventEmitter {
 
     this.value = newValue
 
-    this.emit('set-value', newValue, context)
+    this.emit('set-value', newValue, initiator)
 
     if (triggersChange) {
       this.isDirty = true
-      this.emit('change', context)
-      this.jedi.emit('instance-change', this, context)
+      this.emit('change', initiator)
+      this.jedi.emit('instance-change', this, initiator)
     }
   }
 
   /**
    * Fires when a child's instance state changes
    */
-  onChildChange (context) {
+  onChildChange (initiator) {
   }
 
   /**

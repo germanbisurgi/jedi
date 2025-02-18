@@ -77,24 +77,21 @@ class InstanceIfThenElse extends Instance {
       this.instances.push(instance)
     })
 
-    this.on('set-value', (value, context) => {
-      this.changeValue(value, context)
+    this.on('set-value', (value, initiator) => {
+      this.changeValue(value, initiator)
     })
 
     const ifValue = this.instanceWithoutIf.getValue()
     this.changeValue(ifValue)
   }
 
-  changeValue (value, context = 'instance') {
+  changeValue (value, initiator = 'api') {
     const ifValue = this.getIfValueFromValue(value)
     const fittestIndex = this.getFittestIndex(ifValue)
     const indexChanged = fittestIndex !== this.index
     this.index = fittestIndex
     this.activeInstance = this.instances[fittestIndex]
     this.activeInstance.register()
-    // console.log('value', value)
-    // console.log('ifValue', ifValue)
-    // console.log(this.jedi.instances['#'].schema)
 
     this.instances.forEach((instance, index) => {
       instance.off('change')
@@ -111,21 +108,21 @@ class InstanceIfThenElse extends Instance {
           instanceValue = overwriteExistingProperties(currentValue, value)
         }
 
-        if (context === 'instance') {
+        if (initiator === 'api') {
           instanceValue = overwriteExistingProperties(currentValue, value)
         }
       }
 
-      instance.setValue(instanceValue, false, context)
+      instance.setValue(instanceValue, false, initiator)
 
-      instance.on('change', (context) => {
+      instance.on('change', (initiator) => {
         const value = instance.getValue()
-        this.changeValue(value, context)
+        this.changeValue(value, initiator)
       })
     })
 
     this.value = this.activeInstance.getValue()
-    this.emit('change', context)
+    this.emit('change', initiator)
   }
 
   getIfValueFromValue (value) {

@@ -33,7 +33,7 @@ class EditorStringQuill extends EditorString {
       const quillText = this.quill.getText()
 
       if (quillText !== this.instance.getValue()) {
-        this.instance.setValue(quillText, true, 'editor')
+        this.instance.setValue(quillText, true, 'user')
       }
     })
   }

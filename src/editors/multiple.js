@@ -35,7 +35,7 @@ class EditorMultiple extends Editor {
     if (this.switcherInput === 'select') {
       this.control.switcher.input.addEventListener('change', () => {
         const index = Number(this.control.switcher.input.value)
-        this.instance.switchInstance(index, undefined, 'editor')
+        this.instance.switchInstance(index, undefined, 'user')
       })
     }
 
@@ -43,7 +43,7 @@ class EditorMultiple extends Editor {
       this.control.switcher.radios.forEach((radio) => {
         radio.addEventListener('change', () => {
           const index = Number(radio.value)
-          this.instance.switchInstance(index, undefined, 'editor')
+          this.instance.switchInstance(index, undefined, 'user')
         })
       })
     }

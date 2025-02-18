@@ -67,7 +67,7 @@ class EditorArrayCheckboxes extends Editor {
           }
         }
 
-        this.instance.setValue(value, true, 'editor')
+        this.instance.setValue(value, true, 'user')
       })
     })
   }

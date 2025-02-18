@@ -31,7 +31,7 @@ class EditorStringFlatpickr extends EditorString {
 
   addEventListeners () {
     this.control.input.addEventListener('change', () => {
-      this.instance.setValue(this.control.input.value, true, 'editor')
+      this.instance.setValue(this.control.input.value, true, 'user')
     })
   }
 

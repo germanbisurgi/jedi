@@ -1,6 +1,6 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'barebones'
-const pathToSchema = 'dangerzone/calc-if-then-else'
+const pathToSchema = 'experimental/calc-if-then-else'
 const startValue = {
   "test": {
     "condition": "yes",

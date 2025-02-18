@@ -59,8 +59,8 @@ class InstanceObject extends Instance {
 
     this.refreshInstances()
 
-    this.on('set-value', (value, context) => {
-      this.refreshInstances(context)
+    this.on('set-value', (value, initiator) => {
+      this.refreshInstances(initiator)
     })
   }
 
@@ -172,7 +172,7 @@ class InstanceObject extends Instance {
     return schema
   }
 
-  onChildChange (context) {
+  onChildChange (initiator) {
     const value = {}
 
     this.children.forEach((child) => {
@@ -182,8 +182,8 @@ class InstanceObject extends Instance {
     })
 
     this.value = value
-    this.jedi.emit('instance-change', this, context)
-    this.emit('change', context)
+    this.jedi.emit('instance-change', this, initiator)
+    this.emit('change', initiator)
   }
 
   /**
@@ -220,7 +220,7 @@ class InstanceObject extends Instance {
     })
   }
 
-  refreshInstances (context) {
+  refreshInstances (initiator) {
     const value = this.getValue()
 
     if (!isObject(value)) {
@@ -238,7 +238,7 @@ class InstanceObject extends Instance {
 
         // update child value if the old value and the new value are different
         if (different(oldValue, newValue)) {
-          child.setValue(newValue, false, context)
+          child.setValue(newValue, false, initiator)
         }
       } else {
         // create new child instance for the new value entry having the value as default

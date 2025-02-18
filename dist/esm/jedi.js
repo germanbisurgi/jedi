@@ -1609,10 +1609,10 @@ class Instance extends EventEmitter {
     if (this.jedi.options.container) {
       this.setUI();
     }
-    this.on("change", (context) => {
+    this.on("change", (initiator) => {
       if (this.parent) {
         this.parent.isDirty = true;
-        this.parent.onChildChange(context);
+        this.parent.onChildChange(initiator);
       }
     });
   }
@@ -1686,20 +1686,14 @@ class Instance extends EventEmitter {
     const watch = getSchemaXOption(this.schema, "watch");
     if (!isSet(watch)) return;
     Object.entries(watch).forEach(([name, path]) => {
+      console.log("path", path);
       this.jedi.watch(path, () => {
         this.updateWatchedData(name, path);
       });
     });
   }
   updateWatchedData(name, path) {
-    let instance;
-    if (path === ".." && this.parent) {
-      instance = this.parent;
-    } else if (path === ".") {
-      instance = this;
-    } else {
-      instance = this.jedi.getInstance(path);
-    }
+    const instance = this.jedi.getInstance(path);
     if (!isSet(instance)) {
       return;
     }
@@ -1728,14 +1722,12 @@ class Instance extends EventEmitter {
     if (!window.math) {
       return;
     }
-    if (calc) {
-      try {
-        const scope = Object.fromEntries(
-          Object.entries(this.watched).map(([key, value]) => [key, value.value])
-        );
-        this.setValue(window.math.evaluate(calc, scope));
-      } catch (e) {
-      }
+    try {
+      const scope = Object.fromEntries(
+        Object.entries(this.watched).map(([key, value]) => [key, value.value])
+      );
+      this.setValue(window.math.evaluate(calc, scope));
+    } catch (e) {
     }
   }
   setEnumSource() {
@@ -1752,7 +1744,7 @@ class Instance extends EventEmitter {
   /**
    * Sets the instance value
    */
-  setValue(newValue, triggersChange = true, context = "instance") {
+  setValue(newValue, triggersChange = true, initiator = "api") {
     const enforceConst = this.jedi.options.enforceConst || getSchemaXOption(this.schema, "enforceConst");
     if (isSet(enforceConst) && equal(enforceConst, true)) {
       const schemaConst = getSchemaConst(this.schema);
@@ -1761,17 +1753,17 @@ class Instance extends EventEmitter {
       }
     }
     this.value = newValue;
-    this.emit("set-value", newValue, context);
+    this.emit("set-value", newValue, initiator);
     if (triggersChange) {
       this.isDirty = true;
-      this.emit("change", context);
-      this.jedi.emit("instance-change", this, context);
+      this.emit("change", initiator);
+      this.jedi.emit("instance-change", this, initiator);
     }
   }
   /**
    * Fires when a child's instance state changes
    */
-  onChildChange(context) {
+  onChildChange(initiator) {
   }
   /**
    * Returns an array of validation error messages
@@ -2108,13 +2100,13 @@ class InstanceIfThenElse extends Instance {
       instance.off("change");
       this.instances.push(instance);
     });
-    this.on("set-value", (value, context) => {
-      this.changeValue(value, context);
+    this.on("set-value", (value, initiator) => {
+      this.changeValue(value, initiator);
     });
     const ifValue = this.instanceWithoutIf.getValue();
     this.changeValue(ifValue);
   }
-  changeValue(value, context = "instance") {
+  changeValue(value, initiator = "api") {
     const ifValue = this.getIfValueFromValue(value);
     const fittestIndex = this.getFittestIndex(ifValue);
     const indexChanged = fittestIndex !== this.index;
@@ -2133,18 +2125,18 @@ class InstanceIfThenElse extends Instance {
         } else {
           instanceValue = overwriteExistingProperties(currentValue, value);
         }
-        if (context === "instance") {
+        if (initiator === "api") {
           instanceValue = overwriteExistingProperties(currentValue, value);
         }
       }
-      instance.setValue(instanceValue, false, context);
-      instance.on("change", (context2) => {
+      instance.setValue(instanceValue, false, initiator);
+      instance.on("change", (initiator2) => {
         const value2 = instance.getValue();
-        this.changeValue(value2, context2);
+        this.changeValue(value2, initiator2);
       });
     });
     this.value = this.activeInstance.getValue();
-    this.emit("change", context);
+    this.emit("change", initiator);
   }
   getIfValueFromValue(value) {
     let ifValue = this.instanceWithoutIf.getValue();
@@ -2290,9 +2282,9 @@ class InstanceMultiple extends Instance {
       }
       instance.unregister();
       instance.off("change");
-      instance.on("change", (context) => {
+      instance.on("change", (initiator) => {
         this.value = this.activeInstance.getValue();
-        this.emit("change", context);
+        this.emit("change", initiator);
       });
       this.instances.push(instance);
       this.register();
@@ -2300,14 +2292,14 @@ class InstanceMultiple extends Instance {
     const fittestIndex = this.getFittestIndex(this.value);
     this.switchInstance(fittestIndex, this.value);
   }
-  switchInstance(index2, value, context = "instance") {
+  switchInstance(index2, value, initiator = "api") {
     this.lastIndex = this.index;
     this.index = index2;
     this.activeInstance = this.instances[index2];
     if (isSet(value)) {
-      this.activeInstance.setValue(value, false, context);
+      this.activeInstance.setValue(value, false, initiator);
     }
-    this.setValue(this.activeInstance.getValue(), true, context);
+    this.setValue(this.activeInstance.getValue(), true, initiator);
   }
   onSetValue() {
     if (different(this.activeInstance.getValue(), this.value)) {
@@ -2379,8 +2371,8 @@ class InstanceObject extends Instance {
       });
     }
     this.refreshInstances();
-    this.on("set-value", (value, context) => {
-      this.refreshInstances(context);
+    this.on("set-value", (value, initiator) => {
+      this.refreshInstances(initiator);
     });
   }
   /**
@@ -2466,7 +2458,7 @@ class InstanceObject extends Instance {
     }
     return schema;
   }
-  onChildChange(context) {
+  onChildChange(initiator) {
     const value = {};
     this.children.forEach((child) => {
       if (child.isActive) {
@@ -2474,8 +2466,8 @@ class InstanceObject extends Instance {
       }
     });
     this.value = value;
-    this.jedi.emit("instance-change", this, context);
-    this.emit("change", context);
+    this.jedi.emit("instance-change", this, initiator);
+    this.emit("change", initiator);
   }
   /**
    * Sorts the children of the current instance based on their `propertyOrder` value in ascending order.
@@ -2504,7 +2496,7 @@ class InstanceObject extends Instance {
       return 0;
     });
   }
-  refreshInstances(context) {
+  refreshInstances(initiator) {
     const value = this.getValue();
     if (!isObject(value)) {
       return;
@@ -2516,7 +2508,7 @@ class InstanceObject extends Instance {
         const oldValue = child.getValue();
         const newValue = value[child.getKey()];
         if (different(oldValue, newValue)) {
-          child.setValue(newValue, false, context);
+          child.setValue(newValue, false, initiator);
         }
       } else {
         const schema = this.getPropertySchema(propertyName);
@@ -2586,14 +2578,14 @@ class InstanceArray extends Instance {
     const newValue = currentValue.filter((item, index2) => index2 !== itemIndex);
     this.setValue(newValue);
   }
-  onChildChange(context) {
+  onChildChange(initiator) {
     const value = [];
     this.children.forEach((child) => {
       value.push(child.getValue());
     });
     this.value = value;
-    this.jedi.emit("instance-change", this, context);
-    this.emit("change", true, context);
+    this.jedi.emit("instance-change", this, initiator);
+    this.emit("change", true, initiator);
   }
   refreshChildren() {
     this.children = [];
@@ -2714,7 +2706,7 @@ class EditorRadios extends EditorBoolean {
     this.control.radios.forEach((radio) => {
       radio.addEventListener("change", () => {
         const radioValue = radio.value === "true";
-        this.instance.setValue(radioValue, true, "editor");
+        this.instance.setValue(radioValue, true, "user");
       });
     });
   }
@@ -2748,7 +2740,7 @@ class EditorBooleanSelect extends EditorBoolean {
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
       const value = this.control.input.value === "true";
-      this.instance.setValue(value, true, "editor");
+      this.instance.setValue(value, true, "user");
     });
   }
   refreshUI() {
@@ -2774,7 +2766,7 @@ class EditorBooleanCheckbox extends EditorBoolean {
   }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
-      this.instance.setValue(this.control.input.checked, true, "editor");
+      this.instance.setValue(this.control.input.checked, true, "user");
     });
   }
   sanitize(value) {
@@ -2812,7 +2804,7 @@ class EditorStringRadios extends EditorString {
   addEventListeners() {
     this.control.radios.forEach((radio) => {
       radio.addEventListener("change", () => {
-        this.instance.setValue(radio.value, true, "editor");
+        this.instance.setValue(radio.value, true, "user");
       });
     });
   }
@@ -2844,7 +2836,7 @@ class EditorStringSelect extends EditorString {
   }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
-      this.instance.setValue(this.control.input.value, true, "editor");
+      this.instance.setValue(this.control.input.value, true, "user");
     });
   }
   refreshUI() {
@@ -2871,7 +2863,7 @@ class EditorStringTextarea extends EditorString {
   }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
-      this.instance.setValue(this.control.input.value, true, "editor");
+      this.instance.setValue(this.control.input.value, true, "user");
     });
   }
   refreshUI() {
@@ -2902,7 +2894,7 @@ class EditorStringAwesomplete extends EditorString {
   }
   addEventListeners() {
     this.control.input.addEventListener("awesomplete-selectcomplete", () => {
-      this.instance.setValue(this.control.input.value, true, "editor");
+      this.instance.setValue(this.control.input.value, true, "user");
     });
   }
   refreshUI() {
@@ -2933,7 +2925,7 @@ class EditorStringInput extends EditorString {
       info: getSchemaXOption(this.instance.schema, "info")
     });
     if (optionFormat === "color" && this.instance.value.length === 0) {
-      this.instance.setValue("#000000", false, "editor");
+      this.instance.setValue("#000000", false, "user");
     }
   }
   adaptForTable() {
@@ -2941,7 +2933,7 @@ class EditorStringInput extends EditorString {
   }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
-      this.instance.setValue(this.control.input.value, true, "editor");
+      this.instance.setValue(this.control.input.value, true, "user");
     });
   }
   sanitize(value) {
@@ -2988,7 +2980,7 @@ class EditorNumberRadios extends EditorNumber {
     this.control.radios.forEach((radio) => {
       radio.addEventListener("change", () => {
         const value = this.sanitize(radio.value);
-        this.instance.setValue(value, true, "editor");
+        this.instance.setValue(value, true, "user");
       });
     });
   }
@@ -3023,7 +3015,7 @@ class EditorNumberSelect extends EditorNumber {
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
       const value = this.sanitize(this.control.input.value);
-      this.instance.setValue(value, true, "editor");
+      this.instance.setValue(value, true, "user");
     });
   }
   refreshUI() {
@@ -3068,7 +3060,7 @@ class EditorNumberInput extends EditorNumber {
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
       const value = this.sanitize(this.control.input.value);
-      this.instance.setValue(value, true, "editor");
+      this.instance.setValue(value, true, "user");
     });
   }
   refreshUI() {
@@ -3125,7 +3117,7 @@ class EditorObject extends Editor {
       const schema = this.instance.getPropertySchema(propertyName);
       const child = this.instance.createChild(schema, propertyName);
       child.activate();
-      this.instance.setValue(this.instance.value, true, "editor");
+      this.instance.setValue(this.instance.value, true, "user");
       this.control.addPropertyControl.input.value = "";
       const ariaLive = this.control.ariaLive;
       ariaLive.innerHTML = "";
@@ -3642,7 +3634,7 @@ class EditorArrayChoices extends Editor {
     this.control.input.addEventListener("change", () => {
       const value = this.choicesInstance.getValue(true);
       if (value !== this.instance.getValue()) {
-        this.instance.setValue(value, true, "editor");
+        this.instance.setValue(value, true, "user");
       }
     });
   }
@@ -3800,14 +3792,14 @@ class EditorMultiple extends Editor {
     if (this.switcherInput === "select") {
       this.control.switcher.input.addEventListener("change", () => {
         const index2 = Number(this.control.switcher.input.value);
-        this.instance.switchInstance(index2, void 0, "editor");
+        this.instance.switchInstance(index2, void 0, "user");
       });
     }
     if (this.switcherInput === "radios" || this.switcherInput === "radios-inline") {
       this.control.switcher.radios.forEach((radio) => {
         radio.addEventListener("change", () => {
           const index2 = Number(radio.value);
-          this.instance.switchInstance(index2, void 0, "editor");
+          this.instance.switchInstance(index2, void 0, "user");
         });
       });
     }
@@ -3876,7 +3868,7 @@ class EditorStringQuill extends EditorString {
     this.quill.root.addEventListener("blur", () => {
       const quillText = this.quill.getText();
       if (quillText !== this.instance.getValue()) {
-        this.instance.setValue(quillText, true, "editor");
+        this.instance.setValue(quillText, true, "user");
       }
     });
   }
@@ -3915,7 +3907,7 @@ class EditorStringJodit extends EditorString {
     this.jodit.events.on("change", () => {
       const joditValue = this.jodit.value;
       if (joditValue !== this.instance.getValue()) {
-        this.instance.setValue(joditValue, true, "editor");
+        this.instance.setValue(joditValue, true, "user");
       }
     });
   }
@@ -3957,7 +3949,7 @@ class EditorStringFlatpickr extends EditorString {
   }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
-      this.instance.setValue(this.control.input.value, true, "editor");
+      this.instance.setValue(this.control.input.value, true, "user");
     });
   }
   refreshUI() {
@@ -3985,7 +3977,7 @@ class EditorNumberRaty extends EditorNumber {
     try {
       this.raty = new Raty(this.control.placeholder, Object.assign({}, getSchemaXOption(this.instance.schema, "raty"), {
         click: (score) => {
-          this.instance.setValue(score, true, "editor");
+          this.instance.setValue(score, true, "user");
         }
       }));
       this.raty.init();
@@ -4045,7 +4037,7 @@ class EditorArrayCheckboxes extends Editor {
             value.splice(index2, 1);
           }
         }
-        this.instance.setValue(value, true, "editor");
+        this.instance.setValue(value, true, "user");
       });
     });
   }
@@ -4400,8 +4392,8 @@ class Jedi extends EventEmitter {
   }
   bindEventListeners() {
     if (this.root) {
-      this.root.on("change", (context) => {
-        this.emit("change", context);
+      this.root.on("change", (initiator) => {
+        this.emit("change", initiator);
       });
     }
     this.on("instance-change", (instance) => {
@@ -4414,9 +4406,9 @@ class Jedi extends EventEmitter {
       }
     });
     if (this.hiddenInput) {
-      this.on("change", (context) => {
+      this.on("change", (initiator) => {
         this.hiddenInput.value = JSON.stringify(this.getValue());
-        if (context === "editor") {
+        if (initiator === "user") {
           this.refreshFocus();
         }
       });

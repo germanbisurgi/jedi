@@ -79,7 +79,7 @@ class EditorArrayChoices extends Editor {
       const value = this.choicesInstance.getValue(true)
 
       if (value !== this.instance.getValue()) {
-        this.instance.setValue(value, true, 'editor')
+        this.instance.setValue(value, true, 'user')
       }
     })
   }

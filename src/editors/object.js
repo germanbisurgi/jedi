@@ -75,7 +75,7 @@ class EditorObject extends Editor {
 
       const child = this.instance.createChild(schema, propertyName)
       child.activate()
-      this.instance.setValue(this.instance.value, true, 'editor')
+      this.instance.setValue(this.instance.value, true, 'user')
       this.control.addPropertyControl.input.value = ''
 
       const ariaLive = this.control.ariaLive
