@@ -1592,6 +1592,7 @@ class Instance extends EventEmitter {
     this.isDirty = false;
     this.watched = {};
     this.enumSource = null;
+    this.key = this.path.split(this.jedi.pathSeparator).pop();
     this.init();
   }
   /**
@@ -1620,14 +1621,16 @@ class Instance extends EventEmitter {
    * Sets the instance ui property. UI can be an editor instance or similar
    */
   setUI() {
-    const EditorClass = this.jedi.uiResolver.getClass(this.schema);
-    this.ui = new EditorClass(this);
+    if (this.jedi.isEditor) {
+      const EditorClass = this.jedi.uiResolver.getClass(this.schema);
+      this.ui = new EditorClass(this);
+    }
   }
   /**
    * Return the last part of the instance path
    */
   getKey() {
-    return this.path.split(this.jedi.pathSeparator).pop();
+    return this.key;
   }
   /**
    * Return the instance schema
@@ -1640,9 +1643,12 @@ class Instance extends EventEmitter {
    */
   register() {
     this.jedi.register(this);
+    if (this.children.length === 0) return;
     const registerChildRecursive = (child) => {
       this.jedi.register(child);
-      child.children.forEach(registerChildRecursive);
+      if (child.children.length > 0) {
+        child.children.forEach(registerChildRecursive);
+      }
     };
     this.children.forEach(registerChildRecursive);
   }
@@ -1715,17 +1721,19 @@ class Instance extends EventEmitter {
   }
   setValueFormCalc() {
     const calc = getSchemaXOption(this.schema, "calc");
-    if (!isSet(calc)) {
-      return;
-    }
-    if (!window.math) {
-      return;
-    }
+    if (!isSet(calc) || !window.math) return;
     try {
       const scope = Object.fromEntries(
         Object.entries(this.watched).map(([key, value]) => [key, value.value])
       );
-      this.setValue(window.math.evaluate(calc, scope));
+      const cacheKey = JSON.stringify(scope);
+      if (this.lastCalc && this.lastCalc.key === cacheKey) {
+        this.setValue(this.lastCalc.result);
+        return;
+      }
+      const result = window.math.evaluate(calc, scope);
+      this.lastCalc = { key: cacheKey, result };
+      this.setValue(result);
     } catch (e) {
     }
   }
@@ -1801,29 +1809,27 @@ class Instance extends EventEmitter {
    * Returns true if this instance is read only
    */
   isReadOnly() {
-    let readOnly = false;
     if (getSchemaReadOnly(this.schema) === true) {
-      readOnly = true;
+      return true;
     }
-    if (this.parent && this.parent.isReadOnly()) {
-      readOnly = true;
-    }
-    return readOnly;
+    return this.parent ? this.parent.isReadOnly() : false;
   }
   /**
    * Destroy the instance and it's children
    */
   destroy() {
     this.unregister();
-    this.listeners = [];
-    this.children.forEach((child) => {
-      child.destroy();
-    });
+    this.listeners = null;
+    if (this.children.length > 0) {
+      this.children.forEach((child) => child.destroy());
+      this.children = [];
+    }
     if (this.ui) {
       this.ui.destroy();
+      this.ui = null;
     }
     Object.keys(this).forEach((key) => {
-      delete this[key];
+      this[key] = null;
     });
     super.destroy();
   }
@@ -4341,6 +4347,9 @@ class Jedi extends EventEmitter {
    * Initializes instance properties
    */
   init() {
+    if (this.options.container) {
+      this.isEditor = true;
+    }
     this.uiResolver = new UiResolver({
       customEditors: this.options.customEditors
     });
@@ -4459,7 +4468,7 @@ class Jedi extends EventEmitter {
    * of the root instance.
    */
   appendHiddenInput() {
-    const hiddenControl = this.root.ui.theme.getInputControl({
+    const hiddenControl = this.theme.getInputControl({
       type: "hidden",
       id: "jedi-hidden-input"
     });

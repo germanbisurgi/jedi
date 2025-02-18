@@ -141,6 +141,10 @@ class Jedi extends EventEmitter {
    * Initializes instance properties
    */
   init () {
+    if (this.options.container) {
+      this.isEditor = true
+    }
+
     this.uiResolver = new UiResolver({
       customEditors: this.options.customEditors
     })
@@ -171,6 +175,7 @@ class Jedi extends EventEmitter {
     }
 
     this.schema = this.options.schema
+
     this.validator = new Validator({
       refParser: this.refParser,
       assertFormat: this.options.assertFormat,
@@ -278,7 +283,7 @@ class Jedi extends EventEmitter {
    * of the root instance.
    */
   appendHiddenInput () {
-    const hiddenControl = this.root.ui.theme.getInputControl({
+    const hiddenControl = this.theme.getInputControl({
       type: 'hidden',
       id: 'jedi-hidden-input'
     })
