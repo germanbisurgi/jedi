@@ -1,40 +1,13 @@
 {
-  "type": "object",
-  "properties": {
-    "numbers": {
-      "type": "array",
-      "default": [1],
-      "items": {
-        "type": "number"
-      }
-    },
-    "strings": {
-      "type": "array",
-      "default": [ "hey"],
-      "items": {
-        "type": "string"
-      }
-    },
-    "booleans": {
-      "type": "array",
-      "default": [true],
-      "items": {
-        "type": "boolean"
-      }
-    },
-    "objects": {
-      "type": "array",
-      "default": [{}],
-      "items": {
-        "type": "object"
-      }
-    },
-    "arrays": {
-      "type": "array",
-      "default": [[]],
-      "items": {
-        "type": "array"
-      }
-    }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "number",
+  "if": {
+    "exclusiveMaximum": 0
+  },
+  "then": {
+    "minimum": -10
+  },
+  "else": {
+    "multipleOf": 2
   }
 }

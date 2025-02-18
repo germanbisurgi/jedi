@@ -91,6 +91,10 @@ class InstanceIfThenElse extends Instance {
     const indexChanged = fittestIndex !== this.index
     this.index = fittestIndex
     this.activeInstance = this.instances[fittestIndex]
+    this.activeInstance.register()
+    // console.log('value', value)
+    // console.log('ifValue', ifValue)
+    // console.log(this.jedi.instances['#'].schema)
 
     this.instances.forEach((instance, index) => {
       instance.off('change')
@@ -102,6 +106,7 @@ class InstanceIfThenElse extends Instance {
       if (isObject(startingValue) && isObject(value)) {
         if (indexChanged) {
           instanceValue = overwriteExistingProperties(startingValue, ifValue)
+          this.jedi.updateInstancesWatchedData()
         } else {
           instanceValue = overwriteExistingProperties(currentValue, value)
         }
@@ -128,9 +133,10 @@ class InstanceIfThenElse extends Instance {
 
     if (isObject(ifValue) && isObject(value)) {
       ifValue = overwriteExistingProperties(ifValue, value)
+      return ifValue
     }
 
-    return ifValue
+    return value
   }
 
   switchInstance (index) {
@@ -191,34 +197,6 @@ class InstanceIfThenElse extends Instance {
     })
 
     super.destroy()
-  }
-
-  getAllOfCombinations (schemas) {
-    const result = []
-
-    const combineProperties = (schema1, schema2) => {
-      return { ...schema1, ...schema2 }
-    }
-
-    const generateCombinations = (current, remaining) => {
-      if (remaining.length === 0) {
-        result.push(current)
-        return
-      }
-
-      const nextSchema = remaining[0]
-
-      generateCombinations(combineProperties(current, nextSchema), remaining.slice(1))
-      generateCombinations(current, remaining.slice(1))
-    }
-
-    for (let i = 0; i < schemas.length; i++) {
-      generateCombinations(schemas[i], schemas.slice(i + 1))
-    }
-
-    result.sort((a, b) => Object.keys(a).length - Object.keys(b).length)
-
-    return result
   }
 }
 

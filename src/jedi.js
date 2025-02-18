@@ -10,16 +10,14 @@ import InstanceNumber from './instances/number.js'
 import InstanceNull from './instances/null.js'
 import {
   isArray, isObject,
-  isSet, mergeDeep,
+  isSet,
   notSet
 } from './helpers/utils.js'
 import {
-  getSchemaAllOf,
   getSchemaAnyOf,
   getSchemaIf,
   getSchemaOneOf,
-  getSchemaType,
-  getSchemaXOption
+  getSchemaType
 } from './helpers/schema.js'
 import { bootstrapIcons, fontAwesome3, fontAwesome4, fontAwesome5, fontAwesome6, glyphicons } from './themes/icons/icons.js'
 import UiResolver from './ui-resolver.js'
@@ -52,7 +50,6 @@ class Jedi extends EventEmitter {
       switcherInput: 'select',
       data: undefined,
       assertFormat: false,
-      mergeAllOf: false,
       enforceConst: false,
       enforceEnumDefault: true,
       customEditors: [],
@@ -133,6 +130,8 @@ class Jedi extends EventEmitter {
      */
     this.lastFocusedId = null
 
+    this.isEditor = false
+
     this.init()
     this.bindEventListeners()
     this.updateInstancesWatchedData()
@@ -189,6 +188,7 @@ class Jedi extends EventEmitter {
     }
 
     if (this.options.container) {
+      this.isEditor = true
       this.container = this.options.container
       this.appendHiddenInput()
       this.container.appendChild(this.root.ui.control.container)
@@ -317,18 +317,6 @@ class Jedi extends EventEmitter {
    * Creates a json instance and dereference schema on the fly if needed.
    */
   createInstance (config) {
-    const mergeAllOf = this.options.mergeAllOf || getSchemaXOption(config.schema, 'mergeAllOf')
-
-    if (mergeAllOf) {
-      const allOf = getSchemaAllOf(config.schema)
-
-      if (isSet(allOf)) {
-        allOf.forEach((subschema) => {
-          config.schema = mergeDeep({}, config.schema, subschema)
-        })
-      }
-    }
-
     if (this.refParser) {
       config.schema = this.refParser.expand(config.schema, config.path)
     }

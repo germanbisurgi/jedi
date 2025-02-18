@@ -15,7 +15,7 @@ const startValue = {
   "sum": 15
 }
 
-Feature('array-checkboxes')
+Feature('calc')
 
 BeforeSuite(({I}) => {
   I.amOnPage(`playground.html?theme=${theme}`)

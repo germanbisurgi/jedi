@@ -30,6 +30,7 @@ Generates forms from JSON schemas. Can be used in backend to validate JSON data 
 - [Editors](#editors)
   - [Array](#array)
   - [Array checkboxes](#array-checkboxes)
+  - [Array choices](#array-choices)
   - [Array nav](#array-nav)
   - [Array table](#array-table)
   - [Boolean checkbox](#boolean-checkbox)
@@ -927,7 +928,7 @@ Child editors are placed from top to bottom and occupy the whole with available.
 ```
 
 ### Array checkboxes
-A fieldset to containing a list of enumerated editors. Each editor is represented by a checkboxes.
+A fieldset containing a list of enumerated editors. Each editor is represented by a checkboxes.
 Works only if the items are of type `string`, `number` or `integer`.
 
 ```json
@@ -967,7 +968,7 @@ checkbox inline variant
 ```
 
 ### Array choices
-A fieldset to containing a list of enumerated editors. Each editor is represented by an item in the choices input.
+A fieldset containing a list of enumerated editors. Each editor is represented by an item in the choices input.
 Works only if the items are of type `string`, `number` or `integer`.
 Choices.js musst be installed and available for this to work.
 
@@ -1015,7 +1016,7 @@ Choices.js musst be installed and available for this to work.
 ```
 
 ### Array nav
-A fieldset to containing a list of enumerated editors. Each editor is represented by a checkboxes.
+A fieldset containing a list of enumerated editors. Each editor is represented by a checkboxes.
 Works only if the items are of type `string`, `number` or `integer`.
 
 options:

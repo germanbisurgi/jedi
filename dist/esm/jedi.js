@@ -113,6 +113,34 @@ function mergeDeep(target, ...sources) {
   }
   return mergeDeep(target, ...sources);
 }
+function combineDeep(target, ...sources) {
+  if (!sources.length) return target;
+  const source = sources.shift();
+  if (Array.isArray(target) && Array.isArray(source)) {
+    target.push(...source);
+  } else if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach((key) => {
+      if (isObject(source[key])) {
+        if (!target[key]) {
+          Object.assign(target, {
+            [key]: {}
+          });
+        }
+        combineDeep(target[key], source[key]);
+      } else if (Array.isArray(source[key])) {
+        if (!target[key]) {
+          target[key] = [];
+        }
+        target[key].push(...source[key]);
+      } else {
+        Object.assign(target, {
+          [key]: source[key]
+        });
+      }
+    });
+  }
+  return combineDeep(target, ...sources);
+}
 const overwriteExistingProperties = (obj1, obj2) => {
   Object.keys(obj2).forEach((key) => {
     if (key in obj1) {
@@ -198,6 +226,7 @@ const Utils = {
   isObject,
   getType,
   mergeDeep,
+  combineDeep,
   overwriteExistingProperties,
   getValueByJSONPath,
   compileTemplate,
@@ -1657,7 +1686,6 @@ class Instance extends EventEmitter {
     const watch = getSchemaXOption(this.schema, "watch");
     if (!isSet(watch)) return;
     Object.entries(watch).forEach(([name, path]) => {
-      this.updateWatchedData(name, path);
       this.jedi.watch(path, () => {
         this.updateWatchedData(name, path);
       });
@@ -1672,7 +1700,7 @@ class Instance extends EventEmitter {
     } else {
       instance = this.jedi.getInstance(path);
     }
-    if (!instance) {
+    if (!isSet(instance)) {
       return;
     }
     if (instance) {
@@ -2092,6 +2120,7 @@ class InstanceIfThenElse extends Instance {
     const indexChanged = fittestIndex !== this.index;
     this.index = fittestIndex;
     this.activeInstance = this.instances[fittestIndex];
+    this.activeInstance.register();
     this.instances.forEach((instance, index2) => {
       instance.off("change");
       const startingValue = this.instanceStartingValues[index2];
@@ -2100,6 +2129,7 @@ class InstanceIfThenElse extends Instance {
       if (isObject(startingValue) && isObject(value)) {
         if (indexChanged) {
           instanceValue = overwriteExistingProperties(startingValue, ifValue);
+          this.jedi.updateInstancesWatchedData();
         } else {
           instanceValue = overwriteExistingProperties(currentValue, value);
         }
@@ -2120,8 +2150,9 @@ class InstanceIfThenElse extends Instance {
     let ifValue = this.instanceWithoutIf.getValue();
     if (isObject(ifValue) && isObject(value)) {
       ifValue = overwriteExistingProperties(ifValue, value);
+      return ifValue;
     }
-    return ifValue;
+    return value;
   }
   switchInstance(index2) {
     this.index = index2;
@@ -2169,26 +2200,6 @@ class InstanceIfThenElse extends Instance {
       instance.destroy();
     });
     super.destroy();
-  }
-  getAllOfCombinations(schemas) {
-    const result = [];
-    const combineProperties = (schema1, schema2) => {
-      return { ...schema1, ...schema2 };
-    };
-    const generateCombinations = (current, remaining) => {
-      if (remaining.length === 0) {
-        result.push(current);
-        return;
-      }
-      const nextSchema = remaining[0];
-      generateCombinations(combineProperties(current, nextSchema), remaining.slice(1));
-      generateCombinations(current, remaining.slice(1));
-    };
-    for (let i = 0; i < schemas.length; i++) {
-      generateCombinations(schemas[i], schemas.slice(i + 1));
-    }
-    result.sort((a, b) => Object.keys(a).length - Object.keys(b).length);
-    return result;
   }
 }
 class InstanceMultiple extends Instance {
@@ -3256,7 +3267,6 @@ class EditorObjectGrid extends EditorObject {
         const offset = childGridOptions.offset ?? getSchemaXOption(child.schema, "gridOffset") ?? 0;
         const col = this.theme.getCol(12, columns, offset);
         const newRow = childGridOptions.newRow || false;
-        console.log(col);
         colCount += columns + offset;
         if (newRow) {
           row = this.theme.getRow();
@@ -4305,7 +4315,6 @@ class Jedi extends EventEmitter {
       switcherInput: "select",
       data: void 0,
       assertFormat: false,
-      mergeAllOf: false,
       enforceConst: false,
       enforceEnumDefault: true,
       customEditors: [],
@@ -4332,6 +4341,7 @@ class Jedi extends EventEmitter {
     this.uiResolver = null;
     this.refParser = this.options.refParser ? this.options.refParser : null;
     this.lastFocusedId = null;
+    this.isEditor = false;
     this.init();
     this.bindEventListeners();
     this.updateInstancesWatchedData();
@@ -4381,6 +4391,7 @@ class Jedi extends EventEmitter {
       this.root.setValue(this.options.data, false);
     }
     if (this.options.container) {
+      this.isEditor = true;
       this.container = this.options.container;
       this.appendHiddenInput();
       this.container.appendChild(this.root.ui.control.container);
@@ -4490,15 +4501,6 @@ class Jedi extends EventEmitter {
    * Creates a json instance and dereference schema on the fly if needed.
    */
   createInstance(config) {
-    const mergeAllOf = this.options.mergeAllOf || getSchemaXOption(config.schema, "mergeAllOf");
-    if (mergeAllOf) {
-      const allOf2 = getSchemaAllOf(config.schema);
-      if (isSet(allOf2)) {
-        allOf2.forEach((subschema) => {
-          config.schema = mergeDeep({}, config.schema, subschema);
-        });
-      }
-    }
     if (this.refParser) {
       config.schema = this.refParser.expand(config.schema, config.path);
     }
@@ -6630,7 +6632,7 @@ class ThemeBootstrap4 extends Theme {
   }
   adaptForTableMultipleControl(control, td) {
     super.adaptForTableMultipleControl(control, td);
-    control.card.classList.remove("mb-3");
+    control.container.classList.remove("mb-3");
   }
   getAlert(config) {
     const html = super.getAlert(config);
@@ -6955,7 +6957,7 @@ class ThemeBootstrap5 extends Theme {
   }
   adaptForTableMultipleControl(control, td) {
     super.adaptForTableMultipleControl(control, td);
-    control.card.classList.remove("mb-3");
+    control.container.classList.remove("mb-3");
   }
   getAlert(config) {
     const html = super.getAlert(config);

@@ -31,8 +31,6 @@ class EditorObjectGrid extends EditorObject {
         const col = this.theme.getCol(12, columns, offset)
         const newRow = childGridOptions.newRow || false
 
-        console.log(col)
-
         colCount += columns + offset
 
         if (newRow) {

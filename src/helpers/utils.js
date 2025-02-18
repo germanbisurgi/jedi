@@ -247,6 +247,39 @@ export function mergeDeep (target, ...sources) {
   return mergeDeep(target, ...sources)
 }
 
+export function combineDeep (target, ...sources) {
+  if (!sources.length) return target
+  const source = sources.shift()
+
+  if (Array.isArray(target) && Array.isArray(source)) {
+    // Concatenate arrays instead of replacing them
+    target.push(...source)
+  } else if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach((key) => {
+      if (isObject(source[key])) {
+        if (!target[key]) {
+          Object.assign(target, {
+            [key]: {}
+          })
+        }
+        combineDeep(target[key], source[key])
+      } else if (Array.isArray(source[key])) {
+        // Handle array merging here
+        if (!target[key]) {
+          target[key] = []
+        }
+        target[key].push(...source[key])
+      } else {
+        Object.assign(target, {
+          [key]: source[key]
+        })
+      }
+    })
+  }
+
+  return combineDeep(target, ...sources)
+}
+
 /**
  * Merges objects but only the properties that exist in both objects
  * if they are the same type of value.
@@ -363,6 +396,7 @@ export default {
   isObject,
   getType,
   mergeDeep,
+  combineDeep,
   overwriteExistingProperties,
   getValueByJSONPath,
   compileTemplate,

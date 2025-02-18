@@ -249,7 +249,7 @@ class ThemeBootstrap5 extends Theme {
 
   adaptForTableMultipleControl (control, td) {
     super.adaptForTableMultipleControl(control, td)
-    control.card.classList.remove('mb-3')
+    control.container.classList.remove('mb-3')
   }
 
   getAlert (config) {

@@ -198,7 +198,6 @@ class Instance extends EventEmitter {
     if (!isSet(watch)) return
 
     Object.entries(watch).forEach(([name, path]) => {
-      this.updateWatchedData(name, path)
       this.jedi.watch(path, () => {
         this.updateWatchedData(name, path)
       })
@@ -216,7 +215,7 @@ class Instance extends EventEmitter {
       instance = this.jedi.getInstance(path)
     }
 
-    if (!instance) {
+    if (!isSet(instance)) {
       return
     }
 
@@ -261,9 +260,7 @@ class Instance extends EventEmitter {
         )
 
         this.setValue(window.math.evaluate(calc, scope))
-      } catch (e) {
-        // console.log(e)
-      }
+      } catch (e) {}
     }
   }
 

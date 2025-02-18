@@ -1,0 +1,76 @@
+{
+  "type": "object",
+  "properties": {
+    "test": {
+      "$ref": "#/$defs/testDef"
+    }
+  },
+  "$defs": {
+    "testDef": {
+      "type": "object",
+      "properties": {
+        "condition": {
+          "type": "string",
+          "enum": [
+            "yes",
+            "no"
+          ],
+          "x-options": {
+            "format": "radios-inline"
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "condition": {
+            "const": "yes"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "numbers": {
+            "type": "object",
+            "properties": {
+              "a": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "b": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "summe": {
+            "type": "integer",
+            "readOnly": true,
+            "x-watch": {
+              "a": "#/test/numbers/a",
+              "b": "#/test/numbers/b"
+            },
+            "x-calc": "a + b"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "numbers": {
+            "type": "object",
+            "properties": {
+              "a": {
+                "type": "null"
+              },
+              "b": {
+                "type": "null"
+              }
+            }
+          },
+          "summe": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}
