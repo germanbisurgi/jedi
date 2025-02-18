@@ -123,6 +123,7 @@ Scenario('@editor @showValidationErrors should programmatically display validati
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/const')
+  I._waitForElement('.jedi-ready')
   I._click('#show-validation-errors')
   I._waitForText('Must have value of: "test"', '[data-path="#/string"]')
   I._waitForText('Must have value of: 2.5', '[data-path="#/number"]')
