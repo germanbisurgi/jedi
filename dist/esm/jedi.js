@@ -1759,9 +1759,10 @@ class Instance extends EventEmitter {
         newValue = schemaConst;
       }
     }
+    const valueChanged = different(this.value, newValue);
     this.value = newValue;
     this.emit("set-value", newValue, initiator);
-    if (triggersChange) {
+    if (triggersChange && valueChanged) {
       this.isDirty = true;
       this.emit("change", initiator);
       this.jedi.emit("instance-change", this, initiator);

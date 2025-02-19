@@ -1,7 +1,7 @@
 import EventEmitter from '../event-emitter.js'
 
 import {
-  clone, compileTemplate,
+  clone, compileTemplate, different,
   equal,
   getValueByJSONPath,
   isSet,
@@ -294,15 +294,13 @@ class Instance extends EventEmitter {
       }
     }
 
-    this.value = newValue
+    const valueChanged = different(this.value, newValue)
 
-    // if (equal(this.value, newValue)) {
-    //   return
-    // }
+    this.value = newValue
 
     this.emit('set-value', newValue, initiator)
 
-    if (triggersChange) {
+    if (triggersChange && valueChanged) {
       this.isDirty = true
       this.emit('change', initiator)
       this.jedi.emit('instance-change', this, initiator)
