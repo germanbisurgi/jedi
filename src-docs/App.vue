@@ -92,6 +92,11 @@
             <input type="checkbox" id="enforceEnumDefault" v-model="enforceEnumDefault" @change="initEditor()">
             <label for="enforceEnumDefault"><code>enforceEnumDefault</code></label>
           </div>
+
+          <div class="form-group mb-3">
+            <input type="checkbox" id="parseMarkdown" v-model="parseMarkdown" @change="initEditor()">
+            <label for="parseMarkdown"><code>parseMarkdown</code></label>
+          </div>
         </aside>
       </div>
 
@@ -234,6 +239,7 @@ import testJson from './json/test.json'
 // import template from './json/experimental/template.json'
 import calc from './json/experimental/calc.json'
 import calcIfThenElse from './json/experimental/calc-if-then-else.json'
+import markdownAnnotations from './json/experimental/markdon-annotations.json'
 
 
 export default {
@@ -334,7 +340,8 @@ export default {
         experimental: {
           // 'experimental/template': template,
           'experimental/calc': calc,
-          'experimental/calc-if-then-else': calcIfThenElse
+          'experimental/calc-if-then-else': calcIfThenElse,
+          'experimental/markdown-annotations': markdownAnnotations
         }
       },
       example: 'editors/all',
@@ -380,6 +387,7 @@ export default {
       switcherInput: 'select',
       language: 'en',
       assertFormat: false,
+      parseMarkdown: false,
       enforceEnumDefault: true
     }
   },
@@ -391,6 +399,7 @@ export default {
     this.switcherInput = this.getQueryParam('switcherInput') || 'select'
     this.language = this.getQueryParam('language') || 'en'
     this.assertFormat = this.getQueryParam('assertFormat') ? this.parseBooleanString(this.getQueryParam('assertFormat')) : false
+    this.parseMarkdown = this.getQueryParam('parseMarkdown') ? this.parseBooleanString(this.getQueryParam('parseMarkdown')) : false
     this.enforceEnumDefault = this.getQueryParam('enforceEnumDefault') ? this.parseBooleanString(this.getQueryParam('enforceEnumDefault')) : true
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
     this.enableCollapseToggle = this.getQueryParam('enableCollapseToggle') ? this.parseBooleanString(this.getQueryParam('enableCollapseToggle')) : true
@@ -508,6 +517,7 @@ export default {
         switcherInput: this.switcherInput,
         language: this.language,
         assertFormat: this.assertFormat,
+        parseMarkdown: this.parseMarkdown,
         enforceEnumDefault: this.enforceEnumDefault,
         schema: this.schema,
         theme: this.getThemeInstance(this.theme),
@@ -569,6 +579,7 @@ export default {
       newUrl += "&switcherInput=" + this.switcherInput
       newUrl += "&language=" + this.language
       newUrl += "&assertFormat=" + this.assertFormat
+      newUrl += "&parseMarkdown=" + this.parseMarkdown
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
@@ -585,6 +596,7 @@ export default {
       newUrl += "&switcherInput=" + this.switcherInput
       newUrl += "&language=" + this.language
       newUrl += "&assertFormat=" + this.assertFormat
+      newUrl += "&parseMarkdown=" + this.parseMarkdown
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle

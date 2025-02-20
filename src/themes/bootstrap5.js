@@ -375,11 +375,11 @@ class ThemeBootstrap5 extends Theme {
     closeBtn.classList.add('jedi-modal-close')
 
     if (isString(config.title)) {
-      modalTitle.innerHTML = this.purifyContent(config.title)
+      modalTitle.innerHTML = config.title
     }
 
     if (isString(config.content)) {
-      modalBody.innerHTML = this.purifyContent(config.content)
+      modalBody.innerHTML = config.content
     }
 
     info.container.appendChild(modal)

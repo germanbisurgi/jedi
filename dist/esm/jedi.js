@@ -1964,6 +1964,24 @@ class Editor {
     this.disabled = false;
     this.refreshUI();
   }
+  /**
+   * Clean out HTML tags from txt
+   */
+  purifyContent(content, domPurifyOptions) {
+    if (window.DOMPurify) {
+      return window.DOMPurify.sanitize(content, domPurifyOptions);
+    } else {
+      const tmp = document.createElement("div");
+      tmp.innerHTML = content;
+      return tmp.textContent || tmp.innerText;
+    }
+  }
+  getHtmlFromMarkdown(content) {
+    if (this.instance.jedi.options.parseMarkdown && window.marked) {
+      return window.marked.parse(content);
+    }
+    return content;
+  }
   getTitle() {
     let title = this.instance.getKey();
     const schemaTitle = getSchemaTitle(this.instance.schema);
@@ -1972,7 +1990,12 @@ class Editor {
         value: this.instance.getValue(),
         params: this.instance.jedi.options.params
       });
+      title = this.getHtmlFromMarkdown(title);
     }
+    const domPurifyOptions = combineDeep({}, this.instance.jedi.options.domPurifyOptions, {
+      FORBID_TAGS: ["p"]
+    });
+    title = this.purifyContent(title, domPurifyOptions);
     return title;
   }
   getDescription() {
@@ -1982,7 +2005,10 @@ class Editor {
         value: this.instance.getValue(),
         params: this.instance.jedi.options.params
       });
+      schemaDescription = this.getHtmlFromMarkdown(schemaDescription);
     }
+    const domPurifyOptions = this.instance.jedi.options.domPurifyOptions;
+    this.purifyContent(schemaDescription, domPurifyOptions);
     return schemaDescription;
   }
   /**
@@ -2007,13 +2033,13 @@ class Editor {
   }
   refreshTemplates() {
     if (this.control.legendText) {
-      this.control.legendText.textContent = this.getTitle();
+      this.control.legendText.innerHTML = this.getTitle();
     }
     if (this.control.labelText) {
-      this.control.labelText.textContent = this.getTitle();
+      this.control.labelText.innerHTML = this.getTitle();
     }
     if (this.control.description) {
-      this.control.description.textContent = this.getDescription();
+      this.control.description.innerHTML = this.getDescription();
     }
   }
   /**
@@ -4322,7 +4348,9 @@ class Jedi extends EventEmitter {
       language: "en",
       translations: {},
       params: {},
-      useConstraintAttributes: true
+      useConstraintAttributes: true,
+      parseMarkdown: false,
+      domPurifyOptions: {}
     }, options);
     this.rootName = "#";
     this.pathSeparator = "/";
@@ -4766,7 +4794,7 @@ class Theme {
     legend.setAttribute("aria-labelledby", legendLabelId);
     legendText.classList.add("jedi-editor-legend-text");
     legendText.setAttribute("id", legendLabelId);
-    legendText.innerHTML = this.purifyContent(config.content);
+    legendText.innerHTML = config.content;
     infoContainer.classList.add("jedi-editor-info-container");
     infoContainer.setAttribute("for", dummyInputId);
     dummyInput.setAttribute("aria-hidden", "true");
@@ -4806,7 +4834,7 @@ class Theme {
     legend.style.fontSize = "inherit";
     legend.setAttribute("aria-labelledby", legendLabelId);
     legendText.classList.add("jedi-editor-legend-text");
-    legendText.innerHTML = this.purifyContent(config.content);
+    legendText.innerHTML = config.content;
     legendText.setAttribute("id", legendLabelId);
     dummyInput.setAttribute("aria-hidden", "true");
     dummyInput.setAttribute("type", "hidden");
@@ -4825,7 +4853,7 @@ class Theme {
     const icon = document.createElement("i");
     label.setAttribute("for", config.for);
     label.classList.add("jedi-title");
-    labelText.innerHTML = this.purifyContent(config.text);
+    labelText.innerHTML = config.text;
     if (config.visuallyHidden) {
       this.visuallyHidden(label);
     }
@@ -4848,7 +4876,7 @@ class Theme {
     if (config.visuallyHidden) {
       this.visuallyHidden(label);
     }
-    labelText.innerHTML = this.purifyContent(config.text);
+    labelText.innerHTML = config.text;
     if (config.titleIconClass) {
       this.addIconClass(icon, config.titleIconClass);
     }
@@ -5164,7 +5192,7 @@ class Theme {
     description.style.display = "block";
     description.classList.add("jedi-description");
     if (config.content) {
-      description.innerHTML = this.purifyContent(config.content);
+      description.innerHTML = config.content;
     }
     if (config.id) {
       description.setAttribute("id", config.id);
@@ -5214,11 +5242,11 @@ class Theme {
     dialog.classList.add("jedi-modal-dialog");
     title.classList.add("jedi-modal-title");
     if (isString(config.title)) {
-      title.innerHTML = this.purifyContent(config.title);
+      title.innerHTML = config.title;
     }
     content.classList.add("jedi-modal-content");
     if (isString(config.content)) {
-      content.innerHTML = this.purifyContent(config.content);
+      content.innerHTML = config.content;
     }
     closeBtn.classList.add("jedi-modal-close");
     closeBtn.setAttribute("always-enabled", "");
@@ -5237,22 +5265,6 @@ class Theme {
     dialog.appendChild(title);
     dialog.appendChild(content);
     dialog.appendChild(closeBtn);
-  }
-  /**
-   * Clean out HTML tags from txt
-   */
-  purifyContent(content) {
-    if (window.DOMPurify) {
-      const clean = window.DOMPurify.sanitize(content);
-      if (window.DOMPurify.removed.length) {
-        console.warn("DOMPurify removed the following elements:", window.DOMPurify.removed);
-      }
-      return clean;
-    } else {
-      const tmp = document.createElement("div");
-      tmp.innerHTML = content;
-      return tmp.textContent || tmp.innerText;
-    }
   }
   getPlaceholderControl(config) {
     var _a;
@@ -6411,10 +6423,10 @@ class ThemeBootstrap3 extends Theme {
     closeBtn.classList.add("jedi-modal-close");
     closeBtn.classList.add("close");
     if (isString(config.title)) {
-      modalTitle.innerHTML = this.purifyContent(config.title);
+      modalTitle.innerHTML = config.title;
     }
     if (isString(config.content)) {
-      modalBody.innerHTML = this.purifyContent(config.content);
+      modalBody.innerHTML = config.content;
     }
     info.container.appendChild(modal);
     modal.appendChild(modalDialog);
@@ -6740,10 +6752,10 @@ class ThemeBootstrap4 extends Theme {
     closeBtn.classList.add("jedi-modal-close");
     closeBtn.classList.add("close");
     if (isString(config.title)) {
-      modalTitle.innerHTML = this.purifyContent(config.title);
+      modalTitle.innerHTML = config.title;
     }
     if (isString(config.content)) {
-      modalBody.innerHTML = this.purifyContent(config.content);
+      modalBody.innerHTML = config.content;
     }
     info.container.appendChild(modal);
     modal.appendChild(modalDialog);
@@ -7062,10 +7074,10 @@ class ThemeBootstrap5 extends Theme {
     modalBody.classList.add("modal-body");
     closeBtn.classList.add("jedi-modal-close");
     if (isString(config.title)) {
-      modalTitle.innerHTML = this.purifyContent(config.title);
+      modalTitle.innerHTML = config.title;
     }
     if (isString(config.content)) {
-      modalBody.innerHTML = this.purifyContent(config.content);
+      modalBody.innerHTML = config.content;
     }
     info.container.appendChild(modal);
     modal.appendChild(modalDialog);

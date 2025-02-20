@@ -1,4 +1,4 @@
-import { compileTemplate, isObject, isSet, pathToAttribute } from '../helpers/utils.js'
+import { combineDeep, compileTemplate, isObject, isSet, pathToAttribute } from '../helpers/utils.js'
 import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
@@ -186,6 +186,27 @@ class Editor {
     this.refreshUI()
   }
 
+  /**
+   * Clean out HTML tags from txt
+   */
+  purifyContent (content, domPurifyOptions) {
+    if (window.DOMPurify) {
+      return window.DOMPurify.sanitize(content, domPurifyOptions)
+    } else {
+      const tmp = document.createElement('div')
+      tmp.innerHTML = content
+      return (tmp.textContent || tmp.innerText)
+    }
+  }
+
+  getHtmlFromMarkdown (content) {
+    if (this.instance.jedi.options.parseMarkdown && window.marked) {
+      return window.marked.parse(content)
+    }
+
+    return content
+  }
+
   getTitle () {
     let title = this.instance.getKey()
     const schemaTitle = getSchemaTitle(this.instance.schema)
@@ -195,7 +216,15 @@ class Editor {
         value: this.instance.getValue(),
         params: this.instance.jedi.options.params
       })
+
+      title = this.getHtmlFromMarkdown(title)
     }
+
+    const domPurifyOptions = combineDeep({}, this.instance.jedi.options.domPurifyOptions, {
+      FORBID_TAGS: ['p']
+    })
+
+    title = this.purifyContent(title, domPurifyOptions)
 
     return title
   }
@@ -208,7 +237,13 @@ class Editor {
         value: this.instance.getValue(),
         params: this.instance.jedi.options.params
       })
+
+      schemaDescription = this.getHtmlFromMarkdown(schemaDescription)
     }
+
+    const domPurifyOptions = this.instance.jedi.options.domPurifyOptions
+
+    this.purifyContent(schemaDescription, domPurifyOptions)
 
     return schemaDescription
   }
@@ -239,15 +274,15 @@ class Editor {
 
   refreshTemplates () {
     if (this.control.legendText) {
-      this.control.legendText.textContent = this.getTitle()
+      this.control.legendText.innerHTML = this.getTitle()
     }
 
     if (this.control.labelText) {
-      this.control.labelText.textContent = this.getTitle()
+      this.control.labelText.innerHTML = this.getTitle()
     }
 
     if (this.control.description) {
-      this.control.description.textContent = this.getDescription()
+      this.control.description.innerHTML = this.getDescription()
     }
   }
 

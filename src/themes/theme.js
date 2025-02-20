@@ -58,7 +58,7 @@ class Theme {
 
     legendText.classList.add('jedi-editor-legend-text')
     legendText.setAttribute('id', legendLabelId)
-    legendText.innerHTML = this.purifyContent(config.content)
+    legendText.innerHTML = config.content
 
     infoContainer.classList.add('jedi-editor-info-container')
     infoContainer.setAttribute('for', dummyInputId)
@@ -108,7 +108,7 @@ class Theme {
     legend.setAttribute('aria-labelledby', legendLabelId)
 
     legendText.classList.add('jedi-editor-legend-text')
-    legendText.innerHTML = this.purifyContent(config.content)
+    legendText.innerHTML = config.content
     legendText.setAttribute('id', legendLabelId)
 
     dummyInput.setAttribute('aria-hidden', 'true')
@@ -133,7 +133,7 @@ class Theme {
 
     label.setAttribute('for', config.for)
     label.classList.add('jedi-title')
-    labelText.innerHTML = this.purifyContent(config.text)
+    labelText.innerHTML = config.text
 
     if (config.visuallyHidden) {
       this.visuallyHidden(label)
@@ -165,7 +165,7 @@ class Theme {
       this.visuallyHidden(label)
     }
 
-    labelText.innerHTML = this.purifyContent(config.text)
+    labelText.innerHTML = config.text
 
     if (config.titleIconClass) {
       this.addIconClass(icon, config.titleIconClass)
@@ -550,7 +550,7 @@ class Theme {
     description.classList.add('jedi-description')
 
     if (config.content) {
-      description.innerHTML = this.purifyContent(config.content)
+      description.innerHTML = config.content
     }
 
     if (config.id) {
@@ -615,13 +615,13 @@ class Theme {
     title.classList.add('jedi-modal-title')
 
     if (isString(config.title)) {
-      title.innerHTML = this.purifyContent(config.title)
+      title.innerHTML = config.title
     }
 
     content.classList.add('jedi-modal-content')
 
     if (isString(config.content)) {
-      content.innerHTML = this.purifyContent(config.content)
+      content.innerHTML = config.content
     }
 
     closeBtn.classList.add('jedi-modal-close')
@@ -645,25 +645,6 @@ class Theme {
     dialog.appendChild(title)
     dialog.appendChild(content)
     dialog.appendChild(closeBtn)
-  }
-
-  /**
-   * Clean out HTML tags from txt
-   */
-  purifyContent (content) {
-    if (window.DOMPurify) {
-      const clean = window.DOMPurify.sanitize(content)
-
-      if (window.DOMPurify.removed.length) {
-        console.warn('DOMPurify removed the following elements:', window.DOMPurify.removed)
-      }
-
-      return clean
-    } else {
-      const tmp = document.createElement('div')
-      tmp.innerHTML = content
-      return (tmp.textContent || tmp.innerText)
-    }
   }
 
   getPlaceholderControl (config) {

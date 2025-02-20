@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "title": "markdown annotations",
+  "properties": {
+    "name": {
+      "title": "`markdown` to `html` **title**",
+      "description": "`markdown` to `html` **description**",
+      "type": "string"
+    }
+  }
+}
