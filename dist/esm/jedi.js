@@ -1991,11 +1991,11 @@ class Editor {
         params: this.instance.jedi.options.params
       });
       title = this.getHtmlFromMarkdown(title);
+      const domPurifyOptions = combineDeep({}, this.instance.jedi.options.domPurifyOptions, {
+        FORBID_TAGS: ["p"]
+      });
+      title = this.purifyContent(title, domPurifyOptions);
     }
-    const domPurifyOptions = combineDeep({}, this.instance.jedi.options.domPurifyOptions, {
-      FORBID_TAGS: ["p"]
-    });
-    title = this.purifyContent(title, domPurifyOptions);
     return title;
   }
   getDescription() {
@@ -2006,9 +2006,10 @@ class Editor {
         params: this.instance.jedi.options.params
       });
       schemaDescription = this.getHtmlFromMarkdown(schemaDescription);
+      const domPurifyOptions = this.instance.jedi.options.domPurifyOptions;
+      this.purifyContent(schemaDescription, domPurifyOptions);
     }
-    const domPurifyOptions = this.instance.jedi.options.domPurifyOptions;
-    this.purifyContent(schemaDescription, domPurifyOptions);
+    console.log(schemaDescription);
     return schemaDescription;
   }
   /**
@@ -2032,13 +2033,13 @@ class Editor {
     });
   }
   refreshTemplates() {
-    if (this.control.legendText) {
+    if (this.control.legendText && this.getTitle()) {
       this.control.legendText.innerHTML = this.getTitle();
     }
-    if (this.control.labelText) {
+    if (this.control.labelText && this.getTitle()) {
       this.control.labelText.innerHTML = this.getTitle();
     }
-    if (this.control.description) {
+    if (this.control.description && this.getDescription()) {
       this.control.description.innerHTML = this.getDescription();
     }
   }

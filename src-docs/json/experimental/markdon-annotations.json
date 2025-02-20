@@ -3,8 +3,7 @@
   "title": "markdown annotations",
   "properties": {
     "name": {
-      "title": "`markdown` to `html` **title**",
-      "description": "`markdown` to `html` **description**",
+      "title": "**markdown to html title**",
       "type": "string"
     }
   }

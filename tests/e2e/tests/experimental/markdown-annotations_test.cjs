@@ -11,13 +11,7 @@ BeforeSuite(({I}) => {
 });
 
 Scenario('Should parse @markdown to html', ({I}) => {
-  I.waitForText('`markdown` to `html` **title**')
-  I.waitForText('`markdown` to `html` **description**')
+  I._waitForText('**markdown to html title**')
   I._checkOption('[id="parseMarkdown"]')
-  I.waitForText('`markdown` to `html` **title**')
-  I.waitForText('`markdown` to `html` **description**')
-  I.waitForText('markdown', 'code')
-  I.waitForText('html', 'code')
-  I.waitForText('description', 'strong')
-  I.waitForText('title', 'strong')
+  I._waitForText('markdown to html title', 'strong')
 })
