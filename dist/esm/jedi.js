@@ -2009,7 +2009,6 @@ class Editor {
       const domPurifyOptions = this.instance.jedi.options.domPurifyOptions;
       this.purifyContent(schemaDescription, domPurifyOptions);
     }
-    console.log(schemaDescription);
     return schemaDescription;
   }
   /**

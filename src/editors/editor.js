@@ -245,7 +245,6 @@ class Editor {
       this.purifyContent(schemaDescription, domPurifyOptions)
     }
 
-    console.log(schemaDescription)
     return schemaDescription
   }
 
