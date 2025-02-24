@@ -22,7 +22,7 @@ class EditorArrayNav extends EditorArray {
   addEventListeners () {
     this.control.addBtn.addEventListener('click', () => {
       this.activeTabIndex = this.instance.value.length
-      this.instance.addItem()
+      this.instance.addItem('user')
     })
   }
 
@@ -83,20 +83,20 @@ class EditorArrayNav extends EditorArray {
 
         if (confirmDeletion) {
           this.activeTabIndex = clamp((index - 1), 0, (this.instance.value.length - 1))
-          this.instance.deleteItem(index)
+          this.instance.deleteItem(index, 'user')
         }
       })
 
       moveUpBtn.addEventListener('click', () => {
         const toIndex = index - 1
         this.activeTabIndex = toIndex
-        this.instance.move(index, toIndex)
+        this.instance.move(index, toIndex, 'user')
       })
 
       moveDownBtn.addEventListener('click', () => {
         const toIndex = index + 1
         this.activeTabIndex = toIndex
-        this.instance.move(index, toIndex)
+        this.instance.move(index, toIndex, 'user')
       })
 
       const active = index === this.activeTabIndex

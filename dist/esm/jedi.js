@@ -3490,7 +3490,7 @@ class EditorArrayTable extends EditorArray {
   addEventListeners() {
     this.control.addBtn.addEventListener("click", () => {
       this.activeTabIndex = this.instance.value.length;
-      this.instance.addItem();
+      this.instance.addItem("user");
     });
   }
   isSortable() {
@@ -3542,18 +3542,18 @@ class EditorArrayTable extends EditorArray {
         const confirmDeletion = window.confirm("Are you sure you want to delete this item?");
         if (confirmDeletion) {
           this.activeTabIndex = clamp(index2 - 1, 0, this.instance.value.length - 1);
-          this.instance.deleteItem(index2);
+          this.instance.deleteItem(index2, "user");
         }
       });
       moveUpBtn.addEventListener("click", () => {
         const toIndex = index2 - 1;
         this.activeTabIndex = toIndex;
-        this.instance.move(index2, toIndex);
+        this.instance.move(index2, toIndex, "user");
       });
       moveDownBtn.addEventListener("click", () => {
         const toIndex = index2 + 1;
         this.activeTabIndex = toIndex;
-        this.instance.move(index2, toIndex);
+        this.instance.move(index2, toIndex, "user");
       });
       if (this.isSortable()) {
         const dragBtn = this.theme.getDragItemBtn();
@@ -3706,7 +3706,7 @@ class EditorArrayNav extends EditorArray {
   addEventListeners() {
     this.control.addBtn.addEventListener("click", () => {
       this.activeTabIndex = this.instance.value.length;
-      this.instance.addItem();
+      this.instance.addItem("user");
     });
   }
   refreshUI() {
@@ -3757,18 +3757,18 @@ class EditorArrayNav extends EditorArray {
         const confirmDeletion = window.confirm("Are you sure you want to delete this item?");
         if (confirmDeletion) {
           this.activeTabIndex = clamp(index2 - 1, 0, this.instance.value.length - 1);
-          this.instance.deleteItem(index2);
+          this.instance.deleteItem(index2, "user");
         }
       });
       moveUpBtn.addEventListener("click", () => {
         const toIndex = index2 - 1;
         this.activeTabIndex = toIndex;
-        this.instance.move(index2, toIndex);
+        this.instance.move(index2, toIndex, "user");
       });
       moveDownBtn.addEventListener("click", () => {
         const toIndex = index2 + 1;
         this.activeTabIndex = toIndex;
-        this.instance.move(index2, toIndex);
+        this.instance.move(index2, toIndex, "user");
       });
       const active = index2 === this.activeTabIndex;
       const id = pathToAttribute(child.path);
