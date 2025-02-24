@@ -31,7 +31,7 @@ class EditorArray extends Editor {
 
   addEventListeners () {
     this.control.addBtn.addEventListener('click', () => {
-      this.instance.addItem()
+      this.instance.addItem('user')
     })
   }
 
@@ -110,18 +110,18 @@ class EditorArray extends Editor {
 
         if (confirmDeletion) {
           const itemIndex = Number(child.path.split(this.instance.jedi.pathSeparator).pop())
-          this.instance.deleteItem(itemIndex)
+          this.instance.deleteItem(itemIndex, 'user')
         }
       })
 
       moveUpBtn.addEventListener('click', () => {
         const toIndex = itemIndex - 1
-        this.instance.move(itemIndex, toIndex)
+        this.instance.move(itemIndex, toIndex, 'user')
       })
 
       moveDownBtn.addEventListener('click', () => {
         const toIndex = itemIndex + 1
-        this.instance.move(itemIndex, toIndex)
+        this.instance.move(itemIndex, toIndex, 'user')
       })
 
       if (this.disabled || this.instance.isReadOnly()) {

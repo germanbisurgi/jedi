@@ -2591,24 +2591,24 @@ class InstanceArray extends Instance {
       this.setValue(schemaDefault);
     }
   }
-  move(fromIndex, toIndex) {
+  move(fromIndex, toIndex, initiator) {
     const value = clone(this.getValue());
     const item = value[fromIndex];
     value.splice(fromIndex, 1);
     value.splice(toIndex, 0, item);
-    this.setValue(value);
+    this.setValue(value, true, initiator);
   }
-  addItem() {
+  addItem(initiator) {
     const tempEditor = this.createItemInstance();
     const value = clone(this.getValue());
     value.push(tempEditor.getValue());
     tempEditor.destroy();
-    this.setValue(value);
+    this.setValue(value, true, initiator);
   }
-  deleteItem(itemIndex) {
+  deleteItem(itemIndex, initiator) {
     const currentValue = clone(this.getValue());
     const newValue = currentValue.filter((item, index2) => index2 !== itemIndex);
-    this.setValue(newValue);
+    this.setValue(newValue, true, initiator);
   }
   onChildChange(initiator) {
     const value = [];
@@ -2617,7 +2617,7 @@ class InstanceArray extends Instance {
     });
     this.value = value;
     this.jedi.emit("instance-change", this, initiator);
-    this.emit("change", true, initiator);
+    this.emit("change", initiator);
   }
   refreshChildren() {
     this.children = [];
@@ -3389,7 +3389,7 @@ class EditorArray extends Editor {
   }
   addEventListeners() {
     this.control.addBtn.addEventListener("click", () => {
-      this.instance.addItem();
+      this.instance.addItem("user");
     });
   }
   getInvalidFeedback(config) {
@@ -3452,16 +3452,16 @@ class EditorArray extends Editor {
         const confirmDeletion = window.confirm("Are you sure you want to delete this item?");
         if (confirmDeletion) {
           const itemIndex2 = Number(child.path.split(this.instance.jedi.pathSeparator).pop());
-          this.instance.deleteItem(itemIndex2);
+          this.instance.deleteItem(itemIndex2, "user");
         }
       });
       moveUpBtn.addEventListener("click", () => {
         const toIndex = itemIndex - 1;
-        this.instance.move(itemIndex, toIndex);
+        this.instance.move(itemIndex, toIndex, "user");
       });
       moveDownBtn.addEventListener("click", () => {
         const toIndex = itemIndex + 1;
-        this.instance.move(itemIndex, toIndex);
+        this.instance.move(itemIndex, toIndex, "user");
       });
       if (this.disabled || this.instance.isReadOnly()) {
         child.ui.disable();

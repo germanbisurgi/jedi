@@ -44,26 +44,26 @@ class InstanceArray extends Instance {
     }
   }
 
-  move (fromIndex, toIndex) {
+  move (fromIndex, toIndex, initiator) {
     const value = clone(this.getValue())
     const item = value[fromIndex]
     value.splice(fromIndex, 1)
     value.splice(toIndex, 0, item)
-    this.setValue(value)
+    this.setValue(value, true, initiator)
   }
 
-  addItem () {
+  addItem (initiator) {
     const tempEditor = this.createItemInstance()
     const value = clone(this.getValue())
     value.push(tempEditor.getValue())
     tempEditor.destroy()
-    this.setValue(value)
+    this.setValue(value, true, initiator)
   }
 
-  deleteItem (itemIndex) {
+  deleteItem (itemIndex, initiator) {
     const currentValue = clone(this.getValue())
     const newValue = currentValue.filter((item, index) => index !== itemIndex)
-    this.setValue(newValue)
+    this.setValue(newValue, true, initiator)
   }
 
   onChildChange (initiator) {
@@ -75,7 +75,8 @@ class InstanceArray extends Instance {
 
     this.value = value
     this.jedi.emit('instance-change', this, initiator)
-    this.emit('change', true, initiator)
+    // this.emit('change', true, initiator)
+    this.emit('change', initiator)
   }
 
   refreshChildren () {
