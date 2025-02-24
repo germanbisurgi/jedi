@@ -44,7 +44,7 @@ class Theme {
     const right = document.createElement('div')
     const legend = document.createElement('legend')
     const legendText = document.createElement('label')
-    const infoContainer = document.createElement('label')
+    const infoContainer = document.createElement('span')
     const dummyInput = document.createElement('input')
     const legendLabelId = 'legend-label-' + config.id
     const dummyInputId = 'legend-dummy-input-' + config.id

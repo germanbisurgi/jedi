@@ -3,11 +3,7 @@
   "title": "All Editors",
   "minProperties": 6,
   "x-options": {
-    "info": {
-      "variant": "modal",
-      "title": "<h4>Info Button title</h4>",
-      "content": "<p>Info button content</p>"
-    }
+
   },
   "properties": {
     "booleans": {
