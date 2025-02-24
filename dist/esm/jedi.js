@@ -4876,6 +4876,7 @@ class Theme {
     const dummyInput = document.createElement("input");
     label.setAttribute("for", config.for);
     label.classList.add("jedi-title");
+    label.classList.add("jedi-label");
     if (config.visuallyHidden) {
       this.visuallyHidden(label);
     }
@@ -5752,6 +5753,8 @@ class Theme {
       radio.setAttribute("value", value);
       radio.setAttribute("aria-describedby", describedBy);
       label.setAttribute("for", config.id + "-" + index2);
+      label.classList.add("jedi-title");
+      label.classList.add("jedi-label");
       labelTexts.push(labelText);
       if (isSet(config.titles) && isSet(config.titles[index2])) {
         labelText.textContent = config.titles[index2] ?? value;
