@@ -60,7 +60,7 @@ BeforeSuite(({I}) => {
 });
 
 Scenario('@editor @array-table should have @title and @description', ({I}) => {
-  I._waitForText('Array', 'legend .jedi-editor-legend-text')
+  I._waitForText('Array', 'legend .jedi-title')
   I._waitForText('Arrays are used for ordered elements. In JSON, each element in an array may be of a different type.', '.jedi-description')
 })
 

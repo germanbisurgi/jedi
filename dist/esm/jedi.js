@@ -4792,7 +4792,8 @@ class Theme {
     legend.classList.add("jedi-editor-legend");
     legend.style.fontSize = "inherit";
     legend.setAttribute("aria-labelledby", legendLabelId);
-    legendText.classList.add("jedi-editor-legend-text");
+    legendText.classList.add("jedi-title");
+    legendText.classList.add("jedi-legend");
     legendText.setAttribute("id", legendLabelId);
     legendText.innerHTML = config.content;
     infoContainer.classList.add("jedi-editor-info-container");
@@ -4833,7 +4834,8 @@ class Theme {
     legend.classList.add("jedi-editor-legend");
     legend.style.fontSize = "inherit";
     legend.setAttribute("aria-labelledby", legendLabelId);
-    legendText.classList.add("jedi-editor-legend-text");
+    legendText.classList.add("jedi-title");
+    legendText.classList.add("jedi-label");
     legendText.innerHTML = config.content;
     legendText.setAttribute("id", legendLabelId);
     dummyInput.setAttribute("aria-hidden", "true");
@@ -4853,6 +4855,7 @@ class Theme {
     const icon = document.createElement("i");
     label.setAttribute("for", config.for);
     label.classList.add("jedi-title");
+    label.classList.add("jedi-label");
     labelText.innerHTML = config.text;
     if (config.visuallyHidden) {
       this.visuallyHidden(label);

@@ -13,7 +13,7 @@ BeforeSuite(({I}) => {
 });
 
 Scenario('@editor @array-checkboxes should have @title and @description', ({I}) => {
-  I._waitForText('Array', 'legend .jedi-editor-legend-text')
+  I._waitForText('Array', 'legend .jedi-title')
   I._waitForText('Array of unique values wich item types can be string, number or integer', '.jedi-description')
 })
 
