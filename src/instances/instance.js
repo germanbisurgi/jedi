@@ -11,7 +11,7 @@ import {
 
 import {
   getSchemaConst,
-  getSchemaDefault,
+  getSchemaDefault, getSchemaEnum,
   getSchemaReadOnly,
   getSchemaType, getSchemaXOption
 } from '../helpers/schema.js'
@@ -166,6 +166,13 @@ class Instance extends EventEmitter {
    * Sets the default value of the instance based on it's type
    */
   setInitialValue () {
+    const enforceEnumDefault = getSchemaXOption(this.schema, 'enforceEnumDefault') ?? this.jedi.options.enforceEnumDefault
+    const schemaEnum = getSchemaEnum(this.schema)
+
+    if (isSet(schemaEnum) && !schemaEnum.includes(this.getValue()) && isSet(schemaEnum[0]) && enforceEnumDefault) {
+      this.setValue(schemaEnum[0], false)
+    }
+
     if (notSet(this.value)) {
       let value
       const schemaType = getSchemaType(this.schema)

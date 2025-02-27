@@ -1,5 +1,5 @@
 import { combineDeep, compileTemplate, isObject, isSet, pathToAttribute } from '../helpers/utils.js'
-import { getSchemaDescription, getSchemaEnum, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaDescription, getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an Editor instance.
@@ -42,7 +42,6 @@ class Editor {
     this.init()
     this.build()
     this.setAttributes()
-    this.enforceEnumDefault()
     this.addEventListeners()
     this.setContainerAttributes()
     this.refreshUI()
@@ -109,18 +108,6 @@ class Editor {
   getIdFromPath (path) {
     const optionId = this.instance.jedi.options.id
     return optionId ? optionId + '-' + pathToAttribute(path) : pathToAttribute(path)
-  }
-
-  /**
-   * Updates the value of the instance by making assumptions based on constrains
-   */
-  enforceEnumDefault () {
-    const enforceEnumDefault = getSchemaXOption(this.instance.schema, 'enforceEnumDefault') ?? this.instance.jedi.options.enforceEnumDefault
-    const schemaEnum = getSchemaEnum(this.instance.schema)
-
-    if (isSet(schemaEnum) && !schemaEnum.includes(this.instance.getValue()) && isSet(schemaEnum[0]) && enforceEnumDefault) {
-      this.instance.setValue(schemaEnum[0], false)
-    }
   }
 
   /**
