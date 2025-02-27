@@ -2,9 +2,7 @@
   "$ref": "#/$defs/schema",
   "$defs": {
     "schema": {
-      "x-options": {
-        "deactivateNonRequired": true
-      },
+      "x-deactivateNonRequired": true,
       "additionalProperties": {
         "$ref": "#/$defs/schema"
       },
@@ -26,9 +24,6 @@
           ]
         },
         "format": {
-          "type": "string"
-        },
-        "$ref": {
           "type": "string"
         },
         "additionalProperties": {
@@ -61,10 +56,7 @@
           "$ref": "#/$defs/schema"
         },
         "default": {
-          "x-options": {
-            "enableCollapseToggle": true,
-            "startCollapsed": true
-          },
+          "x-enableCollapseToggle": true,
           "type": [
             "null",
             "boolean",
@@ -99,10 +91,7 @@
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-          "x-options": {
-            "enableCollapseToggle": true,
-            "startCollapsed": true
-          }
+          "x-enableCollapseToggle": true
         },
         "exclusiveMaximum": {
           "type": "number"
@@ -121,10 +110,7 @@
         },
         "items": {
           "$ref": "#/$defs/schema",
-          "x-options": {
-            "enableCollapseToggle": true,
-            "startCollapsed": true
-          }
+          "x-enableCollapseToggle": true
         },
         "maxContains": {
           "type": "integer",
@@ -198,10 +184,7 @@
           "additionalProperties": {
             "$ref": "#/$defs/schema"
           },
-          "x-options": {
-            "enableCollapseToggle": true,
-            "startCollapsed": true
-          }
+          "x-enableCollapseToggle": true
         },
         "readOnly": {
           "type": "boolean"
@@ -211,69 +194,13 @@
           "uniqueItems": true,
           "items": {
             "type": "string"
-          },
-          "x-options": {
-            "format": "nav-vertical"
           }
         },
         "uniqueItems": {
           "type": "boolean"
         },
-        "x-options": {
-          "x-options": {
-            "enableCollapseToggle": true,
-            "startCollapsed": true,
-            "deactivateNonRequired": true,
-            "format": "nav-vertical"
-          },
-          "type": "object",
-          "properties": {
-            "format": {
-              "type": "string"
-            },
-            "titleIconClass": {
-              "type": "string"
-            },
-            "titleTemplate": {
-              "type": "string"
-            },
-            "switcherTitle": {
-              "type": "string"
-            },
-            "grid": {
-              "type": "object"
-            },
-            "enumTitles": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "messages": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "titleHidden": {
-              "type": "boolean"
-            },
-            "enableCollapseToggle": {
-              "type": "boolean"
-            },
-            "startCollapsed": {
-              "type": "boolean"
-            },
-            "showErrors": {
-              "type": "boolean"
-            },
-            "deactivateNonRequired": {
-              "type": "boolean"
-            },
-            "assertFormat": {
-              "type": "boolean"
-            }
-          }
+        "$ref": {
+          "type": "string"
         }
       }
     }
