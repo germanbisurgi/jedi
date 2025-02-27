@@ -1,16 +1,13 @@
 class JsonWalker {
-  constructor (maxDepth = 200, iterations = 200) {
+  constructor (maxDepth = 200) {
     this.maxDepth = maxDepth
-    this.iterations = iterations
-    this.currentIterations = 0
   }
 
   traverse (data, callback, node = data, path = '#', depth = 0, parent = null, key = null) {
-    if (!node || typeof node !== 'object' || depth > this.maxDepth || this.currentIterations >= this.iterations) {
+    if (!node || typeof node !== 'object' || depth > this.maxDepth) {
       return
     }
 
-    this.currentIterations++
     const newNode = callback(node, path, parent, key)
 
     if (newNode !== undefined) {
