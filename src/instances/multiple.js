@@ -7,7 +7,7 @@ import {
   mergeDeep
 } from '../helpers/utils.js'
 import {
-  getSchemaAnyOf,
+  getSchemaAnyOf, getSchemaDescription,
   getSchemaOneOf,
   getSchemaTitle,
   getSchemaType,
@@ -51,6 +51,11 @@ class InstanceMultiple extends Instance {
         let switcherOptionsLabel = 'Option-' + (index + 1)
         const switcherTitle = getSchemaXOption(schema, 'switcherTitle')
         const schemaTitle = getSchemaTitle(schema)
+        const schemaDescription = getSchemaDescription(schema)
+
+        if (isSet(schemaDescription)) {
+          switcherOptionsLabel = schemaDescription
+        }
 
         if (isSet(schemaTitle)) {
           switcherOptionsLabel = schemaTitle
