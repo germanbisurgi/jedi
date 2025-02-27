@@ -9,6 +9,7 @@ import InstanceString from './instances/string.js'
 import InstanceNumber from './instances/number.js'
 import InstanceNull from './instances/null.js'
 import {
+  clone, combineDeep,
   isArray, isObject,
   isSet,
   notSet
@@ -22,6 +23,7 @@ import {
 import { bootstrapIcons, fontAwesome3, fontAwesome4, fontAwesome5, fontAwesome6, glyphicons } from './themes/icons/icons.js'
 import UiResolver from './ui-resolver.js'
 import Translator from './i18n/translator.js'
+import JsonWalker from './json-walker.js'
 
 /**
  * Represents a Jedi instance.
@@ -124,6 +126,8 @@ class Jedi extends EventEmitter {
      * @type {RefParser}
      */
     this.refParser = this.options.refParser ? this.options.refParser : null
+
+    this.walker = new JsonWalker()
 
     /**
      * The id of the last focused element.
@@ -320,12 +324,67 @@ class Jedi extends EventEmitter {
     delete this.instances[instance.path]
   }
 
+  logIfEditor (...params) {
+    if (this.isEditor) {
+      console.log(...params)
+    }
+  }
+
+  expandRecursive (schema) {
+    let hasRef = true
+
+    while (hasRef) {
+      hasRef = false
+
+      this.walker.traverse(schema, (node, path, parent, key) => {
+        if (node.$ref && parent && key !== null) {
+          parent[key] = this.refParser.expand(node)
+          hasRef = true
+        }
+      })
+    }
+  }
+
   /**
    * Creates a json instance and dereference schema on the fly if needed.
    */
   createInstance (config) {
     if (this.refParser) {
       config.schema = this.refParser.expand(config.schema, config.path)
+    }
+
+    if (this.isEditor) {
+      this.walker.traverse(config.schema, (node) => {
+        if (node.allOf && Array.isArray(node.allOf)) {
+          this.expandRecursive(node)
+
+          let nodeClone = clone(node)
+
+          node.allOf.forEach((subschema) => {
+            nodeClone = combineDeep({}, nodeClone, subschema)
+          })
+
+          delete nodeClone.allOf
+          node = nodeClone
+          return node
+        }
+      })
+
+      this.walker.traverse(config.schema, (node) => {
+        if (node.oneOf && Array.isArray(node.oneOf)) {
+          this.expandRecursive(node)
+          const nodeClone = clone(node)
+          delete nodeClone.oneOf
+
+          node.oneOf = node.oneOf.map((subschema) => {
+            return combineDeep({}, nodeClone, subschema)
+          })
+
+          return {
+            oneOf: node.oneOf
+          }
+        }
+      })
     }
 
     const schemaType = getSchemaType(config.schema)
