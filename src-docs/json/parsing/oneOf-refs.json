@@ -1,0 +1,33 @@
+{
+  "title": "test",
+  "type": "object",
+  "properties": {
+    "data": {
+      "title": "Data",
+      "description": "My Data",
+      "oneOf": [
+        {
+          "x-switcherTitle": "Data as Object",
+          "$ref": "#/$defs/object"
+        },
+        {
+          "x-switcherTitle": "Data as Array",
+          "$ref": "#/$defs/array"
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "object": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array"
+        }
+      }
+    },
+    "array": {
+      "type": "array"
+    }
+  }
+}

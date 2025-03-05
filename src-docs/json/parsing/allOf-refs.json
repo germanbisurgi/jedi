@@ -1,0 +1,28 @@
+{
+  "title": "test",
+  "type": "object",
+  "properties": {
+    "combinedAllOf": {
+      "title": "combinedAllOf",
+      "allOf": [
+        {
+          "$ref": "#/$defs/string"
+        },
+        {
+          "$ref": "#/$defs/enum"
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "string": {
+      "type": "string"
+    },
+    "enum": {
+      "enum": [
+        "a",
+        "b"
+      ]
+    }
+  }
+}

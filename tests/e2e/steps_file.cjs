@@ -27,6 +27,11 @@ module.exports = function () {
       this.wait(1)
       this.checkOption(locator)
     },
+    _uncheckOption: function (locator) {
+      this._scrollIntoView(locator)
+      this.wait(1)
+      this.uncheckOption(locator)
+    },
     _fillField: function (locator, value) {
       this.fillField(locator, value)
       this.pressKey('Tab')

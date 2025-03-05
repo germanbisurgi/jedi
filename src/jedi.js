@@ -18,7 +18,7 @@ import {
   getSchemaAnyOf,
   getSchemaIf,
   getSchemaOneOf,
-  getSchemaType
+  getSchemaType, getSchemaXOption
 } from './helpers/schema.js'
 import { bootstrapIcons, fontAwesome3, fontAwesome4, fontAwesome5, fontAwesome6, glyphicons } from './themes/icons/icons.js'
 import UiResolver from './ui-resolver.js'
@@ -63,6 +63,7 @@ class Jedi extends EventEmitter {
       params: {},
       useConstraintAttributes: true,
       parseMarkdown: false,
+      mergeAllOf: false,
       domPurifyOptions: {}
     }, options)
 
@@ -256,6 +257,10 @@ class Jedi extends EventEmitter {
    * @type String
    */
   refreshFocus () {
+    if (!this.lastFocusedId) {
+      return
+    }
+
     const el = document.getElementById(this.lastFocusedId)
 
     if (el) {
@@ -330,49 +335,109 @@ class Jedi extends EventEmitter {
     }
   }
 
-  expandRecursive (schema) {
-    let hasRef = true
-
-    while (hasRef) {
-      hasRef = false
-
-      this.walker.traverse(schema, (node, path, parent, key) => {
-        if (node.$ref && parent && key !== null) {
-          parent[key] = this.refParser.expand(node)
-          hasRef = true
-        }
-      })
-    }
-  }
-
   /**
    * Creates a json instance and dereference schema on the fly if needed.
    */
   createInstance (config) {
     if (this.refParser) {
-      config.schema = this.refParser.expand(config.schema, config.path)
+      config.schema = this.refParser.expand(config.schema)
+
+      this.walker.traverse(config.schema, (node) => {
+        if (node.allOf && Array.isArray(node.allOf)) {
+          node.allOf.forEach((subschema, index) => {
+            node.allOf[index] = this.refParser.expand(subschema)
+          })
+        }
+
+        if (node.oneOf && Array.isArray(node.oneOf)) {
+          node.oneOf.forEach((subschema, index) => {
+            node.oneOf[index] = this.refParser.expand(subschema)
+          })
+        }
+
+        if (node.oneOf && Array.isArray(node.oneOf)) {
+          node.oneOf.forEach((subschema, index) => {
+            node.oneOf[index] = this.refParser.expand(subschema)
+          })
+        }
+      })
     }
 
     if (this.isEditor) {
+      // this.walker.traverse(config.schema, (node) => {
+      //   if (node.allOf && Array.isArray(node.allOf)) {
+      //     // mergeAllOf option here?
+      //
+      //     if (isSet(node['x-allOf-merged'])) {
+      //       return
+      //     }
+      //
+      //     let nodeClone = clone(node)
+      //
+      //     node.allOf.forEach((subschema) => {
+      //       nodeClone = combineDeep({}, nodeClone, subschema)
+      //     })
+      //
+      //     node = nodeClone
+      //     node['x-allOf-merged'] = true
+      //     return node
+      //   }
+      // })
+
+      // extract if then combinations
       this.walker.traverse(config.schema, (node) => {
         if (node.allOf && Array.isArray(node.allOf)) {
-          this.expandRecursive(node)
+          if (isSet(node['x-allOf-merged'])) {
+            return
+          }
 
-          let nodeClone = clone(node)
+          const mergeAllOf = getSchemaXOption(node, 'mergeAllOf') ?? this.options.mergeAllOf
+
+          const conditionals = []
+          let nodeFinal = clone(node) // To store merged static properties
+          // delete nodeFinal.allOf // do not delete allOf to keep validation clean
 
           node.allOf.forEach((subschema) => {
-            nodeClone = combineDeep({}, nodeClone, subschema)
+            if (subschema.if && subschema.then) {
+              conditionals.push({
+                if: subschema.if,
+                then: subschema.then,
+                else: subschema.else || null
+              })
+            } else {
+              // Merge non-conditional schemas normally if mergeAllOf is true
+              nodeFinal = mergeAllOf ? combineDeep({}, nodeFinal, subschema) : nodeFinal
+            }
           })
 
-          delete nodeClone.allOf
-          node = nodeClone
-          return node
+          nodeFinal['x-allOf-merged'] = true
+
+          // Build a long sequential if-then-else chain
+          let sequentialIfThenElse = null
+
+          for (let i = conditionals.length - 1; i >= 0; i--) {
+            if (sequentialIfThenElse === null) {
+              sequentialIfThenElse = conditionals[i]
+            } else {
+              sequentialIfThenElse = {
+                if: conditionals[i].if,
+                then: conditionals[i].then,
+                else: sequentialIfThenElse
+              }
+            }
+          }
+
+          // Attach the final sequential if-then-else structure to nodeFinal
+          if (sequentialIfThenElse) {
+            Object.assign(nodeFinal, sequentialIfThenElse)
+          }
+
+          return nodeFinal
         }
       })
 
       this.walker.traverse(config.schema, (node) => {
         if (node.oneOf && Array.isArray(node.oneOf)) {
-          this.expandRecursive(node)
           const nodeClone = clone(node)
           delete nodeClone.oneOf
 
@@ -385,7 +450,25 @@ class Jedi extends EventEmitter {
           }
         }
       })
+
+      this.walker.traverse(config.schema, (node) => {
+        if (node.anyOf && Array.isArray(node.anyOf)) {
+          const nodeClone = clone(node)
+          delete nodeClone.anyOf
+
+          node.anyOf = node.anyOf.map((subschema) => {
+            return combineDeep({}, nodeClone, subschema)
+          })
+
+          return {
+            anyOf: node.anyOf
+          }
+        }
+      })
     }
+
+    // this.logIfEditor('-------------')
+    // this.logIfEditor(JSON.stringify(config.schema, null, 2))
 
     const schemaType = getSchemaType(config.schema)
     const schemaOneOf = getSchemaOneOf(config.schema)

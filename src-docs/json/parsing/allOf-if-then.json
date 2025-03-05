@@ -1,0 +1,122 @@
+{
+  "title": "allOf-if-then",
+  "type": "object",
+  "properties": {
+    "choices": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      }
+    },
+    "x": {
+      "readOnly": true,
+      "type": "string"
+    },
+    "y": {
+      "readOnly": true,
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "choices": {
+            "enum": [
+              [
+                "A"
+              ],
+              [
+                "B"
+              ],
+              [
+                "B",
+                "A"
+              ],
+              [
+                "A",
+                "B"
+              ]
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "x": {
+            "readOnly": true
+          },
+          "y": {
+            "readOnly": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "choices": {
+            "enum": [
+              [
+                "C"
+              ],
+              [
+                "A",
+                "C"
+              ],
+              [
+                "C",
+                "A"
+              ],
+              [
+                "B",
+                "C"
+              ],
+              [
+                "C",
+                "B"
+              ],
+              [
+                "A",
+                "B",
+                "C"
+              ],
+              [
+                "B",
+                "A",
+                "C"
+              ],
+              [
+                "C",
+                "A",
+                "B"
+              ],
+              [
+                "C",
+                "B",
+                "A"
+              ]
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "x": {
+            "readOnly": false
+          },
+          "y": {
+            "readOnly": false
+          }
+        }
+      }
+    }
+  ]
+}

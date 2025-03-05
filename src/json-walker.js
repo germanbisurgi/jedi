@@ -3,12 +3,13 @@ class JsonWalker {
     this.maxDepth = maxDepth
   }
 
-  traverse (data, callback, node = data, path = '#', depth = 0, parent = null, key = null) {
+  traverse (data, callback, node = data, path = '#', depth = 0, parent = null, key = null, customData = {}) {
     if (!node || typeof node !== 'object' || depth > this.maxDepth) {
       return
     }
 
-    const newNode = callback(node, path, parent, key)
+    // Pass customData to the callback as an additional argument
+    const newNode = callback(node, path, parent, key, depth, customData)
 
     if (newNode !== undefined) {
       if (parent && key !== null) {
@@ -21,7 +22,9 @@ class JsonWalker {
     }
 
     if (typeof node === 'object' && node !== null) {
-      Object.entries(node).forEach(([k, v]) => this.traverse(data, callback, v, `${path}/${k}`, depth + 1, node, k))
+      Object.entries(node).forEach(([k, v]) =>
+        this.traverse(data, callback, v, `${path}/${k}`, depth + 1, node, k, customData)
+      )
     }
   }
 }

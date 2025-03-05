@@ -6,6 +6,7 @@
 - jedi
   - iconLib option can be string or IconLib instance
   - theme option can be string or Theme instance
+  - refactor setInitialValue
 
 - validation
   - support multiple drafts
@@ -16,6 +17,7 @@
   - simplemde
 
 - editors
+  - array items titles in item containers
   - accordion / collapse
   - collapse children
   - enumSource

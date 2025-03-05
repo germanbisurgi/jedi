@@ -1,0 +1,29 @@
+{
+  "title": "test",
+  "type": "object",
+  "properties": {
+    "data": {
+      "$ref": "#/$defs/a"
+    }
+  },
+  "$defs": {
+    "a": {
+      "type": "object",
+      "title": "Person",
+      "properties": {
+        "children": {
+          "$ref": "#/$defs/b"
+        }
+      }
+    },
+    "b": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/c"
+      }
+    },
+    "c": {
+      "$ref": "#/$defs/a"
+    }
+  }
+}

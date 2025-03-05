@@ -239,130 +239,130 @@ function getSchemaX(schema, keyword) {
   return schema[key];
 }
 function getSchemaSchema(schema) {
-  return isString(schema.$schema) ? schema.$schema : void 0;
+  return isString(schema.$schema) ? clone(schema.$schema) : void 0;
 }
 function getSchemaAdditionalProperties(schema) {
-  return isObject(schema.additionalProperties) || isBoolean(schema.additionalProperties) ? schema.additionalProperties : void 0;
+  return isObject(schema.additionalProperties) || isBoolean(schema.additionalProperties) ? clone(schema.additionalProperties) : void 0;
 }
 function getSchemaPropertyNames(schema) {
-  return isObject(schema.propertyNames) || isBoolean(schema.propertyNames) ? schema.propertyNames : void 0;
+  return isObject(schema.propertyNames) || isBoolean(schema.propertyNames) ? clone(schema.propertyNames) : void 0;
 }
 function getSchemaAllOf(schema) {
-  return isArray(schema.allOf) ? schema.allOf : void 0;
+  return isArray(schema.allOf) ? clone(schema.allOf) : void 0;
 }
 function getSchemaAnyOf(schema) {
-  return isArray(schema.anyOf) ? schema.anyOf : void 0;
+  return isArray(schema.anyOf) ? clone(schema.anyOf) : void 0;
 }
 function getSchemaConst(schema) {
-  return schema.const;
+  return clone(schema.const);
 }
 function getSchemaContains(schema) {
-  return isObject(schema.contains) || isBoolean(schema.contains) ? schema.contains : void 0;
+  return isObject(schema.contains) || isBoolean(schema.contains) ? clone(schema.contains) : void 0;
 }
 function getSchemaDefault(schema) {
-  return schema.default;
+  return clone(schema.default);
 }
 function getSchemaDependentRequired(schema) {
-  return isObject(schema.dependentRequired) ? schema.dependentRequired : void 0;
+  return isObject(schema.dependentRequired) ? clone(schema.dependentRequired) : void 0;
 }
 function getSchemaDependentSchemas(schema) {
-  return isObject(schema.dependentSchemas) ? schema.dependentSchemas : void 0;
+  return isObject(schema.dependentSchemas) ? clone(schema.dependentSchemas) : void 0;
 }
 function getSchemaDescription(schema) {
-  return isString(schema.description) ? schema.description : void 0;
+  return isString(schema.description) ? clone(schema.description) : void 0;
 }
 function getSchemaElse(schema) {
-  return isObject(schema.else) || isBoolean(schema.else) ? schema.else : void 0;
+  return isObject(schema.else) || isBoolean(schema.else) ? clone(schema.else) : void 0;
 }
 function getSchemaEnum(schema) {
   if (isArray(schema.enum) && schema.enum.length > 0) {
-    return schema.enum;
+    return clone(schema.enum);
   }
   return void 0;
 }
 function getSchemaExclusiveMaximum(schema) {
-  return isNumber(schema.exclusiveMaximum) ? schema.exclusiveMaximum : void 0;
+  return isNumber(schema.exclusiveMaximum) ? clone(schema.exclusiveMaximum) : void 0;
 }
 function getSchemaExclusiveMinimum(schema) {
   return isNumber(schema.exclusiveMinimum) ? schema.exclusiveMinimum : void 0;
 }
 function getSchemaFormat(schema) {
-  return isString(schema.format) ? schema.format : void 0;
+  return isString(schema.format) ? clone(schema.format) : void 0;
 }
 function getSchemaIf(schema) {
   if (isObject(schema.if)) {
-    return schema.if;
+    return clone(schema.if);
   }
   if (isBoolean(schema.if)) {
-    return schema.if;
+    return clone(schema.if);
   }
   return void 0;
 }
 function getSchemaItems(schema) {
-  return isObject(schema.items) || isBoolean(schema.items) ? schema.items : void 0;
+  return isObject(schema.items) || isBoolean(schema.items) ? clone(schema.items) : void 0;
 }
 function getSchemaMaximum(schema) {
-  return isNumber(schema.maximum) ? schema.maximum : void 0;
+  return isNumber(schema.maximum) ? clone(schema.maximum) : void 0;
 }
 function getSchemaMaxContains(schema) {
   if (isInteger(schema.maxContains) && schema.maxContains >= 0) {
-    return schema.maxContains;
+    return clone(schema.maxContains);
   }
   return void 0;
 }
 function getSchemaMaxItems(schema) {
   if (isInteger(schema.maxItems) && schema.maxItems >= 0) {
-    return schema.maxItems;
+    return clone(schema.maxItems);
   }
   return void 0;
 }
 function getSchemaMaxLength(schema) {
   if (isInteger(schema.maxLength) && schema.maxLength >= 0) {
-    return schema.maxLength;
+    return clone(schema.maxLength);
   }
   return void 0;
 }
 function getSchemaMaxProperties(schema) {
   if (isInteger(schema.maxProperties)) {
-    return schema.maxProperties;
+    return clone(schema.maxProperties);
   }
   return void 0;
 }
 function getSchemaMinimum(schema) {
-  return isNumber(schema.minimum) ? schema.minimum : void 0;
+  return isNumber(schema.minimum) ? clone(schema.minimum) : void 0;
 }
 function getSchemaMinContains(schema) {
   if (isInteger(schema.minContains) && schema.minContains >= 0) {
-    return schema.minContains;
+    return clone(schema.minContains);
   }
   return void 0;
 }
 function getSchemaMinItems(schema) {
   if (isInteger(schema.minItems) && schema.minItems >= 0) {
-    return schema.minItems;
+    return clone(schema.minItems);
   }
   return void 0;
 }
 function getSchemaMinLength(schema) {
   if (isInteger(schema.minLength) && schema.minLength >= 0) {
-    return schema.minLength;
+    return clone(schema.minLength);
   }
   return void 0;
 }
 function getSchemaMinProperties(schema) {
   if (isInteger(schema.minProperties) && schema.minProperties >= 0) {
-    return schema.minProperties;
+    return clone(schema.minProperties);
   }
   return void 0;
 }
 function getSchemaMultipleOf(schema) {
   if (isNumber(schema.multipleOf) && schema.multipleOf >= 0) {
-    return schema.multipleOf;
+    return clone(schema.multipleOf);
   }
   return void 0;
 }
 function getSchemaNot(schema) {
-  return isObject(schema.not) || isBoolean(schema.not) ? schema.not : void 0;
+  return isObject(schema.not) || isBoolean(schema.not) ? clone(schema.not) : void 0;
 }
 function getSchemaXOption(schema, option) {
   const xOption = "x-" + option;
@@ -372,43 +372,43 @@ function getSchemaXOption(schema, option) {
   return schema["x-options"] && isSet(schema["x-options"][option]) ? schema["x-options"][option] : void 0;
 }
 function getSchemaPattern(schema) {
-  return isString(schema.pattern) ? schema.pattern : void 0;
+  return isString(schema.pattern) ? clone(schema.pattern) : void 0;
 }
 function getSchemaPatternProperties(schema) {
-  return isObject(schema.patternProperties) ? schema.patternProperties : void 0;
+  return isObject(schema.patternProperties) ? clone(schema.patternProperties) : void 0;
 }
 function getSchemaPrefixItems(schema) {
-  return isArray(schema.prefixItems) ? schema.prefixItems : void 0;
+  return isArray(schema.prefixItems) ? clone(schema.prefixItems) : void 0;
 }
 function getSchemaProperties(schema) {
-  return isObject(schema.properties) ? schema.properties : void 0;
+  return isObject(schema.properties) ? clone(schema.properties) : void 0;
 }
 function getSchemaReadOnly(schema) {
-  return isBoolean(schema.readOnly) ? schema.readOnly : void 0;
+  return isBoolean(schema.readOnly) ? clone(schema.readOnly) : void 0;
 }
 function getSchemaRequired(schema) {
   return isArray(schema.required) ? [...new Set(schema.required)] : void 0;
 }
 function getSchemaThen(schema) {
-  return isObject(schema.then) || isBoolean(schema.then) ? schema.then : void 0;
+  return isObject(schema.then) || isBoolean(schema.then) ? clone(schema.then) : void 0;
 }
 function getSchemaTitle(schema) {
-  return isString(schema.title) ? schema.title : void 0;
+  return isString(schema.title) ? clone(schema.title) : void 0;
 }
 function getSchemaType(schema) {
   if (isString(schema.type) || isArray(schema.type)) {
-    return schema.type;
+    return clone(schema.type);
   }
   return void 0;
 }
 function getSchemaOneOf(schema) {
-  return isArray(schema.oneOf) ? schema.oneOf : void 0;
+  return isArray(schema.oneOf) ? clone(schema.oneOf) : void 0;
 }
 function getSchemaUnevaluatedProperties(schema) {
-  return isBoolean(schema.unevaluatedProperties) ? schema.unevaluatedProperties : void 0;
+  return isBoolean(schema.unevaluatedProperties) ? clone(schema.unevaluatedProperties) : void 0;
 }
 function getSchemaUniqueItems(schema) {
-  return isBoolean(schema.uniqueItems) ? schema.uniqueItems : void 0;
+  return isBoolean(schema.uniqueItems) ? clone(schema.uniqueItems) : void 0;
 }
 const Schema = {
   getSchemaX,
@@ -1662,6 +1662,11 @@ class Instance extends EventEmitter {
    * Sets the default value of the instance based on it's type
    */
   setInitialValue() {
+    const enforceEnumDefault = getSchemaXOption(this.schema, "enforceEnumDefault") ?? this.jedi.options.enforceEnumDefault;
+    const schemaEnum = getSchemaEnum(this.schema);
+    if (isSet(schemaEnum) && !schemaEnum.includes(this.getValue()) && isSet(schemaEnum[0]) && enforceEnumDefault) {
+      this.setValue(schemaEnum[0], false);
+    }
     if (notSet(this.value)) {
       let value;
       const schemaType = getSchemaType(this.schema);
@@ -1846,7 +1851,6 @@ class Editor {
     this.init();
     this.build();
     this.setAttributes();
-    this.enforceEnumDefault();
     this.addEventListeners();
     this.setContainerAttributes();
     this.refreshUI();
@@ -1902,16 +1906,6 @@ class Editor {
   getIdFromPath(path) {
     const optionId = this.instance.jedi.options.id;
     return optionId ? optionId + "-" + pathToAttribute(path) : pathToAttribute(path);
-  }
-  /**
-   * Updates the value of the instance by making assumptions based on constrains
-   */
-  enforceEnumDefault() {
-    const enforceEnumDefault = getSchemaXOption(this.instance.schema, "enforceEnumDefault") ?? this.instance.jedi.options.enforceEnumDefault;
-    const schemaEnum = getSchemaEnum(this.instance.schema);
-    if (isSet(schemaEnum) && !schemaEnum.includes(this.instance.getValue()) && isSet(schemaEnum[0]) && enforceEnumDefault) {
-      this.instance.setValue(schemaEnum[0], false);
-    }
   }
   /**
    * Add event listeners to ui elements
@@ -2247,12 +2241,13 @@ class InstanceMultiple extends Instance {
       delete schemaCopy["options"];
       schemasOf.forEach((schema, index2) => {
         schema = { ...schemaCopy, ...schema };
-        if (this.jedi.refParser) {
-          schema = this.jedi.refParser.expand(schema);
-        }
         let switcherOptionsLabel = "Option-" + (index2 + 1);
         const switcherTitle = getSchemaXOption(schema, "switcherTitle");
         const schemaTitle = getSchemaTitle(schema);
+        const schemaDescription = getSchemaDescription(schema);
+        if (isSet(schemaDescription)) {
+          switcherOptionsLabel = schemaDescription;
+        }
         if (isSet(schemaTitle)) {
           switcherOptionsLabel = schemaTitle;
         }
@@ -2373,13 +2368,6 @@ class InstanceObject extends Instance {
     this.properties = {};
     const schemaProperties = getSchemaProperties(this.schema);
     const schemaRequired = getSchemaRequired(this.schema);
-    if (isSet(schemaRequired)) {
-      schemaRequired.forEach((requiredProperty) => {
-        if (!hasOwn(this.properties, requiredProperty)) {
-          this.properties[requiredProperty] = {};
-        }
-      });
-    }
     if (isSet(schemaProperties)) {
       Object.keys(schemaProperties).forEach((key) => {
         const schema = schemaProperties[key];
@@ -2399,6 +2387,14 @@ class InstanceObject extends Instance {
         }
         if (musstCreateChild) {
           this.createChild(schema, key);
+        }
+      });
+    }
+    if (isSet(schemaRequired)) {
+      schemaRequired.forEach((requiredProperty) => {
+        if (!hasOwn(this.properties, requiredProperty)) {
+          this.properties[requiredProperty] = {};
+          this.createChild({}, requiredProperty);
         }
       });
     }
@@ -4316,6 +4312,31 @@ class Translator {
     });
   }
 }
+class JsonWalker {
+  constructor(maxDepth = 200) {
+    this.maxDepth = maxDepth;
+  }
+  traverse(data, callback, node = data, path = "#", depth = 0, parent = null, key = null, customData = {}) {
+    if (!node || typeof node !== "object" || depth > this.maxDepth) {
+      return;
+    }
+    const newNode = callback(node, path, parent, key, depth, customData);
+    if (newNode !== void 0) {
+      if (parent && key !== null) {
+        parent[key] = newNode;
+      } else if (path === "#") {
+        Object.keys(data).forEach((k) => delete data[k]);
+        Object.assign(data, newNode);
+      }
+      node = newNode;
+    }
+    if (typeof node === "object" && node !== null) {
+      Object.entries(node).forEach(
+        ([k, v]) => this.traverse(data, callback, v, `${path}/${k}`, depth + 1, node, k, customData)
+      );
+    }
+  }
+}
 class Jedi extends EventEmitter {
   /**
    * Creates a Jedi instance.
@@ -4350,6 +4371,7 @@ class Jedi extends EventEmitter {
       params: {},
       useConstraintAttributes: true,
       parseMarkdown: false,
+      mergeAllOf: false,
       domPurifyOptions: {}
     }, options);
     this.rootName = "#";
@@ -4366,6 +4388,7 @@ class Jedi extends EventEmitter {
     this.theme = null;
     this.uiResolver = null;
     this.refParser = this.options.refParser ? this.options.refParser : null;
+    this.walker = new JsonWalker();
     this.lastFocusedId = null;
     this.isEditor = false;
     this.init();
@@ -4469,6 +4492,9 @@ class Jedi extends EventEmitter {
    * @type String
    */
   refreshFocus() {
+    if (!this.lastFocusedId) {
+      return;
+    }
     const el = document.getElementById(this.lastFocusedId);
     if (el) {
       el.focus();
@@ -4526,12 +4552,98 @@ class Jedi extends EventEmitter {
     this.instances[instance.path] = null;
     delete this.instances[instance.path];
   }
+  logIfEditor(...params) {
+    if (this.isEditor) {
+      console.log(...params);
+    }
+  }
   /**
    * Creates a json instance and dereference schema on the fly if needed.
    */
   createInstance(config) {
     if (this.refParser) {
-      config.schema = this.refParser.expand(config.schema, config.path);
+      config.schema = this.refParser.expand(config.schema);
+      this.walker.traverse(config.schema, (node) => {
+        if (node.allOf && Array.isArray(node.allOf)) {
+          node.allOf.forEach((subschema, index2) => {
+            node.allOf[index2] = this.refParser.expand(subschema);
+          });
+        }
+        if (node.oneOf && Array.isArray(node.oneOf)) {
+          node.oneOf.forEach((subschema, index2) => {
+            node.oneOf[index2] = this.refParser.expand(subschema);
+          });
+        }
+        if (node.oneOf && Array.isArray(node.oneOf)) {
+          node.oneOf.forEach((subschema, index2) => {
+            node.oneOf[index2] = this.refParser.expand(subschema);
+          });
+        }
+      });
+    }
+    if (this.isEditor) {
+      this.walker.traverse(config.schema, (node) => {
+        if (node.allOf && Array.isArray(node.allOf)) {
+          if (isSet(node["x-allOf-merged"])) {
+            return;
+          }
+          const mergeAllOf = getSchemaXOption(node, "mergeAllOf") ?? this.options.mergeAllOf;
+          const conditionals = [];
+          let nodeFinal = clone(node);
+          node.allOf.forEach((subschema) => {
+            if (subschema.if && subschema.then) {
+              conditionals.push({
+                if: subschema.if,
+                then: subschema.then,
+                else: subschema.else || null
+              });
+            } else {
+              nodeFinal = mergeAllOf ? combineDeep({}, nodeFinal, subschema) : nodeFinal;
+            }
+          });
+          nodeFinal["x-allOf-merged"] = true;
+          let sequentialIfThenElse = null;
+          for (let i = conditionals.length - 1; i >= 0; i--) {
+            if (sequentialIfThenElse === null) {
+              sequentialIfThenElse = conditionals[i];
+            } else {
+              sequentialIfThenElse = {
+                if: conditionals[i].if,
+                then: conditionals[i].then,
+                else: sequentialIfThenElse
+              };
+            }
+          }
+          if (sequentialIfThenElse) {
+            Object.assign(nodeFinal, sequentialIfThenElse);
+          }
+          return nodeFinal;
+        }
+      });
+      this.walker.traverse(config.schema, (node) => {
+        if (node.oneOf && Array.isArray(node.oneOf)) {
+          const nodeClone = clone(node);
+          delete nodeClone.oneOf;
+          node.oneOf = node.oneOf.map((subschema) => {
+            return combineDeep({}, nodeClone, subschema);
+          });
+          return {
+            oneOf: node.oneOf
+          };
+        }
+      });
+      this.walker.traverse(config.schema, (node) => {
+        if (node.anyOf && Array.isArray(node.anyOf)) {
+          const nodeClone = clone(node);
+          delete nodeClone.anyOf;
+          node.anyOf = node.anyOf.map((subschema) => {
+            return combineDeep({}, nodeClone, subschema);
+          });
+          return {
+            anyOf: node.anyOf
+          };
+        }
+      });
     }
     const schemaType = getSchemaType(config.schema);
     const schemaOneOf = getSchemaOneOf(config.schema);
@@ -4659,6 +4771,8 @@ class RefParser {
     this.data = {};
     this.iterations = 0;
     this.maxIterations = 1e3;
+    this.cycles = [];
+    this.walker = new JsonWalker();
   }
   async dereference(schema) {
     await this.collectRefs(schema);
@@ -4673,6 +4787,7 @@ class RefParser {
     if (missingRefs.length) {
       console.warn("Missing refs:", JSON.stringify(missingRefs));
     }
+    this.cycles = this.findRecursiveRefs(this.refs);
   }
   refsResolved() {
     return Object.values(this.refs).every((value) => {
@@ -4719,6 +4834,41 @@ class RefParser {
   isObject(value) {
     return value !== null && typeof value === "object";
   }
+  findRecursiveRefs(defs) {
+    const cycles = /* @__PURE__ */ new Set();
+    function checkRef(path, visited, stack) {
+      if (visited.has(path)) {
+        const cycleStartIndex = stack.indexOf(path);
+        if (cycleStartIndex !== -1) {
+          const cyclePath = stack.slice(cycleStartIndex).concat(path);
+          const minIndex = cyclePath.reduce((minIdx, ref, idx) => ref < cyclePath[minIdx] ? idx : minIdx, 0);
+          const normalizedCycle = [...cyclePath.slice(minIndex), ...cyclePath.slice(0, minIndex)];
+          const cycleSignature = normalizedCycle.join(" → ");
+          cycles.add(cycleSignature);
+        }
+        return;
+      }
+      if (!defs[path]) return;
+      visited.add(path);
+      stack.push(path);
+      function traverse(value) {
+        if (typeof value === "object" && value !== null) {
+          if (value.$ref) checkRef(value.$ref, visited, stack);
+          for (const key in value) traverse(value[key]);
+        }
+      }
+      traverse(defs[path]);
+      visited.delete(path);
+      stack.pop();
+    }
+    for (const key in defs) {
+      checkRef(key, /* @__PURE__ */ new Set(), []);
+    }
+    return [...cycles];
+  }
+  hasRefCycles() {
+    return this.cycles.length > 0;
+  }
   expand(schema) {
     const cloneSchema = JSON.parse(JSON.stringify(schema));
     if (this.isObject(cloneSchema) && this.hasRef(cloneSchema)) {
@@ -4727,6 +4877,18 @@ class RefParser {
       return this.expand(mergeDeep({}, this.refs[ref], cloneSchema));
     }
     return cloneSchema;
+  }
+  expandRecursive(schema) {
+    let mustContinue = true;
+    while (mustContinue) {
+      mustContinue = false;
+      this.walker.traverse(schema, (node, path, parent, key) => {
+        if (node.$ref && typeof node.$ref === "string" && parent && key !== null) {
+          parent[key] = this.expand(node);
+          mustContinue = true;
+        }
+      });
+    }
   }
   /**
    * Loads a schema with a synchronous http request

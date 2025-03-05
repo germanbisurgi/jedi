@@ -1,4 +1,5 @@
 import { mergeDeep } from '../helpers/utils.js'
+import JsonWalker from '../json-walker.js'
 
 class RefParser {
   constructor () {
@@ -6,6 +7,8 @@ class RefParser {
     this.data = {}
     this.iterations = 0
     this.maxIterations = 1000
+    this.cycles = []
+    this.walker = new JsonWalker()
   }
 
   async dereference (schema) {
@@ -25,6 +28,8 @@ class RefParser {
     if (missingRefs.length) {
       console.warn('Missing refs:', JSON.stringify(missingRefs))
     }
+
+    this.cycles = this.findRecursiveRefs(this.refs)
   }
 
   refsResolved () {
@@ -83,6 +88,54 @@ class RefParser {
     return value !== null && typeof value === 'object'
   }
 
+  findRecursiveRefs (defs) {
+    const cycles = new Set()
+
+    function checkRef (path, visited, stack) {
+      if (visited.has(path)) {
+        const cycleStartIndex = stack.indexOf(path)
+        if (cycleStartIndex !== -1) {
+          const cyclePath = stack.slice(cycleStartIndex).concat(path) // Close the cycle
+
+          // Normalize cycle to avoid duplicates
+          const minIndex = cyclePath.reduce((minIdx, ref, idx) =>
+            ref < cyclePath[minIdx] ? idx : minIdx, 0)
+          const normalizedCycle = [...cyclePath.slice(minIndex), ...cyclePath.slice(0, minIndex)]
+          const cycleSignature = normalizedCycle.join(' → ')
+
+          cycles.add(cycleSignature)
+        }
+        return
+      }
+      if (!defs[path]) return
+
+      visited.add(path)
+      stack.push(path)
+
+      function traverse (value) {
+        if (typeof value === 'object' && value !== null) {
+          if (value.$ref) checkRef(value.$ref, visited, stack)
+          for (const key in value) traverse(value[key])
+        }
+      }
+
+      traverse(defs[path])
+
+      visited.delete(path)
+      stack.pop()
+    }
+
+    for (const key in defs) {
+      checkRef(key, new Set(), [])
+    }
+
+    return [...cycles] // Convert Set back to array for output
+  }
+
+  hasRefCycles () {
+    return this.cycles.length > 0
+  }
+
   expand (schema) {
     const cloneSchema = JSON.parse(JSON.stringify(schema))
 
@@ -93,6 +146,21 @@ class RefParser {
     }
 
     return cloneSchema
+  }
+
+  expandRecursive (schema) {
+    let mustContinue = true
+
+    while (mustContinue) {
+      mustContinue = false
+
+      this.walker.traverse(schema, (node, path, parent, key) => {
+        if (node.$ref && typeof node.$ref === 'string' && parent && key !== null) {
+          parent[key] = this.expand(node)
+          mustContinue = true
+        }
+      })
+    }
   }
 
   /**

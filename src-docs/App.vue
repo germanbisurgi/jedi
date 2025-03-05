@@ -97,6 +97,11 @@
             <input type="checkbox" id="parseMarkdown" v-model="parseMarkdown" @change="initEditor()">
             <label for="parseMarkdown"><code>parseMarkdown</code></label>
           </div>
+
+          <div class="form-group mb-3">
+            <input type="checkbox" id="mergeAllOf" v-model="mergeAllOf" @change="initEditor()">
+            <label for="mergeAllOf"><code>mergeAllOf</code></label>
+          </div>
         </aside>
       </div>
 
@@ -240,6 +245,12 @@ import testJson from './json/test.json'
 import calc from './json/experimental/calc.json'
 import calcIfThenElse from './json/experimental/calc-if-then-else.json'
 import markdownAnnotations from './json/experimental/markdon-annotations.json'
+import jsonPatch from './json/parsing/json-patch.json'
+import allOfRefs from './json/parsing/allOf-refs.json'
+import allOfIfThen from './json/parsing/allOf-if-then.json'
+import oneOfRefs from './json/parsing/oneOf-refs.json'
+import anyOfRefs from './json/parsing/anyOf-refs.json'
+import recursiveRefs from './json/parsing/recursive-refs.json'
 
 
 export default {
@@ -337,11 +348,19 @@ export default {
           'europass-xml-3.3.0': europass,
           'test': testJson,
         },
-        experimental: {
+        Experimental: {
           // 'experimental/template': template,
           'experimental/calc': calc,
           'experimental/calc-if-then-else': calcIfThenElse,
           'experimental/markdown-annotations': markdownAnnotations
+        },
+        Parsing: {
+          'parsing/json-patch': jsonPatch,
+          'parsing/allOf-refs': allOfRefs,
+          'parsing/allOf-if-then': allOfIfThen,
+          'parsing/oneOf-refs': oneOfRefs,
+          'parsing/anyOf-refs': anyOfRefs,
+          'parsing/recursive-refs': recursiveRefs
         }
       },
       example: 'editors/all',
@@ -388,6 +407,7 @@ export default {
       language: 'en',
       assertFormat: false,
       parseMarkdown: false,
+      parseMarkdownmergeAllOf: false,
       enforceEnumDefault: true
     }
   },
@@ -400,6 +420,7 @@ export default {
     this.language = this.getQueryParam('language') || 'en'
     this.assertFormat = this.getQueryParam('assertFormat') ? this.parseBooleanString(this.getQueryParam('assertFormat')) : false
     this.parseMarkdown = this.getQueryParam('parseMarkdown') ? this.parseBooleanString(this.getQueryParam('parseMarkdown')) : false
+    this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
     this.enforceEnumDefault = this.getQueryParam('enforceEnumDefault') ? this.parseBooleanString(this.getQueryParam('enforceEnumDefault')) : true
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
     this.enableCollapseToggle = this.getQueryParam('enableCollapseToggle') ? this.parseBooleanString(this.getQueryParam('enableCollapseToggle')) : true
@@ -507,6 +528,11 @@ export default {
       const refParser = new Jedi.RefParser()
       await refParser.dereference(this.schema)
 
+      if (refParser.hasRefCycles()) {
+        console.warn('Schema has refs cycles:')
+        console.warn(refParser.cycles)
+      }
+
       const options = {
         container: document.querySelector('#jedi-container'),
         enablePropertiesToggle: this.enablePropertiesToggle,
@@ -518,6 +544,7 @@ export default {
         language: this.language,
         assertFormat: this.assertFormat,
         parseMarkdown: this.parseMarkdown,
+        mergeAllOf: this.mergeAllOf,
         enforceEnumDefault: this.enforceEnumDefault,
         schema: this.schema,
         theme: this.getThemeInstance(this.theme),
@@ -580,6 +607,7 @@ export default {
       newUrl += "&language=" + this.language
       newUrl += "&assertFormat=" + this.assertFormat
       newUrl += "&parseMarkdown=" + this.parseMarkdown
+      newUrl += "&mergeAllOf=" + this.mergeAllOf
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
@@ -596,7 +624,7 @@ export default {
       newUrl += "&switcherInput=" + this.switcherInput
       newUrl += "&language=" + this.language
       newUrl += "&assertFormat=" + this.assertFormat
-      newUrl += "&parseMarkdown=" + this.parseMarkdown
+      newUrl += "&mergeAllOf=" + this.mergeAllOf
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
