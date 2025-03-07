@@ -201,7 +201,7 @@ class Editor {
     if (isSet(schemaTitle)) {
       title = compileTemplate(schemaTitle, {
         value: this.instance.getValue(),
-        params: this.instance.jedi.options.params
+        settings: this.instance.jedi.options.settings
       })
 
       title = this.getHtmlFromMarkdown(title)
@@ -222,7 +222,7 @@ class Editor {
     if (isSet(schemaDescription)) {
       schemaDescription = compileTemplate(schemaDescription, {
         value: this.instance.getValue(),
-        params: this.instance.jedi.options.params
+        settings: this.instance.jedi.options.settings
       })
 
       schemaDescription = this.getHtmlFromMarkdown(schemaDescription)
@@ -233,6 +233,28 @@ class Editor {
     }
 
     return schemaDescription
+  }
+
+  getInfo () {
+    const schemaInfo = getSchemaXOption(this.instance.schema, 'info')
+
+    if (!isSet(schemaInfo)) {
+      return schemaInfo
+    }
+
+    const domPurifyOptions = this.instance.jedi.options.domPurifyOptions
+
+    if (isSet(schemaInfo.title)) {
+      schemaInfo.title = this.getHtmlFromMarkdown(schemaInfo.title)
+      schemaInfo.title = this.purifyContent(schemaInfo.title, domPurifyOptions)
+    }
+
+    if (isSet(schemaInfo.content)) {
+      schemaInfo.content = this.getHtmlFromMarkdown(schemaInfo.content)
+      schemaInfo.content = this.purifyContent(schemaInfo.content, domPurifyOptions)
+    }
+
+    return schemaInfo
   }
 
   /**

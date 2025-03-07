@@ -60,7 +60,7 @@ class Jedi extends EventEmitter {
       radiosInline: false,
       language: 'en',
       translations: {},
-      params: {},
+      settings: {},
       useConstraintAttributes: true,
       parseMarkdown: false,
       mergeAllOf: false,

@@ -5,8 +5,8 @@
   "x-options": {
     "info": {
       "variant": "modal",
-      "title": "<h4>Info Button title</h4>",
-      "content": "<p>Info button content</p>"
+      "title": "### Info Button title",
+      "content": "Info button content"
     }
   },
   "properties": {
@@ -16,8 +16,8 @@
       "x-options": {
         "info": {
           "variant": "modal",
-          "title": "<h4>Info Button title</h4>",
-          "content": "<p>Info button content</p>"
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "properties": {
@@ -34,8 +34,8 @@
             ],
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         },
@@ -52,8 +52,8 @@
             ],
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         },
@@ -66,8 +66,8 @@
             "format": "checkbox",
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         }
@@ -79,8 +79,8 @@
       "x-options": {
         "info": {
           "variant": "modal",
-          "title": "<h4>Info Button title</h4>",
-          "content": "<p>Info button content</p>"
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "properties": {
@@ -92,8 +92,8 @@
           "x-options": {
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         },
@@ -106,8 +106,8 @@
             "format": "textarea",
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         },
@@ -128,8 +128,8 @@
             ],
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         },
@@ -151,8 +151,8 @@
             ],
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         }
@@ -164,8 +164,8 @@
       "x-options": {
         "info": {
           "variant": "modal",
-          "title": "<h4>Info Button title</h4>",
-          "content": "<p>Info button content</p>"
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "properties": {
@@ -177,8 +177,8 @@
           "x-options": {
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         },
@@ -199,8 +199,8 @@
             ],
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         },
@@ -222,8 +222,8 @@
             ],
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         }
@@ -235,8 +235,8 @@
       "x-options": {
         "info": {
           "variant": "modal",
-          "title": "<h4>Info Button title</h4>",
-          "content": "<p>Info button content</p>"
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "properties": {
@@ -248,8 +248,8 @@
           "x-options": {
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         },
@@ -270,8 +270,8 @@
             ],
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         },
@@ -293,8 +293,8 @@
             ],
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         }
@@ -312,8 +312,8 @@
           "x-options": {
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           },
           "items": {
@@ -326,8 +326,8 @@
               "format": "color",
               "info": {
                 "variant": "modal",
-                "title": "<h4>Info Button title</h4>",
-                "content": "<p>Info button content</p>"
+                "title": "### Info Button title",
+                "content": "Info button content"
               }
             }
           },
@@ -342,8 +342,8 @@
       "x-options": {
         "info": {
           "variant": "modal",
-          "title": "<h4>Info Button title</h4>",
-          "content": "<p>Info button content</p>"
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       }
     },
@@ -353,8 +353,8 @@
       "x-options": {
         "info": {
           "variant": "modal",
-          "title": "<h4>Info Button title</h4>",
-          "content": "<p>Info button content</p>"
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "properties": {
@@ -367,8 +367,8 @@
                 "switcherTitle": "String",
                 "info": {
                   "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
+                  "title": "### Info Button title",
+                  "content": "Info button content"
                 }
               }
             },
@@ -378,8 +378,8 @@
                 "switcherTitle": "Boolean",
                 "info": {
                   "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
+                  "title": "### Info Button title",
+                  "content": "Info button content"
                 }
               }
             },
@@ -389,8 +389,8 @@
                 "switcherTitle": "Any of",
                 "info": {
                   "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
+                  "title": "### Info Button title",
+                  "content": "Info button content"
                 }
               },
               "anyOf": [
@@ -400,8 +400,8 @@
                     "switcherTitle": "Integer",
                     "info": {
                       "variant": "modal",
-                      "title": "<h4>Info Button title</h4>",
-                      "content": "<p>Info button content</p>"
+                      "title": "### Info Button title",
+                      "content": "Info button content"
                     }
                   }
                 },
@@ -411,8 +411,8 @@
                     "switcherTitle": "Number",
                     "info": {
                       "variant": "modal",
-                      "title": "<h4>Info Button title</h4>",
-                      "content": "<p>Info button content</p>"
+                      "title": "### Info Button title",
+                      "content": "Info button content"
                     }
                   }
                 },
@@ -422,8 +422,8 @@
                     "switcherTitle": "One of",
                     "info": {
                       "variant": "modal",
-                      "title": "<h4>Info Button title</h4>",
-                      "content": "<p>Info button content</p>"
+                      "title": "### Info Button title",
+                      "content": "Info button content"
                     }
                   },
                   "oneOf": [
@@ -433,8 +433,8 @@
                         "switcherTitle": "Object",
                         "info": {
                           "variant": "modal",
-                          "title": "<h4>Info Button title</h4>",
-                          "content": "<p>Info button content</p>"
+                          "title": "### Info Button title",
+                          "content": "Info button content"
                         }
                       }
                     },
@@ -444,8 +444,8 @@
                         "switcherTitle": "Array",
                         "info": {
                           "variant": "modal",
-                          "title": "<h4>Info Button title</h4>",
-                          "content": "<p>Info button content</p>"
+                          "title": "### Info Button title",
+                          "content": "Info button content"
                         }
                       }
                     },
@@ -455,8 +455,8 @@
                         "switcherTitle": "Null",
                         "info": {
                           "variant": "modal",
-                          "title": "<h4>Info Button title</h4>",
-                          "content": "<p>Info button content</p>"
+                          "title": "### Info Button title",
+                          "content": "Info button content"
                         }
                       }
                     }
@@ -475,8 +475,8 @@
                 "switcherTitle": "Boolean",
                 "info": {
                   "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
+                  "title": "### Info Button title",
+                  "content": "Info button content"
                 }
               }
             },
@@ -486,8 +486,8 @@
                 "switcherTitle": "String",
                 "info": {
                   "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
+                  "title": "### Info Button title",
+                  "content": "Info button content"
                 }
               }
             },
@@ -497,8 +497,8 @@
                 "switcherTitle": "Integer",
                 "info": {
                   "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
+                  "title": "### Info Button title",
+                  "content": "Info button content"
                 }
               }
             }
@@ -509,8 +509,8 @@
           "x-options": {
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           },
           "anyOf": [
@@ -520,8 +520,8 @@
                 "switcherTitle": "Array",
                 "info": {
                   "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
+                  "title": "### Info Button title",
+                  "content": "Info button content"
                 }
               }
             },
@@ -531,8 +531,8 @@
                 "switcherTitle": "Object",
                 "info": {
                   "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
+                  "title": "### Info Button title",
+                  "content": "Info button content"
                 }
               }
             },
@@ -542,8 +542,8 @@
                 "switcherTitle": "Null",
                 "info": {
                   "variant": "modal",
-                  "title": "<h4>Info Button title</h4>",
-                  "content": "<p>Info button content</p>"
+                  "title": "### Info Button title",
+                  "content": "Info button content"
                 }
               }
             }
@@ -558,8 +558,8 @@
           "x-options": {
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         },
@@ -568,8 +568,8 @@
           "x-options": {
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         },
@@ -579,8 +579,8 @@
           "x-options": {
             "info": {
               "variant": "modal",
-              "title": "<h4>Info Button title</h4>",
-              "content": "<p>Info button content</p>"
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           }
         }

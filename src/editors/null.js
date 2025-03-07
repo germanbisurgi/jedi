@@ -20,7 +20,7 @@ class EditorNull extends Editor {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, 'titleIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden') || getSchemaXOption(this.instance.schema, 'format') === 'hidden',
-      info: getSchemaXOption(this.instance.schema, 'info')
+      info: this.getInfo()
     })
   }
 

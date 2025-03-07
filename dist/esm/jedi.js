@@ -1982,7 +1982,7 @@ class Editor {
     if (isSet(schemaTitle)) {
       title = compileTemplate(schemaTitle, {
         value: this.instance.getValue(),
-        params: this.instance.jedi.options.params
+        settings: this.instance.jedi.options.settings
       });
       title = this.getHtmlFromMarkdown(title);
       const domPurifyOptions = combineDeep({}, this.instance.jedi.options.domPurifyOptions, {
@@ -1997,13 +1997,29 @@ class Editor {
     if (isSet(schemaDescription)) {
       schemaDescription = compileTemplate(schemaDescription, {
         value: this.instance.getValue(),
-        params: this.instance.jedi.options.params
+        settings: this.instance.jedi.options.settings
       });
       schemaDescription = this.getHtmlFromMarkdown(schemaDescription);
       const domPurifyOptions = this.instance.jedi.options.domPurifyOptions;
       this.purifyContent(schemaDescription, domPurifyOptions);
     }
     return schemaDescription;
+  }
+  getInfo() {
+    const schemaInfo = getSchemaXOption(this.instance.schema, "info");
+    if (!isSet(schemaInfo)) {
+      return schemaInfo;
+    }
+    const domPurifyOptions = this.instance.jedi.options.domPurifyOptions;
+    if (isSet(schemaInfo.title)) {
+      schemaInfo.title = this.getHtmlFromMarkdown(schemaInfo.title);
+      schemaInfo.title = this.purifyContent(schemaInfo.title, domPurifyOptions);
+    }
+    if (isSet(schemaInfo.content)) {
+      schemaInfo.content = this.getHtmlFromMarkdown(schemaInfo.content);
+      schemaInfo.content = this.purifyContent(schemaInfo.content, domPurifyOptions);
+    }
+    return schemaInfo;
   }
   /**
    * Updates control UI when its state changes
@@ -2724,7 +2740,7 @@ class EditorRadios extends EditorBoolean {
       id: this.getIdFromPath(this.instance.path),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       inline: getSchemaXOption(this.instance.schema, "format") === "radios-inline",
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
   }
   adaptForTable() {
@@ -2759,7 +2775,7 @@ class EditorBooleanSelect extends EditorBoolean {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
   }
   adaptForTable() {
@@ -2786,7 +2802,7 @@ class EditorBooleanCheckbox extends EditorBoolean {
       description: this.getDescription(),
       id: this.getIdFromPath(this.instance.path),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
   }
   adaptForTable(td) {
@@ -2823,7 +2839,7 @@ class EditorStringRadios extends EditorString {
       id: this.getIdFromPath(this.instance.path),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       inline: getSchemaXOption(this.instance.schema, "format") === "radios-inline",
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
   }
   adaptForTable() {
@@ -2856,7 +2872,7 @@ class EditorStringSelect extends EditorString {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
   }
   adaptForTable() {
@@ -2883,7 +2899,7 @@ class EditorStringTextarea extends EditorString {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
   }
   adaptForTable() {
@@ -2911,7 +2927,7 @@ class EditorStringAwesomplete extends EditorString {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
     try {
       this.awesomplete = new window.Awesomplete(this.control.input, getSchemaXOption(this.instance.schema, "awesomplete"));
@@ -2950,7 +2966,7 @@ class EditorStringInput extends EditorString {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || optionFormat === "hidden",
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
     if (optionFormat === "color" && this.instance.value.length === 0) {
       this.instance.setValue("#000000", false, "user");
@@ -2998,7 +3014,7 @@ class EditorNumberRadios extends EditorNumber {
       id: this.getIdFromPath(this.instance.path),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       inline: getSchemaXOption(this.instance.schema, "format") === "radios-inline",
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
   }
   adaptForTable() {
@@ -3034,7 +3050,7 @@ class EditorNumberSelect extends EditorNumber {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
   }
   adaptForTable() {
@@ -3067,7 +3083,7 @@ class EditorNumberInput extends EditorNumber {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || getSchemaXOption(this.instance.schema, "format") === "hidden",
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
     this.control.input.setAttribute("step", "any");
     const useConstraintAttributes = getSchemaXOption(this.instance.schema, "useConstraintAttributes") ?? this.instance.jedi.options.useConstraintAttributes;
@@ -3128,7 +3144,7 @@ class EditorObject extends Editor {
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
       readOnly: this.instance.isReadOnly(),
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
   }
   addEventListeners() {
@@ -3380,7 +3396,7 @@ class EditorArray extends Editor {
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
       readOnly: this.instance.isReadOnly(),
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
   }
   addEventListeners() {
@@ -3628,7 +3644,7 @@ class EditorArrayChoices extends Editor {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
     this.control.input.setAttribute("multiple", "");
     try {
@@ -3742,7 +3758,7 @@ class EditorArrayNav extends EditorArray {
           i0: index2,
           i1: index2 + 1,
           value: child.getValue(),
-          params: this.instance.jedi.options.params
+          settings: this.instance.jedi.options.settings
         };
         childTitle = compileTemplate(template, data);
       } else {
@@ -3866,7 +3882,7 @@ class EditorNull extends Editor {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden") || getSchemaXOption(this.instance.schema, "format") === "hidden",
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
   }
   sanitize() {
@@ -3884,7 +3900,7 @@ class EditorStringQuill extends EditorString {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
     try {
       this.quill = new window.Quill(this.control.placeholder, getSchemaXOption(this.instance.schema, "quill"));
@@ -3923,7 +3939,7 @@ class EditorStringJodit extends EditorString {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
     try {
       this.jodit = window.Jodit.make(this.control.input, getSchemaXOption(this.instance.schema, "jodit"));
@@ -3967,7 +3983,7 @@ class EditorStringFlatpickr extends EditorString {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
     try {
       this.flatpickr = window.flatpickr(this.control.input, getSchemaXOption(this.instance.schema, "flatpickr"));
@@ -3989,6 +4005,50 @@ class EditorStringFlatpickr extends EditorString {
     super.destroy();
   }
 }
+class EditorStringIMask extends EditorString {
+  static resolves(schema) {
+    const hasSchemaTypeString = getSchemaType(schema) === "string";
+    const imaskAvailable = window.IMask;
+    const hasXImask = getSchemaXOption(schema, "imask");
+    return hasSchemaTypeString && hasXImask && imaskAvailable;
+  }
+  build() {
+    this.control = this.theme.getInputControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
+      type: "text",
+      id: this.getIdFromPath(this.instance.path),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
+      titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
+      info: this.getInfo()
+    });
+    try {
+      const schemaImask = getSchemaXOption(this.instance.schema, "imask") ?? {};
+      const schemaImaskSettings = schemaImask["x-settings"];
+      const settings = schemaImaskSettings && this.instance.jedi.options.settings[schemaImaskSettings] ? this.instance.jedi.options.settings[schemaImaskSettings] : {};
+      const imaskOptions = { ...schemaImask, ...settings };
+      this.imask = window.IMask(this.control.input, imaskOptions);
+      this.useMaskedValue = schemaImask["x-masked"] ?? false;
+    } catch (e) {
+      console.log("lol", this.imask);
+      console.error("IMask is not available or not loaded or configured correctly.", e);
+    }
+  }
+  addEventListeners() {
+    this.imask.on("accept", () => {
+      const value = this.useMaskedValue ? this.imask.value : this.imask.unmaskedValue;
+      this.instance.setValue(value, true, "user");
+    });
+  }
+  refreshUI() {
+    this.refreshDisabledState();
+    this.imask.value = this.instance.getValue();
+  }
+  destroy() {
+    this.imask.destroy();
+    super.destroy();
+  }
+}
 class EditorNumberRaty extends EditorNumber {
   static resolves(schema) {
     return typeof Raty !== "undefined" && getSchemaType(schema) === "number" && isSet(getSchemaXOption(schema, "raty"));
@@ -4000,7 +4060,7 @@ class EditorNumberRaty extends EditorNumber {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
     try {
       this.raty = new Raty(this.control.placeholder, Object.assign({}, getSchemaXOption(this.instance.schema, "raty"), {
@@ -4047,7 +4107,7 @@ class EditorArrayCheckboxes extends Editor {
       id: this.getIdFromPath(this.instance.path),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       inline: getSchemaXOption(this.instance.schema, "format") === "checkboxes-inline",
-      info: getSchemaXOption(this.instance.schema, "info")
+      info: this.getInfo()
     });
   }
   adaptForTable(td) {
@@ -4093,6 +4153,7 @@ class UiResolver {
       EditorStringQuill,
       EditorStringJodit,
       EditorStringFlatpickr,
+      EditorStringIMask,
       EditorStringInput,
       EditorNumberRaty,
       EditorNumberRadios,
@@ -4368,7 +4429,7 @@ class Jedi extends EventEmitter {
       radiosInline: false,
       language: "en",
       translations: {},
-      params: {},
+      settings: {},
       useConstraintAttributes: true,
       parseMarkdown: false,
       mergeAllOf: false,

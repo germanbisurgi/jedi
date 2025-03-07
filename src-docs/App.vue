@@ -233,6 +233,7 @@ import awesomplete from './json/plugins/string-awesomplete.json'
 import quill from './json/plugins/string-quill.json'
 import jodit from './json/plugins/string-jodit.json'
 import flatpickr from './json/plugins/string-flatpickr.json'
+import imask from './json/plugins/string-imask.json'
 import raty from './json/plugins/number-raty.json'
 import custom from './json/custom/custom.json'
 import metaSchema from './json/meta-schema.json'
@@ -291,6 +292,7 @@ export default {
           'plugins/choices': choices,
           'plugins/awesomplete': awesomplete,
           'plugins/flatpickr': flatpickr,
+          'plugins/imask': imask,
           'plugins/jodit': jodit,
           'plugins/quill': quill,
           'plugins/raty': raty,
@@ -406,8 +408,8 @@ export default {
       switcherInput: 'select',
       language: 'en',
       assertFormat: false,
-      parseMarkdown: false,
-      parseMarkdownmergeAllOf: false,
+      parseMarkdown: true,
+      mergeAllOf: false,
       enforceEnumDefault: true
     }
   },
@@ -419,7 +421,7 @@ export default {
     this.switcherInput = this.getQueryParam('switcherInput') || 'select'
     this.language = this.getQueryParam('language') || 'en'
     this.assertFormat = this.getQueryParam('assertFormat') ? this.parseBooleanString(this.getQueryParam('assertFormat')) : false
-    this.parseMarkdown = this.getQueryParam('parseMarkdown') ? this.parseBooleanString(this.getQueryParam('parseMarkdown')) : false
+    this.parseMarkdown = this.getQueryParam('parseMarkdown') ? this.parseBooleanString(this.getQueryParam('parseMarkdown')) : true
     this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
     this.enforceEnumDefault = this.getQueryParam('enforceEnumDefault') ? this.parseBooleanString(this.getQueryParam('enforceEnumDefault')) : true
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
@@ -551,7 +553,29 @@ export default {
         refParser,
         customEditors: [
           EditorStringCustom
-        ]
+        ],
+        settings: {
+          imaskDate: {
+            mask: Date,
+            min: new Date(1990, 0, 1),
+            max: new Date(2020, 0, 1),
+            lazy: false
+          },
+          imaskIban: {
+            mask: "DE00 0000 0000 0000 0000 00",
+            lazy: false
+          },
+          imaskBic: {
+            mask: 'Ple\\ase fill ye\\ar 19YY, month MM \\and v\\alue VL',
+            lazy: false,  // make placeholder always visible
+
+            blocks: {
+              YY: {
+                mask: '00',
+              }
+            }
+          }
+        }
       }
 
       const queryData = this.getQueryParam('data')

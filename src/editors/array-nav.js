@@ -70,7 +70,7 @@ class EditorArrayNav extends EditorArray {
           i0: index,
           i1: (index + 1),
           value: child.getValue(),
-          params: this.instance.jedi.options.params
+          settings: this.instance.jedi.options.settings
         }
         childTitle = compileTemplate(template, data)
       } else {

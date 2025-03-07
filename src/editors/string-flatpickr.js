@@ -19,7 +19,7 @@ class EditorStringFlatpickr extends EditorString {
       id: this.getIdFromPath(this.instance.path),
       titleIconClass: getSchemaXOption(this.instance.schema, 'titleIconClass'),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
-      info: getSchemaXOption(this.instance.schema, 'info')
+      info: this.getInfo()
     })
 
     try {

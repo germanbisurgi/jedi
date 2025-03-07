@@ -16,7 +16,7 @@ class EditorBooleanCheckbox extends EditorBoolean {
       description: this.getDescription(),
       id: this.getIdFromPath(this.instance.path),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
-      info: getSchemaXOption(this.instance.schema, 'info')
+      info: this.getInfo()
     })
   }
 

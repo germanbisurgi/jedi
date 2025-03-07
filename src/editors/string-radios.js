@@ -19,7 +19,7 @@ class EditorStringRadios extends EditorString {
       id: this.getIdFromPath(this.instance.path),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       inline: getSchemaXOption(this.instance.schema, 'format') === 'radios-inline',
-      info: getSchemaXOption(this.instance.schema, 'info')
+      info: this.getInfo()
     })
   }
 

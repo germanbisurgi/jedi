@@ -1,0 +1,46 @@
+{
+  "title": "IMask",
+  "description": "IMask is vanilla javascript input mask.",
+  "type": "object",
+  "properties": {
+    "iban": {
+      "title": "IBAN",
+      "type": "string",
+      "x-imask": {
+        "x-settings": "imaskIban",
+        "x-masked": false
+      },
+      "x-info": {
+        "variant": "modal",
+        "title": "### Info Button title",
+        "content": "Info button content"
+      }
+    },
+    "bic": {
+      "title": "BIC",
+      "type": "string",
+      "x-imask": {
+        "x-settings": "imaskBic",
+        "x-masked": false
+      },
+      "x-info": {
+        "variant": "modal",
+        "title": "### Info Button title",
+        "content": "Info button content"
+      }
+    },
+    "date": {
+      "title": "Date",
+      "type": "string",
+      "x-imask": {
+        "x-settings": "imaskDate",
+        "x-masked": false
+      },
+      "x-info": {
+        "variant": "modal",
+        "title": "### Info Button title",
+        "content": "Info button content"
+      }
+    }
+  }
+}
