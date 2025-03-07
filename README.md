@@ -1,5 +1,4 @@
-[![Tests](https://github.com/germanbisurgi/jedi/actions/workflows/main.yml/badge.svg)](https://github.com/germanbisurgi/jedi/actions/workflows/main.yml)
-
+[![Tests](https://github.com/germanbisurgi/jedi/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/germanbisurgi/jedi/actions/workflows/main.yml)
 # Jedi - JSON Editing and Data Integrity
 
 Generates forms from JSON schemas. Can be used in backend to validate JSON data too.
