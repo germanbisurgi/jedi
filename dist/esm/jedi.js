@@ -2382,6 +2382,7 @@ class InstanceBoolean extends Instance {
 class InstanceObject extends Instance {
   prepare() {
     this.properties = {};
+    this.requiredProperties = /* @__PURE__ */ new Set();
     const schemaProperties = getSchemaProperties(this.schema);
     const schemaRequired = getSchemaRequired(this.schema);
     if (isSet(schemaProperties)) {
@@ -2392,13 +2393,13 @@ class InstanceObject extends Instance {
         const optionsDeactivateNonRequired = this.jedi.options.deactivateNonRequired;
         const deactivateNonRequired = getSchemaXOption(this.schema, "deactivateNonRequired");
         const schemaDeactivateNonRequired = getSchemaXOption(schema, "deactivateNonRequired");
-        if (this.isNotRequired(key) && isSet(optionsDeactivateNonRequired) && optionsDeactivateNonRequired === true) {
+        if (!this.isRequired(key) && isSet(optionsDeactivateNonRequired) && optionsDeactivateNonRequired === true) {
           musstCreateChild = false;
         }
-        if (this.isNotRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true) {
+        if (!this.isRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true) {
           musstCreateChild = false;
         }
-        if (this.isNotRequired(key) && isSet(schemaDeactivateNonRequired) && schemaDeactivateNonRequired === true) {
+        if (!this.isRequired(key) && isSet(schemaDeactivateNonRequired) && schemaDeactivateNonRequired === true) {
           musstCreateChild = false;
         }
         if (musstCreateChild) {
@@ -2408,6 +2409,7 @@ class InstanceObject extends Instance {
     }
     if (isSet(schemaRequired)) {
       schemaRequired.forEach((requiredProperty) => {
+        this.requiredProperties.add(requiredProperty);
         if (!hasOwn(this.properties, requiredProperty)) {
           this.properties[requiredProperty] = {};
           this.createChild({}, requiredProperty);
@@ -2416,7 +2418,18 @@ class InstanceObject extends Instance {
     }
     this.refreshInstances();
     this.on("set-value", (value, initiator) => {
+      const enforceRequired = getSchemaXOption(this.schema, "enforceRequired") ?? this.jedi.options.enforceRequired;
+      if (this.jedi.isEditor && enforceRequired) {
+        this.addMissingRequiredPropertiesToValue(value);
+      }
       this.refreshInstances(initiator);
+    });
+  }
+  addMissingRequiredPropertiesToValue(value) {
+    this.requiredProperties.forEach((propertyName) => {
+      if (!hasOwn(value, propertyName)) {
+        value[propertyName] = this.getChild(propertyName).getValue();
+      }
     });
   }
   /**
@@ -2424,7 +2437,9 @@ class InstanceObject extends Instance {
    */
   isRequired(property) {
     const schemaRequired = getSchemaRequired(this.schema);
-    return isSet(schemaRequired) && schemaRequired.includes(property);
+    const inSchemaRequired = isSet(schemaRequired) && schemaRequired.includes(property);
+    const inSchemaDependentRequired = this.isDependentRequired(property);
+    return inSchemaRequired && inSchemaDependentRequired;
   }
   /**
    * Returns true if the property is dependent required
@@ -2456,13 +2471,10 @@ class InstanceObject extends Instance {
     this.children.push(instance);
     this.value[key] = instance.getValue();
     const deactivateNonRequired = this.jedi.options.deactivateNonRequired || getSchemaXOption(this.schema, "deactivateNonRequired");
-    if (this.isNotRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true && !activate) {
+    if (!this.isRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true && !activate) {
       instance.deactivate();
     }
     return instance;
-  }
-  isNotRequired(property) {
-    return !this.isRequired(property) && !this.isDependentRequired(property);
   }
   deleteChild(key) {
     for (let i = this.children.length - 1; i >= 0; i--) {
@@ -4422,6 +4434,7 @@ class Jedi extends EventEmitter {
       data: void 0,
       assertFormat: false,
       enforceConst: false,
+      enforceRequired: false,
       enforceEnumDefault: true,
       customEditors: [],
       hiddenInputAttributes: {},

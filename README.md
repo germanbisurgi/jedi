@@ -336,6 +336,13 @@ translates to:
       <td>yes</td>
     </tr>
     <tr align="left">
+      <td><code>enforceRequired</code></td>
+      <td><code>boolean</code></td>
+      <td><code>false</code></td>
+      <td>When <code>true</code> required properties are always displayed</td>
+      <td>yes</td>
+    </tr>
+    <tr align="left">
       <td><code>switcherInput</code></td>
       <td><code>string</code></td>
       <td><code>'select'</code></td>

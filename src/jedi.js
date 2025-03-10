@@ -53,6 +53,7 @@ class Jedi extends EventEmitter {
       data: undefined,
       assertFormat: false,
       enforceConst: false,
+      enforceRequired: false,
       enforceEnumDefault: true,
       customEditors: [],
       hiddenInputAttributes: {},

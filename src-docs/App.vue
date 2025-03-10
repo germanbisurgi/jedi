@@ -94,6 +94,11 @@
           </div>
 
           <div class="form-group mb-3">
+            <input type="checkbox" id="enforceRequired" v-model="enforceRequired" @change="initEditor()">
+            <label for="enforceRequired"><code>enforceRequired</code></label>
+          </div>
+
+          <div class="form-group mb-3">
             <input type="checkbox" id="parseMarkdown" v-model="parseMarkdown" @change="initEditor()">
             <label for="parseMarkdown"><code>parseMarkdown</code></label>
           </div>
@@ -186,6 +191,7 @@ import objectGrid from './json/editors/object-grid.json'
 import objectNavVertical from './json/editors/object-nav-vertical.json'
 import objectNavHorizontal from './json/editors/object-nav-horizontal.json'
 import objectPropertyOrder from './json/editors/object-propertyOrder.json'
+import objectEnforceRequired from './json/editors/object-enforceRequired.json'
 import stringRadios from './json/editors/string-radios.json'
 import stringRadiosInline from './json/editors/string-radios-inline.json'
 import stringSelect from './json/editors/string-select.json'
@@ -299,6 +305,7 @@ export default {
           'editors/object-nav-vertical': objectNavVertical,
           'editors/object-nav-horizontal': objectNavHorizontal,
           'editors/object-propertyOrder': objectPropertyOrder,
+          'editors/object-enforceRequired': objectEnforceRequired,
           'editors/string-radios': stringRadios,
           'editors/string-radios-inline': stringRadiosInline,
           'editors/string-select': stringSelect,
@@ -418,7 +425,8 @@ export default {
       parseMarkdown: true,
       purifyHtml: true,
       mergeAllOf: false,
-      enforceEnumDefault: true
+      enforceEnumDefault: true,
+      enforceRequired: false
     }
   },
   created() {
@@ -433,6 +441,7 @@ export default {
     this.purifyHtml = this.getQueryParam('purifyHtml') ? this.parseBooleanString(this.getQueryParam('purifyHtml')) : true
     this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
     this.enforceEnumDefault = this.getQueryParam('enforceEnumDefault') ? this.parseBooleanString(this.getQueryParam('enforceEnumDefault')) : true
+    this.enforceRequired = this.getQueryParam('enforceRequired') ? this.parseBooleanString(this.getQueryParam('enforceRequired')) : false
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
     this.enableCollapseToggle = this.getQueryParam('enableCollapseToggle') ? this.parseBooleanString(this.getQueryParam('enableCollapseToggle')) : true
     this.startCollapsed = this.getQueryParam('startCollapsed') ? this.parseBooleanString(this.getQueryParam('startCollapsed')) : false
@@ -558,6 +567,7 @@ export default {
         purifyHtml: this.purifyHtml,
         mergeAllOf: this.mergeAllOf,
         enforceEnumDefault: this.enforceEnumDefault,
+        enforceRequired: this.enforceRequired,
         schema: this.schema,
         theme: this.getThemeInstance(this.theme),
         refParser,
@@ -630,6 +640,7 @@ export default {
       newUrl += "&purifyHtml=" + this.purifyHtml
       newUrl += "&mergeAllOf=" + this.mergeAllOf
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
+      newUrl += "&enforceRequired=" + this.enforceRequired
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
       newUrl += "&startCollapsed=" + this.startCollapsed
@@ -647,6 +658,7 @@ export default {
       newUrl += "&assertFormat=" + this.assertFormat
       newUrl += "&mergeAllOf=" + this.mergeAllOf
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
+      newUrl += "&enforceRequired=" + this.enforceRequired
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
       newUrl += "&startCollapsed=" + this.startCollapsed

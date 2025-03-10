@@ -16,6 +16,8 @@ import {
 class InstanceObject extends Instance {
   prepare () {
     this.properties = {}
+    this.requiredProperties = new Set()
+
     const schemaProperties = getSchemaProperties(this.schema)
     const schemaRequired = getSchemaRequired(this.schema)
 
@@ -30,15 +32,15 @@ class InstanceObject extends Instance {
         const deactivateNonRequired = getSchemaXOption(this.schema, 'deactivateNonRequired')
         const schemaDeactivateNonRequired = getSchemaXOption(schema, 'deactivateNonRequired')
 
-        if (this.isNotRequired(key) && isSet(optionsDeactivateNonRequired) && optionsDeactivateNonRequired === true) {
+        if (!this.isRequired(key) && isSet(optionsDeactivateNonRequired) && optionsDeactivateNonRequired === true) {
           musstCreateChild = false
         }
 
-        if (this.isNotRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true) {
+        if (!this.isRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true) {
           musstCreateChild = false
         }
 
-        if (this.isNotRequired(key) && isSet(schemaDeactivateNonRequired) && schemaDeactivateNonRequired === true) {
+        if (!this.isRequired(key) && isSet(schemaDeactivateNonRequired) && schemaDeactivateNonRequired === true) {
           musstCreateChild = false
         }
 
@@ -51,6 +53,8 @@ class InstanceObject extends Instance {
     // Add properties listed in schema required too if not present in schema properties
     if (isSet(schemaRequired)) {
       schemaRequired.forEach((requiredProperty) => {
+        this.requiredProperties.add(requiredProperty)
+
         if (!hasOwn(this.properties, requiredProperty)) {
           this.properties[requiredProperty] = {}
           this.createChild({}, requiredProperty)
@@ -61,7 +65,21 @@ class InstanceObject extends Instance {
     this.refreshInstances()
 
     this.on('set-value', (value, initiator) => {
+      const enforceRequired = getSchemaXOption(this.schema, 'enforceRequired') ?? this.jedi.options.enforceRequired
+
+      if (this.jedi.isEditor && enforceRequired) {
+        this.addMissingRequiredPropertiesToValue(value)
+      }
+
       this.refreshInstances(initiator)
+    })
+  }
+
+  addMissingRequiredPropertiesToValue (value) {
+    this.requiredProperties.forEach((propertyName) => {
+      if (!hasOwn(value, propertyName)) {
+        value[propertyName] = this.getChild(propertyName).getValue()
+      }
     })
   }
 
@@ -70,8 +88,10 @@ class InstanceObject extends Instance {
    */
   isRequired (property) {
     const schemaRequired = getSchemaRequired(this.schema)
+    const inSchemaRequired = isSet(schemaRequired) && schemaRequired.includes(property)
+    const inSchemaDependentRequired = this.isDependentRequired(property)
 
-    return isSet(schemaRequired) && schemaRequired.includes(property)
+    return inSchemaRequired && inSchemaDependentRequired
   }
 
   /**
@@ -113,15 +133,11 @@ class InstanceObject extends Instance {
 
     const deactivateNonRequired = this.jedi.options.deactivateNonRequired || getSchemaXOption(this.schema, 'deactivateNonRequired')
 
-    if (this.isNotRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true && !activate) {
+    if (!this.isRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true && !activate) {
       instance.deactivate()
     }
 
     return instance
-  }
-
-  isNotRequired (property) {
-    return !this.isRequired(property) && !this.isDependentRequired(property)
   }
 
   deleteChild (key) {
