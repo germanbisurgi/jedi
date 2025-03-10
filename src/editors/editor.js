@@ -177,7 +177,7 @@ class Editor {
    * Clean out HTML tags from txt
    */
   purifyContent (content, domPurifyOptions) {
-    if (window.DOMPurify) {
+    if (this.instance.jedi.options.purifyHtml && window.DOMPurify) {
       return window.DOMPurify.sanitize(content, domPurifyOptions)
     } else {
       const tmp = document.createElement('div')

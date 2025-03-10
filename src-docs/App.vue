@@ -99,6 +99,11 @@
           </div>
 
           <div class="form-group mb-3">
+            <input type="checkbox" id="purifyHtml" v-model="purifyHtml" @change="initEditor()">
+            <label for="purifyHtml"><code>purifyHtml</code></label>
+          </div>
+
+          <div class="form-group mb-3">
             <input type="checkbox" id="mergeAllOf" v-model="mergeAllOf" @change="initEditor()">
             <label for="mergeAllOf"><code>mergeAllOf</code></label>
           </div>
@@ -234,17 +239,19 @@ import quill from './json/plugins/string-quill.json'
 import jodit from './json/plugins/string-jodit.json'
 import flatpickr from './json/plugins/string-flatpickr.json'
 import imask from './json/plugins/string-imask.json'
+import imaskSettings from './json/plugins/string-imask-settings.json'
 import raty from './json/plugins/number-raty.json'
 import custom from './json/custom/custom.json'
 import metaSchema from './json/meta-schema.json'
 import europass from './json/europass.json'
+import johnFrusciante from './json/examples/john-frusciante.json'
 import resumeSchema from './json/examples/resume-schema.json'
 import loginExample from './json/examples/login.json'
 import contactExample from './json/examples/contact.json'
 import testJson from './json/test.json'
 // import template from './json/experimental/template.json'
-import calc from './json/experimental/calc.json'
-import calcIfThenElse from './json/experimental/calc-if-then-else.json'
+// import calc from './json/experimental/calc.json'
+// import calcIfThenElse from './json/experimental/calc-if-then-else.json'
 import markdownAnnotations from './json/experimental/markdon-annotations.json'
 import jsonPatch from './json/parsing/json-patch.json'
 import allOfRefs from './json/parsing/allOf-refs.json'
@@ -259,7 +266,17 @@ export default {
     return {
       errorCount: 0,
       examples: {
-        Editors: {
+        'Examples': {
+          'examples/john-frusciante': johnFrusciante,
+          'examples/resume-schema': resumeSchema,
+          'examples/login': loginExample,
+          'examples/contact': contactExample,
+          'custom/custom': custom,
+          'meta-schema': metaSchema,
+          'europass-xml-3.3.0': europass,
+          'test': testJson,
+        },
+        'Editors': {
           'editors/all': all,
           'editors/array': array,
           'editors/array-checkboxes': arrayCheckboxes,
@@ -288,16 +305,29 @@ export default {
           'editors/string-input': stringInput,
           'editors/string-textarea': stringTextarea
         },
-        Plugins: {
+        'Plugins': {
           'plugins/choices': choices,
           'plugins/awesomplete': awesomplete,
           'plugins/flatpickr': flatpickr,
           'plugins/imask': imask,
+          'plugins/imask-settings': imaskSettings,
           'plugins/jodit': jodit,
           'plugins/quill': quill,
           'plugins/raty': raty,
         },
-        Validators: {
+        'Features': {
+          // 'experimental/template': template,
+          // 'experimental/calc': calc,
+          // 'experimental/calc-if-then-else': calcIfThenElse,
+          'features/markdown-annotations': markdownAnnotations,
+          'parsing/json-patch': jsonPatch,
+          'parsing/allOf-refs': allOfRefs,
+          'parsing/allOf-if-then': allOfIfThen,
+          'parsing/oneOf-refs': oneOfRefs,
+          'parsing/anyOf-refs': anyOfRefs,
+          'parsing/recursive-refs': recursiveRefs
+        },
+        'Validators': {
           'validator/additionalProperties': additionalProperties,
           'validator/allOf': allOf,
           'validator/anyOf': anyOf,
@@ -340,29 +370,6 @@ export default {
           'validator/required': required,
           'validator/type': typeValidator,
           'validator/uniqueItems': uniqueItems,
-        },
-        Examples: {
-          'examples/resume-schema': resumeSchema,
-          'examples/login': loginExample,
-          'examples/contact': contactExample,
-          'custom/custom': custom,
-          'meta-schema': metaSchema,
-          'europass-xml-3.3.0': europass,
-          'test': testJson,
-        },
-        Experimental: {
-          // 'experimental/template': template,
-          'experimental/calc': calc,
-          'experimental/calc-if-then-else': calcIfThenElse,
-          'experimental/markdown-annotations': markdownAnnotations
-        },
-        Parsing: {
-          'parsing/json-patch': jsonPatch,
-          'parsing/allOf-refs': allOfRefs,
-          'parsing/allOf-if-then': allOfIfThen,
-          'parsing/oneOf-refs': oneOfRefs,
-          'parsing/anyOf-refs': anyOfRefs,
-          'parsing/recursive-refs': recursiveRefs
         }
       },
       example: 'editors/all',
@@ -409,6 +416,7 @@ export default {
       language: 'en',
       assertFormat: false,
       parseMarkdown: true,
+      purifyHtml: true,
       mergeAllOf: false,
       enforceEnumDefault: true
     }
@@ -422,6 +430,7 @@ export default {
     this.language = this.getQueryParam('language') || 'en'
     this.assertFormat = this.getQueryParam('assertFormat') ? this.parseBooleanString(this.getQueryParam('assertFormat')) : false
     this.parseMarkdown = this.getQueryParam('parseMarkdown') ? this.parseBooleanString(this.getQueryParam('parseMarkdown')) : true
+    this.purifyHtml = this.getQueryParam('purifyHtml') ? this.parseBooleanString(this.getQueryParam('purifyHtml')) : true
     this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
     this.enforceEnumDefault = this.getQueryParam('enforceEnumDefault') ? this.parseBooleanString(this.getQueryParam('enforceEnumDefault')) : true
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
@@ -546,6 +555,7 @@ export default {
         language: this.language,
         assertFormat: this.assertFormat,
         parseMarkdown: this.parseMarkdown,
+        purifyHtml: this.purifyHtml,
         mergeAllOf: this.mergeAllOf,
         enforceEnumDefault: this.enforceEnumDefault,
         schema: this.schema,
@@ -560,20 +570,6 @@ export default {
             min: new Date(1990, 0, 1),
             max: new Date(2020, 0, 1),
             lazy: false
-          },
-          imaskIban: {
-            mask: "DE00 0000 0000 0000 0000 00",
-            lazy: false
-          },
-          imaskBic: {
-            mask: 'Ple\\ase fill ye\\ar 19YY, month MM \\and v\\alue VL',
-            lazy: false,  // make placeholder always visible
-
-            blocks: {
-              YY: {
-                mask: '00',
-              }
-            }
           }
         }
       }
@@ -631,6 +627,7 @@ export default {
       newUrl += "&language=" + this.language
       newUrl += "&assertFormat=" + this.assertFormat
       newUrl += "&parseMarkdown=" + this.parseMarkdown
+      newUrl += "&purifyHtml=" + this.purifyHtml
       newUrl += "&mergeAllOf=" + this.mergeAllOf
       newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle

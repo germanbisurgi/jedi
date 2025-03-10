@@ -63,8 +63,9 @@ class Jedi extends EventEmitter {
       settings: {},
       useConstraintAttributes: true,
       parseMarkdown: false,
-      mergeAllOf: false,
-      domPurifyOptions: {}
+      purifyHtml: true,
+      domPurifyOptions: {},
+      mergeAllOf: false
     }, options)
 
     /**

@@ -3,52 +3,66 @@
 - README
   - section about exposing external libraries window.['__LIBRARY__'] when importing esm
 
-- jedi
-  - iconLib option can be string or IconLib instance
-  - theme option can be string or Theme instance
+
+- Editor
   - refactor setInitialValue
+  - info variant tooltip
+  - info variant popover
+  - use editor methods and overrides in build configs
+  - use super.refreshUI() in all editors
+  - set input names like id
 
-- validation
-  - support multiple drafts
-  - formats: https://json-schema.org/understanding-json-schema/reference/string#format
+  
+Features
+  - x-messages categorized by language
+  - rename `enforceEnumDefault` to `enforceEnumValue`
+  - use flat x- options in playground
+  - enumSource
 
-- plugins
+
+- Array Editor
+  - array nav-horizontal needs left and right arrows buttons instead of up and down
+  - array items titles in item containers
+  - copy value button
+  - set value button
+  - collapse children on collapse
+
+
+- Object Editor
+  - object activators sort by property order
+  - object activators categories and conditional visibility?
+  - copy value button
+  - set value button
+  - collapse children on collapse
+  - inline switch activators
+
+
+- Editors
   - SignaturePad
   - simplemde
-
-- editors
-  - array items titles in item containers
-  - accordion / collapse
-  - collapse children
-  - enumSource
-  - Object activators sort by property order
-  - refactor theme.getCollapseToggle
-  - disable option
-  - compact array items
-  - x-option flat options "x-enumTitles", "x-grid-columns", etc
-  - void instance (for buttons, and other stuff). Does not register
-  - enumSource
-  - remove not needed action containers
+  - Void instance (for buttons, and other stuff). Does not register
   - input range
   - input file
   - color picker
-  - format switch (booleans and/or not required properties)
-  - info variant tooltip
-  - info variant popover
-  - array copy button
-  - append descriptions if set and not hidden
-  - type hidden description
-  - ionic theme
-  - property already exist message box or disable add button
-  - option hideButton labels
-  - set input names like id
 
-- themes
+
+- Themes
+  - refactor theme.getCollapseToggle
   - ionic
   - material
+  - append descriptions if set and not hidden
+  - type hidden description
+  - option hideButton labels
 
-- tests
-  - enforceConst 
-  - navigate with Tab key
+
+- Jedi
+  - iconLib option can be string or IconLib instance
+  - theme option can be string or Theme instance
+
+
+- Validation
+  - support multiple drafts
+  - formats: https://json-schema.org/understanding-json-schema/reference/string#format
+
 
 - publish on NPM

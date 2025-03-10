@@ -1962,7 +1962,7 @@ class Editor {
    * Clean out HTML tags from txt
    */
   purifyContent(content, domPurifyOptions) {
-    if (window.DOMPurify) {
+    if (this.instance.jedi.options.purifyHtml && window.DOMPurify) {
       return window.DOMPurify.sanitize(content, domPurifyOptions);
     } else {
       const tmp = document.createElement("div");
@@ -3526,11 +3526,11 @@ class EditorArrayTable extends EditorArray {
       const th2 = this.theme.getTableHeader({
         minWidth: itemTableColWidth || tableColMinWidth || "auto"
       });
-      if (child.ui.control.label) {
+      if (child.ui.control.label && child.ui.control.description) {
         th2.appendChild(child.ui.control.label);
         child.ui.control.label.setAttribute("title", child.ui.control.description.textContent);
       }
-      if (child.ui.control.legend) {
+      if (child.ui.control.legend && child.ui.control.description) {
         th2.appendChild(child.ui.control.legend);
         child.ui.control.legend.setAttribute("title", child.ui.control.description.textContent);
       }
@@ -4432,8 +4432,9 @@ class Jedi extends EventEmitter {
       settings: {},
       useConstraintAttributes: true,
       parseMarkdown: false,
-      mergeAllOf: false,
-      domPurifyOptions: {}
+      purifyHtml: true,
+      domPurifyOptions: {},
+      mergeAllOf: false
     }, options);
     this.rootName = "#";
     this.pathSeparator = "/";

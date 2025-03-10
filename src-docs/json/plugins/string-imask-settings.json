@@ -1,12 +1,12 @@
 {
-  "title": "IMask",
+  "title": "IMask settings",
   "description": "IMask is vanilla javascript input mask.",
   "type": "string",
-  "minLength": 22,
-  "default": "DE11111111111111111111",
+  "minLength": 8,
+  "default": "28.11.1999",
   "x-imask": {
-    "mask": "aa00 0000 0000 0000 0000 00",
-    "lazy": false
+    "x-settings": "imaskDate",
+    "x-masked": false
   },
   "x-info": {
     "variant": "modal",

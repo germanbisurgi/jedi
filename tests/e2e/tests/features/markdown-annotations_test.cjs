@@ -1,6 +1,6 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'barebones'
-const pathToSchema = 'experimental/markdown-annotations'
+const pathToSchema = 'features/markdown-annotations'
 
 Feature('markdown-annotation')
 

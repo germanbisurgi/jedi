@@ -55,12 +55,12 @@ class EditorArrayTable extends EditorArray {
         minWidth: itemTableColWidth || tableColMinWidth || 'auto'
       })
 
-      if (child.ui.control.label) {
+      if (child.ui.control.label && child.ui.control.description) {
         th.appendChild(child.ui.control.label)
         child.ui.control.label.setAttribute('title', child.ui.control.description.textContent)
       }
 
-      if (child.ui.control.legend) {
+      if (child.ui.control.legend && child.ui.control.description) {
         th.appendChild(child.ui.control.legend)
         child.ui.control.legend.setAttribute('title', child.ui.control.description.textContent)
       }
