@@ -79,7 +79,6 @@ class EditorObject extends Editor {
       this.control.addPropertyControl.input.value = ''
 
       const ariaLive = this.control.ariaLive
-      ariaLive.innerHTML = ''
       const schemaTitle = getSchemaTitle(child.schema)
       const label = isSet(schemaTitle) ? schemaTitle : propertyName
       const ariaLiveMessage = this.theme.getAriaLiveMessage()

@@ -1,0 +1,14 @@
+{
+  "title": "enforceAdditionalProperties",
+  "description": "Editor should remove all properties that are not listed in `properties` when the option `enforceAdditionalProperties` or the schema `x-` option `enforceAdditionalProperties` is true",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "a": {
+      "type": "integer"
+    },
+    "b": {
+      "type": "integer"
+    }
+  }
+}

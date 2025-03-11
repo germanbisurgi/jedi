@@ -2422,19 +2422,33 @@ class InstanceObject extends Instance {
     }
     this.refreshInstances();
     this.on("set-value", (value, initiator) => {
-      const enforceRequired = getSchemaXOption(this.schema, "enforceRequired") ?? this.jedi.options.enforceRequired;
-      if (this.jedi.isEditor && enforceRequired) {
-        this.addMissingRequiredPropertiesToValue(value);
-      }
+      this.addMissingRequiredPropertiesToValue(value);
+      this.removeNotListedPropertiesFromValue(value);
       this.refreshInstances(initiator);
     });
   }
+  removeNotListedPropertiesFromValue(value) {
+    const schemaEnforceAdditionalProperties = getSchemaXOption(this.schema, "enforceAdditionalProperties");
+    const enforceAdditionalProperties = isSet(schemaEnforceAdditionalProperties) ? schemaEnforceAdditionalProperties : this.jedi.options.enforceAdditionalProperties;
+    const schemaAdditionalProperties = getSchemaAdditionalProperties(this.schema);
+    if (this.jedi.isEditor && enforceAdditionalProperties && isSet(schemaAdditionalProperties) && schemaAdditionalProperties === false) {
+      Object.keys(value).forEach((propertyName) => {
+        if (!hasOwn(this.properties, propertyName)) {
+          console.warn("deleting", propertyName);
+          delete value[propertyName];
+        }
+      });
+    }
+  }
   addMissingRequiredPropertiesToValue(value) {
-    this.requiredProperties.forEach((propertyName) => {
-      if (!hasOwn(value, propertyName)) {
-        value[propertyName] = this.getChild(propertyName).getValue();
-      }
-    });
+    const enforceRequired = getSchemaXOption(this.schema, "enforceRequired") ?? this.jedi.options.enforceRequired;
+    if (this.jedi.isEditor && enforceRequired) {
+      this.requiredProperties.forEach((propertyName) => {
+        if (!hasOwn(value, propertyName)) {
+          value[propertyName] = this.getChild(propertyName).getValue();
+        }
+      });
+    }
   }
   /**
    * Returns true if the property is required
@@ -3180,7 +3194,6 @@ class EditorObject extends Editor {
       this.instance.setValue(this.instance.value, true, "user");
       this.control.addPropertyControl.input.value = "";
       const ariaLive = this.control.ariaLive;
-      ariaLive.innerHTML = "";
       const schemaTitle = getSchemaTitle(child.schema);
       const label = isSet(schemaTitle) ? schemaTitle : propertyName;
       const ariaLiveMessage = this.theme.getAriaLiveMessage();
@@ -4445,6 +4458,7 @@ class Jedi extends EventEmitter {
       enforceConst: false,
       enforceRequired: true,
       enforceEnumDefault: true,
+      enforceAdditionalProperties: true,
       enforceEnum: true
     }, options);
     this.rootName = "#";

@@ -99,6 +99,11 @@
           </div>
 
           <div class="form-group mb-3">
+            <input type="checkbox" id="enforceAdditionalProperties" v-model="enforceAdditionalProperties" @change="initEditor()">
+            <label for="enforceAdditionalProperties"><code>enforceAdditionalProperties</code></label>
+          </div>
+
+          <div class="form-group mb-3">
             <input type="checkbox" id="parseMarkdown" v-model="parseMarkdown" @change="initEditor()">
             <label for="parseMarkdown"><code>parseMarkdown</code></label>
           </div>
@@ -192,6 +197,7 @@ import objectNavVertical from './json/editors/object-nav-vertical.json'
 import objectNavHorizontal from './json/editors/object-nav-horizontal.json'
 import objectPropertyOrder from './json/editors/object-propertyOrder.json'
 import objectEnforceRequired from './json/editors/object-enforceRequired.json'
+import objectEnforceAdditionalProperties from './json/editors/object-enforceAdditionalProperties.json'
 import stringRadios from './json/editors/string-radios.json'
 import stringRadiosInline from './json/editors/string-radios-inline.json'
 import stringSelect from './json/editors/string-select.json'
@@ -306,6 +312,7 @@ export default {
           'editors/object-nav-horizontal': objectNavHorizontal,
           'editors/object-propertyOrder': objectPropertyOrder,
           'editors/object-enforceRequired': objectEnforceRequired,
+          'editors/object-enforceAdditionalProperties': objectEnforceAdditionalProperties,
           'editors/string-radios': stringRadios,
           'editors/string-radios-inline': stringRadiosInline,
           'editors/string-select': stringSelect,
@@ -426,7 +433,8 @@ export default {
       purifyHtml: true,
       mergeAllOf: false,
       enforceEnum: true,
-      enforceRequired: true
+      enforceRequired: true,
+      enforceAdditionalProperties: true
     }
   },
   created() {
@@ -442,6 +450,7 @@ export default {
     this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
     this.enforceEnum = this.getQueryParam('enforceEnum') ? this.parseBooleanString(this.getQueryParam('enforceEnum')) : true
     this.enforceRequired = this.getQueryParam('enforceRequired') ? this.parseBooleanString(this.getQueryParam('enforceRequired')) : true
+    this.enforceAdditionalProperties = this.getQueryParam('enforceAdditionalProperties') ? this.parseBooleanString(this.getQueryParam('enforceAdditionalProperties')) : true
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
     this.enableCollapseToggle = this.getQueryParam('enableCollapseToggle') ? this.parseBooleanString(this.getQueryParam('enableCollapseToggle')) : true
     this.startCollapsed = this.getQueryParam('startCollapsed') ? this.parseBooleanString(this.getQueryParam('startCollapsed')) : false
@@ -568,6 +577,7 @@ export default {
         mergeAllOf: this.mergeAllOf,
         enforceEnum: this.enforceEnum,
         enforceRequired: this.enforceRequired,
+        enforceAdditionalProperties: this.enforceAdditionalProperties,
         schema: this.schema,
         theme: this.getThemeInstance(this.theme),
         refParser,
@@ -641,6 +651,7 @@ export default {
       newUrl += "&mergeAllOf=" + this.mergeAllOf
       newUrl += "&enforceEnum=" + this.enforceEnum
       newUrl += "&enforceRequired=" + this.enforceRequired
+      newUrl += "&enforceAdditionalProperties=" + this.enforceAdditionalProperties
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
       newUrl += "&startCollapsed=" + this.startCollapsed
@@ -659,6 +670,7 @@ export default {
       newUrl += "&mergeAllOf=" + this.mergeAllOf
       newUrl += "&enforceEnum=" + this.enforceEnum
       newUrl += "&enforceRequired=" + this.enforceRequired
+      newUrl += "&enforceAdditionalProperties=" + this.enforceAdditionalProperties
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
       newUrl += "&startCollapsed=" + this.startCollapsed

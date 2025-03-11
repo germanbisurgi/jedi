@@ -50,6 +50,7 @@ class InstanceObject extends Instance {
       })
     }
 
+    // todo: is this correct?
     // Add properties listed in schema required too if not present in schema properties
     if (isSet(schemaRequired)) {
       schemaRequired.forEach((requiredProperty) => {
@@ -65,22 +66,37 @@ class InstanceObject extends Instance {
     this.refreshInstances()
 
     this.on('set-value', (value, initiator) => {
-      const enforceRequired = getSchemaXOption(this.schema, 'enforceRequired') ?? this.jedi.options.enforceRequired
-
-      if (this.jedi.isEditor && enforceRequired) {
-        this.addMissingRequiredPropertiesToValue(value)
-      }
-
+      this.addMissingRequiredPropertiesToValue(value)
+      this.removeNotListedPropertiesFromValue(value)
       this.refreshInstances(initiator)
     })
   }
 
+  removeNotListedPropertiesFromValue (value) {
+    const schemaEnforceAdditionalProperties = getSchemaXOption(this.schema, 'enforceAdditionalProperties')
+    const enforceAdditionalProperties = isSet(schemaEnforceAdditionalProperties) ? schemaEnforceAdditionalProperties : this.jedi.options.enforceAdditionalProperties
+    const schemaAdditionalProperties = getSchemaAdditionalProperties(this.schema)
+
+    if (this.jedi.isEditor && enforceAdditionalProperties && isSet(schemaAdditionalProperties) && schemaAdditionalProperties === false) {
+      Object.keys(value).forEach((propertyName) => {
+        if (!hasOwn(this.properties, propertyName)) {
+          console.warn('deleting', propertyName)
+          delete value[propertyName]
+        }
+      })
+    }
+  }
+
   addMissingRequiredPropertiesToValue (value) {
-    this.requiredProperties.forEach((propertyName) => {
-      if (!hasOwn(value, propertyName)) {
-        value[propertyName] = this.getChild(propertyName).getValue()
-      }
-    })
+    const enforceRequired = getSchemaXOption(this.schema, 'enforceRequired') ?? this.jedi.options.enforceRequired
+
+    if (this.jedi.isEditor && enforceRequired) {
+      this.requiredProperties.forEach((propertyName) => {
+        if (!hasOwn(value, propertyName)) {
+          value[propertyName] = this.getChild(propertyName).getValue()
+        }
+      })
+    }
   }
 
   /**

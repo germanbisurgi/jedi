@@ -67,6 +67,7 @@ class Jedi extends EventEmitter {
       enforceConst: false,
       enforceRequired: true,
       enforceEnumDefault: true,
+      enforceAdditionalProperties: true,
       enforceEnum: true
     }, options)
 

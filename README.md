@@ -343,6 +343,13 @@ translates to:
       <td>yes</td>
     </tr>
     <tr align="left">
+      <td><code>enforceAdditionalProperties</code></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+      <td>When <code>true</code> the editor removes all properties that are not listed in properties</td>
+      <td>yes</td>
+    </tr>
+    <tr align="left">
       <td><code>switcherInput</code></td>
       <td><code>string</code></td>
       <td><code>'select'</code></td>
