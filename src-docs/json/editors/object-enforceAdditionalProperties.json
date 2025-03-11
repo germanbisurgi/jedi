@@ -1,6 +1,6 @@
 {
   "title": "enforceAdditionalProperties",
-  "description": "Editor should remove all properties that are not listed in `properties` when the option `enforceAdditionalProperties` or the schema `x-` option `enforceAdditionalProperties` is true",
+  "description": "Editor should remove all properties that are not listed in `properties` or `patternProperties`  when the option `enforceAdditionalProperties` or the schema `x-` option `enforceAdditionalProperties` is true",
   "type": "object",
   "additionalProperties": false,
   "properties": {
@@ -9,6 +9,11 @@
     },
     "b": {
       "type": "integer"
+    }
+  },
+  "patternProperties": {
+    "^id_": {
+      "type": "string"
     }
   }
 }

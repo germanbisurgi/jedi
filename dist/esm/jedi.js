@@ -2431,9 +2431,11 @@ class InstanceObject extends Instance {
     const schemaEnforceAdditionalProperties = getSchemaXOption(this.schema, "enforceAdditionalProperties");
     const enforceAdditionalProperties = isSet(schemaEnforceAdditionalProperties) ? schemaEnforceAdditionalProperties : this.jedi.options.enforceAdditionalProperties;
     const schemaAdditionalProperties = getSchemaAdditionalProperties(this.schema);
+    const schemaPatternProperties = getSchemaPatternProperties(this.schema) || {};
     if (this.jedi.isEditor && enforceAdditionalProperties && isSet(schemaAdditionalProperties) && schemaAdditionalProperties === false) {
       Object.keys(value).forEach((propertyName) => {
-        if (!hasOwn(this.properties, propertyName)) {
+        const matchesPattern = Object.keys(schemaPatternProperties).some((pattern2) => new RegExp(pattern2).test(propertyName));
+        if (!hasOwn(this.properties, propertyName) && !matchesPattern) {
           console.warn("deleting", propertyName);
           delete value[propertyName];
         }

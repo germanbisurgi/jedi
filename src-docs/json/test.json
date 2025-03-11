@@ -1,13 +1,12 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "type": "number",
-  "if": {
-    "exclusiveMaximum": 0
-  },
-  "then": {
-    "minimum": -10
-  },
-  "else": {
-    "multipleOf": 2
+  "type": "object",
+  "additionalProperties": false,
+  "patternProperties": {
+    "^[a-zA-Z0-9_]": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
   }
 }
