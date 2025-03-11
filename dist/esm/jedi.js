@@ -2443,7 +2443,7 @@ class InstanceObject extends Instance {
     const schemaRequired = getSchemaRequired(this.schema);
     const inSchemaRequired = isSet(schemaRequired) && schemaRequired.includes(property);
     const inSchemaDependentRequired = this.isDependentRequired(property);
-    return inSchemaRequired && inSchemaDependentRequired;
+    return inSchemaRequired || inSchemaDependentRequired;
   }
   /**
    * Returns true if the property is dependent required
@@ -3210,48 +3210,41 @@ class EditorObject extends Editor {
       }
       properties2.forEach((property) => {
         const isRequired = this.instance.isRequired(property);
-        const isDependentRequired = this.instance.isDependentRequired(property);
-        const notRequired = !isRequired && !isDependentRequired;
         const ariaLive = this.control.ariaLive;
         const schema = this.instance.getPropertySchema(property);
         const schemaTitle = getSchemaTitle(schema);
         const path = this.instance.path + this.instance.jedi.pathSeparator + property;
         const id = pathToAttribute(path) + "-activator";
         const title = isSet(schemaTitle) ? schemaTitle : property;
-        if (notRequired) {
-          const checkboxControl = this.theme.getCheckboxControl({
-            id,
-            title,
-            titleHidden: false
-          });
-          const checkbox2 = checkboxControl.input;
-          this.propertyActivators[property] = checkbox2;
-          checkbox2.addEventListener("change", () => {
-            ariaLive.innerHTML = "";
-            const ariaLiveMessage = this.theme.getAriaLiveMessage();
-            if (checkbox2.checked) {
-              const child = this.instance.getChild(property);
-              if (!child) {
-                this.instance.createChild(schema, property);
-              }
-              this.instance.getChild(property).activate();
-              ariaLiveMessage.textContent = title + " field was added to the form";
-              ariaLive.appendChild(ariaLiveMessage);
-            } else {
-              this.instance.getChild(property).deactivate();
-              ariaLiveMessage.textContent = title + " field was removed from the form";
-              ariaLive.appendChild(ariaLiveMessage);
+        const checkboxControl = this.theme.getCheckboxControl({
+          id,
+          title,
+          titleHidden: false
+        });
+        const checkbox = checkboxControl.input;
+        this.propertyActivators[property] = checkbox;
+        checkbox.addEventListener("change", () => {
+          ariaLive.innerHTML = "";
+          const ariaLiveMessage = this.theme.getAriaLiveMessage();
+          if (checkbox.checked) {
+            const child = this.instance.getChild(property);
+            if (!child) {
+              this.instance.createChild(schema, property);
             }
-            this.control.propertiesContainer.close();
-            this.control.propertiesContainer.showModal();
-          });
-          this.control.propertiesActivators.appendChild(checkboxControl.container);
-        }
-        const checkbox = this.propertyActivators[property];
-        if (checkbox) {
-          checkbox.disabled = this.disabled;
-          checkbox.checked = hasOwn(this.instance.getValue(), property);
-        }
+            this.instance.getChild(property).activate();
+            ariaLiveMessage.textContent = title + " field was added to the form";
+            ariaLive.appendChild(ariaLiveMessage);
+          } else {
+            this.instance.getChild(property).deactivate();
+            ariaLiveMessage.textContent = title + " field was removed from the form";
+            ariaLive.appendChild(ariaLiveMessage);
+          }
+          this.control.propertiesContainer.close();
+          this.control.propertiesContainer.showModal();
+        });
+        this.control.propertiesActivators.appendChild(checkboxControl.container);
+        checkbox.disabled = this.disabled || isRequired;
+        checkbox.checked = hasOwn(this.instance.getValue(), property);
       });
     }
   }

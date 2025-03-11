@@ -91,7 +91,7 @@ class InstanceObject extends Instance {
     const inSchemaRequired = isSet(schemaRequired) && schemaRequired.includes(property)
     const inSchemaDependentRequired = this.isDependentRequired(property)
 
-    return inSchemaRequired && inSchemaDependentRequired
+    return inSchemaRequired || inSchemaDependentRequired
   }
 
   /**
