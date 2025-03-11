@@ -89,8 +89,8 @@
           </div>
 
           <div class="form-group mb-3">
-            <input type="checkbox" id="enforceEnumDefault" v-model="enforceEnumDefault" @change="initEditor()">
-            <label for="enforceEnumDefault"><code>enforceEnumDefault</code></label>
+            <input type="checkbox" id="enforceEnum" v-model="enforceEnum" @change="initEditor()">
+            <label for="enforceEnum"><code>enforceEnum</code></label>
           </div>
 
           <div class="form-group mb-3">
@@ -425,8 +425,8 @@ export default {
       parseMarkdown: true,
       purifyHtml: true,
       mergeAllOf: false,
-      enforceEnumDefault: true,
-      enforceRequired: false
+      enforceEnum: true,
+      enforceRequired: true
     }
   },
   created() {
@@ -440,8 +440,8 @@ export default {
     this.parseMarkdown = this.getQueryParam('parseMarkdown') ? this.parseBooleanString(this.getQueryParam('parseMarkdown')) : true
     this.purifyHtml = this.getQueryParam('purifyHtml') ? this.parseBooleanString(this.getQueryParam('purifyHtml')) : true
     this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
-    this.enforceEnumDefault = this.getQueryParam('enforceEnumDefault') ? this.parseBooleanString(this.getQueryParam('enforceEnumDefault')) : true
-    this.enforceRequired = this.getQueryParam('enforceRequired') ? this.parseBooleanString(this.getQueryParam('enforceRequired')) : false
+    this.enforceEnum = this.getQueryParam('enforceEnum') ? this.parseBooleanString(this.getQueryParam('enforceEnum')) : true
+    this.enforceRequired = this.getQueryParam('enforceRequired') ? this.parseBooleanString(this.getQueryParam('enforceRequired')) : true
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
     this.enableCollapseToggle = this.getQueryParam('enableCollapseToggle') ? this.parseBooleanString(this.getQueryParam('enableCollapseToggle')) : true
     this.startCollapsed = this.getQueryParam('startCollapsed') ? this.parseBooleanString(this.getQueryParam('startCollapsed')) : false
@@ -566,7 +566,7 @@ export default {
         parseMarkdown: this.parseMarkdown,
         purifyHtml: this.purifyHtml,
         mergeAllOf: this.mergeAllOf,
-        enforceEnumDefault: this.enforceEnumDefault,
+        enforceEnum: this.enforceEnum,
         enforceRequired: this.enforceRequired,
         schema: this.schema,
         theme: this.getThemeInstance(this.theme),
@@ -639,7 +639,7 @@ export default {
       newUrl += "&parseMarkdown=" + this.parseMarkdown
       newUrl += "&purifyHtml=" + this.purifyHtml
       newUrl += "&mergeAllOf=" + this.mergeAllOf
-      newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
+      newUrl += "&enforceEnum=" + this.enforceEnum
       newUrl += "&enforceRequired=" + this.enforceRequired
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
@@ -657,7 +657,7 @@ export default {
       newUrl += "&language=" + this.language
       newUrl += "&assertFormat=" + this.assertFormat
       newUrl += "&mergeAllOf=" + this.mergeAllOf
-      newUrl += "&enforceEnumDefault=" + this.enforceEnumDefault
+      newUrl += "&enforceEnum=" + this.enforceEnum
       newUrl += "&enforceRequired=" + this.enforceRequired
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle

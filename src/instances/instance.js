@@ -166,10 +166,14 @@ class Instance extends EventEmitter {
    * Sets the default value of the instance based on it's type
    */
   setInitialValue () {
-    const enforceEnumDefault = getSchemaXOption(this.schema, 'enforceEnumDefault') ?? this.jedi.options.enforceEnumDefault
+    const schemaEnforceEnumDefault = getSchemaXOption(this.schema, 'enforceEnumDefault') // todo: deprecated
+    const schemaEnforceEnum = getSchemaXOption(this.schema, 'enforceEnum')
+    const enforceEnumDefault = schemaEnforceEnumDefault ?? this.jedi.options.enforceEnumDefault // todo: deprecated
+    const enforceEnum = schemaEnforceEnum ?? this.jedi.options.enforceEnum
+    const finalEnforceEnum = isSet(schemaEnforceEnum) ? enforceEnum : enforceEnumDefault // todo: remove this after deprecation
     const schemaEnum = getSchemaEnum(this.schema)
 
-    if (isSet(schemaEnum) && !schemaEnum.includes(this.getValue()) && isSet(schemaEnum[0]) && enforceEnumDefault) {
+    if (isSet(schemaEnum) && !schemaEnum.includes(this.getValue()) && isSet(schemaEnum[0]) && finalEnforceEnum) {
       this.setValue(schemaEnum[0], false)
     }
 

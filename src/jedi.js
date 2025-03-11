@@ -52,9 +52,6 @@ class Jedi extends EventEmitter {
       switcherInput: 'select',
       data: undefined,
       assertFormat: false,
-      enforceConst: false,
-      enforceRequired: false,
-      enforceEnumDefault: true,
       customEditors: [],
       hiddenInputAttributes: {},
       id: '',
@@ -66,7 +63,11 @@ class Jedi extends EventEmitter {
       parseMarkdown: false,
       purifyHtml: true,
       domPurifyOptions: {},
-      mergeAllOf: false
+      mergeAllOf: false,
+      enforceConst: false,
+      enforceRequired: true,
+      enforceEnumDefault: true,
+      enforceEnum: true
     }, options)
 
     /**

@@ -1,6 +1,6 @@
 {
   "title": "enforceRequired",
-  "description": "Editor should display all required properties when the jedi option `enforceRequired` or the schema `x-enforceRequired` is true",
+  "description": "Editor should display all required properties when the option `enforceRequired` or the schema `x-` option `enforceRequired` is true",
   "type": "object",
   "default": {
     "a": 1

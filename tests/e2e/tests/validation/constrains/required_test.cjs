@@ -8,6 +8,7 @@ Scenario('@constrain @required should display validation errors', ({ I }) => {
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/required')
   I.selectOption('#show-errors', 'always')
+  I._uncheckOption('[id="enforceRequired"]')
   I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
   I.dontSee('Must have the required properties: required', '[data-path="#"]')

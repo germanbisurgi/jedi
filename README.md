@@ -338,7 +338,7 @@ translates to:
     <tr align="left">
       <td><code>enforceRequired</code></td>
       <td><code>boolean</code></td>
-      <td><code>false</code></td>
+      <td><code>true</code></td>
       <td>When <code>true</code> required properties are always displayed</td>
       <td>yes</td>
     </tr>

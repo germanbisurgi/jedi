@@ -1662,9 +1662,13 @@ class Instance extends EventEmitter {
    * Sets the default value of the instance based on it's type
    */
   setInitialValue() {
-    const enforceEnumDefault = getSchemaXOption(this.schema, "enforceEnumDefault") ?? this.jedi.options.enforceEnumDefault;
+    const schemaEnforceEnumDefault = getSchemaXOption(this.schema, "enforceEnumDefault");
+    const schemaEnforceEnum = getSchemaXOption(this.schema, "enforceEnum");
+    const enforceEnumDefault = schemaEnforceEnumDefault ?? this.jedi.options.enforceEnumDefault;
+    const enforceEnum = schemaEnforceEnum ?? this.jedi.options.enforceEnum;
+    const finalEnforceEnum = isSet(schemaEnforceEnum) ? enforceEnum : enforceEnumDefault;
     const schemaEnum = getSchemaEnum(this.schema);
-    if (isSet(schemaEnum) && !schemaEnum.includes(this.getValue()) && isSet(schemaEnum[0]) && enforceEnumDefault) {
+    if (isSet(schemaEnum) && !schemaEnum.includes(this.getValue()) && isSet(schemaEnum[0]) && finalEnforceEnum) {
       this.setValue(schemaEnum[0], false);
     }
     if (notSet(this.value)) {
@@ -4433,9 +4437,6 @@ class Jedi extends EventEmitter {
       switcherInput: "select",
       data: void 0,
       assertFormat: false,
-      enforceConst: false,
-      enforceRequired: false,
-      enforceEnumDefault: true,
       customEditors: [],
       hiddenInputAttributes: {},
       id: "",
@@ -4447,7 +4448,11 @@ class Jedi extends EventEmitter {
       parseMarkdown: false,
       purifyHtml: true,
       domPurifyOptions: {},
-      mergeAllOf: false
+      mergeAllOf: false,
+      enforceConst: false,
+      enforceRequired: true,
+      enforceEnumDefault: true,
+      enforceEnum: true
     }, options);
     this.rootName = "#";
     this.pathSeparator = "/";

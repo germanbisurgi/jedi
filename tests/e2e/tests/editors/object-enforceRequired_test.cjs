@@ -9,12 +9,6 @@ Scenario('@editor @object @enforceRequired should always shor required propertie
   I._waitForElement('.jedi-ready')
 
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
-    "a": 1
-  }))
-
-  I._checkOption('[id="enforceRequired"]')
-
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "a": 1,
     "b": 0
   }))

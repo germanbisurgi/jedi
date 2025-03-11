@@ -1,6 +1,7 @@
 {
   "title": "test",
   "type": "object",
+  "description": "Editor should dereference and merge allOf when the option `mergeAllOf` or the schema `x-` option `mergeAllOf` is true",
   "properties": {
     "combinedAllOf": {
       "title": "combinedAllOf",
