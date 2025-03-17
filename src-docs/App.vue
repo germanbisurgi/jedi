@@ -256,6 +256,7 @@ import raty from './json/plugins/number-raty.json'
 import custom from './json/custom/custom.json'
 import metaSchema from './json/meta-schema.json'
 import europass from './json/europass.json'
+import geojson from './json/examples/geojson.json'
 import johnFrusciante from './json/examples/john-frusciante.json'
 import resumeSchema from './json/examples/resume-schema.json'
 import loginExample from './json/examples/login.json'
@@ -279,6 +280,7 @@ export default {
       errorCount: 0,
       examples: {
         'Examples': {
+          'examples/geojson': geojson,
           'examples/john-frusciante': johnFrusciante,
           'examples/resume-schema': resumeSchema,
           'examples/login': loginExample,
