@@ -1885,6 +1885,19 @@ class Editor {
   setContainerAttributes() {
     this.control.container.setAttribute("data-path", this.instance.path);
     this.control.container.setAttribute("data-type", getSchemaType(this.instance.schema));
+    const schemaContainerAttributes = getSchemaXOption(this.instance.schema, "containerAttributes");
+    if (isSet(schemaContainerAttributes) && isObject(schemaContainerAttributes)) {
+      for (const [key, value] of Object.entries(schemaContainerAttributes)) {
+        if (key === "class") {
+          const classes = value.split(" ");
+          classes.forEach((cls) => {
+            this.control.container.classList.add(cls);
+          });
+        } else {
+          this.control.container.setAttribute(key, value);
+        }
+      }
+    }
   }
   /**
    * Builds the editor control and appends it to the editor container
@@ -5768,38 +5781,6 @@ class Theme {
       body
     };
   }
-  // getArrayItem (config = {}) {
-  //   const container = document.createElement('div')
-  //   const card = this.getCard()
-  //   const actions = this.getActionsSlot()
-  //   const arrayActions = this.getArrayActionsSlot()
-  //   const header = this.getCardHeader()
-  //   const body = this.getCardBody()
-  //
-  //   container.classList.add('jedi-array-item')
-  //
-  //   if (isSet(config.index)) {
-  //     container.setAttribute('jedi-array-item-index', config.index)
-  //   }
-  //
-  //   container.appendChild(card)
-  //   card.appendChild(header)
-  //   card.appendChild(body)
-  //   actions.appendChild(arrayActions)
-  //
-  //   if (config.readOnly === false) {
-  //     header.appendChild(actions)
-  //   }
-  //
-  //   return {
-  //     container,
-  //     card,
-  //     header,
-  //     body,
-  //     actions,
-  //     arrayActions
-  //   }
-  // }
   /**
    * Multiple control is a card containing multiple editors options that can be
    * selected with a switcher control. Only one editor can be active/visible

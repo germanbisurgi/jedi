@@ -1,6 +1,6 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'barebones'
-const pathToSchema = 'editors/array-enforceMinItems'
+const pathToSchema = 'editors/editor-containerAttributes'
 
 Feature('array-checkboxes')
 
@@ -10,7 +10,8 @@ BeforeSuite(({I}) => {
   I._waitForElement('.jedi-ready')
 });
 
-Scenario('@editor @array-enforceMinItems should have as many items as declared in "x-enforceMinItems', ({I}) => {
-  I._waitForElement('#root-0')
-  I._waitForElement('#root-1')
+Scenario('@editor should add @containerAttributes', ({I}) => {
+  I._waitForElement('.a-class')
+  I._waitForElement('.another-class')
+  I._waitForElement('[data-custom="custom-data"]')
 })

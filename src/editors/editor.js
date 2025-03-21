@@ -78,6 +78,21 @@ class Editor {
   setContainerAttributes () {
     this.control.container.setAttribute('data-path', this.instance.path)
     this.control.container.setAttribute('data-type', getSchemaType(this.instance.schema))
+
+    const schemaContainerAttributes = getSchemaXOption(this.instance.schema, 'containerAttributes')
+
+    if (isSet(schemaContainerAttributes) && isObject(schemaContainerAttributes)) {
+      for (const [key, value] of Object.entries(schemaContainerAttributes)) {
+        if (key === 'class') {
+          const classes = value.split(' ')
+          classes.forEach((cls) => {
+            this.control.container.classList.add(cls)
+          })
+        } else {
+          this.control.container.setAttribute(key, value)
+        }
+      }
+    }
   }
 
   /**
