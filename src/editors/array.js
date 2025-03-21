@@ -81,7 +81,8 @@ class EditorArray extends Editor {
       const moveDownBtn = this.theme.getMoveDownItemBtn()
       const btnGroup = this.theme.getBtnGroup()
       const { container, arrayActions, body } = this.theme.getArrayItem({
-        readOnly: this.instance.isReadOnly()
+        readOnly: this.instance.isReadOnly(),
+        index: index
       })
 
       arrayActions.appendChild(btnGroup)

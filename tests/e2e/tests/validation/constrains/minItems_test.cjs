@@ -8,6 +8,7 @@ Scenario('@constrain @minItems should display validation errors', ({ I }) => {
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/minItems')
   I.selectOption('#show-errors', 'always')
+  I._uncheckOption('[id="enforceMinItems"]')
   I._waitForElement('.jedi-ready')
   I._waitForText('Must have at least 1 items', '[data-path="#/array"]')
   I._click('.jedi-array-add')

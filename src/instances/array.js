@@ -1,6 +1,12 @@
 import Instance from './instance.js'
 import { isSet, clone, isArray } from '../helpers/utils.js'
-import { getSchemaDefault, getSchemaItems, getSchemaPrefixItems } from '../helpers/schema.js'
+import {
+  getSchemaDefault,
+  getSchemaItems,
+  getSchemaMinItems,
+  getSchemaPrefixItems,
+  getSchemaXOption
+} from '../helpers/schema.js'
 
 /**
  * Represents an InstanceArray instance.
@@ -8,6 +14,19 @@ import { getSchemaDefault, getSchemaItems, getSchemaPrefixItems } from '../helpe
  */
 class InstanceArray extends Instance {
   prepare () {
+    const schemaMinItems = getSchemaMinItems(this.schema, 'minItems')
+    const schemaEnforceMinItems = getSchemaXOption(this.schema, 'enforceMinItems')
+    const enforceMinItems = isSet(schemaEnforceMinItems) ? schemaEnforceMinItems : this.jedi.options.enforceMinItems
+    const isEditor = this.jedi.isEditor
+    const hasEnforceMinItems = isSet(enforceMinItems) && enforceMinItems === true
+    const hasMinItems = isSet(schemaMinItems)
+
+    if (isEditor && hasEnforceMinItems && hasMinItems) {
+      for (let i = 0; i < schemaMinItems; i++) {
+        this.addItem()
+      }
+    }
+
     this.refreshChildren()
 
     this.on('set-value', () => {

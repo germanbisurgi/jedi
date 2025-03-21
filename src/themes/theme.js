@@ -895,28 +895,32 @@ class Theme {
 
   getArrayItem (config = {}) {
     const container = document.createElement('div')
-    const card = this.getCard()
+    const body = document.createElement('div')
     const actions = this.getActionsSlot()
     const arrayActions = this.getArrayActionsSlot()
-    const header = this.getCardHeader()
-    const body = this.getCardBody()
 
-    container.appendChild(card)
-    card.appendChild(header)
-    card.appendChild(body)
+    actions.style.textAlign = 'right'
+
+    container.classList.add('jedi-array-item')
+    body.classList.add('jedi-array-item-body')
+
+    if (isSet(config.index)) {
+      container.setAttribute('jedi-array-item-index', config.index)
+    }
+
     actions.appendChild(arrayActions)
 
     if (config.readOnly === false) {
-      header.appendChild(actions)
+      container.appendChild(actions)
     }
+
+    container.appendChild(body)
 
     return {
       container,
-      card,
-      header,
-      body,
       actions,
-      arrayActions
+      arrayActions,
+      body
     }
   }
 

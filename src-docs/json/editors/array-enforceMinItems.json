@@ -1,0 +1,9 @@
+{
+  "type": "array",
+  "x-enforceMinItems": true,
+  "minItems": 2,
+  "items": {
+    "type": "string",
+    "title": "item"
+  }
+}

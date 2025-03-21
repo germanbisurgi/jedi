@@ -104,6 +104,11 @@
           </div>
 
           <div class="form-group mb-3">
+            <input type="checkbox" id="enforceMinItems" v-model="enforceMinItems" @change="initEditor()">
+            <label for="enforceMinItems"><code>enforceMinItems</code></label>
+          </div>
+
+          <div class="form-group mb-3">
             <input type="checkbox" id="parseMarkdown" v-model="parseMarkdown" @change="initEditor()">
             <label for="parseMarkdown"><code>parseMarkdown</code></label>
           </div>
@@ -181,6 +186,7 @@ import arrayCheckboxesInline from './json/editors/array-checkboxes-inline.json'
 import arrayNavTable from './json/editors/array-table.json'
 import arrayNavVertical from './json/editors/array-nav-vertical.json'
 import arrayNavHorizontal from './json/editors/array-nav-horizontal.json'
+import arrayEnforceMinItems from './json/editors/array-enforceMinItems.json'
 import booleanCheckbox from './json/editors/boolean-checkbox.json'
 import booleanSelect from './json/editors/boolean-select.json'
 import booleanRadios from './json/editors/boolean-radios.json'
@@ -298,6 +304,7 @@ export default {
           'editors/array-nav-vertical': arrayNavVertical,
           'editors/array-nav-horizontal': arrayNavHorizontal,
           'editors/array-table': arrayNavTable,
+          'editors/array-enforceMinItems': arrayEnforceMinItems,
           'editors/boolean-checkbox': booleanCheckbox,
           'editors/boolean-radios': booleanRadios,
           'editors/boolean-radios-inline': booleanRadiosInline,
@@ -436,6 +443,7 @@ export default {
       mergeAllOf: false,
       enforceEnum: true,
       enforceRequired: true,
+      enforceMinItems: true,
       enforceAdditionalProperties: true
     }
   },
@@ -452,6 +460,7 @@ export default {
     this.mergeAllOf = this.getQueryParam('mergeAllOf') ? this.parseBooleanString(this.getQueryParam('mergeAllOf')) : false
     this.enforceEnum = this.getQueryParam('enforceEnum') ? this.parseBooleanString(this.getQueryParam('enforceEnum')) : true
     this.enforceRequired = this.getQueryParam('enforceRequired') ? this.parseBooleanString(this.getQueryParam('enforceRequired')) : true
+    this.enforceMinItems = this.getQueryParam('enforceMinItems') ? this.parseBooleanString(this.getQueryParam('enforceMinItems')) : true
     this.enforceAdditionalProperties = this.getQueryParam('enforceAdditionalProperties') ? this.parseBooleanString(this.getQueryParam('enforceAdditionalProperties')) : true
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
     this.enableCollapseToggle = this.getQueryParam('enableCollapseToggle') ? this.parseBooleanString(this.getQueryParam('enableCollapseToggle')) : true
@@ -579,6 +588,7 @@ export default {
         mergeAllOf: this.mergeAllOf,
         enforceEnum: this.enforceEnum,
         enforceRequired: this.enforceRequired,
+        enforceMinItems: this.enforceMinItems,
         enforceAdditionalProperties: this.enforceAdditionalProperties,
         schema: this.schema,
         theme: this.getThemeInstance(this.theme),
@@ -653,6 +663,7 @@ export default {
       newUrl += "&mergeAllOf=" + this.mergeAllOf
       newUrl += "&enforceEnum=" + this.enforceEnum
       newUrl += "&enforceRequired=" + this.enforceRequired
+      newUrl += "&enforceMinItems=" + this.enforceMinItems
       newUrl += "&enforceAdditionalProperties=" + this.enforceAdditionalProperties
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
@@ -672,6 +683,7 @@ export default {
       newUrl += "&mergeAllOf=" + this.mergeAllOf
       newUrl += "&enforceEnum=" + this.enforceEnum
       newUrl += "&enforceRequired=" + this.enforceRequired
+      newUrl += "&enforceMinItems=" + this.enforceMinItems
       newUrl += "&enforceAdditionalProperties=" + this.enforceAdditionalProperties
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle

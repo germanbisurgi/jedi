@@ -2607,6 +2607,17 @@ class InstanceObject extends Instance {
 }
 class InstanceArray extends Instance {
   prepare() {
+    const schemaMinItems = getSchemaMinItems(this.schema);
+    const schemaEnforceMinItems = getSchemaXOption(this.schema, "enforceMinItems");
+    const enforceMinItems = isSet(schemaEnforceMinItems) ? schemaEnforceMinItems : this.jedi.options.enforceMinItems;
+    const isEditor = this.jedi.isEditor;
+    const hasEnforceMinItems = isSet(enforceMinItems) && enforceMinItems === true;
+    const hasMinItems = isSet(schemaMinItems);
+    if (isEditor && hasEnforceMinItems && hasMinItems) {
+      for (let i = 0; i < schemaMinItems; i++) {
+        this.addItem();
+      }
+    }
     this.refreshChildren();
     this.on("set-value", () => {
       this.refreshChildren();
@@ -3466,7 +3477,8 @@ class EditorArray extends Editor {
       const moveDownBtn = this.theme.getMoveDownItemBtn();
       const btnGroup = this.theme.getBtnGroup();
       const { container, arrayActions, body } = this.theme.getArrayItem({
-        readOnly: this.instance.isReadOnly()
+        readOnly: this.instance.isReadOnly(),
+        index: index2
       });
       arrayActions.appendChild(btnGroup);
       btnGroup.appendChild(deleteBtn);
@@ -4461,6 +4473,7 @@ class Jedi extends EventEmitter {
       enforceRequired: true,
       enforceEnumDefault: true,
       enforceAdditionalProperties: true,
+      enforceMinItems: true,
       enforceEnum: true
     }, options);
     this.rootName = "#";
@@ -5734,27 +5747,59 @@ class Theme {
   }
   getArrayItem(config = {}) {
     const container = document.createElement("div");
-    const card = this.getCard();
+    const body = document.createElement("div");
     const actions = this.getActionsSlot();
     const arrayActions = this.getArrayActionsSlot();
-    const header = this.getCardHeader();
-    const body = this.getCardBody();
-    container.appendChild(card);
-    card.appendChild(header);
-    card.appendChild(body);
+    actions.style.textAlign = "right";
+    container.classList.add("jedi-array-item");
+    body.classList.add("jedi-array-item-body");
+    if (isSet(config.index)) {
+      container.setAttribute("jedi-array-item-index", config.index);
+    }
     actions.appendChild(arrayActions);
     if (config.readOnly === false) {
-      header.appendChild(actions);
+      container.appendChild(actions);
     }
+    container.appendChild(body);
     return {
       container,
-      card,
-      header,
-      body,
       actions,
-      arrayActions
+      arrayActions,
+      body
     };
   }
+  // getArrayItem (config = {}) {
+  //   const container = document.createElement('div')
+  //   const card = this.getCard()
+  //   const actions = this.getActionsSlot()
+  //   const arrayActions = this.getArrayActionsSlot()
+  //   const header = this.getCardHeader()
+  //   const body = this.getCardBody()
+  //
+  //   container.classList.add('jedi-array-item')
+  //
+  //   if (isSet(config.index)) {
+  //     container.setAttribute('jedi-array-item-index', config.index)
+  //   }
+  //
+  //   container.appendChild(card)
+  //   card.appendChild(header)
+  //   card.appendChild(body)
+  //   actions.appendChild(arrayActions)
+  //
+  //   if (config.readOnly === false) {
+  //     header.appendChild(actions)
+  //   }
+  //
+  //   return {
+  //     container,
+  //     card,
+  //     header,
+  //     body,
+  //     actions,
+  //     arrayActions
+  //   }
+  // }
   /**
    * Multiple control is a card containing multiple editors options that can be
    * selected with a switcher control. Only one editor can be active/visible
