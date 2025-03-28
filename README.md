@@ -11,10 +11,10 @@ Generates forms from JSON schemas. Can be used in backend to validate JSON data 
 - [Getting Started](#getting-started)
     - [As a Validator](#as-a-validator)
     - [As an Editor](#as-an-editor)
+    - [Instance Methods](#instance-methods)
+    - [Instance event listeners](#instance-event-listeners)
 - [RefParser](#refParser)
 - [Instance Options](#instance-options)
-- [Instance Methods](#instance-methods)
-- [Instance event listeners](#instance-event-listeners)
 - [Schema Options](#schema-options)
     - [titleHidden](#titlehidden)
     - [titleIconClass](#titleiconclass)
@@ -129,9 +129,39 @@ const init = async () => {
 init()
 ```
 
-## RefParser
+## Instance Methods
 
-# JSON Schema Ref Parser
+```javascript
+    jedi.getValue() // returns the value of the editor
+    jedi.setValue({name: "Marcus mille"}) // set the editor value
+    jedi.getInstance('#/name') // gets the instance by json path
+    jedi.showValidationErrors() // displays validation errors in the respective editors
+    jedi.getErrors() // returns an array of validation error messages
+    jedi.disable() // disables the editor
+    jedi.enable() // enables the editor
+    jedi.destroy() // destroys the editor
+```
+
+## Instance event listeners
+
+```javascript
+// emitted when the jedi instance changes (whole json value/instance/editor)
+jedi.on('change', (initiator) => {
+  
+})
+
+// emitted when an instance changes (parts of the value/instance/editor)
+jedi.on('instance-change', (instance, initiator) => {
+
+})
+```
+
+The argument `ìnitiator`can have one of the two values:
+- `"api"`: indicates that the change came from a call of a method like `setValue()` or from internal mechanism of this library.
+- `"user"`: indicates that the change came from an user interaction.
+
+
+## RefParser
 
 A `RefParser` resolves `$ref` references in JSON Schemas by dereferencing then.
 
@@ -425,38 +455,6 @@ translates to:
     </tr>
   </tbody>
 </table>
-
-## Instance Methods
-
-```javascript
-    jedi.getValue() // returns the value of the editor
-    jedi.setValue({name: "Marcus mille"}) // set the editor value
-    jedi.getInstance('#/name') // gets the instance by json path
-    jedi.showValidationErrors() // displays validation errors in the respective editors
-    jedi.getErrors() // returns an array of validation error messages
-    jedi.disable() // disables the editor
-    jedi.enable() // enables the editor
-    jedi.destroy() // destroys the editor
-```
-
-## Instance event listeners
-
-```javascript
-// emitted when the jedi instance changes (whole json value/instance/editor)
-jedi.on('change', (initiator) => {
-  
-})
-
-// emitted when an instance changes (parts of the value/instance/editor)
-jedi.on('instance-change', (instance, initiator) => {
-
-})
-```
-
-The argument `ìnitiator`can have one of the two values:
-- `"api"`: indicates that the change came from a call of a method like `setValue()` or from internal mechanism of this library.
-- `"user"`: indicates that the change came from an user interaction.
-
 
 ## Schema options
 
