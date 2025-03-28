@@ -279,6 +279,7 @@ import allOfIfThen from './json/parsing/allOf-if-then.json'
 import oneOfRefs from './json/parsing/oneOf-refs.json'
 import anyOfRefs from './json/parsing/anyOf-refs.json'
 import recursiveRefs from './json/parsing/recursive-refs.json'
+import ifThenElseValueOverrides from './json/issues/if-then-else-value-overrides.json'
 
 
 export default {
@@ -395,6 +396,9 @@ export default {
           'validator/required': required,
           'validator/type': typeValidator,
           'validator/uniqueItems': uniqueItems,
+        },
+        'Fixed issues': {
+          'issue/if-then-else-value-overrides': ifThenElseValueOverrides
         }
       },
       example: 'editors/all',

@@ -23,6 +23,9 @@
   "$defs": {
     "animal": {
       "type": "object",
+      "required": [
+        "presence"
+      ],
       "properties": {
         "presence": {
           "type": "string",
@@ -34,7 +37,7 @@
           ],
           "x-options": {
             "enforceEnumDefault": false,
-            "format": "radios"
+            "format": "radios-inline"
           }
         }
       },

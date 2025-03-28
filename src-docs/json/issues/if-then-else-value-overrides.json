@@ -1,0 +1,116 @@
+{
+  "type": "object",
+  "required": [
+    "test"
+  ],
+  "properties": {
+    "test": {
+      "$ref": "#/$defs/global/myDef",
+      "properties": {
+        "propA": {
+        },
+        "propB": {
+        }
+      }
+    }
+  },
+  "$defs": {
+    "global": {
+      "myDef": {
+        "type": "object",
+        "required": [
+          "propA"
+        ],
+        "properties": {
+          "propA": {
+            "type": "string",
+            "enum": [
+              "yes",
+              "no",
+              "unknown",
+              "none"
+            ],
+            "x-options": {
+              "enumTitles": [
+                "yes",
+                "no",
+                "unknown",
+                "none"
+              ],
+              "enforceEnumDefault": false,
+              "format": "radios-inline"
+            }
+          },
+          "propB": {
+            "x-options": {
+              "enforceConst": true
+            }
+          }
+        },
+        "if": {
+          "properties": {
+            "propA": {
+              "const": "yes",
+              "anyOf": [
+                {
+                  "const": "yes"
+                },
+                {
+                  "const": "no"
+                }
+              ]
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "propB": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0
+            }
+          },
+          "if": {
+            "properties": {
+              "propA": {
+                "const": "no"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "propB": {
+                "type": "integer",
+                "const": 0,
+                "readOnly": true
+              }
+            }
+          }
+        },
+        "else": {
+          "if": {
+            "properties": {
+              "propA": {
+                "const": "unknown"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "propB": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "propB": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
