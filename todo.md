@@ -10,12 +10,10 @@
   - info variant popover
   - use editor methods and overrides in build configs
   - use super.refreshUI() in all editors
-  - set input names like id
 
   
 Features
   - x-messages categorized by language
-  - rename `enforceEnumDefault` to `enforceEnumValue`
   - use flat x- options in playground
   - enumSource
 

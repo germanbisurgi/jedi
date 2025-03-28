@@ -1081,6 +1081,7 @@ class Theme {
 
     input.setAttribute('aria-describedby', describedBy)
     input.setAttribute('id', config.id)
+    input.setAttribute('name', config.id)
     input.style.width = '100%'
 
     if (config?.info?.variant === 'modal') {
@@ -1136,6 +1137,7 @@ class Theme {
     input.setAttribute('aria-describedby', describedBy)
     input.setAttribute('type', config.type)
     input.setAttribute('id', config.id)
+    input.setAttribute('name', config.id)
     input.style.width = '100%'
 
     container.appendChild(label)
@@ -1291,6 +1293,7 @@ class Theme {
 
     input.setAttribute('type', 'checkbox')
     input.setAttribute('id', config.id)
+    input.setAttribute('name', config.id)
     input.setAttribute('aria-describedby', describedBy)
 
     if (config?.info?.variant === 'modal') {
@@ -1357,6 +1360,7 @@ class Theme {
 
       checkbox.setAttribute('type', 'checkbox')
       checkbox.setAttribute('id', checkboxId)
+      checkbox.setAttribute('name', config.id)
       checkbox.setAttribute('value', value)
       checkbox.setAttribute('aria-describedby', describedBy)
 
@@ -1438,6 +1442,7 @@ class Theme {
     })
 
     input.setAttribute('id', config.id)
+    input.setAttribute('name', config.id)
     input.setAttribute('aria-describedby', describedBy)
 
     config.values.forEach((value, index) => {
