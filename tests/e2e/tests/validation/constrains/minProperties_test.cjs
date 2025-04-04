@@ -7,6 +7,7 @@ Scenario('@constrain @minProperties should display validation errors', ({ I }) =
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/minProperties')
+  I._waitForElement('.jedi-ready')
   I.selectOption('#show-errors', 'always')
   I._waitForElement('.jedi-ready')
   I._waitForText('Must have at least 1 properties', '[data-path="#"]')

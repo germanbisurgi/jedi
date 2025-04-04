@@ -7,6 +7,7 @@ Scenario('@constrain @minimum should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/minimum')
+  I._waitForElement('.jedi-ready')
   I.selectOption('#show-errors', 'always')
   I._waitForElement('.jedi-ready')
   I._waitForText('Must be at least 100', '[data-path="#/number"]')

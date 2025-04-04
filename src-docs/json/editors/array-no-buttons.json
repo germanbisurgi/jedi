@@ -1,0 +1,17 @@
+{
+  "x-arrayAdd": false,
+  "x-arrayMove": false,
+  "x-arrayDelete": false,
+  "type": "array",
+  "title": "Array",
+  "description": "Arrays are used for ordered elements. In JSON, each element in an array may be of a different type.",
+  "default": [
+    "Alice",
+    "Bob",
+    "Carl"
+  ],
+  "items": {
+    "title": "I am an array item editor",
+    "type": "string"
+  }
+}

@@ -25,7 +25,8 @@ class EditorArray extends Editor {
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, 'enableCollapseToggle'),
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, 'startCollapsed'),
       readOnly: this.instance.isReadOnly(),
-      info: this.getInfo()
+      info: this.getInfo(),
+      arrayAdd: getSchemaXOption(this.instance.schema, 'arrayAdd') ?? this.instance.jedi.options.arrayAdd
     })
   }
 
@@ -71,6 +72,8 @@ class EditorArray extends Editor {
   refreshUI () {
     const maxItems = getSchemaMaxItems(this.instance.schema)
     const minItems = getSchemaMinItems(this.instance.schema)
+    const arrayDelete = getSchemaXOption(this.instance.schema, 'arrayDelete') ?? this.instance.jedi.options.arrayDelete
+    const arrayMove = getSchemaXOption(this.instance.schema, 'arrayMove') ?? this.instance.jedi.options.arrayMove
 
     this.control.childrenSlot.innerHTML = ''
 
@@ -86,9 +89,15 @@ class EditorArray extends Editor {
       })
 
       arrayActions.appendChild(btnGroup)
-      btnGroup.appendChild(deleteBtn)
-      btnGroup.appendChild(moveUpBtn)
-      btnGroup.appendChild(moveDownBtn)
+
+      if (isSet(arrayDelete) && arrayDelete === true) {
+        btnGroup.appendChild(deleteBtn)
+      }
+
+      if (isSet(arrayMove) && arrayMove === true) {
+        btnGroup.appendChild(moveUpBtn)
+        btnGroup.appendChild(moveDownBtn)
+      }
 
       if (index === 0) {
         moveUpBtn.setAttribute('always-disabled', true)

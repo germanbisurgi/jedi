@@ -866,12 +866,14 @@ class Theme {
 
     body.appendChild(messages)
 
-    if (config.readOnly === false) {
-      legend.appendChild(actions)
-    }
+    legend.appendChild(actions)
 
     actions.appendChild(btnGroup)
-    btnGroup.appendChild(addBtn)
+
+    if (isSet(config.arrayAdd) && config.arrayAdd === true) {
+      btnGroup.appendChild(addBtn)
+    }
+
     body.appendChild(childrenSlot)
 
     if (config.enableCollapseToggle) {
@@ -910,9 +912,7 @@ class Theme {
 
     actions.appendChild(arrayActions)
 
-    if (config.readOnly === false) {
-      container.appendChild(actions)
-    }
+    container.appendChild(actions)
 
     container.appendChild(body)
 

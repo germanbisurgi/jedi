@@ -181,6 +181,7 @@ import EditorStringCustom from "./js/custom-editor.js";
 import Jedi from '/src/index.js'
 import all from './json/editors/all.json'
 import array from './json/editors/array.json'
+import arrayNoButtons from './json/editors/array-no-buttons.json'
 import arrayCheckboxes from './json/editors/array-checkboxes.json'
 import arrayCheckboxesInline from './json/editors/array-checkboxes-inline.json'
 import arrayNavTable from './json/editors/array-table.json'
@@ -301,6 +302,7 @@ export default {
         'Editors': {
           'editors/all': all,
           'editors/array': array,
+          'editors/array-no-buttons': arrayNoButtons,
           'editors/array-checkboxes': arrayCheckboxes,
           'editors/array-checkboxes-inline': arrayCheckboxesInline,
           'editors/array-nav-vertical': arrayNavVertical,

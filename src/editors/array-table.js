@@ -70,6 +70,9 @@ class EditorArrayTable extends EditorArray {
 
     tempEditor.destroy()
 
+    const arrayDelete = getSchemaXOption(this.instance.schema, 'arrayDelete') ?? this.instance.jedi.options.arrayDelete
+    const arrayMove = getSchemaXOption(this.instance.schema, 'arrayMove') ?? this.instance.jedi.options.arrayMove
+
     // tbody rows
     this.instance.children.forEach((child, index) => {
       const tbodyRow = document.createElement('tr')
@@ -115,9 +118,15 @@ class EditorArrayTable extends EditorArray {
         btnGroup.appendChild(dragBtn)
       }
 
-      btnGroup.appendChild(moveUpBtn)
-      btnGroup.appendChild(moveDownBtn)
-      btnGroup.appendChild(deleteBtn)
+      if (isSet(arrayDelete) && arrayDelete === true) {
+        btnGroup.appendChild(deleteBtn)
+      }
+
+      if (isSet(arrayMove) && arrayMove === true) {
+        btnGroup.appendChild(moveUpBtn)
+        btnGroup.appendChild(moveDownBtn)
+      }
+
       buttonsTd.appendChild(btnGroup)
       tbodyRow.appendChild(buttonsTd)
 

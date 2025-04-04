@@ -5,6 +5,7 @@
 
 
 - Editor
+  - ternary options
   - refactor setInitialValue
   - info variant tooltip
   - info variant popover

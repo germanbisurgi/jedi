@@ -50,9 +50,8 @@ class InstanceObject extends Instance {
       })
     }
 
-    // todo: is this correct?
     // Add properties listed in schema required too if not present in schema properties
-    if (isSet(schemaRequired)) {
+    if (isSet(schemaRequired) && this.jedi.isEditor && this.jedi.options.enforceRequired === true) {
       schemaRequired.forEach((requiredProperty) => {
         this.requiredProperties.add(requiredProperty)
 

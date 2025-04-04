@@ -2424,7 +2424,7 @@ class InstanceObject extends Instance {
         }
       });
     }
-    if (isSet(schemaRequired)) {
+    if (isSet(schemaRequired) && this.jedi.isEditor && this.jedi.options.enforceRequired === true) {
       schemaRequired.forEach((requiredProperty) => {
         this.requiredProperties.add(requiredProperty);
         if (!hasOwn(this.properties, requiredProperty)) {
@@ -2665,6 +2665,8 @@ class InstanceArray extends Instance {
     value.splice(fromIndex, 1);
     value.splice(toIndex, 0, item);
     this.setValue(value, true, initiator);
+    this.emit("item-move", initiator);
+    this.jedi.emit("item-move", initiator);
   }
   addItem(initiator) {
     const tempEditor = this.createItemInstance();
@@ -2672,11 +2674,16 @@ class InstanceArray extends Instance {
     value.push(tempEditor.getValue());
     tempEditor.destroy();
     this.setValue(value, true, initiator);
+    const instance = this.children[this.children.length - 1];
+    this.emit("item-add", initiator, instance);
+    this.jedi.emit("item-add", initiator, instance);
   }
   deleteItem(itemIndex, initiator) {
     const currentValue = clone(this.getValue());
     const newValue = currentValue.filter((item, index2) => index2 !== itemIndex);
     this.setValue(newValue, true, initiator);
+    this.emit("item-delete", initiator);
+    this.jedi.emit("item-delete", initiator);
   }
   onChildChange(initiator) {
     const value = [];
@@ -3444,7 +3451,8 @@ class EditorArray extends Editor {
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
       readOnly: this.instance.isReadOnly(),
-      info: this.getInfo()
+      info: this.getInfo(),
+      arrayAdd: getSchemaXOption(this.instance.schema, "arrayAdd") ?? this.instance.jedi.options.arrayAdd
     });
   }
   addEventListeners() {
@@ -3482,6 +3490,8 @@ class EditorArray extends Editor {
   refreshUI() {
     const maxItems2 = getSchemaMaxItems(this.instance.schema);
     const minItems2 = getSchemaMinItems(this.instance.schema);
+    const arrayDelete = getSchemaXOption(this.instance.schema, "arrayDelete") ?? this.instance.jedi.options.arrayDelete;
+    const arrayMove = getSchemaXOption(this.instance.schema, "arrayMove") ?? this.instance.jedi.options.arrayMove;
     this.control.childrenSlot.innerHTML = "";
     this.instance.children.forEach((child, index2) => {
       const itemIndex = Number(child.getKey());
@@ -3494,9 +3504,13 @@ class EditorArray extends Editor {
         index: index2
       });
       arrayActions.appendChild(btnGroup);
-      btnGroup.appendChild(deleteBtn);
-      btnGroup.appendChild(moveUpBtn);
-      btnGroup.appendChild(moveDownBtn);
+      if (isSet(arrayDelete) && arrayDelete === true) {
+        btnGroup.appendChild(deleteBtn);
+      }
+      if (isSet(arrayMove) && arrayMove === true) {
+        btnGroup.appendChild(moveUpBtn);
+        btnGroup.appendChild(moveDownBtn);
+      }
       if (index2 === 0) {
         moveUpBtn.setAttribute("always-disabled", true);
       }
@@ -3586,6 +3600,8 @@ class EditorArrayTable extends EditorArray {
       table.thead.appendChild(th2);
     });
     tempEditor.destroy();
+    const arrayDelete = getSchemaXOption(this.instance.schema, "arrayDelete") ?? this.instance.jedi.options.arrayDelete;
+    const arrayMove = getSchemaXOption(this.instance.schema, "arrayMove") ?? this.instance.jedi.options.arrayMove;
     this.instance.children.forEach((child, index2) => {
       const tbodyRow = document.createElement("tr");
       const buttonsTd = this.theme.getTableDefinition();
@@ -3620,9 +3636,13 @@ class EditorArrayTable extends EditorArray {
         const dragBtn = this.theme.getDragItemBtn();
         btnGroup.appendChild(dragBtn);
       }
-      btnGroup.appendChild(moveUpBtn);
-      btnGroup.appendChild(moveDownBtn);
-      btnGroup.appendChild(deleteBtn);
+      if (isSet(arrayDelete) && arrayDelete === true) {
+        btnGroup.appendChild(deleteBtn);
+      }
+      if (isSet(arrayMove) && arrayMove === true) {
+        btnGroup.appendChild(moveUpBtn);
+        btnGroup.appendChild(moveDownBtn);
+      }
       buttonsTd.appendChild(btnGroup);
       tbodyRow.appendChild(buttonsTd);
       if (child.children.length) {
@@ -3785,6 +3805,8 @@ class EditorArrayNav extends EditorArray {
     const tabList = this.theme.getTabList({
       variant
     });
+    const arrayDelete = getSchemaXOption(this.instance.schema, "arrayDelete") ?? this.instance.jedi.options.arrayDelete;
+    const arrayMove = getSchemaXOption(this.instance.schema, "arrayMove") ?? this.instance.jedi.options.arrayMove;
     this.control.childrenSlot.appendChild(row);
     row.appendChild(tabListCol);
     row.appendChild(tabContentCol);
@@ -3795,9 +3817,13 @@ class EditorArrayNav extends EditorArray {
       const moveUpBtn = this.theme.getMoveUpItemBtn();
       const moveDownBtn = this.theme.getMoveDownItemBtn();
       const btnGroup = this.theme.getBtnGroup();
-      btnGroup.appendChild(deleteBtn);
-      btnGroup.appendChild(moveUpBtn);
-      btnGroup.appendChild(moveDownBtn);
+      if (isSet(arrayDelete) && arrayDelete === true) {
+        btnGroup.appendChild(deleteBtn);
+      }
+      if (isSet(arrayMove) && arrayMove === true) {
+        btnGroup.appendChild(moveUpBtn);
+        btnGroup.appendChild(moveDownBtn);
+      }
       this.control.childrenSlot.appendChild(child.ui.control.container);
       let childTitle;
       const schemaOptionTitleTemplate = getSchemaXOption(this.instance.schema, "titleTemplate");
@@ -4463,6 +4489,9 @@ class Jedi extends EventEmitter {
       refParser: null,
       enablePropertiesToggle: false,
       enableCollapseToggle: false,
+      arrayDelete: true,
+      arrayMove: true,
+      arrayAdd: true,
       startCollapsed: false,
       deactivateNonRequired: false,
       schema: {},
@@ -5735,11 +5764,11 @@ class Theme {
       body.appendChild(description);
     }
     body.appendChild(messages);
-    if (config.readOnly === false) {
-      legend.appendChild(actions);
-    }
+    legend.appendChild(actions);
     actions.appendChild(btnGroup);
-    btnGroup.appendChild(addBtn);
+    if (isSet(config.arrayAdd) && config.arrayAdd === true) {
+      btnGroup.appendChild(addBtn);
+    }
     body.appendChild(childrenSlot);
     if (config.enableCollapseToggle) {
       actions.appendChild(collapseToggle);
@@ -5770,9 +5799,7 @@ class Theme {
       container.setAttribute("jedi-array-item-index", config.index);
     }
     actions.appendChild(arrayActions);
-    if (config.readOnly === false) {
-      container.appendChild(actions);
-    }
+    container.appendChild(actions);
     container.appendChild(body);
     return {
       container,

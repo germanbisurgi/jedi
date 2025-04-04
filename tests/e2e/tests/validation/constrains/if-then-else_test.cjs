@@ -7,6 +7,7 @@ Scenario('@constrain @if-then-else validate against @if-then-else-deeply-nested-
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then-else-deeply-nested-and-unselected')
+  I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
 
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
@@ -76,6 +77,7 @@ Scenario('@constrain @if-then-else validate against @if-then-else-nested-simple'
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then-else-nested-simple')
+  I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
 
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
@@ -112,6 +114,7 @@ Scenario('@constrain @if-then-else validate against @if-then-else-nested-complex
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then-else-nested-complex')
+  I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
 
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
@@ -220,6 +223,7 @@ Scenario('@constrain @if-then-else validate against @if-then-else-nested-complex
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then-else-nested-complex-2')
+  I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
 
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
@@ -293,6 +297,7 @@ Scenario('@constrain @if-then-else validate against @if-then-else-nested-basic',
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then-else-nested')
+  I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
   I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "vehicleType": "motorcycle",
@@ -323,6 +328,7 @@ Scenario('@constrain @if-then-else validate against @if-then-else ', async ({ I 
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then-else')
+  I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
 
   I.selectOption('[id="root-country"]', 'America')
@@ -350,6 +356,7 @@ Scenario('@constrain @if-then-else validate against @if-then', async ({ I }) => 
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then')
+  I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
 
   I.selectOption('[id="root-country"]', 'America')
@@ -377,6 +384,7 @@ Scenario('@constrain @if-then-else validate against @if-else', async ({ I }) => 
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-else')
+  I._waitForElement('.jedi-ready')
   I._scrollTo('[data-path="#"]')
 
   I.selectOption('[id="root-country"]', 'America')

@@ -154,6 +154,21 @@ jedi.on('change', (initiator) => {
 jedi.on('instance-change', (instance, initiator) => {
 
 })
+
+// emitted when a new item to an array instance
+jedi.editor.on('item-add', (initiator, newInstance) => {
+
+})
+
+// emitted when an item is removed from an array instance
+jedi.editor.on('item-delete', (initiator) => {
+
+})
+
+// emitted when a new item is move up or down in an array instance
+jedi.editor.on('item-move', (initiator) => {
+
+})
 ```
 
 The argument `ìnitiator`can have one of the two values:

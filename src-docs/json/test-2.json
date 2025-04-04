@@ -1,32 +1,53 @@
 {
-  "title": "Feldhase",
   "type": "object",
   "required": [
-    "vk"
+    "notes"
   ],
+  "x-titleHidden": true,
   "properties": {
-    "vk": {
-      "title": "Kamen die Arten im Frühjahr 2025 in Ihrem Revier vor?",
-      "type": "string",
-      "enum": [
-        "ja",
-        "nein",
-        "unbekannt",
-        "keine Angabe"
-      ],
-      "x-options": {
-        "format": "radios",
-        "enforceEnumDefault": false,
-        "messages": [
-          "Bitte wählen Sie eine Antwortmöglichkeit aus."
-        ],
-        "info": {
-          "variant": "modal",
-          "title": "Informationen zur Frühjahrsbeobachtung 2025",
-          "content": "Geben Sie an, ob die Arten im Frühjahr 2025 in Ihrem Revier vorkamen: Ja, Nein, Unbekannt oder Keine Angabe."
+    "notes": {
+      "x-titleHidden": true,
+      "default": [
+        {
+          "text": "",
+          "date": "2025-03-29 08:49"
+        },
+        {
+          "text": "",
+          "date": "2025-03-30 08:49"
         }
-      },
-      "default": ""
+      ],
+      "type": "array",
+      "x-format": "",
+      "maxItems": 50,
+      "items": {
+        "x-titleHidden": true,
+        "type": "object",
+        "required": [
+          "text",
+          "date"
+        ],
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string",
+            "maxLength": 500,
+            "x-format": "textarea",
+            "x-inputAttributes": {
+              "rows": 4
+            }
+          },
+          "date": {
+            "title": "Date",
+            "type": "string",
+            "default": "2025-03-31 08:49",
+            "x-format": "datetime-local",
+            "x-inputAttributes": {
+              "readonly": true
+            }
+          }
+        }
+      }
     }
   }
 }

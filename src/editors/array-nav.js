@@ -43,6 +43,9 @@ class EditorArrayNav extends EditorArray {
       variant: variant
     })
 
+    const arrayDelete = getSchemaXOption(this.instance.schema, 'arrayDelete') ?? this.instance.jedi.options.arrayDelete
+    const arrayMove = getSchemaXOption(this.instance.schema, 'arrayMove') ?? this.instance.jedi.options.arrayMove
+
     this.control.childrenSlot.appendChild(row)
     row.appendChild(tabListCol)
     row.appendChild(tabContentCol)
@@ -55,9 +58,14 @@ class EditorArrayNav extends EditorArray {
       const moveDownBtn = this.theme.getMoveDownItemBtn()
       const btnGroup = this.theme.getBtnGroup()
 
-      btnGroup.appendChild(deleteBtn)
-      btnGroup.appendChild(moveUpBtn)
-      btnGroup.appendChild(moveDownBtn)
+      if (isSet(arrayDelete) && arrayDelete === true) {
+        btnGroup.appendChild(deleteBtn)
+      }
+
+      if (isSet(arrayMove) && arrayMove === true) {
+        btnGroup.appendChild(moveUpBtn)
+        btnGroup.appendChild(moveDownBtn)
+      }
 
       this.control.childrenSlot.appendChild(child.ui.control.container)
 

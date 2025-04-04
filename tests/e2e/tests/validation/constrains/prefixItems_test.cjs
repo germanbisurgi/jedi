@@ -7,6 +7,7 @@ Scenario('@constrain should validate against @prefixItems', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/prefixItems')
+  I._waitForElement('.jedi-ready')
   I.selectOption('#show-errors', 'always')
   I._waitForElement('.jedi-ready')
   I._click('[data-path="#"] .jedi-array-add')
