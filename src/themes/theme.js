@@ -169,7 +169,7 @@ class Theme {
       this.visuallyHidden(label)
     }
 
-    labelText.innerHTML = config.text
+    labelText.innerHTML = config.content
 
     if (config.titleIconClass) {
       this.addIconClass(icon, config.titleIconClass)
@@ -475,9 +475,9 @@ class Theme {
   /**
    * Array "add" item button
    */
-  getArrayBtnAdd () {
+  getArrayBtnAdd (config) {
     const html = this.getButton({
-      content: 'Add item',
+      content: config.content,
       icon: 'add'
     })
     html.classList.add('jedi-array-add')
@@ -495,9 +495,9 @@ class Theme {
   /**
    * Array "delete" item button
    */
-  getDeleteItemBtn () {
+  getDeleteItemBtn (config) {
     const deleteItemBtn = this.getButton({
-      content: 'Delete item',
+      content: config.content,
       icon: 'delete'
     })
 
@@ -509,9 +509,9 @@ class Theme {
   /**
    * Array "move up" item button
    */
-  getMoveUpItemBtn () {
+  getMoveUpItemBtn (config) {
     const moveUpItemBtn = this.getButton({
-      content: 'Move up',
+      content: config.content,
       icon: 'moveUp'
     })
 
@@ -523,9 +523,9 @@ class Theme {
   /**
    * Array "move down" item button
    */
-  getMoveDownItemBtn () {
+  getMoveDownItemBtn (config) {
     const moveDownItemBtn = this.getButton({
-      content: 'Move down',
+      content: config.content,
       icon: 'moveDown'
     })
 
@@ -534,9 +534,9 @@ class Theme {
     return moveDownItemBtn
   }
 
-  getDragItemBtn () {
+  getDragItemBtn (config) {
     const dragItemBtn = this.getButton({
-      content: 'Drag',
+      content: config.content,
       icon: 'drag'
     })
 
@@ -714,7 +714,7 @@ class Theme {
       id: 'properties-slot-' + config.id
     })
     const propertiesToggle = this.getPropertiesToggle({
-      content: 'properties',
+      content: config.propertiesToggleContent,
       id: 'properties-slot-toggle-' + config.id,
       icon: 'properties',
       propertiesContainer: propertiesContainer
@@ -724,7 +724,7 @@ class Theme {
       startCollapsed: config.startCollapsed
     })
     const collapseToggle = this.getCollapseToggle({
-      content: 'collapse',
+      content: config.collapseToggleContent,
       id: 'collapse-toggle-' + config.id,
       icon: 'collapse',
       collapseId: collapseId,
@@ -734,7 +734,7 @@ class Theme {
     const addPropertyControl = this.getInputControl({
       type: 'text',
       id: 'jedi-add-property-input-' + config.id,
-      title: 'Property'
+      title: config.addPropertyContent
     })
     const addPropertyBtn = this.getAddPropertyButton()
     const fieldset = this.getFieldset()
@@ -822,7 +822,9 @@ class Theme {
     const messages = this.getMessagesSlot()
     const childrenSlot = this.getChildrenSlot()
     const btnGroup = this.getBtnGroup()
-    const addBtn = this.getArrayBtnAdd()
+    const addBtn = this.getArrayBtnAdd({
+      content: config.arrayAddContent
+    })
     const fieldset = this.getFieldset()
     const info = this.getInfo(config.info)
     const { legend, legendText } = this.getLegend({
@@ -838,7 +840,7 @@ class Theme {
       startCollapsed: config.startCollapsed
     })
     const collapseToggle = this.getCollapseToggle({
-      content: config.title + ' ' + 'properties',
+      content: config.collapseToggleContent,
       id: 'collapse-toggle-' + config.id,
       icon: 'collapse',
       collapseId: collapseId,
@@ -1027,7 +1029,7 @@ class Theme {
     const info = this.getInfo(config.info)
     const { label, labelText } = this.getFakeLabel({
       for: config.id,
-      text: config.title,
+      content: config.title,
       visuallyHidden: config.titleHidden,
       titleIconClass: config.titleIconClass
     })

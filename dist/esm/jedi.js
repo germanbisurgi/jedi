@@ -3207,7 +3207,10 @@ class EditorObject extends Editor {
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
       readOnly: this.instance.isReadOnly(),
-      info: this.getInfo()
+      info: this.getInfo(),
+      propertiesToggleContent: getSchemaXOption(this.instance.schema, "propertiesToggleContent") ?? this.instance.jedi.translator.translate("propertiesToggle"),
+      collapseToggleContent: getSchemaXOption(this.instance.schema, "collapseToggleContent") ?? this.instance.jedi.translator.translate("collapseToggle"),
+      addPropertyContent: getSchemaXOption(this.instance.schema, "addPropertyContent") ?? this.instance.jedi.translator.translate("objectAddProperty")
     });
   }
   addEventListeners() {
@@ -3230,7 +3233,7 @@ class EditorObject extends Editor {
       const schemaTitle = getSchemaTitle(child.schema);
       const label = isSet(schemaTitle) ? schemaTitle : propertyName;
       const ariaLiveMessage = this.theme.getAriaLiveMessage();
-      ariaLiveMessage.textContent = label + " field was added to the form";
+      ariaLiveMessage.textContent = label + " " + this.instance.jedi.translator.translate("objectPropertyAdded");
       ariaLive.appendChild(ariaLiveMessage);
       this.control.propertiesContainer.close();
       this.control.propertiesContainer.showModal();
@@ -3278,11 +3281,11 @@ class EditorObject extends Editor {
               this.instance.createChild(schema, property);
             }
             this.instance.getChild(property).activate();
-            ariaLiveMessage.textContent = title + " field was added to the form";
+            ariaLiveMessage.textContent = title + " " + this.instance.jedi.translator.translate("objectPropertyAdded");
             ariaLive.appendChild(ariaLiveMessage);
           } else {
             this.instance.getChild(property).deactivate();
-            ariaLiveMessage.textContent = title + " field was removed from the form";
+            ariaLiveMessage.textContent = title + " " + this.instance.jedi.translator.translate("objectPropertyRemoved");
             ariaLive.appendChild(ariaLiveMessage);
           }
           this.control.propertiesContainer.close();
@@ -3442,6 +3445,10 @@ class EditorArray extends Editor {
   static resolves(schema) {
     return getSchemaType(schema) === "array";
   }
+  init() {
+    super.init();
+    this.activeItemIndex = 0;
+  }
   build() {
     this.control = this.theme.getArrayControl({
       title: this.getTitle(),
@@ -3452,7 +3459,9 @@ class EditorArray extends Editor {
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
       readOnly: this.instance.isReadOnly(),
       info: this.getInfo(),
-      arrayAdd: getSchemaXOption(this.instance.schema, "arrayAdd") ?? this.instance.jedi.options.arrayAdd
+      arrayAdd: getSchemaXOption(this.instance.schema, "arrayAdd") ?? this.instance.jedi.options.arrayAdd,
+      arrayAddContent: getSchemaXOption(this.instance.schema, "arrayAddContent") ?? this.instance.jedi.translator.translate("arrayAdd"),
+      collapseToggleContent: getSchemaXOption(this.instance.schema, "collapseToggleContent") ?? this.instance.jedi.translator.translate("collapseToggle")
     });
   }
   addEventListeners() {
@@ -3468,6 +3477,49 @@ class EditorArray extends Editor {
       return value;
     }
     return [];
+  }
+  getButtons(index2) {
+    const schemaDeleteContent = getSchemaXOption(this.instance.schema, "arrayDeleteContent");
+    const schemaMoveUpContent = getSchemaXOption(this.instance.schema, "arrayMoveUpContent");
+    const schemaMoveDownContent = getSchemaXOption(this.instance.schema, "arrayMoveDownContent");
+    const schemaDragContent = getSchemaXOption(this.instance.schema, "arrayDragContent");
+    const deleteBtn = this.theme.getDeleteItemBtn({
+      content: schemaDeleteContent ?? this.instance.jedi.translator.translate("arrayDelete")
+    });
+    const moveUpBtn = this.theme.getMoveUpItemBtn({
+      content: schemaMoveUpContent ?? this.instance.jedi.translator.translate("arrayMoveUp")
+    });
+    const moveDownBtn = this.theme.getMoveDownItemBtn({
+      content: schemaMoveDownContent ?? this.instance.jedi.translator.translate("arrayMoveDown")
+    });
+    const dragBtn = this.theme.getDragItemBtn({
+      content: schemaDragContent ?? this.instance.jedi.translator.translate("arrayDrag")
+    });
+    const btnGroup = this.theme.getBtnGroup();
+    deleteBtn.addEventListener("click", () => {
+      const confirmDeletion = window.confirm(this.instance.jedi.translator.translate("arrayConfirmDelete"));
+      if (confirmDeletion) {
+        this.activeItemIndex = clamp(index2 - 1, 0, this.instance.value.length - 1);
+        this.instance.deleteItem(index2, "user");
+      }
+    });
+    moveUpBtn.addEventListener("click", () => {
+      const toIndex = index2 - 1;
+      this.activeItemIndex = toIndex;
+      this.instance.move(index2, toIndex, "user");
+    });
+    moveDownBtn.addEventListener("click", () => {
+      const toIndex = index2 + 1;
+      this.activeItemIndex = toIndex;
+      this.instance.move(index2, toIndex, "user");
+    });
+    if (index2 === 0) {
+      moveUpBtn.setAttribute("always-disabled", true);
+    }
+    if (index2 === this.instance.children.length - 1) {
+      moveDownBtn.setAttribute("always-disabled", true);
+    }
+    return { deleteBtn, moveUpBtn, moveDownBtn, btnGroup, dragBtn };
   }
   isSortable() {
     return window.Sortable && isSet(getSchemaXOption(this.instance.schema, "sortable"));
@@ -3494,11 +3546,7 @@ class EditorArray extends Editor {
     const arrayMove = getSchemaXOption(this.instance.schema, "arrayMove") ?? this.instance.jedi.options.arrayMove;
     this.control.childrenSlot.innerHTML = "";
     this.instance.children.forEach((child, index2) => {
-      const itemIndex = Number(child.getKey());
-      const deleteBtn = this.theme.getDeleteItemBtn();
-      const moveUpBtn = this.theme.getMoveUpItemBtn();
-      const moveDownBtn = this.theme.getMoveDownItemBtn();
-      const btnGroup = this.theme.getBtnGroup();
+      const { deleteBtn, moveUpBtn, moveDownBtn, dragBtn, btnGroup } = this.getButtons(index2);
       const { container, arrayActions, body } = this.theme.getArrayItem({
         readOnly: this.instance.isReadOnly(),
         index: index2
@@ -3511,33 +3559,11 @@ class EditorArray extends Editor {
         btnGroup.appendChild(moveUpBtn);
         btnGroup.appendChild(moveDownBtn);
       }
-      if (index2 === 0) {
-        moveUpBtn.setAttribute("always-disabled", true);
-      }
-      if (index2 === this.instance.children.length - 1) {
-        moveDownBtn.setAttribute("always-disabled", true);
-      }
       if (this.isSortable()) {
-        const dragBtn = this.theme.getDragItemBtn();
         btnGroup.appendChild(dragBtn);
       }
       this.control.childrenSlot.appendChild(container);
       body.appendChild(child.ui.control.container);
-      deleteBtn.addEventListener("click", () => {
-        const confirmDeletion = window.confirm("Are you sure you want to delete this item?");
-        if (confirmDeletion) {
-          const itemIndex2 = Number(child.path.split(this.instance.jedi.pathSeparator).pop());
-          this.instance.deleteItem(itemIndex2, "user");
-        }
-      });
-      moveUpBtn.addEventListener("click", () => {
-        const toIndex = itemIndex - 1;
-        this.instance.move(itemIndex, toIndex, "user");
-      });
-      moveDownBtn.addEventListener("click", () => {
-        const toIndex = itemIndex + 1;
-        this.instance.move(itemIndex, toIndex, "user");
-      });
       if (this.disabled || this.instance.isReadOnly()) {
         child.ui.disable();
       } else {
@@ -3558,13 +3584,9 @@ class EditorArrayTable extends EditorArray {
   static resolves(schema) {
     return getSchemaType(schema) === "array" && getSchemaXOption(schema, "format") === "table";
   }
-  init() {
-    super.init();
-    this.activeTabIndex = 0;
-  }
   addEventListeners() {
     this.control.addBtn.addEventListener("click", () => {
-      this.activeTabIndex = this.instance.value.length;
+      this.activeItemIndex = this.instance.value.length;
       this.instance.addItem("user");
     });
   }
@@ -3577,7 +3599,7 @@ class EditorArrayTable extends EditorArray {
     this.control.childrenSlot.appendChild(table.container);
     const th = this.theme.getTableHeader();
     const { label } = this.theme.getFakeLabel({
-      text: "Controls",
+      content: "Controls",
       visuallyHidden: true
     });
     th.appendChild(label);
@@ -3605,35 +3627,8 @@ class EditorArrayTable extends EditorArray {
     this.instance.children.forEach((child, index2) => {
       const tbodyRow = document.createElement("tr");
       const buttonsTd = this.theme.getTableDefinition();
-      const deleteBtn = this.theme.getDeleteItemBtn();
-      const moveUpBtn = this.theme.getMoveUpItemBtn();
-      const moveDownBtn = this.theme.getMoveDownItemBtn();
-      const btnGroup = this.theme.getBtnGroup();
-      if (index2 === 0) {
-        moveUpBtn.setAttribute("always-disabled", true);
-      }
-      if (index2 === this.instance.children.length - 1) {
-        moveDownBtn.setAttribute("always-disabled", true);
-      }
-      deleteBtn.addEventListener("click", () => {
-        const confirmDeletion = window.confirm("Are you sure you want to delete this item?");
-        if (confirmDeletion) {
-          this.activeTabIndex = clamp(index2 - 1, 0, this.instance.value.length - 1);
-          this.instance.deleteItem(index2, "user");
-        }
-      });
-      moveUpBtn.addEventListener("click", () => {
-        const toIndex = index2 - 1;
-        this.activeTabIndex = toIndex;
-        this.instance.move(index2, toIndex, "user");
-      });
-      moveDownBtn.addEventListener("click", () => {
-        const toIndex = index2 + 1;
-        this.activeTabIndex = toIndex;
-        this.instance.move(index2, toIndex, "user");
-      });
+      const { deleteBtn, moveUpBtn, moveDownBtn, dragBtn, btnGroup } = this.getButtons(index2);
       if (this.isSortable()) {
-        const dragBtn = this.theme.getDragItemBtn();
         btnGroup.appendChild(dragBtn);
       }
       if (isSet(arrayDelete) && arrayDelete === true) {
@@ -3780,13 +3775,9 @@ class EditorArrayNav extends EditorArray {
     const hasNavFormat = regex.test(format2);
     return getSchemaType(schema) === "array" && hasNavFormat;
   }
-  init() {
-    super.init();
-    this.activeTabIndex = 0;
-  }
   addEventListeners() {
     this.control.addBtn.addEventListener("click", () => {
-      this.activeTabIndex = this.instance.value.length;
+      this.activeItemIndex = this.instance.value.length;
       this.instance.addItem("user");
     });
   }
@@ -3813,10 +3804,7 @@ class EditorArrayNav extends EditorArray {
     tabListCol.appendChild(tabList);
     tabContentCol.appendChild(tabContent);
     this.instance.children.forEach((child, index2) => {
-      const deleteBtn = this.theme.getDeleteItemBtn();
-      const moveUpBtn = this.theme.getMoveUpItemBtn();
-      const moveDownBtn = this.theme.getMoveDownItemBtn();
-      const btnGroup = this.theme.getBtnGroup();
+      const { deleteBtn, moveUpBtn, moveDownBtn, btnGroup } = this.getButtons(index2);
       if (isSet(arrayDelete) && arrayDelete === true) {
         btnGroup.appendChild(deleteBtn);
       }
@@ -3840,24 +3828,7 @@ class EditorArrayNav extends EditorArray {
         const schemaTitle = getSchemaTitle(child.schema);
         childTitle = isSet(schemaTitle) ? schemaTitle + " " + (index2 + 1) : child.getKey();
       }
-      deleteBtn.addEventListener("click", () => {
-        const confirmDeletion = window.confirm("Are you sure you want to delete this item?");
-        if (confirmDeletion) {
-          this.activeTabIndex = clamp(index2 - 1, 0, this.instance.value.length - 1);
-          this.instance.deleteItem(index2, "user");
-        }
-      });
-      moveUpBtn.addEventListener("click", () => {
-        const toIndex = index2 - 1;
-        this.activeTabIndex = toIndex;
-        this.instance.move(index2, toIndex, "user");
-      });
-      moveDownBtn.addEventListener("click", () => {
-        const toIndex = index2 + 1;
-        this.activeTabIndex = toIndex;
-        this.instance.move(index2, toIndex, "user");
-      });
-      const active = index2 === this.activeTabIndex;
+      const active = index2 === this.activeItemIndex;
       const id = pathToAttribute(child.path);
       const { list } = this.theme.getTab({
         hasErrors: child.children.some((grandChild) => grandChild.ui.showingValidationErrors),
@@ -3867,7 +3838,7 @@ class EditorArrayNav extends EditorArray {
       });
       list.appendChild(btnGroup);
       list.addEventListener("click", () => {
-        this.activeTabIndex = index2;
+        this.activeItemIndex = index2;
       });
       this.theme.setTabPaneAttributes(child.ui.control.container, active, id);
       tabList.appendChild(list);
@@ -4290,7 +4261,18 @@ const defaultTranslations = {
   errorRequired: "Must have the required properties: {{ required }}.",
   errorType: "Must be of type {{ type }}.",
   errorUnevaluatedProperties: 'Has invalid unevaluated property "{{ property }}"',
-  errorUniqueItems: "Must have unique items."
+  errorUniqueItems: "Must have unique items.",
+  arrayDelete: "Delete item",
+  arrayMoveUp: "Move up",
+  arrayMoveDown: "Move down",
+  arrayDrag: "Drag",
+  arrayAdd: "Add item",
+  arrayConfirmDelete: "Are you sure you want to delete this item?",
+  objectAddProperty: "Add property",
+  objectPropertyAdded: "field was added to the form",
+  objectPropertyRemoved: "field was removed from the form",
+  propertiesToggle: "Properties",
+  collapseToggle: "Collapse"
 };
 const translations = {
   en: {
@@ -4324,7 +4306,18 @@ const translations = {
     errorRequired: "Must have the required properties: {{ required }}.",
     errorType: "Must be of type {{ type }}.",
     errorUnevaluatedProperties: 'Has invalid unevaluated property "{{ property }}"',
-    errorUniqueItems: "Must have unique items."
+    errorUniqueItems: "Must have unique items.",
+    arrayDelete: "Delete item",
+    arrayMoveUp: "Move up",
+    arrayMoveDown: "Move down",
+    arrayDrag: "Drag",
+    arrayAdd: "Add item",
+    arrayConfirmDelete: "Are you sure you want to delete this item?",
+    objectAddProperty: "Add property",
+    objectPropertyAdded: "field was added to the form",
+    objectPropertyRemoved: "field was removed from the form",
+    propertiesToggle: "Properties",
+    collapseToggle: "Collapse"
   },
   de: {
     errorAdditionalProperties: 'Hat die zusätzliche Eigenschaft "{{ property }}", aber keine zusätzlichen Eigenschaften sind erlaubt.',
@@ -4357,7 +4350,18 @@ const translations = {
     errorRequired: "Muss die erforderlichen Eigenschaften haben: {{ required }}.",
     errorType: "Muss vom Typ {{ type }} sein.",
     errorUnevaluatedProperties: 'Hat eine ungültige nicht bewertete Eigenschaft "{{ property }}"',
-    errorUniqueItems: "Muss eindeutige Elemente haben."
+    errorUniqueItems: "Muss eindeutige Elemente haben.",
+    arrayDelete: "Element löschen",
+    arrayMoveUp: "Nach oben verschieben",
+    arrayMoveDown: "Nach unten verschieben",
+    arrayDrag: "Ziehen",
+    arrayAdd: "Element hinzufügen",
+    arrayConfirmDelete: "Möchten Sie dieses Element wirklich löschen?",
+    objectAddProperty: "Eigenschaft hinzufügen",
+    objectPropertyAdded: "Feld wurde dem Formular hinzugefügt",
+    objectPropertyRemoved: "Feld wurde aus dem Formular entfernt",
+    propertiesToggle: "Eigenschaften",
+    collapseToggle: "Einklappen"
   },
   it: {
     errorAdditionalProperties: 'Ha la proprietà aggiuntiva "{{ property }}" ma non sono consentite proprietà aggiuntive.',
@@ -4390,7 +4394,18 @@ const translations = {
     errorRequired: "Deve avere le proprietà richieste: {{ required }}.",
     errorType: "Deve essere di tipo {{ type }}.",
     errorUnevaluatedProperties: 'Ha una proprietà non valutata non valida "{{ property }}"',
-    errorUniqueItems: "Deve avere elementi univoci."
+    errorUniqueItems: "Deve avere elementi univoci.",
+    arrayDelete: "Elimina elemento",
+    arrayMoveUp: "Sposta su",
+    arrayMoveDown: "Sposta giù",
+    arrayDrag: "Trascina",
+    arrayAdd: "Aggiungi elemento",
+    arrayConfirmDelete: "Sei sicuro di voler eliminare questo elemento?",
+    objectAddProperty: "Aggiungi proprietà",
+    objectPropertyAdded: "Campo aggiunto al modulo",
+    objectPropertyRemoved: "Campo rimosso dal modulo",
+    propertiesToggle: "Proprietà",
+    collapseToggle: "Comprimi"
   },
   es: {
     errorAdditionalProperties: 'Tiene la propiedad adicional "{{ property }}" pero no se permiten propiedades adicionales.',
@@ -4423,14 +4438,25 @@ const translations = {
     errorRequired: "Debe tener las propiedades requeridas: {{ required }}.",
     errorType: "Debe ser del tipo {{ type }}.",
     errorUnevaluatedProperties: 'Tiene una propiedad no evaluada no válida "{{ property }}"',
-    errorUniqueItems: "Debe tener elementos únicos."
+    errorUniqueItems: "Debe tener elementos únicos.",
+    arrayDelete: "Eliminar elemento",
+    arrayMoveUp: "Mover hacia arriba",
+    arrayMoveDown: "Mover hacia abajo",
+    arrayDrag: "Arrastrar",
+    arrayAdd: "Agregar elemento",
+    arrayConfirmDelete: "¿Estás seguro de que deseas eliminar este elemento?",
+    objectAddProperty: "Agregar propiedad",
+    objectPropertyAdded: "campo fue añadido al formulario",
+    objectPropertyRemoved: "campo fue eliminado del formulario",
+    propertiesToggle: "Propiedades",
+    collapseToggle: "Colapsar"
   }
 };
 class Translator {
   constructor(config) {
     this.language = config.language || "en";
-    this.defaultTranslations = defaultTranslations;
     this.translations = mergeDeep({}, translations, config.translations);
+    this.defaultTranslations = defaultTranslations;
   }
   translate(message) {
     let translation = this.translations[this.language][message];
@@ -5186,7 +5212,7 @@ class Theme {
     if (config.visuallyHidden) {
       this.visuallyHidden(label);
     }
-    labelText.innerHTML = config.text;
+    labelText.innerHTML = config.content;
     if (config.titleIconClass) {
       this.addIconClass(icon, config.titleIconClass);
     }
@@ -5438,9 +5464,9 @@ class Theme {
   /**
    * Array "add" item button
    */
-  getArrayBtnAdd() {
+  getArrayBtnAdd(config) {
     const html = this.getButton({
-      content: "Add item",
+      content: config.content,
       icon: "add"
     });
     html.classList.add("jedi-array-add");
@@ -5456,9 +5482,9 @@ class Theme {
   /**
    * Array "delete" item button
    */
-  getDeleteItemBtn() {
+  getDeleteItemBtn(config) {
     const deleteItemBtn = this.getButton({
-      content: "Delete item",
+      content: config.content,
       icon: "delete"
     });
     deleteItemBtn.classList.add("jedi-array-delete");
@@ -5467,9 +5493,9 @@ class Theme {
   /**
    * Array "move up" item button
    */
-  getMoveUpItemBtn() {
+  getMoveUpItemBtn(config) {
     const moveUpItemBtn = this.getButton({
-      content: "Move up",
+      content: config.content,
       icon: "moveUp"
     });
     moveUpItemBtn.classList.add("jedi-array-move-up");
@@ -5478,17 +5504,17 @@ class Theme {
   /**
    * Array "move down" item button
    */
-  getMoveDownItemBtn() {
+  getMoveDownItemBtn(config) {
     const moveDownItemBtn = this.getButton({
-      content: "Move down",
+      content: config.content,
       icon: "moveDown"
     });
     moveDownItemBtn.classList.add("jedi-array-move-down");
     return moveDownItemBtn;
   }
-  getDragItemBtn() {
+  getDragItemBtn(config) {
     const dragItemBtn = this.getButton({
-      content: "Drag",
+      content: config.content,
       icon: "drag"
     });
     dragItemBtn.classList.add("jedi-array-drag");
@@ -5633,7 +5659,7 @@ class Theme {
       id: "properties-slot-" + config.id
     });
     const propertiesToggle = this.getPropertiesToggle({
-      content: "properties",
+      content: config.propertiesToggleContent,
       id: "properties-slot-toggle-" + config.id,
       icon: "properties",
       propertiesContainer
@@ -5643,7 +5669,7 @@ class Theme {
       startCollapsed: config.startCollapsed
     });
     const collapseToggle = this.getCollapseToggle({
-      content: "collapse",
+      content: config.collapseToggleContent,
       id: "collapse-toggle-" + config.id,
       icon: "collapse",
       collapseId,
@@ -5653,7 +5679,7 @@ class Theme {
     const addPropertyControl = this.getInputControl({
       type: "text",
       id: "jedi-add-property-input-" + config.id,
-      title: "Property"
+      title: config.addPropertyContent
     });
     const addPropertyBtn = this.getAddPropertyButton();
     const fieldset = this.getFieldset();
@@ -5727,7 +5753,9 @@ class Theme {
     const messages = this.getMessagesSlot();
     const childrenSlot = this.getChildrenSlot();
     const btnGroup = this.getBtnGroup();
-    const addBtn = this.getArrayBtnAdd();
+    const addBtn = this.getArrayBtnAdd({
+      content: config.arrayAddContent
+    });
     const fieldset = this.getFieldset();
     const info = this.getInfo(config.info);
     const { legend, legendText } = this.getLegend({
@@ -5743,7 +5771,7 @@ class Theme {
       startCollapsed: config.startCollapsed
     });
     const collapseToggle = this.getCollapseToggle({
-      content: config.title + " properties",
+      content: config.collapseToggleContent,
       id: "collapse-toggle-" + config.id,
       icon: "collapse",
       collapseId,
@@ -5901,7 +5929,7 @@ class Theme {
     const info = this.getInfo(config.info);
     const { label, labelText } = this.getFakeLabel({
       for: config.id,
-      text: config.title,
+      content: config.title,
       visuallyHidden: config.titleHidden,
       titleIconClass: config.titleIconClass
     });

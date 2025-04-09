@@ -30,7 +30,18 @@ export default {
     errorRequired: 'Must have the required properties: {{ required }}.',
     errorType: 'Must be of type {{ type }}.',
     errorUnevaluatedProperties: 'Has invalid unevaluated property "{{ property }}"',
-    errorUniqueItems: 'Must have unique items.'
+    errorUniqueItems: 'Must have unique items.',
+    arrayDelete: 'Delete item',
+    arrayMoveUp: 'Move up',
+    arrayMoveDown: 'Move down',
+    arrayDrag: 'Drag',
+    arrayAdd: 'Add item',
+    arrayConfirmDelete: 'Are you sure you want to delete this item?',
+    objectAddProperty: 'Add property',
+    objectPropertyAdded: 'field was added to the form',
+    objectPropertyRemoved: 'field was removed from the form',
+    propertiesToggle: 'Properties',
+    collapseToggle: 'Collapse'
   },
   de: {
     errorAdditionalProperties: 'Hat die zusätzliche Eigenschaft "{{ property }}", aber keine zusätzlichen Eigenschaften sind erlaubt.',
@@ -63,7 +74,18 @@ export default {
     errorRequired: 'Muss die erforderlichen Eigenschaften haben: {{ required }}.',
     errorType: 'Muss vom Typ {{ type }} sein.',
     errorUnevaluatedProperties: 'Hat eine ungültige nicht bewertete Eigenschaft "{{ property }}"',
-    errorUniqueItems: 'Muss eindeutige Elemente haben.'
+    errorUniqueItems: 'Muss eindeutige Elemente haben.',
+    arrayDelete: 'Element löschen',
+    arrayMoveUp: 'Nach oben verschieben',
+    arrayMoveDown: 'Nach unten verschieben',
+    arrayDrag: 'Ziehen',
+    arrayAdd: 'Element hinzufügen',
+    arrayConfirmDelete: 'Möchten Sie dieses Element wirklich löschen?',
+    objectAddProperty: 'Eigenschaft hinzufügen',
+    objectPropertyAdded: 'Feld wurde dem Formular hinzugefügt',
+    objectPropertyRemoved: 'Feld wurde aus dem Formular entfernt',
+    propertiesToggle: 'Eigenschaften',
+    collapseToggle: 'Einklappen'
   },
   it: {
     errorAdditionalProperties: 'Ha la proprietà aggiuntiva "{{ property }}" ma non sono consentite proprietà aggiuntive.',
@@ -96,7 +118,18 @@ export default {
     errorRequired: 'Deve avere le proprietà richieste: {{ required }}.',
     errorType: 'Deve essere di tipo {{ type }}.',
     errorUnevaluatedProperties: 'Ha una proprietà non valutata non valida "{{ property }}"',
-    errorUniqueItems: 'Deve avere elementi univoci.'
+    errorUniqueItems: 'Deve avere elementi univoci.',
+    arrayDelete: 'Elimina elemento',
+    arrayMoveUp: 'Sposta su',
+    arrayMoveDown: 'Sposta giù',
+    arrayDrag: 'Trascina',
+    arrayAdd: 'Aggiungi elemento',
+    arrayConfirmDelete: 'Sei sicuro di voler eliminare questo elemento?',
+    objectAddProperty: 'Aggiungi proprietà',
+    objectPropertyAdded: 'Campo aggiunto al modulo',
+    objectPropertyRemoved: 'Campo rimosso dal modulo',
+    propertiesToggle: 'Proprietà',
+    collapseToggle: 'Comprimi'
   },
   es: {
     errorAdditionalProperties: 'Tiene la propiedad adicional "{{ property }}" pero no se permiten propiedades adicionales.',
@@ -129,6 +162,17 @@ export default {
     errorRequired: 'Debe tener las propiedades requeridas: {{ required }}.',
     errorType: 'Debe ser del tipo {{ type }}.',
     errorUnevaluatedProperties: 'Tiene una propiedad no evaluada no válida "{{ property }}"',
-    errorUniqueItems: 'Debe tener elementos únicos.'
+    errorUniqueItems: 'Debe tener elementos únicos.',
+    arrayDelete: 'Eliminar elemento',
+    arrayMoveUp: 'Mover hacia arriba',
+    arrayMoveDown: 'Mover hacia abajo',
+    arrayDrag: 'Arrastrar',
+    arrayAdd: 'Agregar elemento',
+    arrayConfirmDelete: '¿Estás seguro de que deseas eliminar este elemento?',
+    objectAddProperty: 'Agregar propiedad',
+    objectPropertyAdded: 'campo fue añadido al formulario',
+    objectPropertyRemoved: 'campo fue eliminado del formulario',
+    propertiesToggle: 'Propiedades',
+    collapseToggle: 'Colapsar'
   }
 }

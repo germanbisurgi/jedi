@@ -1,5 +1,5 @@
 import EditorArray from './array.js'
-import { clamp, compileTemplate, isSet, pathToAttribute } from '../helpers/utils.js'
+import { compileTemplate, isSet, pathToAttribute } from '../helpers/utils.js'
 import { getSchemaTitle, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
@@ -14,14 +14,9 @@ class EditorArrayNav extends EditorArray {
     return getSchemaType(schema) === 'array' && hasNavFormat
   }
 
-  init () {
-    super.init()
-    this.activeTabIndex = 0
-  }
-
   addEventListeners () {
     this.control.addBtn.addEventListener('click', () => {
-      this.activeTabIndex = this.instance.value.length
+      this.activeItemIndex = this.instance.value.length
       this.instance.addItem('user')
     })
   }
@@ -53,10 +48,7 @@ class EditorArrayNav extends EditorArray {
     tabContentCol.appendChild(tabContent)
 
     this.instance.children.forEach((child, index) => {
-      const deleteBtn = this.theme.getDeleteItemBtn()
-      const moveUpBtn = this.theme.getMoveUpItemBtn()
-      const moveDownBtn = this.theme.getMoveDownItemBtn()
-      const btnGroup = this.theme.getBtnGroup()
+      const { deleteBtn, moveUpBtn, moveDownBtn, btnGroup } = this.getButtons(index)
 
       if (isSet(arrayDelete) && arrayDelete === true) {
         btnGroup.appendChild(deleteBtn)
@@ -86,28 +78,7 @@ class EditorArrayNav extends EditorArray {
         childTitle = isSet(schemaTitle) ? schemaTitle + ' ' + (index + 1) : child.getKey()
       }
 
-      deleteBtn.addEventListener('click', () => {
-        const confirmDeletion = window.confirm('Are you sure you want to delete this item?')
-
-        if (confirmDeletion) {
-          this.activeTabIndex = clamp((index - 1), 0, (this.instance.value.length - 1))
-          this.instance.deleteItem(index, 'user')
-        }
-      })
-
-      moveUpBtn.addEventListener('click', () => {
-        const toIndex = index - 1
-        this.activeTabIndex = toIndex
-        this.instance.move(index, toIndex, 'user')
-      })
-
-      moveDownBtn.addEventListener('click', () => {
-        const toIndex = index + 1
-        this.activeTabIndex = toIndex
-        this.instance.move(index, toIndex, 'user')
-      })
-
-      const active = index === this.activeTabIndex
+      const active = index === this.activeItemIndex
       const id = pathToAttribute(child.path)
 
       const { list } = this.theme.getTab({
@@ -120,7 +91,7 @@ class EditorArrayNav extends EditorArray {
       list.appendChild(btnGroup)
 
       list.addEventListener('click', () => {
-        this.activeTabIndex = index
+        this.activeItemIndex = index
       })
 
       this.theme.setTabPaneAttributes(child.ui.control.container, active, id)

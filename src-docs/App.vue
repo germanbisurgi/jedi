@@ -181,6 +181,7 @@ import EditorStringCustom from "./js/custom-editor.js";
 import Jedi from '/src/index.js'
 import all from './json/editors/all.json'
 import array from './json/editors/array.json'
+import arrayButtonsContent from './json/editors/array-buttons-content.json'
 import arrayNoButtons from './json/editors/array-no-buttons.json'
 import arrayCheckboxes from './json/editors/array-checkboxes.json'
 import arrayCheckboxesInline from './json/editors/array-checkboxes-inline.json'
@@ -199,6 +200,7 @@ import numberRadios from './json/editors/number-radios.json'
 import numberRadiosInline from './json/editors/number-radios-inline.json'
 import numberSelect from './json/editors/number-select.json'
 import objectJson from './json/editors/object.json'
+import objectButtonsContent from './json/editors/object-buttons-content.json'
 import objectGrid from './json/editors/object-grid.json'
 import objectNavVertical from './json/editors/object-nav-vertical.json'
 import objectNavHorizontal from './json/editors/object-nav-horizontal.json'
@@ -302,6 +304,7 @@ export default {
         'Editors': {
           'editors/all': all,
           'editors/array': array,
+          'editors/array-buttons-content': arrayButtonsContent,
           'editors/array-no-buttons': arrayNoButtons,
           'editors/array-checkboxes': arrayCheckboxes,
           'editors/array-checkboxes-inline': arrayCheckboxesInline,
@@ -320,6 +323,7 @@ export default {
           'editors/number-radios-inline': numberRadiosInline,
           'editors/number-select': numberSelect,
           'editors/object': objectJson,
+          'editors/object-buttons-content': objectButtonsContent,
           'editors/object-grid': objectGrid,
           'editors/object-nav-vertical': objectNavVertical,
           'editors/object-nav-horizontal': objectNavHorizontal,

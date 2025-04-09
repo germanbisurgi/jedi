@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "title": "Object",
+  "x-propertiesToggleContent": "PROPERTIES",
+  "x-collapseToggleContent": "COLLAPSE",
+  "x-addPropertyContent": "ADD PROPERTY",
+  "description": "Objects are the mapping type in JSON. They map “keys” to “values”. In JSON, the “keys” must always be strings. Each of these pairs is conventionally referred to as a “property”.",
+  "required": [
+    "required"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "required": {
+      "title": "Required",
+      "type": "string"
+    },
+    "notRequired": {
+      "title": "Not required",
+      "type": "string"
+    }
+  },
+  "x-options": {
+    "info": {
+      "variant": "modal",
+      "title": "### Info Button title",
+      "content": "Info button content"
+    }
+  }
+}

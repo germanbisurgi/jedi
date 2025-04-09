@@ -1,5 +1,5 @@
 import EditorArray from './array.js'
-import { clamp, isSet } from '../helpers/utils.js'
+import { isSet } from '../helpers/utils.js'
 import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
@@ -11,14 +11,9 @@ class EditorArrayTable extends EditorArray {
     return getSchemaType(schema) === 'array' && getSchemaXOption(schema, 'format') === 'table'
   }
 
-  init () {
-    super.init()
-    this.activeTabIndex = 0
-  }
-
   addEventListeners () {
     this.control.addBtn.addEventListener('click', () => {
-      this.activeTabIndex = this.instance.value.length
+      this.activeItemIndex = this.instance.value.length
       this.instance.addItem('user')
     })
   }
@@ -37,7 +32,7 @@ class EditorArrayTable extends EditorArray {
     // thead labels
     const th = this.theme.getTableHeader()
     const { label } = this.theme.getFakeLabel({
-      text: 'Controls',
+      content: 'Controls',
       visuallyHidden: true
     })
 
@@ -79,42 +74,9 @@ class EditorArrayTable extends EditorArray {
 
       // buttons
       const buttonsTd = this.theme.getTableDefinition()
-      const deleteBtn = this.theme.getDeleteItemBtn()
-      const moveUpBtn = this.theme.getMoveUpItemBtn()
-      const moveDownBtn = this.theme.getMoveDownItemBtn()
-      const btnGroup = this.theme.getBtnGroup()
-
-      if (index === 0) {
-        moveUpBtn.setAttribute('always-disabled', true)
-      }
-
-      if (index === this.instance.children.length - 1) {
-        moveDownBtn.setAttribute('always-disabled', true)
-      }
-
-      deleteBtn.addEventListener('click', () => {
-        const confirmDeletion = window.confirm('Are you sure you want to delete this item?')
-
-        if (confirmDeletion) {
-          this.activeTabIndex = clamp((index - 1), 0, (this.instance.value.length - 1))
-          this.instance.deleteItem(index, 'user')
-        }
-      })
-
-      moveUpBtn.addEventListener('click', () => {
-        const toIndex = index - 1
-        this.activeTabIndex = toIndex
-        this.instance.move(index, toIndex, 'user')
-      })
-
-      moveDownBtn.addEventListener('click', () => {
-        const toIndex = index + 1
-        this.activeTabIndex = toIndex
-        this.instance.move(index, toIndex, 'user')
-      })
+      const { deleteBtn, moveUpBtn, moveDownBtn, dragBtn, btnGroup } = this.getButtons(index)
 
       if (this.isSortable()) {
-        const dragBtn = this.theme.getDragItemBtn()
         btnGroup.appendChild(dragBtn)
       }
 

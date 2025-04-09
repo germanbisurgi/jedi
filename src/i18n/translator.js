@@ -5,8 +5,8 @@ import { mergeDeep, notSet } from '../helpers/utils.js'
 class Translator {
   constructor (config) {
     this.language = config.language || 'en'
-    this.defaultTranslations = defaultTranslations
     this.translations = mergeDeep({}, translations, config.translations)
+    this.defaultTranslations = defaultTranslations
   }
 
   translate (message) {

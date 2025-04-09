@@ -1017,7 +1017,18 @@ The default translation can be overridden in the instance options as well.
       errorRequired: 'Muss die erforderlichen Eigenschaften haben: {{ required }}.',
       errorType: 'Muss vom Typ {{ type }} sein.',
       errorUnevaluatedProperties: 'Hat eine ungültige nicht bewertete Eigenschaft "{{ property }}"',
-      errorUniqueItems: 'Muss eindeutige Elemente haben.'
+      errorUniqueItems: 'Muss eindeutige Elemente haben.',
+      arrayDelete: 'Element löschen',
+      arrayMoveUp: 'Nach oben verschieben',
+      arrayMoveDown: 'Nach unten verschieben',
+      arrayDrag: 'Ziehen',
+      arrayAdd: 'Element hinzufügen',
+      arrayConfirmDelete: 'Möchten Sie dieses Element wirklich löschen?',
+      objectAddProperty: 'Eigenschaft hinzufügen',
+      objectPropertyAdded: 'Feld wurde dem Formular hinzugefügt',
+      objectPropertyRemoved: 'Feld wurde aus dem Formular entfernt',
+      propertiesToggle: 'Eigenschaften',
+      collapseToggle: 'Einklappen'
     }
   }
 })

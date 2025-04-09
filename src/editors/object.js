@@ -51,7 +51,10 @@ class EditorObject extends Editor {
       enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, 'enableCollapseToggle'),
       startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, 'startCollapsed'),
       readOnly: this.instance.isReadOnly(),
-      info: this.getInfo()
+      info: this.getInfo(),
+      propertiesToggleContent: getSchemaXOption(this.instance.schema, 'propertiesToggleContent') ?? this.instance.jedi.translator.translate('propertiesToggle'),
+      collapseToggleContent: getSchemaXOption(this.instance.schema, 'collapseToggleContent') ?? this.instance.jedi.translator.translate('collapseToggle'),
+      addPropertyContent: getSchemaXOption(this.instance.schema, 'addPropertyContent') ?? this.instance.jedi.translator.translate('objectAddProperty')
     })
   }
 
@@ -82,7 +85,7 @@ class EditorObject extends Editor {
       const schemaTitle = getSchemaTitle(child.schema)
       const label = isSet(schemaTitle) ? schemaTitle : propertyName
       const ariaLiveMessage = this.theme.getAriaLiveMessage()
-      ariaLiveMessage.textContent = label + ' field was added to the form'
+      ariaLiveMessage.textContent = label + ' ' + this.instance.jedi.translator.translate('objectPropertyAdded')
       ariaLive.appendChild(ariaLiveMessage)
 
       // keeps dialog open
@@ -145,11 +148,11 @@ class EditorObject extends Editor {
             }
 
             this.instance.getChild(property).activate()
-            ariaLiveMessage.textContent = title + ' field was added to the form'
+            ariaLiveMessage.textContent = title + ' ' + this.instance.jedi.translator.translate('objectPropertyAdded')
             ariaLive.appendChild(ariaLiveMessage)
           } else {
             this.instance.getChild(property).deactivate()
-            ariaLiveMessage.textContent = title + ' field was removed from the form'
+            ariaLiveMessage.textContent = title + ' ' + this.instance.jedi.translator.translate('objectPropertyRemoved')
             ariaLive.appendChild(ariaLiveMessage)
           }
 

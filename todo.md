@@ -5,6 +5,8 @@
 
 
 - Editor
+  - array nav drag
+  - translation with template compiling
   - ternary options
   - refactor setInitialValue
   - info variant tooltip

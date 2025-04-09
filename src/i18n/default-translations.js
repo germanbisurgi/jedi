@@ -29,6 +29,16 @@ export default {
   errorRequired: 'Must have the required properties: {{ required }}.',
   errorType: 'Must be of type {{ type }}.',
   errorUnevaluatedProperties: 'Has invalid unevaluated property "{{ property }}"',
-  errorUniqueItems: 'Must have unique items.'
-
+  errorUniqueItems: 'Must have unique items.',
+  arrayDelete: 'Delete item',
+  arrayMoveUp: 'Move up',
+  arrayMoveDown: 'Move down',
+  arrayDrag: 'Drag',
+  arrayAdd: 'Add item',
+  arrayConfirmDelete: 'Are you sure you want to delete this item?',
+  objectAddProperty: 'Add property',
+  objectPropertyAdded: 'field was added to the form',
+  objectPropertyRemoved: 'field was removed from the form',
+  propertiesToggle: 'Properties',
+  collapseToggle: 'Collapse'
 }
