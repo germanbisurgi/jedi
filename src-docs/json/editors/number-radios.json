@@ -8,12 +8,10 @@
     1,
     2
   ],
-  "x-options": {
-    "format": "radios",
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-format": "radios",
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   }
 }

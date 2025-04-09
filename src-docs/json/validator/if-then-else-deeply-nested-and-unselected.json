@@ -15,10 +15,8 @@
         "No occurrence",
         "No information"
       ],
-      "x-options": {
-        "enforceEnumDefault": false,
-        "format": "radios"
-      }
+      "x-enforceEnum": false,
+      "x-format": "radios"
     }
   },
   "if": {
@@ -93,8 +91,7 @@
       "total": {
         "$ref": "#/$defs/total",
         "default": 0,
-        "const": 0,
-        "x-options": {}
+        "const": 0
       }
     }
   },

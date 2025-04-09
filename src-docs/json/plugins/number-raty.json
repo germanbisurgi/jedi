@@ -4,15 +4,13 @@
   "description": "Raty - A Star Rating Plugin",
   "default": 3,
   "minimum": 0.5,
-  "x-options": {
-    "raty": {
-      "half": true,
-      "starType": "i"
-    },
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-raty": {
+    "half": true,
+    "starType": "i"
+  },
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   }
 }

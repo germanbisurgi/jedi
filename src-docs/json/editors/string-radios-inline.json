@@ -8,17 +8,15 @@
     "betti",
     "carl"
   ],
-  "x-options": {
-    "format": "radios-inline",
-    "enumTitles": [
-      "Albert",
-      "Betti",
-      "Carl"
-    ],
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-format": "radios-inline",
+  "x-enumTitles": [
+    "Albert",
+    "Betti",
+    "Carl"
+  ],
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   }
 }

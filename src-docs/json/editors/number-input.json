@@ -4,11 +4,9 @@
   "default": 5.5,
   "minimum": 0,
   "description": "The number type is used for any numeric type, either integers or floating point numbers.",
-  "x-options": {
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   }
 }

@@ -7,40 +7,30 @@
     "keep",
     "csfr"
   ],
-  "x-options": {
-    "enablePropertiesToggle": false
-  },
+  "enablePropertiesToggle": false,
   "properties": {
     "email": {
       "title": "E-Mail",
       "type": "string",
       "format": "email",
-      "x-options": {
-        "titleIconClass": "fas fa-envelope"
-      }
+      "titleIconClass": "fas fa-envelope"
     },
     "password": {
       "title": "Password",
       "type": "string",
       "minLength": 8,
-      "x-options": {
-        "format": "password",
-        "titleIconClass": "fas fa-lock"
-      }
+      "x-format": "password",
+      "x-titleIconClass": "fas fa-lock"
     },
     "keep": {
       "title": "Remember me",
       "type": "boolean",
-      "x-options": {
-        "format": "checkbox"
-      }
+      "x-format": "checkbox"
     },
     "csfr": {
       "type": "string",
       "default": "csfr",
-      "x-options": {
-        "format": "hidden"
-      }
+      "x-format": "hidden"
     }
   }
 }

@@ -10,13 +10,13 @@
       "value2"
     ]
   },
-  "default": ["value1"],
+  "default": [
+    "value1"
+  ],
   "minItems": 1,
-  "x-options": {
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   }
 }

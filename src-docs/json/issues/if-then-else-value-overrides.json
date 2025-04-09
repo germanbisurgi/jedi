@@ -30,21 +30,17 @@
               "unknown",
               "none"
             ],
-            "x-options": {
-              "enumTitles": [
-                "yes",
-                "no",
-                "unknown",
-                "none"
-              ],
-              "enforceEnumDefault": false,
-              "format": "radios-inline"
-            }
+            "x-enumTitles": [
+              "yes",
+              "no",
+              "unknown",
+              "none"
+            ],
+            "x-enforceEnum": false,
+            "x-format": "radios-inline"
           },
           "propB": {
-            "x-options": {
-              "enforceConst": true
-            }
+            "x-enforceConst": true
           }
         },
         "if": {

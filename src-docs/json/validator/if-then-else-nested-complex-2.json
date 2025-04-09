@@ -35,10 +35,8 @@
             "unknown",
             "no information"
           ],
-          "x-options": {
-            "enforceEnumDefault": false,
-            "format": "radios-inline"
-          }
+          "x-enforceEnum": false,
+          "x-format": "radios-inline"
         }
       },
       "if": {

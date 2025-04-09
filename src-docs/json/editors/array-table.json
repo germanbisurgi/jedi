@@ -3,11 +3,9 @@
   "description": "Arrays are used for ordered elements. In JSON, each element in an array may be of a different type.",
   "type": "array",
   "minItems": 2,
-  "x-options": {
-    "sortable": true,
-    "format": "table",
-    "tableColMinWidth": "100px"
-  },
+  "x-sortable": true,
+  "x-format": "table",
+  "x-tableColMinWidth": "100px",
   "default": [
     {
       "boolean-select": true,
@@ -65,18 +63,16 @@
         "title": "Boolean select",
         "description": "A boolean editor using select input.",
         "const": true,
-        "x-options": {
-          "tableColMinWidth": "300px",
-          "format": "select",
-          "enumTitles": [
-            "No",
-            "Yes"
-          ],
-          "info": {
-            "variant": "modal",
-            "title": "### Info Button title",
-            "content": "Info button content"
-          }
+        "x-tableColMinWidth": "300px",
+        "x-format": "select",
+        "x-enumTitles": [
+          "No",
+          "Yes"
+        ],
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "boolean-radios": {
@@ -84,18 +80,16 @@
         "title": "Boolean radios",
         "description": "A boolean editor using radios.",
         "const": true,
-        "x-options": {
-          "format": "radios-inline",
-          "tableColMinWidth": "300px",
-          "enumTitles": [
-            "No",
-            "Yes"
-          ],
-          "info": {
-            "variant": "modal",
-            "title": "### Info Button title",
-            "content": "Info button content"
-          }
+        "x-format": "radios-inline",
+        "x-tableColMinWidth": "300px",
+        "x-enumTitles": [
+          "No",
+          "Yes"
+        ],
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "boolean": {
@@ -103,14 +97,12 @@
         "title": "Boolean",
         "description": "A boolean editor checkbox.",
         "const": true,
-        "x-options": {
-          "tableColMinWidth": "300px",
-          "format": "checkbox",
-          "info": {
-            "variant": "modal",
-            "title": "### Info Button title",
-            "content": "Info button content"
-          }
+        "x-tableColMinWidth": "300px",
+        "x-format": "checkbox",
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "string": {
@@ -118,13 +110,11 @@
         "title": "String input",
         "description": "A string editor.",
         "minLength": 1,
-        "x-options": {
-          "tableColMinWidth": "300px",
-          "info": {
-            "variant": "modal",
-            "title": "### Info Button title",
-            "content": "Info button content"
-          }
+        "x-tableColMinWidth": "300px",
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "string-textarea": {
@@ -132,14 +122,12 @@
         "title": "String textarea",
         "description": "A string editor using textarea.",
         "minLength": 1,
-        "x-options": {
-          "format": "textarea",
-          "tableColMinWidth": "300px",
-          "info": {
-            "variant": "modal",
-            "title": "### Info Button title",
-            "content": "Info button content"
-          }
+        "x-format": "textarea",
+        "x-tableColMinWidth": "300px",
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "string-select": {
@@ -151,18 +139,16 @@
           "betti",
           "carl"
         ],
-        "x-options": {
-          "tableColMinWidth": "300px",
-          "enumTitles": [
-            "Albert",
-            "Betti",
-            "Carl"
-          ],
-          "info": {
-            "variant": "modal",
-            "title": "### Info Button title",
-            "content": "Info button content"
-          }
+        "x-tableColMinWidth": "300px",
+        "x-enumTitles": [
+          "Albert",
+          "Betti",
+          "Carl"
+        ],
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "string-radios": {
@@ -174,19 +160,17 @@
           "betti",
           "carl"
         ],
-        "x-options": {
-          "format": "radios-inline",
-          "tableColMinWidth": "300px",
-          "enumTitles": [
-            "Albert",
-            "Betti",
-            "Carl"
-          ],
-          "info": {
-            "variant": "modal",
-            "title": "### Info Button title",
-            "content": "Info button content"
-          }
+        "x-format": "radios-inline",
+        "x-tableColMinWidth": "300px",
+        "x-enumTitles": [
+          "Albert",
+          "Betti",
+          "Carl"
+        ],
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "number": {
@@ -194,13 +178,11 @@
         "title": "Number input",
         "description": "A number editor.",
         "minimum": 1,
-        "x-options": {
-          "tableColMinWidth": "300px",
-          "info": {
-            "variant": "modal",
-            "title": "### Info Button title",
-            "content": "Info button content"
-          }
+        "x-tableColMinWidth": "300px",
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "number-select": {
@@ -212,18 +194,16 @@
           2.5,
           3.5
         ],
-        "x-options": {
-          "tableColMinWidth": "300px",
-          "enumTitles": [
-            "small (1.5)",
-            "medium (2.5)",
-            "big (3.5)"
-          ],
-          "info": {
-            "variant": "modal",
-            "title": "### Info Button title",
-            "content": "Info button content"
-          }
+        "x-tableColMinWidth": "300px",
+        "x-enumTitles": [
+          "small (1.5)",
+          "medium (2.5)",
+          "big (3.5)"
+        ],
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "number-radios": {
@@ -235,19 +215,17 @@
           2.5,
           3.5
         ],
-        "x-options": {
-          "format": "radios-inline",
-          "tableColMinWidth": "300px",
-          "enumTitles": [
-            "small (1.5)",
-            "medium (2.5)",
-            "big (3.5)"
-          ],
-          "info": {
-            "variant": "modal",
-            "title": "### Info Button title",
-            "content": "Info button content"
-          }
+        "x-format": "radios-inline",
+        "x-tableColMinWidth": "300px",
+        "x-enumTitles": [
+          "small (1.5)",
+          "medium (2.5)",
+          "big (3.5)"
+        ],
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "integer": {
@@ -255,13 +233,11 @@
         "title": "Integer",
         "description": "A integer editor.",
         "minimum": 1,
-        "x-options": {
-          "tableColMinWidth": "300px",
-          "info": {
-            "variant": "modal",
-            "title": "### Info Button title",
-            "content": "Info button content"
-          }
+        "x-tableColMinWidth": "300px",
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "integer-select": {
@@ -273,18 +249,16 @@
           2,
           3
         ],
-        "x-options": {
-          "tableColMinWidth": "300px",
-          "enumTitles": [
-            "small (1)",
-            "medium (2)",
-            "big (3)"
-          ],
-          "info": {
-            "variant": "modal",
-            "title": "### Info Button title",
-            "content": "Info button content"
-          }
+        "x-tableColMinWidth": "300px",
+        "x-enumTitles": [
+          "small (1)",
+          "medium (2)",
+          "big (3)"
+        ],
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       },
       "integer-radios": {
@@ -296,19 +270,17 @@
           2,
           3
         ],
-        "x-options": {
-          "format": "radios-inline",
-          "tableColMinWidth": "300px",
-          "enumTitles": [
-            "small (1)",
-            "medium (2)",
-            "big (3)"
-          ],
-          "info": {
-            "variant": "modal",
-            "title": "### Info Button title",
-            "content": "Info button content"
-          }
+        "x-format": "radios-inline",
+        "x-tableColMinWidth": "300px",
+        "x-enumTitles": [
+          "small (1)",
+          "medium (2)",
+          "big (3)"
+        ],
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
       }
     }

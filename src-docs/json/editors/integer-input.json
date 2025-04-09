@@ -4,11 +4,9 @@
   "default": 5,
   "minimum": 0,
   "description": "The integer type is used for integral numbers.",
-  "x-options": {
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   }
 }

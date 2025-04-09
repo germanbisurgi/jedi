@@ -12,12 +12,10 @@
   },
   "default": ["value1"],
   "minItems": 1,
-  "x-options": {
-    "format": "checkboxes-inline",
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-format": "checkboxes-inline",
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   }
 }

@@ -1,11 +1,9 @@
 {
-  "x-options": {
-    "format": "nav-horizontal",
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-format": "nav-horizontal",
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   },
   "type": "object",
   "title": "All Editors",
@@ -22,26 +20,22 @@
           "title": "Boolean select",
           "description": "Description",
           "const": true,
-          "x-options": {
-            "format": "select",
-            "enumTitles": [
-              "No",
-              "Yes"
-            ]
-          }
+          "x-format": "select",
+          "x-enumTitles": [
+            "No",
+            "Yes"
+          ]
         },
         "boolean-radios": {
           "type": "boolean",
           "title": "Boolean radios",
           "description": "Description",
           "const": true,
-          "x-options": {
-            "format": "radios",
-            "enumTitles": [
-              "No",
-              "Yes"
-            ]
-          }
+          "x-format": "radios",
+          "x-enumTitles": [
+            "No",
+            "Yes"
+          ]
         },
         "boolean": {
           "type": "boolean",
@@ -67,9 +61,7 @@
           "title": "String textarea",
           "description": "Description",
           "minLength": 1,
-          "x-options": {
-            "format": "textarea"
-          }
+          "x-format": "textarea"
         },
         "string-select": {
           "type": "string",
@@ -80,13 +72,11 @@
             "betti",
             "carl"
           ],
-          "x-options": {
-            "enumTitles": [
-              "Albert",
-              "Betti",
-              "Carl"
-            ]
-          }
+          "x-enumTitles": [
+            "Albert",
+            "Betti",
+            "Carl"
+          ]
         },
         "string-radios": {
           "type": "string",
@@ -97,14 +87,12 @@
             "betti",
             "carl"
           ],
-          "x-options": {
-            "format": "radios",
-            "enumTitles": [
-              "Albert",
-              "Betti",
-              "Carl"
-            ]
-          }
+          "x-format": "radios",
+          "x-enumTitles": [
+            "Albert",
+            "Betti",
+            "Carl"
+          ]
         }
       }
     },
@@ -128,13 +116,11 @@
             2.5,
             3.5
           ],
-          "x-options": {
-            "enumTitles": [
-              "small (1.5)",
-              "medium (2.5)",
-              "big (3.5)"
-            ]
-          }
+          "x-enumTitles": [
+            "small (1.5)",
+            "medium (2.5)",
+            "big (3.5)"
+          ]
         },
         "number-radios": {
           "type": "number",
@@ -145,14 +131,12 @@
             2.5,
             3.5
           ],
-          "x-options": {
-            "format": "radios",
-            "enumTitles": [
-              "small (1.5)",
-              "medium (2.5)",
-              "big (3.5)"
-            ]
-          }
+          "x-format": "radios",
+          "x-enumTitles": [
+            "small (1.5)",
+            "medium (2.5)",
+            "big (3.5)"
+          ]
         }
       }
     },
@@ -176,13 +160,11 @@
             2,
             3
           ],
-          "x-options": {
-            "enumTitles": [
-              "small (1)",
-              "medium (2)",
-              "big (3)"
-            ]
-          }
+          "x-enumTitles": [
+            "small (1)",
+            "medium (2)",
+            "big (3)"
+          ]
         },
         "integer-radios": {
           "type": "number",
@@ -193,14 +175,12 @@
             2,
             3
           ],
-          "x-options": {
-            "format": "radios",
-            "enumTitles": [
-              "small (1)",
-              "medium (2)",
-              "big (3)"
-            ]
-          }
+          "x-format": "radios",
+          "x-enumTitles": [
+            "small (1)",
+            "medium (2)",
+            "big (3)"
+          ]
         }
       }
     },
@@ -220,9 +200,7 @@
             "not": {
               "const": "#000000"
             },
-            "x-options": {
-              "format": "color"
-            }
+            "x-format": "color"
           },
           "default": [
             "#e8f3ee",
@@ -244,59 +222,41 @@
           "oneOf": [
             {
               "type": "string",
-              "x-options": {
-                "switcherTitle": "String"
-              }
+              "x-switcherTitle": "String"
             },
             {
               "type": "boolean",
-              "x-options": {
-                "switcherTitle": "Boolean"
-              }
+              "x-switcherTitle": "Boolean"
             },
             {
               "title": "Any of",
               "description": "Description",
-              "x-options": {
-                "switcherTitle": "Any of"
-              },
+              "x-switcherTitle": "Any of",
               "anyOf": [
                 {
                   "type": "integer",
-                  "x-options": {
-                    "switcherTitle": "Integer"
-                  }
+                  "x-switcherTitle": "Integer"
                 },
                 {
                   "type": "number",
-                  "x-options": {
-                    "switcherTitle": "Number"
-                  }
+                  "x-switcherTitle": "Number"
                 },
                 {
                   "title": "One of",
                   "description": "Description",
-                  "x-options": {
-                    "switcherTitle": "One of"
-                  },
+                  "x-switcherTitle": "One of",
                   "oneOf": [
                     {
                       "type": "object",
-                      "x-options": {
-                        "switcherTitle": "Object"
-                      }
+                      "x-switcherTitle": "Object"
                     },
                     {
                       "type": "array",
-                      "x-options": {
-                        "switcherTitle": "Array"
-                      }
+                      "x-switcherTitle": "Array"
                     },
                     {
                       "type": "null",
-                      "x-options": {
-                        "switcherTitle": "Null"
-                      }
+                      "x-switcherTitle": "Null"
                     }
                   ]
                 }
@@ -310,21 +270,15 @@
           "oneOf": [
             {
               "type": "boolean",
-              "x-options": {
-                "switcherTitle": "Boolean"
-              }
+              "x-switcherTitle": "Boolean"
             },
             {
               "type": "string",
-              "x-options": {
-                "switcherTitle": "String"
-              }
+              "x-switcherTitle": "String"
             },
             {
               "type": "integer",
-              "x-options": {
-                "switcherTitle": "Integer"
-              }
+              "x-switcherTitle": "Integer"
             }
           ]
         },
@@ -334,21 +288,15 @@
           "anyOf": [
             {
               "type": "array",
-              "x-options": {
-                "switcherTitle": "Array"
-              }
+              "x-switcherTitle": "Array"
             },
             {
               "type": "object",
-              "x-options": {
-                "switcherTitle": "Object"
-              }
+              "x-switcherTitle": "Object"
             },
             {
               "type": "null",
-              "x-options": {
-                "switcherTitle": "Null"
-              }
+              "x-switcherTitle": "Null"
             }
           ]
         },

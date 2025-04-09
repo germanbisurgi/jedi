@@ -1,14 +1,12 @@
 {
   "type": "array",
   "title": "People",
-  "x-options": {
-    "titleTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
-    "format": "nav-vertical",
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-titleTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
+  "x-format": "nav-vertical",
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   },
   "default": [
     {

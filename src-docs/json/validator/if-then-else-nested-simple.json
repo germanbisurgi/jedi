@@ -10,9 +10,7 @@
         "yes",
         "no"
       ],
-      "x-options": {
-        "format": "radios"
-      }
+      "x-format": "radios"
     }
   },
   "if": {
@@ -39,9 +37,7 @@
         "type": "integer",
         "const": 0,
         "readOnly": true,
-        "x-options": {
-          "enforceConst": true
-        }
+        "x-enforceConst": true
       },
       "something": {
         "title": "Something else",

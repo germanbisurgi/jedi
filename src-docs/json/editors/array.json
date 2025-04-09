@@ -6,12 +6,10 @@
     "title": "I am an array item editor",
     "type": "string"
   },
-  "x-options": {
-    "sortable": true,
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-sortable": true,
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   }
 }

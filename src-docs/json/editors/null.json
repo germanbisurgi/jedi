@@ -2,11 +2,9 @@
   "type": "null",
   "title": "Null",
   "description": "When a schema specifies a type of null, it has only one acceptable value: null.",
-  "x-options": {
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   }
 }

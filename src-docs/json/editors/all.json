@@ -2,23 +2,19 @@
   "type": "object",
   "title": "All Editors",
   "minProperties": 6,
-  "x-options": {
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   },
   "properties": {
     "booleans": {
       "type": "object",
       "title": "Booleans",
-      "x-options": {
-        "info": {
-          "variant": "modal",
-          "title": "### Info Button title",
-          "content": "Info button content"
-        }
+      "x-info": {
+        "variant": "modal",
+        "title": "### Info Button title",
+        "content": "Info button content"
       },
       "properties": {
         "boolean-select": {
@@ -26,17 +22,15 @@
           "title": "Boolean select",
           "description": "A boolean editor using select input.",
           "const": true,
-          "x-options": {
-            "format": "select",
-            "enumTitles": [
-              "No",
-              "Yes"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-format": "select",
+          "x-enumTitles": [
+            "No",
+            "Yes"
+          ],
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         },
         "boolean-radios": {
@@ -44,17 +38,15 @@
           "title": "Boolean radios",
           "description": "A boolean editor using radios.",
           "const": true,
-          "x-options": {
-            "format": "radios",
-            "enumTitles": [
-              "No",
-              "Yes"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-format": "radios",
+          "x-enumTitles": [
+            "No",
+            "Yes"
+          ],
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         },
         "boolean": {
@@ -62,13 +54,11 @@
           "title": "Boolean checkbox",
           "description": "A boolean editor checkbox.",
           "const": true,
-          "x-options": {
-            "format": "checkbox",
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-format": "checkbox",
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         }
       }
@@ -76,12 +66,10 @@
     "strings": {
       "type": "object",
       "title": "Strings",
-      "x-options": {
-        "info": {
-          "variant": "modal",
-          "title": "### Info Button title",
-          "content": "Info button content"
-        }
+      "x-info": {
+        "variant": "modal",
+        "title": "### Info Button title",
+        "content": "Info button content"
       },
       "properties": {
         "string": {
@@ -89,12 +77,10 @@
           "title": "String input",
           "description": "A string editor.",
           "minLength": 1,
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         },
         "string-textarea": {
@@ -102,13 +88,11 @@
           "title": "String textarea",
           "description": "A string editor using textarea.",
           "minLength": 1,
-          "x-options": {
-            "format": "textarea",
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-format": "textarea",
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         },
         "string-select": {
@@ -120,17 +104,15 @@
             "betti",
             "carl"
           ],
-          "x-options": {
-            "enumTitles": [
-              "Albert",
-              "Betti",
-              "Carl"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-enumTitles": [
+            "Albert",
+            "Betti",
+            "Carl"
+          ],
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         },
         "string-radios": {
@@ -142,18 +124,16 @@
             "betti",
             "carl"
           ],
-          "x-options": {
-            "format": "radios",
-            "enumTitles": [
-              "Albert",
-              "Betti",
-              "Carl"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-format": "radios",
+          "x-enumTitles": [
+            "Albert",
+            "Betti",
+            "Carl"
+          ],
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         }
       }
@@ -161,12 +141,10 @@
     "numbers": {
       "type": "object",
       "title": "Numbers",
-      "x-options": {
-        "info": {
-          "variant": "modal",
-          "title": "### Info Button title",
-          "content": "Info button content"
-        }
+      "x-info": {
+        "variant": "modal",
+        "title": "### Info Button title",
+        "content": "Info button content"
       },
       "properties": {
         "number": {
@@ -174,12 +152,10 @@
           "title": "Number input",
           "description": "A number editor.",
           "minimum": 1,
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         },
         "number-select": {
@@ -191,17 +167,15 @@
             2.5,
             3.5
           ],
-          "x-options": {
-            "enumTitles": [
-              "small (1.5)",
-              "medium (2.5)",
-              "big (3.5)"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-enumTitles": [
+            "small (1.5)",
+            "medium (2.5)",
+            "big (3.5)"
+          ],
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         },
         "number-radios": {
@@ -213,18 +187,16 @@
             2.5,
             3.5
           ],
-          "x-options": {
-            "format": "radios",
-            "enumTitles": [
-              "small (1.5)",
-              "medium (2.5)",
-              "big (3.5)"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-format": "radios",
+          "x-enumTitles": [
+            "small (1.5)",
+            "medium (2.5)",
+            "big (3.5)"
+          ],
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         }
       }
@@ -232,12 +204,10 @@
     "integers": {
       "type": "object",
       "title": "Integers",
-      "x-options": {
-        "info": {
-          "variant": "modal",
-          "title": "### Info Button title",
-          "content": "Info button content"
-        }
+      "x-info": {
+        "variant": "modal",
+        "title": "### Info Button title",
+        "content": "Info button content"
       },
       "properties": {
         "integer": {
@@ -245,12 +215,10 @@
           "title": "Integer input",
           "description": "A integer editor.",
           "minimum": 1,
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         },
         "integer-select": {
@@ -262,17 +230,15 @@
             2,
             3
           ],
-          "x-options": {
-            "enumTitles": [
-              "small (1)",
-              "medium (2)",
-              "big (3)"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-enumTitles": [
+            "small (1)",
+            "medium (2)",
+            "big (3)"
+          ],
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         },
         "integer-radios": {
@@ -284,18 +250,16 @@
             2,
             3
           ],
-          "x-options": {
-            "format": "radios",
-            "enumTitles": [
-              "small (1)",
-              "medium (2)",
-              "big (3)"
-            ],
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-format": "radios",
+          "x-enumTitles": [
+            "small (1)",
+            "medium (2)",
+            "big (3)"
+          ],
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         }
       }
@@ -309,12 +273,10 @@
           "type": "array",
           "title": "Colors",
           "description": "Array of colors",
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           },
           "items": {
             "type": "string",
@@ -322,13 +284,11 @@
             "not": {
               "const": "#000000"
             },
-            "x-options": {
-              "format": "color",
-              "info": {
-                "variant": "modal",
-                "title": "### Info Button title",
-                "content": "Info button content"
-              }
+            "x-format": "color",
+            "x-info": {
+              "variant": "modal",
+              "title": "### Info Button title",
+              "content": "Info button content"
             }
           },
           "default": [
@@ -339,23 +299,19 @@
           "minItems": 2
         }
       },
-      "x-options": {
-        "info": {
-          "variant": "modal",
-          "title": "### Info Button title",
-          "content": "Info button content"
-        }
+      "x-info": {
+        "variant": "modal",
+        "title": "### Info Button title",
+        "content": "Info button content"
       }
     },
     "multiple": {
       "type": "object",
       "title": "Multiple",
-      "x-options": {
-        "info": {
-          "variant": "modal",
-          "title": "### Info Button title",
-          "content": "Info button content"
-        }
+      "x-info": {
+        "variant": "modal",
+        "title": "### Info Button title",
+        "content": "Info button content"
       },
       "properties": {
         "nestedOf": {
@@ -363,101 +319,83 @@
           "oneOf": [
             {
               "type": "string",
-              "x-options": {
-                "switcherTitle": "String",
-                "info": {
-                  "variant": "modal",
-                  "title": "### Info Button title",
-                  "content": "Info button content"
-                }
+              "x-switcherTitle": "String",
+              "x-info": {
+                "variant": "modal",
+                "title": "### Info Button title",
+                "content": "Info button content"
               }
             },
             {
               "type": "boolean",
-              "x-options": {
-                "switcherTitle": "Boolean",
-                "info": {
-                  "variant": "modal",
-                  "title": "### Info Button title",
-                  "content": "Info button content"
-                }
+              "x-switcherTitle": "Boolean",
+              "x-info": {
+                "variant": "modal",
+                "title": "### Info Button title",
+                "content": "Info button content"
               }
             },
             {
               "title": "Any of",
-              "x-options": {
-                "switcherTitle": "Any of",
-                "info": {
-                  "variant": "modal",
-                  "title": "### Info Button title",
-                  "content": "Info button content"
-                }
+              "x-switcherTitle": "Any of",
+              "x-info": {
+                "variant": "modal",
+                "title": "### Info Button title",
+                "content": "Info button content"
               },
               "anyOf": [
                 {
                   "type": "integer",
-                  "x-options": {
-                    "switcherTitle": "Integer",
-                    "info": {
-                      "variant": "modal",
-                      "title": "### Info Button title",
-                      "content": "Info button content"
-                    }
+                  "x-switcherTitle": "Integer",
+                  "x-info": {
+                    "variant": "modal",
+                    "title": "### Info Button title",
+                    "content": "Info button content"
                   }
                 },
                 {
                   "type": "number",
-                  "x-options": {
-                    "switcherTitle": "Number",
-                    "info": {
-                      "variant": "modal",
-                      "title": "### Info Button title",
-                      "content": "Info button content"
-                    }
+                  "x-switcherTitle": "Number",
+                  "x-info": {
+                    "variant": "modal",
+                    "title": "### Info Button title",
+                    "content": "Info button content"
                   }
                 },
                 {
                   "title": "One of",
-                  "x-options": {
-                    "switcherTitle": "One of",
-                    "info": {
-                      "variant": "modal",
-                      "title": "### Info Button title",
-                      "content": "Info button content"
-                    }
+                  "x-switcherTitle": "One of",
+                  "x-info": {
+                    "variant": "modal",
+                    "title": "### Info Button title",
+                    "content": "Info button content"
                   },
                   "oneOf": [
                     {
                       "type": "object",
-                      "x-options": {
-                        "switcherTitle": "Object",
-                        "info": {
-                          "variant": "modal",
-                          "title": "### Info Button title",
-                          "content": "Info button content"
-                        }
+                      "x-switcherTitle": "Object",
+                      "x-info": {
+                        "variant": "modal",
+                        "title": "### Info Button title",
+                        "content": "Info button content"
                       }
                     },
                     {
                       "type": "array",
-                      "x-options": {
-                        "switcherTitle": "Array",
-                        "info": {
-                          "variant": "modal",
-                          "title": "### Info Button title",
-                          "content": "Info button content"
-                        }
+                      "x-switcherTitle": "Array",
+                      "x-info": {
+                        "variant": "modal",
+                        "title": "### Info Button title",
+                        "content": "Info button content"
                       }
                     },
                     {
                       "type": "null",
-                      "x-options": {
-                        "switcherTitle": "Null",
-                        "info": {
-                          "variant": "modal",
-                          "title": "### Info Button title",
-                          "content": "Info button content"
-                        }
+                      "x-switcherTitle": "Null",
+                      "x-info": {
+                        "variant": "modal",
+                        "title": "### Info Button title",
+                        "content": "Info button content"
                       }
                     }
                   ]
@@ -471,80 +409,66 @@
           "oneOf": [
             {
               "type": "boolean",
-              "x-options": {
-                "switcherTitle": "Boolean",
-                "info": {
-                  "variant": "modal",
-                  "title": "### Info Button title",
-                  "content": "Info button content"
-                }
+              "x-switcherTitle": "Boolean",
+              "x-info": {
+                "variant": "modal",
+                "title": "### Info Button title",
+                "content": "Info button content"
               }
             },
             {
               "type": "string",
-              "x-options": {
-                "switcherTitle": "String",
-                "info": {
-                  "variant": "modal",
-                  "title": "### Info Button title",
-                  "content": "Info button content"
-                }
+              "x-switcherTitle": "String",
+              "x-info": {
+                "variant": "modal",
+                "title": "### Info Button title",
+                "content": "Info button content"
               }
             },
             {
               "type": "integer",
-              "x-options": {
-                "switcherTitle": "Integer",
-                "info": {
-                  "variant": "modal",
-                  "title": "### Info Button title",
-                  "content": "Info button content"
-                }
+              "x-switcherTitle": "Integer",
+              "x-info": {
+                "variant": "modal",
+                "title": "### Info Button title",
+                "content": "Info button content"
               }
             }
           ]
         },
         "anyof": {
           "title": "Any Of",
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           },
           "anyOf": [
             {
               "type": "array",
-              "x-options": {
-                "switcherTitle": "Array",
-                "info": {
-                  "variant": "modal",
-                  "title": "### Info Button title",
-                  "content": "Info button content"
-                }
+              "x-switcherTitle": "Array",
+              "x-info": {
+                "variant": "modal",
+                "title": "### Info Button title",
+                "content": "Info button content"
               }
             },
             {
               "type": "object",
-              "x-options": {
-                "switcherTitle": "Object",
-                "info": {
-                  "variant": "modal",
-                  "title": "### Info Button title",
-                  "content": "Info button content"
-                }
+              "x-switcherTitle": "Object",
+              "x-info": {
+                "variant": "modal",
+                "title": "### Info Button title",
+                "content": "Info button content"
               }
             },
             {
               "type": "null",
-              "x-options": {
-                "switcherTitle": "Null",
-                "info": {
-                  "variant": "modal",
-                  "title": "### Info Button title",
-                  "content": "Info button content"
-                }
+              "x-switcherTitle": "Null",
+              "x-info": {
+                "variant": "modal",
+                "title": "### Info Button title",
+                "content": "Info button content"
               }
             }
           ]
@@ -555,33 +479,27 @@
             "string",
             "boolean"
           ],
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         },
         "type-undefined": {
           "title": "Type is undefined",
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         },
         "type-any": {
           "type": "any",
           "title": "Type: any",
-          "x-options": {
-            "info": {
-              "variant": "modal",
-              "title": "### Info Button title",
-              "content": "Info button content"
-            }
+          "x-info": {
+            "variant": "modal",
+            "title": "### Info Button title",
+            "content": "Info button content"
           }
         }
       }

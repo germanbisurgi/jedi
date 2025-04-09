@@ -1,14 +1,12 @@
 {
   "type": "array",
   "title": "array-nav-tabs",
-  "x-options": {
-    "titleTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
-    "format": "nav-horizontal",
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-titleTemplate": "{{ i1 }}) {{ value.name }} {{ value.children.0.name }}",
+  "x-format": "nav-horizontal",
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   },
   "default": [
     {

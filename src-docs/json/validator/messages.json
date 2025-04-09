@@ -5,11 +5,9 @@
     "string": {
       "type": "string",
       "minLength": 5,
-      "x-options": {
-        "messages": [
-          "5 chars please."
-        ]
-      }
+      "x-messages": [
+        "5 chars please."
+      ]
     }
   }
 }

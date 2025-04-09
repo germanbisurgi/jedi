@@ -24,7 +24,7 @@ Generates forms from JSON schemas. Can be used in backend to validate JSON data 
     - [info](#info)
     - [inputAttributes](#inputattributes)
     - [enumTitles](#enumtitles)
-    - [enforceEnumDefault](#enforceenumdefault)
+    - [enforceEnum](#enforceenumdefault)
     - [enforceConst](#enforceconst)
     - [switcherTitle](#switchertitle)
     - [format](#format)
@@ -376,7 +376,7 @@ translates to:
       <td>no</td>
     </tr>
     <tr align="left">
-      <td><code>enforceEnumDefault</code></td>
+      <td><code>enforceEnum</code></td>
       <td><code>boolean</code></td>
       <td><code>true</code></td>
       <td>When <code>true</code> uses the first item in the enum as the default value</td>
@@ -473,7 +473,7 @@ translates to:
 
 ## Schema options
 
-The `x-options` [custom annotation](https://json-schema.org/blog/posts/custom-annotations-will-continue#what's-the-solution)
+The `x-` or `x-options` [custom annotation](https://json-schema.org/blog/posts/custom-annotations-will-continue#what's-the-solution)
 can be used in JSON Schemas to changes how instances and editors behave. When setting the same option as
 Jedi options and as `x-options`, the `x-options` one will be applied. `x-options` must be of type object.
 
@@ -481,9 +481,7 @@ Jedi options and as `x-options`, the `x-options` one will be applied. `x-options
 {
   "title": "Message",
   "type": "string",
-  "x-options": {
-    "format": "textarea"
-  }
+  "x-format": "textarea"
 }
 ```
 
@@ -508,16 +506,14 @@ depends on the option `"enum"`.
     "#000000",
     "#ffffff"
   ],
-  "x-options": {
-    "enumTitles": [
-      "Black",
-      "White"
-    ]
-  }
+  "x-enumTitles": [
+    "Black",
+    "White"
+  ]
 }
 ```
 
-### `titleHidden`
+### `x-titleHidden`
 
 - Type: `boolean`
 - Default: `false`
@@ -530,13 +526,11 @@ Hide editor title.
 {
   "title": "Message",
   "type": "string",
-  "x-options": {
-    "titleHidden": true
-  }
+  "x-titleHidden": true
 }
 ```
 
-### `titleIconClass`
+### `x-titleIconClass`
 
 - Type: `string`
 - Description: Icon class to use in titles if using any.
@@ -548,13 +542,11 @@ Show a fontawesome envelope icon in the title.
 {
   "title": "Message",
   "type": "string",
-  "x-options": {
-    "titleIconClass": "fas fa-envelope"
-  }
+  "x-titleIconClass": "fas fa-envelope"
 }
 ```
 
-### `showErrors`
+### `x-showErrors`
 
 - Type: `string`
 - Default: `"change"`
@@ -568,13 +560,11 @@ Always show errors for this editor even if the value didn't change.
 {
   "title": "Message",
   "type": "string",
-  "x-options": {
-    "showErrors": "always"
-  }
+  "x-showErrors": "always"
 }
 ```
 
-### `assertFormat`
+### `x-assertFormat`
 
 - Type: `boolean`
 - Default: `"false"`
@@ -589,13 +579,11 @@ Treat `"format": "email"` as a constraint keyword instead of an annotation.
   "title": "Message",
   "type": "string",
   "format": "email",
-  "x-options": {
-    "assertFormat": true
-  }
+  "x-assertFormat": true
 }
 ```
 
-### `messages`
+### `x-messages`
 
 - Type: `string[]`
 - Description: Used to define custom error messages.
@@ -609,16 +597,14 @@ If editor has any error, displays 2 custom error messages.
   "type": "string",
   "minLength": "10",
   "maxLength": "100",
-  "x-options": {
-    "messages": [
-      "Must be at least 10 characters long",
-      "Must be at most 100 characters long"
-    ]
-  }
+  "x-messages": [
+    "Must be at least 10 characters long",
+    "Must be at most 100 characters long"
+  ]
 }
 ```
 
-### `info`
+### `x-info`
 
 - Type: `object`
 - Description: Used to display extra information. If `markdown` is used to generate `html` content, it can be sanitized by DOMPurify is available, otherwise only the textContent will be displayed without any HTML tags.
@@ -634,17 +620,15 @@ Displays an info button right after the title, that opens a modal with title and
 {
   "title": "Message",
   "type": "string",
-  "x-options": {
-    "info": {
-      "variant": "modal",
-      "title": "<h4>Info Button title</h4>",
-      "content": "<p>Info button content</p>"
-    }
+  "x-info": {
+    "variant": "modal",
+    "title": "<h4>Info Button title</h4>",
+    "content": "<p>Info button content</p>"
   }
 }
 ```
 
-### `inputAttributes`
+### `x-inputAttributes`
 
 - Type: `object`
 - Description: Used to set attributes for the editor input.
@@ -656,16 +640,14 @@ Add `placeholder` attribute to textarea.
 {
   "title": "Message",
   "type": "string",
-  "x-options": {
-    "format": "textarea",
-    "inputAttributes": {
-      "placeholder": "Your message here..."
-    }
+  "x-format": "textarea",
+  "x-inputAttributes": {
+    "placeholder": "Your message here..."
   }
 }
 ```
 
-### `enumTitles`
+### `x-enumTitles`
 
 - Type: `string[]`
 - Depends on: `"enum"`
@@ -683,17 +665,15 @@ Display color names instead of hex codes.
     "00ff00",
     "0000ff"
   ],
-  "x-options": {
-    "enumTitles": [
-      "Red",
-      "Green",
-      "Blue"
-    ]
-  }
+  "x-enumTitles": [
+    "Red",
+    "Green",
+    "Blue"
+  ]
 }
 ```
 
-### `enforceEnumDefault`
+### `x-enforceEnum`
 
 - Type: `boolean`
 - Default: `false`
@@ -712,9 +692,7 @@ Default value for this editor will be  `""`.
     "00ff00",
     "0000ff"
   ],
-  "x-options": {
-    "enforceEnumDefault": false
-  }
+  "x-enforceEnum": false
 }
 ```
 
@@ -729,13 +707,11 @@ Default value for this editor will be `"ff0000"`.
     "00ff00",
     "0000ff"
   ],
-  "x-options": {
-    "enforceEnumDefault": true
-  }
+  "x-enforceEnum": true
 }
 ```
 
-### `enforceConst`
+### `x-enforceConst`
 
 - Type: `boolean`
 - Default: `false`
@@ -750,13 +726,11 @@ Default value for this editor will be `"ff0000"`.
   "title": "Color",
   "type": "string",
   "const": "ff0000",
-  "x-options": {
-    "enforceConst": true
-  }
+  "x-enforceConst": true
 }
 ```
 
-### `switcherTitle`
+### `x-switcherTitle`
 
 - Type: `string`
 - Default: "undefined". The property name or the title will be used instead.
@@ -780,22 +754,18 @@ But in the sub-editors the titles remain:
     {
       "title": "Card Number",
       "type": "string",
-      "x-options": {
-        "switcherTitle": "I want to pay with Credit Card"
-      }
+      "x-switcherTitle": "I want to pay with Credit Card"
     },
     {
       "title": "Email",
       "type": "string",
-      "x-options": {
-        "switcherTitle": "I want to pay with PayPal"
-      }
+      "x-switcherTitle": "I want to pay with PayPal"
     }
   ]
 }
 ```
 
-### `format`
+### `x-format`
 
 - Type: `string`
 - Description: Determines editor UI and behaviours. The effect of `"format"` depends on the schema `"type"` keyword.
@@ -854,13 +824,11 @@ Use radios to display color names instead of hex codes.
     "Green",
     "Blue"
   ],
-  "x-options": {
-    "format": "radios"
-  }
+  "x-format": "radios"
 }
 ```
 
-### `grid`
+### `x-grid`
 
 - Type: `object`
 - Description: A configuration object to determine the position of the property editor in the parent's grid.
@@ -869,17 +837,17 @@ Use radios to display color names instead of hex codes.
     - `offset`: How many columns should the editor be offseted.
     - `newRow`: Whether the editor should be put in a new row.
 - Examples:
-    - [editors/object-grid](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-grid&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+    - [editors/object-grid](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-grid&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
 
-### `enableCollapseToggle`
+### `x-enableCollapseToggle`
 
 - Type: `boolean`
 - Description: Display a collapse button used to collapse or expand editors that support collapse like `object` and `arrays`
 - Examples:
-    - [editors/object](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-    - [editors/array](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/array&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+    - [editors/object](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+    - [editors/array](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/array&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
 
-### `startCollapsed`
+### `x-startCollapsed`
 
 - Type: `boolean`
 - Description: Whether the editor should start expanded or collapsed. Works on editors that support collapse like `object` and `arrays`
@@ -889,9 +857,7 @@ Use radios to display color names instead of hex codes.
 {
   "title": "Person",
   "type": "object",
-  "x-options": {
-    "startCollapsed": true
-  },
+  "x-startCollapsed": true,
   "properties": {
     "name": {
       "type": "string",
@@ -901,7 +867,7 @@ Use radios to display color names instead of hex codes.
 }
 ```
 
-### `deactivateNonRequired`
+### `x-deactivateNonRequired`
 
 - Type: `boolean`
 - Description: Whether the editor should deactivate (hide) or activate (show) non required properties. Works on only with `object` type editors.
@@ -911,9 +877,7 @@ Use radios to display color names instead of hex codes.
 {
   "title": "Person",
   "type": "object",
-  "x-options": {
-    "deactivateNonRequired": true
-  },
+  "x-deactivateNonRequired": true,
   "required": [
     "name"
   ],
@@ -930,7 +894,7 @@ Use radios to display color names instead of hex codes.
 }
 ```
 
-### `sortable`
+### `x-sortable`
 
 - Type: `boolean`
 - Description: Allows drag and drop if Sortable.js is installed and available as `window.Sortable`. Works only with `array` type editors.
@@ -947,21 +911,19 @@ Use radios to display color names instead of hex codes.
         "title": "This is a number editor",
         "type": "number"
       },
-      "x-options": {
-        "sortable": true
-      }
+      "x-sortable": true
     }
   }
 }
 ```
 
-### `titleTemplate`
+### `x-titleTemplate`
 
 - Type: `string`
 - Description: A template to form titles dynamically.
 - Examples:
-    - [editors/object-nav-vertical](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-vertical&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-    - [editors/object-nav-horizontal](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-horizontal&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnumDefault=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+    - [editors/object-nav-vertical](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-vertical&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+    - [editors/object-nav-horizontal](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-horizontal&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
 
 ## Language and Translations
 
@@ -1069,15 +1031,13 @@ Virtually all editors can have the following features:
   "type": "string",
   "title": "label text for this editor",
   "description": "description text for this editor",
-  "x-options": {
-    "info": {
-      "variant": "modal",
-      "title": "<h4>Info Button title</h4>",
-      "content": "<p>Info button content</p>"
-    },
-    "inputAttributes": {
-      "placeholder": "placeholder text"
-    }
+  "x-info": {
+    "variant": "modal",
+    "title": "<h4>Info Button title</h4>",
+    "content": "<p>Info button content</p>"
+  },
+  "x-inputAttributes": {
+    "placeholder": "placeholder text"
   }
 }
 ```
@@ -1100,9 +1060,7 @@ Child editors are placed from top to bottom and occupy the whole with available.
     "title": "I am an array item editor",
     "type": "string"
   },
-  "x-options": {
-    "sortable": true
-  }
+  "x-sortable": true
 }
 ```
 
@@ -1141,9 +1099,7 @@ checkbox inline variant
       "value2"
     ]
   },
-  "x-options": {
-    "format": "checkboxes-inline"
-  }
+  "x-format": "checkboxes-inline"
 }
 ```
 
@@ -1173,28 +1129,24 @@ Choices.js musst be installed and available as `window.Choices` for this to work
       "BR",
       "AU"
     ],
-    "x-options": {
-      "enumTitles": [
-        "United States (US)",
-        "Canada (CA)",
-        "United Kingdom (GB)",
-        "France (FR)",
-        "Germany (DE)",
-        "Italy (IT)",
-        "India (IN)",
-        "Japan (JP)",
-        "Brazil (BR)",
-        "Australia (AU)"
-      ]
-    }
+    "x-enumTitles": [
+      "United States (US)",
+      "Canada (CA)",
+      "United Kingdom (GB)",
+      "France (FR)",
+      "Germany (DE)",
+      "Italy (IT)",
+      "India (IN)",
+      "Japan (JP)",
+      "Brazil (BR)",
+      "Australia (AU)"
+    ]
   },
   "default": [
     "US"
   ],
   "minItems": 1,
-  "x-options": {
-    "format": "choices"
-  }
+  "x-format": "choices"
 }
 ```
 
@@ -1216,10 +1168,8 @@ With vertical nav
 {
   "type": "array",
   "title": "People",
-  "x-options": {
-    "format": "nav-vertical",
-    "titleTemplate": "{{ i1 }} {{ value.name }}"
-  },
+  "x-format": "nav-vertical",
+  "x-titleTemplate": "{{ i1 }} {{ value.name }}",
   "items": {
     "type": "object",
     "title": "Person",
@@ -1244,10 +1194,8 @@ With horizontal nav
 {
   "type": "array",
   "title": "People",
-  "x-options": {
-    "format": "nav-horizontal",
-    "titleTemplate": "{{ i1 }} {{ value.name }}"
-  },
+  "x-format": "nav-horizontal",
+  "x-titleTemplate": "{{ i1 }} {{ value.name }}",
   "items": {
     "type": "object",
     "title": "Person",
@@ -1274,10 +1222,8 @@ A table where each item editor is rendered in a new table row. Useful for array 
 {
   "title": "users",
   "type": "array",
-  "x-options": {
-    "sortable": true,
-    "format": "table"
-  },
+  "x-sortable": true,
+  "x-format": "table",
   "items": {
     "type": "object",
     "title": "Person",
@@ -1308,9 +1254,7 @@ Renders a type checkbox input
 {
   "type": "boolean",
   "title": "Boolean",
-  "x-options": {
-    "format": "checkbox"
-  }
+  "x-format": "checkbox"
 }
 ```
 
@@ -1323,13 +1267,11 @@ Renders two type radio inputs. The radio labels can be customized with the
 {
   "type": "boolean",
   "title": "Boolean",
-  "x-options": {
-    "format": "radios",
-    "enumTitles": [
-      "Yes",
-      "No"
-    ]
-  }
+  "x-format": "radios",
+  "x-enumTitles": [
+    "Yes",
+    "No"
+  ]
 }
 ```
 
@@ -1339,13 +1281,11 @@ Inline variant
 {
   "type": "boolean",
   "title": "Boolean",
-  "x-options": {
-    "format": "radios-inline",
-    "enumTitles": [
-      "Yes",
-      "No"
-    ]
-  }
+  "x-format": "radios-inline",
+  "x-enumTitles": [
+    "Yes",
+    "No"
+  ]
 }
 ```
 
@@ -1358,13 +1298,11 @@ Renders type select input with 2 options. The options labels can be customized w
 {
   "type": "boolean",
   "title": "Boolean",
-  "x-options": {
-    "format": "select",
-    "enumTitles": [
-      "Yes",
-      "No"
-    ]
-  }
+  "x-format": "select",
+  "x-enumTitles": [
+    "Yes",
+    "No"
+  ]
 }
 ```
 
@@ -1393,14 +1331,12 @@ Renders as many radio type inputs as values in the `enum` constraint. The radio 
     1,
     2
   ],
-  "x-options": {
-    "format": "radios",
-    "enumTitles": [
-      "None",
-      "One",
-      "A pair"
-    ]
-  }
+  "x-format": "radios",
+  "x-enumTitles": [
+    "None",
+    "One",
+    "A pair"
+  ]
 }
 ```
 
@@ -1415,14 +1351,12 @@ Inline variant
     1,
     2
   ],
-  "x-options": {
-    "format": "radios-inline",
-    "enumTitles": [
-      "None",
-      "One",
-      "A pair"
-    ]
-  }
+  "x-format": "radios-inline",
+  "x-enumTitles": [
+    "None",
+    "One",
+    "A pair"
+  ]
 }
 ```
 
@@ -1440,13 +1374,11 @@ Renders as many radio type inputs as values in the `enum` constraint. The option
     1,
     2
   ],
-  "x-options": {
-    "enumTitles": [
-      "None",
-      "One",
-      "A pair"
-    ]
-  }
+  "x-enumTitles": [
+    "None",
+    "One",
+    "A pair"
+  ]
 }
 ```
 
@@ -1492,31 +1424,25 @@ Child editors can have more options:
 {
   "type": "object",
   "title": "Login",
-  "x-options": {
-    "format": "grid",
-    "grid": {
-      "columns": 6
-    }
+  "x-format": "grid",
+  "x-grid": {
+    "columns": 6
   },
   "properties": {
     "email": {
       "title": "E-Mail",
       "type": "string",
       "format": "email",
-      "x-options": {
-        "grid": {
-          "columns": 6
-        }
+      "x-grid": {
+        "columns": 6
       }
     },
     "password": {
       "title": "Password",
       "type": "string",
       "minLength": 8,
-      "x-options": {
-        "grid": {
-          "columns": 6
-        }
+      "x-grid": {
+        "columns": 6
       }
     }
   }
@@ -1532,9 +1458,7 @@ With vertical nav
 
 ```json
 {
-  "x-options": {
-    "format": "nav-vertical"
-  },
+  "x-format": "nav-vertical",
   "type": "object",
   "title": "All Editors",
   "properties": {
@@ -1572,9 +1496,7 @@ With horizontal nav
 
 ```json
 {
-  "x-options": {
-    "format": "nav-horizontal"
-  },
+  "x-format": "nav-horizontal",
   "type": "object",
   "title": "All Editors",
   "properties": {
@@ -1633,14 +1555,12 @@ Renders as many radio type inputs as values in the `enum` constraint. The radio 
     "betti",
     "carl"
   ],
-  "x-options": {
-    "format": "radios",
-    "enumTitles": [
-      "Albert",
-      "Betti",
-      "Carl"
-    ]
-  }
+  "x-format": "radios",
+  "x-enumTitles": [
+    "Albert",
+    "Betti",
+    "Carl"
+  ]
 }
 ```
 
@@ -1655,14 +1575,12 @@ Inline variant
     "betti",
     "carl"
   ],
-  "x-options": {
-    "format": "radios-inline",
-    "enumTitles": [
-      "Albert",
-      "Betti",
-      "Carl"
-    ]
-  }
+  "x-format": "radios-inline",
+  "x-enumTitles": [
+    "Albert",
+    "Betti",
+    "Carl"
+  ]
 }
 ```
 
@@ -1680,13 +1598,11 @@ Renders as many radio type inputs as values in the `enum` constraint. The option
     "betti",
     "carl"
   ],
-  "x-options": {
-    "enumTitles": [
-      "Albert",
-      "Betti",
-      "Carl"
-    ]
-  }
+  "x-enumTitles": [
+    "Albert",
+    "Betti",
+    "Carl"
+  ]
 }
 ```
 

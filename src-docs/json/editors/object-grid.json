@@ -2,253 +2,202 @@
   "type": "object",
   "title": "Grid",
   "x-format": "grid",
-  "x-options": {
-    "format": "grid",
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   },
   "properties": {
     "a": {
       "title": "a",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "columns": 1
-        }
+      "x-grid": {
+        "columns": 1
       }
     },
     "b": {
       "title": "b",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "columns": 2
-        }
+      "x-grid": {
+        "columns": 2
       }
     },
     "c": {
       "title": "c",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "columns": 3
-        }
+      "x-grid": {
+        "columns": 3
       }
     },
     "d": {
       "title": "d",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "columns": 4
-        }
+      "x-grid": {
+        "columns": 4
       }
     },
     "e": {
       "title": "e",
       "type": "string",
-      "x-options": {
-        "gridColumns": 5,
-        "grid": {
-          "columns": 5
-        }
+      "x-gridColumns": 5,
+      "x-grid": {
+        "columns": 5
       }
     },
     "f": {
       "title": "f",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "columns": 6
-        }
+      "x-grid": {
+        "columns": 6
       }
     },
     "g": {
       "title": "g",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "columns": 7
-        }
+      "x-grid": {
+        "columns": 7
       }
     },
     "h": {
       "title": "h",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "columns": 8
-        }
+      "x-grid": {
+        "columns": 8
       }
     },
     "i": {
       "title": "i",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "columns": 9
-        }
+      "x-grid": {
+        "columns": 9
       }
     },
     "j": {
       "title": "j",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "columns": 10
-        }
+      "x-grid": {
+        "columns": 10
       }
     },
     "k": {
       "title": "k",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "columns": 11
-        }
+      "x-grid": {
+        "columns": 11
       }
     },
     "l": {
       "title": "l",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "columns": 12,
-          "newRow": true
-        }
+      "x-grid": {
+        "columns": 12,
+        "newRow": true
       }
     },
     "m": {
       "title": "m",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "columns": 1,
-          "newRow": true
-        }
+      "x-grid": {
+        "columns": 1,
+        "newRow": true
       }
     },
     "n": {
       "title": "n",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 1
-        }
+      "x-grid": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 1
       }
     },
     "o": {
       "title": "o",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 2
-        }
+      "x-grid": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 2
       }
     },
     "p": {
       "title": "p",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 3
-        }
+      "x-grid": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 3
       }
     },
     "q": {
       "title": "q",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 4
-        }
+      "x-grid": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 4
       }
     },
     "r": {
       "title": "r",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 5
-        }
+      "x-grid": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 5
       }
     },
     "s": {
       "title": "s",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 6
-        }
+      "x-grid": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 6
       }
     },
     "t": {
       "title": "t",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 7
-        }
+      "x-grid": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 7
       }
     },
     "u": {
       "title": "u",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 8
-        }
+      "x-grid": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 8
       }
     },
     "v": {
       "title": "v",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 9
-        }
+      "x-grid": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 9
       }
     },
     "w": {
       "title": "w",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "newRow": true,
-          "columns": 1,
-          "offset": 10
-        }
+      "x-grid": {
+        "newRow": true,
+        "columns": 1,
+        "offset": 10
       }
     },
     "x": {
       "title": "x",
       "type": "string",
-      "x-options": {
-        "grid": {
-          "columns": 1,
-          "offset": 11
-        }
+      "x-grid": {
+        "columns": 1,
+        "offset": 11
       }
     }
   }

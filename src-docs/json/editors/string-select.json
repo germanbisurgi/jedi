@@ -8,16 +8,14 @@
     "betti",
     "carl"
   ],
-  "x-options": {
-    "enumTitles": [
-      "Albert",
-      "Betti",
-      "Carl"
-    ],
-    "info": {
-      "variant": "modal",
-      "title": "### Info Button title",
-      "content": "Info button content"
-    }
+  "x-enumTitles": [
+    "Albert",
+    "Betti",
+    "Carl"
+  ],
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
   }
 }

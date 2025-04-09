@@ -15,9 +15,7 @@
             "yes",
             "no"
           ],
-          "x-options": {
-            "format": "radios-inline"
-          }
+          "x-format": "radios-inline"
         }
       },
       "if": {

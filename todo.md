@@ -5,6 +5,7 @@
 
 
 - Editor
+  - collapse expand text and animation
   - array nav drag
   - translation with template compiling
   - ternary options
