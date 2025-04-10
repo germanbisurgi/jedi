@@ -48,8 +48,8 @@ class EditorObject extends Editor {
       id: this.getIdFromPath(this.instance.path),
       enablePropertiesToggle: enablePropertiesToggle,
       addProperty: addProperty,
-      enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, 'enableCollapseToggle'),
-      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, 'startCollapsed'),
+      enableCollapseToggle: getSchemaXOption(this.instance.schema, 'enableCollapseToggle') ?? this.instance.jedi.options.enableCollapseToggle,
+      startCollapsed: getSchemaXOption(this.instance.schema, 'startCollapsed') ?? this.instance.jedi.options.startCollapsed,
       readOnly: this.instance.isReadOnly(),
       info: this.getInfo(),
       propertiesToggleContent: getSchemaXOption(this.instance.schema, 'propertiesToggleContent') ?? this.instance.jedi.translator.translate('propertiesToggle'),
@@ -107,9 +107,9 @@ class EditorObject extends Editor {
   }
 
   refreshPropertiesSlot () {
-    const schemaOptionEnablePropertiesToggle = getSchemaXOption(this.instance.schema, 'enablePropertiesToggle')
+    const schemaOptionEnablePropertiesToggle = getSchemaXOption(this.instance.schema, 'enablePropertiesToggle') ?? this.instance.jedi.options.enablePropertiesToggle
 
-    if (equal(this.instance.jedi.options.enablePropertiesToggle, true) || equal(schemaOptionEnablePropertiesToggle, true)) {
+    if (equal(schemaOptionEnablePropertiesToggle, true)) {
       const declaredProperties = Object.keys(this.instance.properties)
       const instanceProperties = this.instance.children.map((child) => child.getKey())
       const properties = [...new Set([...declaredProperties, ...instanceProperties])]

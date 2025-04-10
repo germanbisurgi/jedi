@@ -1689,7 +1689,7 @@ class Instance extends EventEmitter {
     if (isSet(schemaDefault)) {
       this.setValue(schemaDefault, false);
     }
-    const enforceConst = this.jedi.options.enforceConst || getSchemaXOption(this.schema, "enforceConst");
+    const enforceConst = getSchemaXOption(this.schema, "enforceConst") ?? this.jedi.options.enforceConst;
     if (isSet(enforceConst) && equal(enforceConst, true)) {
       const schemaConst = getSchemaConst(this.schema);
       if (isSet(schemaConst)) {
@@ -1761,7 +1761,7 @@ class Instance extends EventEmitter {
    * Sets the instance value
    */
   setValue(newValue, triggersChange = true, initiator = "api") {
-    const enforceConst = this.jedi.options.enforceConst || getSchemaXOption(this.schema, "enforceConst");
+    const enforceConst = getSchemaXOption(this.schema, "enforceConst") ?? this.jedi.options.enforceConst;
     if (isSet(enforceConst) && equal(enforceConst, true)) {
       const schemaConst = getSchemaConst(this.schema);
       if (isSet(schemaConst)) {
@@ -2503,7 +2503,7 @@ class InstanceObject extends Instance {
     });
     this.children.push(instance);
     this.value[key] = instance.getValue();
-    const deactivateNonRequired = this.jedi.options.deactivateNonRequired || getSchemaXOption(this.schema, "deactivateNonRequired");
+    const deactivateNonRequired = getSchemaXOption(this.schema, "deactivateNonRequired") ?? this.jedi.options.deactivateNonRequired;
     if (!this.isRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true && !activate) {
       instance.deactivate();
     }
@@ -3204,8 +3204,8 @@ class EditorObject extends Editor {
       id: this.getIdFromPath(this.instance.path),
       enablePropertiesToggle,
       addProperty,
-      enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
-      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
+      enableCollapseToggle: getSchemaXOption(this.instance.schema, "enableCollapseToggle") ?? this.instance.jedi.options.enableCollapseToggle,
+      startCollapsed: getSchemaXOption(this.instance.schema, "startCollapsed") ?? this.instance.jedi.options.startCollapsed,
       readOnly: this.instance.isReadOnly(),
       info: this.getInfo(),
       propertiesToggleContent: getSchemaXOption(this.instance.schema, "propertiesToggleContent") ?? this.instance.jedi.translator.translate("propertiesToggle"),
@@ -3249,8 +3249,8 @@ class EditorObject extends Editor {
     return this.theme.getAlert(config);
   }
   refreshPropertiesSlot() {
-    const schemaOptionEnablePropertiesToggle = getSchemaXOption(this.instance.schema, "enablePropertiesToggle");
-    if (equal(this.instance.jedi.options.enablePropertiesToggle, true) || equal(schemaOptionEnablePropertiesToggle, true)) {
+    const schemaOptionEnablePropertiesToggle = getSchemaXOption(this.instance.schema, "enablePropertiesToggle") ?? this.instance.jedi.options.enablePropertiesToggle;
+    if (equal(schemaOptionEnablePropertiesToggle, true)) {
       const declaredProperties = Object.keys(this.instance.properties);
       const instanceProperties = this.instance.children.map((child) => child.getKey());
       const properties2 = [.../* @__PURE__ */ new Set([...declaredProperties, ...instanceProperties])];
@@ -3455,8 +3455,8 @@ class EditorArray extends Editor {
       description: this.getDescription(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       id: this.getIdFromPath(this.instance.path),
-      enableCollapseToggle: this.instance.jedi.options.enableCollapseToggle || getSchemaXOption(this.instance.schema, "enableCollapseToggle"),
-      startCollapsed: this.instance.jedi.options.startCollapsed || getSchemaXOption(this.instance.schema, "startCollapsed"),
+      enableCollapseToggle: getSchemaXOption(this.instance.schema, "enableCollapseToggle") ?? this.instance.jedi.options.enableCollapseToggle,
+      startCollapsed: getSchemaXOption(this.instance.schema, "startCollapsed") ?? this.instance.jedi.options.startCollapsed,
       readOnly: this.instance.isReadOnly(),
       info: this.getInfo(),
       arrayAdd: getSchemaXOption(this.instance.schema, "arrayAdd") ?? this.instance.jedi.options.arrayAdd,

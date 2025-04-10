@@ -14,7 +14,7 @@ BeforeSuite(({I}) => {
 });
 
 Scenario('@editor @null should have @title and @description', ({ I }) => {
-  I._waitForText('Null', 'span')
+  I._waitForText('Null', '.jedi-label')
   I._waitForText('When a schema specifies a type of null, it has only one acceptable value: null.\n')
 })
 

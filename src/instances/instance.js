@@ -200,7 +200,7 @@ class Instance extends EventEmitter {
       this.setValue(schemaDefault, false)
     }
 
-    const enforceConst = this.jedi.options.enforceConst || getSchemaXOption(this.schema, 'enforceConst')
+    const enforceConst = getSchemaXOption(this.schema, 'enforceConst') ?? this.jedi.options.enforceConst
 
     if (isSet(enforceConst) && equal(enforceConst, true)) {
       const schemaConst = getSchemaConst(this.schema)
@@ -295,7 +295,7 @@ class Instance extends EventEmitter {
    * Sets the instance value
    */
   setValue (newValue, triggersChange = true, initiator = 'api') {
-    const enforceConst = this.jedi.options.enforceConst || getSchemaXOption(this.schema, 'enforceConst')
+    const enforceConst = getSchemaXOption(this.schema, 'enforceConst') ?? this.jedi.options.enforceConst
 
     if (isSet(enforceConst) && equal(enforceConst, true)) {
       const schemaConst = getSchemaConst(this.schema)
