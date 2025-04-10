@@ -9,6 +9,7 @@ Scenario('@constrain @const should display validation errors', ({ I }) => {
   I.selectOption('#examples', 'validator/const')
   I._waitForElement('.jedi-ready')
   I.selectOption('#show-errors', 'always')
+  I._waitForElement('.jedi-ready')
 
   // string
   I._scrollTo('[data-path="#/string"]')
