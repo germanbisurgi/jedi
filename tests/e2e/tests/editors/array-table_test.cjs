@@ -66,7 +66,7 @@ Scenario('@editor @array-table should have @title and @description', ({I}) => {
 
 Scenario('@editor @array-table should have a @default value', ({I}) => {
   // instance
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(valueDefault))
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(valueDefault))
 
   // editor
   I.seeInField('[id="root-0-boolean-select"]', 'true')
@@ -87,7 +87,7 @@ Scenario('@editor @array-table should @setValue and @showValidationErrors', ({I}
   I._scrollTo('#set-value')
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(valueWithErrors))
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(valueWithErrors))
 
   // editor
   I.seeInField('[id="root-0-boolean-select"]', 'false')

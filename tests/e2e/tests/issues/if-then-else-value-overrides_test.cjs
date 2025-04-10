@@ -11,7 +11,7 @@ BeforeSuite(({ I }) => {
 })
 
 Scenario('@issue @if-then-else-value-overrides should be fixed', ({ I }) => {
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     test: {
       propA: '',
       propB: null
@@ -20,7 +20,7 @@ Scenario('@issue @if-then-else-value-overrides should be fixed', ({ I }) => {
 
   I.click('yes')
 
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "test": {
       "propA": "yes",
       "propB": 0
@@ -29,7 +29,7 @@ Scenario('@issue @if-then-else-value-overrides should be fixed', ({ I }) => {
 
   I.click('no')
 
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "test": {
       "propA": "no",
       "propB": 0
@@ -38,7 +38,7 @@ Scenario('@issue @if-then-else-value-overrides should be fixed', ({ I }) => {
 
   I.click('unknown')
 
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "test": {
       "propA": "unknown",
       "propB": null
@@ -47,7 +47,7 @@ Scenario('@issue @if-then-else-value-overrides should be fixed', ({ I }) => {
 
   I.click('none')
 
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "test": {
       "propA": "none",
       "propB": null
@@ -56,7 +56,7 @@ Scenario('@issue @if-then-else-value-overrides should be fixed', ({ I }) => {
 
   I.click('yes')
 
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "test": {
       "propA": "yes",
       "propB": 0
@@ -65,7 +65,7 @@ Scenario('@issue @if-then-else-value-overrides should be fixed', ({ I }) => {
 
   I.click('no')
 
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "test": {
       "propA": "no",
       "propB": 0
@@ -74,7 +74,7 @@ Scenario('@issue @if-then-else-value-overrides should be fixed', ({ I }) => {
 
   I.click('unknown')
 
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "test": {
       "propA": "unknown",
       "propB": null
@@ -83,7 +83,7 @@ Scenario('@issue @if-then-else-value-overrides should be fixed', ({ I }) => {
 
   I.click('none')
 
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "test": {
       "propA": "none",
       "propB": null

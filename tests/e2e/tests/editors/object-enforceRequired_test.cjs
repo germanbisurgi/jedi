@@ -8,7 +8,7 @@ Scenario('@editor @object @enforceRequired should always shor required propertie
   I.selectOption('#examples', 'editors/object-enforceRequired')
   I._waitForElement('.jedi-ready')
 
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "a": 1,
     "b": 0
   }))
@@ -21,7 +21,7 @@ Scenario('@editor @object @enforceRequired should always shor required propertie
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
 
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "a": 1,
     "b": 0
   }))

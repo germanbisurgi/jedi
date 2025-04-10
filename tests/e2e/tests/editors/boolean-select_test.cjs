@@ -29,10 +29,10 @@ Scenario('@editor @boolean-select should have @infoButton', ({I}) => {
 
 Scenario('@editor @boolean-select should have a @default value', ({I}) => {
   // instance
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(defaultValue))
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(defaultValue))
 
   // editor
-  I.waitForValue('[id="root"]', JSON.stringify(defaultValue))
+  I._waitForValue('[id="root"]', JSON.stringify(defaultValue))
 })
 
 Scenario('@editor @boolean-select should @setValue and @showValidationErrors', ({I}) => {
@@ -41,10 +41,10 @@ Scenario('@editor @boolean-select should @setValue and @showValidationErrors', (
   I._scrollTo('#set-value')
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(invalidValue))
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(invalidValue))
 
   // editor
-  I.waitForValue('[id="root"]', "false")
+  I._waitForValue('[id="root"]', "false")
   I._waitForText('Must have value of: true.', '.jedi-error-message')
 })
 

@@ -8,7 +8,7 @@ Scenario('@editor @object @enforceAdditionalProperties should remove all propert
   I.selectOption('#examples', 'editors/object-enforceAdditionalProperties')
   I._waitForElement('.jedi-ready')
 
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "a": 0,
     "b": 0
   }))
@@ -22,7 +22,7 @@ Scenario('@editor @object @enforceAdditionalProperties should remove all propert
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
 
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "a": 0,
     "b": 0
   }))
@@ -36,7 +36,7 @@ Scenario('@editor @object @enforceAdditionalProperties should remove all propert
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
 
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify({
     "a": 0,
     "b": 0,
     "id_": "test"

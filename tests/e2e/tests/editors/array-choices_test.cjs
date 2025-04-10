@@ -32,7 +32,7 @@ Scenario('@plugin @array-choices should have @infoButton', ({I}) => {
 
 Scenario('@plugin @array-choices should have a @default value', ({I}) => {
   // instance
-  I.waitForValue('[id="jedi-hidden-input"]', valueDefault)
+  I._waitForValue('[id="jedi-hidden-input"]', valueDefault)
 
   // editor
   I._waitForText(valueDefault, '.choices__item')
@@ -44,7 +44,7 @@ Scenario('@plugin @array-choices should @setValue and @showValidationErrors', ({
   I._scrollTo('#set-value')
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(valueWithErrors))
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(valueWithErrors))
 
   // editor
   I._waitForText(valueWithErrors, '.choices__item')

@@ -16,7 +16,7 @@ Scenario('Should use @expand allOf and oneOf schemas and @mergeAllOf in @jsonPat
   I._waitForElement('#root-0-path')
   I._waitForElement('#root-0-op')
   I._waitForElement('[data-path="#/0/value"]')
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify([
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify([
     {
       "path": "",
       "op": "add",

@@ -1,5 +1,7 @@
 /* global actor */
 
+const waitTime = 10
+
 module.exports = function () {
   return actor({
     _scrollIntoView: function (locator) {
@@ -8,10 +10,13 @@ module.exports = function () {
       }, locator)
     },
     _waitForElement: function (locator) {
-      this.waitForElement(locator, 5)
+      this.waitForElement(locator, waitTime)
     },
     _waitForText: function (text, context) {
-      this.waitForText(text, 5, context)
+      this.waitForText(text, waitTime, context)
+    },
+    _waitForValue: function (locator, value) {
+      this.waitForValue(locator, value, waitTime)
     },
     _scrollTo: function (locator) {
       this._scrollIntoView(locator)

@@ -29,7 +29,7 @@ Scenario('@plugin @string-radios should have @infoButton', ({I}) => {
 
 Scenario('@editor @string-radios should have a @default value', ({I}) => {
   // instance
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(defaultValue))
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(defaultValue))
 
   // editor
   I.seeCheckboxIsChecked('[id="root-1"]')
@@ -41,7 +41,7 @@ Scenario('@editor @string-radios should @setValue and @showValidationErrors', ({
   I._scrollTo('#set-value')
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(invalidValue))
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(invalidValue))
 
   // editor
   I.dontSeeCheckboxIsChecked('[id="root-0"]')

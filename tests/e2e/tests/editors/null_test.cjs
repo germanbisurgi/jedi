@@ -30,7 +30,7 @@ Scenario('@editor @null should have @infoButton', ({I}) => {
 
 Scenario('@editor @null should have a @default value', ({I}) => {
   // instance
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(defaultValue))
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(defaultValue))
 })
 
 Scenario('@editor @null should @setValue and @showValidationErrors', ({I}) => {
@@ -39,7 +39,7 @@ Scenario('@editor @null should @setValue and @showValidationErrors', ({I}) => {
   I._scrollTo('#set-value')
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(invalidValue))
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(invalidValue))
 
   // editor
   I._waitForText('Must be of type null.')

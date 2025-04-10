@@ -30,7 +30,7 @@ Scenario('@plugin @string-awesomplete should have @infoButton', ({I}) => {
 })
 
 Scenario('@plugin @string-awesomplete should have a @default value', ({I}) => {
-  I.waitForValue('[id="jedi-hidden-input"]', valueDefault)
+  I._waitForValue('[id="jedi-hidden-input"]', valueDefault)
 })
 
 Scenario('@plugin @string-awesomplete should @disable', ({I}) => {
@@ -48,7 +48,7 @@ Scenario('@plugin @string-awesomplete should @setValue', ({I}) => {
   I._scrollTo('#set-value')
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(value))
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(value))
 })
 
 Scenario('@plugin @string-awesomplete should @showValidationErrors', ({ I }) => {

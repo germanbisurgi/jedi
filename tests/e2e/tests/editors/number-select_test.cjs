@@ -29,10 +29,10 @@ Scenario('@editor @number-select should have @infoButton', ({I}) => {
 
 Scenario('@editor @number-select should have a @default value', ({I}) => {
   // instance
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(defaultValue))
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(defaultValue))
 
   // editor
-  I.waitForValue('[id="root"]', JSON.stringify(defaultValue))
+  I._waitForValue('[id="root"]', JSON.stringify(defaultValue))
 })
 
 Scenario('@editor @number-select should @setValue and @showValidationErrors', ({I}) => {
@@ -41,10 +41,10 @@ Scenario('@editor @number-select should @setValue and @showValidationErrors', ({
   I._scrollTo('#set-value')
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(invalidValue))
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(invalidValue))
 
   // editor
-  I.waitForValue('[id="root"]', "")
+  I._waitForValue('[id="root"]', "")
   I._waitForText('Must be one of the enumerated values: [0,1,2].')
 })
 

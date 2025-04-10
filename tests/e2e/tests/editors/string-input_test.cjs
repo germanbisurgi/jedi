@@ -29,10 +29,10 @@ Scenario('@editor @string-input should have @infoButton', ({I}) => {
 
 Scenario('@editor @string-input should have a @default value', ({I}) => {
   // instance
-  I.waitForValue('[id="jedi-hidden-input"]', defaultValue)
+  I._waitForValue('[id="jedi-hidden-input"]', defaultValue)
 
   // editor
-  I.waitForValue('[id="root"]', defaultValue)
+  I._waitForValue('[id="root"]', defaultValue)
 })
 
 Scenario('@editor @string-input should @setValue and @showValidationErrors', ({I}) => {
@@ -41,10 +41,10 @@ Scenario('@editor @string-input should @setValue and @showValidationErrors', ({I
   I._scrollTo('#set-value')
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I.waitForValue('[id="jedi-hidden-input"]', invalidValue)
+  I._waitForValue('[id="jedi-hidden-input"]', invalidValue)
 
   // editor
-  I.waitForValue('[id="root"]', invalidValue)
+  I._waitForValue('[id="root"]', invalidValue)
   I._waitForText('Must be at most 8 characters long.', '.jedi-error-message')
 })
 

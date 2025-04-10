@@ -30,7 +30,7 @@ Scenario('@plugin @string-imask @string-imask-settings should have @infoButton',
 
 Scenario('@plugin @string-imask @string-imask-settings should have a @default value', ({I}) => {
   // instance
-  I.waitForValue('[id="jedi-hidden-input"]', valueDefault)
+  I._waitForValue('[id="jedi-hidden-input"]', valueDefault)
 
   // editor
   I.seeInField('#root', '28.11.1999')
@@ -42,7 +42,7 @@ Scenario('@plugin @string-imask @string-imask-settings should @setValue and @sho
   I._scrollTo('#set-value')
   I._click('#set-value')
   I._scrollTo('[data-path="#"]')
-  I.waitForValue('[id="jedi-hidden-input"]', JSON.stringify(valueWithErrors))
+  I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(valueWithErrors))
 
   // editor
   I.seeInField('#root', '__.__.____')
