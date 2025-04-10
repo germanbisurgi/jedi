@@ -134,11 +134,13 @@ Scenario('@editor @showValidationErrors should programmatically display validati
   I._waitForText('Must have value of: "test"', '[data-path="#/multiple"]')
 })
 
-Scenario('@editor be abler to use @translations', ({ I }) => {
+Scenario('@editor be able to use @translations', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/const')
+  I._waitForElement('.jedi-ready')
   I.selectOption('#language', 'de')
+  I._waitForElement('.jedi-ready')
   I._click('#show-validation-errors')
   I._waitForText('Muss den Wert "test" haben', '[data-path="#/string"]')
   I._waitForText('Muss den Wert 2.5 haben', '[data-path="#/number"]')
