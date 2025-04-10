@@ -24,9 +24,7 @@
         <aside>
           <div class="form-group mb-0">
             <label for="schema"><code>schema</code></label>
-<!--            <textarea ref="schema" class="form-control" id="schema" style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>-->
-            <textarea ref="schema" class="form-control sr-only visually-hidden" id="schema"></textarea>
-            <div ref="aceSchema" id="ace-schema"></div>
+            <textarea ref="schema" class="form-control" id="schema" wrap="off" style="font-size: 12px; font-family: monospace; height: 200px;"></textarea>
           </div>
 
           <button class="btn btn-primary btn-block w-100 mb-3" id="set-schema" @click="setSchema()">Set schema</button>
@@ -156,9 +154,7 @@
 
           <div class="form-group mb-0">
             <label for="editor-value">Value</label>
-<!--            <textarea ref="editorValue" class="form-control" id="editor-value" style="font-size: 14px; font-family: monospace;height: 200px;"></textarea>-->
-            <textarea ref="editorValue" class="form-control sr-only visually-hidden" id="editor-value"></textarea>
-            <div ref="aceValue" id="ace-value"></div>
+            <textarea ref="editorValue" class="form-control" id="editor-value" wrap="off" style="font-size: 12px; font-family: monospace;height: 200px;"></textarea>
           </div>
 
           <button class="btn btn-primary btn-block w-100 mb-3" id="set-value" @click="setEditorValue()">Set value</button>
@@ -170,9 +166,7 @@
               <span>Errors: </span>
               <span>{{ errorCount }}</span>
             </label>
-<!--            <textarea ref="editorErrors" class="form-control" id="editor-errors" style="font-size: 14px; font-family: monospace; height: 200px;"></textarea>-->
-            <textarea ref="editorErrors" class="form-control sr-only visually-hidden" id="editor-errors"></textarea>
-            <div ref="aceErrors" id="ace-errors"></div>
+            <textarea ref="editorErrors" class="form-control" id="editor-errors" wrap="off" style="font-size: 12px; font-family: monospace; height: 200px;"></textarea>
           </div>
         </aside>
       </div>
@@ -462,10 +456,7 @@ export default {
       enforceEnum: true,
       enforceRequired: true,
       enforceMinItems: true,
-      enforceAdditionalProperties: true,
-      aceSchema: null,
-      aceValue: null,
-      aceErrors: null
+      enforceAdditionalProperties: true
     }
   },
   created() {
@@ -548,44 +539,6 @@ export default {
         ])
         break;
     }
-
-    const aceConfig = {
-      mode: 'ace/mode/json',
-      // maxLines: Infinity,
-      maxLines: 40,
-      minLines: 5,
-      showFoldWidgets: false,
-      showPrintMargin: false,
-    }
-
-    this.aceSchema = ace.edit(this.$refs.aceSchema, aceConfig)
-    this.aceValue = ace.edit(this.$refs.aceValue, aceConfig)
-    this.aceErrors = ace.edit(this.$refs.aceErrors, aceConfig)
-
-    this.aceSchema.on('change', () => {
-      this.$refs.schema.value = this.aceSchema.getValue()
-    })
-
-    this.aceValue.on('change', () => {
-      this.$refs.editorValue.value = this.aceValue.getValue()
-    })
-
-    this.aceErrors.on('change', () => {
-      this.$refs.editorErrors.value = this.aceErrors.getValue()
-    })
-
-
-    this.$refs.schema.addEventListener('change', () => {
-      this.aceSchema.setValue(this.$refs.schema.value)
-    })
-
-    this.$refs.editorValue.addEventListener('change', () => {
-      this.aceValue.setValue(this.$refs.editorValue.value)
-    })
-
-    this.$refs.editorErrors.addEventListener('change', () => {
-      this.aceErrors.setValue(this.$refs.editorErrors.value)
-    })
 
     this.initEditor()
   },
@@ -682,14 +635,6 @@ export default {
       this.$refs.editorErrors.value = JSON.stringify(errors, null, 2)
       this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
       this.$refs.schema.value = JSON.stringify(this.editor.schema, null, 2)
-
-      this.aceErrors.setValue(this.$refs.editorErrors.value)
-      this.aceValue.setValue(this.$refs.editorValue.value)
-      this.aceSchema.setValue(this.$refs.schema.value)
-
-      this.aceSchema.clearSelection(1)
-      this.aceValue.clearSelection(1)
-      this.aceErrors.clearSelection(1)
     },
     showValidationErrors() {
       const errors = this.editor.getErrors()
@@ -710,7 +655,7 @@ export default {
     },
     setSchema() {
       try {
-        this.schema = JSON.parse(this.aceSchema.getValue())
+        this.schema = JSON.parse(this.schema.value)
         this.initEditor(this.schema)
       } catch (error) {
         alert('Invalid Schema: ' + error.message)
