@@ -20,7 +20,7 @@ Scenario('Should use @expand allOf and oneOf schemas and @mergeAllOf in @jsonPat
     {
       "path": "",
       "op": "add",
-      "value": {}
+      "value": ""
     }
   ]))
 })
