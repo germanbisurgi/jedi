@@ -24,7 +24,7 @@
         <aside>
           <div class="form-group mb-0">
             <label for="schema"><code>schema</code></label>
-            <textarea ref="schema" class="form-control" id="schema" wrap="off" style="font-size: 12px; font-family: monospace; height: 200px;"></textarea>
+            <textarea ref="schema" class="form-control" id="schema" wrap="off" style="font-size: 12px; font-family: monospace; min-height: 400px;"></textarea>
           </div>
 
           <button class="btn btn-primary btn-block w-100 mb-3" id="set-schema" @click="setSchema()">Set schema</button>
@@ -154,7 +154,7 @@
 
           <div class="form-group mb-0">
             <label for="editor-value">Value</label>
-            <textarea ref="editorValue" class="form-control" id="editor-value" wrap="off" style="font-size: 12px; font-family: monospace;height: 200px;"></textarea>
+            <textarea ref="editorValue" class="form-control" id="editor-value" wrap="off" style="font-size: 12px; font-family: monospace;min-height: 400px;"></textarea>
           </div>
 
           <button class="btn btn-primary btn-block w-100 mb-3" id="set-value" @click="setEditorValue()">Set value</button>
@@ -166,7 +166,7 @@
               <span>Errors: </span>
               <span>{{ errorCount }}</span>
             </label>
-            <textarea ref="editorErrors" class="form-control" id="editor-errors" wrap="off" style="font-size: 12px; font-family: monospace; height: 200px;"></textarea>
+            <textarea ref="editorErrors" class="form-control" id="editor-errors" wrap="off" style="font-size: 12px; font-family: monospace; min-height: 400px;"></textarea>
           </div>
         </aside>
       </div>

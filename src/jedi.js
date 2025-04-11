@@ -372,26 +372,6 @@ class Jedi extends EventEmitter {
     }
 
     if (this.isEditor) {
-      // this.walker.traverse(config.schema, (node) => {
-      //   if (node.allOf && Array.isArray(node.allOf)) {
-      //     // mergeAllOf option here?
-      //
-      //     if (isSet(node['x-allOf-merged'])) {
-      //       return
-      //     }
-      //
-      //     let nodeClone = clone(node)
-      //
-      //     node.allOf.forEach((subschema) => {
-      //       nodeClone = combineDeep({}, nodeClone, subschema)
-      //     })
-      //
-      //     node = nodeClone
-      //     node['x-allOf-merged'] = true
-      //     return node
-      //   }
-      // })
-
       // extract if then combinations
       this.walker.traverse(config.schema, (node) => {
         if (node.allOf && Array.isArray(node.allOf)) {
