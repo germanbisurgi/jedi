@@ -72,7 +72,8 @@ class Jedi extends EventEmitter {
       enforceEnumDefault: true,
       enforceAdditionalProperties: true,
       enforceMinItems: true,
-      enforceEnum: true
+      enforceEnum: true,
+      debug: false
     }, options)
 
     /**
@@ -343,6 +344,12 @@ class Jedi extends EventEmitter {
     }
   }
 
+  warnIfEditor (...params) {
+    if (this.isEditor) {
+      console.warn(...params)
+    }
+  }
+
   /**
    * Creates a json instance and dereference schema on the fly if needed.
    */
@@ -350,6 +357,7 @@ class Jedi extends EventEmitter {
     if (this.refParser) {
       config.schema = this.refParser.expand(config.schema)
 
+      // allOf
       this.walker.traverse(config.schema, (node) => {
         if (node.allOf && Array.isArray(node.allOf)) {
           node.allOf.forEach((subschema, index) => {
@@ -371,6 +379,7 @@ class Jedi extends EventEmitter {
       })
     }
 
+    // merge allOf if editor and option is true
     if (this.isEditor) {
       // extract if then combinations
       this.walker.traverse(config.schema, (node) => {
@@ -424,6 +433,7 @@ class Jedi extends EventEmitter {
         }
       })
 
+      // oneOf
       this.walker.traverse(config.schema, (node) => {
         if (node.oneOf && Array.isArray(node.oneOf)) {
           const nodeClone = clone(node)
@@ -439,6 +449,7 @@ class Jedi extends EventEmitter {
         }
       })
 
+      // anyOf
       this.walker.traverse(config.schema, (node) => {
         if (node.anyOf && Array.isArray(node.anyOf)) {
           const nodeClone = clone(node)
@@ -453,15 +464,26 @@ class Jedi extends EventEmitter {
           }
         }
       })
+
+      // not
+      this.walker.traverse(config.schema, (node) => {
+        if (node.not && isObject(node.not)) {
+          const nodeClone = clone(node)
+          delete nodeClone.not
+
+          node.not = combineDeep({}, nodeClone, node.not)
+        }
+      })
     }
 
-    // this.logIfEditor('-------------')
-    // this.logIfEditor(JSON.stringify(config.schema, null, 2))
-
-    const schemaType = getSchemaType(config.schema)
     const schemaOneOf = getSchemaOneOf(config.schema)
     const schemaAnyOf = getSchemaAnyOf(config.schema)
     const schemaIf = getSchemaIf(config.schema)
+    const schemaType = getSchemaType(config.schema)
+
+    if (this.debug && notSet(schemaType) && !isSet(schemaOneOf) && !isSet(schemaAnyOf) && !isSet(schemaIf)) {
+      console.warn('TYPE NOT SET', config.schema, config.path)
+    }
 
     if (isSet(schemaAnyOf) || isSet(schemaOneOf) || schemaType === 'any' || isArray(schemaType) || notSet(schemaType)) {
       return new InstanceMultiple(config)

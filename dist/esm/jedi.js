@@ -1,24 +1,8 @@
-function getCircularReplacer() {
-  const ancestors = [];
-  return function(key, value) {
-    if (typeof value !== "object" || value === null) {
-      return value;
-    }
-    while (ancestors.length > 0 && ancestors.at(-1) !== this) {
-      ancestors.pop();
-    }
-    if (ancestors.includes(value)) {
-      return "[Circular]";
-    }
-    ancestors.push(value);
-    return value;
-  };
-}
 function clone(thing) {
   if (typeof thing === "undefined") {
     return void 0;
   }
-  return JSON.parse(JSON.stringify(thing, getCircularReplacer()));
+  return JSON.parse(JSON.stringify(thing));
 }
 function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -206,7 +190,6 @@ function generateRandomID(maxLength2) {
   return randomID;
 }
 const Utils = {
-  getCircularReplacer,
   clone,
   escapeRegExp,
   replaceAll,
@@ -2230,18 +2213,25 @@ class InstanceIfThenElse extends Instance {
   getFittestIndex(value) {
     let fittestIndex = this.index;
     this.ifThenElseShemas.forEach((schema, index2) => {
-      const ifValidator = new Jedi({
-        schema: schema.if,
-        data: value,
-        refParser: this.jedi.refParser
-      });
-      const ifErrors = ifValidator.getErrors();
-      ifValidator.destroy();
-      if (ifErrors.length === 0 && schema.then) {
-        fittestIndex = index2;
-      }
-      if (ifErrors.length > 0 && schema.else) {
-        fittestIndex = index2;
+      if (schema.if === true) {
+        fittestIndex = 0;
+      } else if (schema.if === false) {
+        fittestIndex = 1;
+      } else {
+        const ifValidator = new Jedi({
+          // schema: schema.if,
+          schema: mergeDeep({}, this.schema, schema.if),
+          data: value,
+          refParser: this.jedi.refParser
+        });
+        const ifErrors = ifValidator.getErrors();
+        ifValidator.destroy();
+        if (ifErrors.length === 0 && schema.then) {
+          fittestIndex = index2;
+        }
+        if (ifErrors.length > 0 && schema.else) {
+          fittestIndex = index2;
+        }
       }
     });
     return fittestIndex;
@@ -2308,24 +2298,24 @@ class InstanceMultiple extends Instance {
     } else if (schemaType === "any" || !schemaType) {
       const schemaClone = clone(this.schema);
       this.schemas = [
-        { ...schemaClone, ...{ type: "object" } },
-        { ...schemaClone, ...{ type: "array" } },
         { ...schemaClone, ...{ type: "string" } },
-        { ...schemaClone, ...{ type: "number" } },
-        { ...schemaClone, ...{ type: "integer" } },
         { ...schemaClone, ...{ type: "boolean" } },
+        { ...schemaClone, ...{ type: "integer" } },
+        { ...schemaClone, ...{ type: "number" } },
+        { ...schemaClone, ...{ type: "array" } },
+        { ...schemaClone, ...{ type: "object" } },
         { ...schemaClone, ...{ type: "null" } }
       ];
       this.schemas.forEach((schema, index2) => {
         this.switcherOptionValues.push(index2);
       });
       this.switcherOptionsLabels = [
-        "Object",
-        "Array",
         "String",
-        "Number",
-        "Integer",
         "Boolean",
+        "Integer",
+        "Number",
+        "Array",
+        "Object",
         "Null"
       ];
     }
@@ -4542,7 +4532,8 @@ class Jedi extends EventEmitter {
       enforceEnumDefault: true,
       enforceAdditionalProperties: true,
       enforceMinItems: true,
-      enforceEnum: true
+      enforceEnum: true,
+      debug: false
     }, options);
     this.rootName = "#";
     this.pathSeparator = "/";
@@ -4727,6 +4718,11 @@ class Jedi extends EventEmitter {
       console.log(...params);
     }
   }
+  warnIfEditor(...params) {
+    if (this.isEditor) {
+      console.warn(...params);
+    }
+  }
   /**
    * Creates a json instance and dereference schema on the fly if needed.
    */
@@ -4814,11 +4810,21 @@ class Jedi extends EventEmitter {
           };
         }
       });
+      this.walker.traverse(config.schema, (node) => {
+        if (node.not && isObject(node.not)) {
+          const nodeClone = clone(node);
+          delete nodeClone.not;
+          node.not = combineDeep({}, nodeClone, node.not);
+        }
+      });
     }
-    const schemaType = getSchemaType(config.schema);
     const schemaOneOf = getSchemaOneOf(config.schema);
     const schemaAnyOf = getSchemaAnyOf(config.schema);
     const schemaIf = getSchemaIf(config.schema);
+    const schemaType = getSchemaType(config.schema);
+    if (this.debug && notSet(schemaType) && !isSet(schemaOneOf) && !isSet(schemaAnyOf) && !isSet(schemaIf)) {
+      console.warn("TYPE NOT SET", config.schema, config.path);
+    }
     if (isSet(schemaAnyOf) || isSet(schemaOneOf) || schemaType === "any" || isArray(schemaType) || notSet(schemaType)) {
       return new InstanceMultiple(config);
     }

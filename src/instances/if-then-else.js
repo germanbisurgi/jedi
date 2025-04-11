@@ -167,21 +167,28 @@ class InstanceIfThenElse extends Instance {
     let fittestIndex = this.index
 
     this.ifThenElseShemas.forEach((schema, index) => {
-      const ifValidator = new Jedi({
-        schema: schema.if,
-        data: value,
-        refParser: this.jedi.refParser
-      })
+      if (schema.if === true) {
+        fittestIndex = 0
+      } else if (schema.if === false) {
+        fittestIndex = 1
+      } else {
+        const ifValidator = new Jedi({
+          // schema: schema.if,
+          schema: mergeDeep({}, this.schema, schema.if),
+          data: value,
+          refParser: this.jedi.refParser
+        })
 
-      const ifErrors = ifValidator.getErrors()
-      ifValidator.destroy()
+        const ifErrors = ifValidator.getErrors()
+        ifValidator.destroy()
 
-      if (ifErrors.length === 0 && schema.then) {
-        fittestIndex = index
-      }
+        if (ifErrors.length === 0 && schema.then) {
+          fittestIndex = index
+        }
 
-      if (ifErrors.length > 0 && schema.else) {
-        fittestIndex = index
+        if (ifErrors.length > 0 && schema.else) {
+          fittestIndex = index
+        }
       }
     })
 
