@@ -57,7 +57,7 @@ class Editor {
       this.showValidationErrors(this.instance.getErrors())
     }
 
-    this.instance.on('value-change-temp', valueChangeHandler)
+    this.instance.on('change', valueChangeHandler)
   }
 
   static resolves (schema) {}

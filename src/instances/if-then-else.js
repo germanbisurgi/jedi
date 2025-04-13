@@ -72,7 +72,7 @@ class InstanceIfThenElse extends Instance {
 
       this.instanceStartingValues.push(instance.getValue())
 
-      instance.off('change')
+      instance.off('notifyParent')
 
       this.instances.push(instance)
     })
@@ -94,7 +94,7 @@ class InstanceIfThenElse extends Instance {
     this.activeInstance.register()
 
     this.instances.forEach((instance, index) => {
-      instance.off('change')
+      instance.off('notifyParent')
 
       const startingValue = this.instanceStartingValues[index]
       const currentValue = instance.getValue()
@@ -115,15 +115,15 @@ class InstanceIfThenElse extends Instance {
 
       instance.setValue(instanceValue, false, initiator)
 
-      instance.on('change', (initiator) => {
+      instance.on('notifyParent', (initiator) => {
         const value = instance.getValue()
         this.changeValue(value, initiator)
       })
     })
 
     this.value = this.activeInstance.getValue()
+    this.emit('notifyParent', initiator)
     this.emit('change', initiator)
-    this.emit('value-change-temp', initiator)
   }
 
   getIfValueFromValue (value) {

@@ -214,14 +214,23 @@ class InstanceObject extends Instance {
 
     this.children.forEach((child) => {
       if (child.isActive) {
-        value[child.getKey()] = child.getValue()
+        const propertyName = child.getKey()
+
+        if (propertyName === '__proto__') {
+          Object.defineProperty(value, propertyName, {
+            value: child.getValue(),
+            enumerable: true
+          })
+        } else {
+          value[propertyName] = child.getValue()
+        }
       }
     })
 
     this.value = value
     this.jedi.emit('instance-change', this, initiator)
+    this.emit('notifyParent', initiator)
     this.emit('change', initiator)
-    this.emit('value-change-temp', initiator)
   }
 
   /**

@@ -105,7 +105,7 @@ class Instance extends EventEmitter {
       this.setUI()
     }
 
-    this.on('change', (initiator) => {
+    this.on('notifyParent', (initiator) => {
       if (this.parent) {
         this.parent.isDirty = true
         this.parent.onChildChange(initiator)
@@ -294,7 +294,7 @@ class Instance extends EventEmitter {
   /**
    * Sets the instance value
    */
-  setValue (newValue, triggersChange = true, initiator = 'api') {
+  setValue (newValue, notifyParent = true, initiator = 'api') {
     const enforceConst = getSchemaXOption(this.schema, 'enforceConst') ?? this.jedi.options.enforceConst
 
     if (isSet(enforceConst) && equal(enforceConst, true)) {
@@ -311,14 +311,14 @@ class Instance extends EventEmitter {
 
     this.emit('set-value', newValue, initiator)
 
-    if (triggersChange) {
-      this.emit('change', initiator)
-      this.jedi.emit('instance-change', this, initiator)
+    if (notifyParent) {
+      this.emit('notifyParent', initiator)
     }
 
     if (valueChanged) {
       this.isDirty = true
-      this.emit('value-change-temp', initiator)
+      this.emit('change', initiator)
+      this.jedi.emit('instance-change', this, initiator)
     }
   }
 
@@ -353,7 +353,7 @@ class Instance extends EventEmitter {
   activate () {
     if (this.isActive === false) {
       this.isActive = true
-      this.emit('change')
+      this.emit('notifyParent')
     }
   }
 
@@ -363,7 +363,7 @@ class Instance extends EventEmitter {
   deactivate () {
     if (this.isActive === true) {
       this.isActive = false
-      this.emit('change')
+      this.emit('notifyParent')
     }
   }
 

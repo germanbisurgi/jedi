@@ -1593,7 +1593,7 @@ class Instance extends EventEmitter {
     if (this.jedi.options.container) {
       this.setUI();
     }
-    this.on("change", (initiator) => {
+    this.on("notifyParent", (initiator) => {
       if (this.parent) {
         this.parent.isDirty = true;
         this.parent.onChildChange(initiator);
@@ -1743,7 +1743,7 @@ class Instance extends EventEmitter {
   /**
    * Sets the instance value
    */
-  setValue(newValue, triggersChange = true, initiator = "api") {
+  setValue(newValue, notifyParent = true, initiator = "api") {
     const enforceConst = getSchemaXOption(this.schema, "enforceConst") ?? this.jedi.options.enforceConst;
     if (isSet(enforceConst) && equal(enforceConst, true)) {
       const schemaConst = getSchemaConst(this.schema);
@@ -1754,7 +1754,10 @@ class Instance extends EventEmitter {
     const valueChanged = different(this.value, newValue);
     this.value = newValue;
     this.emit("set-value", newValue, initiator);
-    if (triggersChange && valueChanged) {
+    if (notifyParent) {
+      this.emit("notifyParent", initiator);
+    }
+    if (valueChanged) {
       this.isDirty = true;
       this.emit("change", initiator);
       this.jedi.emit("instance-change", this, initiator);
@@ -1786,7 +1789,7 @@ class Instance extends EventEmitter {
   activate() {
     if (this.isActive === false) {
       this.isActive = true;
-      this.emit("change");
+      this.emit("notifyParent");
     }
   }
   /**
@@ -1795,7 +1798,7 @@ class Instance extends EventEmitter {
   deactivate() {
     if (this.isActive === true) {
       this.isActive = false;
-      this.emit("change");
+      this.emit("notifyParent");
     }
   }
   /**
@@ -1845,14 +1848,11 @@ class Editor {
     if (alwaysShowErrors) {
       this.showValidationErrors(this.instance.getErrors());
     }
-    this.instance.on("set-value", () => {
+    const valueChangeHandler = () => {
       this.refreshUI();
       this.showValidationErrors(this.instance.getErrors());
-    });
-    this.instance.on("change", () => {
-      this.refreshUI();
-      this.showValidationErrors(this.instance.getErrors());
-    });
+    };
+    this.instance.on("change", valueChangeHandler);
   }
   static resolves(schema) {
   }
@@ -2139,7 +2139,7 @@ class InstanceIfThenElse extends Instance {
         parent: this.parent
       });
       this.instanceStartingValues.push(instance.getValue());
-      instance.off("change");
+      instance.off("notifyParent");
       this.instances.push(instance);
     });
     this.on("set-value", (value, initiator) => {
@@ -2156,7 +2156,7 @@ class InstanceIfThenElse extends Instance {
     this.activeInstance = this.instances[fittestIndex];
     this.activeInstance.register();
     this.instances.forEach((instance, index2) => {
-      instance.off("change");
+      instance.off("notifyParent");
       const startingValue = this.instanceStartingValues[index2];
       const currentValue = instance.getValue();
       let instanceValue = value;
@@ -2172,12 +2172,13 @@ class InstanceIfThenElse extends Instance {
         }
       }
       instance.setValue(instanceValue, false, initiator);
-      instance.on("change", (initiator2) => {
+      instance.on("notifyParent", (initiator2) => {
         const value2 = instance.getValue();
         this.changeValue(value2, initiator2);
       });
     });
     this.value = this.activeInstance.getValue();
+    this.emit("notifyParent", initiator);
     this.emit("change", initiator);
   }
   getIfValueFromValue(value) {
@@ -2334,9 +2335,10 @@ class InstanceMultiple extends Instance {
         instance.setValue(this.value, false);
       }
       instance.unregister();
-      instance.off("change");
-      instance.on("change", (initiator) => {
+      instance.off("notifyParent");
+      instance.on("notifyParent", (initiator) => {
         this.value = this.activeInstance.getValue();
+        this.emit("notifyParent", initiator);
         this.emit("change", initiator);
       });
       this.instances.push(instance);
@@ -2500,6 +2502,7 @@ class InstanceObject extends Instance {
     if (!this.isRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true && !activate) {
       instance.deactivate();
     }
+    this.onChildChange();
     return instance;
   }
   deleteChild(key) {
@@ -2544,11 +2547,20 @@ class InstanceObject extends Instance {
     const value = {};
     this.children.forEach((child) => {
       if (child.isActive) {
-        value[child.getKey()] = child.getValue();
+        const propertyName = child.getKey();
+        if (propertyName === "__proto__") {
+          Object.defineProperty(value, propertyName, {
+            value: child.getValue(),
+            enumerable: true
+          });
+        } else {
+          value[propertyName] = child.getValue();
+        }
       }
     });
     this.value = value;
     this.jedi.emit("instance-change", this, initiator);
+    this.emit("notifyParent", initiator);
     this.emit("change", initiator);
   }
   /**
@@ -2685,6 +2697,7 @@ class InstanceArray extends Instance {
     });
     this.value = value;
     this.jedi.emit("instance-change", this, initiator);
+    this.emit("notifyParent", initiator);
     this.emit("change", initiator);
   }
   refreshChildren() {

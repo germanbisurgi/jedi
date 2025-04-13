@@ -120,12 +120,12 @@ class InstanceMultiple extends Instance {
 
       instance.unregister()
 
-      instance.off('change')
+      instance.off('notifyParent')
 
-      instance.on('change', (initiator) => {
+      instance.on('notifyParent', (initiator) => {
         this.value = this.activeInstance.getValue()
+        this.emit('notifyParent', initiator)
         this.emit('change', initiator)
-        this.emit('value-change-temp', initiator)
       })
 
       this.instances.push(instance)
