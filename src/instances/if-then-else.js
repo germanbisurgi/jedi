@@ -172,9 +172,14 @@ class InstanceIfThenElse extends Instance {
       } else if (schema.if === false) {
         fittestIndex = 1
       } else {
+        const testSchema = clone(schema.if)
+
+        if (isSet(this.schema.type)) {
+          testSchema.type = this.schema.type
+        }
+
         const ifValidator = new Jedi({
-          // schema: schema.if,
-          schema: mergeDeep({}, this.schema, schema.if),
+          schema: testSchema,
           data: value,
           refParser: this.jedi.refParser
         })
