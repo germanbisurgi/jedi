@@ -655,7 +655,7 @@ export default {
     },
     setSchema() {
       try {
-        this.schema = JSON.parse(this.schema.value)
+        this.schema = JSON.parse(this.$refs.schema.value)
         this.initEditor(this.schema)
       } catch (error) {
         alert('Invalid Schema: ' + error.message)

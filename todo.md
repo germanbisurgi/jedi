@@ -8,7 +8,6 @@
   - collapse expand text and animation
   - array nav drag
   - translation with template compiling
-  - ternary options
   - refactor setInitialValue
   - info variant tooltip
   - info variant popover
@@ -19,7 +18,7 @@
 Features
   - x-messages categorized by language
   - use flat x- options in playground
-  - enumSource
+  - remove enumSource
 
 
 - Array Editor
