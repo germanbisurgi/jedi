@@ -125,6 +125,7 @@ class InstanceMultiple extends Instance {
       instance.on('change', (initiator) => {
         this.value = this.activeInstance.getValue()
         this.emit('change', initiator)
+        this.emit('value-change-temp', initiator)
       })
 
       this.instances.push(instance)

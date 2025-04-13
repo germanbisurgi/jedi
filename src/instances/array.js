@@ -102,6 +102,7 @@ class InstanceArray extends Instance {
     this.value = value
     this.jedi.emit('instance-change', this, initiator)
     this.emit('change', initiator)
+    this.emit('value-change-temp', initiator)
   }
 
   refreshChildren () {

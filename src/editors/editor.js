@@ -52,15 +52,12 @@ class Editor {
       this.showValidationErrors(this.instance.getErrors())
     }
 
-    this.instance.on('set-value', () => {
+    const valueChangeHandler = () => {
       this.refreshUI()
       this.showValidationErrors(this.instance.getErrors())
-    })
+    }
 
-    this.instance.on('change', () => {
-      this.refreshUI()
-      this.showValidationErrors(this.instance.getErrors())
-    })
+    this.instance.on('value-change-temp', valueChangeHandler)
   }
 
   static resolves (schema) {}

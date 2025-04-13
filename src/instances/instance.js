@@ -311,10 +311,14 @@ class Instance extends EventEmitter {
 
     this.emit('set-value', newValue, initiator)
 
-    if (triggersChange && valueChanged) {
-      this.isDirty = true
+    if (triggersChange) {
       this.emit('change', initiator)
       this.jedi.emit('instance-change', this, initiator)
+    }
+
+    if (valueChanged) {
+      this.isDirty = true
+      this.emit('value-change-temp', initiator)
     }
   }
 

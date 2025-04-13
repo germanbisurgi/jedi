@@ -1,11 +1,10 @@
 ## Todo
 
-- README
+  - Performance: events, change, bubble
+  - Performance: cache methods outputs
+  - remove enumSource
   - section about exposing external libraries window.['__LIBRARY__'] when importing esm
-
-
-- Editor
-  - collapse expand text and animation
+  - collapse expand text and animation, collapse children on collapse
   - array nav drag
   - translation with template compiling
   - refactor setInitialValue
@@ -13,57 +12,37 @@
   - info variant popover
   - use editor methods and overrides in build configs
   - use super.refreshUI() in all editors
-
-  
-Features
   - x-messages categorized by language
   - use flat x- options in playground
-  - remove enumSource
 
-
-- Array Editor
   - array nav-horizontal needs left and right arrows buttons instead of up and down
   - array items titles in item containers
-  - copy value button
-  - set value button
-  - collapse children on collapse
+  - array copy value button
+  - array set value button
 
-
-- Object Editor
+  - object propertiesOrder as array
   - object activators sort by property order
   - object activators categories and conditional visibility?
-  - copy value button
-  - set value button
-  - collapse children on collapse
+  - object copy value button
+  - object set value button
   - inline switch activators
 
+  - Editor: SignaturePad
+  - Editor: simplemde
+  - Editor: Void instance (for buttons, and other stuff). Does not register
+  - Editor: input range
+  - Editor: input file
+  - Editor: color picker
 
-- Editors
-  - SignaturePad
-  - simplemde
-  - Void instance (for buttons, and other stuff). Does not register
-  - input range
-  - input file
-  - color picker
+  - Themes: refactor theme.getCollapseToggle
+  - Themes: ionic
+  - Themes: material
+  - Themes: append descriptions if set and not hidden
+  - Themes: type hidden description
+  - Themes: option hideButton labels
+  - Themes: iconLib option can be string or IconLib instance
+  - Themes: theme option can be string or Theme instance
 
+  - Validation: support multiple drafts
+  - Validation: formats: https://json-schema.org/understanding-json-schema/reference/string#format
 
-- Themes
-  - refactor theme.getCollapseToggle
-  - ionic
-  - material
-  - append descriptions if set and not hidden
-  - type hidden description
-  - option hideButton labels
-
-
-- Jedi
-  - iconLib option can be string or IconLib instance
-  - theme option can be string or Theme instance
-
-
-- Validation
-  - support multiple drafts
-  - formats: https://json-schema.org/understanding-json-schema/reference/string#format
-
-
-- publish on NPM
