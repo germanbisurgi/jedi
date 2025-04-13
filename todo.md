@@ -1,6 +1,5 @@
 ## Todo
 
-  - Performance: events, change, bubble
   - Performance: cache methods outputs
   - remove enumSource
   - section about exposing external libraries window.['__LIBRARY__'] when importing esm
@@ -13,7 +12,6 @@
   - use editor methods and overrides in build configs
   - use super.refreshUI() in all editors
   - x-messages categorized by language
-  - use flat x- options in playground
 
   - array nav-horizontal needs left and right arrows buttons instead of up and down
   - array items titles in item containers
