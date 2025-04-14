@@ -80,8 +80,6 @@ class Instance extends EventEmitter {
 
     this.watched = {}
 
-    this.enumSource = null
-
     this.key = this.path.split(this.jedi.pathSeparator).pop()
 
     this.init()
@@ -97,9 +95,7 @@ class Instance extends EventEmitter {
     this.setDefaultValue()
 
     this.registerWatcher()
-    this.setEnumSource()
     this.setValueFormTemplate()
-    this.setValueFormCalc()
 
     if (this.jedi.options.container) {
       this.setUI()
@@ -239,7 +235,6 @@ class Instance extends EventEmitter {
     }
 
     this.setValueFormTemplate()
-    this.setValueFormCalc()
   }
 
   setValueFormTemplate () {
@@ -250,38 +245,6 @@ class Instance extends EventEmitter {
     if (template) {
       this.setValue(compileTemplate(template, this.watched))
     }
-  }
-
-  setValueFormCalc () {
-    const calc = getSchemaXOption(this.schema, 'calc')
-    if (!isSet(calc) || !window.math) return
-
-    try {
-      // Just values are needed
-      const scope = Object.fromEntries(
-        Object.entries(this.watched).map(([key, value]) => [key, value.value])
-      )
-
-      const cacheKey = JSON.stringify(scope)
-
-      if (this.lastCalc && this.lastCalc.key === cacheKey) {
-        this.setValue(this.lastCalc.result)
-        return
-      }
-
-      const result = window.math.evaluate(calc, scope)
-      this.lastCalc = { key: cacheKey, result }
-      this.setValue(result)
-    } catch (e) {
-    }
-  }
-
-  setEnumSource () {
-    const enumSource = getSchemaXOption(this.schema, 'enumSource')
-
-    if (!isSet(enumSource)) return
-
-    this.enumSource = getValueByJSONPath(this.watched, enumSource)
   }
 
   /**

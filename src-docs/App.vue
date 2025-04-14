@@ -69,6 +69,16 @@
           <br><br>
 
           <div class="form-group mb-3">
+            <input type="checkbox" id="btnContents" v-model="btnContents" @change="initEditor()">
+            <label for="btnContents"><code>btnContents</code></label>
+          </div>
+
+          <div class="form-group mb-3">
+            <input type="checkbox" id="btnIcons" v-model="btnIcons" @change="initEditor()">
+            <label for="btnIcons"><code>btnIcons</code></label>
+          </div>
+
+          <div class="form-group mb-3">
             <input type="checkbox" id="enablePropertiesToggle" v-model="enablePropertiesToggle" @change="initEditor()">
             <label for="enablePropertiesToggle"><code>enablePropertiesToggle</code></label>
           </div>
@@ -273,8 +283,6 @@ import loginExample from './json/examples/login.json'
 import contactExample from './json/examples/contact.json'
 import testJson from './json/test.json'
 // import template from './json/experimental/template.json'
-// import calc from './json/experimental/calc.json'
-// import calcIfThenElse from './json/experimental/calc-if-then-else.json'
 import markdownAnnotations from './json/experimental/markdon-annotations.json'
 import jsonPatch from './json/parsing/json-patch.json'
 import allOfRefs from './json/parsing/allOf-refs.json'
@@ -349,8 +357,6 @@ export default {
         },
         'Features': {
           // 'experimental/template': template,
-          // 'experimental/calc': calc,
-          // 'experimental/calc-if-then-else': calcIfThenElse,
           'features/markdown-annotations': markdownAnnotations,
           'parsing/json-patch': jsonPatch,
           'parsing/allOf-refs': allOfRefs,
@@ -439,6 +445,8 @@ export default {
         'it',
         'es'
       ],
+      btnContents: false,
+      btnIcons: true,
       enablePropertiesToggle: true,
       enableCollapseToggle: true,
       startCollapsed: false,
@@ -474,6 +482,8 @@ export default {
     this.enforceRequired = this.getQueryParam('enforceRequired') ? this.parseBooleanString(this.getQueryParam('enforceRequired')) : true
     this.enforceMinItems = this.getQueryParam('enforceMinItems') ? this.parseBooleanString(this.getQueryParam('enforceMinItems')) : true
     this.enforceAdditionalProperties = this.getQueryParam('enforceAdditionalProperties') ? this.parseBooleanString(this.getQueryParam('enforceAdditionalProperties')) : true
+    this.btnContents = this.getQueryParam('btnContents') ? this.parseBooleanString(this.getQueryParam('btnContents')) : false
+    this.btnIcons = this.getQueryParam('btnIcons') ? this.parseBooleanString(this.getQueryParam('btnIcons')) : true
     this.enablePropertiesToggle = this.getQueryParam('enablePropertiesToggle') ? this.parseBooleanString(this.getQueryParam('enablePropertiesToggle')) : true
     this.enableCollapseToggle = this.getQueryParam('enableCollapseToggle') ? this.parseBooleanString(this.getQueryParam('enableCollapseToggle')) : true
     this.startCollapsed = this.getQueryParam('startCollapsed') ? this.parseBooleanString(this.getQueryParam('startCollapsed')) : false
@@ -587,6 +597,8 @@ export default {
 
       const options = {
         container: document.querySelector('#jedi-container'),
+        btnContents: this.btnContents,
+        btnIcons: this.btnIcons,
         enablePropertiesToggle: this.enablePropertiesToggle,
         enableCollapseToggle: this.enableCollapseToggle,
         startCollapsed: this.startCollapsed,
@@ -677,6 +689,8 @@ export default {
       newUrl += "&enforceRequired=" + this.enforceRequired
       newUrl += "&enforceMinItems=" + this.enforceMinItems
       newUrl += "&enforceAdditionalProperties=" + this.enforceAdditionalProperties
+      newUrl += "&btnContents=" + this.btnContents
+      newUrl += "&btnIcons=" + this.btnIcons
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
       newUrl += "&startCollapsed=" + this.startCollapsed
@@ -697,6 +711,8 @@ export default {
       newUrl += "&enforceRequired=" + this.enforceRequired
       newUrl += "&enforceMinItems=" + this.enforceMinItems
       newUrl += "&enforceAdditionalProperties=" + this.enforceAdditionalProperties
+      newUrl += "&btnContents=" + this.btnContents
+      newUrl += "&btnIcons=" + this.btnIcons
       newUrl += "&enablePropertiesToggle=" + this.enablePropertiesToggle
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
       newUrl += "&startCollapsed=" + this.startCollapsed

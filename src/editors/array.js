@@ -22,9 +22,6 @@ class EditorArray extends Editor {
   }
 
   build () {
-    this.btnContents = getSchemaXOption(this.instance.schema, 'btnContents') ?? this.instance.jedi.options.btnContents
-    this.btnIcons = getSchemaXOption(this.instance.schema, 'btnIcons') ?? this.instance.jedi.options.btnIcons
-
     this.control = this.theme.getArrayControl({
       title: this.getTitle(),
       description: this.getDescription(),
@@ -36,9 +33,7 @@ class EditorArray extends Editor {
       info: this.getInfo(),
       arrayAdd: getSchemaXOption(this.instance.schema, 'arrayAdd') ?? this.instance.jedi.options.arrayAdd,
       arrayAddContent: getSchemaXOption(this.instance.schema, 'arrayAddContent') ?? this.instance.jedi.translator.translate('arrayAdd'),
-      collapseToggleContent: getSchemaXOption(this.instance.schema, 'collapseToggleContent') ?? this.instance.jedi.translator.translate('collapseToggle'),
-      btnContents: this.btnContents,
-      btnIcons: this.btnIcons
+      collapseToggleContent: getSchemaXOption(this.instance.schema, 'collapseToggleContent') ?? this.instance.jedi.translator.translate('collapseToggle')
     })
   }
 
@@ -67,27 +62,19 @@ class EditorArray extends Editor {
     const schemaDragContent = getSchemaXOption(this.instance.schema, 'arrayDragContent')
 
     const deleteBtn = this.theme.getDeleteItemBtn({
-      content: schemaDeleteContent ?? this.instance.jedi.translator.translate('arrayDelete'),
-      btnContents: this.btnContents,
-      btnIcons: this.btnIcons
+      content: schemaDeleteContent ?? this.instance.jedi.translator.translate('arrayDelete')
     })
 
     const moveUpBtn = this.theme.getMoveUpItemBtn({
-      content: schemaMoveUpContent ?? this.instance.jedi.translator.translate('arrayMoveUp'),
-      btnContents: this.btnContents,
-      btnIcons: this.btnIcons
+      content: schemaMoveUpContent ?? this.instance.jedi.translator.translate('arrayMoveUp')
     })
 
     const moveDownBtn = this.theme.getMoveDownItemBtn({
-      content: schemaMoveDownContent ?? this.instance.jedi.translator.translate('arrayMoveDown'),
-      btnContents: this.btnContents,
-      btnIcons: this.btnIcons
+      content: schemaMoveDownContent ?? this.instance.jedi.translator.translate('arrayMoveDown')
     })
 
     const dragBtn = this.theme.getDragItemBtn({
-      content: schemaDragContent ?? this.instance.jedi.translator.translate('arrayDrag'),
-      btnContents: this.btnContents,
-      btnIcons: this.btnIcons
+      content: schemaDragContent ?? this.instance.jedi.translator.translate('arrayDrag')
     })
 
     const btnGroup = this.theme.getBtnGroup()

@@ -353,9 +353,7 @@ class ThemeBootstrap5 extends Theme {
     const modalBody = document.createElement('div')
     const closeBtn = this.getButton({
       content: 'Close',
-      icon: 'close',
-      btnContents: true,
-      btnIcons: true
+      icon: 'close'
     })
     const modalId = id + '-modal'
 

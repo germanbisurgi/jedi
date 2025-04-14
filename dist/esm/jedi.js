@@ -1574,7 +1574,6 @@ class Instance extends EventEmitter {
     this.ui = null;
     this.isDirty = false;
     this.watched = {};
-    this.enumSource = null;
     this.key = this.path.split(this.jedi.pathSeparator).pop();
     this.init();
   }
@@ -1587,9 +1586,7 @@ class Instance extends EventEmitter {
     this.prepare();
     this.setDefaultValue();
     this.registerWatcher();
-    this.setEnumSource();
     this.setValueFormTemplate();
-    this.setValueFormCalc();
     if (this.jedi.options.container) {
       this.setUI();
     }
@@ -1702,7 +1699,6 @@ class Instance extends EventEmitter {
       };
     }
     this.setValueFormTemplate();
-    this.setValueFormCalc();
   }
   setValueFormTemplate() {
     const template = getSchemaXOption(this.schema, "template");
@@ -1710,29 +1706,6 @@ class Instance extends EventEmitter {
     if (template) {
       this.setValue(compileTemplate(template, this.watched));
     }
-  }
-  setValueFormCalc() {
-    const calc = getSchemaXOption(this.schema, "calc");
-    if (!isSet(calc) || !window.math) return;
-    try {
-      const scope = Object.fromEntries(
-        Object.entries(this.watched).map(([key, value]) => [key, value.value])
-      );
-      const cacheKey = JSON.stringify(scope);
-      if (this.lastCalc && this.lastCalc.key === cacheKey) {
-        this.setValue(this.lastCalc.result);
-        return;
-      }
-      const result = window.math.evaluate(calc, scope);
-      this.lastCalc = { key: cacheKey, result };
-      this.setValue(result);
-    } catch (e) {
-    }
-  }
-  setEnumSource() {
-    const enumSource = getSchemaXOption(this.schema, "enumSource");
-    if (!isSet(enumSource)) return;
-    this.enumSource = getValueByJSONPath(this.watched, enumSource);
   }
   /**
    * Returns the value of the instance
@@ -3197,8 +3170,6 @@ class EditorObject extends Editor {
     return getSchemaType(schema) === "object";
   }
   build() {
-    this.btnContents = getSchemaXOption(this.instance.schema, "btnContents") ?? this.instance.jedi.options.btnContents;
-    this.btnIcons = getSchemaXOption(this.instance.schema, "btnIcons") ?? this.instance.jedi.options.btnIcons;
     this.propertyActivators = {};
     const schemaOptions = this.instance.schema.options || {};
     let addProperty = true;
@@ -3226,9 +3197,7 @@ class EditorObject extends Editor {
       info: this.getInfo(),
       propertiesToggleContent: getSchemaXOption(this.instance.schema, "propertiesToggleContent") ?? this.instance.jedi.translator.translate("propertiesToggle"),
       collapseToggleContent: getSchemaXOption(this.instance.schema, "collapseToggleContent") ?? this.instance.jedi.translator.translate("collapseToggle"),
-      addPropertyContent: getSchemaXOption(this.instance.schema, "addPropertyContent") ?? this.instance.jedi.translator.translate("objectAddProperty"),
-      btnContents: this.btnContents,
-      btnIcons: this.btnIcons
+      addPropertyContent: getSchemaXOption(this.instance.schema, "addPropertyContent") ?? this.instance.jedi.translator.translate("objectAddProperty")
     });
   }
   addEventListeners() {
@@ -3468,8 +3437,6 @@ class EditorArray extends Editor {
     this.activeItemIndex = 0;
   }
   build() {
-    this.btnContents = getSchemaXOption(this.instance.schema, "btnContents") ?? this.instance.jedi.options.btnContents;
-    this.btnIcons = getSchemaXOption(this.instance.schema, "btnIcons") ?? this.instance.jedi.options.btnIcons;
     this.control = this.theme.getArrayControl({
       title: this.getTitle(),
       description: this.getDescription(),
@@ -3481,9 +3448,7 @@ class EditorArray extends Editor {
       info: this.getInfo(),
       arrayAdd: getSchemaXOption(this.instance.schema, "arrayAdd") ?? this.instance.jedi.options.arrayAdd,
       arrayAddContent: getSchemaXOption(this.instance.schema, "arrayAddContent") ?? this.instance.jedi.translator.translate("arrayAdd"),
-      collapseToggleContent: getSchemaXOption(this.instance.schema, "collapseToggleContent") ?? this.instance.jedi.translator.translate("collapseToggle"),
-      btnContents: this.btnContents,
-      btnIcons: this.btnIcons
+      collapseToggleContent: getSchemaXOption(this.instance.schema, "collapseToggleContent") ?? this.instance.jedi.translator.translate("collapseToggle")
     });
   }
   addEventListeners() {
@@ -3506,24 +3471,16 @@ class EditorArray extends Editor {
     const schemaMoveDownContent = getSchemaXOption(this.instance.schema, "arrayMoveDownContent");
     const schemaDragContent = getSchemaXOption(this.instance.schema, "arrayDragContent");
     const deleteBtn = this.theme.getDeleteItemBtn({
-      content: schemaDeleteContent ?? this.instance.jedi.translator.translate("arrayDelete"),
-      btnContents: this.btnContents,
-      btnIcons: this.btnIcons
+      content: schemaDeleteContent ?? this.instance.jedi.translator.translate("arrayDelete")
     });
     const moveUpBtn = this.theme.getMoveUpItemBtn({
-      content: schemaMoveUpContent ?? this.instance.jedi.translator.translate("arrayMoveUp"),
-      btnContents: this.btnContents,
-      btnIcons: this.btnIcons
+      content: schemaMoveUpContent ?? this.instance.jedi.translator.translate("arrayMoveUp")
     });
     const moveDownBtn = this.theme.getMoveDownItemBtn({
-      content: schemaMoveDownContent ?? this.instance.jedi.translator.translate("arrayMoveDown"),
-      btnContents: this.btnContents,
-      btnIcons: this.btnIcons
+      content: schemaMoveDownContent ?? this.instance.jedi.translator.translate("arrayMoveDown")
     });
     const dragBtn = this.theme.getDragItemBtn({
-      content: schemaDragContent ?? this.instance.jedi.translator.translate("arrayDrag"),
-      btnContents: this.btnContents,
-      btnIcons: this.btnIcons
+      content: schemaDragContent ?? this.instance.jedi.translator.translate("arrayDrag")
     });
     const btnGroup = this.theme.getBtnGroup();
     deleteBtn.addEventListener("click", () => {
@@ -3742,13 +3699,9 @@ class EditorArrayChoices extends Editor {
     });
     this.control.input.setAttribute("multiple", "");
     try {
-      let enumSource = this.instance.enumSource;
-      if (isObject(enumSource)) {
-        enumSource = Object.keys(enumSource);
-      }
-      const value = enumSource ?? this.instance.getValue();
-      const itemEnum = enumSource ?? this.instance.schema.items.enum ?? [];
-      const itemEnumTitles = getSchemaXOption(this.instance.schema.items, "enumTitles") ?? enumSource ?? this.instance.getValue();
+      const value = this.instance.getValue();
+      const itemEnum = this.instance.schema.items.enum ?? [];
+      const itemEnumTitles = getSchemaXOption(this.instance.schema.items, "enumTitles") ?? this.instance.getValue();
       const choicesOptions = getSchemaXOption(this.instance.schema, "choicesOptions") ?? {};
       if (this.choicesInstance) {
         this.choicesInstance.destroy();
@@ -4610,6 +4563,10 @@ class Jedi extends EventEmitter {
       customEditors: this.options.customEditors
     });
     this.theme = this.options.theme;
+    if (this.theme) {
+      this.theme.btnContents = this.options.btnContents;
+      this.theme.btnIcons = this.options.btnIcons;
+    }
     if (isSet(this.options.iconLib)) {
       switch (this.options.iconLib) {
         case "glyphicons":
@@ -5131,6 +5088,8 @@ class Theme {
   constructor(icons = null) {
     this.icons = icons;
     this.useToggleEvents = true;
+    this.btnContents = true;
+    this.btnIcons = true;
     this.init();
   }
   /**
@@ -5499,12 +5458,11 @@ class Theme {
       button.setAttribute("id", config.id);
     }
     text.textContent = " " + config.content;
-    console.log(config);
-    if (config.btnIcons && this.icons && config.icon) {
+    if (this.btnIcons && this.icons && config.icon) {
       this.addIconClass(icon, this.icons[config.icon]);
       icon.setAttribute("title", config.content);
     }
-    if (!config.btnContents) {
+    if (!this.btnContents) {
       this.visuallyHidden(text);
     }
     if (this.icons && config.icon) {
@@ -5524,9 +5482,7 @@ class Theme {
   getArrayBtnAdd(config) {
     const html = this.getButton({
       content: config.content,
-      icon: "add",
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      icon: "add"
     });
     html.classList.add("jedi-array-add");
     return html;
@@ -5537,9 +5493,7 @@ class Theme {
   getDeleteItemBtn(config) {
     const deleteItemBtn = this.getButton({
       content: config.content,
-      icon: "delete",
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      icon: "delete"
     });
     deleteItemBtn.classList.add("jedi-array-delete");
     return deleteItemBtn;
@@ -5550,9 +5504,7 @@ class Theme {
   getMoveUpItemBtn(config) {
     const moveUpItemBtn = this.getButton({
       content: config.content,
-      icon: "moveUp",
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      icon: "moveUp"
     });
     moveUpItemBtn.classList.add("jedi-array-move-up");
     return moveUpItemBtn;
@@ -5563,9 +5515,7 @@ class Theme {
   getMoveDownItemBtn(config) {
     const moveDownItemBtn = this.getButton({
       content: config.content,
-      icon: "moveDown",
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      icon: "moveDown"
     });
     moveDownItemBtn.classList.add("jedi-array-move-down");
     return moveDownItemBtn;
@@ -5573,9 +5523,7 @@ class Theme {
   getDragItemBtn(config) {
     const dragItemBtn = this.getButton({
       content: config.content,
-      icon: "drag",
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      icon: "drag"
     });
     dragItemBtn.classList.add("jedi-array-drag");
     return dragItemBtn;
@@ -5633,9 +5581,7 @@ class Theme {
     const content = document.createElement("div");
     const closeBtn = this.getButton({
       content: "Close",
-      icon: "close",
-      btnContents: true,
-      btnIcons: true
+      icon: "close"
     });
     dialog.classList.add("jedi-modal-dialog");
     title.classList.add("jedi-modal-title");
@@ -5724,9 +5670,7 @@ class Theme {
       content: config.propertiesToggleContent,
       id: "properties-slot-toggle-" + config.id,
       icon: "properties",
-      propertiesContainer,
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      propertiesContainer
     });
     const collapse = this.getCollapse({
       id: collapseId,
@@ -5736,8 +5680,6 @@ class Theme {
       content: config.collapseToggleContent,
       id: "collapse-toggle-" + config.id,
       icon: "collapse",
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons,
       collapseId,
       collapse,
       startCollapsed: config.startCollapsed
@@ -5749,9 +5691,7 @@ class Theme {
     });
     const addPropertyBtn = this.getAddPropertyButton({
       content: config.addPropertyContent,
-      icon: "add",
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      icon: "add"
     });
     const fieldset = this.getFieldset();
     const { legend, infoContainer } = this.getLegend({
@@ -5825,9 +5765,7 @@ class Theme {
     const childrenSlot = this.getChildrenSlot();
     const btnGroup = this.getBtnGroup();
     const addBtn = this.getArrayBtnAdd({
-      content: config.arrayAddContent,
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      content: config.arrayAddContent
     });
     const fieldset = this.getFieldset();
     const info = this.getInfo(config.info);
@@ -5847,8 +5785,6 @@ class Theme {
       content: config.collapseToggleContent,
       id: "collapse-toggle-" + config.id,
       icon: "collapse",
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons,
       collapseId,
       collapse,
       startCollapsed: config.startCollapsed
@@ -6821,9 +6757,7 @@ class ThemeBootstrap3 extends Theme {
     const modalBody = document.createElement("div");
     const closeBtn = this.getButton({
       content: "Close",
-      icon: "close",
-      btnContents: true,
-      btnIcons: true
+      icon: "close"
     });
     const modalId = id + "-modal";
     modal.setAttribute("role", "dialog");
@@ -7151,9 +7085,7 @@ class ThemeBootstrap4 extends Theme {
     const modalBody = document.createElement("div");
     const closeBtn = this.getButton({
       content: "Close",
-      icon: "close",
-      btnContents: true,
-      btnIcons: true
+      icon: "close"
     });
     const modalId = id + "-modal";
     modal.setAttribute("role", "dialog");
@@ -7476,9 +7408,7 @@ class ThemeBootstrap5 extends Theme {
     const modalBody = document.createElement("div");
     const closeBtn = this.getButton({
       content: "Close",
-      icon: "close",
-      btnContents: true,
-      btnIcons: true
+      icon: "close"
     });
     const modalId = id + "-modal";
     modal.setAttribute("role", "dialog");

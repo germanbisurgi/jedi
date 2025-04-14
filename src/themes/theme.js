@@ -7,6 +7,8 @@ class Theme {
   constructor (icons = null) {
     this.icons = icons
     this.useToggleEvents = true
+    this.btnContents = true
+    this.btnIcons = true
     this.init()
   }
 
@@ -457,14 +459,12 @@ class Theme {
 
     text.textContent = ' ' + config.content
 
-    console.log(config)
-
-    if (config.btnIcons && this.icons && config.icon) {
+    if (this.btnIcons && this.icons && config.icon) {
       this.addIconClass(icon, this.icons[config.icon])
       icon.setAttribute('title', config.content)
     }
 
-    if (!config.btnContents) {
+    if (!this.btnContents) {
       this.visuallyHidden(text)
     }
 
@@ -489,9 +489,7 @@ class Theme {
   getArrayBtnAdd (config) {
     const html = this.getButton({
       content: config.content,
-      icon: 'add',
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      icon: 'add'
     })
     html.classList.add('jedi-array-add')
     return html
@@ -503,9 +501,7 @@ class Theme {
   getDeleteItemBtn (config) {
     const deleteItemBtn = this.getButton({
       content: config.content,
-      icon: 'delete',
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      icon: 'delete'
     })
     deleteItemBtn.classList.add('jedi-array-delete')
     return deleteItemBtn
@@ -517,9 +513,7 @@ class Theme {
   getMoveUpItemBtn (config) {
     const moveUpItemBtn = this.getButton({
       content: config.content,
-      icon: 'moveUp',
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      icon: 'moveUp'
     })
     moveUpItemBtn.classList.add('jedi-array-move-up')
     return moveUpItemBtn
@@ -531,9 +525,7 @@ class Theme {
   getMoveDownItemBtn (config) {
     const moveDownItemBtn = this.getButton({
       content: config.content,
-      icon: 'moveDown',
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      icon: 'moveDown'
     })
     moveDownItemBtn.classList.add('jedi-array-move-down')
     return moveDownItemBtn
@@ -542,9 +534,7 @@ class Theme {
   getDragItemBtn (config) {
     const dragItemBtn = this.getButton({
       content: config.content,
-      icon: 'drag',
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      icon: 'drag'
     })
     dragItemBtn.classList.add('jedi-array-drag')
     return dragItemBtn
@@ -616,9 +606,7 @@ class Theme {
     const content = document.createElement('div')
     const closeBtn = this.getButton({
       content: 'Close',
-      icon: 'close',
-      btnContents: true,
-      btnIcons: true
+      icon: 'close'
     })
 
     dialog.classList.add('jedi-modal-dialog')
@@ -724,9 +712,7 @@ class Theme {
       content: config.propertiesToggleContent,
       id: 'properties-slot-toggle-' + config.id,
       icon: 'properties',
-      propertiesContainer: propertiesContainer,
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      propertiesContainer: propertiesContainer
     })
     const collapse = this.getCollapse({
       id: collapseId,
@@ -736,8 +722,6 @@ class Theme {
       content: config.collapseToggleContent,
       id: 'collapse-toggle-' + config.id,
       icon: 'collapse',
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons,
       collapseId: collapseId,
       collapse: collapse,
       startCollapsed: config.startCollapsed
@@ -749,9 +733,7 @@ class Theme {
     })
     const addPropertyBtn = this.getAddPropertyButton({
       content: config.addPropertyContent,
-      icon: 'add',
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      icon: 'add'
     })
     const fieldset = this.getFieldset()
     const { legend, infoContainer } = this.getLegend({
@@ -839,9 +821,7 @@ class Theme {
     const childrenSlot = this.getChildrenSlot()
     const btnGroup = this.getBtnGroup()
     const addBtn = this.getArrayBtnAdd({
-      content: config.arrayAddContent,
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons
+      content: config.arrayAddContent
     })
 
     const fieldset = this.getFieldset()
@@ -862,8 +842,6 @@ class Theme {
       content: config.collapseToggleContent,
       id: 'collapse-toggle-' + config.id,
       icon: 'collapse',
-      btnContents: config.btnContents,
-      btnIcons: config.btnIcons,
       collapseId: collapseId,
       collapse: collapse,
       startCollapsed: config.startCollapsed

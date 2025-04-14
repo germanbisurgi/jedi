@@ -171,6 +171,11 @@ class Jedi extends EventEmitter {
 
     this.theme = this.options.theme
 
+    if (this.theme) {
+      this.theme.btnContents = this.options.btnContents
+      this.theme.btnIcons = this.options.btnIcons
+    }
+
     if (isSet(this.options.iconLib)) {
       switch (this.options.iconLib) {
         case 'glyphicons':

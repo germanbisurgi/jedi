@@ -42,15 +42,9 @@ class EditorArrayChoices extends Editor {
     this.control.input.setAttribute('multiple', '')
 
     try {
-      let enumSource = this.instance.enumSource
-
-      if (isObject(enumSource)) {
-        enumSource = Object.keys(enumSource)
-      }
-
-      const value = enumSource ?? this.instance.getValue()
-      const itemEnum = enumSource ?? this.instance.schema.items.enum ?? []
-      const itemEnumTitles = getSchemaXOption(this.instance.schema.items, 'enumTitles') ?? enumSource ?? this.instance.getValue()
+      const value = this.instance.getValue()
+      const itemEnum = this.instance.schema.items.enum ?? []
+      const itemEnumTitles = getSchemaXOption(this.instance.schema.items, 'enumTitles') ?? this.instance.getValue()
       const choicesOptions = getSchemaXOption(this.instance.schema, 'choicesOptions') ?? {}
 
       if (this.choicesInstance) {
