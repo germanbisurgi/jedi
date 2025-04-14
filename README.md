@@ -516,7 +516,9 @@ Jedi options and as `x-options`, the `x-options` one will be applied. `x-options
 {
   "title": "Message",
   "type": "string",
-  "x-format": "textarea"
+  "x-options": {
+    "format": "textarea"
+  }
 }
 ```
 
