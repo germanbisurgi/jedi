@@ -148,6 +148,8 @@ class Jedi extends EventEmitter {
 
     this.isEditor = false
 
+    this.debug = false
+
     this.init()
     this.bindEventListeners()
     this.updateInstancesWatchedData()

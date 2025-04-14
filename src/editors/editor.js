@@ -39,6 +39,9 @@ class Editor {
 
     this.showingValidationErrors = false
 
+    this.title = null
+    this.description = null
+
     this.init()
     this.build()
     this.setAttributes()
@@ -207,44 +210,52 @@ class Editor {
   }
 
   getTitle () {
-    let title = this.instance.getKey()
+    if (this.title) {
+      return this.title
+    }
+
+    this.title = this.instance.getKey()
     const schemaTitle = getSchemaTitle(this.instance.schema)
 
     if (isSet(schemaTitle)) {
-      title = compileTemplate(schemaTitle, {
+      this.title = compileTemplate(schemaTitle, {
         value: this.instance.getValue(),
         settings: this.instance.jedi.options.settings
       })
 
-      title = this.getHtmlFromMarkdown(title)
+      this.title = this.getHtmlFromMarkdown(this.title)
 
       const domPurifyOptions = combineDeep({}, this.instance.jedi.options.domPurifyOptions, {
         FORBID_TAGS: ['p']
       })
 
-      title = this.purifyContent(title, domPurifyOptions)
+      this.title = this.purifyContent(this.title, domPurifyOptions)
     }
 
-    return title
+    return this.title
   }
 
   getDescription () {
-    let schemaDescription = getSchemaDescription(this.instance.schema)
+    if (this.description) {
+      return this.description
+    }
+
+    const schemaDescription = getSchemaDescription(this.instance.schema)
 
     if (isSet(schemaDescription)) {
-      schemaDescription = compileTemplate(schemaDescription, {
+      this.description = compileTemplate(schemaDescription, {
         value: this.instance.getValue(),
         settings: this.instance.jedi.options.settings
       })
 
-      schemaDescription = this.getHtmlFromMarkdown(schemaDescription)
+      this.description = this.getHtmlFromMarkdown(this.description)
 
       const domPurifyOptions = this.instance.jedi.options.domPurifyOptions
 
-      this.purifyContent(schemaDescription, domPurifyOptions)
+      this.purifyContent(this.description, domPurifyOptions)
     }
 
-    return schemaDescription
+    return this.description
   }
 
   getInfo () {
