@@ -31,14 +31,12 @@
   - Editor: input file
   - Editor: color picker
 
+  - Themes: theme option should be a  string. to better handle config and config options and avoid duplication
   - Themes: refactor theme.getCollapseToggle
   - Themes: ionic
   - Themes: material
   - Themes: append descriptions if set and not hidden
   - Themes: type hidden description
-  - Themes: option hideButton labels
-  - Themes: iconLib option can be string or IconLib instance
-  - Themes: theme option can be string or Theme instance
 
   - Validation: support multiple drafts
   - Validation: formats: https://json-schema.org/understanding-json-schema/reference/string#format

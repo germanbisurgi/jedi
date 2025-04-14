@@ -457,6 +457,8 @@ class Theme {
 
     text.textContent = ' ' + config.content
 
+    console.log(config)
+
     if (config.btnIcons && this.icons && config.icon) {
       this.addIconClass(icon, this.icons[config.icon])
       icon.setAttribute('title', config.content)
@@ -614,7 +616,9 @@ class Theme {
     const content = document.createElement('div')
     const closeBtn = this.getButton({
       content: 'Close',
-      icon: 'close'
+      icon: 'close',
+      btnContents: true,
+      btnIcons: true
     })
 
     dialog.classList.add('jedi-modal-dialog')

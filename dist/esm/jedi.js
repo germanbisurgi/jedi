@@ -5499,6 +5499,7 @@ class Theme {
       button.setAttribute("id", config.id);
     }
     text.textContent = " " + config.content;
+    console.log(config);
     if (config.btnIcons && this.icons && config.icon) {
       this.addIconClass(icon, this.icons[config.icon]);
       icon.setAttribute("title", config.content);
@@ -5632,7 +5633,9 @@ class Theme {
     const content = document.createElement("div");
     const closeBtn = this.getButton({
       content: "Close",
-      icon: "close"
+      icon: "close",
+      btnContents: true,
+      btnIcons: true
     });
     dialog.classList.add("jedi-modal-dialog");
     title.classList.add("jedi-modal-title");
@@ -6818,7 +6821,9 @@ class ThemeBootstrap3 extends Theme {
     const modalBody = document.createElement("div");
     const closeBtn = this.getButton({
       content: "Close",
-      icon: "close"
+      icon: "close",
+      btnContents: true,
+      btnIcons: true
     });
     const modalId = id + "-modal";
     modal.setAttribute("role", "dialog");
@@ -7146,7 +7151,9 @@ class ThemeBootstrap4 extends Theme {
     const modalBody = document.createElement("div");
     const closeBtn = this.getButton({
       content: "Close",
-      icon: "close"
+      icon: "close",
+      btnContents: true,
+      btnIcons: true
     });
     const modalId = id + "-modal";
     modal.setAttribute("role", "dialog");
@@ -7469,7 +7476,9 @@ class ThemeBootstrap5 extends Theme {
     const modalBody = document.createElement("div");
     const closeBtn = this.getButton({
       content: "Close",
-      icon: "close"
+      icon: "close",
+      btnContents: true,
+      btnIcons: true
     });
     const modalId = id + "-modal";
     modal.setAttribute("role", "dialog");

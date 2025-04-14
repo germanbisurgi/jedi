@@ -347,7 +347,9 @@ class ThemeBootstrap3 extends Theme {
     const modalBody = document.createElement('div')
     const closeBtn = this.getButton({
       content: 'Close',
-      icon: 'close'
+      icon: 'close',
+      btnContents: true,
+      btnIcons: true
     })
     const modalId = id + '-modal'
 
