@@ -473,14 +473,14 @@ translates to:
       <td><code>boolean</code></td>
       <td><code>true</code></td>
       <td>If buttons texts should be displayed</td>
-      <td>yes</td>
+      <td>no</td>
     </tr>
     <tr align="left">
       <td><code>btnIcons</code></td>
       <td><code>boolean</code></td>
       <td><code>true</code></td>
       <td>If buttons icons should be displayed</td>
-      <td>yes</td>
+      <td>no</td>
     </tr>
     <tr align="left">
       <td><code>arrayDelete</code></td>
