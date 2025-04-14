@@ -10,8 +10,8 @@ class ThemeBootstrap3 extends Theme {
     this.useToggleEvents = false
   }
 
-  getAddPropertyButton () {
-    const btn = super.getAddPropertyButton()
+  getAddPropertyButton (config) {
+    const btn = super.getAddPropertyButton(config)
     btn.classList.add('btn-primary')
     btn.classList.add('btn-block')
     return btn

@@ -22,6 +22,9 @@ class EditorObject extends Editor {
   }
 
   build () {
+    this.btnContents = getSchemaXOption(this.instance.schema, 'btnContents') ?? this.instance.jedi.options.btnContents
+    this.btnIcons = getSchemaXOption(this.instance.schema, 'btnIcons') ?? this.instance.jedi.options.btnIcons
+
     this.propertyActivators = {}
     const schemaOptions = this.instance.schema.options || {}
     let addProperty = true
@@ -54,7 +57,9 @@ class EditorObject extends Editor {
       info: this.getInfo(),
       propertiesToggleContent: getSchemaXOption(this.instance.schema, 'propertiesToggleContent') ?? this.instance.jedi.translator.translate('propertiesToggle'),
       collapseToggleContent: getSchemaXOption(this.instance.schema, 'collapseToggleContent') ?? this.instance.jedi.translator.translate('collapseToggle'),
-      addPropertyContent: getSchemaXOption(this.instance.schema, 'addPropertyContent') ?? this.instance.jedi.translator.translate('objectAddProperty')
+      addPropertyContent: getSchemaXOption(this.instance.schema, 'addPropertyContent') ?? this.instance.jedi.translator.translate('objectAddProperty'),
+      btnContents: this.btnContents,
+      btnIcons: this.btnIcons
     })
   }
 

@@ -45,6 +45,8 @@ class Jedi extends EventEmitter {
       refParser: null,
       enablePropertiesToggle: false,
       enableCollapseToggle: false,
+      btnContents: true,
+      btnIcons: true,
       arrayDelete: true,
       arrayMove: true,
       arrayAdd: true,

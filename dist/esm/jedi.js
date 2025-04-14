@@ -3197,6 +3197,8 @@ class EditorObject extends Editor {
     return getSchemaType(schema) === "object";
   }
   build() {
+    this.btnContents = getSchemaXOption(this.instance.schema, "btnContents") ?? this.instance.jedi.options.btnContents;
+    this.btnIcons = getSchemaXOption(this.instance.schema, "btnIcons") ?? this.instance.jedi.options.btnIcons;
     this.propertyActivators = {};
     const schemaOptions = this.instance.schema.options || {};
     let addProperty = true;
@@ -3224,7 +3226,9 @@ class EditorObject extends Editor {
       info: this.getInfo(),
       propertiesToggleContent: getSchemaXOption(this.instance.schema, "propertiesToggleContent") ?? this.instance.jedi.translator.translate("propertiesToggle"),
       collapseToggleContent: getSchemaXOption(this.instance.schema, "collapseToggleContent") ?? this.instance.jedi.translator.translate("collapseToggle"),
-      addPropertyContent: getSchemaXOption(this.instance.schema, "addPropertyContent") ?? this.instance.jedi.translator.translate("objectAddProperty")
+      addPropertyContent: getSchemaXOption(this.instance.schema, "addPropertyContent") ?? this.instance.jedi.translator.translate("objectAddProperty"),
+      btnContents: this.btnContents,
+      btnIcons: this.btnIcons
     });
   }
   addEventListeners() {
@@ -3464,6 +3468,8 @@ class EditorArray extends Editor {
     this.activeItemIndex = 0;
   }
   build() {
+    this.btnContents = getSchemaXOption(this.instance.schema, "btnContents") ?? this.instance.jedi.options.btnContents;
+    this.btnIcons = getSchemaXOption(this.instance.schema, "btnIcons") ?? this.instance.jedi.options.btnIcons;
     this.control = this.theme.getArrayControl({
       title: this.getTitle(),
       description: this.getDescription(),
@@ -3475,7 +3481,9 @@ class EditorArray extends Editor {
       info: this.getInfo(),
       arrayAdd: getSchemaXOption(this.instance.schema, "arrayAdd") ?? this.instance.jedi.options.arrayAdd,
       arrayAddContent: getSchemaXOption(this.instance.schema, "arrayAddContent") ?? this.instance.jedi.translator.translate("arrayAdd"),
-      collapseToggleContent: getSchemaXOption(this.instance.schema, "collapseToggleContent") ?? this.instance.jedi.translator.translate("collapseToggle")
+      collapseToggleContent: getSchemaXOption(this.instance.schema, "collapseToggleContent") ?? this.instance.jedi.translator.translate("collapseToggle"),
+      btnContents: this.btnContents,
+      btnIcons: this.btnIcons
     });
   }
   addEventListeners() {
@@ -3498,16 +3506,24 @@ class EditorArray extends Editor {
     const schemaMoveDownContent = getSchemaXOption(this.instance.schema, "arrayMoveDownContent");
     const schemaDragContent = getSchemaXOption(this.instance.schema, "arrayDragContent");
     const deleteBtn = this.theme.getDeleteItemBtn({
-      content: schemaDeleteContent ?? this.instance.jedi.translator.translate("arrayDelete")
+      content: schemaDeleteContent ?? this.instance.jedi.translator.translate("arrayDelete"),
+      btnContents: this.btnContents,
+      btnIcons: this.btnIcons
     });
     const moveUpBtn = this.theme.getMoveUpItemBtn({
-      content: schemaMoveUpContent ?? this.instance.jedi.translator.translate("arrayMoveUp")
+      content: schemaMoveUpContent ?? this.instance.jedi.translator.translate("arrayMoveUp"),
+      btnContents: this.btnContents,
+      btnIcons: this.btnIcons
     });
     const moveDownBtn = this.theme.getMoveDownItemBtn({
-      content: schemaMoveDownContent ?? this.instance.jedi.translator.translate("arrayMoveDown")
+      content: schemaMoveDownContent ?? this.instance.jedi.translator.translate("arrayMoveDown"),
+      btnContents: this.btnContents,
+      btnIcons: this.btnIcons
     });
     const dragBtn = this.theme.getDragItemBtn({
-      content: schemaDragContent ?? this.instance.jedi.translator.translate("arrayDrag")
+      content: schemaDragContent ?? this.instance.jedi.translator.translate("arrayDrag"),
+      btnContents: this.btnContents,
+      btnIcons: this.btnIcons
     });
     const btnGroup = this.theme.getBtnGroup();
     deleteBtn.addEventListener("click", () => {
@@ -4529,6 +4545,8 @@ class Jedi extends EventEmitter {
       refParser: null,
       enablePropertiesToggle: false,
       enableCollapseToggle: false,
+      btnContents: true,
+      btnIcons: true,
       arrayDelete: true,
       arrayMove: true,
       arrayAdd: true,
@@ -5480,17 +5498,24 @@ class Theme {
     if (config.id) {
       button.setAttribute("id", config.id);
     }
-    text.textContent = config.content;
-    if (this.icons && config.icon) {
+    text.textContent = " " + config.content;
+    if (config.btnIcons && this.icons && config.icon) {
       this.addIconClass(icon, this.icons[config.icon]);
       icon.setAttribute("title", config.content);
+    }
+    if (!config.btnContents) {
       this.visuallyHidden(text);
     }
-    button.appendChild(text);
     if (this.icons && config.icon) {
       button.appendChild(icon);
     }
+    button.appendChild(text);
     return button;
+  }
+  getAddPropertyButton(config) {
+    const html = this.getButton(config);
+    html.classList.add("jedi-add-property-btn");
+    return html;
   }
   /**
    * Array "add" item button
@@ -5498,16 +5523,11 @@ class Theme {
   getArrayBtnAdd(config) {
     const html = this.getButton({
       content: config.content,
-      icon: "add"
+      icon: "add",
+      btnContents: config.btnContents,
+      btnIcons: config.btnIcons
     });
     html.classList.add("jedi-array-add");
-    return html;
-  }
-  getAddPropertyButton() {
-    const html = this.getButton({
-      content: "Add property"
-    });
-    html.classList.add("jedi-add-property-btn");
     return html;
   }
   /**
@@ -5516,7 +5536,9 @@ class Theme {
   getDeleteItemBtn(config) {
     const deleteItemBtn = this.getButton({
       content: config.content,
-      icon: "delete"
+      icon: "delete",
+      btnContents: config.btnContents,
+      btnIcons: config.btnIcons
     });
     deleteItemBtn.classList.add("jedi-array-delete");
     return deleteItemBtn;
@@ -5527,7 +5549,9 @@ class Theme {
   getMoveUpItemBtn(config) {
     const moveUpItemBtn = this.getButton({
       content: config.content,
-      icon: "moveUp"
+      icon: "moveUp",
+      btnContents: config.btnContents,
+      btnIcons: config.btnIcons
     });
     moveUpItemBtn.classList.add("jedi-array-move-up");
     return moveUpItemBtn;
@@ -5538,7 +5562,9 @@ class Theme {
   getMoveDownItemBtn(config) {
     const moveDownItemBtn = this.getButton({
       content: config.content,
-      icon: "moveDown"
+      icon: "moveDown",
+      btnContents: config.btnContents,
+      btnIcons: config.btnIcons
     });
     moveDownItemBtn.classList.add("jedi-array-move-down");
     return moveDownItemBtn;
@@ -5546,7 +5572,9 @@ class Theme {
   getDragItemBtn(config) {
     const dragItemBtn = this.getButton({
       content: config.content,
-      icon: "drag"
+      icon: "drag",
+      btnContents: config.btnContents,
+      btnIcons: config.btnIcons
     });
     dragItemBtn.classList.add("jedi-array-drag");
     return dragItemBtn;
@@ -5693,7 +5721,9 @@ class Theme {
       content: config.propertiesToggleContent,
       id: "properties-slot-toggle-" + config.id,
       icon: "properties",
-      propertiesContainer
+      propertiesContainer,
+      btnContents: config.btnContents,
+      btnIcons: config.btnIcons
     });
     const collapse = this.getCollapse({
       id: collapseId,
@@ -5703,6 +5733,8 @@ class Theme {
       content: config.collapseToggleContent,
       id: "collapse-toggle-" + config.id,
       icon: "collapse",
+      btnContents: config.btnContents,
+      btnIcons: config.btnIcons,
       collapseId,
       collapse,
       startCollapsed: config.startCollapsed
@@ -5712,7 +5744,12 @@ class Theme {
       id: "jedi-add-property-input-" + config.id,
       title: config.addPropertyContent
     });
-    const addPropertyBtn = this.getAddPropertyButton();
+    const addPropertyBtn = this.getAddPropertyButton({
+      content: config.addPropertyContent,
+      icon: "add",
+      btnContents: config.btnContents,
+      btnIcons: config.btnIcons
+    });
     const fieldset = this.getFieldset();
     const { legend, infoContainer } = this.getLegend({
       content: config.title,
@@ -5785,7 +5822,9 @@ class Theme {
     const childrenSlot = this.getChildrenSlot();
     const btnGroup = this.getBtnGroup();
     const addBtn = this.getArrayBtnAdd({
-      content: config.arrayAddContent
+      content: config.arrayAddContent,
+      btnContents: config.btnContents,
+      btnIcons: config.btnIcons
     });
     const fieldset = this.getFieldset();
     const info = this.getInfo(config.info);
@@ -5805,6 +5844,8 @@ class Theme {
       content: config.collapseToggleContent,
       id: "collapse-toggle-" + config.id,
       icon: "collapse",
+      btnContents: config.btnContents,
+      btnIcons: config.btnIcons,
       collapseId,
       collapse,
       startCollapsed: config.startCollapsed
@@ -6504,8 +6545,8 @@ class ThemeBootstrap3 extends Theme {
   init() {
     this.useToggleEvents = false;
   }
-  getAddPropertyButton() {
-    const btn = super.getAddPropertyButton();
+  getAddPropertyButton(config) {
+    const btn = super.getAddPropertyButton(config);
     btn.classList.add("btn-primary");
     btn.classList.add("btn-block");
     return btn;
@@ -6821,8 +6862,8 @@ class ThemeBootstrap4 extends Theme {
   init() {
     this.useToggleEvents = false;
   }
-  getAddPropertyButton() {
-    const btn = super.getAddPropertyButton();
+  getAddPropertyButton(config) {
+    const btn = super.getAddPropertyButton(config);
     btn.classList.add("btn-primary");
     btn.classList.add("btn-block");
     return btn;
@@ -7150,8 +7191,8 @@ class ThemeBootstrap5 extends Theme {
   init() {
     this.useToggleEvents = false;
   }
-  getAddPropertyButton() {
-    const btn = super.getAddPropertyButton();
+  getAddPropertyButton(config) {
+    const btn = super.getAddPropertyButton(config);
     btn.classList.add("btn-primary");
     btn.classList.add("w-100");
     return btn;

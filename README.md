@@ -16,18 +16,18 @@ Generates forms from JSON schemas. Can be used in backend to validate JSON data 
 - [RefParser](#refParser)
 - [Instance Options](#instance-options)
 - [Schema Options](#schema-options)
-    - [titleHidden](#titlehidden)
-    - [titleIconClass](#titleiconclass)
-    - [showErrors](#showerrors)
-    - [assertFormat](#assertformat)
-    - [messages](#messages)
-    - [info](#info)
-    - [inputAttributes](#inputattributes)
-    - [enumTitles](#enumtitles)
-    - [enforceEnum](#enforceenumdefault)
-    - [enforceConst](#enforceconst)
-    - [switcherTitle](#switchertitle)
-    - [format](#format)
+    - [titleHidden](#x-titlehidden)
+    - [titleIconClass](#x-titleiconclass)
+    - [showErrors](#x-showerrors)
+    - [assertFormat](#x-assertformat)
+    - [messages](#x-messages)
+    - [info](#x-info)
+    - [inputAttributes](#x-inputattributes)
+    - [enumTitles](#x-enumtitles)
+    - [enforceEnum](#x-enforceenum)
+    - [enforceConst](#x-enforceconst)
+    - [switcherTitle](#x-switchertitle)
+    - [format](#x-format)
 - [Language and Translations](#language-and-translations)
 - [Editors](#editors)
     - [Array](#array)
@@ -173,7 +173,7 @@ jedi.editor.on('item-move', (initiator) => {
 
 The argument `ìnitiator`can have one of the two values:
 - `"api"`: indicates that the change came from a call of a method like `setValue()` or from internal mechanism of this library.
-- `"user"`: indicates that the change came from an user interaction.
+- `"user"`: indicates that the change came from a user interaction.
 
 
 ## RefParser
@@ -341,7 +341,7 @@ translates to:
       <td>no</td>
     </tr>
     <tr align="left">
-      <td><code>laguage</code></td>
+      <td><code>language</code></td>
       <td><code>string</code></td>
       <td><code>'en'</code></td>
       <td>Set default language for error messages and UI texts</td>
@@ -468,6 +468,41 @@ translates to:
       <td>Enforces the <code>const</code> keyword value in editors.</td>
       <td>yes</td>
     </tr>
+    <tr align="left">
+      <td><code>btnContents</code></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+      <td>If buttons texts should be displayed</td>
+      <td>yes</td>
+    </tr>
+    <tr align="left">
+      <td><code>btnIcons</code></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+      <td>If buttons icons should be displayed</td>
+      <td>yes</td>
+    </tr>
+    <tr align="left">
+      <td><code>arrayDelete</code></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+      <td>If array delete buttons should be displayed</td>
+      <td>yes</td>
+    </tr>
+    <tr align="left">
+      <td><code>arrayMove</code></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+      <td>If array move up and move down buttons should be displayed</td>
+      <td>yes</td>
+    </tr>
+    <tr align="left">
+      <td><code>arrayAdd</code></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+      <td>If array add buttons should be displayed</td>
+      <td>yes</td>
+    </tr>
   </tbody>
 </table>
 
@@ -510,6 +545,65 @@ depends on the option `"enum"`.
     "Black",
     "White"
   ]
+}
+```
+
+"x-arrayAddContent": "ADD",
+"x-arrayMoveUpContent": "UP",
+"x-arrayMoveDownContent": "DOWN",
+"x-arrayDeleteContent": "DELETE",
+"x-arrayDragContent": "DRAG",
+
+### `x-arrayAddContent`, `x-arrayMoveUpContent`,`x-arrayMoveDownContent`,`x-arrayDeleteContent`,`x-arrayDragContent`,
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for array buttons.
+- Examples:
+
+Hide editor title.
+
+```json
+{
+  "type": "array",
+  "x-arrayAddContent": "ADD",
+  "x-arrayMoveUpContent": "UP",
+  "x-arrayMoveDownContent": "DOWN",
+  "x-arrayDeleteContent": "DELETE",
+  "x-arrayDragContent": "DRAG"
+}
+```
+
+### `x-propertiesToggleContent`, `x-addPropertyContent`
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for properties buttons.
+- Examples:
+
+Hide editor title.
+
+```json
+{
+  "type": "object",
+  "x-propertiesToggleContent": "PROPERTIES",
+  "x-addPropertyContent": "ADD PROPERTY"
+}
+```
+
+### `x-collapseToggleContent`
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for collapse buttons.
+- Examples:
+
+Hide editor title.
+
+```json
+{
+  "type": "object",
+  "x-collapseToggleContent": "COLLAPSE"
 }
 ```
 
@@ -834,7 +928,7 @@ Use radios to display color names instead of hex codes.
 - Description: A configuration object to determine the position of the property editor in the parent's grid.
 - Options:
     - `columns`: How many columns should the editor occupy.
-    - `offset`: How many columns should the editor be offseted.
+    - `offset`: How many columns should the editor be offsetted.
     - `newRow`: Whether the editor should be put in a new row.
 - Examples:
     - [editors/object-grid](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-grid&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
@@ -1603,6 +1697,18 @@ Renders as many radio type inputs as values in the `enum` constraint. The option
     "Betti",
     "Carl"
   ]
+}
+```
+
+### String textarea
+
+Renders textarea input.
+
+```json
+{
+  "type": "string",
+  "title": "String",
+  "x-format": "textarea"
 }
 ```
 
