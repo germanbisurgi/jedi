@@ -13,7 +13,7 @@
       "title": "E-Mail",
       "type": "string",
       "format": "email",
-      "titleIconClass": "fas fa-envelope"
+      "x-titleIconClass": "fas fa-envelope"
     },
     "password": {
       "title": "Password",
