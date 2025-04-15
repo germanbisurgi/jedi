@@ -1,5 +1,6 @@
 ## Todo
 
+  - Playground tutorials
   - section about exposing external libraries window.['__LIBRARY__'] when importing esm
   - collapse expand text and animation, collapse children on collapse
   - array nav drag
