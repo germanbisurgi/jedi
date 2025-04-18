@@ -652,8 +652,6 @@ export default {
         options.data = JSON.parse(this.$refs.data.value)
       }
 
-      console.log(options.data)
-
       this.editor = new Jedi.Create(options)
       window.editor = this.editor
       this.editorChangeHandler()

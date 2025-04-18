@@ -72,7 +72,7 @@ class InstanceIfThenElse extends Instance {
 
       this.instanceStartingValues.push(instance.getValue())
 
-      instance.off('notifyParent')
+      // instance.off('notifyParent')
 
       this.instances.push(instance)
     })
@@ -86,8 +86,8 @@ class InstanceIfThenElse extends Instance {
   }
 
   changeValue (value, initiator = 'api') {
-    const ifValue = this.getIfValueFromValue(value)
-    const fittestIndex = this.getFittestIndex(ifValue)
+    const withoutIf = this.getWithoutIfValueFromValue(value)
+    const fittestIndex = this.getFittestIndex(withoutIf)
     const indexChanged = fittestIndex !== this.index
     this.index = fittestIndex
     this.activeInstance = this.instances[fittestIndex]
@@ -102,7 +102,7 @@ class InstanceIfThenElse extends Instance {
 
       if (isObject(startingValue) && isObject(value)) {
         if (indexChanged) {
-          instanceValue = overwriteExistingProperties(startingValue, ifValue)
+          instanceValue = overwriteExistingProperties(startingValue, withoutIf)
           this.jedi.updateInstancesWatchedData()
         } else {
           instanceValue = overwriteExistingProperties(currentValue, value)
@@ -118,20 +118,20 @@ class InstanceIfThenElse extends Instance {
       instance.on('notifyParent', (initiator) => {
         const value = instance.getValue()
         this.changeValue(value, initiator)
+        this.emit('notifyParent', initiator)
+        this.emit('change', initiator)
       })
     })
 
     this.value = this.activeInstance.getValue()
-    this.emit('notifyParent', initiator)
-    this.emit('change', initiator)
   }
 
-  getIfValueFromValue (value) {
-    let ifValue = this.instanceWithoutIf.getValue()
+  getWithoutIfValueFromValue (value) {
+    let withoutIf = this.instanceWithoutIf.getValue()
 
-    if (isObject(ifValue) && isObject(value)) {
-      ifValue = overwriteExistingProperties(ifValue, value)
-      return ifValue
+    if (isObject(withoutIf) && isObject(value)) {
+      withoutIf = overwriteExistingProperties(withoutIf, value)
+      return withoutIf
     }
 
     return value

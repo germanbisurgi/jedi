@@ -1727,7 +1727,9 @@ class Instance extends EventEmitter {
     const valueChanged = different(this.value, newValue);
     this.value = newValue;
     this.emit("set-value", newValue, initiator);
-    this.emit("notifyParent", initiator);
+    if (notifyParent) {
+      this.emit("notifyParent", initiator);
+    }
     if (valueChanged) {
       this.isDirty = true;
       this.emit("change", initiator);
@@ -2125,7 +2127,6 @@ class InstanceIfThenElse extends Instance {
         parent: this.parent
       });
       this.instanceStartingValues.push(instance.getValue());
-      instance.off("notifyParent");
       this.instances.push(instance);
     });
     this.on("set-value", (value, initiator) => {
@@ -2135,8 +2136,8 @@ class InstanceIfThenElse extends Instance {
     this.changeValue(ifValue);
   }
   changeValue(value, initiator = "api") {
-    const ifValue = this.getIfValueFromValue(value);
-    const fittestIndex = this.getFittestIndex(ifValue);
+    const withoutIf = this.getWithoutIfValueFromValue(value);
+    const fittestIndex = this.getFittestIndex(withoutIf);
     const indexChanged = fittestIndex !== this.index;
     this.index = fittestIndex;
     this.activeInstance = this.instances[fittestIndex];
@@ -2148,7 +2149,7 @@ class InstanceIfThenElse extends Instance {
       let instanceValue = value;
       if (isObject(startingValue) && isObject(value)) {
         if (indexChanged) {
-          instanceValue = overwriteExistingProperties(startingValue, ifValue);
+          instanceValue = overwriteExistingProperties(startingValue, withoutIf);
           this.jedi.updateInstancesWatchedData();
         } else {
           instanceValue = overwriteExistingProperties(currentValue, value);
@@ -2161,17 +2162,17 @@ class InstanceIfThenElse extends Instance {
       instance.on("notifyParent", (initiator2) => {
         const value2 = instance.getValue();
         this.changeValue(value2, initiator2);
+        this.emit("notifyParent", initiator2);
+        this.emit("change", initiator2);
       });
     });
     this.value = this.activeInstance.getValue();
-    this.emit("notifyParent", initiator);
-    this.emit("change", initiator);
   }
-  getIfValueFromValue(value) {
-    let ifValue = this.instanceWithoutIf.getValue();
-    if (isObject(ifValue) && isObject(value)) {
-      ifValue = overwriteExistingProperties(ifValue, value);
-      return ifValue;
+  getWithoutIfValueFromValue(value) {
+    let withoutIf = this.instanceWithoutIf.getValue();
+    if (isObject(withoutIf) && isObject(value)) {
+      withoutIf = overwriteExistingProperties(withoutIf, value);
+      return withoutIf;
     }
     return value;
   }
