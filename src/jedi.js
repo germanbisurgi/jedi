@@ -248,11 +248,14 @@ class Jedi extends EventEmitter {
         this.hiddenInput.value = JSON.stringify(this.getValue())
 
         if (initiator === 'user') {
-          this.refreshFocus()
+          setTimeout(() => {
+            this.refreshFocus()
+          }, 0)
         }
       })
 
       document.addEventListener('focus', (event) => {
+        this.lastKeyEvent = null
         this.lastFocusedId = event.target.id
       }, true)
 

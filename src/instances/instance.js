@@ -3,7 +3,6 @@ import EventEmitter from '../event-emitter.js'
 import {
   clone, compileTemplate, different,
   equal,
-  getValueByJSONPath,
   isSet,
   notSet,
   removeDuplicatesFromArray
@@ -274,9 +273,9 @@ class Instance extends EventEmitter {
 
     this.emit('set-value', newValue, initiator)
 
-    if (notifyParent) {
-      this.emit('notifyParent', initiator)
-    }
+    // if (notifyParent) {
+    this.emit('notifyParent', initiator)
+    // }
 
     if (valueChanged) {
       this.isDirty = true

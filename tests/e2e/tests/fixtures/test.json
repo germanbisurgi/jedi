@@ -1,8 +1,8 @@
 {
   "booleans": {
-    "boolean": true,
     "boolean-select": true,
-    "boolean-radios": true
+    "boolean-radios": true,
+    "boolean": true
   },
   "strings": {
     "string": "carl",

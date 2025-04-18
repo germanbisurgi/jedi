@@ -1,5 +1,5 @@
 import Editor from './editor.js'
-import { isArray, isObject, isSet } from '../helpers/utils.js'
+import { isArray, isSet } from '../helpers/utils.js'
 import { getSchemaItems, getSchemaType, getSchemaUniqueItems, getSchemaXOption } from '../helpers/schema.js'
 
 /**

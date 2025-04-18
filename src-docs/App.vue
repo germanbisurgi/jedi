@@ -31,6 +31,15 @@
 
           <br><br>
 
+          <div class="form-group mb-0">
+            <label for="data"><code>data</code></label>
+            <textarea ref="data" class="form-control" id="data" wrap="off" style="font-size: 12px; font-family: monospace; min-height: 400px;"></textarea>
+          </div>
+
+          <button class="btn btn-primary btn-block w-100 mb-3" id="set-data" @click="setData()">Set data</button>
+
+          <br><br>
+
           <div class="form-group mb-3">
             <label for="theme"><code>theme</code></label>
             <select class="form-control" id="theme" v-model="theme" @change="reload()">
@@ -291,6 +300,7 @@ import oneOfRefs from './json/parsing/oneOf-refs.json'
 import anyOfRefs from './json/parsing/anyOf-refs.json'
 import recursiveRefs from './json/parsing/recursive-refs.json'
 import ifThenElseValueOverrides from './json/issues/if-then-else-value-overrides.json'
+import ifThenElseInitialValue from './json/issues/if-then-else-initial-value.json'
 
 
 export default {
@@ -410,7 +420,8 @@ export default {
           'validator/uniqueItems': uniqueItems,
         },
         'Fixed issues': {
-          'issue/if-then-else-value-overrides': ifThenElseValueOverrides
+          'issue/if-then-else-value-overrides': ifThenElseValueOverrides,
+          'issue/if-then-else-initial-value': ifThenElseInitialValue
         }
       },
       example: 'editors/all',
@@ -634,7 +645,14 @@ export default {
 
       if (queryData) {
         options.data = JSON.parse(this.decompress(queryData))
+        this.$refs.data.value = JSON.stringify(JSON.parse(this.decompress(queryData)), null, 2)
       }
+
+      if (this.$refs.data.value) {
+        options.data = JSON.parse(this.$refs.data.value)
+      }
+
+      console.log(options.data)
 
       this.editor = new Jedi.Create(options)
       window.editor = this.editor
@@ -671,6 +689,14 @@ export default {
         this.initEditor(this.schema)
       } catch (error) {
         alert('Invalid Schema: ' + error.message)
+      }
+    },
+    setData() {
+      try {
+        this.data = JSON.parse(this.$refs.data.value)
+        this.initEditor(this.schema)
+      } catch (error) {
+        alert('Invalid data: ' + error.message)
       }
     },
     reload() {
@@ -717,7 +743,8 @@ export default {
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
       newUrl += "&startCollapsed=" + this.startCollapsed
       newUrl += "&schema=" + this.compress(JSON.stringify(this.schema))
-      newUrl += "&data=" + this.compress(JSON.stringify(this.editor.getValue()))
+      newUrl += "&data=" + this.compress(JSON.stringify(this.data))
+      // newUrl += "&data=" + this.compress(JSON.stringify(this.editor.getValue()))
 
       // Copy newUrl to the clipboard
       navigator.clipboard.writeText(newUrl)

@@ -1727,9 +1727,7 @@ class Instance extends EventEmitter {
     const valueChanged = different(this.value, newValue);
     this.value = newValue;
     this.emit("set-value", newValue, initiator);
-    if (notifyParent) {
-      this.emit("notifyParent", initiator);
-    }
+    this.emit("notifyParent", initiator);
     if (valueChanged) {
       this.isDirty = true;
       this.emit("change", initiator);
@@ -4630,10 +4628,13 @@ class Jedi extends EventEmitter {
       this.on("change", (initiator) => {
         this.hiddenInput.value = JSON.stringify(this.getValue());
         if (initiator === "user") {
-          this.refreshFocus();
+          setTimeout(() => {
+            this.refreshFocus();
+          }, 0);
         }
       });
       document.addEventListener("focus", (event) => {
+        this.lastKeyEvent = null;
         this.lastFocusedId = event.target.id;
       }, true);
       document.addEventListener("keydown", (event) => {

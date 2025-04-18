@@ -37,7 +37,6 @@ Scenario('@editor @array @array-nav-vertical', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', 'editors/array-nav-vertical')
   I._waitForElement('.jedi-ready')
-  pause()
 
   if (theme === 'barebones') {
     I._waitForElement('.jedi-nav-list')
