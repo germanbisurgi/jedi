@@ -1836,9 +1836,16 @@ class Editor {
     this.theme = this.instance.jedi.theme;
   }
   /**
+   * Gets the json path level by counting how many "/" it has
+   */
+  getLevel() {
+    return (this.instance.path.match(/\//g) || []).length;
+  }
+  /**
    * Sets container attributes like data-path and data-type
    */
   setContainerAttributes() {
+    this.control.container.setAttribute("data-level", this.getLevel());
     this.control.container.setAttribute("data-path", this.instance.path);
     this.control.container.setAttribute("data-type", getSchemaType(this.instance.schema));
     const schemaContainerAttributes = getSchemaXOption(this.instance.schema, "containerAttributes");
