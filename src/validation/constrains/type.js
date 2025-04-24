@@ -43,7 +43,7 @@ export function type (validator, value, schema, key, path) {
     if (!valid) {
       errors.push({
         path: path,
-        constrain: 'type',
+        constraint: 'type',
         messages: [
           compileTemplate(validator.translator.translate('errorType'), {
             type: type,

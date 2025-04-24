@@ -18,7 +18,7 @@ export function prefixItems (validator, value, schema, key, path) {
         if (tmpErrors.length > 0) {
           errors.push({
             path: path,
-            constrain: 'prefixItems',
+            constraint: 'prefixItems',
             messages: [
               compileTemplate(validator.translator.translate('errorPrefixItems'), {
                 index: index

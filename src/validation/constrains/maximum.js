@@ -11,7 +11,7 @@ export function maximum (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path: path,
-        constrain: 'maximum',
+        constraint: 'maximum',
         messages: [
           compileTemplate(validator.translator.translate('errorMaximum'), {
             maximum: maximum

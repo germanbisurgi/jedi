@@ -12,7 +12,7 @@ export function pattern (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path: path,
-        constrain: 'pattern',
+        constraint: 'pattern',
         messages: [
           compileTemplate(validator.translator.translate('errorPattern'), {
             pattern: pattern

@@ -11,7 +11,7 @@ export function minItems (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path: path,
-        constrain: 'minItems',
+        constraint: 'minItems',
         messages: [
           compileTemplate(validator.translator.translate('errorMinItems'), {
             minItems: minItems

@@ -22,7 +22,7 @@ export function oneOf (validator, value, schema, key, path) {
     if (counter !== 1) {
       errors.push({
         path: path,
-        constrain: 'oneOf',
+        constraint: 'oneOf',
         messages: [
           compileTemplate(validator.translator.translate('errorOneOf'), {
             counter: counter

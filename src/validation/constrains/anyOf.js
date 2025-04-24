@@ -22,7 +22,7 @@ export function anyOf (validator, value, schema, key, path) {
     if (!valid) {
       errors.push({
         path: path,
-        constrain: 'anyOf',
+        constraint: 'anyOf',
         messages: [
           validator.translator.translate('errorAnyOf')
         ]

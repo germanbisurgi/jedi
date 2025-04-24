@@ -46,9 +46,9 @@ class Validator {
       }]
     }
 
-    Object.keys(this.draft).forEach((constrain) => {
-      if (hasOwn(schemaClone, constrain)) {
-        const validator = this.draft[constrain]
+    Object.keys(this.draft).forEach((constraint) => {
+      if (hasOwn(schemaClone, constraint)) {
+        const validator = this.draft[constraint]
         const validatorErrors = validator(this, value, schema, key, path)
 
         if (validatorErrors) {
@@ -62,7 +62,7 @@ class Validator {
     if (isSet(schemaOptionsMessages)) {
       if (isObject(schemaOptionsMessages)) {
         schemaErrors.forEach((schemaError) => {
-          const schemaMessage = schemaOptionsMessages?.[this.translator?.language]?.[schemaError?.constrain]
+          const schemaMessage = schemaOptionsMessages?.[this.translator?.language]?.[schemaError?.constraint]
 
           if (isSet(schemaMessage)) {
             schemaError.messages = [

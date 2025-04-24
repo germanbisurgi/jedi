@@ -30,7 +30,7 @@ export function contains (validator, value, schema, key, path) {
       if (minContainsInvalid) {
         errors.push({
           path: path,
-          constrain: 'minContains',
+          constraint: 'minContains',
           messages: [
             compileTemplate(validator.translator.translate('errorMinContains'), {
               counter: counter,
@@ -43,7 +43,7 @@ export function contains (validator, value, schema, key, path) {
       if (containsInvalid) {
         errors.push({
           path: path,
-          constrain: 'contains',
+          constraint: 'contains',
           messages: [validator.translator.translate('errorContains')]
         })
       }
@@ -55,7 +55,7 @@ export function contains (validator, value, schema, key, path) {
       if (maxContainsInvalid) {
         errors.push({
           path: path,
-          constrain: 'maxContains',
+          constraint: 'maxContains',
           messages: [
             compileTemplate(validator.translator.translate('errorMaxContains'), {
               counter: counter,

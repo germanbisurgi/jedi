@@ -20,7 +20,7 @@ export function required (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path: path,
-        constrain: 'required',
+        constraint: 'required',
         messages: [
           compileTemplate(validator.translator.translate('errorRequired'), {
             required: missingProperties.join(', ')

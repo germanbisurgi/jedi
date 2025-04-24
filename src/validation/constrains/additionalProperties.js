@@ -29,7 +29,7 @@ export function additionalProperties (validator, value, schema, key, path) {
         if (additionalProperties === false) {
           errors.push({
             path,
-            constrain: 'additionalProperties',
+            constraint: 'additionalProperties',
             messages: [
               compileTemplate(validator.translator.translate('errorAdditionalProperties'), { property })
             ]
@@ -43,7 +43,7 @@ export function additionalProperties (validator, value, schema, key, path) {
 
           const additionalPropertyErrors = editor.getErrors().map((error) => ({
             path: `${path}.${property}`,
-            constrain: 'additionalProperties',
+            constraint: 'additionalProperties',
             messages: error.messages
           }))
 

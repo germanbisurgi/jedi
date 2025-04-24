@@ -22,7 +22,7 @@ export function patternProperties (validator, value, schema, key, path) {
           const editorErrors = editor.getErrors().map((error) => {
             return {
               path: path + '/' + propertyName,
-              constrain: 'patternProperties',
+              constraint: 'patternProperties',
               messages: error.messages
             }
           })

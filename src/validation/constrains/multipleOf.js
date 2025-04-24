@@ -16,7 +16,7 @@ export function multipleOf (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path: path,
-        constrain: 'multipleOf',
+        constraint: 'multipleOf',
         messages: [
           compileTemplate(validator.translator.translate('errorMultipleOf'), {
             multipleOf: multipleOf

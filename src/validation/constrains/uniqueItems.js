@@ -34,7 +34,7 @@ export function uniqueItems (validator, value, schema, key, path) {
           validator.translator.translate('errorUniqueItems')
         ],
         path: path,
-        constrain: 'uniqueItems'
+        constraint: 'uniqueItems'
       })
     }
   }

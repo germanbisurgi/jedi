@@ -25,7 +25,7 @@ export function propertyNames (validator, value, schema, key, path) {
       if (invalid) {
         errors.push({
           path: path,
-          constrain: 'propertyNames',
+          constraint: 'propertyNames',
           messages: [
             compileTemplate(validator.translator.translate('errorPropertyNames'), { propertyName: propertyName })
           ]

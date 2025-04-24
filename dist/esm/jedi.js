@@ -465,7 +465,7 @@ function minLength(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "minLength",
+        constraint: "minLength",
         messages: [
           compileTemplate(validator.translator.translate("errorMinLength"), {
             minLength: minLength2
@@ -492,7 +492,7 @@ function anyOf(validator, value, schema, key, path) {
     if (!valid) {
       errors.push({
         path,
-        constrain: "anyOf",
+        constraint: "anyOf",
         messages: [
           validator.translator.translate("errorAnyOf")
         ]
@@ -509,7 +509,7 @@ function _enum(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "enum",
+        constraint: "enum",
         messages: [
           compileTemplate(validator.translator.translate("errorEnum"), {
             enum: JSON.stringify(schemaEnum)
@@ -528,7 +528,7 @@ function exclusiveMaximum(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "exclusiveMaximum",
+        constraint: "exclusiveMaximum",
         messages: [
           compileTemplate(validator.translator.translate("errorExclusiveMaximum"), {
             exclusiveMaximum: exclusiveMaximum2
@@ -547,7 +547,7 @@ function exclusiveMinimum(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "exclusiveMinimum",
+        constraint: "exclusiveMinimum",
         messages: [
           compileTemplate(validator.translator.translate("errorExclusiveMinimum"), {
             exclusiveMinimum: exclusiveMinimum2
@@ -580,7 +580,7 @@ function format(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "format",
+        constraint: "format",
         messages: [
           compileTemplate(validator.translator.translate("errorFormat"), { format: format2 })
         ]
@@ -598,7 +598,7 @@ function items(validator, value, schema, key, path) {
     if (items2 === false && value.length > 0 && value.length > prefixItemsSchemasCount) {
       errors.push({
         path,
-        constrain: "items",
+        constraint: "items",
         messages: [validator.translator.translate("errorItems")]
       });
     }
@@ -613,7 +613,7 @@ function maxItems(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "maxItems",
+        constraint: "maxItems",
         messages: [
           compileTemplate(validator.translator.translate("errorMaxItems"), {
             maxItems: maxItems2
@@ -633,7 +633,7 @@ function maxLength(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "maxLength",
+        constraint: "maxLength",
         messages: [
           compileTemplate(validator.translator.translate("errorMaxLength"), {
             maxLength: maxLength2
@@ -653,7 +653,7 @@ function maxProperties(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "maxProperties",
+        constraint: "maxProperties",
         messages: [
           compileTemplate(validator.translator.translate("errorMaxProperties"), {
             maxProperties: maxProperties2
@@ -672,7 +672,7 @@ function minimum(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "minimum",
+        constraint: "minimum",
         messages: [
           compileTemplate(validator.translator.translate("errorMinimum"), {
             minimum: minimum2
@@ -691,7 +691,7 @@ function minItems(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "minItems",
+        constraint: "minItems",
         messages: [
           compileTemplate(validator.translator.translate("errorMinItems"), {
             minItems: minItems2
@@ -711,7 +711,7 @@ function minProperties(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "minProperties",
+        constraint: "minProperties",
         messages: [
           compileTemplate(validator.translator.translate("errorMinProperties"), {
             minProperties: minProperties2
@@ -734,7 +734,7 @@ function multipleOf(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "multipleOf",
+        constraint: "multipleOf",
         messages: [
           compileTemplate(validator.translator.translate("errorMultipleOf"), {
             multipleOf: multipleOf2
@@ -756,7 +756,7 @@ function not(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "not",
+        constraint: "not",
         messages: [
           compileTemplate(validator.translator.translate("errorNot"))
         ]
@@ -781,7 +781,7 @@ function oneOf(validator, value, schema, key, path) {
     if (counter !== 1) {
       errors.push({
         path,
-        constrain: "oneOf",
+        constraint: "oneOf",
         messages: [
           compileTemplate(validator.translator.translate("errorOneOf"), {
             counter
@@ -801,7 +801,7 @@ function pattern(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "pattern",
+        constraint: "pattern",
         messages: [
           compileTemplate(validator.translator.translate("errorPattern"), {
             pattern: pattern2
@@ -829,7 +829,7 @@ function patternProperties(validator, value, schema, key, path) {
           const editorErrors = editor.getErrors().map((error) => {
             return {
               path: path + "/" + propertyName,
-              constrain: "patternProperties",
+              constraint: "patternProperties",
               messages: error.messages
             };
           });
@@ -887,7 +887,7 @@ function required(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "required",
+        constraint: "required",
         messages: [
           compileTemplate(validator.translator.translate("errorRequired"), {
             required: missingProperties.join(", ")
@@ -925,7 +925,7 @@ function type(validator, value, schema, key, path) {
     if (!valid) {
       errors.push({
         path,
-        constrain: "type",
+        constraint: "type",
         messages: [
           compileTemplate(validator.translator.translate("errorType"), {
             type: type2,
@@ -945,7 +945,7 @@ function maximum(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "maximum",
+        constraint: "maximum",
         messages: [
           compileTemplate(validator.translator.translate("errorMaximum"), {
             maximum: maximum2
@@ -982,7 +982,7 @@ function uniqueItems(validator, value, schema, key, path) {
           validator.translator.translate("errorUniqueItems")
         ],
         path,
-        constrain: "uniqueItems"
+        constraint: "uniqueItems"
       });
     }
   }
@@ -1007,7 +1007,7 @@ function additionalProperties(validator, value, schema, key, path) {
         if (additionalProperties2 === false) {
           errors.push({
             path,
-            constrain: "additionalProperties",
+            constraint: "additionalProperties",
             messages: [
               compileTemplate(validator.translator.translate("errorAdditionalProperties"), { property })
             ]
@@ -1020,7 +1020,7 @@ function additionalProperties(validator, value, schema, key, path) {
           });
           const additionalPropertyErrors = editor.getErrors().map((error) => ({
             path: `${path}.${property}`,
-            constrain: "additionalProperties",
+            constraint: "additionalProperties",
             messages: error.messages
           }));
           errors.push(...additionalPropertyErrors);
@@ -1067,7 +1067,7 @@ function _const(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "const",
+        constraint: "const",
         messages: [
           compileTemplate(validator.translator.translate("errorConst"), {
             const: JSON.stringify(schemaConst)
@@ -1099,7 +1099,7 @@ function contains(validator, value, schema, key, path) {
       if (minContainsInvalid) {
         errors.push({
           path,
-          constrain: "minContains",
+          constraint: "minContains",
           messages: [
             compileTemplate(validator.translator.translate("errorMinContains"), {
               counter,
@@ -1112,7 +1112,7 @@ function contains(validator, value, schema, key, path) {
       if (containsInvalid) {
         errors.push({
           path,
-          constrain: "contains",
+          constraint: "contains",
           messages: [validator.translator.translate("errorContains")]
         });
       }
@@ -1122,7 +1122,7 @@ function contains(validator, value, schema, key, path) {
       if (maxContainsInvalid) {
         errors.push({
           path,
-          constrain: "maxContains",
+          constraint: "maxContains",
           messages: [
             compileTemplate(validator.translator.translate("errorMaxContains"), {
               counter,
@@ -1152,7 +1152,7 @@ function dependentRequired(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path,
-        constrain: "dependentRequired",
+        constraint: "dependentRequired",
         messages: [
           compileTemplate(validator.translator.translate("errorDependentRequired"), {
             dependentRequired: missingProperties.join(", ")
@@ -1231,7 +1231,7 @@ function prefixItems(validator, value, schema, key, path) {
         if (tmpErrors.length > 0) {
           errors.push({
             path,
-            constrain: "prefixItems",
+            constraint: "prefixItems",
             messages: [
               compileTemplate(validator.translator.translate("errorPrefixItems"), {
                 index: index2
@@ -1348,7 +1348,7 @@ function unevaluatedProperties(validator, value, schema, key, path) {
         if (!definedInPatternProperty && unevaluatedProperties2 === false && !hasOwn(properties2, property)) {
           errors.push({
             path,
-            constrain: "unevaluatedProperties",
+            constraint: "unevaluatedProperties",
             messages: [
               compileTemplate(validator.translator.translate("errorUnevaluatedProperties"), {
                 property
@@ -1365,7 +1365,7 @@ function unevaluatedProperties(validator, value, schema, key, path) {
           const unevaluatedPropertiesErrors = editor.getErrors().map((error) => {
             return {
               path: property,
-              constrain: "unevaluatedProperties",
+              constraint: "unevaluatedProperties",
               messages: error.messages
             };
           });
@@ -1425,7 +1425,7 @@ function propertyNames(validator, value, schema, key, path) {
       if (invalid) {
         errors.push({
           path,
-          constrain: "propertyNames",
+          constraint: "propertyNames",
           messages: [
             compileTemplate(validator.translator.translate("errorPropertyNames"), { propertyName })
           ]
@@ -1500,9 +1500,9 @@ class Validator {
         path
       }];
     }
-    Object.keys(this.draft).forEach((constrain) => {
-      if (hasOwn(schemaClone, constrain)) {
-        const validator = this.draft[constrain];
+    Object.keys(this.draft).forEach((constraint) => {
+      if (hasOwn(schemaClone, constraint)) {
+        const validator = this.draft[constraint];
         const validatorErrors = validator(this, value, schema, key, path);
         if (validatorErrors) {
           schemaErrors = [...schemaErrors, ...validatorErrors];
@@ -1514,7 +1514,7 @@ class Validator {
       if (isObject(schemaOptionsMessages)) {
         schemaErrors.forEach((schemaError) => {
           var _a, _b;
-          const schemaMessage = (_b = schemaOptionsMessages == null ? void 0 : schemaOptionsMessages[(_a = this.translator) == null ? void 0 : _a.language]) == null ? void 0 : _b[schemaError == null ? void 0 : schemaError.constrain];
+          const schemaMessage = (_b = schemaOptionsMessages == null ? void 0 : schemaOptionsMessages[(_a = this.translator) == null ? void 0 : _a.language]) == null ? void 0 : _b[schemaError == null ? void 0 : schemaError.constraint];
           if (isSet(schemaMessage)) {
             schemaError.messages = [
               schemaMessage

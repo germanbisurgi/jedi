@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('uniqueItems')
 
-Scenario('@constrain @uniqueItems should display validation errors', ({ I }) => {
+Scenario('@constraint @uniqueItems should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/uniqueItems')

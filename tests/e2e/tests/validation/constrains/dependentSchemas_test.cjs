@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('dependentSchemas')
 
-Scenario('@constrain @dependentSchemas should display validation errors', ({ I }) => {
+Scenario('@constraint @dependentSchemas should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/dependentSchemas')

@@ -12,7 +12,7 @@ export function maxProperties (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path: path,
-        constrain: 'maxProperties',
+        constraint: 'maxProperties',
         messages: [
           compileTemplate(validator.translator.translate('errorMaxProperties'), {
             maxProperties: maxProperties

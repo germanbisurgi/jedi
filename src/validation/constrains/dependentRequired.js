@@ -23,7 +23,7 @@ export function dependentRequired (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path: path,
-        constrain: 'dependentRequired',
+        constraint: 'dependentRequired',
         messages: [
           compileTemplate(validator.translator.translate('errorDependentRequired'), {
             dependentRequired: missingProperties.join(', ')

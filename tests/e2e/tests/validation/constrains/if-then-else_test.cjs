@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('if-then-else')
 
-Scenario('@constrain @if-then-else validate against @if-then-else-deeply-nested-and-unselected', async ({ I }) => {
+Scenario('@constraint @if-then-else validate against @if-then-else-deeply-nested-and-unselected', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then-else-deeply-nested-and-unselected')
@@ -73,7 +73,7 @@ Scenario('@constrain @if-then-else validate against @if-then-else-deeply-nested-
   }))
 })
 
-Scenario('@constrain @if-then-else validate against @if-then-else-nested-simple', async ({ I }) => {
+Scenario('@constraint @if-then-else validate against @if-then-else-nested-simple', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then-else-nested-simple')
@@ -110,7 +110,7 @@ Scenario('@constrain @if-then-else validate against @if-then-else-nested-simple'
   }))
 })
 
-Scenario('@constrain @if-then-else validate against @if-then-else-nested-complex', async ({ I }) => {
+Scenario('@constraint @if-then-else validate against @if-then-else-nested-complex', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then-else-nested-complex')
@@ -219,7 +219,7 @@ Scenario('@constrain @if-then-else validate against @if-then-else-nested-complex
   }))
 })
 
-Scenario('@constrain @if-then-else validate against @if-then-else-nested-complex-2', async ({ I }) => {
+Scenario('@constraint @if-then-else validate against @if-then-else-nested-complex-2', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then-else-nested-complex-2')
@@ -293,7 +293,7 @@ Scenario('@constrain @if-then-else validate against @if-then-else-nested-complex
   I._waitForValue('[id="root-pheasant-number"]', 0)
 })
 
-Scenario('@constrain @if-then-else validate against @if-then-else-nested-basic', async ({ I }) => {
+Scenario('@constraint @if-then-else validate against @if-then-else-nested-basic', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then-else-nested')
@@ -324,7 +324,7 @@ Scenario('@constrain @if-then-else validate against @if-then-else-nested-basic',
   }))
 })
 
-Scenario('@constrain @if-then-else validate against @if-then-else ', async ({ I }) => {
+Scenario('@constraint @if-then-else validate against @if-then-else ', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then-else')
@@ -352,7 +352,7 @@ Scenario('@constrain @if-then-else validate against @if-then-else ', async ({ I 
   I.dontSee('.invalid-feedback')
 })
 
-Scenario('@constrain @if-then-else validate against @if-then', async ({ I }) => {
+Scenario('@constraint @if-then-else validate against @if-then', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-then')
@@ -380,7 +380,7 @@ Scenario('@constrain @if-then-else validate against @if-then', async ({ I }) => 
   I.dontSee('.invalid-feedback')
 })
 
-Scenario('@constrain @if-then-else validate against @if-else', async ({ I }) => {
+Scenario('@constraint @if-then-else validate against @if-else', async ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/if-else')

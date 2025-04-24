@@ -234,12 +234,12 @@
         },
         "tests": [
             {
-                "description": "prefixItems in allOf does not constrain items, invalid case",
+                "description": "prefixItems in allOf does not constraint items, invalid case",
                 "data": [ 3, 5 ],
                 "valid": false
             },
             {
-                "description": "prefixItems in allOf does not constrain items, valid case",
+                "description": "prefixItems in allOf does not constraint items, valid case",
                 "data": [ 5, 5 ],
                 "valid": true
             }

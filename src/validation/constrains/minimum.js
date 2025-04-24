@@ -11,7 +11,7 @@ export function minimum (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path: path,
-        constrain: 'minimum',
+        constraint: 'minimum',
         messages: [
           compileTemplate(validator.translator.translate('errorMinimum'), {
             minimum: minimum

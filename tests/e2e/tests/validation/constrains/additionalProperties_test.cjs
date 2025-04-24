@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('additionalProperties')
 
-Scenario('@constrain @additionalProperties should display validation errors', ({ I }) => {
+Scenario('@constraint @additionalProperties should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/additionalProperties')

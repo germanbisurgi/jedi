@@ -30,7 +30,7 @@ export function format (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path: path,
-        constrain: 'format',
+        constraint: 'format',
         messages: [
           compileTemplate(validator.translator.translate('errorFormat'), { format: format })
         ]

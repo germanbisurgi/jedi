@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('oneOf')
 
-Scenario('@constrain @oneOf should display validation errors', ({ I }) => {
+Scenario('@constraint @oneOf should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/oneOf')

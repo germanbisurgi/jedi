@@ -12,7 +12,7 @@ export function items (validator, value, schema, key, path) {
     if (items === false && value.length > 0 && value.length > prefixItemsSchemasCount) {
       errors.push({
         path: path,
-        constrain: 'items',
+        constraint: 'items',
         messages: [validator.translator.translate('errorItems')]
       })
     }

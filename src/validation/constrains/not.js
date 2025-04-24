@@ -17,7 +17,7 @@ export function not (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path: path,
-        constrain: 'not',
+        constraint: 'not',
         messages: [
           compileTemplate(validator.translator.translate('errorNot'))
         ]

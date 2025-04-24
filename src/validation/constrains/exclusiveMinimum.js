@@ -11,7 +11,7 @@ export function exclusiveMinimum (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path: path,
-        constrain: 'exclusiveMinimum',
+        constraint: 'exclusiveMinimum',
         messages: [
           compileTemplate(validator.translator.translate('errorExclusiveMinimum'), {
             exclusiveMinimum: exclusiveMinimum

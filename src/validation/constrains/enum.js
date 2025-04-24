@@ -11,7 +11,7 @@ export function _enum (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path: path,
-        constrain: 'enum',
+        constraint: 'enum',
         messages: [
           compileTemplate(validator.translator.translate('errorEnum'), {
             enum: JSON.stringify(schemaEnum)

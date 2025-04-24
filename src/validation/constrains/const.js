@@ -12,7 +12,7 @@ export function _const (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path: path,
-        constrain: 'const',
+        constraint: 'const',
         messages: [
           compileTemplate(validator.translator.translate('errorConst'), {
             const: JSON.stringify(schemaConst)

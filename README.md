@@ -1165,7 +1165,7 @@ The default translation can be overridden in the instance options as well.
 ```
 
 The text between brackets like `{{ minimum }}` or `{{ minLength }}` are templates.
-This templates will be replaced dynamically with values specified in constrains.
+This templates will be replaced dynamically with values specified in constraints.
 
 The error message for the following schema will be "Muss mindestens `3` Zeichen lang sein."
 because of the `minLength: 3`.

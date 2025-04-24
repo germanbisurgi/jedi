@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('maxItems')
 
-Scenario('@constrain @maxItems should display validation errors', ({ I }) => {
+Scenario('@constraint @maxItems should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/maxItems')

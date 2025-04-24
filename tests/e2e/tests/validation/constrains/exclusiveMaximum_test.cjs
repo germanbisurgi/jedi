@@ -3,7 +3,7 @@ const theme = process.env.THEME || 'barebones'
 
 Feature('exclusiveMaximum')
 
-Scenario('@constrain @exclusiveMaximum should display validation errors', ({ I }) => {
+Scenario('@constraint @exclusiveMaximum should display validation errors', ({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I._waitForElement('.jedi-ready')
   I.selectOption('#examples', 'validator/exclusiveMaximum')

@@ -12,7 +12,7 @@ export function minProperties (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         path: path,
-        constrain: 'minProperties',
+        constraint: 'minProperties',
         messages: [
           compileTemplate(validator.translator.translate('errorMinProperties'), {
             minProperties: minProperties
