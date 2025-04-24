@@ -10,7 +10,6 @@
   - info variant popover
   - use editor methods and overrides in build configs
   - use super.refreshUI() in all editors
-  - x-messages categorized by language
 
   - array nav-horizontal needs left and right arrows buttons instead of up and down
   - array items titles in item containers
