@@ -46,6 +46,7 @@ class Editor {
     this.build()
     this.setAttributes()
     this.addEventListeners()
+    this.setVisibility()
     this.setContainerAttributes()
     this.refreshUI()
 
@@ -77,6 +78,15 @@ class Editor {
    */
   getLevel () {
     return (this.instance.path.match(/\//g) || []).length
+  }
+
+  setVisibility () {
+    const schemaOptionHidden = getSchemaXOption(this.instance.schema, 'hidden')
+
+    if (isSet(schemaOptionHidden) && schemaOptionHidden === true) {
+      this.control.container.style.display = 'none'
+      this.control.container.setAttribute('aria-hidden', 'true')
+    }
   }
 
   /**

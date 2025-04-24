@@ -1,0 +1,14 @@
+{
+  "title": "`x-hidden`",
+  "type": "object",
+  "description": "Editors can be hidden using the `x-hidden` option. When set to `true`, the editor is hidden",
+  "properties": {
+    "visible": {
+      "type": "string"
+    },
+    "hidden": {
+      "type": "string",
+      "x-hidden": true
+    }
+  }
+}

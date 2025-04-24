@@ -21,8 +21,10 @@ Generates forms from JSON schemas. Can be used in backend to validate JSON data 
     - [showErrors](#x-showerrors)
     - [assertFormat](#x-assertformat)
     - [messages](#x-messages)
+    - [hidden](#x-hidden)
     - [info](#x-info)
     - [inputAttributes](#x-inputattributes)
+    - [containerAttributes](#x-containerAttributes)
     - [enumTitles](#x-enumtitles)
     - [enforceEnum](#x-enforceenum)
     - [enforceConst](#x-enforceconst)
@@ -727,6 +729,31 @@ When defined as an array, the messages apply to all validation rules for the pro
 }
 ```
 
+### `x-hidden`
+
+- Type: `boolean`
+- Description: Editors can be hidden using the `x-hidden` option. When set to `true`, the editor is hidden.
+- Examples:
+
+Displays an info button right after the title, that opens a modal with title and content.
+
+```json
+{
+  "title": "`x-hidden`",
+  "type": "object",
+  "description": "Editors can be hidden using the `x-hidden` option. When set to `true`, the editor is hidden",
+  "properties": {
+    "visible": {
+      "type": "string"
+    },
+    "hidden": {
+      "type": "string",
+      "x-hidden": true
+    }
+  }
+}
+```
+
 ### `x-info`
 
 - Type: `object`
@@ -745,8 +772,8 @@ Displays an info button right after the title, that opens a modal with title and
   "type": "string",
   "x-info": {
     "variant": "modal",
-    "title": "<h4>Info Button title</h4>",
-    "content": "<p>Info button content</p>"
+    "title": "### Info Button title",
+    "content": "Info button content"
   }
 }
 ```
@@ -766,6 +793,24 @@ Add `placeholder` attribute to textarea.
   "x-format": "textarea",
   "x-inputAttributes": {
     "placeholder": "Your message here..."
+  }
+}
+```
+
+### `x-containerAttributes`
+
+- Type: `object`
+- Description: Editors container HTML attributes can be set using the `x-containerAttributes` option. Attributes such as `class` or `data-*` will be applied to the container element.
+- Examples:
+
+```json
+{
+  "title": "`x-containerAttributes`",
+  "type": "object",
+  "description": "Editors container HTML attributes can be set using the `x-containerAttributes` option. Attributes such as `class` or `data-*` will be applied to the container element.",
+  "x-containerAttributes": {
+    "class": "a-class another-class",
+    "data-custom": "custom-data"
   }
 }
 ```

@@ -1830,6 +1830,7 @@ class Editor {
     this.build();
     this.setAttributes();
     this.addEventListeners();
+    this.setVisibility();
     this.setContainerAttributes();
     this.refreshUI();
     const alwaysShowErrors = this.instance.jedi.options.showErrors === "always" || getSchemaXOption(this.instance.schema, "showErrors") === "always";
@@ -1855,6 +1856,13 @@ class Editor {
    */
   getLevel() {
     return (this.instance.path.match(/\//g) || []).length;
+  }
+  setVisibility() {
+    const schemaOptionHidden = getSchemaXOption(this.instance.schema, "hidden");
+    if (isSet(schemaOptionHidden) && schemaOptionHidden === true) {
+      this.control.container.style.display = "none";
+      this.control.container.setAttribute("aria-hidden", "true");
+    }
   }
   /**
    * Sets container attributes like data-path and data-type

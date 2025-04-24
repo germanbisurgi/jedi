@@ -12,6 +12,12 @@ module.exports = function () {
     _waitForElement: function (locator) {
       this.waitForElement(locator, waitTime)
     },
+    _waitForVisible: function (locator) {
+      this.waitForVisible(locator, waitTime)
+    },
+    _waitForInvisible: function (locator) {
+      this.waitForInvisible(locator, waitTime)
+    },
     _waitForText: function (text, context) {
       this.waitForText(text, waitTime, context)
     },

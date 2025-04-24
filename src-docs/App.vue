@@ -232,6 +232,7 @@ import stringSelect from './json/editors/string-select.json'
 import stringInput from './json/editors/string-input.json'
 import stringTextarea from './json/editors/string-textarea.json'
 import containerAttributes from './json/editors/editor-containerAttributes.json'
+import editorHidden from './json/editors/editor-hidden.json'
 import additionalProperties from './json/validator/additionalProperties.json'
 import allOf from './json/validator/allOf.json'
 import anyOf from './json/validator/anyOf.json'
@@ -354,7 +355,8 @@ export default {
           'editors/string-select': stringSelect,
           'editors/string-input': stringInput,
           'editors/string-textarea': stringTextarea,
-          'editors/editor-containerAttributes': containerAttributes
+          'editors/editor-containerAttributes': containerAttributes,
+          'editors/editor-hidden': editorHidden
         },
         'Plugins': {
           'plugins/choices': choices,

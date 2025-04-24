@@ -1,5 +1,7 @@
 {
+  "title": "`x-containerAttributes`",
   "type": "object",
+  "description": "Editors container HTML attributes can be set using the `x-containerAttributes` option. Attributes such as `class` or `data-*` will be applied to the container element.",
   "x-containerAttributes": {
     "class": "a-class another-class",
     "data-custom": "custom-data"
