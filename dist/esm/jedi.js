@@ -1495,7 +1495,6 @@ class Validator {
     }
     if (isBoolean(schemaClone) && schemaClone === false) {
       return [{
-        // messages: isSet(schemaOptionsMessages) ? schemaOptionsMessages : ['invalid'],
         messages: ["invalid"],
         path
       }];
@@ -1514,7 +1513,9 @@ class Validator {
       if (isObject(schemaOptionsMessages)) {
         schemaErrors.forEach((schemaError) => {
           var _a, _b;
-          const schemaMessage = (_b = schemaOptionsMessages == null ? void 0 : schemaOptionsMessages[(_a = this.translator) == null ? void 0 : _a.language]) == null ? void 0 : _b[schemaError == null ? void 0 : schemaError.constraint];
+          const schemaMessageListedByLanguage = (_b = schemaOptionsMessages == null ? void 0 : schemaOptionsMessages[(_a = this.translator) == null ? void 0 : _a.language]) == null ? void 0 : _b[schemaError == null ? void 0 : schemaError.constraint];
+          const schemaMessageListedByConstraint = schemaOptionsMessages == null ? void 0 : schemaOptionsMessages[schemaError == null ? void 0 : schemaError.constraint];
+          const schemaMessage = schemaMessageListedByLanguage ?? schemaMessageListedByConstraint;
           if (isSet(schemaMessage)) {
             schemaError.messages = [
               schemaMessage

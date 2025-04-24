@@ -687,7 +687,28 @@ Treat `"format": "email"` as a constraint keyword instead of an annotation.
 - Description: Validation error messages can be customized using the `x-messages` option in the schema.
 - Examples:
 
-When defined as an object, messages are defined per validation rule (e.g., `minLength`, `const`) and per language (e.g., `en`, `fr`).
+Validation error messages can be customized using the `x-messages` option in the schema. When defined as an object, messages can be applied by constraint (e.g., `minLength`, `const`).
+
+```json
+{
+  "title": "`x-messages`",
+  "description": "Validation error messages can be customized using the `x-messages` option in the schema. When defined as an object, messages can be applied by constraint (e.g., `minLength`, `const`).",
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string",
+      "minLength": 5,
+      "const": "locoloco",
+      "x-messages": {
+        "minLength": "Need at least 5 sparks of brilliance.",
+        "const": "Only 'locoloco' unlocks the magic here."
+      }
+    }
+  }
+}
+```
+
+Validation error messages can be customized using the `x-messages` option in the schema. When defined as an object, messages can be applied per language (e.g., `en`, `fr`) and constraint (e.g., `minLength`, `const`).
 
 ```json
 {

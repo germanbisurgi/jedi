@@ -1,0 +1,16 @@
+{
+  "title": "`x-messages`",
+  "description": "Validation error messages can be customized using the `x-messages` option in the schema. When defined as an object, messages can be applied by constraint (e.g., `minLength`, `const`).",
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string",
+      "minLength": 5,
+      "const": "locoloco",
+      "x-messages": {
+        "minLength": "Need at least 5 sparks of brilliance.",
+        "const": "Only 'locoloco' unlocks the magic here."
+      }
+    }
+  }
+}

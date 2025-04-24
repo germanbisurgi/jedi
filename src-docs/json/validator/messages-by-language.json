@@ -1,6 +1,6 @@
 {
   "title": "`x-messages`",
-  "description": "Validation error messages can be customized using the `x-messages` option in the schema. When defined as an object, messages are defined per validation rule (e.g., `minLength`, `const`) and per language (e.g., `en`, `fr`).",
+  "description": "Validation error messages can be customized using the `x-messages` option in the schema. When defined as an object, messages can be applied per language (e.g., `en`, `fr`) and constraint (e.g., `minLength`, `const`).",
   "type": "object",
   "properties": {
     "string": {

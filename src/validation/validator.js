@@ -30,7 +30,6 @@ class Validator {
    */
   getErrors (value, schema, key, path) {
     let schemaErrors = []
-    // let schemaOptionsMessages = getSchemaXOption(schema, 'messages')
 
     const schemaClone = clone(schema)
 
@@ -40,7 +39,6 @@ class Validator {
 
     if (isBoolean(schemaClone) && schemaClone === false) {
       return [{
-        // messages: isSet(schemaOptionsMessages) ? schemaOptionsMessages : ['invalid'],
         messages: ['invalid'],
         path: path
       }]
@@ -62,7 +60,9 @@ class Validator {
     if (isSet(schemaOptionsMessages)) {
       if (isObject(schemaOptionsMessages)) {
         schemaErrors.forEach((schemaError) => {
-          const schemaMessage = schemaOptionsMessages?.[this.translator?.language]?.[schemaError?.constraint]
+          const schemaMessageListedByLanguage = schemaOptionsMessages?.[this.translator?.language]?.[schemaError?.constraint]
+          const schemaMessageListedByConstraint = schemaOptionsMessages?.[schemaError?.constraint]
+          const schemaMessage = schemaMessageListedByLanguage ?? schemaMessageListedByConstraint
 
           if (isSet(schemaMessage)) {
             schemaError.messages = [
