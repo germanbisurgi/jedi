@@ -54,7 +54,7 @@ export default {
     errorExclusiveMinimum: 'Muss größer als {{ exclusiveMinimum }} sein.',
     errorFormat: 'Muss ein gültiges {{ format }} sein.',
     errorItems: 'Muss Elemente enthalten, die dem bereitgestellten Schema entsprechen.',
-    errorMaximum: 'Muss höchstens {{ maximum }} sein.',
+    errorMaximum: 'Darf höchstens {{ maximum }} sein.',
     errorMaxItems: 'Darf höchstens {{ maxItems }} Elemente enthalten.',
     errorMaxLength: 'Darf höchstens {{ maxLength }} Zeichen lang sein.',
     errorMaxProperties: 'Darf höchstens {{ maxProperties }} Eigenschaften haben.',

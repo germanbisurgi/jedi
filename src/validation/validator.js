@@ -3,7 +3,7 @@ import draft06 from './drafts/draft-06.js'
 import draft07 from './drafts/draft-07.js'
 import draft201909 from './drafts/draft-2019-09.js'
 import draft202012 from './drafts/draft-2020-12.js'
-import { hasOwn, isBoolean, clone, isSet } from '../helpers/utils.js'
+import { hasOwn, isBoolean, clone, isSet, isObject, isArray } from '../helpers/utils.js'
 import { getSchemaXOption } from '../helpers/schema.js'
 
 /**
@@ -30,7 +30,7 @@ class Validator {
    */
   getErrors (value, schema, key, path) {
     let schemaErrors = []
-    const schemaOptionsMessages = getSchemaXOption(schema, 'messages')
+    // let schemaOptionsMessages = getSchemaXOption(schema, 'messages')
 
     const schemaClone = clone(schema)
 
@@ -40,7 +40,8 @@ class Validator {
 
     if (isBoolean(schemaClone) && schemaClone === false) {
       return [{
-        messages: isSet(schemaOptionsMessages) ? schemaOptionsMessages : ['invalid'],
+        // messages: isSet(schemaOptionsMessages) ? schemaOptionsMessages : ['invalid'],
+        messages: ['invalid'],
         path: path
       }]
     }
@@ -56,13 +57,28 @@ class Validator {
       }
     })
 
-    if (schemaErrors.length > 0 && schemaOptionsMessages) {
-      schemaErrors = [
-        {
-          messages: schemaOptionsMessages,
-          path: path
-        }
-      ]
+    const schemaOptionsMessages = getSchemaXOption(schema, 'messages')
+
+    if (isSet(schemaOptionsMessages)) {
+      if (isObject(schemaOptionsMessages)) {
+        schemaErrors.forEach((schemaError) => {
+          const schemaMessage = schemaOptionsMessages?.[this.translator?.language]?.[schemaError?.constrain]
+
+          if (isSet(schemaMessage)) {
+            schemaError.messages = [
+              schemaMessage
+            ]
+          }
+          return schemaError
+        })
+      }
+
+      if (isArray(schemaOptionsMessages) && schemaErrors.length > 0) {
+        schemaErrors.forEach((schemaError) => {
+          schemaError.messages = schemaOptionsMessages
+          return schemaError
+        })
+      }
     }
 
     return schemaErrors

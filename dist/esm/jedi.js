@@ -1489,14 +1489,14 @@ class Validator {
    */
   getErrors(value, schema, key, path) {
     let schemaErrors = [];
-    const schemaOptionsMessages = getSchemaXOption(schema, "messages");
     const schemaClone = clone(schema);
     if (isBoolean(schemaClone) && schemaClone === true) {
       return schemaErrors;
     }
     if (isBoolean(schemaClone) && schemaClone === false) {
       return [{
-        messages: isSet(schemaOptionsMessages) ? schemaOptionsMessages : ["invalid"],
+        // messages: isSet(schemaOptionsMessages) ? schemaOptionsMessages : ['invalid'],
+        messages: ["invalid"],
         path
       }];
     }
@@ -1509,13 +1509,26 @@ class Validator {
         }
       }
     });
-    if (schemaErrors.length > 0 && schemaOptionsMessages) {
-      schemaErrors = [
-        {
-          messages: schemaOptionsMessages,
-          path
-        }
-      ];
+    const schemaOptionsMessages = getSchemaXOption(schema, "messages");
+    if (isSet(schemaOptionsMessages)) {
+      if (isObject(schemaOptionsMessages)) {
+        schemaErrors.forEach((schemaError) => {
+          var _a, _b;
+          const schemaMessage = (_b = schemaOptionsMessages == null ? void 0 : schemaOptionsMessages[(_a = this.translator) == null ? void 0 : _a.language]) == null ? void 0 : _b[schemaError == null ? void 0 : schemaError.constrain];
+          if (isSet(schemaMessage)) {
+            schemaError.messages = [
+              schemaMessage
+            ];
+          }
+          return schemaError;
+        });
+      }
+      if (isArray(schemaOptionsMessages) && schemaErrors.length > 0) {
+        schemaErrors.forEach((schemaError) => {
+          schemaError.messages = schemaOptionsMessages;
+          return schemaError;
+        });
+      }
     }
     return schemaErrors;
   }
@@ -4319,7 +4332,7 @@ const translations = {
     errorExclusiveMinimum: "Muss größer als {{ exclusiveMinimum }} sein.",
     errorFormat: "Muss ein gültiges {{ format }} sein.",
     errorItems: "Muss Elemente enthalten, die dem bereitgestellten Schema entsprechen.",
-    errorMaximum: "Muss höchstens {{ maximum }} sein.",
+    errorMaximum: "Darf höchstens {{ maximum }} sein.",
     errorMaxItems: "Darf höchstens {{ maxItems }} Elemente enthalten.",
     errorMaxLength: "Darf höchstens {{ maxLength }} Zeichen lang sein.",
     errorMaxProperties: "Darf höchstens {{ maxProperties }} Eigenschaften haben.",

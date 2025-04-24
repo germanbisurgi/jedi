@@ -681,22 +681,49 @@ Treat `"format": "email"` as a constraint keyword instead of an annotation.
 
 ### `x-messages`
 
-- Type: `string[]`
-- Description: Used to define custom error messages.
+- Type: `object` | `string[]`
+- Description: Validation error messages can be customized using the `x-messages` option in the schema.
 - Examples:
 
-If editor has any error, displays 2 custom error messages.
+When defined as an object, messages are defined per validation rule (e.g., `minLength`, `const`) and per language (e.g., `en`, `fr`).
 
 ```json
 {
-  "title": "Message",
-  "type": "string",
-  "minLength": "10",
-  "maxLength": "100",
-  "x-messages": [
-    "Must be at least 10 characters long",
-    "Must be at most 100 characters long"
-  ]
+  "title": "`x-messages`",
+  "description": "Validation error messages can be customized using the `x-messages` option in the schema. When defined as an array, messages are defined per validation rule (e.g., `minLength`, `const`) and per language (e.g., `en`, `fr`).",
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string",
+      "minLength": 5,
+      "const": "locoloco",
+      "x-messages": {
+        "en": {
+          "minLength": "Need at least 5 sparks of brilliance.",
+          "const": "Only 'locoloco' unlocks the magic here."
+        }
+      }
+    }
+  }
+}
+```
+
+When defined as an array, the messages apply to all validation rules for the property.
+
+```json
+{
+  "title": "`x-messages`",
+  "description": "Validation error messages can be customized using the `x-messages` option in the schema. When defined as an array, the messages apply to all validation rules for the property.",
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string",
+      "minLength": 5,
+      "x-messages": [
+        "5 chars please."
+      ]
+    }
+  }
 }
 ```
 

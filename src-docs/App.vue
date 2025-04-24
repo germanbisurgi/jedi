@@ -273,7 +273,8 @@ import propertyNames from './json/validator/propertyNames.json'
 import required from './json/validator/required.json'
 import typeValidator from './json/validator/type.json'
 import uniqueItems from './json/validator/uniqueItems.json'
-import messages from './json/validator/messages.json'
+import messagesArray from './json/validator/messages-array.json'
+import messagesObject from './json/validator/messages-object.json'
 import choices from './json/plugins/array-choices.json'
 import awesomplete from './json/plugins/string-awesomplete.json'
 import quill from './json/plugins/string-quill.json'
@@ -402,7 +403,8 @@ export default {
           'validator/maxItems': maxItems,
           'validator/maxLength': maxLength,
           'validator/maxProperties': maxProperties,
-          'validator/messages': messages,
+          'validator/messages-array': messagesArray,
+          'validator/messages-object': messagesObject,
           'validator/minContains': minContains,
           'validator/minimum': minimum,
           'validator/minItems': minItems,
