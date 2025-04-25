@@ -16,22 +16,6 @@ Check Out the [PLAYGROUND](https://germanbisurgi.github.io/jedi/index.html?theme
     - [Instance event listeners](#instance-event-listeners)
 - [RefParser](#refParser)
 - [Instance Options](#instance-options)
-- [Schema Options](#schema-options)
-    - [x-titleHidden](#x-titlehidden)
-    - [x-titleIconClass](#x-titleiconclass)
-    - [x-showErrors](#x-showerrors)
-    - [x-assertFormat](#x-assertformat)
-    - [x-messages](#x-messages)
-    - [x-hidden](#x-hidden)
-    - [x-info](#x-info)
-    - [x-inputAttributes](#x-inputattributes)
-    - [x-containerAttributes](#x-containerAttributes)
-    - [x-enumTitles](#x-enumtitles)
-    - [x-enforceEnum](#x-enforceenum)
-    - [x-enforceConst](#x-enforceconst)
-    - [x-switcherTitle](#x-switchertitle)
-    - [x-format](#x-format)
-- [Language and Translations](#language-and-translations)
 - [Editors](#editors)
     - [Array](#array-editors)
       - [Array](#array-list)
@@ -60,6 +44,24 @@ Check Out the [PLAYGROUND](https://germanbisurgi.github.io/jedi/index.html?theme
       - [String IMask](#string-imask)
     - [Null](#null-editors)
       - [Null](#null)
+- [Language and Translations](#language-and-translations)
+- [Annotations](#annotations)
+  - [Markdown](#markdown)
+- [Schema Options](#schema-options)
+    - [x-titleHidden](#x-titlehidden)
+    - [x-titleIconClass](#x-titleiconclass)
+    - [x-showErrors](#x-showerrors)
+    - [x-assertFormat](#x-assertformat)
+    - [x-messages](#x-messages)
+    - [x-hidden](#x-hidden)
+    - [x-info](#x-info)
+    - [x-inputAttributes](#x-inputattributes)
+    - [x-containerAttributes](#x-containerAttributes)
+    - [x-enumTitles](#x-enumtitles)
+    - [x-enforceEnum](#x-enforceenum)
+    - [x-enforceConst](#x-enforceconst)
+    - [x-switcherTitle](#x-switchertitle)
+    - [x-format](#x-format)
 - [License](#license)
 - [Resources](#resources)
 
@@ -515,617 +517,6 @@ translates to:
     </tr>
   </tbody>
 </table>
-
-## Schema options
-
-The `x-` or `x-options` [custom annotation](https://json-schema.org/blog/posts/custom-annotations-will-continue#what's-the-solution)
-can be used in JSON Schemas to changes how instances and editors behave.
-Schema `x-` options override global options.
-
-```json
-{
-  "title": "Message",
-  "type": "string",
-  "x-showErrors": "always"
-}
-```
-
-Some options depend on other options to be set. In the example the option `"enumTitles"`
-depends on the option `"enum"`.
-
-```json
-{
-  "title": "Type",
-  "type": "string",
-  "enum": [
-    "#000000",
-    "#ffffff"
-  ],
-  "x-enumTitles": [
-    "Black",
-    "White"
-  ]
-}
-```
-
-### `x-arrayDelete`
-
-- Type: `boolean`
-- Default: `true`
-- Description: If array delete buttons should be displayed.
-
-### `x-arrayMove`
-
-- Type: `boolean`
-- Default: `true`
-- Description: If array move up and move down buttons should be displayed.
-
-### `x-arrayAdd`
-
-- Type: `boolean`
-- Default: `true`
-- Description: If array add buttons should be displayed.
-
-### `x-soratble`
-
-- Type: `boolean`
-- Default: `false`
-- Description: Items can be sort via drag and drop if Sortable.js.
-
-### `x-arrayAddContent`
-
-- Type: `boolean`
-- Default: -
-- Description: Text content for array "add" buttons.
-
-### `x-arrayMoveUpContent`
-
-- Type: `boolean`
-- Default: -
-- Description: Text content for array "move up" buttons.
-
-### `x-arrayMoveDownContent`
-
-- Type: `boolean`
-- Default: -
-- Description: Text content for array "move down" buttons.
-
-### `x-arrayDeleteContent`
-
-- Type: `boolean`
-- Default: -
-- Description: Text content for array "delete" buttons.
-
-### `x-arrayDragContent`,
-
-- Type: `boolean`
-- Default: -
-- Description: Text content for array "drag" buttons.
-
-### `x-propertiesToggleContent`
-
-- Type: `boolean`
-- Default: -
-- Description: Text content for "properties" buttons.
-
-### `x-addPropertyContent`
-
-- Type: `boolean`
-- Default: -
-- Description: Text content for "add property" buttons.
-
-### `x-collapseToggleContent`
-
-- Type: `boolean`
-- Default: -
-- Description: Text content for "collapse" buttons.
-- Examples:
-
-### `x-titleHidden`
-
-- Type: `boolean`
-- Default: `false`
-- Description: Hides the editor title.
-
-### `x-titleIconClass`
-
-- Type: `string`
-- Description: Icon class to use in titles if using any.
-
-Show a fontawesome envelope icon in the title.
-
-```json
-{
-  "title": "Message",
-  "type": "string",
-  "x-titleIconClass": "fas fa-envelope"
-}
-```
-
-### `x-showErrors`
-
-- Type: `string`
-- Default: `"change"`
-- Options: `"never"`, `"change"`, `"always"`
-- Description: Determines when to display validation errors.
-
-Always show errors for this editor even if the value didn't change.
-
-```json
-{
-  "title": "Message",
-  "type": "string",
-  "x-showErrors": "always"
-}
-```
-
-### `x-assertFormat`
-
-- Type: `boolean`
-- Default: `"false"`
-- Options: `"never"`, `"change"`, `"always"`
-- Description: Treats `"format"` as a validator rather than just an annotation.
-
-Treat `"format": "email"` as a constraint keyword instead of an annotation.
-
-```json
-{
-  "title": "Message",
-  "type": "string",
-  "format": "email",
-  "x-assertFormat": true
-}
-```
-
-### `x-messages`
-
-- Type: `object` | `string[]`
-- Description: Validation error messages can be customized using the `x-messages` option in the schema.
-
-Validation error messages can be customized using the `x-messages` option in the schema. When defined as an object, messages can be applied by constraint (e.g., `minLength`, `const`).
-
-```json
-{
-  "title": "`x-messages`",
-  "description": "Validation error messages can be customized using the `x-messages` option in the schema. When defined as an object, messages can be applied by constraint (e.g., `minLength`, `const`).",
-  "type": "object",
-  "properties": {
-    "string": {
-      "type": "string",
-      "minLength": 5,
-      "const": "locoloco",
-      "x-messages": {
-        "minLength": "Need at least 5 sparks of brilliance.",
-        "const": "Only 'locoloco' unlocks the magic here."
-      }
-    }
-  }
-}
-```
-
-Validation error messages can be customized using the `x-messages` option in the schema. When defined as an object, messages can be applied per language (e.g., `en`, `fr`) and constraint (e.g., `minLength`, `const`).
-
-```json
-{
-  "title": "`x-messages`",
-  "description": "Validation error messages can be customized using the `x-messages` option in the schema. When defined as an array, messages are defined per validation rule (e.g., `minLength`, `const`) and per language (e.g., `en`, `fr`).",
-  "type": "object",
-  "properties": {
-    "string": {
-      "type": "string",
-      "minLength": 5,
-      "const": "locoloco",
-      "x-messages": {
-        "en": {
-          "minLength": "Need at least 5 sparks of brilliance.",
-          "const": "Only 'locoloco' unlocks the magic here."
-        }
-      }
-    }
-  }
-}
-```
-
-When defined as an array, the messages apply to all validation rules for the property.
-
-```json
-{
-  "title": "`x-messages`",
-  "description": "Validation error messages can be customized using the `x-messages` option in the schema. When defined as an array, the messages apply to all validation rules for the property.",
-  "type": "object",
-  "properties": {
-    "string": {
-      "type": "string",
-      "minLength": 5,
-      "x-messages": [
-        "5 chars please."
-      ]
-    }
-  }
-}
-```
-
-### `x-hidden`
-
-- Type: `boolean`
-- Description: Editors can be hidden using the `x-hidden` option. When set to `true`, the editor is hidden.
-
-### `x-info`
-
-- Type: `object`
-- Description: Used to display extra information. If `markdown` is used to generate `html` content, it can be sanitized by DOMPurify is available, otherwise only the textContent will be displayed without any HTML tags.
-- Options:
-    - `variant`: `"modal"`
-    - `title`: Plain text or `markdown`.
-    - `content`:  Plain text or `markdown`.
-
-Displays an info button right after the title, that opens a modal with title and content.
-
-```json
-{
-  "title": "Message",
-  "type": "string",
-  "x-info": {
-    "variant": "modal",
-    "title": "### Info Button title",
-    "content": "Info button content"
-  }
-}
-```
-
-### `x-inputAttributes`
-
-- Type: `object`
-- Description: Used to set attributes for the editor input.
-
-Add `placeholder` attribute to textarea.
-
-```json
-{
-  "title": "Message",
-  "type": "string",
-  "x-format": "textarea",
-  "x-inputAttributes": {
-    "placeholder": "Your message here..."
-  }
-}
-```
-
-### `x-containerAttributes`
-
-- Type: `object`
-- Description: Editors container HTML attributes can be set using the `x-containerAttributes` option. Attributes such as `class` or `data-*` will be applied to the container element.
-
-```json
-{
-  "title": "`x-containerAttributes`",
-  "type": "object",
-  "description": "Editors container HTML attributes can be set using the `x-containerAttributes` option. Attributes such as `class` or `data-*` will be applied to the container element.",
-  "x-containerAttributes": {
-    "class": "a-class another-class",
-    "data-custom": "custom-data"
-  }
-}
-```
-
-### `x-enumTitles`
-
-- Type: `string[]`
-- Description: Used to display user-friendly labels in the editor instead of those listen in `"enum"`.
-
-Display color names instead of hex codes.
-
-```json
-{
-  "title": "Color",
-  "type": "string",
-  "enum": [
-    "ff0000",
-    "00ff00",
-    "0000ff"
-  ],
-  "x-enumTitles": [
-    "Red",
-    "Green",
-    "Blue"
-  ]
-}
-```
-
-### `x-enforceEnum`
-
-- Type: `boolean`
-- Default: `true`
-- Description: Whether the editor initial value will be the first item in the `"enum"`.
-
-Default value for this editor will be  `""`.
-
-```json
-{
-  "title": "Color",
-  "type": "string",
-  "enum": [
-    "ff0000",
-    "00ff00",
-    "0000ff"
-  ],
-  "x-enforceEnum": false
-}
-```
-
-Default value for this editor will be `"ff0000"`.
-
-```json
-{
-  "title": "Color",
-  "type": "string",
-  "enum": [
-    "ff0000",
-    "00ff00",
-    "0000ff"
-  ],
-  "x-enforceEnum": true
-}
-```
-
-### `x-enforceConst`
-
-- Type: `boolean`
-- Default: `true`
-- Description: Value will remain whatever is defined in schema `"const"`.
-
-Default value for this editor will be `"ff0000"`.
-
-```json
-{
-  "title": "Color",
-  "type": "string",
-  "const": "ff0000",
-  "x-enforceConst": true
-}
-```
-
-### `x-switcherTitle`
-
-- Type: `string`
-- Default: property name or `"title"`.
-- Description: The text displayed in the multiple editor switcher to select this sub-schema editor.
-
-Switcher options displayed are:
-
-- "I want to pay with Credit Card"
-- "I want to pay with PayPal"
-
-But in the sub-editors the titles remain:
-
-- "Card Number"
-- "Email"
-
-```json
-{
-  "anyOf": [
-    {
-      "title": "Card Number",
-      "type": "string",
-      "x-switcherTitle": "I want to pay with Credit Card"
-    },
-    {
-      "title": "Email",
-      "type": "string",
-      "x-switcherTitle": "I want to pay with PayPal"
-    }
-  ]
-}
-```
-
-### `x-format`
-
-- Type: `string`
-- Description: Determines editor UI and behaviours. The effect of `"format"` depends on the schema `"type"` keyword.
-- Options:
-    - Boolean:
-        - `"select"` (default)
-        - `"radios"`
-        - `"radios-inline"`
-        - `"checkbox"`
-    - String:
-        - `"text"` (default)
-        - `"hidden"`
-        - `"color"`
-        - `"date"`
-        - `"datetime-local"`
-        - `"email"`
-        - `"number"`
-        - `"month"`
-        - `"password"`
-        - `"search"`
-        - `"time"`
-        - `"tel"`
-        - `"url"`
-        - `"week"`
-        - `"textarea"`
-    - Number:
-        - `"number"` (default)
-        - `"select"`
-        - `"radios"`
-        - `"radios-inline"`
-    - integer:
-        - `"number"` (default)
-        - `"select"`
-        - `"radios"`
-        - `"radios-inline"`
-    - Array:
-        - `"list"` (default)
-        - `"nav-vertical"`
-        - `"nav-horizontal"`
-        - `"table"`
-    - Object:
-        - `"list"` (default)
-        - `"nav-vertical"`
-        - `"nav-horizontal"`
-        - `"grid"`
-- Examples:
-
-Use radios to display color names instead of hex codes.
-
-```json
-{
-  "title": "Color",
-  "type": "string",
-  "enum": [
-    "Red",
-    "Green",
-    "Blue"
-  ],
-  "x-format": "radios"
-}
-```
-
-### `x-grid`
-
-- Type: `object`
-- Description: A configuration object to determine the position of the property editor in the parent's grid.
-- Options:
-    - `columns`: How many columns should the editor occupy.
-    - `offset`: How many columns should the editor be offsetted.
-    - `newRow`: Whether the editor should be put in a new row.
-- Examples:
-    - [editors/object-grid](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-grid&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-
-### `x-enableCollapseToggle`
-
-- Type: `boolean`
-- Description: Display a collapse button used to collapse or expand editors that support collapse like `object` and `arrays`
-- Examples:
-    - [editors/object](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-    - [editors/array](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/array&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-
-### `x-startCollapsed`
-
-- Type: `boolean`
-- Description: Whether the editor should start expanded or collapsed. Works on editors that support collapse like `object` and `arrays`
-
-### `x-deactivateNonRequired`
-
-- Type: `boolean`
-- Description: Whether the editor should deactivate (hide) or activate (show) non required properties. Works on only with `object` type editors.
-
-Only the property `name` is active
-
-```json
-{
-  "title": "Person",
-  "type": "object",
-  "x-deactivateNonRequired": true,
-  "required": [
-    "name"
-  ],
-  "properties": {
-    "name": {
-      "type": "string",
-      "title": "Name"
-    },
-    "age": {
-      "type": "integer",
-      "title": "Age"
-    }
-  }
-}
-```
-
-### `x-titleTemplate`
-
-- Type: `string`
-- Description: A template to form titles dynamically.
-- Examples:
-    - [editors/object-nav-vertical](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-vertical&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-    - [editors/object-nav-horizontal](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-horizontal&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-
-## Language and Translations
-
-The default language for UI and error messages is `en` (english). The language can be set to any of
-the supported languages in the instance options.
-
-This will set german as the default language:
-
-```javascript
-  const jedi = new Jedi.Create({
-  language: 'de'
-})
-```
-
-Currently, the supported languages are `en` (english), `de` (german), `it` (italian) and `es` (spanish).
-New languages can be added to the `translations` option. To use them the `language` options
-should be set to the language specified.
-
-The default translation can be overridden in the instance options as well.
-
-```javascript
-  const jedi = new Jedi.Create({
-  language: 'de',
-  translations: {
-    de: {
-      errorAdditionalProperties: 'Hat die zusätzliche Eigenschaft "{{ property }}", aber keine zusätzlichen Eigenschaften sind erlaubt.',
-      errorAnyOf: 'Muss mindestens einem der bereitgestellten Schemata entsprechen.',
-      errorConst: 'Muss den Wert {{ const }} haben.',
-      errorContains: 'Muss mindestens ein Element enthalten, das dem bereitgestellten Schema entspricht.',
-      errorDependentRequired: 'Muss die erforderlichen Eigenschaften haben: {{ dependentRequired }}.',
-      errorEnum: 'Muss einer der aufgeführten Werte sein: {{ enum }}.',
-      errorExclusiveMaximum: 'Muss kleiner als {{ exclusiveMaximum }} sein.',
-      errorExclusiveMinimum: 'Muss größer als {{ exclusiveMinimum }} sein.',
-      errorFormat: 'Muss ein gültiges {{ format }} sein.',
-      errorItems: 'Muss Elemente enthalten, die dem bereitgestellten Schema entsprechen.',
-      errorMaximum: 'Muss höchstens {{ maximum }} sein.',
-      errorMaxItems: 'Darf höchstens {{ maxItems }} Elemente enthalten.',
-      errorMaxLength: 'Darf höchstens {{ maxLength }} Zeichen lang sein.',
-      errorMaxProperties: 'Darf höchstens {{ maxProperties }} Eigenschaften haben.',
-      errorMaxContains: 'Darf höchstens {{ maxContains }} Elemente enthalten, die dem bereitgestellten Schema entsprechen. Aktuell enthält es {{ counter }}.',
-      errorMinContains: 'Muss mindestens {{ minContains }} Elemente enthalten, die dem bereitgestellten Schema entsprechen. Aktuell enthält es {{ counter }}.',
-      errorMinimum: 'Muss mindestens {{ minimum }} sein.',
-      errorMinItems: 'Muss mindestens {{ minItems }} Elemente enthalten.',
-      errorMinLength: 'Muss mindestens {{ minLength }} Zeichen lang sein.',
-      errorMinProperties: 'Muss mindestens {{ minProperties }} Eigenschaften haben.',
-      errorMultipleOf: 'Muss ein Vielfaches von {{ multipleOf }} sein.',
-      errorNot: 'Darf nicht dem bereitgestellten Schema entsprechen.',
-      errorOneOf: 'Muss genau einem der bereitgestellten Schemata entsprechen. Derzeit entspricht es {{ counter }} der Schemata.',
-      errorPattern: 'Muss dem Muster "{{ pattern }}" entsprechen.',
-      errorPrefixItems: 'Element {{ index }} entspricht nicht der Validierung.',
-      errorPropertyNames: 'Der Eigenschaftsname "{{ propertyName }}" entspricht nicht der Validierung.',
-      errorProperties: 'Die folgenden Eigenschaften entsprechen nicht ihren Schemata: {{ properties }}',
-      errorRequired: 'Muss die erforderlichen Eigenschaften haben: {{ required }}.',
-      errorType: 'Muss vom Typ {{ type }} sein.',
-      errorUnevaluatedProperties: 'Hat eine ungültige nicht bewertete Eigenschaft "{{ property }}"',
-      errorUniqueItems: 'Muss eindeutige Elemente haben.',
-      arrayDelete: 'Element löschen',
-      arrayMoveUp: 'Nach oben verschieben',
-      arrayMoveDown: 'Nach unten verschieben',
-      arrayDrag: 'Ziehen',
-      arrayAdd: 'Element hinzufügen',
-      arrayConfirmDelete: 'Möchten Sie dieses Element wirklich löschen?',
-      objectAddProperty: 'Eigenschaft hinzufügen',
-      objectPropertyAdded: 'Feld wurde dem Formular hinzugefügt',
-      objectPropertyRemoved: 'Feld wurde aus dem Formular entfernt',
-      propertiesToggle: 'Eigenschaften',
-      collapseToggle: 'Einklappen'
-    }
-  }
-})
-```
-
-The text between brackets like `{{ minimum }}` or `{{ minLength }}` are templates.
-This templates will be replaced dynamically with values specified in constraints.
-
-The error message for the following schema will be "Muss mindestens `3` Zeichen lang sein."
-because of the `minLength: 3`.
-
-```json
-{
-  "title": "Email",
-  "format": "email",
-  "type": "string",
-  "minLength": 3
-}
-```
 
 ## Editors
 
@@ -1897,6 +1288,92 @@ No input is rendered.
 }
 ```
 
+## Language and Translations
+
+The default language for UI and error messages is `en` (english). The language can be set to any of
+the supported languages in the instance options.
+
+This will set german as the default language:
+
+```javascript
+  const jedi = new Jedi.Create({
+  language: 'de'
+})
+```
+
+Currently, the supported languages are `en` (english), `de` (german), `it` (italian) and `es` (spanish).
+New languages can be added to the `translations` option. To use them the `language` options
+should be set to the language specified.
+
+The default translation can be overridden in the instance options as well.
+
+```javascript
+  const jedi = new Jedi.Create({
+  language: 'de',
+  translations: {
+    de: {
+      errorAdditionalProperties: 'Hat die zusätzliche Eigenschaft "{{ property }}", aber keine zusätzlichen Eigenschaften sind erlaubt.',
+      errorAnyOf: 'Muss mindestens einem der bereitgestellten Schemata entsprechen.',
+      errorConst: 'Muss den Wert {{ const }} haben.',
+      errorContains: 'Muss mindestens ein Element enthalten, das dem bereitgestellten Schema entspricht.',
+      errorDependentRequired: 'Muss die erforderlichen Eigenschaften haben: {{ dependentRequired }}.',
+      errorEnum: 'Muss einer der aufgeführten Werte sein: {{ enum }}.',
+      errorExclusiveMaximum: 'Muss kleiner als {{ exclusiveMaximum }} sein.',
+      errorExclusiveMinimum: 'Muss größer als {{ exclusiveMinimum }} sein.',
+      errorFormat: 'Muss ein gültiges {{ format }} sein.',
+      errorItems: 'Muss Elemente enthalten, die dem bereitgestellten Schema entsprechen.',
+      errorMaximum: 'Muss höchstens {{ maximum }} sein.',
+      errorMaxItems: 'Darf höchstens {{ maxItems }} Elemente enthalten.',
+      errorMaxLength: 'Darf höchstens {{ maxLength }} Zeichen lang sein.',
+      errorMaxProperties: 'Darf höchstens {{ maxProperties }} Eigenschaften haben.',
+      errorMaxContains: 'Darf höchstens {{ maxContains }} Elemente enthalten, die dem bereitgestellten Schema entsprechen. Aktuell enthält es {{ counter }}.',
+      errorMinContains: 'Muss mindestens {{ minContains }} Elemente enthalten, die dem bereitgestellten Schema entsprechen. Aktuell enthält es {{ counter }}.',
+      errorMinimum: 'Muss mindestens {{ minimum }} sein.',
+      errorMinItems: 'Muss mindestens {{ minItems }} Elemente enthalten.',
+      errorMinLength: 'Muss mindestens {{ minLength }} Zeichen lang sein.',
+      errorMinProperties: 'Muss mindestens {{ minProperties }} Eigenschaften haben.',
+      errorMultipleOf: 'Muss ein Vielfaches von {{ multipleOf }} sein.',
+      errorNot: 'Darf nicht dem bereitgestellten Schema entsprechen.',
+      errorOneOf: 'Muss genau einem der bereitgestellten Schemata entsprechen. Derzeit entspricht es {{ counter }} der Schemata.',
+      errorPattern: 'Muss dem Muster "{{ pattern }}" entsprechen.',
+      errorPrefixItems: 'Element {{ index }} entspricht nicht der Validierung.',
+      errorPropertyNames: 'Der Eigenschaftsname "{{ propertyName }}" entspricht nicht der Validierung.',
+      errorProperties: 'Die folgenden Eigenschaften entsprechen nicht ihren Schemata: {{ properties }}',
+      errorRequired: 'Muss die erforderlichen Eigenschaften haben: {{ required }}.',
+      errorType: 'Muss vom Typ {{ type }} sein.',
+      errorUnevaluatedProperties: 'Hat eine ungültige nicht bewertete Eigenschaft "{{ property }}"',
+      errorUniqueItems: 'Muss eindeutige Elemente haben.',
+      arrayDelete: 'Element löschen',
+      arrayMoveUp: 'Nach oben verschieben',
+      arrayMoveDown: 'Nach unten verschieben',
+      arrayDrag: 'Ziehen',
+      arrayAdd: 'Element hinzufügen',
+      arrayConfirmDelete: 'Möchten Sie dieses Element wirklich löschen?',
+      objectAddProperty: 'Eigenschaft hinzufügen',
+      objectPropertyAdded: 'Feld wurde dem Formular hinzugefügt',
+      objectPropertyRemoved: 'Feld wurde aus dem Formular entfernt',
+      propertiesToggle: 'Eigenschaften',
+      collapseToggle: 'Einklappen'
+    }
+  }
+})
+```
+
+The text between brackets like `{{ minimum }}` or `{{ minLength }}` are templates.
+This templates will be replaced dynamically with values specified in constraints.
+
+The error message for the following schema will be "Muss mindestens `3` Zeichen lang sein."
+because of the `minLength: 3`.
+
+```json
+{
+  "title": "Email",
+  "format": "email",
+  "type": "string",
+  "minLength": 3
+}
+```
+
 ## Annotations
 
 ### markdown
@@ -1915,6 +1392,532 @@ marked.js is installed and available as `window.marked`.
   }
 }
 ```
+
+## Schema options
+
+The `x-` or `x-options` [custom annotation](https://json-schema.org/blog/posts/custom-annotations-will-continue#what's-the-solution)
+can be used in JSON Schemas to changes how instances and editors behave.
+Schema `x-` options override global options.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "x-showErrors": "always"
+}
+```
+
+Some options depend on other options to be set. In the example the option `"enumTitles"`
+depends on the option `"enum"`.
+
+```json
+{
+  "title": "Type",
+  "type": "string",
+  "enum": [
+    "#000000",
+    "#ffffff"
+  ],
+  "x-enumTitles": [
+    "Black",
+    "White"
+  ]
+}
+```
+
+### `x-arrayDelete`
+
+- Type: `boolean`
+- Default: `true`
+- Description: If array delete buttons should be displayed.
+
+### `x-arrayMove`
+
+- Type: `boolean`
+- Default: `true`
+- Description: If array move up and move down buttons should be displayed.
+
+### `x-arrayAdd`
+
+- Type: `boolean`
+- Default: `true`
+- Description: If array add buttons should be displayed.
+
+### `x-soratble`
+
+- Type: `boolean`
+- Default: `false`
+- Description: Items can be sort via drag and drop if Sortable.js.
+
+### `x-arrayAddContent`
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for array "add" buttons.
+
+### `x-arrayMoveUpContent`
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for array "move up" buttons.
+
+### `x-arrayMoveDownContent`
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for array "move down" buttons.
+
+### `x-arrayDeleteContent`
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for array "delete" buttons.
+
+### `x-arrayDragContent`,
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for array "drag" buttons.
+
+### `x-propertiesToggleContent`
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for "properties" buttons.
+
+### `x-addPropertyContent`
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for "add property" buttons.
+
+### `x-collapseToggleContent`
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for "collapse" buttons.
+- Examples:
+
+### `x-titleHidden`
+
+- Type: `boolean`
+- Default: `false`
+- Description: Hides the editor title.
+
+### `x-titleIconClass`
+
+- Type: `string`
+- Description: Icon class to use in titles if using any.
+
+Show a fontawesome envelope icon in the title.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "x-titleIconClass": "fas fa-envelope"
+}
+```
+
+### `x-showErrors`
+
+- Type: `string`
+- Default: `"change"`
+- Options: `"never"`, `"change"`, `"always"`
+- Description: Determines when to display validation errors.
+
+Always show errors for this editor even if the value didn't change.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "x-showErrors": "always"
+}
+```
+
+### `x-assertFormat`
+
+- Type: `boolean`
+- Default: `"false"`
+- Options: `"never"`, `"change"`, `"always"`
+- Description: Treats `"format"` as a validator rather than just an annotation.
+
+Treat `"format": "email"` as a constraint keyword instead of an annotation.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "format": "email",
+  "x-assertFormat": true
+}
+```
+
+### `x-messages`
+
+- Type: `object` | `string[]`
+- Description: Validation error messages can be customized using the `x-messages` option in the schema.
+
+Validation error messages can be customized using the `x-messages` option in the schema. When defined as an object, messages can be applied by constraint (e.g., `minLength`, `const`).
+
+```json
+{
+  "title": "`x-messages`",
+  "description": "Validation error messages can be customized using the `x-messages` option in the schema. When defined as an object, messages can be applied by constraint (e.g., `minLength`, `const`).",
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string",
+      "minLength": 5,
+      "const": "locoloco",
+      "x-messages": {
+        "minLength": "Need at least 5 sparks of brilliance.",
+        "const": "Only 'locoloco' unlocks the magic here."
+      }
+    }
+  }
+}
+```
+
+Validation error messages can be customized using the `x-messages` option in the schema. When defined as an object, messages can be applied per language (e.g., `en`, `fr`) and constraint (e.g., `minLength`, `const`).
+
+```json
+{
+  "title": "`x-messages`",
+  "description": "Validation error messages can be customized using the `x-messages` option in the schema. When defined as an array, messages are defined per validation rule (e.g., `minLength`, `const`) and per language (e.g., `en`, `fr`).",
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string",
+      "minLength": 5,
+      "const": "locoloco",
+      "x-messages": {
+        "en": {
+          "minLength": "Need at least 5 sparks of brilliance.",
+          "const": "Only 'locoloco' unlocks the magic here."
+        }
+      }
+    }
+  }
+}
+```
+
+When defined as an array, the messages apply to all validation rules for the property.
+
+```json
+{
+  "title": "`x-messages`",
+  "description": "Validation error messages can be customized using the `x-messages` option in the schema. When defined as an array, the messages apply to all validation rules for the property.",
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string",
+      "minLength": 5,
+      "x-messages": [
+        "5 chars please."
+      ]
+    }
+  }
+}
+```
+
+### `x-hidden`
+
+- Type: `boolean`
+- Description: Editors can be hidden using the `x-hidden` option. When set to `true`, the editor is hidden.
+
+### `x-info`
+
+- Type: `object`
+- Description: Used to display extra information. If `markdown` is used to generate `html` content, it can be sanitized by DOMPurify is available, otherwise only the textContent will be displayed without any HTML tags.
+- Options:
+    - `variant`: `"modal"`
+    - `title`: Plain text or `markdown`.
+    - `content`:  Plain text or `markdown`.
+
+Displays an info button right after the title, that opens a modal with title and content.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
+  }
+}
+```
+
+### `x-inputAttributes`
+
+- Type: `object`
+- Description: Used to set attributes for the editor input.
+
+Add `placeholder` attribute to textarea.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "x-format": "textarea",
+  "x-inputAttributes": {
+    "placeholder": "Your message here..."
+  }
+}
+```
+
+### `x-containerAttributes`
+
+- Type: `object`
+- Description: Editors container HTML attributes can be set using the `x-containerAttributes` option. Attributes such as `class` or `data-*` will be applied to the container element.
+
+```json
+{
+  "title": "`x-containerAttributes`",
+  "type": "object",
+  "description": "Editors container HTML attributes can be set using the `x-containerAttributes` option. Attributes such as `class` or `data-*` will be applied to the container element.",
+  "x-containerAttributes": {
+    "class": "a-class another-class",
+    "data-custom": "custom-data"
+  }
+}
+```
+
+### `x-enumTitles`
+
+- Type: `string[]`
+- Description: Used to display user-friendly labels in the editor instead of those listen in `"enum"`.
+
+Display color names instead of hex codes.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "enum": [
+    "ff0000",
+    "00ff00",
+    "0000ff"
+  ],
+  "x-enumTitles": [
+    "Red",
+    "Green",
+    "Blue"
+  ]
+}
+```
+
+### `x-enforceEnum`
+
+- Type: `boolean`
+- Default: `true`
+- Description: Whether the editor initial value will be the first item in the `"enum"`.
+
+Default value for this editor will be  `""`.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "enum": [
+    "ff0000",
+    "00ff00",
+    "0000ff"
+  ],
+  "x-enforceEnum": false
+}
+```
+
+Default value for this editor will be `"ff0000"`.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "enum": [
+    "ff0000",
+    "00ff00",
+    "0000ff"
+  ],
+  "x-enforceEnum": true
+}
+```
+
+### `x-enforceConst`
+
+- Type: `boolean`
+- Default: `true`
+- Description: Value will remain whatever is defined in schema `"const"`.
+
+Default value for this editor will be `"ff0000"`.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "const": "ff0000",
+  "x-enforceConst": true
+}
+```
+
+### `x-switcherTitle`
+
+- Type: `string`
+- Default: property name or `"title"`.
+- Description: The text displayed in the multiple editor switcher to select this sub-schema editor.
+
+Switcher options displayed are:
+
+- "I want to pay with Credit Card"
+- "I want to pay with PayPal"
+
+But in the sub-editors the titles remain:
+
+- "Card Number"
+- "Email"
+
+```json
+{
+  "anyOf": [
+    {
+      "title": "Card Number",
+      "type": "string",
+      "x-switcherTitle": "I want to pay with Credit Card"
+    },
+    {
+      "title": "Email",
+      "type": "string",
+      "x-switcherTitle": "I want to pay with PayPal"
+    }
+  ]
+}
+```
+
+### `x-format`
+
+- Type: `string`
+- Description: Determines editor UI and behaviours. The effect of `"format"` depends on the schema `"type"` keyword.
+- Options:
+    - Boolean:
+        - `"select"` (default)
+        - `"radios"`
+        - `"radios-inline"`
+        - `"checkbox"`
+    - String:
+        - `"text"` (default)
+        - `"hidden"`
+        - `"color"`
+        - `"date"`
+        - `"datetime-local"`
+        - `"email"`
+        - `"number"`
+        - `"month"`
+        - `"password"`
+        - `"search"`
+        - `"time"`
+        - `"tel"`
+        - `"url"`
+        - `"week"`
+        - `"textarea"`
+    - Number:
+        - `"number"` (default)
+        - `"select"`
+        - `"radios"`
+        - `"radios-inline"`
+    - integer:
+        - `"number"` (default)
+        - `"select"`
+        - `"radios"`
+        - `"radios-inline"`
+    - Array:
+        - `"list"` (default)
+        - `"nav-vertical"`
+        - `"nav-horizontal"`
+        - `"table"`
+    - Object:
+        - `"list"` (default)
+        - `"nav-vertical"`
+        - `"nav-horizontal"`
+        - `"grid"`
+- Examples:
+
+Use radios to display color names instead of hex codes.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "enum": [
+    "Red",
+    "Green",
+    "Blue"
+  ],
+  "x-format": "radios"
+}
+```
+
+### `x-grid`
+
+- Type: `object`
+- Description: A configuration object to determine the position of the property editor in the parent's grid.
+- Options:
+    - `columns`: How many columns should the editor occupy.
+    - `offset`: How many columns should the editor be offsetted.
+    - `newRow`: Whether the editor should be put in a new row.
+- Examples:
+    - [editors/object-grid](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-grid&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+
+### `x-enableCollapseToggle`
+
+- Type: `boolean`
+- Description: Display a collapse button used to collapse or expand editors that support collapse like `object` and `arrays`
+- Examples:
+    - [editors/object](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+    - [editors/array](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/array&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+
+### `x-startCollapsed`
+
+- Type: `boolean`
+- Description: Whether the editor should start expanded or collapsed. Works on editors that support collapse like `object` and `arrays`
+
+### `x-deactivateNonRequired`
+
+- Type: `boolean`
+- Description: Whether the editor should deactivate (hide) or activate (show) non required properties. Works on only with `object` type editors.
+
+Only the property `name` is active
+
+```json
+{
+  "title": "Person",
+  "type": "object",
+  "x-deactivateNonRequired": true,
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "age": {
+      "type": "integer",
+      "title": "Age"
+    }
+  }
+}
+```
+
+### `x-titleTemplate`
+
+- Type: `string`
+- Description: A template to form titles dynamically.
+- Examples:
+    - [editors/object-nav-vertical](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-vertical&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+    - [editors/object-nav-horizontal](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-horizontal&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+
 
 ## License
 
