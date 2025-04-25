@@ -71,7 +71,7 @@ class Jedi extends EventEmitter {
       mergeAllOf: false,
       enforceConst: false,
       enforceRequired: true,
-      enforceEnumDefault: true,
+      enforceEnumDefault: true, // todo: deprecated
       enforceAdditionalProperties: true,
       enforceMinItems: true,
       enforceEnum: true,

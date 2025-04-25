@@ -594,15 +594,32 @@ export default {
       const examples = Object.assign({}, ...Object.values(this.examples));
       return examples[this.example] || null;
     },
-    async initEditor(schema) {
+    async initEditor(schema, data) {
       if (this.editor) {
         this.editor.destroy()
       }
 
+      // schema
       const querySchema = this.getQueryParam('schema')
 
-      this.schema = querySchema ? JSON.parse(this.decompress(querySchema)) : schema ?? this.getSchema()
+      this.schema = querySchema ? JSON.parse(this.decompress(querySchema)) :this.getSchema()
 
+      if (schema) {
+        this.schema = schema
+      }
+
+      // data
+      const queryData = this.getQueryParam('data')
+
+      this.data = queryData ? JSON.parse(this.decompress(queryData)) :  undefined
+
+      if (data) {
+        this.data = data
+      }
+
+      if (this.data) {
+        this.$refs.data.value = JSON.stringify(this.data, null, 2)
+      }
 
       const refParser = new Jedi.RefParser()
       await refParser.dereference(this.schema)
@@ -632,6 +649,7 @@ export default {
         enforceMinItems: this.enforceMinItems,
         enforceAdditionalProperties: this.enforceAdditionalProperties,
         schema: this.schema,
+        data: this.data,
         theme: this.getThemeInstance(this.theme),
         refParser,
         customEditors: [
@@ -645,17 +663,6 @@ export default {
             lazy: false
           }
         }
-      }
-
-      const queryData = this.getQueryParam('data')
-
-      if (queryData) {
-        options.data = JSON.parse(this.decompress(queryData))
-        this.$refs.data.value = JSON.stringify(JSON.parse(this.decompress(queryData)), null, 2)
-      }
-
-      if (this.$refs.data.value) {
-        options.data = JSON.parse(this.$refs.data.value)
       }
 
       this.editor = new Jedi.Create(options)
@@ -698,7 +705,7 @@ export default {
     setData() {
       try {
         this.data = JSON.parse(this.$refs.data.value)
-        this.initEditor(this.schema)
+        this.initEditor(this.schema, this.data)
       } catch (error) {
         alert('Invalid data: ' + error.message)
       }
@@ -747,8 +754,7 @@ export default {
       newUrl += "&enableCollapseToggle=" + this.enableCollapseToggle
       newUrl += "&startCollapsed=" + this.startCollapsed
       newUrl += "&schema=" + this.compress(JSON.stringify(this.schema))
-      newUrl += "&data=" + this.compress(JSON.stringify(this.data))
-      // newUrl += "&data=" + this.compress(JSON.stringify(this.editor.getValue()))
+      newUrl += "&data=" + this.compress(JSON.stringify(this.editor.getValue()))
 
       // Copy newUrl to the clipboard
       navigator.clipboard.writeText(newUrl)

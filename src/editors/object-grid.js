@@ -15,9 +15,6 @@ class EditorObjectGrid extends EditorObject {
       this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild)
     }
 
-    const gridOptions = getSchemaXOption(this.instance.schema, 'grid') ?? {
-      columns: 12
-    }
     let row = this.theme.getRow()
     this.control.childrenSlot.appendChild(row)
 
@@ -26,7 +23,7 @@ class EditorObjectGrid extends EditorObject {
     this.instance.children.forEach((child) => {
       if (child.isActive) {
         const childGridOptions = getSchemaXOption(child.schema, 'grid') || {}
-        const columns = childGridOptions.columns ?? getSchemaXOption(child.schema, 'gridColumns') ?? gridOptions.columns
+        const columns = childGridOptions.columns ?? getSchemaXOption(child.schema, 'gridColumns') ?? 12
         const offset = childGridOptions.offset ?? getSchemaXOption(child.schema, 'gridOffset') ?? 0
         const col = this.theme.getCol(12, columns, offset)
         const newRow = childGridOptions.newRow || false

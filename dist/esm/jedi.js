@@ -3363,16 +3363,13 @@ class EditorObjectGrid extends EditorObject {
     while (this.control.childrenSlot.firstChild) {
       this.control.childrenSlot.removeChild(this.control.childrenSlot.lastChild);
     }
-    const gridOptions = getSchemaXOption(this.instance.schema, "grid") ?? {
-      columns: 12
-    };
     let row = this.theme.getRow();
     this.control.childrenSlot.appendChild(row);
     let colCount = 0;
     this.instance.children.forEach((child) => {
       if (child.isActive) {
         const childGridOptions = getSchemaXOption(child.schema, "grid") || {};
-        const columns = childGridOptions.columns ?? getSchemaXOption(child.schema, "gridColumns") ?? gridOptions.columns;
+        const columns = childGridOptions.columns ?? getSchemaXOption(child.schema, "gridColumns") ?? 12;
         const offset = childGridOptions.offset ?? getSchemaXOption(child.schema, "gridOffset") ?? 0;
         const col = this.theme.getCol(12, columns, offset);
         const newRow = childGridOptions.newRow || false;
@@ -4553,6 +4550,7 @@ class Jedi extends EventEmitter {
       enforceConst: false,
       enforceRequired: true,
       enforceEnumDefault: true,
+      // todo: deprecated
       enforceAdditionalProperties: true,
       enforceMinItems: true,
       enforceEnum: true,

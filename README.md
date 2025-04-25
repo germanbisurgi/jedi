@@ -3,7 +3,8 @@
 # Jedi - JSON Editing and Data Integrity
 
 Generates forms from JSON schemas. Can be used in backend to validate JSON data too.
-[Check Out the Playground](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5)
+
+Check Out the [PLAYGROUND](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5)
 
 # Table of Contents
 
@@ -16,42 +17,49 @@ Generates forms from JSON schemas. Can be used in backend to validate JSON data 
 - [RefParser](#refParser)
 - [Instance Options](#instance-options)
 - [Schema Options](#schema-options)
-    - [titleHidden](#x-titlehidden)
-    - [titleIconClass](#x-titleiconclass)
-    - [showErrors](#x-showerrors)
-    - [assertFormat](#x-assertformat)
-    - [messages](#x-messages)
-    - [hidden](#x-hidden)
-    - [info](#x-info)
-    - [inputAttributes](#x-inputattributes)
-    - [containerAttributes](#x-containerAttributes)
-    - [enumTitles](#x-enumtitles)
-    - [enforceEnum](#x-enforceenum)
-    - [enforceConst](#x-enforceconst)
-    - [switcherTitle](#x-switchertitle)
-    - [format](#x-format)
+    - [x-titleHidden](#x-titlehidden)
+    - [x-titleIconClass](#x-titleiconclass)
+    - [x-showErrors](#x-showerrors)
+    - [x-assertFormat](#x-assertformat)
+    - [x-messages](#x-messages)
+    - [x-hidden](#x-hidden)
+    - [x-info](#x-info)
+    - [x-inputAttributes](#x-inputattributes)
+    - [x-containerAttributes](#x-containerAttributes)
+    - [x-enumTitles](#x-enumtitles)
+    - [x-enforceEnum](#x-enforceenum)
+    - [x-enforceConst](#x-enforceconst)
+    - [x-switcherTitle](#x-switchertitle)
+    - [x-format](#x-format)
 - [Language and Translations](#language-and-translations)
 - [Editors](#editors)
-    - [Array](#array)
-    - [Array checkboxes](#array-checkboxes)
-    - [Array choices](#array-choices)
-    - [Array nav](#array-nav)
-    - [Array table](#array-table)
-    - [Boolean checkbox](#boolean-checkbox)
-    - [Boolean radios](#boolean-radios)
-    - [Boolean select](#boolean-select)
-    - [Number input](#number-input)
-    - [Number radios](#number-radios)
-    - [Number select](#number-select)
-    - [Number select](#number-select)
-    - [Object select](#object)
-    - [Object grid](#object-grid)
-    - [Object nav](#object-nav)
-    - [String input](#string-input)
-    - [String radios](#string-radios)
-    - [String select](#string-select)
-    - [String textarea](#string-textarea)
-    - [String IMask](#string-imask)
+    - [Array](#array-editors)
+      - [Array](#array-list)
+      - [Array checkboxes](#array-checkboxes)
+      - [Array choices](#array-choices)
+      - [Array nav](#array-nav)
+      - [Array table](#array-table)
+    - [Boolean](#boolean-editors)
+      - [Boolean checkbox](#boolean-checkbox)
+      - [Boolean radios](#boolean-radios)
+      - [Boolean select](#boolean-select)
+    - [Number](#number-editors)
+      - [Number input](#number-input)
+      - [Number radios](#number-radios)
+      - [Number select](#number-select)
+      - [Number select](#number-select)
+    - [Object](#object-editors)
+      - [Object select](#object)
+      - [Object grid](#object-grid)
+      - [Object nav](#object-nav)
+    - [String](#string-editors)
+      - [String input](#string-input)
+      - [String radios](#string-radios)
+      - [String select](#string-select)
+      - [String textarea](#string-textarea)
+      - [String IMask](#string-imask)
+    - [Null](#null-editors)
+      - [Null](#null)
 - [License](#license)
 - [Resources](#resources)
 
@@ -378,6 +386,20 @@ translates to:
       <td>no</td>
     </tr>
     <tr align="left">
+      <td><code>btnContents</code></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+      <td>If buttons texts should be displayed</td>
+      <td>no</td>
+    </tr>
+    <tr align="left">
+      <td><code>btnIcons</code></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code></td>
+      <td>If buttons icons should be displayed</td>
+      <td>no</td>
+    </tr>
+    <tr align="left">
       <td><code>enforceEnum</code></td>
       <td><code>boolean</code></td>
       <td><code>true</code></td>
@@ -471,20 +493,6 @@ translates to:
       <td>yes</td>
     </tr>
     <tr align="left">
-      <td><code>btnContents</code></td>
-      <td><code>boolean</code></td>
-      <td><code>true</code></td>
-      <td>If buttons texts should be displayed</td>
-      <td>no</td>
-    </tr>
-    <tr align="left">
-      <td><code>btnIcons</code></td>
-      <td><code>boolean</code></td>
-      <td><code>true</code></td>
-      <td>If buttons icons should be displayed</td>
-      <td>no</td>
-    </tr>
-    <tr align="left">
       <td><code>arrayDelete</code></td>
       <td><code>boolean</code></td>
       <td><code>true</code></td>
@@ -511,26 +519,14 @@ translates to:
 ## Schema options
 
 The `x-` or `x-options` [custom annotation](https://json-schema.org/blog/posts/custom-annotations-will-continue#what's-the-solution)
-can be used in JSON Schemas to changes how instances and editors behave. When setting the same option as
-Jedi options and as `x-options`, the `x-options` one will be applied. `x-options` must be of type object.
+can be used in JSON Schemas to changes how instances and editors behave.
+Schema `x-` options override global options.
 
 ```json
 {
   "title": "Message",
   "type": "string",
-  "x-options": {
-    "format": "textarea"
-  }
-}
-```
-
-More compact alternative:
-
-```json
-{
-  "title": "Message",
-  "type": "string",
-  "x-format": "textarea"
+  "x-showErrors": "always"
 }
 ```
 
@@ -552,87 +548,89 @@ depends on the option `"enum"`.
 }
 ```
 
-"x-arrayAddContent": "ADD",
-"x-arrayMoveUpContent": "UP",
-"x-arrayMoveDownContent": "DOWN",
-"x-arrayDeleteContent": "DELETE",
-"x-arrayDragContent": "DRAG",
+### `x-arrayDelete`
 
-### `x-arrayAddContent`, `x-arrayMoveUpContent`,`x-arrayMoveDownContent`,`x-arrayDeleteContent`,`x-arrayDragContent`,
+- Type: `boolean`
+- Default: `true`
+- Description: If array delete buttons should be displayed.
+
+### `x-arrayMove`
+
+- Type: `boolean`
+- Default: `true`
+- Description: If array move up and move down buttons should be displayed.
+
+### `x-arrayAdd`
+
+- Type: `boolean`
+- Default: `true`
+- Description: If array add buttons should be displayed.
+
+### `x-soratble`
+
+- Type: `boolean`
+- Default: `false`
+- Description: Items can be sort via drag and drop if Sortable.js.
+
+### `x-arrayAddContent`
 
 - Type: `boolean`
 - Default: -
-- Description: Text content for array buttons.
-- Examples:
+- Description: Text content for array "add" buttons.
 
-Hide editor title.
-
-```json
-{
-  "type": "array",
-  "x-arrayAddContent": "ADD",
-  "x-arrayMoveUpContent": "UP",
-  "x-arrayMoveDownContent": "DOWN",
-  "x-arrayDeleteContent": "DELETE",
-  "x-arrayDragContent": "DRAG"
-}
-```
-
-### `x-propertiesToggleContent`, `x-addPropertyContent`
+### `x-arrayMoveUpContent`
 
 - Type: `boolean`
 - Default: -
-- Description: Text content for properties buttons.
-- Examples:
+- Description: Text content for array "move up" buttons.
 
-Hide editor title.
+### `x-arrayMoveDownContent`
 
-```json
-{
-  "type": "object",
-  "x-propertiesToggleContent": "PROPERTIES",
-  "x-addPropertyContent": "ADD PROPERTY"
-}
-```
+- Type: `boolean`
+- Default: -
+- Description: Text content for array "move down" buttons.
+
+### `x-arrayDeleteContent`
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for array "delete" buttons.
+
+### `x-arrayDragContent`,
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for array "drag" buttons.
+
+### `x-propertiesToggleContent`
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for "properties" buttons.
+
+### `x-addPropertyContent`
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for "add property" buttons.
 
 ### `x-collapseToggleContent`
 
 - Type: `boolean`
 - Default: -
-- Description: Text content for collapse buttons.
+- Description: Text content for "collapse" buttons.
 - Examples:
-
-Hide editor title.
-
-```json
-{
-  "type": "object",
-  "x-collapseToggleContent": "COLLAPSE"
-}
-```
 
 ### `x-titleHidden`
 
 - Type: `boolean`
 - Default: `false`
 - Description: Hides the editor title.
-- Examples:
-
-Hide editor title.
-
-```json
-{
-  "title": "Message",
-  "type": "string",
-  "x-titleHidden": true
-}
-```
 
 ### `x-titleIconClass`
 
 - Type: `string`
 - Description: Icon class to use in titles if using any.
-- Examples:
 
 Show a fontawesome envelope icon in the title.
 
@@ -650,7 +648,6 @@ Show a fontawesome envelope icon in the title.
 - Default: `"change"`
 - Options: `"never"`, `"change"`, `"always"`
 - Description: Determines when to display validation errors.
-- Examples:
 
 Always show errors for this editor even if the value didn't change.
 
@@ -668,7 +665,6 @@ Always show errors for this editor even if the value didn't change.
 - Default: `"false"`
 - Options: `"never"`, `"change"`, `"always"`
 - Description: Treats `"format"` as a validator rather than just an annotation.
-- Examples:
 
 Treat `"format": "email"` as a constraint keyword instead of an annotation.
 
@@ -685,7 +681,6 @@ Treat `"format": "email"` as a constraint keyword instead of an annotation.
 
 - Type: `object` | `string[]`
 - Description: Validation error messages can be customized using the `x-messages` option in the schema.
-- Examples:
 
 Validation error messages can be customized using the `x-messages` option in the schema. When defined as an object, messages can be applied by constraint (e.g., `minLength`, `const`).
 
@@ -754,26 +749,6 @@ When defined as an array, the messages apply to all validation rules for the pro
 
 - Type: `boolean`
 - Description: Editors can be hidden using the `x-hidden` option. When set to `true`, the editor is hidden.
-- Examples:
-
-Displays an info button right after the title, that opens a modal with title and content.
-
-```json
-{
-  "title": "`x-hidden`",
-  "type": "object",
-  "description": "Editors can be hidden using the `x-hidden` option. When set to `true`, the editor is hidden",
-  "properties": {
-    "visible": {
-      "type": "string"
-    },
-    "hidden": {
-      "type": "string",
-      "x-hidden": true
-    }
-  }
-}
-```
 
 ### `x-info`
 
@@ -783,7 +758,6 @@ Displays an info button right after the title, that opens a modal with title and
     - `variant`: `"modal"`
     - `title`: Plain text or `markdown`.
     - `content`:  Plain text or `markdown`.
-- Examples:
 
 Displays an info button right after the title, that opens a modal with title and content.
 
@@ -803,7 +777,6 @@ Displays an info button right after the title, that opens a modal with title and
 
 - Type: `object`
 - Description: Used to set attributes for the editor input.
-- Examples:
 
 Add `placeholder` attribute to textarea.
 
@@ -822,7 +795,6 @@ Add `placeholder` attribute to textarea.
 
 - Type: `object`
 - Description: Editors container HTML attributes can be set using the `x-containerAttributes` option. Attributes such as `class` or `data-*` will be applied to the container element.
-- Examples:
 
 ```json
 {
@@ -839,9 +811,7 @@ Add `placeholder` attribute to textarea.
 ### `x-enumTitles`
 
 - Type: `string[]`
-- Depends on: `"enum"`
 - Description: Used to display user-friendly labels in the editor instead of those listen in `"enum"`.
-- Examples:
 
 Display color names instead of hex codes.
 
@@ -865,10 +835,8 @@ Display color names instead of hex codes.
 ### `x-enforceEnum`
 
 - Type: `boolean`
-- Default: `false`
-- Depends on: `"enum"`
+- Default: `true`
 - Description: Whether the editor initial value will be the first item in the `"enum"`.
-- Examples:
 
 Default value for this editor will be  `""`.
 
@@ -903,10 +871,8 @@ Default value for this editor will be `"ff0000"`.
 ### `x-enforceConst`
 
 - Type: `boolean`
-- Default: `false`
-- Depends on: `"const"`
+- Default: `true`
 - Description: Value will remain whatever is defined in schema `"const"`.
-- Examples:
 
 Default value for this editor will be `"ff0000"`.
 
@@ -922,10 +888,8 @@ Default value for this editor will be `"ff0000"`.
 ### `x-switcherTitle`
 
 - Type: `string`
-- Default: "undefined". The property name or the title will be used instead.
-- Depends on: `"oneOf"`, `"anyOf"`
+- Default: property name or `"title"`.
 - Description: The text displayed in the multiple editor switcher to select this sub-schema editor.
-- Examples:
 
 Switcher options displayed are:
 
@@ -1040,27 +1004,13 @@ Use radios to display color names instead of hex codes.
 
 - Type: `boolean`
 - Description: Whether the editor should start expanded or collapsed. Works on editors that support collapse like `object` and `arrays`
-- Examples:
-
-```json
-{
-  "title": "Person",
-  "type": "object",
-  "x-startCollapsed": true,
-  "properties": {
-    "name": {
-      "type": "string",
-      "title": "Name"
-    }
-  }
-}
-```
 
 ### `x-deactivateNonRequired`
 
 - Type: `boolean`
 - Description: Whether the editor should deactivate (hide) or activate (show) non required properties. Works on only with `object` type editors.
-- Examples:
+
+Only the property `name` is active
 
 ```json
 {
@@ -1078,29 +1028,6 @@ Use radios to display color names instead of hex codes.
     "age": {
       "type": "integer",
       "title": "Age"
-    }
-  }
-}
-```
-
-### `x-sortable`
-
-- Type: `boolean`
-- Description: Allows drag and drop if Sortable.js is installed and available as `window.Sortable`. Works only with `array` type editors.
-- Examples:
-
-```json
-{
-  "type": "object",
-  "properties": {
-    "items": {
-      "type": "array",
-      "title": "items",
-      "items": {
-        "title": "This is a number editor",
-        "type": "number"
-      },
-      "x-sortable": true
     }
   }
 }
@@ -1210,10 +1137,15 @@ present in it's json schema.
 
 Virtually all editors can have the following features:
 
-- `title`: text for labels or legends
-- `description`: text for descriptions
-- `info`: `x-options` to configure extra info about the editor.
-- `inputAttributes`: `x-options` to add or override input attributes if the editor has an input.
+- [x-titleHidden](#x-titlehidden)
+- [x-titleIconClass](#x-titleiconclass)
+- [x-showErrors](#x-showerrors)
+- [x-messages](#x-messages)
+- [x-hidden](#x-hidden)
+- [x-info](#x-info)
+- [x-containerAttributes](#x-containerAttributes)
+- [x-enforceConst](#x-enforceconst)
+- [x-enforceEnum](#x-enforceEnum)
 
 ```json
 {
@@ -1231,14 +1163,23 @@ Virtually all editors can have the following features:
 }
 ```
 
-### Array
+### Array editors
 
-A fieldset that can contain list of child editors. Each child editor correspond to an items in the array.
-Child editors are placed from top to bottom and occupy the whole with available.
+Options:
 
-- Has buttons to add, delete and sort items.
-- Can be collapsed and expanded.
-- Items can be sort via drag and drop if Sortable.js is present and `"soratble": true` is set in `x-options`
+- [x-arrayDelete](#x-arrayDelete)
+- [x-arrayMove](#x-arrayMove)
+- [x-arrayAdd](#x-arrayAdd)
+- [x-sortable](#x-soratble)
+- [x-startCollapsed](#x-startCollapsed)
+- [x-enableCollapseToggle](#x-enableCollapseToggle)
+- [x-collapseToggleContent](#x-collapseToggleContent)
+- [x-arrayAddContent](#x-arrayAddContent)
+
+#### Array list
+
+A fieldset that can contain list of editors. Each child editor correspond to an items in the array.
+Child editors are placed from top to bottom.
 
 ```json
 {
@@ -1248,12 +1189,11 @@ Child editors are placed from top to bottom and occupy the whole with available.
   "items": {
     "title": "I am an array item editor",
     "type": "string"
-  },
-  "x-sortable": true
+  }
 }
 ```
 
-### Array checkboxes
+#### Array checkboxes
 
 A fieldset containing a list of enumerated editors. Each editor is represented by a checkboxes.
 Works only if the items are of type `string`, `number` or `integer`.
@@ -1277,6 +1217,7 @@ checkbox inline variant
 
 ```json
 {
+  "x-format": "checkboxes-inline",
   "title": "Array",
   "description": "Array of unique values wich item types can be string, number or integer",
   "type": "array",
@@ -1287,12 +1228,11 @@ checkbox inline variant
       "value1",
       "value2"
     ]
-  },
-  "x-format": "checkboxes-inline"
+  }
 }
 ```
 
-### Array choices
+#### Array choices
 
 A fieldset containing a list of enumerated editors. Each editor is represented by an item in the choices input.
 Works only if the items are of type `string`, `number` or `integer`.
@@ -1300,6 +1240,7 @@ Choices.js musst be installed and available as `window.Choices` for this to work
 
 ```json
 {
+  "x-format": "choices",
   "title": "Choices",
   "description": "A vanilla JS customisable select box/text input plugin.",
   "type": "array",
@@ -1334,12 +1275,11 @@ Choices.js musst be installed and available as `window.Choices` for this to work
   "default": [
     "US"
   ],
-  "minItems": 1,
-  "x-format": "choices"
+  "minItems": 1
 }
 ```
 
-### Array nav
+#### Array nav
 
 A fieldset containing a list of enumerated editors. Each editor is represented by a checkboxes.
 Works only if the items are of type `string`, `number` or `integer`.
@@ -1355,10 +1295,10 @@ With vertical nav
 
 ```json
 {
-  "type": "array",
-  "title": "People",
   "x-format": "nav-vertical",
   "x-titleTemplate": "{{ i1 }} {{ value.name }}",
+  "type": "array",
+  "title": "People",
   "items": {
     "type": "object",
     "title": "Person",
@@ -1381,10 +1321,10 @@ With horizontal nav
 
 ```json
 {
-  "type": "array",
-  "title": "People",
   "x-format": "nav-horizontal",
   "x-titleTemplate": "{{ i1 }} {{ value.name }}",
+  "type": "array",
+  "title": "People",
   "items": {
     "type": "object",
     "title": "Person",
@@ -1403,16 +1343,15 @@ With horizontal nav
 }
 ```
 
-### Array table
+#### Array table
 
-A table where each item editor is rendered in a new table row. Useful for array of objects.
+A table where each item editor is rendered in a new table row.
 
 ```json
 {
+  "x-format": "table",
   "title": "users",
   "type": "array",
-  "x-sortable": true,
-  "x-format": "table",
   "items": {
     "type": "object",
     "title": "Person",
@@ -1435,28 +1374,30 @@ A table where each item editor is rendered in a new table row. Useful for array 
 }
 ```
 
-### Boolean checkbox
+### Boolean editors
+
+#### Boolean checkbox
 
 Renders a type checkbox input
 
 ```json
 {
+  "x-format": "checkbox",
   "type": "boolean",
-  "title": "Boolean",
-  "x-format": "checkbox"
+  "title": "Boolean"
 }
 ```
 
-### Boolean radios
+#### Boolean radios
 
 Renders two type radio inputs. The radio labels can be customized with the
 `enumTitles` option.
 
 ```json
 {
+  "x-format": "radios",
   "type": "boolean",
   "title": "Boolean",
-  "x-format": "radios",
   "x-enumTitles": [
     "Yes",
     "No"
@@ -1468,9 +1409,9 @@ Inline variant
 
 ```json
 {
+  "x-format": "radios-inline",
   "type": "boolean",
   "title": "Boolean",
-  "x-format": "radios-inline",
   "x-enumTitles": [
     "Yes",
     "No"
@@ -1478,16 +1419,16 @@ Inline variant
 }
 ```
 
-### Boolean select
+#### Boolean select
 
 Renders type select input with 2 options. The options labels can be customized with the
 `enumTitles` option.
 
 ```json
 {
+  "x-format": "select",
   "type": "boolean",
   "title": "Boolean",
-  "x-format": "select",
   "x-enumTitles": [
     "Yes",
     "No"
@@ -1495,7 +1436,9 @@ Renders type select input with 2 options. The options labels can be customized w
 }
 ```
 
-### Number input
+### Number editors
+
+#### Number input
 
 Renders type number input. Handles `number`and `integer` types.
 
@@ -1506,13 +1449,14 @@ Renders type number input. Handles `number`and `integer` types.
 }
 ```
 
-### Number radios
+#### Number radios
 
 Renders as many radio type inputs as values in the `enum` constraint. The radio labels can be customized with the
 `enumTitles` option. Handles `number`and `integer` types.
 
 ```json
 {
+  "x-format": "radios",
   "type": "number",
   "title": "Quantity",
   "enum": [
@@ -1520,7 +1464,6 @@ Renders as many radio type inputs as values in the `enum` constraint. The radio 
     1,
     2
   ],
-  "x-format": "radios",
   "x-enumTitles": [
     "None",
     "One",
@@ -1533,6 +1476,7 @@ Inline variant
 
 ```json
 {
+  "x-format": "radios-inline",
   "type": "number",
   "title": "Quantity",
   "enum": [
@@ -1540,7 +1484,6 @@ Inline variant
     1,
     2
   ],
-  "x-format": "radios-inline",
   "x-enumTitles": [
     "None",
     "One",
@@ -1549,7 +1492,7 @@ Inline variant
 }
 ```
 
-### Number select
+#### Number select
 
 Renders as many radio type inputs as values in the `enum` constraint. The options labels can be customized with the
 `enumTitles` option. Handles `number`and `integer` types.
@@ -1571,7 +1514,27 @@ Renders as many radio type inputs as values in the `enum` constraint. The option
 }
 ```
 
-### Object
+#### Number Raty
+
+Renders a star rating input using Raty.js if installed and available as `window.Raty`.
+
+```json
+{
+  "title": "Raty",
+  "type": "number",
+  "description": "Raty - A Star Rating Plugin",
+  "default": 3,
+  "minimum": 0.5,
+  "x-raty": {
+    "half": true,
+    "starType": "i"
+  }
+}
+```
+
+### Object editors
+
+#### Object
 
 Renders a fieldset that will contain it properties editors.
 The fieldset can be collapsed or expanded.
@@ -1595,15 +1558,11 @@ The fieldset can be collapsed or expanded.
 }
 ```
 
-### Object grid
+#### Object grid
 
 Renders a fieldset that will contain it properties editors and use a grid system to position
 its property editors. The fieldset can be collapsed or expanded.
-
-The object editor the option `grid` can be used to set a default columns size. It's child editors
-can also have the option `grid`. The child option will override the parent option.
-
-Child editors can have more options:
+Property editors can have more options:
 
 - `columns`: How many columns should the editor occupy.
 - `offset`: How many columns should the editor be offset.
@@ -1611,12 +1570,9 @@ Child editors can have more options:
 
 ```json
 {
+  "x-format": "grid",
   "type": "object",
   "title": "Login",
-  "x-format": "grid",
-  "x-grid": {
-    "columns": 6
-  },
   "properties": {
     "email": {
       "title": "E-Mail",
@@ -1638,7 +1594,7 @@ Child editors can have more options:
 }
 ```
 
-### Object nav
+#### Object nav
 
 Renders a fieldset that will contain it properties editors.
 The fieldset can be collapsed or expanded.
@@ -1719,7 +1675,9 @@ With horizontal nav
 }
 ```
 
-### String input
+### String editors
+
+#### String input
 
 Renders type text input.
 
@@ -1730,13 +1688,14 @@ Renders type text input.
 }
 ```
 
-### String radios
+#### String radios
 
 Renders as many radio type inputs as values in the `enum` constraint. The radio labels can be customized with the
 `enumTitles` option.
 
 ```json
 {
+  "x-format": "radios",
   "type": "string",
   "title": "String radios",
   "enum": [
@@ -1744,7 +1703,6 @@ Renders as many radio type inputs as values in the `enum` constraint. The radio 
     "betti",
     "carl"
   ],
-  "x-format": "radios",
   "x-enumTitles": [
     "Albert",
     "Betti",
@@ -1757,6 +1715,7 @@ Inline variant
 
 ```json
 {
+  "x-format": "radios-inline",
   "type": "string",
   "title": "String radios",
   "enum": [
@@ -1764,7 +1723,6 @@ Inline variant
     "betti",
     "carl"
   ],
-  "x-format": "radios-inline",
   "x-enumTitles": [
     "Albert",
     "Betti",
@@ -1773,7 +1731,7 @@ Inline variant
 }
 ```
 
-### String select
+#### String select
 
 Renders as many radio type inputs as values in the `enum` constraint. The options labels can be customized with the
 `enumTitles` option.
@@ -1795,22 +1753,67 @@ Renders as many radio type inputs as values in the `enum` constraint. The option
 }
 ```
 
-### String textarea
+#### String textarea
 
 Renders textarea input.
 
 ```json
 {
+  "x-format": "textarea",
   "type": "string",
-  "title": "String",
-  "x-format": "textarea"
+  "title": "String"
 }
 ```
 
-### String imask
+#### String awesomplete
+
+Renders a autocomplete featured text input using Awesomplete.js if installed and available as `window.Awesomplete`.
+
+```json
+{
+  "title": "Awesomplete",
+  "type": "string",
+  "description": "Awesomplete is an ultra lightweight, customizable, simple autocomplete widget with zero dependencies, built with modern standards for modern browsers.",
+  "default": "Awesomplete default",
+  "minLength": 1,
+  "x-awesomplete": {
+    "list": [
+      "JavaScript",
+      "Java",
+      "Python",
+      "Ruby",
+      "C++",
+      "C#",
+      "PHP",
+      "Swift",
+      "Go",
+      "Kotlin"
+    ],
+    "minChars": 1,
+    "maxItems": 5,
+    "autoFirst": true
+  }
+}
+```
+
+#### String flatpickr
+
+Renders a datetime picker using flatpickr.js if installed and available as `window.flatpickr`.
+
+```json
+{
+  "title": "Flatpickr",
+  "type": "string",
+  "description": "Flatpickr is a lightweight and powerful datetime picker.",
+  "default": "2024-08-27",
+  "minLength": 3,
+  "x-flatpickr": {}
+}
+```
+
+#### String imask
 
 Renders a masked text input using IMask.js if installed and available as `window.IMask`.
-
 
 ```json
 {
@@ -1846,6 +1849,51 @@ const options = {
       lazy: false
     }
   }
+}
+```
+
+#### String Jodit
+
+Renders a WYSIWYG editor using Jodit.js if installed and available as `window.Jodit`.
+
+```json
+{
+  "title": "Jodit",
+  "type": "string",
+  "description": "Jodit - Best WYSIWYG Editor for You.",
+  "default": "Jodit default",
+  "minLength": 20,
+  "x-jodit": {}
+}
+```
+
+#### String Quill
+
+Renders a WYSIWYG editor using Quill.js if installed and available as `window.Quill`.
+
+```json
+{
+  "title": "Quill",
+  "type": "string",
+  "description": "Quill is a modern WYSIWYG editor built for compatibility and extensibility.",
+  "default": "Quill default",
+  "minLength": 3,
+  "x-quill": {
+    "theme": "snow"
+  }
+}
+```
+
+### Null editors
+
+#### Null
+
+No input is rendered.
+
+```json
+{
+  "type": "null",
+  "title": "Null"
 }
 ```
 
