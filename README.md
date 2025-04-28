@@ -48,20 +48,37 @@ Check Out the [PLAYGROUND](https://germanbisurgi.github.io/jedi/index.html?theme
 - [Annotations](#annotations)
   - [Markdown](#markdown)
 - [Schema Options](#schema-options)
-    - [x-titleHidden](#x-titlehidden)
-    - [x-titleIconClass](#x-titleiconclass)
-    - [x-showErrors](#x-showerrors)
+    - [x-addPropertyContent](#x-addPropertyContent)
+    - [x-arrayAdd](#x-arrayAdd)
+    - [x-arrayAddContent](#x-arrayAddContent)
+    - [x-arrayDelete](#x-arrayDelete)
+    - [x-arrayDeleteContent](#x-arrayDeleteContent)
+    - [x-arrayDragContent](#x-arrayDragContent)
+    - [x-arrayMove](#x-arrayMove)
+    - [x-arrayMoveDownContent](#x-arrayMoveDownContent)
+    - [x-arrayMoveUpContent](#x-arrayMoveUpContent)
     - [x-assertFormat](#x-assertformat)
-    - [x-messages](#x-messages)
+    - [x-collapseToggleContent](#x-collapseToggleContent)
+    - [x-containerAttributes](#x-containerAttributes)
+    - [x-deactivateNonRequired](#x-deactivateNonRequired)
+    - [x-enableCollapseToggle](#x-enableCollapseToggle)
+    - [x-enforceConst](#x-enforceconst)
+    - [x-enforceEnum](#x-enforceenum)
+    - [x-enumTitles](#x-enumtitles)
+    - [x-format](#x-format)
+    - [x-grid](#x-grid)
     - [x-hidden](#x-hidden)
     - [x-info](#x-info)
     - [x-inputAttributes](#x-inputattributes)
-    - [x-containerAttributes](#x-containerAttributes)
-    - [x-enumTitles](#x-enumtitles)
-    - [x-enforceEnum](#x-enforceenum)
-    - [x-enforceConst](#x-enforceconst)
+    - [x-messages](#x-messages)
+    - [x-propertiesToggleContent](#x-propertiesToggleContent)
+    - [x-showErrors](#x-showerrors)
+    - [x-sortable](#x-sortable)
+    - [x-startCollapsed](#x-startCollapsed)
     - [x-switcherTitle](#x-switchertitle)
-    - [x-format](#x-format)
+    - [x-titleHidden](#x-titlehidden)
+    - [x-titleIconClass](#x-titleiconclass)
+    - [x-titleTemplate](#x-titleTemplate)
 - [License](#license)
 - [Resources](#resources)
 
@@ -1425,17 +1442,11 @@ depends on the option `"enum"`.
 }
 ```
 
-### `x-arrayDelete`
+### `x-addPropertyContent`
 
 - Type: `boolean`
-- Default: `true`
-- Description: If array delete buttons should be displayed.
-
-### `x-arrayMove`
-
-- Type: `boolean`
-- Default: `true`
-- Description: If array move up and move down buttons should be displayed.
+- Default: -
+- Description: Text content for "add property" buttons.
 
 ### `x-arrayAdd`
 
@@ -1443,29 +1454,17 @@ depends on the option `"enum"`.
 - Default: `true`
 - Description: If array add buttons should be displayed.
 
-### `x-soratble`
-
-- Type: `boolean`
-- Default: `false`
-- Description: Items can be sort via drag and drop if Sortable.js.
-
 ### `x-arrayAddContent`
 
 - Type: `boolean`
 - Default: -
 - Description: Text content for array "add" buttons.
 
-### `x-arrayMoveUpContent`
+### `x-arrayDelete`
 
 - Type: `boolean`
-- Default: -
-- Description: Text content for array "move up" buttons.
-
-### `x-arrayMoveDownContent`
-
-- Type: `boolean`
-- Default: -
-- Description: Text content for array "move down" buttons.
+- Default: `true`
+- Description: If array delete buttons should be displayed.
 
 ### `x-arrayDeleteContent`
 
@@ -1479,62 +1478,23 @@ depends on the option `"enum"`.
 - Default: -
 - Description: Text content for array "drag" buttons.
 
-### `x-propertiesToggleContent`
+### `x-arrayMove`
+
+- Type: `boolean`
+- Default: `true`
+- Description: If array move up and move down buttons should be displayed.
+
+### `x-arrayMoveDownContent`
 
 - Type: `boolean`
 - Default: -
-- Description: Text content for "properties" buttons.
+- Description: Text content for array "move down" buttons.
 
-### `x-addPropertyContent`
-
-- Type: `boolean`
-- Default: -
-- Description: Text content for "add property" buttons.
-
-### `x-collapseToggleContent`
+### `x-arrayMoveUpContent`
 
 - Type: `boolean`
 - Default: -
-- Description: Text content for "collapse" buttons.
-- Examples:
-
-### `x-titleHidden`
-
-- Type: `boolean`
-- Default: `false`
-- Description: Hides the editor title.
-
-### `x-titleIconClass`
-
-- Type: `string`
-- Description: Icon class to use in titles if using any.
-
-Show a fontawesome envelope icon in the title.
-
-```json
-{
-  "title": "Message",
-  "type": "string",
-  "x-titleIconClass": "fas fa-envelope"
-}
-```
-
-### `x-showErrors`
-
-- Type: `string`
-- Default: `"change"`
-- Options: `"never"`, `"change"`, `"always"`
-- Description: Determines when to display validation errors.
-
-Always show errors for this editor even if the value didn't change.
-
-```json
-{
-  "title": "Message",
-  "type": "string",
-  "x-showErrors": "always"
-}
-```
+- Description: Text content for array "move up" buttons.
 
 ### `x-assertFormat`
 
@@ -1551,6 +1511,216 @@ Treat `"format": "email"` as a constraint keyword instead of an annotation.
   "type": "string",
   "format": "email",
   "x-assertFormat": true
+}
+```
+
+### `x-collapseToggleContent`
+
+- Type: `boolean`
+- Default: -
+- Description: Text content for "collapse" buttons.
+
+### `x-containerAttributes`
+
+- Type: `object`
+- Description: Editors container HTML attributes can be set using the `x-containerAttributes` option. Attributes such as `class` or `data-*` will be applied to the container element.
+
+```json
+{
+  "title": "`x-containerAttributes`",
+  "type": "object",
+  "description": "Editors container HTML attributes can be set using the `x-containerAttributes` option. Attributes such as `class` or `data-*` will be applied to the container element.",
+  "x-containerAttributes": {
+    "class": "a-class another-class",
+    "data-custom": "custom-data"
+  }
+}
+```
+
+### `x-deactivateNonRequired`
+
+- Type: `boolean`
+- Description: Whether the editor should deactivate (hide) or activate (show) non required properties. Works on only with `object` type editors.
+
+Only the property `name` is active
+
+```json
+{
+  "title": "Person",
+  "type": "object",
+  "x-deactivateNonRequired": true,
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "age": {
+      "type": "integer",
+      "title": "Age"
+    }
+  }
+}
+```
+
+### `x-enableCollapseToggle`
+
+- Type: `boolean`
+- Description: Display a collapse button used to collapse or expand editors that support collapse like `object` and `arrays`
+
+### `x-enforceConst`
+
+- Type: `boolean`
+- Default: `true`
+- Description: Value will remain whatever is defined in schema `"const"`.
+
+Default value for this editor will be `"ff0000"`.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "const": "ff0000",
+  "x-enforceConst": true
+}
+```
+
+### `x-enforceEnum`
+
+- Type: `boolean`
+- Default: `true`
+- Description: Whether the editor initial value will be the first item in the `"enum"`.
+
+Default value for this editor will be  `""`.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "enum": [
+    "ff0000",
+    "00ff00",
+    "0000ff"
+  ],
+  "x-enforceEnum": false
+}
+```
+
+Default value for this editor will be `"ff0000"`.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "enum": [
+    "ff0000",
+    "00ff00",
+    "0000ff"
+  ],
+  "x-enforceEnum": true
+}
+```
+
+### `x-enumTitles`
+
+- Type: `string[]`
+- Description: Used to display user-friendly labels in the editor instead of those listen in `"enum"`.
+
+Display color names instead of hex codes.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "enum": [
+    "ff0000",
+    "00ff00",
+    "0000ff"
+  ],
+  "x-enumTitles": [
+    "Red",
+    "Green",
+    "Blue"
+  ]
+}
+```
+
+### `x-format`
+
+- Type: `string`
+- Description: Determines which editor UI will be used to edit the json einstance.
+
+Use radios editor to display color names instead of hex codes.
+
+```json
+{
+  "title": "Color",
+  "type": "string",
+  "enum": [
+    "Red",
+    "Green",
+    "Blue"
+  ],
+  "x-format": "radios"
+}
+```
+
+### `x-grid`
+
+- Type: `object`
+- Description: A configuration object to determine the position of the property editor in the parent's grid.
+- Options:
+    - `columns`: How many columns should the editor occupy.
+    - `offset`: How many columns should the editor be offsetted.
+    - `newRow`: Whether the editor should be put in a new row.
+- Examples:
+    - [editors/object-grid](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-grid&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
+
+### `x-hidden`
+
+- Type: `boolean`
+- Description: Editors can be hidden using the `x-hidden` option. When set to `true`, the editor is hidden.
+
+### `x-info`
+
+- Type: `object`
+- Description: Used to display extra information. If `markdown` is used to generate `html` content, it can be sanitized by DOMPurify is available, otherwise only the textContent will be displayed without any HTML tags.
+- Options:
+    - `variant`: `"modal"`
+    - `title`: Plain text or `markdown`.
+    - `content`:  Plain text or `markdown`.
+
+Displays an info button right after the title, that opens a modal with title and content.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
+  }
+}
+```
+
+### `x-inputAttributes`
+
+- Type: `object`
+- Description: Used to set attributes for the editor input.
+
+Add `placeholder` attribute to textarea.
+
+```json
+{
+  "title": "Message",
+  "type": "string",
+  "x-format": "textarea",
+  "x-inputAttributes": {
+    "placeholder": "Your message here..."
+  }
 }
 ```
 
@@ -1622,145 +1792,39 @@ When defined as an array, the messages apply to all validation rules for the pro
 }
 ```
 
-### `x-hidden`
+### `x-propertiesToggleContent`
 
 - Type: `boolean`
-- Description: Editors can be hidden using the `x-hidden` option. When set to `true`, the editor is hidden.
+- Default: -
+- Description: Text content for "properties" buttons.
 
-### `x-info`
+### `x-showErrors`
 
-- Type: `object`
-- Description: Used to display extra information. If `markdown` is used to generate `html` content, it can be sanitized by DOMPurify is available, otherwise only the textContent will be displayed without any HTML tags.
-- Options:
-    - `variant`: `"modal"`
-    - `title`: Plain text or `markdown`.
-    - `content`:  Plain text or `markdown`.
+- Type: `string`
+- Default: `"change"`
+- Options: `"never"`, `"change"`, `"always"`
+- Description: Determines when to display validation errors.
 
-Displays an info button right after the title, that opens a modal with title and content.
+Always show errors for this editor even if the value didn't change.
 
 ```json
 {
   "title": "Message",
   "type": "string",
-  "x-info": {
-    "variant": "modal",
-    "title": "### Info Button title",
-    "content": "Info button content"
-  }
+  "x-showErrors": "always"
 }
 ```
 
-### `x-inputAttributes`
-
-- Type: `object`
-- Description: Used to set attributes for the editor input.
-
-Add `placeholder` attribute to textarea.
-
-```json
-{
-  "title": "Message",
-  "type": "string",
-  "x-format": "textarea",
-  "x-inputAttributes": {
-    "placeholder": "Your message here..."
-  }
-}
-```
-
-### `x-containerAttributes`
-
-- Type: `object`
-- Description: Editors container HTML attributes can be set using the `x-containerAttributes` option. Attributes such as `class` or `data-*` will be applied to the container element.
-
-```json
-{
-  "title": "`x-containerAttributes`",
-  "type": "object",
-  "description": "Editors container HTML attributes can be set using the `x-containerAttributes` option. Attributes such as `class` or `data-*` will be applied to the container element.",
-  "x-containerAttributes": {
-    "class": "a-class another-class",
-    "data-custom": "custom-data"
-  }
-}
-```
-
-### `x-enumTitles`
-
-- Type: `string[]`
-- Description: Used to display user-friendly labels in the editor instead of those listen in `"enum"`.
-
-Display color names instead of hex codes.
-
-```json
-{
-  "title": "Color",
-  "type": "string",
-  "enum": [
-    "ff0000",
-    "00ff00",
-    "0000ff"
-  ],
-  "x-enumTitles": [
-    "Red",
-    "Green",
-    "Blue"
-  ]
-}
-```
-
-### `x-enforceEnum`
+### `x-sortable`
 
 - Type: `boolean`
-- Default: `true`
-- Description: Whether the editor initial value will be the first item in the `"enum"`.
+- Default: `false`
+- Description: Items can be sort via drag and drop if Sortable.js.
 
-Default value for this editor will be  `""`.
-
-```json
-{
-  "title": "Color",
-  "type": "string",
-  "enum": [
-    "ff0000",
-    "00ff00",
-    "0000ff"
-  ],
-  "x-enforceEnum": false
-}
-```
-
-Default value for this editor will be `"ff0000"`.
-
-```json
-{
-  "title": "Color",
-  "type": "string",
-  "enum": [
-    "ff0000",
-    "00ff00",
-    "0000ff"
-  ],
-  "x-enforceEnum": true
-}
-```
-
-### `x-enforceConst`
+### `x-startCollapsed`
 
 - Type: `boolean`
-- Default: `true`
-- Description: Value will remain whatever is defined in schema `"const"`.
-
-Default value for this editor will be `"ff0000"`.
-
-```json
-{
-  "title": "Color",
-  "type": "string",
-  "const": "ff0000",
-  "x-enforceConst": true
-}
-```
+- Description: Whether the editor should start expanded or collapsed. Works on editors that support collapse like `object` and `arrays`
 
 ### `x-switcherTitle`
 
@@ -1795,118 +1859,24 @@ But in the sub-editors the titles remain:
 }
 ```
 
-### `x-format`
+### `x-titleHidden`
+
+- Type: `boolean`
+- Default: `false`
+- Description: Hides the editor title.
+
+### `x-titleIconClass`
 
 - Type: `string`
-- Description: Determines editor UI and behaviours. The effect of `"format"` depends on the schema `"type"` keyword.
-- Options:
-    - Boolean:
-        - `"select"` (default)
-        - `"radios"`
-        - `"radios-inline"`
-        - `"checkbox"`
-    - String:
-        - `"text"` (default)
-        - `"hidden"`
-        - `"color"`
-        - `"date"`
-        - `"datetime-local"`
-        - `"email"`
-        - `"number"`
-        - `"month"`
-        - `"password"`
-        - `"search"`
-        - `"time"`
-        - `"tel"`
-        - `"url"`
-        - `"week"`
-        - `"textarea"`
-    - Number:
-        - `"number"` (default)
-        - `"select"`
-        - `"radios"`
-        - `"radios-inline"`
-    - integer:
-        - `"number"` (default)
-        - `"select"`
-        - `"radios"`
-        - `"radios-inline"`
-    - Array:
-        - `"list"` (default)
-        - `"nav-vertical"`
-        - `"nav-horizontal"`
-        - `"table"`
-    - Object:
-        - `"list"` (default)
-        - `"nav-vertical"`
-        - `"nav-horizontal"`
-        - `"grid"`
-- Examples:
+- Description: Icon class to use in titles if using any.
 
-Use radios to display color names instead of hex codes.
+Show a fontawesome envelope icon in the title.
 
 ```json
 {
-  "title": "Color",
+  "title": "Message",
   "type": "string",
-  "enum": [
-    "Red",
-    "Green",
-    "Blue"
-  ],
-  "x-format": "radios"
-}
-```
-
-### `x-grid`
-
-- Type: `object`
-- Description: A configuration object to determine the position of the property editor in the parent's grid.
-- Options:
-    - `columns`: How many columns should the editor occupy.
-    - `offset`: How many columns should the editor be offsetted.
-    - `newRow`: Whether the editor should be put in a new row.
-- Examples:
-    - [editors/object-grid](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-grid&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-
-### `x-enableCollapseToggle`
-
-- Type: `boolean`
-- Description: Display a collapse button used to collapse or expand editors that support collapse like `object` and `arrays`
-- Examples:
-    - [editors/object](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-    - [editors/array](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/array&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-
-### `x-startCollapsed`
-
-- Type: `boolean`
-- Description: Whether the editor should start expanded or collapsed. Works on editors that support collapse like `object` and `arrays`
-
-### `x-deactivateNonRequired`
-
-- Type: `boolean`
-- Description: Whether the editor should deactivate (hide) or activate (show) non required properties. Works on only with `object` type editors.
-
-Only the property `name` is active
-
-```json
-{
-  "title": "Person",
-  "type": "object",
-  "x-deactivateNonRequired": true,
-  "required": [
-    "name"
-  ],
-  "properties": {
-    "name": {
-      "type": "string",
-      "title": "Name"
-    },
-    "age": {
-      "type": "integer",
-      "title": "Age"
-    }
-  }
+  "x-titleIconClass": "fas fa-envelope"
 }
 ```
 
