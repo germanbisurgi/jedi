@@ -545,15 +545,17 @@ present in it's json schema.
 
 Virtually all editors can have the following features:
 
-- [x-titleHidden](#x-titlehidden)
-- [x-titleIconClass](#x-titleiconclass)
-- [x-showErrors](#x-showerrors)
-- [x-messages](#x-messages)
-- [x-hidden](#x-hidden)
-- [x-info](#x-info)
+- [x-assertFormat](#x-assertFormat)
 - [x-containerAttributes](#x-containerAttributes)
 - [x-enforceConst](#x-enforceconst)
 - [x-enforceEnum](#x-enforceEnum)
+- [x-hidden](#x-hidden)
+- [x-info](#x-info)
+- [x-inputAttributes](#x-inputattributes) (if any)
+- [x-messages](#x-messages)
+- [x-showErrors](#x-showerrors)
+- [x-titleHidden](#x-titlehidden)
+- [x-titleIconClass](#x-titleiconclass)
 
 ```json
 {
@@ -575,14 +577,19 @@ Virtually all editors can have the following features:
 
 Options:
 
-- [x-arrayDelete](#x-arrayDelete)
-- [x-arrayMove](#x-arrayMove)
 - [x-arrayAdd](#x-arrayAdd)
-- [x-sortable](#x-soratble)
-- [x-startCollapsed](#x-startCollapsed)
-- [x-enableCollapseToggle](#x-enableCollapseToggle)
-- [x-collapseToggleContent](#x-collapseToggleContent)
 - [x-arrayAddContent](#x-arrayAddContent)
+- [x-arrayDelete](#x-arrayDelete)
+- [x-arrayDeleteContent](#x-arrayDeleteContent)
+- [x-arrayDragContent](#x-arrayDragContent)
+- [x-arrayMove](#x-arrayMove)
+- [x-arrayMoveDownContent](#x-arrayMoveDownContent)
+- [x-arrayMoveUpContent](#x-arrayMoveUpContent)
+- [x-collapseToggleContent](#x-collapseToggleContent)
+- [x-enableCollapseToggle](#x-enableCollapseToggle)
+- [x-sortable](#x-sortable)
+- [x-startCollapsed](#x-startCollapsed)
+- [x-titleTemplate](#x-titleTemplate)
 
 #### Array list
 
@@ -941,6 +948,16 @@ Renders a star rating input using Raty.js if installed and available as `window.
 ```
 
 ### Object editors
+
+options:
+
+- [x-addPropertyContent](#x-addPropertyContent)
+- [x-collapseToggleContent](#x-collapseToggleContent)
+- [x-deactivateNonRequired](#x-deactivateNonRequired)
+- [x-enableCollapseToggle](#x-enableCollapseToggle)
+- [x-propertiesToggleContent](#x-propertiesToggleContent)
+- [x-startCollapsed](#x-startCollapsed)
+- [x-titleTemplate](#x-titleTemplate)
 
 #### Object
 
