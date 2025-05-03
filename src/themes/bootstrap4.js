@@ -332,6 +332,7 @@ class ThemeBootstrap4 extends Theme {
 
     container.classList.add('table-responsive')
     table.classList.add('table')
+    table.classList.add('table-borderless')
     table.classList.add('table-sm')
     table.classList.add('align-middle')
 

@@ -1,232 +1,67 @@
 {
-  "title": "Kleine Beutegreifer",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Chart.js Configuration Schema",
   "type": "object",
-  "x-options": {
-    "format": "grid",
-    "grid": {
-      "columns": 12
-    }
-  },
-  "required": [
-    "rotfuchs",
-    "dachs",
-    "baummarder",
-    "iltis"
-  ],
   "properties": {
-    "rotfuchs": {
-      "title": "Rotfuchs",
-      "$ref": "#/$defs/global/vorkommen_jungtiere_anzahl",
+    "type": {
+      "type": "string",
+      "enum": ["bar", "line", "pie", "doughnut", "radar", "polarArea", "bubble", "scatter"]
+    },
+    "data": {
+      "type": "object",
       "properties": {
-        "vk": {
-          "title": "Kam die Art im **Jagdjahr 2024/25** in Ihrem Revier vor?"
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
-        "jungtiere": {
-          "title": "Konnten Sie im **Jagdjahr 2024/25** Jungtiere beobachten?"
-        }
-      }
-    },
-    "dachs": {
-      "title": "Dachs",
-      "$ref": "#/$defs/global/vorkommen_jungtiere_anzahl",
-      "properties": {
-        "vk": {
-          "title": "Kam die Art im **Jagdjahr 2024/25** in Ihrem Revier vor?"
-        },
-        "jungtiere": {
-          "title": "Konnten Sie im **Jagdjahr 2024/25** Jungtiere beobachten?"
-        }
-      }
-    },
-    "baummarder": {
-      "title": "Baummarder",
-      "$ref": "#/$defs/global/vorkommen",
-      "properties": {
-        "vk": {
-          "title": "Kam die Art im **Jagdjahr 2024/25** in Ihrem Revier vor?"
-        }
-      }
-    },
-    "iltis": {
-      "title": "Iltis",
-      "$ref": "#/$defs/global/vorkommen",
-      "properties": {
-        "vk": {
-          "title": "Kam die Art im **Jagdjahr 2024/25** in Ihrem Revier vor?"
-        }
-      }
-    }
-  },
-  "$defs": {
-    "global": {
-      "vorkommen": {
-        "type": "object",
-        "required": [
-          "vk"
-        ],
-        "properties": {
-          "vk": {
-            "title": "Kam die Art im Frühjahr des aktuellen Jagdjahres in Ihrem Revier vor?",
-            "type": "string",
-            "enum": [
-              "ja",
-              "nein",
-              "unbekannt",
-              "keine_angabe"
-            ],
-            "x-options": {
-              "enumTitles": [
-                "ja",
-                "nein",
-                "unbekannt",
-                "keine Angabe"
-              ],
-              "enforceEnumDefault": false,
-              "format": "radios-inline"
-            }
+        "datasets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": { "type": "string" },
+              "data": {
+                "type": "array",
+                "items": { "type": "number" }
+              },
+              "backgroundColor": {
+                "type": ["string", "array"],
+                "items": { "type": "string" }
+              },
+              "borderColor": {
+                "type": ["string", "array"],
+                "items": { "type": "string" }
+              },
+              "borderWidth": { "type": "number" }
+            },
+            "required": ["label", "data"]
           }
         }
       },
-      "vorkommen_jungtiere_anzahl": {
-        "$ref": "#/$defs/global/vorkommen",
-        "x-options": {
-          "format": "grid"
-        },
-        "properties": {
-          "jungtiere": {
-            "title": "Konnten Sie im aktuellen Jagdjahr Jungtiere beobachten?"
-          },
-          "gehecke": {
-            "title": "Anzahl Gehecke:"
-          }
-        },
-        "if": {
+      "required": ["labels", "datasets"]
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "responsive": { "type": "boolean" },
+        "scales": {
+          "type": "object",
           "properties": {
-            "vk": {
-              "const": "ja"
-            }
-          }
-        },
-        "then": {
-          "properties": {
-            "jungtiere": {
-              "type": "string",
-              "enum": [
-                "ja",
-                "nein",
-                "unbekannt",
-                "keine_angabe"
-              ],
-              "x-options": {
-                "enforceEnumDefault": false,
-                "format": "radios-inline",
-                "enumTitles": [
-                  "ja",
-                  "nein",
-                  "unbekannt",
-                  "keine Angabe"
-                ]
-              }
-            },
-            "gehecke": {
-              "type": "integer",
-              "x-enforceConst": true
-            }
-          },
-          "if": {
-            "properties": {
-              "jungtiere": {
-                "const": "ja"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "gehecke": {
-                "minimum": 1
-              }
-            }
-          },
-          "else": {
-            "properties": {
-              "gehecke": {
-                "const": 0,
-                "readOnly": true
+            "y": {
+              "type": "object",
+              "properties": {
+                "beginAtZero": { "type": "boolean" }
               }
             }
           }
         },
-        "else": {
-          "if": {
-            "properties": {
-              "vk": {
-                "const": "nein"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "jungtiere": {
-                "type": "string",
-                "default": "",
-                "const": "",
-                "readOnly": true,
-                "description": "nein"
-              },
-              "gehecke": {
-                "type": "integer",
-                "const": 0,
-                "readOnly": true
-              }
-            }
-          },
-          "else": {
-            "if": {
-              "properties": {
-                "vk": {
-                  "const": "unbekannt"
-                }
-              }
-            },
-            "then": {
-              "properties": {
-                "jungtiere": {
-                  "type": "string",
-                  "default": "",
-                  "const": "",
-                  "readOnly": true,
-                  "description": "unbekannt"
-                },
-                "gehecke": {
-                  "type": "string",
-                  "default": "",
-                  "const": "",
-                  "readOnly": true,
-                  "description": "unbekannt"
-                }
-              }
-            },
-            "else": {
-              "properties": {
-                "jungtiere": {
-                  "type": "string",
-                  "default": "",
-                  "const": "",
-                  "readOnly": true,
-                  "description": "keine Angabe"
-                },
-                "gehecke": {
-                  "type": "string",
-                  "default": "",
-                  "const": "",
-                  "readOnly": true,
-                  "description": "keine Angabe"
-                }
-              }
-            }
-          }
+        "plugins": {
+          "type": "object"
         }
       }
     }
-  }
+  },
+  "required": ["type", "data"]
 }

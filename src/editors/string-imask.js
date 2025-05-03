@@ -33,7 +33,6 @@ class EditorStringIMask extends EditorString {
       this.imask = window.IMask(this.control.input, imaskOptions)
       this.useMaskedValue = schemaImask['x-masked'] ?? false
     } catch (e) {
-      console.log('lol', this.imask)
       console.error('IMask is not available or not loaded or configured correctly.', e)
     }
   }

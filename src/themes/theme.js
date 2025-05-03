@@ -1622,7 +1622,6 @@ class Theme {
     th.style.paddingRight = '12px'
     th.style.textWrap = 'nowrap'
     th.style.verticalAlign = 'bottom'
-    th.style.minWidth = '100px'
 
     if (config.minWidth) {
       th.style.minWidth = config.minWidth

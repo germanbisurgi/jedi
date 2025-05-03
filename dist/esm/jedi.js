@@ -3821,7 +3821,9 @@ class EditorArrayNav extends EditorArray {
         btnGroup.appendChild(moveDownBtn);
       }
       this.control.childrenSlot.appendChild(child.ui.control.container);
-      let childTitle;
+      const schemaTitle = getSchemaTitle(child.schema);
+      const childTitle = isSet(schemaTitle) ? schemaTitle + " " + (index2 + 1) : child.getKey();
+      let titleTemplate;
       const schemaOptionTitleTemplate = getSchemaXOption(this.instance.schema, "titleTemplate");
       if (schemaOptionTitleTemplate) {
         const template = schemaOptionTitleTemplate;
@@ -3831,16 +3833,13 @@ class EditorArrayNav extends EditorArray {
           value: child.getValue(),
           settings: this.instance.jedi.options.settings
         };
-        childTitle = compileTemplate(template, data);
-      } else {
-        const schemaTitle = getSchemaTitle(child.schema);
-        childTitle = isSet(schemaTitle) ? schemaTitle + " " + (index2 + 1) : child.getKey();
+        titleTemplate = compileTemplate(template, data) ?? childTitle;
       }
       const active = index2 === this.activeItemIndex;
       const id = pathToAttribute(child.path);
       const { list } = this.theme.getTab({
         hasErrors: child.children.some((grandChild) => grandChild.ui.showingValidationErrors),
-        title: childTitle,
+        title: titleTemplate.length ? titleTemplate : childTitle,
         id,
         active
       });
@@ -4084,7 +4083,6 @@ class EditorStringIMask extends EditorString {
       this.imask = window.IMask(this.control.input, imaskOptions);
       this.useMaskedValue = schemaImask["x-masked"] ?? false;
     } catch (e) {
-      console.log("lol", this.imask);
       console.error("IMask is not available or not loaded or configured correctly.", e);
     }
   }
@@ -6470,7 +6468,6 @@ class Theme {
     th.style.paddingRight = "12px";
     th.style.textWrap = "nowrap";
     th.style.verticalAlign = "bottom";
-    th.style.minWidth = "100px";
     if (config.minWidth) {
       th.style.minWidth = config.minWidth;
     }
@@ -7091,6 +7088,7 @@ class ThemeBootstrap4 extends Theme {
     const tbody = document.createElement("tbody");
     container.classList.add("table-responsive");
     table.classList.add("table");
+    table.classList.add("table-borderless");
     table.classList.add("table-sm");
     table.classList.add("align-middle");
     table.appendChild(thead);
@@ -7414,6 +7412,7 @@ class ThemeBootstrap5 extends Theme {
     const tbody = document.createElement("tbody");
     container.classList.add("table-responsive");
     table.classList.add("table");
+    table.classList.add("table-borderless");
     table.classList.add("table-sm");
     table.classList.add("align-middle");
     table.appendChild(thead);

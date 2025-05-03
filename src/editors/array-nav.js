@@ -60,8 +60,11 @@ class EditorArrayNav extends EditorArray {
       }
 
       this.control.childrenSlot.appendChild(child.ui.control.container)
+      const schemaTitle = getSchemaTitle(child.schema)
 
-      let childTitle
+      const childTitle = isSet(schemaTitle) ? schemaTitle + ' ' + (index + 1) : child.getKey()
+      let titleTemplate
+
       const schemaOptionTitleTemplate = getSchemaXOption(this.instance.schema, 'titleTemplate')
 
       if (schemaOptionTitleTemplate) {
@@ -72,10 +75,8 @@ class EditorArrayNav extends EditorArray {
           value: child.getValue(),
           settings: this.instance.jedi.options.settings
         }
-        childTitle = compileTemplate(template, data)
-      } else {
-        const schemaTitle = getSchemaTitle(child.schema)
-        childTitle = isSet(schemaTitle) ? schemaTitle + ' ' + (index + 1) : child.getKey()
+
+        titleTemplate = compileTemplate(template, data) ?? childTitle
       }
 
       const active = index === this.activeItemIndex
@@ -83,7 +84,7 @@ class EditorArrayNav extends EditorArray {
 
       const { list } = this.theme.getTab({
         hasErrors: child.children.some((grandChild) => grandChild.ui.showingValidationErrors),
-        title: childTitle,
+        title: titleTemplate.length ? titleTemplate : childTitle,
         id: id,
         active: active
       })
