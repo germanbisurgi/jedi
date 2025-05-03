@@ -441,7 +441,7 @@ class Theme {
   /**
    * A button
    */
-  getButton (config) {
+  getButton (config = {}) {
     const button = document.createElement('button')
     const text = document.createElement('span')
     const icon = document.createElement('i')

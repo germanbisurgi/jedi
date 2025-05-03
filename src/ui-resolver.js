@@ -5,6 +5,7 @@ import EditorStringRadios from './editors/string-radios.js'
 import EditorStringSelect from './editors/string-select.js'
 import EditorStringTextarea from './editors/string-textarea.js'
 import EditorStringAwesomplete from './editors/string-awesomplete.js'
+import EditorStringEmojiButton from './editors/string-emoji-button.js'
 import EditorStringInput from './editors/string-input.js'
 import EditorNumberRadio from './editors/number-radios.js'
 import EditorNumberSelect from './editors/number-select.js'
@@ -40,6 +41,7 @@ class UiResolver {
       EditorStringSelect,
       EditorStringTextarea,
       EditorStringAwesomplete,
+      EditorStringEmojiButton,
       EditorStringQuill,
       EditorStringJodit,
       EditorStringFlatpickr,

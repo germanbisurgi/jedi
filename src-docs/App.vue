@@ -279,6 +279,7 @@ import messagesByLanguage from './json/validator/messages-by-language.json'
 import messagesByConstraint from './json/validator/messages-by-constraint.json'
 import choices from './json/plugins/array-choices.json'
 import awesomplete from './json/plugins/string-awesomplete.json'
+import emojiButton from './json/plugins/string-emoji-button.json'
 import quill from './json/plugins/string-quill.json'
 import jodit from './json/plugins/string-jodit.json'
 import flatpickr from './json/plugins/string-flatpickr.json'
@@ -362,6 +363,7 @@ export default {
         'Plugins': {
           'plugins/choices': choices,
           'plugins/awesomplete': awesomplete,
+          'plugins/emoji-button': emojiButton,
           'plugins/flatpickr': flatpickr,
           'plugins/imask': imask,
           'plugins/imask-settings': imaskSettings,

@@ -1,0 +1,13 @@
+{
+  "title": "EmojiButton",
+  "type": "string",
+  "description": "JavaScript emoji picker. Any app, any framework.",
+  "default": "\uD83D\uDE00",
+  "minLength": 1,
+  "x-emojiButton": {},
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
+  }
+}

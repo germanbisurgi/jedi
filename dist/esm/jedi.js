@@ -3028,6 +3028,55 @@ class EditorStringAwesomplete extends EditorString {
     super.destroy();
   }
 }
+class EditorStringEmojiButton extends EditorString {
+  static resolves(schema) {
+    return window.EmojiButton && getSchemaType(schema) === "string" && isSet(getSchemaXOption(schema, "emojiButton"));
+  }
+  build() {
+    this.control = this.theme.getPlaceholderControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
+      id: this.getIdFromPath(this.instance.path),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
+      titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
+      info: this.getInfo()
+    });
+    this.emojiButton = this.theme.getButton();
+    this.emojiButton.classList.add("jedi-emoji-button");
+    this.emojiButton.textContent = "😀";
+    this.control.placeholder.appendChild(this.emojiButton);
+    const options = Object.assign({
+      theme: "auto",
+      autoHide: true,
+      showPreview: false,
+      showSearch: true
+    }, getSchemaXOption(this.instance.schema, "emojiButton"));
+    this.picker = new window.EmojiButton(options);
+  }
+  addEventListeners() {
+    this.picker.on("emoji", (emoji) => {
+      this.emojiButton.textContent = emoji;
+      this.instance.setValue(emoji, true, "user");
+    });
+    this.emojiButton.addEventListener("click", () => {
+      this.picker.togglePicker(this.emojiButton);
+    });
+  }
+  refreshUI() {
+    this.refreshDisabledState();
+    this.emojiButton.textContent = this.instance.getValue();
+  }
+  // sanitize (value) {
+  //   const emojiRegex = /(\p{Extended_Pictographic})/gu
+  //   const str = String(value)
+  //   const match = str.match(emojiRegex)
+  //   return match ? match[0] : ''
+  // }
+  destroy() {
+    if (this.picker) this.picker.hidePicker();
+    super.destroy();
+  }
+}
 class EditorStringInput extends EditorString {
   static resolves(schema) {
     return getSchemaType(schema) === "string";
@@ -4202,6 +4251,7 @@ class UiResolver {
       EditorStringSelect,
       EditorStringTextarea,
       EditorStringAwesomplete,
+      EditorStringEmojiButton,
       EditorStringQuill,
       EditorStringJodit,
       EditorStringFlatpickr,
@@ -5472,7 +5522,7 @@ class Theme {
   /**
    * A button
    */
-  getButton(config) {
+  getButton(config = {}) {
     const button = document.createElement("button");
     const text = document.createElement("span");
     const icon = document.createElement("i");
