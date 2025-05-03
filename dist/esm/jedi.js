@@ -3048,14 +3048,19 @@ class EditorStringEmojiButton extends EditorString {
       theme: "auto",
       autoHide: true,
       showPreview: false,
-      showSearch: true
+      showSearch: true,
+      zIndex: 1e4
     }, getSchemaXOption(this.instance.schema, "emojiButton"));
     this.emojiButton = new window.EmojiButton(options);
   }
   addEventListeners() {
     this.emojiButton.on("emoji", (emoji) => {
       this.control.input.value = emoji;
-      this.instance.setValue(emoji, true, "user");
+      let value = emoji;
+      if (typeof emoji === "object") {
+        value = emoji.emoji;
+      }
+      this.instance.setValue(value, true, "user");
     });
     this.control.input.addEventListener("click", () => {
       this.emojiButton.togglePicker(this.control.input);

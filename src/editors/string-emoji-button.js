@@ -29,7 +29,8 @@ class EditorStringEmojiButton extends EditorString {
       theme: 'auto',
       autoHide: true,
       showPreview: false,
-      showSearch: true
+      showSearch: true,
+      zIndex: 10000
     }, getSchemaXOption(this.instance.schema, 'emojiButton'))
 
     this.emojiButton = new window.EmojiButton(options)
@@ -38,7 +39,13 @@ class EditorStringEmojiButton extends EditorString {
   addEventListeners () {
     this.emojiButton.on('emoji', emoji => {
       this.control.input.value = emoji
-      this.instance.setValue(emoji, true, 'user')
+      let value = emoji
+
+      if (typeof emoji === 'object') {
+        value = emoji.emoji
+      }
+
+      this.instance.setValue(value, true, 'user')
     })
 
     this.control.input.addEventListener('click', () => {
