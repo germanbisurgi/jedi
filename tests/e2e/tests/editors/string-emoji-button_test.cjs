@@ -33,7 +33,7 @@ Scenario('@plugin @string-emoji-button should have a @default value', ({I}) => {
   I._waitForValue('[id="jedi-hidden-input"]', valueDefault)
 
   // editor
-  I._waitForText(valueDefault, '.jedi-emoji-button')
+  I.seeInField('#root', valueDefault)
 })
 
 Scenario('@plugin @string-emoji-button should @setValue and @showValidationErrors', ({I}) => {

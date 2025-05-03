@@ -3033,7 +3033,8 @@ class EditorStringEmojiButton extends EditorString {
     return window.EmojiButton && getSchemaType(schema) === "string" && isSet(getSchemaXOption(schema, "emojiButton"));
   }
   build() {
-    this.control = this.theme.getPlaceholderControl({
+    this.control = this.theme.getInputControl({
+      type: "button",
       title: this.getTitle(),
       description: this.getDescription(),
       id: this.getIdFromPath(this.instance.path),
@@ -3041,39 +3042,33 @@ class EditorStringEmojiButton extends EditorString {
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       info: this.getInfo()
     });
-    this.emojiButton = this.theme.getButton();
-    this.emojiButton.classList.add("jedi-emoji-button");
-    this.emojiButton.textContent = "😀";
-    this.control.placeholder.appendChild(this.emojiButton);
+    this.control.input.classList.add("jedi-emoji-button");
+    this.control.input.value = "😀";
     const options = Object.assign({
       theme: "auto",
       autoHide: true,
       showPreview: false,
       showSearch: true
     }, getSchemaXOption(this.instance.schema, "emojiButton"));
-    this.picker = new window.EmojiButton(options);
+    this.emojiButton = new window.EmojiButton(options);
   }
   addEventListeners() {
-    this.picker.on("emoji", (emoji) => {
-      this.emojiButton.textContent = emoji;
+    this.emojiButton.on("emoji", (emoji) => {
+      this.control.input.value = emoji;
       this.instance.setValue(emoji, true, "user");
     });
-    this.emojiButton.addEventListener("click", () => {
-      this.picker.togglePicker(this.emojiButton);
+    this.control.input.addEventListener("click", () => {
+      this.emojiButton.togglePicker(this.control.input);
     });
   }
   refreshUI() {
     this.refreshDisabledState();
-    this.emojiButton.textContent = this.instance.getValue();
+    this.control.input.value = this.instance.getValue();
   }
-  // sanitize (value) {
-  //   const emojiRegex = /(\p{Extended_Pictographic})/gu
-  //   const str = String(value)
-  //   const match = str.match(emojiRegex)
-  //   return match ? match[0] : ''
-  // }
   destroy() {
-    if (this.picker) this.picker.hidePicker();
+    if (this.emojiButton) {
+      this.emojiButton = null;
+    }
     super.destroy();
   }
 }
