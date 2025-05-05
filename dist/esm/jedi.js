@@ -5638,8 +5638,10 @@ class Theme {
         info.setAttribute(key, value);
       }
     }
-    infoText.textContent = "More information";
-    this.visuallyHidden(infoText);
+    infoText.textContent = "Info";
+    if (!this.btnContents && this.btnIcons) {
+      this.visuallyHidden(infoText);
+    }
     icon.setAttribute("title", "More information");
     if (this.icons) {
       this.addIconClass(icon, this.icons["info"]);
