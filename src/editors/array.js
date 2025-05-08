@@ -27,13 +27,13 @@ class EditorArray extends Editor {
       description: this.getDescription(),
       titleHidden: getSchemaXOption(this.instance.schema, 'titleHidden'),
       id: this.getIdFromPath(this.instance.path),
-      enableCollapseToggle: getSchemaXOption(this.instance.schema, 'enableCollapseToggle') ?? this.instance.jedi.options.enableCollapseToggle,
-      startCollapsed: getSchemaXOption(this.instance.schema, 'startCollapsed') ?? this.instance.jedi.options.startCollapsed,
+      enableCollapseToggle: getSchemaXOption(this.instance.schema, 'enableCollapseToggle') ?? this.instance.jedison.options.enableCollapseToggle,
+      startCollapsed: getSchemaXOption(this.instance.schema, 'startCollapsed') ?? this.instance.jedison.options.startCollapsed,
       readOnly: this.instance.isReadOnly(),
       info: this.getInfo(),
-      arrayAdd: getSchemaXOption(this.instance.schema, 'arrayAdd') ?? this.instance.jedi.options.arrayAdd,
-      arrayAddContent: getSchemaXOption(this.instance.schema, 'arrayAddContent') ?? this.instance.jedi.translator.translate('arrayAdd'),
-      collapseToggleContent: getSchemaXOption(this.instance.schema, 'collapseToggleContent') ?? this.instance.jedi.translator.translate('collapseToggle')
+      arrayAdd: getSchemaXOption(this.instance.schema, 'arrayAdd') ?? this.instance.jedison.options.arrayAdd,
+      arrayAddContent: getSchemaXOption(this.instance.schema, 'arrayAddContent') ?? this.instance.jedison.translator.translate('arrayAdd'),
+      collapseToggleContent: getSchemaXOption(this.instance.schema, 'collapseToggleContent') ?? this.instance.jedison.translator.translate('collapseToggle')
     })
   }
 
@@ -62,25 +62,25 @@ class EditorArray extends Editor {
     const schemaDragContent = getSchemaXOption(this.instance.schema, 'arrayDragContent')
 
     const deleteBtn = this.theme.getDeleteItemBtn({
-      content: schemaDeleteContent ?? this.instance.jedi.translator.translate('arrayDelete')
+      content: schemaDeleteContent ?? this.instance.jedison.translator.translate('arrayDelete')
     })
 
     const moveUpBtn = this.theme.getMoveUpItemBtn({
-      content: schemaMoveUpContent ?? this.instance.jedi.translator.translate('arrayMoveUp')
+      content: schemaMoveUpContent ?? this.instance.jedison.translator.translate('arrayMoveUp')
     })
 
     const moveDownBtn = this.theme.getMoveDownItemBtn({
-      content: schemaMoveDownContent ?? this.instance.jedi.translator.translate('arrayMoveDown')
+      content: schemaMoveDownContent ?? this.instance.jedison.translator.translate('arrayMoveDown')
     })
 
     const dragBtn = this.theme.getDragItemBtn({
-      content: schemaDragContent ?? this.instance.jedi.translator.translate('arrayDrag')
+      content: schemaDragContent ?? this.instance.jedison.translator.translate('arrayDrag')
     })
 
     const btnGroup = this.theme.getBtnGroup()
 
     deleteBtn.addEventListener('click', () => {
-      const confirmDeletion = window.confirm(this.instance.jedi.translator.translate('arrayConfirmDelete'))
+      const confirmDeletion = window.confirm(this.instance.jedison.translator.translate('arrayConfirmDelete'))
 
       if (confirmDeletion) {
         this.activeItemIndex = clamp((index - 1), 0, (this.instance.value.length - 1))
@@ -135,8 +135,8 @@ class EditorArray extends Editor {
   refreshUI () {
     const maxItems = getSchemaMaxItems(this.instance.schema)
     const minItems = getSchemaMinItems(this.instance.schema)
-    const arrayDelete = getSchemaXOption(this.instance.schema, 'arrayDelete') ?? this.instance.jedi.options.arrayDelete
-    const arrayMove = getSchemaXOption(this.instance.schema, 'arrayMove') ?? this.instance.jedi.options.arrayMove
+    const arrayDelete = getSchemaXOption(this.instance.schema, 'arrayDelete') ?? this.instance.jedison.options.arrayDelete
+    const arrayMove = getSchemaXOption(this.instance.schema, 'arrayMove') ?? this.instance.jedison.options.arrayMove
 
     this.control.childrenSlot.innerHTML = ''
 

@@ -6,30 +6,30 @@ export default defineConfig({
     copyPublicDir: false,
     lib: {
       entry: resolve(__dirname, './src/index.js'),
-      name: 'Jedi'
+      name: 'Jedison'
     },
     sourcemap: true,
     rollupOptions: {
       output: [
         {
           format: 'es',
-          entryFileNames: 'jedi.js',
+          entryFileNames: 'jedison.js',
           dir: resolve(__dirname, './dist/esm')
         },
         {
           format: 'cjs',
-          entryFileNames: 'jedi.js',
+          entryFileNames: 'jedison.js',
           dir: resolve(__dirname, './dist/cjs')
         },
         {
           format: 'cjs',
-          entryFileNames: 'jedi.cjs',
+          entryFileNames: 'jedison.cjs',
           dir: resolve(__dirname, './dist/cjs')
         },
         {
           format: 'umd',
-          name: 'Jedi',
-          entryFileNames: 'jedi.js',
+          name: 'Jedison',
+          entryFileNames: 'jedison.js',
           dir: resolve(__dirname, './dist/umd')
         }
       ]

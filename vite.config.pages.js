@@ -4,7 +4,7 @@ import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/jedi/',
+  base: '/jedison/',
   build: {
     outDir: resolve(__dirname, 'docs')
   }

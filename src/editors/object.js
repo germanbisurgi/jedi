@@ -33,8 +33,8 @@ class EditorObject extends Editor {
 
     let enablePropertiesToggle = false
 
-    if (isSet(this.instance.jedi.options.enablePropertiesToggle)) {
-      enablePropertiesToggle = this.instance.jedi.options.enablePropertiesToggle
+    if (isSet(this.instance.jedison.options.enablePropertiesToggle)) {
+      enablePropertiesToggle = this.instance.jedison.options.enablePropertiesToggle
     }
 
     if (isSet(schemaOptions.enablePropertiesToggle)) {
@@ -48,13 +48,13 @@ class EditorObject extends Editor {
       id: this.getIdFromPath(this.instance.path),
       enablePropertiesToggle: enablePropertiesToggle,
       addProperty: addProperty,
-      enableCollapseToggle: getSchemaXOption(this.instance.schema, 'enableCollapseToggle') ?? this.instance.jedi.options.enableCollapseToggle,
-      startCollapsed: getSchemaXOption(this.instance.schema, 'startCollapsed') ?? this.instance.jedi.options.startCollapsed,
+      enableCollapseToggle: getSchemaXOption(this.instance.schema, 'enableCollapseToggle') ?? this.instance.jedison.options.enableCollapseToggle,
+      startCollapsed: getSchemaXOption(this.instance.schema, 'startCollapsed') ?? this.instance.jedison.options.startCollapsed,
       readOnly: this.instance.isReadOnly(),
       info: this.getInfo(),
-      propertiesToggleContent: getSchemaXOption(this.instance.schema, 'propertiesToggleContent') ?? this.instance.jedi.translator.translate('propertiesToggle'),
-      collapseToggleContent: getSchemaXOption(this.instance.schema, 'collapseToggleContent') ?? this.instance.jedi.translator.translate('collapseToggle'),
-      addPropertyContent: getSchemaXOption(this.instance.schema, 'addPropertyContent') ?? this.instance.jedi.translator.translate('objectAddProperty')
+      propertiesToggleContent: getSchemaXOption(this.instance.schema, 'propertiesToggleContent') ?? this.instance.jedison.translator.translate('propertiesToggle'),
+      collapseToggleContent: getSchemaXOption(this.instance.schema, 'collapseToggleContent') ?? this.instance.jedison.translator.translate('collapseToggle'),
+      addPropertyContent: getSchemaXOption(this.instance.schema, 'addPropertyContent') ?? this.instance.jedison.translator.translate('objectAddProperty')
     })
   }
 
@@ -85,7 +85,7 @@ class EditorObject extends Editor {
       const schemaTitle = getSchemaTitle(child.schema)
       const label = isSet(schemaTitle) ? schemaTitle : propertyName
       const ariaLiveMessage = this.theme.getAriaLiveMessage()
-      ariaLiveMessage.textContent = label + ' ' + this.instance.jedi.translator.translate('objectPropertyAdded')
+      ariaLiveMessage.textContent = label + ' ' + this.instance.jedison.translator.translate('objectPropertyAdded')
       ariaLive.appendChild(ariaLiveMessage)
 
       // keeps dialog open
@@ -107,7 +107,7 @@ class EditorObject extends Editor {
   }
 
   refreshPropertiesSlot () {
-    const schemaOptionEnablePropertiesToggle = getSchemaXOption(this.instance.schema, 'enablePropertiesToggle') ?? this.instance.jedi.options.enablePropertiesToggle
+    const schemaOptionEnablePropertiesToggle = getSchemaXOption(this.instance.schema, 'enablePropertiesToggle') ?? this.instance.jedison.options.enablePropertiesToggle
 
     if (equal(schemaOptionEnablePropertiesToggle, true)) {
       const declaredProperties = Object.keys(this.instance.properties)
@@ -123,7 +123,7 @@ class EditorObject extends Editor {
         const ariaLive = this.control.ariaLive
         const schema = this.instance.getPropertySchema(property)
         const schemaTitle = getSchemaTitle(schema)
-        const path = this.instance.path + this.instance.jedi.pathSeparator + property
+        const path = this.instance.path + this.instance.jedison.pathSeparator + property
         const id = pathToAttribute(path) + '-activator'
         const title = isSet(schemaTitle) ? schemaTitle : property
 
@@ -148,11 +148,11 @@ class EditorObject extends Editor {
             }
 
             this.instance.getChild(property).activate()
-            ariaLiveMessage.textContent = title + ' ' + this.instance.jedi.translator.translate('objectPropertyAdded')
+            ariaLiveMessage.textContent = title + ' ' + this.instance.jedison.translator.translate('objectPropertyAdded')
             ariaLive.appendChild(ariaLiveMessage)
           } else {
             this.instance.getChild(property).deactivate()
-            ariaLiveMessage.textContent = title + ' ' + this.instance.jedi.translator.translate('objectPropertyRemoved')
+            ariaLiveMessage.textContent = title + ' ' + this.instance.jedison.translator.translate('objectPropertyRemoved')
             ariaLive.appendChild(ariaLiveMessage)
           }
 

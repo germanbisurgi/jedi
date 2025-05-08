@@ -38,8 +38,8 @@ class EditorArrayNav extends EditorArray {
       variant: variant
     })
 
-    const arrayDelete = getSchemaXOption(this.instance.schema, 'arrayDelete') ?? this.instance.jedi.options.arrayDelete
-    const arrayMove = getSchemaXOption(this.instance.schema, 'arrayMove') ?? this.instance.jedi.options.arrayMove
+    const arrayDelete = getSchemaXOption(this.instance.schema, 'arrayDelete') ?? this.instance.jedison.options.arrayDelete
+    const arrayMove = getSchemaXOption(this.instance.schema, 'arrayMove') ?? this.instance.jedison.options.arrayMove
 
     this.control.childrenSlot.appendChild(row)
     row.appendChild(tabListCol)
@@ -73,7 +73,7 @@ class EditorArrayNav extends EditorArray {
           i0: index,
           i1: (index + 1),
           value: child.getValue(),
-          settings: this.instance.jedi.options.settings
+          settings: this.instance.jedison.options.settings
         }
 
         titleTemplate = compileTemplate(template, data) ?? childTitle

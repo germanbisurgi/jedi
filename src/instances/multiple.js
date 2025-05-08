@@ -106,8 +106,8 @@ class InstanceMultiple extends Instance {
     }
 
     this.schemas.forEach((schema) => {
-      const instance = this.jedi.createInstance({
-        jedi: this.jedi,
+      const instance = this.jedison.createInstance({
+        jedison: this.jedison,
         schema: schema,
         path: this.path,
         parent: this.parent,
@@ -165,7 +165,7 @@ class InstanceMultiple extends Instance {
 
     for (let index = 0; index < this.instances.length; index++) {
       const instance = this.instances[index]
-      const instanceErrors = this.jedi.validator.getErrors(value, instance.schema, instance.getKey(), instance.path)
+      const instanceErrors = this.jedison.validator.getErrors(value, instance.schema, instance.getKey(), instance.path)
 
       // If an instance has no errors, return its index immediately
       if (instanceErrors.length === 0) {

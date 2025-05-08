@@ -9,7 +9,7 @@ class Editor {
   constructor (instance) {
     /**
      * A reference to the Instance being controlled by this editor.
-     * @type {Jedi}
+     * @type {Jedison}
      */
     this.instance = instance
 
@@ -50,7 +50,7 @@ class Editor {
     this.setContainerAttributes()
     this.refreshUI()
 
-    const alwaysShowErrors = this.instance.jedi.options.showErrors === 'always' || getSchemaXOption(this.instance.schema, 'showErrors') === 'always'
+    const alwaysShowErrors = this.instance.jedison.options.showErrors === 'always' || getSchemaXOption(this.instance.schema, 'showErrors') === 'always'
 
     if (alwaysShowErrors) {
       this.showValidationErrors(this.instance.getErrors())
@@ -70,7 +70,7 @@ class Editor {
    * Initializes the editor
    */
   init () {
-    this.theme = this.instance.jedi.theme
+    this.theme = this.instance.jedison.theme
   }
 
   /**
@@ -139,7 +139,7 @@ class Editor {
   }
 
   getIdFromPath (path) {
-    const optionId = this.instance.jedi.options.id
+    const optionId = this.instance.jedison.options.id
     return optionId ? optionId + '-' + pathToAttribute(path) : pathToAttribute(path)
   }
 
@@ -160,7 +160,7 @@ class Editor {
     this.control.messages.innerHTML = ''
     this.showingValidationErrors = false
 
-    const neverShowErrors = this.instance.jedi.options.showErrors === 'never' || getSchemaXOption(this.instance.schema, 'showErrors') === 'never'
+    const neverShowErrors = this.instance.jedison.options.showErrors === 'never' || getSchemaXOption(this.instance.schema, 'showErrors') === 'never'
 
     if ((neverShowErrors && !force) || errors.length === 0) {
       return
@@ -210,7 +210,7 @@ class Editor {
    * Clean out HTML tags from txt
    */
   purifyContent (content, domPurifyOptions) {
-    if (this.instance.jedi.options.purifyHtml && window.DOMPurify) {
+    if (this.instance.jedison.options.purifyHtml && window.DOMPurify) {
       return window.DOMPurify.sanitize(content, domPurifyOptions)
     } else {
       const tmp = document.createElement('div')
@@ -220,7 +220,7 @@ class Editor {
   }
 
   getHtmlFromMarkdown (content) {
-    if (this.instance.jedi.options.parseMarkdown && window.marked) {
+    if (this.instance.jedison.options.parseMarkdown && window.marked) {
       return window.marked.parse(content)
     }
 
@@ -238,12 +238,12 @@ class Editor {
     if (isSet(schemaTitle)) {
       this.title = compileTemplate(schemaTitle, {
         value: this.instance.getValue(),
-        settings: this.instance.jedi.options.settings
+        settings: this.instance.jedison.options.settings
       })
 
       this.title = this.getHtmlFromMarkdown(this.title)
 
-      const domPurifyOptions = combineDeep({}, this.instance.jedi.options.domPurifyOptions, {
+      const domPurifyOptions = combineDeep({}, this.instance.jedison.options.domPurifyOptions, {
         FORBID_TAGS: ['p']
       })
 
@@ -263,12 +263,12 @@ class Editor {
     if (isSet(schemaDescription)) {
       this.description = compileTemplate(schemaDescription, {
         value: this.instance.getValue(),
-        settings: this.instance.jedi.options.settings
+        settings: this.instance.jedison.options.settings
       })
 
       this.description = this.getHtmlFromMarkdown(this.description)
 
-      const domPurifyOptions = this.instance.jedi.options.domPurifyOptions
+      const domPurifyOptions = this.instance.jedison.options.domPurifyOptions
 
       this.purifyContent(this.description, domPurifyOptions)
     }
@@ -283,7 +283,7 @@ class Editor {
       return schemaInfo
     }
 
-    const domPurifyOptions = this.instance.jedi.options.domPurifyOptions
+    const domPurifyOptions = this.instance.jedison.options.domPurifyOptions
 
     if (isSet(schemaInfo.title)) {
       schemaInfo.title = this.getHtmlFromMarkdown(schemaInfo.title)

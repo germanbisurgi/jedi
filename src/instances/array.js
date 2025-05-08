@@ -16,8 +16,8 @@ class InstanceArray extends Instance {
   prepare () {
     const schemaMinItems = getSchemaMinItems(this.schema, 'minItems')
     const schemaEnforceMinItems = getSchemaXOption(this.schema, 'enforceMinItems')
-    const enforceMinItems = isSet(schemaEnforceMinItems) ? schemaEnforceMinItems : this.jedi.options.enforceMinItems
-    const isEditor = this.jedi.isEditor
+    const enforceMinItems = isSet(schemaEnforceMinItems) ? schemaEnforceMinItems : this.jedison.options.enforceMinItems
+    const isEditor = this.jedison.isEditor
     const hasEnforceMinItems = isSet(enforceMinItems) && enforceMinItems === true
     const hasMinItems = isSet(schemaMinItems)
 
@@ -47,10 +47,10 @@ class InstanceArray extends Instance {
       schema = schemaPrefixItems[itemsCount]
     }
 
-    return this.jedi.createInstance({
-      jedi: this.jedi,
+    return this.jedison.createInstance({
+      jedison: this.jedison,
       schema: schema,
-      path: this.path + this.jedi.pathSeparator + itemsCount,
+      path: this.path + this.jedison.pathSeparator + itemsCount,
       parent: this
     })
   }
@@ -70,7 +70,7 @@ class InstanceArray extends Instance {
     value.splice(toIndex, 0, item)
     this.setValue(value, true, initiator)
     this.emit('item-move', initiator)
-    this.jedi.emit('item-move', initiator)
+    this.jedison.emit('item-move', initiator)
   }
 
   addItem (initiator) {
@@ -81,7 +81,7 @@ class InstanceArray extends Instance {
     this.setValue(value, true, initiator)
     const instance = this.children[this.children.length - 1]
     this.emit('item-add', initiator, instance)
-    this.jedi.emit('item-add', initiator, instance)
+    this.jedison.emit('item-add', initiator, instance)
   }
 
   deleteItem (itemIndex, initiator) {
@@ -89,7 +89,7 @@ class InstanceArray extends Instance {
     const newValue = currentValue.filter((item, index) => index !== itemIndex)
     this.setValue(newValue, true, initiator)
     this.emit('item-delete', initiator)
-    this.jedi.emit('item-delete', initiator)
+    this.jedison.emit('item-delete', initiator)
   }
 
   onChildChange (initiator) {
@@ -100,7 +100,7 @@ class InstanceArray extends Instance {
     })
 
     this.value = value
-    this.jedi.emit('instance-change', this, initiator)
+    this.jedison.emit('instance-change', this, initiator)
     this.emit('notifyParent', initiator)
     this.emit('change', initiator)
   }

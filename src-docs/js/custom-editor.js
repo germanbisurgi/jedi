@@ -1,10 +1,10 @@
-import Jedi from '../../src/index.js'
+import Jedison from '../../src/index.js'
 
-class EditorStringCustom extends Jedi.EditorNull {
+class EditorStringCustom extends Jedison.EditorNull {
   static resolves (schema) {
-    const schemaType = Jedi.Schema.getSchemaType(schema)
-    const custom = Jedi.Schema.getSchemaXOption(schema, 'custom')
-    return schemaType === 'null' && Jedi.Utils.isSet(custom)
+    const schemaType = Jedison.Schema.getSchemaType(schema)
+    const custom = Jedison.Schema.getSchemaXOption(schema, 'custom')
+    return schemaType === 'null' && Jedison.Utils.isSet(custom)
   }
 
   build () {

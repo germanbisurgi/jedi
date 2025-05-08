@@ -1,5 +1,5 @@
 /* global describe it expect */
-const Jedi = require('../../../dist/cjs/jedi.cjs')
+const Jedison = require('../../../dist/cjs/jedison.cjs')
 
 const suites = [
   require('../../../node_modules/json-schema-test-suite/tests/draft2020-12/additionalProperties'),
@@ -59,10 +59,10 @@ for (let i = 0; i < suites.length; i++) {
       for (let k = 0; k < scenario.tests.length; k++) {
         const test = scenario.tests[k]
         it(test.description, async () => {
-          const refParser = new Jedi.RefParser()
+          const refParser = new Jedison.RefParser()
           await refParser.dereference(scenario.schema)
 
-          const jedi = new Jedi.Create({
+          const jedi = new Jedison.Create({
             schema: scenario.schema,
             refParser
           })

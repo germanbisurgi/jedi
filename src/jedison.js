@@ -26,11 +26,11 @@ import Translator from './i18n/translator.js'
 import JsonWalker from './json-walker.js'
 
 /**
- * Represents a Jedi instance.
+ * Represents a Jedison instance.
  */
-class Jedi extends EventEmitter {
+class Jedison extends EventEmitter {
   /**
-   * Creates a Jedi instance.
+   * Creates a Jedison instance.
    * @param {object} options - Options object
    * @param {object|boolean} options.schema - A JSON schema
    * @param {boolean} options.container - Where the UI controls will be rendered
@@ -98,7 +98,7 @@ class Jedi extends EventEmitter {
 
     /**
      * The root editor
-     * @type {Jedi}
+     * @type {Jedison}
      */
     this.root = null
 
@@ -208,7 +208,7 @@ class Jedi extends EventEmitter {
     })
 
     this.root = this.createInstance({
-      jedi: this,
+      jedison: this,
       schema: this.options.schema,
       path: this.rootName
     })
@@ -640,4 +640,4 @@ class Jedi extends EventEmitter {
   }
 }
 
-export default Jedi
+export default Jedison

@@ -3,7 +3,7 @@
  */
 
 import { compileTemplate, isObject, isSet } from '../../helpers/utils.js'
-import Jedi from '../../jedi.js'
+import Jedison from '../../jedison.js'
 import {
   getSchemaPropertyNames
 } from '../../helpers/schema.js'
@@ -14,7 +14,7 @@ export function propertyNames (validator, value, schema, key, path) {
 
   if (isObject(value) && isSet(schemaPropertyNames)) {
     Object.keys(value).forEach((propertyName) => {
-      const editor = new Jedi({
+      const editor = new Jedison({
         refParser: validator.refParser,
         schema: schemaPropertyNames,
         data: propertyName

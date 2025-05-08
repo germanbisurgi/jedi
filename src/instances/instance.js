@@ -23,16 +23,16 @@ class Instance extends EventEmitter {
     super()
 
     /**
-     * A reference to the Jedi instance to which this instance belongs.
-     * @type {Jedi}
+     * A reference to the Jedison instance to which this instance belongs.
+     * @type {Jedison}
      */
-    this.jedi = config.jedi
+    this.jedison = config.jedison
 
     /**
      * The schema path of this instance.
      * @type {string}
      */
-    this.path = config.path || this.jedi.rootName
+    this.path = config.path || this.jedison.rootName
 
     /**
      * A JSON schema.
@@ -79,7 +79,7 @@ class Instance extends EventEmitter {
 
     this.watched = {}
 
-    this.key = this.path.split(this.jedi.pathSeparator).pop()
+    this.key = this.path.split(this.jedison.pathSeparator).pop()
 
     this.init()
   }
@@ -96,7 +96,7 @@ class Instance extends EventEmitter {
     this.registerWatcher()
     this.setValueFormTemplate()
 
-    if (this.jedi.options.container) {
+    if (this.jedison.options.container) {
       this.setUI()
     }
 
@@ -112,8 +112,8 @@ class Instance extends EventEmitter {
    * Sets the instance ui property. UI can be an editor instance or similar
    */
   setUI () {
-    if (this.jedi.isEditor) {
-      const EditorClass = this.jedi.uiResolver.getClass(this.schema)
+    if (this.jedison.isEditor) {
+      const EditorClass = this.jedison.uiResolver.getClass(this.schema)
       this.ui = new EditorClass(this)
     }
   }
@@ -136,12 +136,12 @@ class Instance extends EventEmitter {
    * Adds a child instance pointer to the instances list
    */
   register () {
-    this.jedi.register(this)
+    this.jedison.register(this)
 
     if (this.children.length === 0) return
 
     const registerChildRecursive = (child) => {
-      this.jedi.register(child)
+      this.jedison.register(child)
       if (child.children.length > 0) {
         child.children.forEach(registerChildRecursive)
       }
@@ -154,7 +154,7 @@ class Instance extends EventEmitter {
    * Deletes a child instance pointer from the instances list
    */
   unregister () {
-    this.jedi.unregister(this)
+    this.jedison.unregister(this)
   }
 
   /**
@@ -163,8 +163,8 @@ class Instance extends EventEmitter {
   setInitialValue () {
     const schemaEnforceEnumDefault = getSchemaXOption(this.schema, 'enforceEnumDefault') // todo: deprecated
     const schemaEnforceEnum = getSchemaXOption(this.schema, 'enforceEnum')
-    const enforceEnumDefault = schemaEnforceEnumDefault ?? this.jedi.options.enforceEnumDefault // todo: deprecated
-    const enforceEnum = schemaEnforceEnum ?? this.jedi.options.enforceEnum
+    const enforceEnumDefault = schemaEnforceEnumDefault ?? this.jedison.options.enforceEnumDefault // todo: deprecated
+    const enforceEnum = schemaEnforceEnum ?? this.jedison.options.enforceEnum
     const finalEnforceEnum = isSet(schemaEnforceEnum) ? enforceEnum : enforceEnumDefault // todo: remove this after deprecation
     const schemaEnum = getSchemaEnum(this.schema)
 
@@ -195,7 +195,7 @@ class Instance extends EventEmitter {
       this.setValue(schemaDefault, false)
     }
 
-    const enforceConst = getSchemaXOption(this.schema, 'enforceConst') ?? this.jedi.options.enforceConst
+    const enforceConst = getSchemaXOption(this.schema, 'enforceConst') ?? this.jedison.options.enforceConst
 
     if (isSet(enforceConst) && equal(enforceConst, true)) {
       const schemaConst = getSchemaConst(this.schema)
@@ -212,14 +212,14 @@ class Instance extends EventEmitter {
     if (!isSet(watch)) return
 
     Object.entries(watch).forEach(([name, path]) => {
-      this.jedi.watch(path, () => {
+      this.jedison.watch(path, () => {
         this.updateWatchedData(name, path)
       })
     })
   }
 
   updateWatchedData (name, path) {
-    const instance = this.jedi.getInstance(path)
+    const instance = this.jedison.getInstance(path)
 
     if (!isSet(instance)) {
       return
@@ -257,7 +257,7 @@ class Instance extends EventEmitter {
    * Sets the instance value
    */
   setValue (newValue, notifyParent = true, initiator = 'api') {
-    const enforceConst = getSchemaXOption(this.schema, 'enforceConst') ?? this.jedi.options.enforceConst
+    const enforceConst = getSchemaXOption(this.schema, 'enforceConst') ?? this.jedison.options.enforceConst
 
     if (isSet(enforceConst) && equal(enforceConst, true)) {
       const schemaConst = getSchemaConst(this.schema)
@@ -280,7 +280,7 @@ class Instance extends EventEmitter {
     if (valueChanged) {
       this.isDirty = true
       this.emit('change', initiator)
-      this.jedi.emit('instance-change', this, initiator)
+      this.jedison.emit('instance-change', this, initiator)
     }
   }
 
@@ -298,7 +298,7 @@ class Instance extends EventEmitter {
       return []
     }
 
-    const errors = this.jedi.validator.getErrors(this.getValue(), this.schema, this.getKey(), this.path)
+    const errors = this.jedison.validator.getErrors(this.getValue(), this.schema, this.getKey(), this.path)
 
     return removeDuplicatesFromArray(errors)
   }

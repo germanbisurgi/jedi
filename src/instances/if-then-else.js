@@ -1,6 +1,6 @@
 import Instance from './instance.js'
 import EditorIfThenElse from '../editors/if-then-else.js'
-import Jedi from '../jedi.js'
+import Jedison from '../jedison.js'
 
 import {
   isSet,
@@ -55,16 +55,16 @@ class InstanceIfThenElse extends Instance {
     delete schemaClone.then
     delete schemaClone.else
 
-    this.instanceWithoutIf = this.jedi.createInstance({
-      jedi: this.jedi,
+    this.instanceWithoutIf = this.jedison.createInstance({
+      jedison: this.jedison,
       schema: schemaClone,
       path: this.path,
       parent: this.parent
     })
 
     this.schemas.forEach((schema) => {
-      const instance = this.jedi.createInstance({
-        jedi: this.jedi,
+      const instance = this.jedison.createInstance({
+        jedison: this.jedison,
         schema: schema,
         path: this.path,
         parent: this.parent
@@ -103,7 +103,7 @@ class InstanceIfThenElse extends Instance {
       if (isObject(startingValue) && isObject(value)) {
         if (indexChanged) {
           instanceValue = overwriteExistingProperties(startingValue, withoutIf)
-          this.jedi.updateInstancesWatchedData()
+          this.jedison.updateInstancesWatchedData()
         } else {
           instanceValue = overwriteExistingProperties(currentValue, value)
         }
@@ -179,10 +179,10 @@ class InstanceIfThenElse extends Instance {
           testSchema.type = this.schema.type
         }
 
-        const ifValidator = new Jedi({
+        const ifValidator = new Jedison({
           schema: testSchema,
           data: value,
-          refParser: this.jedi.refParser
+          refParser: this.jedison.refParser
         })
 
         const ifErrors = ifValidator.getErrors()

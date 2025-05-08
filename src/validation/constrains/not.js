@@ -1,14 +1,14 @@
 import { compileTemplate, isSet } from '../../helpers/utils.js'
 import { getSchemaNot } from '../../helpers/schema.js'
 
-import Jedi from '../../jedi.js'
+import Jedison from '../../jedison.js'
 
 export function not (validator, value, schema, key, path) {
   const errors = []
   const not = getSchemaNot(schema)
 
   if (isSet(not)) {
-    const notEditor = new Jedi({ refParser: validator.refParser, schema: not, data: value })
+    const notEditor = new Jedison({ refParser: validator.refParser, schema: not, data: value })
     const notErrors = notEditor.getErrors()
     notEditor.destroy()
 

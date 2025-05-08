@@ -1,5 +1,5 @@
 import { isSet, removeDuplicatesFromArray } from '../../helpers/utils.js'
-import Jedi from '../../jedi.js'
+import Jedison from '../../jedison.js'
 import { getSchemaAllOf } from '../../helpers/schema.js'
 
 export function allOf (validator, value, schema, key, path) {
@@ -8,7 +8,7 @@ export function allOf (validator, value, schema, key, path) {
 
   if (isSet(allOf)) {
     allOf.forEach((schema) => {
-      const subSchemaEditor = new Jedi({ refParser: validator.refParser, schema, data: value, rootName: key })
+      const subSchemaEditor = new Jedison({ refParser: validator.refParser, schema, data: value, rootName: key })
       const subSchemaErrors = subSchemaEditor.getErrors()
       subSchemaEditor.destroy()
 

@@ -1,5 +1,5 @@
 import { isObject, isSet } from '../../helpers/utils.js'
-import Jedi from '../../jedi.js'
+import Jedison from '../../jedison.js'
 import { getSchemaPatternProperties } from '../../helpers/schema.js'
 
 export function patternProperties (validator, value, schema, key, path) {
@@ -13,7 +13,7 @@ export function patternProperties (validator, value, schema, key, path) {
         if (regexp.test(propertyName)) {
           const schema = patternProperties[pattern]
 
-          const editor = new Jedi({
+          const editor = new Jedison({
             refParser: validator.refParser,
             schema: schema,
             data: value[propertyName]

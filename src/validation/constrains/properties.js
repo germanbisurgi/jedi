@@ -1,5 +1,5 @@
 import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils.js'
-import Jedi from '../../jedi.js'
+import Jedison from '../../jedison.js'
 import { getSchemaProperties } from '../../helpers/schema.js'
 
 export function properties (validator, value, schema, key, path) {
@@ -11,7 +11,7 @@ export function properties (validator, value, schema, key, path) {
       if (hasOwn(value, propertyName)) {
         const propertySchema = schemaProperties[propertyName]
 
-        const editor = new Jedi({
+        const editor = new Jedison({
           refParser: validator.refParser,
           schema: propertySchema,
           data: value[propertyName],

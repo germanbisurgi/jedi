@@ -1,5 +1,5 @@
 import { compileTemplate, isArray, isSet } from '../../helpers/utils.js'
-import Jedi from '../../jedi.js'
+import Jedison from '../../jedison.js'
 import { getSchemaPrefixItems } from '../../helpers/schema.js'
 
 export function prefixItems (validator, value, schema, key, path) {
@@ -11,7 +11,7 @@ export function prefixItems (validator, value, schema, key, path) {
       const itemValue = value[index]
 
       if (isSet(itemValue)) {
-        const tmpEditor = new Jedi({ refParser: validator.refParser, schema: itemSchema, data: itemValue })
+        const tmpEditor = new Jedison({ refParser: validator.refParser, schema: itemSchema, data: itemValue })
         const tmpErrors = tmpEditor.getErrors()
         tmpEditor.destroy()
 

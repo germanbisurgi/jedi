@@ -3,7 +3,7 @@
  */
 
 import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils.js'
-import Jedi from '../../jedi.js'
+import Jedison from '../../jedison.js'
 import { getSchemaAdditionalProperties, getSchemaPatternProperties, getSchemaProperties } from '../../helpers/schema.js'
 
 export function additionalProperties (validator, value, schema, key, path) {
@@ -35,7 +35,7 @@ export function additionalProperties (validator, value, schema, key, path) {
             ]
           })
         } else if (isObject(additionalProperties)) {
-          const editor = new Jedi({
+          const editor = new Jedison({
             refParser: validator.refParser,
             schema: additionalProperties,
             data: value[property]

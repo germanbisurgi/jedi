@@ -158,7 +158,7 @@
           <br>
 
           <form action="" method="POST">
-            <div ref="jediContainer" id="jedi-container"></div>
+            <div ref="jediContainer" id="jedison-container"></div>
           </form>
         </main>
       </div>
@@ -197,7 +197,7 @@
 
 import EditorStringCustom from "./js/custom-editor.js";
 
-import Jedi from '/src/index.js'
+import Jedison from '/src/index.js'
 import all from './json/editors/all.json'
 import array from './json/editors/array.json'
 import arrayButtonsContent from './json/editors/array-buttons-content.json'
@@ -577,16 +577,16 @@ export default {
 
       switch (name) {
         case 'barebones':
-          theme = new Jedi.Theme()
+          theme = new Jedison.Theme()
           break
         case 'bootstrap3':
-          theme = new Jedi.ThemeBootstrap3()
+          theme = new Jedison.ThemeBootstrap3()
           break
         case 'bootstrap4':
-          theme = new Jedi.ThemeBootstrap4()
+          theme = new Jedison.ThemeBootstrap4()
           break
         case 'bootstrap5':
-          theme = new Jedi.ThemeBootstrap5()
+          theme = new Jedison.ThemeBootstrap5()
           break
       }
 
@@ -623,7 +623,7 @@ export default {
         this.$refs.data.value = JSON.stringify(this.data, null, 2)
       }
 
-      const refParser = new Jedi.RefParser()
+      const refParser = new Jedison.RefParser()
       await refParser.dereference(this.schema)
 
       if (refParser.hasRefCycles()) {
@@ -632,7 +632,7 @@ export default {
       }
 
       const options = {
-        container: document.querySelector('#jedi-container'),
+        container: document.querySelector('#jedison-container'),
         btnContents: this.btnContents,
         btnIcons: this.btnIcons,
         enablePropertiesToggle: this.enablePropertiesToggle,
@@ -667,7 +667,7 @@ export default {
         }
       }
 
-      this.editor = new Jedi.Create(options)
+      this.editor = new Jedison.Create(options)
       window.editor = this.editor
       this.editorChangeHandler()
       this.editor.on('change', this.editorChangeHandler)

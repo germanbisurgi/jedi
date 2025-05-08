@@ -1,6 +1,6 @@
 import Schema from './helpers/schema.js'
 import Utils from './helpers/utils.js'
-import Create from './jedi.js'
+import Create from './jedison.js'
 import RefParser from './ref-parser/ref-parser.js'
 import Theme from './themes/theme.js'
 import ThemeBootstrap3 from './themes/bootstrap3.js'

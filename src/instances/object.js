@@ -28,7 +28,7 @@ class InstanceObject extends Instance {
 
         let musstCreateChild = true
 
-        const optionsDeactivateNonRequired = this.jedi.options.deactivateNonRequired
+        const optionsDeactivateNonRequired = this.jedison.options.deactivateNonRequired
         const deactivateNonRequired = getSchemaXOption(this.schema, 'deactivateNonRequired')
         const schemaDeactivateNonRequired = getSchemaXOption(schema, 'deactivateNonRequired')
 
@@ -51,7 +51,7 @@ class InstanceObject extends Instance {
     }
 
     // Add properties listed in schema required too if not present in schema properties
-    if (isSet(schemaRequired) && this.jedi.isEditor && this.jedi.options.enforceRequired === true) {
+    if (isSet(schemaRequired) && this.jedison.isEditor && this.jedison.options.enforceRequired === true) {
       schemaRequired.forEach((requiredProperty) => {
         this.requiredProperties.add(requiredProperty)
 
@@ -73,11 +73,11 @@ class InstanceObject extends Instance {
 
   removeNotListedPropertiesFromValue (value) {
     const schemaEnforceAdditionalProperties = getSchemaXOption(this.schema, 'enforceAdditionalProperties')
-    const enforceAdditionalProperties = isSet(schemaEnforceAdditionalProperties) ? schemaEnforceAdditionalProperties : this.jedi.options.enforceAdditionalProperties
+    const enforceAdditionalProperties = isSet(schemaEnforceAdditionalProperties) ? schemaEnforceAdditionalProperties : this.jedison.options.enforceAdditionalProperties
     const schemaAdditionalProperties = getSchemaAdditionalProperties(this.schema)
     const schemaPatternProperties = getSchemaPatternProperties(this.schema) || {}
 
-    if (this.jedi.isEditor && enforceAdditionalProperties && isSet(schemaAdditionalProperties) && schemaAdditionalProperties === false) {
+    if (this.jedison.isEditor && enforceAdditionalProperties && isSet(schemaAdditionalProperties) && schemaAdditionalProperties === false) {
       Object.keys(value).forEach((propertyName) => {
         const matchesPattern = Object.keys(schemaPatternProperties).some(pattern => new RegExp(pattern).test(propertyName))
 
@@ -90,9 +90,9 @@ class InstanceObject extends Instance {
   }
 
   addMissingRequiredPropertiesToValue (value) {
-    const enforceRequired = getSchemaXOption(this.schema, 'enforceRequired') ?? this.jedi.options.enforceRequired
+    const enforceRequired = getSchemaXOption(this.schema, 'enforceRequired') ?? this.jedison.options.enforceRequired
 
-    if (this.jedi.isEditor && enforceRequired) {
+    if (this.jedison.isEditor && enforceRequired) {
       this.requiredProperties.forEach((propertyName) => {
         if (!hasOwn(value, propertyName)) {
           value[propertyName] = this.getChild(propertyName).getValue()
@@ -138,10 +138,10 @@ class InstanceObject extends Instance {
   }
 
   createChild (schema, key, value, activate = false) {
-    const instance = this.jedi.createInstance({
-      jedi: this.jedi,
+    const instance = this.jedison.createInstance({
+      jedison: this.jedison,
       schema: schema,
-      path: this.path + this.jedi.pathSeparator + key,
+      path: this.path + this.jedison.pathSeparator + key,
       parent: this,
       value: clone(value)
     })
@@ -149,7 +149,7 @@ class InstanceObject extends Instance {
     this.children.push(instance)
     this.value[key] = instance.getValue()
 
-    const deactivateNonRequired = getSchemaXOption(this.schema, 'deactivateNonRequired') ?? this.jedi.options.deactivateNonRequired
+    const deactivateNonRequired = getSchemaXOption(this.schema, 'deactivateNonRequired') ?? this.jedison.options.deactivateNonRequired
 
     if (!this.isRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true && !activate) {
       instance.deactivate()
@@ -173,7 +173,7 @@ class InstanceObject extends Instance {
 
   getChild (key) {
     return this.children.find((instance) => {
-      return key === instance.getKey().split(this.jedi.pathSeparator).pop()
+      return key === instance.getKey().split(this.jedison.pathSeparator).pop()
     })
   }
 
@@ -228,7 +228,7 @@ class InstanceObject extends Instance {
     })
 
     this.value = value
-    this.jedi.emit('instance-change', this, initiator)
+    this.jedison.emit('instance-change', this, initiator)
     this.emit('notifyParent', initiator)
     this.emit('change', initiator)
   }

@@ -1,5 +1,5 @@
 import { compileTemplate, isSet } from '../../helpers/utils.js'
-import Jedi from '../../jedi.js'
+import Jedison from '../../jedison.js'
 import { getSchemaOneOf } from '../../helpers/schema.js'
 
 export function oneOf (validator, value, schema, key, path) {
@@ -10,7 +10,7 @@ export function oneOf (validator, value, schema, key, path) {
     let counter = 0
 
     oneOf.forEach((schema) => {
-      const oneOfEditor = new Jedi({ refParser: validator.refParser, schema: schema, data: value })
+      const oneOfEditor = new Jedison({ refParser: validator.refParser, schema: schema, data: value })
       const oneOfErrors = oneOfEditor.getErrors()
       oneOfEditor.destroy()
 

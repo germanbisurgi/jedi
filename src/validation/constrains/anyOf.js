@@ -1,4 +1,4 @@
-import Jedi from '../../jedi.js'
+import Jedison from '../../jedison.js'
 import { isSet } from '../../helpers/utils.js'
 import { getSchemaAnyOf } from '../../helpers/schema.js'
 
@@ -10,7 +10,7 @@ export function anyOf (validator, value, schema, key, path) {
     let valid = false
 
     anyOf.forEach((schema) => {
-      const anyOfEditor = new Jedi({ refParser: validator.refParser, schema: schema, data: value })
+      const anyOfEditor = new Jedison({ refParser: validator.refParser, schema: schema, data: value })
       const anyOfErrors = anyOfEditor.getErrors()
       anyOfEditor.destroy()
 

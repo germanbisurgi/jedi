@@ -444,7 +444,7 @@ function allOf(validator, value, schema, key, path) {
   const allOf2 = getSchemaAllOf(schema);
   if (isSet(allOf2)) {
     allOf2.forEach((schema2) => {
-      const subSchemaEditor = new Jedi({ refParser: validator.refParser, schema: schema2, data: value, rootName: key });
+      const subSchemaEditor = new Jedison({ refParser: validator.refParser, schema: schema2, data: value, rootName: key });
       const subSchemaErrors = subSchemaEditor.getErrors();
       subSchemaEditor.destroy();
       subSchemaErrors.forEach((error) => {
@@ -482,7 +482,7 @@ function anyOf(validator, value, schema, key, path) {
   if (isSet(anyOf2)) {
     let valid = false;
     anyOf2.forEach((schema2) => {
-      const anyOfEditor = new Jedi({ refParser: validator.refParser, schema: schema2, data: value });
+      const anyOfEditor = new Jedison({ refParser: validator.refParser, schema: schema2, data: value });
       const anyOfErrors = anyOfEditor.getErrors();
       anyOfEditor.destroy();
       if (anyOfErrors.length === 0) {
@@ -749,7 +749,7 @@ function not(validator, value, schema, key, path) {
   const errors = [];
   const not2 = getSchemaNot(schema);
   if (isSet(not2)) {
-    const notEditor = new Jedi({ refParser: validator.refParser, schema: not2, data: value });
+    const notEditor = new Jedison({ refParser: validator.refParser, schema: not2, data: value });
     const notErrors = notEditor.getErrors();
     notEditor.destroy();
     const invalid = notErrors.length === 0;
@@ -771,7 +771,7 @@ function oneOf(validator, value, schema, key, path) {
   if (isSet(oneOf2)) {
     let counter = 0;
     oneOf2.forEach((schema2) => {
-      const oneOfEditor = new Jedi({ refParser: validator.refParser, schema: schema2, data: value });
+      const oneOfEditor = new Jedison({ refParser: validator.refParser, schema: schema2, data: value });
       const oneOfErrors = oneOfEditor.getErrors();
       oneOfEditor.destroy();
       if (oneOfErrors.length === 0) {
@@ -821,7 +821,7 @@ function patternProperties(validator, value, schema, key, path) {
         const regexp = new RegExp(pattern2);
         if (regexp.test(propertyName)) {
           const schema2 = patternProperties2[pattern2];
-          const editor = new Jedi({
+          const editor = new Jedison({
             refParser: validator.refParser,
             schema: schema2,
             data: value[propertyName]
@@ -848,7 +848,7 @@ function properties(validator, value, schema, key, path) {
     Object.keys(schemaProperties).forEach((propertyName) => {
       if (hasOwn(value, propertyName)) {
         const propertySchema = schemaProperties[propertyName];
-        const editor = new Jedi({
+        const editor = new Jedison({
           refParser: validator.refParser,
           schema: propertySchema,
           data: value[propertyName],
@@ -1013,7 +1013,7 @@ function additionalProperties(validator, value, schema, key, path) {
             ]
           });
         } else if (isObject(additionalProperties2)) {
-          const editor = new Jedi({
+          const editor = new Jedison({
             refParser: validator.refParser,
             schema: additionalProperties2,
             data: value[property]
@@ -1086,7 +1086,7 @@ function contains(validator, value, schema, key, path) {
   if (isArray(value) && isSet(contains2)) {
     let counter = 0;
     value.forEach((item) => {
-      const containsEditor = new Jedi({ refParser: validator.refParser, schema: contains2, data: item });
+      const containsEditor = new Jedison({ refParser: validator.refParser, schema: contains2, data: item });
       const containsErrors = containsEditor.getErrors();
       if (containsErrors.length === 0) {
         counter++;
@@ -1170,7 +1170,7 @@ function dependentSchemas(validator, value, schema) {
     Object.keys(dependentSchemas2).forEach((key) => {
       if (isSet(value[key])) {
         const dependentSchema = dependentSchemas2[key];
-        const tmpEditor = new Jedi({ refParser: validator.refParser, schema: dependentSchema, data: value });
+        const tmpEditor = new Jedison({ refParser: validator.refParser, schema: dependentSchema, data: value });
         const tmpErrors = tmpEditor.getErrors();
         tmpEditor.destroy();
         errors = [...errors, ...tmpErrors];
@@ -1188,18 +1188,18 @@ function ifThenElse(validator, value, schema) {
     if (notSet(schemaThen) && notSet(schemaElse)) {
       return errors;
     }
-    const ifEditor = new Jedi({ refParser: validator.refParser, schema: schemaIf, data: value });
+    const ifEditor = new Jedison({ refParser: validator.refParser, schema: schemaIf, data: value });
     const ifErrors = ifEditor.getErrors();
     ifEditor.destroy();
     let thenErrors = [];
     let elseErrors = [];
     if (isSet(schemaThen)) {
-      const thenEditor = new Jedi({ refParser: validator.refParser, schema: schemaThen, data: value });
+      const thenEditor = new Jedison({ refParser: validator.refParser, schema: schemaThen, data: value });
       thenErrors = thenEditor.getErrors();
       thenEditor.destroy();
     }
     if (isSet(schemaElse)) {
-      const elseEditor = new Jedi({ refParser: validator.refParser, schema: schemaElse, data: value });
+      const elseEditor = new Jedison({ refParser: validator.refParser, schema: schemaElse, data: value });
       elseErrors = elseEditor.getErrors();
       elseEditor.destroy();
     }
@@ -1225,7 +1225,7 @@ function prefixItems(validator, value, schema, key, path) {
     prefixItems2.forEach((itemSchema, index2) => {
       const itemValue = value[index2];
       if (isSet(itemValue)) {
-        const tmpEditor = new Jedi({ refParser: validator.refParser, schema: itemSchema, data: itemValue });
+        const tmpEditor = new Jedison({ refParser: validator.refParser, schema: itemSchema, data: itemValue });
         const tmpErrors = tmpEditor.getErrors();
         tmpEditor.destroy();
         if (tmpErrors.length > 0) {
@@ -1357,7 +1357,7 @@ function unevaluatedProperties(validator, value, schema, key, path) {
           });
         }
         if (!definedInPatternProperty && isObject(unevaluatedProperties2) && !hasOwn(properties2, property)) {
-          const editor = new Jedi({
+          const editor = new Jedison({
             refParser: validator.refParser,
             schema: unevaluatedProperties2,
             data: value[property]
@@ -1416,7 +1416,7 @@ function propertyNames(validator, value, schema, key, path) {
   const schemaPropertyNames = getSchemaPropertyNames(schema);
   if (isObject(value) && isSet(schemaPropertyNames)) {
     Object.keys(value).forEach((propertyName) => {
-      const editor = new Jedi({
+      const editor = new Jedison({
         refParser: validator.refParser,
         schema: schemaPropertyNames,
         data: propertyName
@@ -1578,8 +1578,8 @@ class EventEmitter {
 class Instance extends EventEmitter {
   constructor(config) {
     super();
-    this.jedi = config.jedi;
-    this.path = config.path || this.jedi.rootName;
+    this.jedison = config.jedison;
+    this.path = config.path || this.jedison.rootName;
     this.schema = config.schema;
     this.value = isSet(config.value) ? config.value : void 0;
     this.isActive = true;
@@ -1588,7 +1588,7 @@ class Instance extends EventEmitter {
     this.ui = null;
     this.isDirty = false;
     this.watched = {};
-    this.key = this.path.split(this.jedi.pathSeparator).pop();
+    this.key = this.path.split(this.jedison.pathSeparator).pop();
     this.init();
   }
   /**
@@ -1601,7 +1601,7 @@ class Instance extends EventEmitter {
     this.setDefaultValue();
     this.registerWatcher();
     this.setValueFormTemplate();
-    if (this.jedi.options.container) {
+    if (this.jedison.options.container) {
       this.setUI();
     }
     this.on("notifyParent", (initiator) => {
@@ -1615,8 +1615,8 @@ class Instance extends EventEmitter {
    * Sets the instance ui property. UI can be an editor instance or similar
    */
   setUI() {
-    if (this.jedi.isEditor) {
-      const EditorClass = this.jedi.uiResolver.getClass(this.schema);
+    if (this.jedison.isEditor) {
+      const EditorClass = this.jedison.uiResolver.getClass(this.schema);
       this.ui = new EditorClass(this);
     }
   }
@@ -1636,10 +1636,10 @@ class Instance extends EventEmitter {
    * Adds a child instance pointer to the instances list
    */
   register() {
-    this.jedi.register(this);
+    this.jedison.register(this);
     if (this.children.length === 0) return;
     const registerChildRecursive = (child) => {
-      this.jedi.register(child);
+      this.jedison.register(child);
       if (child.children.length > 0) {
         child.children.forEach(registerChildRecursive);
       }
@@ -1650,7 +1650,7 @@ class Instance extends EventEmitter {
    * Deletes a child instance pointer from the instances list
    */
   unregister() {
-    this.jedi.unregister(this);
+    this.jedison.unregister(this);
   }
   /**
    * Sets the default value of the instance based on it's type
@@ -1658,8 +1658,8 @@ class Instance extends EventEmitter {
   setInitialValue() {
     const schemaEnforceEnumDefault = getSchemaXOption(this.schema, "enforceEnumDefault");
     const schemaEnforceEnum = getSchemaXOption(this.schema, "enforceEnum");
-    const enforceEnumDefault = schemaEnforceEnumDefault ?? this.jedi.options.enforceEnumDefault;
-    const enforceEnum = schemaEnforceEnum ?? this.jedi.options.enforceEnum;
+    const enforceEnumDefault = schemaEnforceEnumDefault ?? this.jedison.options.enforceEnumDefault;
+    const enforceEnum = schemaEnforceEnum ?? this.jedison.options.enforceEnum;
     const finalEnforceEnum = isSet(schemaEnforceEnum) ? enforceEnum : enforceEnumDefault;
     const schemaEnum = getSchemaEnum(this.schema);
     if (isSet(schemaEnum) && !schemaEnum.includes(this.getValue()) && isSet(schemaEnum[0]) && finalEnforceEnum) {
@@ -1683,7 +1683,7 @@ class Instance extends EventEmitter {
     if (isSet(schemaDefault)) {
       this.setValue(schemaDefault, false);
     }
-    const enforceConst = getSchemaXOption(this.schema, "enforceConst") ?? this.jedi.options.enforceConst;
+    const enforceConst = getSchemaXOption(this.schema, "enforceConst") ?? this.jedison.options.enforceConst;
     if (isSet(enforceConst) && equal(enforceConst, true)) {
       const schemaConst = getSchemaConst(this.schema);
       if (isSet(schemaConst)) {
@@ -1695,13 +1695,13 @@ class Instance extends EventEmitter {
     const watch = getSchemaXOption(this.schema, "watch");
     if (!isSet(watch)) return;
     Object.entries(watch).forEach(([name, path]) => {
-      this.jedi.watch(path, () => {
+      this.jedison.watch(path, () => {
         this.updateWatchedData(name, path);
       });
     });
   }
   updateWatchedData(name, path) {
-    const instance = this.jedi.getInstance(path);
+    const instance = this.jedison.getInstance(path);
     if (!isSet(instance)) {
       return;
     }
@@ -1731,7 +1731,7 @@ class Instance extends EventEmitter {
    * Sets the instance value
    */
   setValue(newValue, notifyParent = true, initiator = "api") {
-    const enforceConst = getSchemaXOption(this.schema, "enforceConst") ?? this.jedi.options.enforceConst;
+    const enforceConst = getSchemaXOption(this.schema, "enforceConst") ?? this.jedison.options.enforceConst;
     if (isSet(enforceConst) && equal(enforceConst, true)) {
       const schemaConst = getSchemaConst(this.schema);
       if (isSet(schemaConst)) {
@@ -1747,7 +1747,7 @@ class Instance extends EventEmitter {
     if (valueChanged) {
       this.isDirty = true;
       this.emit("change", initiator);
-      this.jedi.emit("instance-change", this, initiator);
+      this.jedison.emit("instance-change", this, initiator);
     }
   }
   /**
@@ -1762,7 +1762,7 @@ class Instance extends EventEmitter {
     if (!this.isActive) {
       return [];
     }
-    const errors = this.jedi.validator.getErrors(this.getValue(), this.schema, this.getKey(), this.path);
+    const errors = this.jedison.validator.getErrors(this.getValue(), this.schema, this.getKey(), this.path);
     return removeDuplicatesFromArray(errors);
   }
   /**
@@ -1834,7 +1834,7 @@ class Editor {
     this.setVisibility();
     this.setContainerAttributes();
     this.refreshUI();
-    const alwaysShowErrors = this.instance.jedi.options.showErrors === "always" || getSchemaXOption(this.instance.schema, "showErrors") === "always";
+    const alwaysShowErrors = this.instance.jedison.options.showErrors === "always" || getSchemaXOption(this.instance.schema, "showErrors") === "always";
     if (alwaysShowErrors) {
       this.showValidationErrors(this.instance.getErrors());
     }
@@ -1850,7 +1850,7 @@ class Editor {
    * Initializes the editor
    */
   init() {
-    this.theme = this.instance.jedi.theme;
+    this.theme = this.instance.jedison.theme;
   }
   /**
    * Gets the json path level by counting how many "/" it has
@@ -1908,7 +1908,7 @@ class Editor {
     }
   }
   getIdFromPath(path) {
-    const optionId = this.instance.jedi.options.id;
+    const optionId = this.instance.jedison.options.id;
     return optionId ? optionId + "-" + pathToAttribute(path) : pathToAttribute(path);
   }
   /**
@@ -1925,7 +1925,7 @@ class Editor {
     });
     this.control.messages.innerHTML = "";
     this.showingValidationErrors = false;
-    const neverShowErrors = this.instance.jedi.options.showErrors === "never" || getSchemaXOption(this.instance.schema, "showErrors") === "never";
+    const neverShowErrors = this.instance.jedison.options.showErrors === "never" || getSchemaXOption(this.instance.schema, "showErrors") === "never";
     if (neverShowErrors && !force || errors.length === 0) {
       return;
     }
@@ -1966,7 +1966,7 @@ class Editor {
    * Clean out HTML tags from txt
    */
   purifyContent(content, domPurifyOptions) {
-    if (this.instance.jedi.options.purifyHtml && window.DOMPurify) {
+    if (this.instance.jedison.options.purifyHtml && window.DOMPurify) {
       return window.DOMPurify.sanitize(content, domPurifyOptions);
     } else {
       const tmp = document.createElement("div");
@@ -1975,7 +1975,7 @@ class Editor {
     }
   }
   getHtmlFromMarkdown(content) {
-    if (this.instance.jedi.options.parseMarkdown && window.marked) {
+    if (this.instance.jedison.options.parseMarkdown && window.marked) {
       return window.marked.parse(content);
     }
     return content;
@@ -1989,10 +1989,10 @@ class Editor {
     if (isSet(schemaTitle)) {
       this.title = compileTemplate(schemaTitle, {
         value: this.instance.getValue(),
-        settings: this.instance.jedi.options.settings
+        settings: this.instance.jedison.options.settings
       });
       this.title = this.getHtmlFromMarkdown(this.title);
-      const domPurifyOptions = combineDeep({}, this.instance.jedi.options.domPurifyOptions, {
+      const domPurifyOptions = combineDeep({}, this.instance.jedison.options.domPurifyOptions, {
         FORBID_TAGS: ["p"]
       });
       this.title = this.purifyContent(this.title, domPurifyOptions);
@@ -2007,10 +2007,10 @@ class Editor {
     if (isSet(schemaDescription)) {
       this.description = compileTemplate(schemaDescription, {
         value: this.instance.getValue(),
-        settings: this.instance.jedi.options.settings
+        settings: this.instance.jedison.options.settings
       });
       this.description = this.getHtmlFromMarkdown(this.description);
-      const domPurifyOptions = this.instance.jedi.options.domPurifyOptions;
+      const domPurifyOptions = this.instance.jedison.options.domPurifyOptions;
       this.purifyContent(this.description, domPurifyOptions);
     }
     return this.description;
@@ -2020,7 +2020,7 @@ class Editor {
     if (!isSet(schemaInfo)) {
       return schemaInfo;
     }
-    const domPurifyOptions = this.instance.jedi.options.domPurifyOptions;
+    const domPurifyOptions = this.instance.jedison.options.domPurifyOptions;
     if (isSet(schemaInfo.title)) {
       schemaInfo.title = this.getHtmlFromMarkdown(schemaInfo.title);
       schemaInfo.title = this.purifyContent(schemaInfo.title, domPurifyOptions);
@@ -2135,15 +2135,15 @@ class InstanceIfThenElse extends Instance {
     delete schemaClone.if;
     delete schemaClone.then;
     delete schemaClone.else;
-    this.instanceWithoutIf = this.jedi.createInstance({
-      jedi: this.jedi,
+    this.instanceWithoutIf = this.jedison.createInstance({
+      jedison: this.jedison,
       schema: schemaClone,
       path: this.path,
       parent: this.parent
     });
     this.schemas.forEach((schema) => {
-      const instance = this.jedi.createInstance({
-        jedi: this.jedi,
+      const instance = this.jedison.createInstance({
+        jedison: this.jedison,
         schema,
         path: this.path,
         parent: this.parent
@@ -2172,7 +2172,7 @@ class InstanceIfThenElse extends Instance {
       if (isObject(startingValue) && isObject(value)) {
         if (indexChanged) {
           instanceValue = overwriteExistingProperties(startingValue, withoutIf);
-          this.jedi.updateInstancesWatchedData();
+          this.jedison.updateInstancesWatchedData();
         } else {
           instanceValue = overwriteExistingProperties(currentValue, value);
         }
@@ -2232,10 +2232,10 @@ class InstanceIfThenElse extends Instance {
         if (isSet(this.schema.type)) {
           testSchema.type = this.schema.type;
         }
-        const ifValidator = new Jedi({
+        const ifValidator = new Jedison({
           schema: testSchema,
           data: value,
-          refParser: this.jedi.refParser
+          refParser: this.jedison.refParser
         });
         const ifErrors = ifValidator.getErrors();
         ifValidator.destroy();
@@ -2333,8 +2333,8 @@ class InstanceMultiple extends Instance {
       ];
     }
     this.schemas.forEach((schema) => {
-      const instance = this.jedi.createInstance({
-        jedi: this.jedi,
+      const instance = this.jedison.createInstance({
+        jedison: this.jedison,
         schema,
         path: this.path,
         parent: this.parent,
@@ -2379,7 +2379,7 @@ class InstanceMultiple extends Instance {
     let championErrors;
     for (let index2 = 0; index2 < this.instances.length; index2++) {
       const instance = this.instances[index2];
-      const instanceErrors = this.jedi.validator.getErrors(value, instance.schema, instance.getKey(), instance.path);
+      const instanceErrors = this.jedison.validator.getErrors(value, instance.schema, instance.getKey(), instance.path);
       if (instanceErrors.length === 0) {
         fittestIndex = index2;
         break;
@@ -2411,7 +2411,7 @@ class InstanceObject extends Instance {
         const schema = schemaProperties[key];
         this.properties[key] = { schema };
         let musstCreateChild = true;
-        const optionsDeactivateNonRequired = this.jedi.options.deactivateNonRequired;
+        const optionsDeactivateNonRequired = this.jedison.options.deactivateNonRequired;
         const deactivateNonRequired = getSchemaXOption(this.schema, "deactivateNonRequired");
         const schemaDeactivateNonRequired = getSchemaXOption(schema, "deactivateNonRequired");
         if (!this.isRequired(key) && isSet(optionsDeactivateNonRequired) && optionsDeactivateNonRequired === true) {
@@ -2428,7 +2428,7 @@ class InstanceObject extends Instance {
         }
       });
     }
-    if (isSet(schemaRequired) && this.jedi.isEditor && this.jedi.options.enforceRequired === true) {
+    if (isSet(schemaRequired) && this.jedison.isEditor && this.jedison.options.enforceRequired === true) {
       schemaRequired.forEach((requiredProperty) => {
         this.requiredProperties.add(requiredProperty);
         if (!hasOwn(this.properties, requiredProperty)) {
@@ -2446,10 +2446,10 @@ class InstanceObject extends Instance {
   }
   removeNotListedPropertiesFromValue(value) {
     const schemaEnforceAdditionalProperties = getSchemaXOption(this.schema, "enforceAdditionalProperties");
-    const enforceAdditionalProperties = isSet(schemaEnforceAdditionalProperties) ? schemaEnforceAdditionalProperties : this.jedi.options.enforceAdditionalProperties;
+    const enforceAdditionalProperties = isSet(schemaEnforceAdditionalProperties) ? schemaEnforceAdditionalProperties : this.jedison.options.enforceAdditionalProperties;
     const schemaAdditionalProperties = getSchemaAdditionalProperties(this.schema);
     const schemaPatternProperties = getSchemaPatternProperties(this.schema) || {};
-    if (this.jedi.isEditor && enforceAdditionalProperties && isSet(schemaAdditionalProperties) && schemaAdditionalProperties === false) {
+    if (this.jedison.isEditor && enforceAdditionalProperties && isSet(schemaAdditionalProperties) && schemaAdditionalProperties === false) {
       Object.keys(value).forEach((propertyName) => {
         const matchesPattern = Object.keys(schemaPatternProperties).some((pattern2) => new RegExp(pattern2).test(propertyName));
         if (!hasOwn(this.properties, propertyName) && !matchesPattern) {
@@ -2460,8 +2460,8 @@ class InstanceObject extends Instance {
     }
   }
   addMissingRequiredPropertiesToValue(value) {
-    const enforceRequired = getSchemaXOption(this.schema, "enforceRequired") ?? this.jedi.options.enforceRequired;
-    if (this.jedi.isEditor && enforceRequired) {
+    const enforceRequired = getSchemaXOption(this.schema, "enforceRequired") ?? this.jedison.options.enforceRequired;
+    if (this.jedison.isEditor && enforceRequired) {
       this.requiredProperties.forEach((propertyName) => {
         if (!hasOwn(value, propertyName)) {
           value[propertyName] = this.getChild(propertyName).getValue();
@@ -2498,16 +2498,16 @@ class InstanceObject extends Instance {
     return false;
   }
   createChild(schema, key, value, activate = false) {
-    const instance = this.jedi.createInstance({
-      jedi: this.jedi,
+    const instance = this.jedison.createInstance({
+      jedison: this.jedison,
       schema,
-      path: this.path + this.jedi.pathSeparator + key,
+      path: this.path + this.jedison.pathSeparator + key,
       parent: this,
       value: clone(value)
     });
     this.children.push(instance);
     this.value[key] = instance.getValue();
-    const deactivateNonRequired = getSchemaXOption(this.schema, "deactivateNonRequired") ?? this.jedi.options.deactivateNonRequired;
+    const deactivateNonRequired = getSchemaXOption(this.schema, "deactivateNonRequired") ?? this.jedison.options.deactivateNonRequired;
     if (!this.isRequired(key) && isSet(deactivateNonRequired) && deactivateNonRequired === true && !activate) {
       instance.deactivate();
     }
@@ -2526,7 +2526,7 @@ class InstanceObject extends Instance {
   }
   getChild(key) {
     return this.children.find((instance) => {
-      return key === instance.getKey().split(this.jedi.pathSeparator).pop();
+      return key === instance.getKey().split(this.jedison.pathSeparator).pop();
     });
   }
   getPropertySchema(propertyName) {
@@ -2568,7 +2568,7 @@ class InstanceObject extends Instance {
       }
     });
     this.value = value;
-    this.jedi.emit("instance-change", this, initiator);
+    this.jedison.emit("instance-change", this, initiator);
     this.emit("notifyParent", initiator);
     this.emit("change", initiator);
   }
@@ -2636,8 +2636,8 @@ class InstanceArray extends Instance {
   prepare() {
     const schemaMinItems = getSchemaMinItems(this.schema);
     const schemaEnforceMinItems = getSchemaXOption(this.schema, "enforceMinItems");
-    const enforceMinItems = isSet(schemaEnforceMinItems) ? schemaEnforceMinItems : this.jedi.options.enforceMinItems;
-    const isEditor = this.jedi.isEditor;
+    const enforceMinItems = isSet(schemaEnforceMinItems) ? schemaEnforceMinItems : this.jedison.options.enforceMinItems;
+    const isEditor = this.jedison.isEditor;
     const hasEnforceMinItems = isSet(enforceMinItems) && enforceMinItems === true;
     const hasMinItems = isSet(schemaMinItems);
     if (isEditor && hasEnforceMinItems && hasMinItems) {
@@ -2660,10 +2660,10 @@ class InstanceArray extends Instance {
     if (hasPrefixItemsSchema) {
       schema = schemaPrefixItems[itemsCount];
     }
-    return this.jedi.createInstance({
-      jedi: this.jedi,
+    return this.jedison.createInstance({
+      jedison: this.jedison,
       schema,
-      path: this.path + this.jedi.pathSeparator + itemsCount,
+      path: this.path + this.jedison.pathSeparator + itemsCount,
       parent: this
     });
   }
@@ -2680,7 +2680,7 @@ class InstanceArray extends Instance {
     value.splice(toIndex, 0, item);
     this.setValue(value, true, initiator);
     this.emit("item-move", initiator);
-    this.jedi.emit("item-move", initiator);
+    this.jedison.emit("item-move", initiator);
   }
   addItem(initiator) {
     const tempEditor = this.createItemInstance();
@@ -2690,14 +2690,14 @@ class InstanceArray extends Instance {
     this.setValue(value, true, initiator);
     const instance = this.children[this.children.length - 1];
     this.emit("item-add", initiator, instance);
-    this.jedi.emit("item-add", initiator, instance);
+    this.jedison.emit("item-add", initiator, instance);
   }
   deleteItem(itemIndex, initiator) {
     const currentValue = clone(this.getValue());
     const newValue = currentValue.filter((item, index2) => index2 !== itemIndex);
     this.setValue(newValue, true, initiator);
     this.emit("item-delete", initiator);
-    this.jedi.emit("item-delete", initiator);
+    this.jedison.emit("item-delete", initiator);
   }
   onChildChange(initiator) {
     const value = [];
@@ -2705,7 +2705,7 @@ class InstanceArray extends Instance {
       value.push(child.getValue());
     });
     this.value = value;
-    this.jedi.emit("instance-change", this, initiator);
+    this.jedison.emit("instance-change", this, initiator);
     this.emit("notifyParent", initiator);
     this.emit("change", initiator);
   }
@@ -3213,7 +3213,7 @@ class EditorNumberInput extends EditorNumber {
       info: this.getInfo()
     });
     this.control.input.setAttribute("step", "any");
-    const useConstraintAttributes = getSchemaXOption(this.instance.schema, "useConstraintAttributes") ?? this.instance.jedi.options.useConstraintAttributes;
+    const useConstraintAttributes = getSchemaXOption(this.instance.schema, "useConstraintAttributes") ?? this.instance.jedison.options.useConstraintAttributes;
     if (useConstraintAttributes === true) {
       const schemaMinimum = getSchemaMinimum(this.instance.schema);
       const schemaMaximum = getSchemaMaximum(this.instance.schema);
@@ -3255,8 +3255,8 @@ class EditorObject extends Editor {
       addProperty = false;
     }
     let enablePropertiesToggle = false;
-    if (isSet(this.instance.jedi.options.enablePropertiesToggle)) {
-      enablePropertiesToggle = this.instance.jedi.options.enablePropertiesToggle;
+    if (isSet(this.instance.jedison.options.enablePropertiesToggle)) {
+      enablePropertiesToggle = this.instance.jedison.options.enablePropertiesToggle;
     }
     if (isSet(schemaOptions.enablePropertiesToggle)) {
       enablePropertiesToggle = schemaOptions.enablePropertiesToggle;
@@ -3268,13 +3268,13 @@ class EditorObject extends Editor {
       id: this.getIdFromPath(this.instance.path),
       enablePropertiesToggle,
       addProperty,
-      enableCollapseToggle: getSchemaXOption(this.instance.schema, "enableCollapseToggle") ?? this.instance.jedi.options.enableCollapseToggle,
-      startCollapsed: getSchemaXOption(this.instance.schema, "startCollapsed") ?? this.instance.jedi.options.startCollapsed,
+      enableCollapseToggle: getSchemaXOption(this.instance.schema, "enableCollapseToggle") ?? this.instance.jedison.options.enableCollapseToggle,
+      startCollapsed: getSchemaXOption(this.instance.schema, "startCollapsed") ?? this.instance.jedison.options.startCollapsed,
       readOnly: this.instance.isReadOnly(),
       info: this.getInfo(),
-      propertiesToggleContent: getSchemaXOption(this.instance.schema, "propertiesToggleContent") ?? this.instance.jedi.translator.translate("propertiesToggle"),
-      collapseToggleContent: getSchemaXOption(this.instance.schema, "collapseToggleContent") ?? this.instance.jedi.translator.translate("collapseToggle"),
-      addPropertyContent: getSchemaXOption(this.instance.schema, "addPropertyContent") ?? this.instance.jedi.translator.translate("objectAddProperty")
+      propertiesToggleContent: getSchemaXOption(this.instance.schema, "propertiesToggleContent") ?? this.instance.jedison.translator.translate("propertiesToggle"),
+      collapseToggleContent: getSchemaXOption(this.instance.schema, "collapseToggleContent") ?? this.instance.jedison.translator.translate("collapseToggle"),
+      addPropertyContent: getSchemaXOption(this.instance.schema, "addPropertyContent") ?? this.instance.jedison.translator.translate("objectAddProperty")
     });
   }
   addEventListeners() {
@@ -3297,7 +3297,7 @@ class EditorObject extends Editor {
       const schemaTitle = getSchemaTitle(child.schema);
       const label = isSet(schemaTitle) ? schemaTitle : propertyName;
       const ariaLiveMessage = this.theme.getAriaLiveMessage();
-      ariaLiveMessage.textContent = label + " " + this.instance.jedi.translator.translate("objectPropertyAdded");
+      ariaLiveMessage.textContent = label + " " + this.instance.jedison.translator.translate("objectPropertyAdded");
       ariaLive.appendChild(ariaLiveMessage);
       this.control.propertiesContainer.close();
       this.control.propertiesContainer.showModal();
@@ -3313,7 +3313,7 @@ class EditorObject extends Editor {
     return this.theme.getAlert(config);
   }
   refreshPropertiesSlot() {
-    const schemaOptionEnablePropertiesToggle = getSchemaXOption(this.instance.schema, "enablePropertiesToggle") ?? this.instance.jedi.options.enablePropertiesToggle;
+    const schemaOptionEnablePropertiesToggle = getSchemaXOption(this.instance.schema, "enablePropertiesToggle") ?? this.instance.jedison.options.enablePropertiesToggle;
     if (equal(schemaOptionEnablePropertiesToggle, true)) {
       const declaredProperties = Object.keys(this.instance.properties);
       const instanceProperties = this.instance.children.map((child) => child.getKey());
@@ -3326,7 +3326,7 @@ class EditorObject extends Editor {
         const ariaLive = this.control.ariaLive;
         const schema = this.instance.getPropertySchema(property);
         const schemaTitle = getSchemaTitle(schema);
-        const path = this.instance.path + this.instance.jedi.pathSeparator + property;
+        const path = this.instance.path + this.instance.jedison.pathSeparator + property;
         const id = pathToAttribute(path) + "-activator";
         const title = isSet(schemaTitle) ? schemaTitle : property;
         const checkboxControl = this.theme.getCheckboxControl({
@@ -3345,11 +3345,11 @@ class EditorObject extends Editor {
               this.instance.createChild(schema, property);
             }
             this.instance.getChild(property).activate();
-            ariaLiveMessage.textContent = title + " " + this.instance.jedi.translator.translate("objectPropertyAdded");
+            ariaLiveMessage.textContent = title + " " + this.instance.jedison.translator.translate("objectPropertyAdded");
             ariaLive.appendChild(ariaLiveMessage);
           } else {
             this.instance.getChild(property).deactivate();
-            ariaLiveMessage.textContent = title + " " + this.instance.jedi.translator.translate("objectPropertyRemoved");
+            ariaLiveMessage.textContent = title + " " + this.instance.jedison.translator.translate("objectPropertyRemoved");
             ariaLive.appendChild(ariaLiveMessage);
           }
           this.control.propertiesContainer.close();
@@ -3516,13 +3516,13 @@ class EditorArray extends Editor {
       description: this.getDescription(),
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       id: this.getIdFromPath(this.instance.path),
-      enableCollapseToggle: getSchemaXOption(this.instance.schema, "enableCollapseToggle") ?? this.instance.jedi.options.enableCollapseToggle,
-      startCollapsed: getSchemaXOption(this.instance.schema, "startCollapsed") ?? this.instance.jedi.options.startCollapsed,
+      enableCollapseToggle: getSchemaXOption(this.instance.schema, "enableCollapseToggle") ?? this.instance.jedison.options.enableCollapseToggle,
+      startCollapsed: getSchemaXOption(this.instance.schema, "startCollapsed") ?? this.instance.jedison.options.startCollapsed,
       readOnly: this.instance.isReadOnly(),
       info: this.getInfo(),
-      arrayAdd: getSchemaXOption(this.instance.schema, "arrayAdd") ?? this.instance.jedi.options.arrayAdd,
-      arrayAddContent: getSchemaXOption(this.instance.schema, "arrayAddContent") ?? this.instance.jedi.translator.translate("arrayAdd"),
-      collapseToggleContent: getSchemaXOption(this.instance.schema, "collapseToggleContent") ?? this.instance.jedi.translator.translate("collapseToggle")
+      arrayAdd: getSchemaXOption(this.instance.schema, "arrayAdd") ?? this.instance.jedison.options.arrayAdd,
+      arrayAddContent: getSchemaXOption(this.instance.schema, "arrayAddContent") ?? this.instance.jedison.translator.translate("arrayAdd"),
+      collapseToggleContent: getSchemaXOption(this.instance.schema, "collapseToggleContent") ?? this.instance.jedison.translator.translate("collapseToggle")
     });
   }
   addEventListeners() {
@@ -3545,20 +3545,20 @@ class EditorArray extends Editor {
     const schemaMoveDownContent = getSchemaXOption(this.instance.schema, "arrayMoveDownContent");
     const schemaDragContent = getSchemaXOption(this.instance.schema, "arrayDragContent");
     const deleteBtn = this.theme.getDeleteItemBtn({
-      content: schemaDeleteContent ?? this.instance.jedi.translator.translate("arrayDelete")
+      content: schemaDeleteContent ?? this.instance.jedison.translator.translate("arrayDelete")
     });
     const moveUpBtn = this.theme.getMoveUpItemBtn({
-      content: schemaMoveUpContent ?? this.instance.jedi.translator.translate("arrayMoveUp")
+      content: schemaMoveUpContent ?? this.instance.jedison.translator.translate("arrayMoveUp")
     });
     const moveDownBtn = this.theme.getMoveDownItemBtn({
-      content: schemaMoveDownContent ?? this.instance.jedi.translator.translate("arrayMoveDown")
+      content: schemaMoveDownContent ?? this.instance.jedison.translator.translate("arrayMoveDown")
     });
     const dragBtn = this.theme.getDragItemBtn({
-      content: schemaDragContent ?? this.instance.jedi.translator.translate("arrayDrag")
+      content: schemaDragContent ?? this.instance.jedison.translator.translate("arrayDrag")
     });
     const btnGroup = this.theme.getBtnGroup();
     deleteBtn.addEventListener("click", () => {
-      const confirmDeletion = window.confirm(this.instance.jedi.translator.translate("arrayConfirmDelete"));
+      const confirmDeletion = window.confirm(this.instance.jedison.translator.translate("arrayConfirmDelete"));
       if (confirmDeletion) {
         this.activeItemIndex = clamp(index2 - 1, 0, this.instance.value.length - 1);
         this.instance.deleteItem(index2, "user");
@@ -3603,8 +3603,8 @@ class EditorArray extends Editor {
   refreshUI() {
     const maxItems2 = getSchemaMaxItems(this.instance.schema);
     const minItems2 = getSchemaMinItems(this.instance.schema);
-    const arrayDelete = getSchemaXOption(this.instance.schema, "arrayDelete") ?? this.instance.jedi.options.arrayDelete;
-    const arrayMove = getSchemaXOption(this.instance.schema, "arrayMove") ?? this.instance.jedi.options.arrayMove;
+    const arrayDelete = getSchemaXOption(this.instance.schema, "arrayDelete") ?? this.instance.jedison.options.arrayDelete;
+    const arrayMove = getSchemaXOption(this.instance.schema, "arrayMove") ?? this.instance.jedison.options.arrayMove;
     this.control.childrenSlot.innerHTML = "";
     this.instance.children.forEach((child, index2) => {
       const { deleteBtn, moveUpBtn, moveDownBtn, dragBtn, btnGroup } = this.getButtons(index2);
@@ -3683,8 +3683,8 @@ class EditorArrayTable extends EditorArray {
       table.thead.appendChild(th2);
     });
     tempEditor.destroy();
-    const arrayDelete = getSchemaXOption(this.instance.schema, "arrayDelete") ?? this.instance.jedi.options.arrayDelete;
-    const arrayMove = getSchemaXOption(this.instance.schema, "arrayMove") ?? this.instance.jedi.options.arrayMove;
+    const arrayDelete = getSchemaXOption(this.instance.schema, "arrayDelete") ?? this.instance.jedison.options.arrayDelete;
+    const arrayMove = getSchemaXOption(this.instance.schema, "arrayMove") ?? this.instance.jedison.options.arrayMove;
     this.instance.children.forEach((child, index2) => {
       const tbodyRow = document.createElement("tr");
       const buttonsTd = this.theme.getTableDefinition();
@@ -3853,8 +3853,8 @@ class EditorArrayNav extends EditorArray {
     const tabList = this.theme.getTabList({
       variant
     });
-    const arrayDelete = getSchemaXOption(this.instance.schema, "arrayDelete") ?? this.instance.jedi.options.arrayDelete;
-    const arrayMove = getSchemaXOption(this.instance.schema, "arrayMove") ?? this.instance.jedi.options.arrayMove;
+    const arrayDelete = getSchemaXOption(this.instance.schema, "arrayDelete") ?? this.instance.jedison.options.arrayDelete;
+    const arrayMove = getSchemaXOption(this.instance.schema, "arrayMove") ?? this.instance.jedison.options.arrayMove;
     this.control.childrenSlot.appendChild(row);
     row.appendChild(tabListCol);
     row.appendChild(tabContentCol);
@@ -3880,7 +3880,7 @@ class EditorArrayNav extends EditorArray {
           i0: index2,
           i1: index2 + 1,
           value: child.getValue(),
-          settings: this.instance.jedi.options.settings
+          settings: this.instance.jedison.options.settings
         };
         titleTemplate = compileTemplate(template, data) ?? childTitle;
       }
@@ -3921,7 +3921,7 @@ class EditorMultiple extends Editor {
     return isSet(schemaAnyOf) || isSet(schemaOneOf) || schemaType === "any" || isArray(schemaType) || notSet(schemaType);
   }
   build() {
-    this.switcherInput = getSchemaXOption(this.instance.schema, "switcherInput") ?? this.instance.jedi.options.switcherInput;
+    this.switcherInput = getSchemaXOption(this.instance.schema, "switcherInput") ?? this.instance.jedison.options.switcherInput;
     this.control = this.theme.getMultipleControl({
       titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
       id: this.getIdFromPath(this.instance.path),
@@ -4127,7 +4127,7 @@ class EditorStringIMask extends EditorString {
     try {
       const schemaImask = getSchemaXOption(this.instance.schema, "imask") ?? {};
       const schemaImaskSettings = schemaImask["x-settings"];
-      const settings = schemaImaskSettings && this.instance.jedi.options.settings[schemaImaskSettings] ? this.instance.jedi.options.settings[schemaImaskSettings] : {};
+      const settings = schemaImaskSettings && this.instance.jedison.options.settings[schemaImaskSettings] ? this.instance.jedison.options.settings[schemaImaskSettings] : {};
       const imaskOptions = { ...schemaImask, ...settings };
       this.imask = window.IMask(this.control.input, imaskOptions);
       this.useMaskedValue = schemaImask["x-masked"] ?? false;
@@ -4555,9 +4555,9 @@ class JsonWalker {
     }
   }
 }
-class Jedi extends EventEmitter {
+class Jedison extends EventEmitter {
   /**
-   * Creates a Jedi instance.
+   * Creates a Jedison instance.
    * @param {object} options - Options object
    * @param {object|boolean} options.schema - A JSON schema
    * @param {boolean} options.container - Where the UI controls will be rendered
@@ -4670,7 +4670,7 @@ class Jedi extends EventEmitter {
       translator: this.translator
     });
     this.root = this.createInstance({
-      jedi: this,
+      jedison: this,
       schema: this.options.schema,
       path: this.rootName
     });
@@ -7559,9 +7559,9 @@ const index = {
   ThemeBootstrap4,
   ThemeBootstrap5,
   RefParser,
-  Create: Jedi
+  Create: Jedison
 };
 export {
   index as default
 };
-//# sourceMappingURL=jedi.js.map
+//# sourceMappingURL=jedison.js.map

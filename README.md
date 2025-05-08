@@ -1,10 +1,10 @@
-[![Tests](https://github.com/germanbisurgi/jedi/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/germanbisurgi/jedi/actions/workflows/main.yml)
+[![Tests](https://github.com/germanbisurgi/jedison/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/germanbisurgi/jedison/actions/workflows/main.yml)
 
-# Jedi - JSON Editing and Data Integrity
+# Jedison
 
 Generates forms from JSON schemas. Can be used in backend to validate JSON data too.
 
-Check Out the [PLAYGROUND](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5)
+Check Out the [PLAYGROUND](https://germanbisurgi.github.io/jedison/index.html?theme=bootstrap5)
 
 # Table of Contents
 
@@ -116,12 +116,12 @@ const schema = {
   "type": "string"
 }
 
-const refParser = new Jedi.RefParser()
+const refParser = new Jedison.RefParser()
 
 const init = async () => {
   await refParser.dereference(schema)
 
-  const jedi = new Jedi.Create({
+  const jedison = new Jedison.Create({
     refParser: refParser,
     schema: schema
   })
@@ -134,7 +134,7 @@ init()
 
 ```html
 
-<div id="jedi-container"></div>
+<div id="jedison-container"></div>
 ```
 
 ```javascript
@@ -142,14 +142,14 @@ const schema = {
   "type": "string"
 }
 
-const refParser = new Jedi.RefParser()
+const refParser = new Jedison.RefParser()
 
 const init = async () => {
   await refParser.dereference(schema)
 
-  const jedi = new Jedi.Create({
-    container: document.querySelector('#jedi-container'),
-    theme: new Jedi.ThemeBootstrap3(),
+  const jedison = new Jedison.Create({
+    container: document.querySelector('#jedison-container'),
+    theme: new Jedison.ThemeBootstrap3(),
     refParser: refParser,
     schema: schema
   })
@@ -161,41 +161,41 @@ init()
 ## Instance Methods
 
 ```javascript
-    jedi.getValue() // returns the value of the editor
-    jedi.setValue({name: "Marcus mille"}) // set the editor value
-    jedi.getInstance('#/name') // gets the instance by json path
-    jedi.showValidationErrors() // displays validation errors in the respective editors
-    jedi.getErrors() // returns an array of validation error messages
-    jedi.disable() // disables the editor
-    jedi.enable() // enables the editor
-    jedi.destroy() // destroys the editor
+    jedison.getValue() // returns the value of the editor
+    jedison.setValue({name: "Marcus miller"}) // set the editor value
+    jedison.getInstance('#/name') // gets the instance by json path
+    jedison.showValidationErrors() // displays validation errors in the respective editors
+    jedison.getErrors() // returns an array of validation error messages
+    jedison.disable() // disables the editor
+    jedison.enable() // enables the editor
+    jedison.destroy() // destroys the editor
 ```
 
 ## Instance event listeners
 
 ```javascript
-// emitted when the jedi instance changes (whole json value/instance/editor)
-jedi.on('change', (initiator) => {
+// emitted when the jedison instance changes (whole json value/instance/editor)
+jedison.on('change', (initiator) => {
   
 })
 
 // emitted when an instance changes (parts of the value/instance/editor)
-jedi.on('instance-change', (instance, initiator) => {
+jedison.on('instance-change', (instance, initiator) => {
 
 })
 
 // emitted when a new item to an array instance
-jedi.editor.on('item-add', (initiator, newInstance) => {
+jedison.editor.on('item-add', (initiator, newInstance) => {
 
 })
 
 // emitted when an item is removed from an array instance
-jedi.editor.on('item-delete', (initiator) => {
+jedison.editor.on('item-delete', (initiator) => {
 
 })
 
 // emitted when a new item is move up or down in an array instance
-jedi.editor.on('item-move', (initiator) => {
+jedison.editor.on('item-move', (initiator) => {
 
 })
 ```
@@ -300,17 +300,17 @@ translates to:
       <td>
         An instance of <code>Theme</code> to apply to the UI. Valid options include:
         <ul>
-          <li><code>new Jedi.Theme()</code></li>
-          <li><code>new Jedi.ThemeBootstrap3()</code></li>
-          <li><code>new Jedi.ThemeBootstrap4()</code></li>
-          <li><code>new Jedi.ThemeBootstrap5()</code></li>
+          <li><code>new Jedison.Theme()</code></li>
+          <li><code>new Jedison.ThemeBootstrap3()</code></li>
+          <li><code>new Jedison.ThemeBootstrap4()</code></li>
+          <li><code>new Jedison.ThemeBootstrap5()</code></li>
         </ul>
       </td>
     <td>no</td>
     </tr>
     <tr align="left">
       <td><code>refParser</code></td>
-      <td><code>new Jedi.RefParser</code></td>
+      <td><code>new Jedison.RefParser</code></td>
       <td><code>null</code></td>
       <td>An instance of <code>RefParser</code> to handle <code>'$ref'</code> keywords.</td>
       <td>no</td>
@@ -1251,7 +1251,7 @@ Renders a masked text input using IMask.js if installed and available as `window
 }
 ```
 
-This example feature configuration through the Jedi instance `settings` option due to the impossibility
+This example feature configuration through the Jedison instance `settings` option due to the impossibility
 of configuring the plugin with just JSON data. note that for custom options the prefix `x-` is still being used.
 
 ```json
@@ -1330,7 +1330,7 @@ the supported languages in the instance options.
 This will set german as the default language:
 
 ```javascript
-  const jedi = new Jedi.Create({
+  const jedison = new Jedison.Create({
   language: 'de'
 })
 ```
@@ -1342,7 +1342,7 @@ should be set to the language specified.
 The default translation can be overridden in the instance options as well.
 
 ```javascript
-  const jedi = new Jedi.Create({
+  const jedison = new Jedison.Create({
   language: 'de',
   translations: {
     de: {
@@ -1692,8 +1692,6 @@ Use radios editor to display color names instead of hex codes.
     - `columns`: How many columns should the editor occupy.
     - `offset`: How many columns should the editor be offsetted.
     - `newRow`: Whether the editor should be put in a new row.
-- Examples:
-    - [editors/object-grid](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-grid&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
 
 ### `x-hidden`
 
@@ -1901,14 +1899,11 @@ Show a fontawesome envelope icon in the title.
 
 - Type: `string`
 - Description: A template to form titles dynamically.
-- Examples:
-    - [editors/object-nav-vertical](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-vertical&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
-    - [editors/object-nav-horizontal](https://germanbisurgi.github.io/jedi/index.html?theme=bootstrap5&iconLib=fontawesome5&example=editors/object-nav-horizontal&showErrors=change&assertFormat=false&mergeAllOf=false&enforceEnum=true&includeTitlesInMessages=false&enablePropertiesToggle=true&enableCollapseToggle=true)
 
 
 ## License
 
-Jedi is released under the MIT License, making it free for commercial and non-commercial use.
+Jedison is released under the MIT License, making it free for commercial and non-commercial use.
 
 ## Resources
 
