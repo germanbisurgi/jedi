@@ -1,17 +1,17 @@
 {
-  "name": "jedi",
+  "name": "jedison",
   "version": "0.1.0",
   "description": "JavaScript Library for JSON Validation and Editing",
-  "main": "./dist/cjs/jedi.cjs",
-  "module": "./dist/esm/jedi.js",
+  "main": "./dist/cjs/jedison.cjs",
+  "module": "./dist/esm/jedison.js",
   "type": "module",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/esm/jedi.js",
-      "require": "./dist/cjs/jedi.cjs"
+      "import": "./dist/esm/jedison.js",
+      "require": "./dist/cjs/jedison.cjs"
     }
   },
   "scripts": {
@@ -32,15 +32,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/germanbisurgi/jedi.git"
+    "url": "git+https://github.com/germanbisurgi/jedison.git"
   },
   "keywords": [],
   "author": "German Bisurgi <gebisurgi@protonmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/germanbisurgi/jedi/issues"
+    "url": "https://github.com/germanbisurgi/jedison/issues"
   },
-  "homepage": "https://github.com/germanbisurgi/jedi#readme",
+  "homepage": "https://github.com/germanbisurgi/jedison#readme",
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.0",
     "bootstrap": "^5.3.0",
