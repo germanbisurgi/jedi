@@ -36,7 +36,7 @@
     "e2e:grep": "SHOW=true THEME='bootstrap3' codeceptjs run -c tests/e2e/codecept.conf.cjs --steps --debug --grep '@string-emoji-button'",
     "lint": "eslint -c ./.eslintrc.json ./src ./tests",
     "lint:fix": "eslint --fix -c ./.eslintrc.json ./src ./tests",
-    "test:full": "yarn e2e && yarn unit",
+    "test:full": "yarn serve & yarn e2e && yarn unit",
     "preversion": "yarn test:full || (echo 'Tests failed' && exit 1)",
     "postversion": "git push && git push --tags",
     "release": "npm publish --access public"
