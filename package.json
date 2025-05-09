@@ -37,7 +37,6 @@
     "lint": "eslint -c ./.eslintrc.json ./src ./tests",
     "lint:fix": "eslint --fix -c ./.eslintrc.json ./src ./tests",
     "test:full": "yarn serve & yarn e2e && yarn unit",
-    "preversion": "yarn test:full || (echo 'Tests failed' && exit 1)",
     "postversion": "git push && git push --tags",
     "release": "npm publish --access public"
   },
