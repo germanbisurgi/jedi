@@ -3888,7 +3888,7 @@ class EditorArrayNav extends EditorArray {
       const id = pathToAttribute(child.path);
       const { list } = this.theme.getTab({
         hasErrors: child.children.some((grandChild) => grandChild.ui.showingValidationErrors),
-        title: titleTemplate.length ? titleTemplate : childTitle,
+        title: (titleTemplate == null ? void 0 : titleTemplate.length) ? titleTemplate : childTitle,
         id,
         active
       });
