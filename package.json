@@ -28,14 +28,18 @@
     "build": "vite build --config ./vite.config.prod.js",
     "prebuild": "vite build --config ./vite.config.pages.js",
     "unit": "yarn build && jest --config=./tests/unit/jest.config.cjs",
-    "e2e": "codeceptjs run-workers 10 -c tests/e2e/codecept.conf.cjs",
+    "e2e": "yarn serve & codeceptjs run-workers 10 -c tests/e2e/codecept.conf.cjs",
     "e2e:b3": "THEME='bootstrap3' npm run e2e",
     "e2e:b4": "THEME='bootstrap4' npm run e2e",
     "e2e:b5": "THEME='bootstrap5' npm run e2e",
     "e2e:*": "npm run e2e && npm run e2e:b3 && npm run e2e:b4 && npm run e2e:b5",
     "e2e:grep": "SHOW=true THEME='bootstrap3' codeceptjs run -c tests/e2e/codecept.conf.cjs --steps --debug --grep '@string-emoji-button'",
     "lint": "eslint -c ./.eslintrc.json ./src ./tests",
-    "lint:fix": "eslint --fix -c ./.eslintrc.json ./src ./tests"
+    "lint:fix": "eslint --fix -c ./.eslintrc.json ./src ./tests",
+    "test:full": "yarn e2e && yarn unit",
+    "preversion": "test:full || (echo 'Tests failed' && exit 1)",
+    "postversion": "git push && git push --tags",
+    "release": "npm publish --access public"
   },
   "repository": {
     "type": "git",
