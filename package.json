@@ -6,12 +6,19 @@
   "module": "./dist/esm/jedison.js",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
   ],
   "exports": {
     ".": {
       "import": "./dist/esm/jedison.js",
       "require": "./dist/cjs/jedison.cjs"
+    },
+    "./browser": {
+      "import": "./dist/umd/jedison.umd.js",
+      "require": "./dist/umd/jedison.umd.js"
     }
   },
   "scripts": {
@@ -34,7 +41,13 @@
     "type": "git",
     "url": "git+https://github.com/germanbisurgi/jedison.git"
   },
-  "keywords": [],
+  "keywords": [
+    "json",
+    "validation",
+    "editor",
+    "schema",
+    "json-schema"
+  ],
   "author": "German Bisurgi <gebisurgi@protonmail.com>",
   "license": "MIT",
   "bugs": {
@@ -56,7 +69,7 @@
     "json-schema-test-suite": "https://github.com/json-schema-org/JSON-Schema-Test-Suite.git",
     "puppeteer": "^13.5.2",
     "sass": "^1.77.8",
-    "vite": "^6.2.1",
+    "vite": "^6.3.5",
     "vue": "^3.5.12"
   },
   "resolutions": {
@@ -65,6 +78,5 @@
     "axios": "^1.8.4",
     "cross-spawn": "^7.0.5",
     "tar-fs": ">=2.1.2"
-  },
-  "dependencies": {}
+  }
 }

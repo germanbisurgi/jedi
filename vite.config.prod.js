@@ -14,26 +14,26 @@ export default defineConfig({
         {
           format: 'es',
           entryFileNames: 'jedison.js',
-          dir: resolve(__dirname, './dist/esm')
-        },
-        {
-          format: 'cjs',
-          entryFileNames: 'jedison.js',
-          dir: resolve(__dirname, './dist/cjs')
+          dir: resolve(__dirname, './dist/esm'),
+          sourcemap: true
         },
         {
           format: 'cjs',
           entryFileNames: 'jedison.cjs',
-          dir: resolve(__dirname, './dist/cjs')
+          dir: resolve(__dirname, './dist/cjs'),
+          sourcemap: true,
+          exports: 'auto'
         },
         {
           format: 'umd',
           name: 'Jedison',
-          entryFileNames: 'jedison.js',
-          dir: resolve(__dirname, './dist/umd')
+          entryFileNames: 'jedison.umd.js',
+          dir: resolve(__dirname, './dist/umd'),
+          sourcemap: true
         }
       ]
     },
-    minify: 'terser'
+    minify: 'terser',
+    emptyOutDir: true
   }
 })
