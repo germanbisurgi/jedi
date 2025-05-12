@@ -109,6 +109,24 @@ Check Out the [PLAYGROUND](https://germanbisurgi.github.io/jedison/index.html?th
 
 ## Getting Started
 
+## Install
+
+### Package manager
+
+```bash
+npm install jedison
+```
+
+```bash
+yarn add jedison
+```
+
+### CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/jedison@0.1.1/dist/umd/jedison.umd.js"></script>
+```
+
 ### As a Validator
 
 ```javascript
@@ -133,7 +151,6 @@ init()
 ### As an Editor
 
 ```html
-
 <div id="jedison-container"></div>
 ```
 

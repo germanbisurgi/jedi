@@ -3,8 +3,8 @@ const theme = process.env.THEME || 'barebones'
 const pathToSchema = 'editors/integer-input'
 const invalidValue = -1
 const defaultValue = 5
-Feature('integer')
 
+Feature('integer')
 
 BeforeSuite(({I}) => {
   I.amOnPage(`playground.html?theme=${theme}`)
@@ -13,7 +13,6 @@ BeforeSuite(({I}) => {
 })
 
 Scenario('@editor @integer-input should have @title and @description', ({ I }) => {
-  pause()
   I._waitForText('Integer', '[data-path="#"] label')
   I._waitForText('The integer type is used for integral numbers.')
 })
