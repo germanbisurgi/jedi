@@ -2,6 +2,6 @@
   "title": "Warning messages",
   "type": "string",
   "minLength": 4,
-  "description": "This is a custom warning",
+  "description": "The option `constraints` allows the additon of custom constraints:\n\n    constraints: {\n        'x-my-constraint': (context) => {\n        const errors = []\n        const schemaMyConstraint = context.schema['x-my-constraint']\n\n        if (isSet(schemaMyConstraint)) {\n            const invalid = context.value !== schemaMyConstraint\n\n            if (invalid) {\n            errors.push({\n                type: 'warning',\n                path: context.path,\n                constraint: 'x-my-constraint',\n                messages: [\n                `Value should be equal to \"${schemaMyConstraint}\".`\n                ]\n            })\n            }\n        }\n\n        return errors\n        }\n    }",
   "x-my-constraint": "test"
 }
