@@ -11,6 +11,7 @@ export function items (context) {
 
     if (items === false && context.value.length > 0 && context.value.length > prefixItemsSchemasCount) {
       errors.push({
+        type: 'error',
         path: context.path,
         constraint: 'items',
         messages: [context.translator.translate('errorItems')]

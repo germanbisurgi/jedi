@@ -1502,14 +1502,14 @@ class Theme {
    * object, array and multiple editors
    */
   getAlert (config) {
-    return this.getInvalidFeedback(config)
+    return this.getErrorFeedback(config)
   }
 
   /**
    * Error messages
    * @public
    */
-  getInvalidFeedback (config) {
+  getErrorFeedback (config) {
     const html = document.createElement('div')
     const invalidFeedbackText = document.createElement('small')
     const invalidFeedbackIcon = document.createElement('span')
@@ -1520,6 +1520,27 @@ class Theme {
     invalidFeedbackIcon.setAttribute('aria-hidden', 'true')
 
     html.classList.add('jedi-error-message')
+
+    html.appendChild(invalidFeedbackIcon)
+    html.appendChild(invalidFeedbackText)
+    return html
+  }
+
+  /**
+   * Error messages
+   * @public
+   */
+  getWarningFeedback (config) {
+    const html = document.createElement('div')
+    const invalidFeedbackText = document.createElement('small')
+    const invalidFeedbackIcon = document.createElement('span')
+
+    invalidFeedbackText.textContent = config.message
+    invalidFeedbackIcon.textContent = '⚠ '
+    invalidFeedbackIcon.classList.add('jedi-warning-message')
+    invalidFeedbackIcon.setAttribute('aria-hidden', 'true')
+
+    html.classList.add('jedi-warning-message')
 
     html.appendChild(invalidFeedbackIcon)
     html.appendChild(invalidFeedbackText)

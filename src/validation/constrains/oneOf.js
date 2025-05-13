@@ -21,6 +21,7 @@ export function oneOf (context) {
 
     if (counter !== 1) {
       errors.push({
+        type: 'error',
         path: context.path,
         constraint: 'oneOf',
         messages: [

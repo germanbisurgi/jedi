@@ -10,6 +10,7 @@ export function maxItems (context) {
 
     if (invalid) {
       errors.push({
+        type: 'error',
         path: context.path,
         constraint: 'maxItems',
         messages: [

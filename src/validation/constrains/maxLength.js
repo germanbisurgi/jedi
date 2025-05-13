@@ -11,6 +11,7 @@ export function maxLength (context) {
 
     if (invalid) {
       errors.push({
+        type: 'error',
         path: context.path,
         constraint: 'maxLength',
         messages: [

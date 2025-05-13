@@ -150,7 +150,7 @@ class Editor {
   }
 
   /**
-   * Shows validation messages in the editor container.
+   * Shows validation error messages in the editor container.
    */
   showValidationErrors (errors, force = false) {
     errors = errors.filter((error) => {
@@ -172,9 +172,17 @@ class Editor {
       }
 
       error.messages.forEach((message) => {
-        const invalidFeedback = this.getInvalidFeedback({
-          message: message
-        })
+        let invalidFeedback
+
+        if (error.type === 'error') {
+          invalidFeedback = this.getErrorFeedback({
+            message: message
+          })
+        } else {
+          invalidFeedback = this.getWarningFeedback({
+            message: message
+          })
+        }
 
         this.control.messages.appendChild(invalidFeedback)
       })
@@ -186,8 +194,15 @@ class Editor {
   /**
    * Get an error message container
    */
-  getInvalidFeedback (config) {
-    return this.theme.getInvalidFeedback(config)
+  getErrorFeedback (config) {
+    return this.theme.getErrorFeedback(config)
+  }
+
+  /**
+   * Get an error message container
+   */
+  getWarningFeedback (config) {
+    return this.theme.getWarningFeedback(config)
   }
 
   /**

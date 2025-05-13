@@ -58,7 +58,7 @@ class Jedison extends EventEmitter {
       data: undefined,
       assertFormat: false,
       customEditors: [],
-      warnings: [],
+      constraints: [],
       hiddenInputAttributes: {},
       id: '',
       radiosInline: false,
@@ -206,7 +206,7 @@ class Jedison extends EventEmitter {
       refParser: this.refParser,
       assertFormat: this.options.assertFormat,
       translator: this.translator,
-      warnings: this.warnings
+      constraints: this.options.constraints
     })
 
     this.root = this.createInstance({
@@ -571,17 +571,32 @@ class Jedison extends EventEmitter {
   }
 
   /**
-   * Returns an array of validation error messages
+   * Get an array of validation errors
+   * @param filters
+   * @returns {*[]}
    */
-  getErrors () {
-    let errors = []
+  getErrors (filters = {}) {
+    const finalOptions = Object.assign({
+      errors: true,
+      warnings: true
+    }, filters)
+
+    let results = []
 
     Object.keys(this.instances).forEach((key) => {
       const instance = this.instances[key]
-      errors = [...errors, ...instance.getErrors()]
+      results = [...results, ...instance.getErrors()]
     })
 
-    return errors
+    if (finalOptions.results === false) {
+      results = results.filter((error) => error.type !== 'error')
+    }
+
+    if (finalOptions.warnings === false) {
+      results = results.filter((error) => error.type !== 'warning')
+    }
+
+    return results
   }
 
   /**

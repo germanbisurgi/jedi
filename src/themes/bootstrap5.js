@@ -259,11 +259,18 @@ class ThemeBootstrap5 extends Theme {
     return html
   }
 
-  getInvalidFeedback (config) {
-    const html = super.getInvalidFeedback(config)
+  getErrorFeedback (config) {
+    const html = super.getErrorFeedback(config)
     html.classList.add('text-danger')
     html.classList.add('d-block')
     html.classList.add('form-text')
+    return html
+  }
+
+  getWarningFeedback (config) {
+    const html = super.getWarningFeedback(config)
+    html.classList.add('text-warning')
+    html.classList.add('d-block')
     html.classList.add('form-text')
     return html
   }

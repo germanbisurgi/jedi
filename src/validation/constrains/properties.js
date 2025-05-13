@@ -29,6 +29,7 @@ export function properties (context) {
 
   if (invalidProperties.length > 0) {
     return [{
+      type: 'error',
       path: context.path,
       constraint: 'properties',
       messages: [

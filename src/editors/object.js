@@ -102,7 +102,7 @@ class EditorObject extends Editor {
     return {}
   }
 
-  getInvalidFeedback (config) {
+  getErrorFeedback (config) {
     return this.theme.getAlert(config)
   }
 

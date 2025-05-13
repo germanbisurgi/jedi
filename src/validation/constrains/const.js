@@ -11,6 +11,7 @@ export function _const (context) {
 
     if (invalid) {
       errors.push({
+        type: 'error',
         path: context.path,
         constraint: 'const',
         messages: [

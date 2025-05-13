@@ -1,6 +1,0 @@
-{
-  "title": "Custom",
-  "type": "string",
-  "description": "This is a custom warning",
-  "x-warning": "test"
-}

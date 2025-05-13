@@ -10,6 +10,7 @@ export function minimum (context) {
 
     if (invalid) {
       errors.push({
+        type: 'error',
         path: context.path,
         constraint: 'minimum',
         messages: [

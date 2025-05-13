@@ -17,6 +17,7 @@ export function prefixItems (context) {
 
         if (tmpErrors.length > 0) {
           errors.push({
+            type: 'error',
             path: context.path,
             constraint: 'prefixItems',
             messages: [

@@ -10,6 +10,7 @@ export function exclusiveMinimum (context) {
 
     if (invalid) {
       errors.push({
+        type: 'error',
         path: context.path,
         constraint: 'exclusiveMinimum',
         messages: [

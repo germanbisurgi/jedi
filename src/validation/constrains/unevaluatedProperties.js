@@ -55,6 +55,7 @@ export function unevaluatedProperties (context) {
 
         if (!definedInPatternProperty && unevaluatedProperties === false && !hasOwn(properties, property)) {
           errors.push({
+            type: 'error',
             path: context.path,
             constraint: 'unevaluatedProperties',
             messages: [
@@ -74,6 +75,7 @@ export function unevaluatedProperties (context) {
 
           const unevaluatedPropertiesErrors = editor.getErrors().map((error) => {
             return {
+              type: 'error',
               path: property,
               constraint: 'unevaluatedProperties',
               messages: error.messages

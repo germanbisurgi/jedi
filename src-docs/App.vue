@@ -195,7 +195,7 @@
 
 <script>
 
-import EditorStringCustom from "./js/custom-editor.js";
+import EditorStringCustom from "./js/custom-editor.js"
 
 import Jedison from '/src/index.js'
 import all from './json/editors/all.json'
@@ -287,7 +287,7 @@ import imask from './json/plugins/string-imask.json'
 import imaskSettings from './json/plugins/string-imask-settings.json'
 import raty from './json/plugins/number-raty.json'
 import custom from './json/custom/custom.json'
-import customWarning from './json/custom/custom-warning.json'
+import customConstraint from './json/custom/custom-constraint.json'
 import metaSchema from './json/meta-schema.json'
 import europass from './json/europass.json'
 import geojson from './json/examples/geojson.json'
@@ -306,6 +306,8 @@ import anyOfRefs from './json/parsing/anyOf-refs.json'
 import recursiveRefs from './json/parsing/recursive-refs.json'
 import ifThenElseValueOverrides from './json/issues/if-then-else-value-overrides.json'
 import ifThenElseInitialValue from './json/issues/if-then-else-initial-value.json'
+import {getSchemaConst} from "../src/helpers/schema.js"
+import {compileTemplate, different, isSet} from "../src/helpers/utils.js"
 
 
 export default {
@@ -320,7 +322,7 @@ export default {
           'examples/login': loginExample,
           'examples/contact': contactExample,
           'custom/custom': custom,
-          'custom/custom-warning': customWarning,
+          'custom/custom-constraint': customConstraint,
           'meta-schema': metaSchema,
           'europass-xml-3.3.0': europass,
           'test': testJson,
@@ -520,7 +522,7 @@ export default {
           'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js',
           'https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js'
         ])
-        break;
+        break
       case 'bootstrap4':
         this.loadStylesheets([
           'https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css',
@@ -531,7 +533,7 @@ export default {
           'https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js',
           'https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js'
         ])
-        break;
+        break
       case 'bootstrap5':
         this.loadStylesheets([
           'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css'
@@ -540,7 +542,7 @@ export default {
         this.loadScripts([
           'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js'
         ])
-        break;
+        break
     }
 
     switch (this.iconLib) {
@@ -548,27 +550,27 @@ export default {
         this.loadStylesheets([
           'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css'
         ])
-        break;
+        break
       case 'fontawesome3':
         this.loadStylesheets([
           'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.css',
         ])
-        break;
+        break
       case 'fontawesome4':
         this.loadStylesheets([
           'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'
         ])
-        break;
+        break
       case 'fontawesome5':
         this.loadStylesheets([
           'https://use.fontawesome.com/releases/v5.6.1/css/all.css'
         ])
-        break;
+        break
       case 'fontawesome6':
         this.loadStylesheets([
           'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'
         ])
-        break;
+        break
     }
 
     this.initEditor()
@@ -595,8 +597,8 @@ export default {
       return theme
     },
     getSchema() {
-      const examples = Object.assign({}, ...Object.values(this.examples));
-      return examples[this.example] || null;
+      const examples = Object.assign({}, ...Object.values(this.examples))
+      return examples[this.example] || null
     },
     async initEditor(schema, data) {
       if (this.editor) {
@@ -665,6 +667,29 @@ export default {
             min: new Date(1990, 0, 1),
             max: new Date(2020, 0, 1),
             lazy: false
+          }
+        },
+        constraints: {
+          'x-my-constraint': (context) => {
+            const errors = []
+            const schemaMyConstraint = context.schema['x-my-constraint']
+
+            if (isSet(schemaMyConstraint)) {
+              const invalid = context.value !== schemaMyConstraint
+
+              if (invalid) {
+                errors.push({
+                  type: 'warning',
+                  path: context.path,
+                  constraint: 'x-my-constraint',
+                  messages: [
+                    `Value should be equal to "${schemaMyConstraint}".`
+                  ]
+                })
+              }
+            }
+
+            return errors
           }
         }
       }
@@ -774,7 +799,7 @@ export default {
       return LZString.compressToEncodedURIComponent(string)
     },
     decompress(string) {
-      return LZString.decompressFromEncodedURIComponent(string);
+      return LZString.decompressFromEncodedURIComponent(string)
     },
     getQueryParam(name) {
       const match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search)
@@ -784,37 +809,37 @@ export default {
       return string === 'true'
     },
     loadStylesheets(resources) {
-      const head = document.head;
+      const head = document.head
 
       for (let i = 0; i < resources.length; i++) {
-        const resource = resources[i];
-        const linkElement = document.createElement("link");
-        linkElement.rel = "stylesheet";
-        linkElement.href = resource;
-        head.appendChild(linkElement);
+        const resource = resources[i]
+        const linkElement = document.createElement('link')
+        linkElement.rel = 'stylesheet'
+        linkElement.href = resource
+        head.appendChild(linkElement)
       }
     },
     loadScripts(scriptUrls, callback) {
-      let currentIndex = 0;
+      let currentIndex = 0
 
       function loadScript(url) {
-        const script = document.createElement("script");
-        script.src = url;
+        const script = document.createElement('script')
+        script.src = url
         script.onload = function () {
-          currentIndex++;
+          currentIndex++
           if (currentIndex < scriptUrls.length) {
-            loadScript(scriptUrls[currentIndex]);
+            loadScript(scriptUrls[currentIndex])
           } else {
-            if (typeof callback === "function") {
-              callback();
+            if (typeof callback === 'function') {
+              callback()
             }
           }
-        };
-        document.head.appendChild(script);
+        }
+        document.head.appendChild(script)
       }
 
       if (scriptUrls.length > 0) {
-        loadScript(scriptUrls[0]);
+        loadScript(scriptUrls[0])
       }
     }
   }

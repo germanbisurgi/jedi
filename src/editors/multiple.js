@@ -72,7 +72,7 @@ class EditorMultiple extends Editor {
     }
   }
 
-  getInvalidFeedback (config) {
+  getErrorFeedback (config) {
     return this.theme.getAlert(config)
   }
 }

@@ -11,6 +11,7 @@ export function pattern (context) {
 
     if (invalid) {
       errors.push({
+        type: 'error',
         path: context.path,
         constraint: 'pattern',
         messages: [

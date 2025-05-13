@@ -263,9 +263,17 @@ class ThemeBootstrap4 extends Theme {
     return html
   }
 
-  getInvalidFeedback (config) {
-    const html = super.getInvalidFeedback(config)
+  getErrorFeedback (config) {
+    const html = super.getErrorFeedback(config)
     html.classList.add('text-danger')
+    html.classList.add('form-text')
+    html.classList.add('d-block')
+    return html
+  }
+
+  getWarningFeedback (config) {
+    const html = super.getWarningFeedback(config)
+    html.classList.add('text-warning')
     html.classList.add('form-text')
     html.classList.add('d-block')
     return html

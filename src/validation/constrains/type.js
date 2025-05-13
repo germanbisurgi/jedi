@@ -42,6 +42,7 @@ export function type (context) {
 
     if (!valid) {
       errors.push({
+        type: 'error',
         path: context.path,
         constraint: 'type',
         messages: [

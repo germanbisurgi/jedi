@@ -16,6 +16,7 @@ export function not (context) {
 
     if (invalid) {
       errors.push({
+        type: 'error',
         path: context.path,
         constraint: 'not',
         messages: [

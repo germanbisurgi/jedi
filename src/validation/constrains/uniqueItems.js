@@ -30,11 +30,12 @@ export function uniqueItems (context) {
 
     if (invalid) {
       errors.push({
+        type: 'error',
+        path: context.path,
+        constraint: 'uniqueItems',
         messages: [
           context.translator.translate('errorUniqueItems')
-        ],
-        path: context.path,
-        constraint: 'uniqueItems'
+        ]
       })
     }
   }

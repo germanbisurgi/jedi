@@ -260,9 +260,15 @@ class ThemeBootstrap3 extends Theme {
     return html
   }
 
-  getInvalidFeedback (config) {
-    const html = super.getInvalidFeedback(config)
+  getErrorFeedback (config) {
+    const html = super.getErrorFeedback(config)
     html.classList.add('text-danger')
+    return html
+  }
+
+  getWarningFeedback (config) {
+    const html = super.getWarningFeedback(config)
+    html.classList.add('text-warning')
     return html
   }
 

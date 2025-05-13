@@ -1,0 +1,7 @@
+{
+  "title": "Warning messages",
+  "type": "string",
+  "minLength": 4,
+  "description": "This is a custom warning",
+  "x-my-constraint": "test"
+}

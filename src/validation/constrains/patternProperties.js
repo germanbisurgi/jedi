@@ -21,6 +21,7 @@ export function patternProperties (context) {
 
           const editorErrors = editor.getErrors().map((error) => {
             return {
+              type: 'error',
               path: context.path + '/' + propertyName,
               constraint: 'patternProperties',
               messages: error.messages

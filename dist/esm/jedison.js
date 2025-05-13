@@ -464,6 +464,7 @@ function minLength(context) {
     const invalid = context.value.length < minLength2;
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "minLength",
         messages: [
@@ -491,6 +492,7 @@ function anyOf(context) {
     });
     if (!valid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "anyOf",
         messages: [
@@ -508,6 +510,7 @@ function _enum(context) {
     const invalid = !schemaEnum.some((e) => JSON.stringify(context.value) === JSON.stringify(e));
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "enum",
         messages: [
@@ -527,6 +530,7 @@ function exclusiveMaximum(context) {
     const invalid = context.value >= exclusiveMaximum2;
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "exclusiveMaximum",
         messages: [
@@ -546,6 +550,7 @@ function exclusiveMinimum(context) {
     const invalid = context.value <= exclusiveMinimum2;
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "exclusiveMinimum",
         messages: [
@@ -579,6 +584,7 @@ function format(context) {
     const invalid = isSet(regexp) && !regexp.test(context.value);
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "format",
         messages: [
@@ -597,6 +603,7 @@ function items(context) {
     const prefixItemsSchemasCount = isSet(prefixItems2) ? prefixItems2.length : 0;
     if (items2 === false && context.value.length > 0 && context.value.length > prefixItemsSchemasCount) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "items",
         messages: [context.translator.translate("errorItems")]
@@ -612,6 +619,7 @@ function maxItems(context) {
     const invalid = context.value.length > maxItems2;
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "maxItems",
         messages: [
@@ -632,6 +640,7 @@ function maxLength(context) {
     const invalid = context.value.length > maxLength2;
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "maxLength",
         messages: [
@@ -652,6 +661,7 @@ function maxProperties(context) {
     const invalid = propertiesCount > maxProperties2;
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "maxProperties",
         messages: [
@@ -671,6 +681,7 @@ function minimum(context) {
     const invalid = context.value < minimum2;
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "minimum",
         messages: [
@@ -690,6 +701,7 @@ function minItems(context) {
     const invalid = context.value.length < minItems2;
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "minItems",
         messages: [
@@ -710,6 +722,7 @@ function minProperties(context) {
     const invalid = propertiesCount < minProperties2;
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "minProperties",
         messages: [
@@ -733,6 +746,7 @@ function multipleOf(context) {
     const invalid = !isMultipleOf || context.value.toString().includes("e");
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "multipleOf",
         messages: [
@@ -755,6 +769,7 @@ function not(context) {
     const invalid = notErrors.length === 0;
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "not",
         messages: [
@@ -780,6 +795,7 @@ function oneOf(context) {
     });
     if (counter !== 1) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "oneOf",
         messages: [
@@ -800,6 +816,7 @@ function pattern(context) {
     const invalid = !regexp.test(context.value);
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "pattern",
         messages: [
@@ -828,6 +845,7 @@ function patternProperties(context) {
           });
           const editorErrors = editor.getErrors().map((error) => {
             return {
+              type: "error",
               path: context.path + "/" + propertyName,
               constraint: "patternProperties",
               messages: error.messages
@@ -863,6 +881,7 @@ function properties(context) {
   }
   if (invalidProperties.length > 0) {
     return [{
+      type: "error",
       path: context.path,
       constraint: "properties",
       messages: [
@@ -886,6 +905,7 @@ function required(context) {
     const invalid = missingProperties.length > 0;
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "required",
         messages: [
@@ -924,6 +944,7 @@ function type(context) {
     }
     if (!valid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "type",
         messages: [
@@ -944,6 +965,7 @@ function maximum(context) {
     const invalid = context.value > maximum2;
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "maximum",
         messages: [
@@ -978,11 +1000,12 @@ function uniqueItems(context) {
     const invalid = hasDuplicatedItems;
     if (invalid) {
       errors.push({
+        type: "error",
+        path: context.path,
+        constraint: "uniqueItems",
         messages: [
           context.translator.translate("errorUniqueItems")
-        ],
-        path: context.path,
-        constraint: "uniqueItems"
+        ]
       });
     }
   }
@@ -1006,6 +1029,7 @@ function additionalProperties(context) {
       if (!definedInPatternProperty && !isDefinedInProperties) {
         if (additionalProperties2 === false) {
           errors.push({
+            type: "error",
             path: context.path,
             constraint: "additionalProperties",
             messages: [
@@ -1019,6 +1043,7 @@ function additionalProperties(context) {
             data: context.value[property]
           });
           const additionalPropertyErrors = editor.getErrors().map((error) => ({
+            type: "error",
             path: `${context.path}.${property}`,
             constraint: "additionalProperties",
             messages: error.messages
@@ -1066,6 +1091,7 @@ function _const(context) {
     const invalid = valueIsNotEqualConst;
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "const",
         messages: [
@@ -1098,6 +1124,7 @@ function contains(context) {
       const minContainsInvalid = counter < minContains;
       if (minContainsInvalid) {
         errors.push({
+          type: "error",
           path: context.path,
           constraint: "minContains",
           messages: [
@@ -1111,6 +1138,7 @@ function contains(context) {
     } else {
       if (containsInvalid) {
         errors.push({
+          type: "error",
           path: context.path,
           constraint: "contains",
           messages: [context.translator.translate("errorContains")]
@@ -1121,6 +1149,7 @@ function contains(context) {
       const maxContainsInvalid = counter > maxContains;
       if (maxContainsInvalid) {
         errors.push({
+          type: "error",
           path: context.path,
           constraint: "maxContains",
           messages: [
@@ -1151,6 +1180,7 @@ function dependentRequired(context) {
     const invalid = missingProperties.length > 0;
     if (invalid) {
       errors.push({
+        type: "error",
         path: context.path,
         constraint: "dependentRequired",
         messages: [
@@ -1230,6 +1260,7 @@ function prefixItems(context) {
         tmpEditor.destroy();
         if (tmpErrors.length > 0) {
           errors.push({
+            type: "error",
             path: context.path,
             constraint: "prefixItems",
             messages: [
@@ -1347,6 +1378,7 @@ function unevaluatedProperties(context) {
         }
         if (!definedInPatternProperty && unevaluatedProperties2 === false && !hasOwn(properties2, property)) {
           errors.push({
+            type: "error",
             path: context.path,
             constraint: "unevaluatedProperties",
             messages: [
@@ -1364,6 +1396,7 @@ function unevaluatedProperties(context) {
           });
           const unevaluatedPropertiesErrors = editor.getErrors().map((error) => {
             return {
+              type: "error",
               path: property,
               constraint: "unevaluatedProperties",
               messages: error.messages
@@ -1424,6 +1457,7 @@ function propertyNames(context) {
       const invalid = editor.getErrors().length > 0;
       if (invalid) {
         errors.push({
+          type: "error",
           path: context.path,
           constraint: "propertyNames",
           messages: [
@@ -1473,7 +1507,7 @@ const draft202012 = {
 class Validator {
   constructor(config = {}) {
     this.refParser = config.refParser;
-    this.warnings = config.warnings ?? [];
+    this.constraints = config.constraints ?? {};
     this.assertFormat = config.assertFormat ? config.assertFormat : false;
     this.translator = config.translator ? config.translator : false;
     this.draft = draft202012;
@@ -1500,9 +1534,9 @@ class Validator {
         path
       }];
     }
-    Object.keys(this.draft).forEach((constraint) => {
-      if (hasOwn(schemaClone, constraint)) {
-        const validator = this.draft[constraint];
+    const allConstraints = { ...this.draft, ...this.constraints };
+    for (const [constraintName, constraint] of Object.entries(allConstraints)) {
+      if (hasOwn(schemaClone, constraintName)) {
         const context = {
           validator: this,
           value,
@@ -1511,12 +1545,12 @@ class Validator {
           path,
           translator: this.translator
         };
-        const validatorErrors = validator(context);
+        const validatorErrors = constraint(context);
         if (validatorErrors) {
           schemaErrors = [...schemaErrors, ...validatorErrors];
         }
       }
-    });
+    }
     const schemaOptionsMessages = getSchemaXOption(schema, "messages");
     if (isSet(schemaOptionsMessages)) {
       if (isObject(schemaOptionsMessages)) {
@@ -1542,50 +1576,6 @@ class Validator {
     }
     return schemaErrors;
   }
-  // getWarnings (value, schema, key, path) {
-  //   let schemaWarnings = []
-  //
-  //   const schemaClone = clone(schema)
-  //
-  //   this.warnings.forEach((constraint) => {
-  //     if (hasOwn(schemaClone, constraint)) {
-  //       const validator = this.draft[constraint]
-  //       const validatorErrors = validator(this, value, schema, key, path)
-  //
-  //       if (validatorErrors) {
-  //         schemaWarnings = [...schemaWarnings, ...validatorErrors]
-  //       }
-  //     }
-  //   })
-  //
-  //   const schemaOptionsMessages = getSchemaXOption(schema, 'messages')
-  //
-  //   if (isSet(schemaOptionsMessages)) {
-  //     if (isObject(schemaOptionsMessages)) {
-  //       schemaWarnings.forEach((schemaError) => {
-  //         const schemaMessageListedByLanguage = schemaOptionsMessages?.[this.translator?.language]?.[schemaError?.constraint]
-  //         const schemaMessageListedByConstraint = schemaOptionsMessages?.[schemaError?.constraint]
-  //         const schemaMessage = schemaMessageListedByLanguage ?? schemaMessageListedByConstraint
-  //
-  //         if (isSet(schemaMessage)) {
-  //           schemaError.messages = [
-  //             schemaMessage
-  //           ]
-  //         }
-  //         return schemaError
-  //       })
-  //     }
-  //
-  //     if (isArray(schemaOptionsMessages) && schemaWarnings.length > 0) {
-  //       schemaWarnings.forEach((schemaError) => {
-  //         schemaError.messages = schemaOptionsMessages
-  //         return schemaError
-  //       })
-  //     }
-  //   }
-  //
-  //   return schemaWarnings
-  // }
 }
 class EventEmitter {
   constructor() {
@@ -1970,7 +1960,7 @@ class Editor {
   addEventListeners() {
   }
   /**
-   * Shows validation messages in the editor container.
+   * Shows validation error messages in the editor container.
    */
   showValidationErrors(errors, force = false) {
     errors = errors.filter((error) => {
@@ -1987,9 +1977,16 @@ class Editor {
         return;
       }
       error.messages.forEach((message) => {
-        const invalidFeedback = this.getInvalidFeedback({
-          message
-        });
+        let invalidFeedback;
+        if (error.type === "error") {
+          invalidFeedback = this.getErrorFeedback({
+            message
+          });
+        } else {
+          invalidFeedback = this.getWarningFeedback({
+            message
+          });
+        }
         this.control.messages.appendChild(invalidFeedback);
       });
     });
@@ -1998,8 +1995,14 @@ class Editor {
   /**
    * Get an error message container
    */
-  getInvalidFeedback(config) {
-    return this.theme.getInvalidFeedback(config);
+  getErrorFeedback(config) {
+    return this.theme.getErrorFeedback(config);
+  }
+  /**
+   * Get an error message container
+   */
+  getWarningFeedback(config) {
+    return this.theme.getWarningFeedback(config);
   }
   /**
    * Disables the editor
@@ -2156,7 +2159,7 @@ class EditorIfThenElse extends Editor {
       this.instance.activeInstance.ui.enable();
     }
   }
-  getInvalidFeedback(config) {
+  getErrorFeedback(config) {
     return this.theme.getAlert(config);
   }
 }
@@ -3362,7 +3365,7 @@ class EditorObject extends Editor {
     }
     return {};
   }
-  getInvalidFeedback(config) {
+  getErrorFeedback(config) {
     return this.theme.getAlert(config);
   }
   refreshPropertiesSlot() {
@@ -3583,7 +3586,7 @@ class EditorArray extends Editor {
       this.instance.addItem("user");
     });
   }
-  getInvalidFeedback(config) {
+  getErrorFeedback(config) {
     return this.theme.getAlert(config);
   }
   sanitize(value) {
@@ -4022,7 +4025,7 @@ class EditorMultiple extends Editor {
       this.instance.activeInstance.ui.enable();
     }
   }
-  getInvalidFeedback(config) {
+  getErrorFeedback(config) {
     return this.theme.getAlert(config);
   }
 }
@@ -4637,7 +4640,7 @@ class Jedison extends EventEmitter {
       data: void 0,
       assertFormat: false,
       customEditors: [],
-      warnings: [],
+      constraints: [],
       hiddenInputAttributes: {},
       id: "",
       radiosInline: false,
@@ -4722,7 +4725,7 @@ class Jedison extends EventEmitter {
       refParser: this.refParser,
       assertFormat: this.options.assertFormat,
       translator: this.translator,
-      warnings: this.warnings
+      constraints: this.options.constraints
     });
     this.root = this.createInstance({
       jedison: this,
@@ -5016,15 +5019,27 @@ class Jedison extends EventEmitter {
     this.root.ui.enable();
   }
   /**
-   * Returns an array of validation error messages
+   * Get an array of validation errors
+   * @param filters
+   * @returns {*[]}
    */
-  getErrors() {
-    let errors = [];
+  getErrors(filters = {}) {
+    const finalOptions = Object.assign({
+      errors: true,
+      warnings: true
+    }, filters);
+    let results = [];
     Object.keys(this.instances).forEach((key) => {
       const instance = this.instances[key];
-      errors = [...errors, ...instance.getErrors()];
+      results = [...results, ...instance.getErrors()];
     });
-    return errors;
+    if (finalOptions.results === false) {
+      results = results.filter((error) => error.type !== "error");
+    }
+    if (finalOptions.warnings === false) {
+      results = results.filter((error) => error.type !== "warning");
+    }
+    return results;
   }
   /**
    * Displays validation errors in the respective editors.
@@ -6469,13 +6484,13 @@ class Theme {
    * object, array and multiple editors
    */
   getAlert(config) {
-    return this.getInvalidFeedback(config);
+    return this.getErrorFeedback(config);
   }
   /**
    * Error messages
    * @public
    */
-  getInvalidFeedback(config) {
+  getErrorFeedback(config) {
     const html = document.createElement("div");
     const invalidFeedbackText = document.createElement("small");
     const invalidFeedbackIcon = document.createElement("span");
@@ -6484,6 +6499,23 @@ class Theme {
     invalidFeedbackIcon.classList.add("jedi-error-message");
     invalidFeedbackIcon.setAttribute("aria-hidden", "true");
     html.classList.add("jedi-error-message");
+    html.appendChild(invalidFeedbackIcon);
+    html.appendChild(invalidFeedbackText);
+    return html;
+  }
+  /**
+   * Error messages
+   * @public
+   */
+  getWarningFeedback(config) {
+    const html = document.createElement("div");
+    const invalidFeedbackText = document.createElement("small");
+    const invalidFeedbackIcon = document.createElement("span");
+    invalidFeedbackText.textContent = config.message;
+    invalidFeedbackIcon.textContent = "⚠ ";
+    invalidFeedbackIcon.classList.add("jedi-warning-message");
+    invalidFeedbackIcon.setAttribute("aria-hidden", "true");
+    html.classList.add("jedi-warning-message");
     html.appendChild(invalidFeedbackIcon);
     html.appendChild(invalidFeedbackText);
     return html;
@@ -6820,9 +6852,14 @@ class ThemeBootstrap3 extends Theme {
     html.classList.add("alert-danger");
     return html;
   }
-  getInvalidFeedback(config) {
-    const html = super.getInvalidFeedback(config);
+  getErrorFeedback(config) {
+    const html = super.getErrorFeedback(config);
     html.classList.add("text-danger");
+    return html;
+  }
+  getWarningFeedback(config) {
+    const html = super.getWarningFeedback(config);
+    html.classList.add("text-warning");
     return html;
   }
   getRow() {
@@ -7140,9 +7177,16 @@ class ThemeBootstrap4 extends Theme {
     html.classList.add("alert-danger");
     return html;
   }
-  getInvalidFeedback(config) {
-    const html = super.getInvalidFeedback(config);
+  getErrorFeedback(config) {
+    const html = super.getErrorFeedback(config);
     html.classList.add("text-danger");
+    html.classList.add("form-text");
+    html.classList.add("d-block");
+    return html;
+  }
+  getWarningFeedback(config) {
+    const html = super.getWarningFeedback(config);
+    html.classList.add("text-warning");
     html.classList.add("form-text");
     html.classList.add("d-block");
     return html;
@@ -7466,11 +7510,17 @@ class ThemeBootstrap5 extends Theme {
     html.classList.add("alert-danger");
     return html;
   }
-  getInvalidFeedback(config) {
-    const html = super.getInvalidFeedback(config);
+  getErrorFeedback(config) {
+    const html = super.getErrorFeedback(config);
     html.classList.add("text-danger");
     html.classList.add("d-block");
     html.classList.add("form-text");
+    return html;
+  }
+  getWarningFeedback(config) {
+    const html = super.getWarningFeedback(config);
+    html.classList.add("text-warning");
+    html.classList.add("d-block");
     html.classList.add("form-text");
     return html;
   }

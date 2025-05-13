@@ -28,6 +28,7 @@ export function additionalProperties (context) {
       if (!definedInPatternProperty && !isDefinedInProperties) {
         if (additionalProperties === false) {
           errors.push({
+            type: 'error',
             path: context.path,
             constraint: 'additionalProperties',
             messages: [
@@ -42,6 +43,7 @@ export function additionalProperties (context) {
           })
 
           const additionalPropertyErrors = editor.getErrors().map((error) => ({
+            type: 'error',
             path: `${context.path}.${property}`,
             constraint: 'additionalProperties',
             messages: error.messages

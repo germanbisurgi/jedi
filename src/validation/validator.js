@@ -12,7 +12,7 @@ import { getSchemaXOption } from '../helpers/schema.js'
 class Validator {
   constructor (config = {}) {
     this.refParser = config.refParser
-    this.warnings = config.warnings ?? []
+    this.constraints = config.constraints ?? {}
     this.assertFormat = config.assertFormat ? config.assertFormat : false
     this.translator = config.translator ? config.translator : false
     this.draft = draft202012
@@ -45,10 +45,10 @@ class Validator {
       }]
     }
 
-    Object.keys(this.draft).forEach((constraint) => {
-      if (hasOwn(schemaClone, constraint)) {
-        const validator = this.draft[constraint]
+    const allConstraints = { ...this.draft, ...this.constraints }
 
+    for (const [constraintName, constraint] of Object.entries(allConstraints)) {
+      if (hasOwn(schemaClone, constraintName)) {
         const context = {
           validator: this,
           value,
@@ -58,13 +58,13 @@ class Validator {
           translator: this.translator
         }
 
-        const validatorErrors = validator(context)
+        const validatorErrors = constraint(context)
 
         if (validatorErrors) {
           schemaErrors = [...schemaErrors, ...validatorErrors]
         }
       }
-    })
+    }
 
     const schemaOptionsMessages = getSchemaXOption(schema, 'messages')
 
@@ -94,51 +94,6 @@ class Validator {
 
     return schemaErrors
   }
-
-  // getWarnings (value, schema, key, path) {
-  //   let schemaWarnings = []
-  //
-  //   const schemaClone = clone(schema)
-  //
-  //   this.warnings.forEach((constraint) => {
-  //     if (hasOwn(schemaClone, constraint)) {
-  //       const validator = this.draft[constraint]
-  //       const validatorErrors = validator(this, value, schema, key, path)
-  //
-  //       if (validatorErrors) {
-  //         schemaWarnings = [...schemaWarnings, ...validatorErrors]
-  //       }
-  //     }
-  //   })
-  //
-  //   const schemaOptionsMessages = getSchemaXOption(schema, 'messages')
-  //
-  //   if (isSet(schemaOptionsMessages)) {
-  //     if (isObject(schemaOptionsMessages)) {
-  //       schemaWarnings.forEach((schemaError) => {
-  //         const schemaMessageListedByLanguage = schemaOptionsMessages?.[this.translator?.language]?.[schemaError?.constraint]
-  //         const schemaMessageListedByConstraint = schemaOptionsMessages?.[schemaError?.constraint]
-  //         const schemaMessage = schemaMessageListedByLanguage ?? schemaMessageListedByConstraint
-  //
-  //         if (isSet(schemaMessage)) {
-  //           schemaError.messages = [
-  //             schemaMessage
-  //           ]
-  //         }
-  //         return schemaError
-  //       })
-  //     }
-  //
-  //     if (isArray(schemaOptionsMessages) && schemaWarnings.length > 0) {
-  //       schemaWarnings.forEach((schemaError) => {
-  //         schemaError.messages = schemaOptionsMessages
-  //         return schemaError
-  //       })
-  //     }
-  //   }
-  //
-  //   return schemaWarnings
-  // }
 }
 
 export default Validator

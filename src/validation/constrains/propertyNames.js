@@ -24,6 +24,7 @@ export function propertyNames (context) {
 
       if (invalid) {
         errors.push({
+          type: 'error',
           path: context.path,
           constraint: 'propertyNames',
           messages: [

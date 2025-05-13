@@ -29,6 +29,7 @@ export function contains (context) {
 
       if (minContainsInvalid) {
         errors.push({
+          type: 'error',
           path: context.path,
           constraint: 'minContains',
           messages: [
@@ -42,6 +43,7 @@ export function contains (context) {
     } else {
       if (containsInvalid) {
         errors.push({
+          type: 'error',
           path: context.path,
           constraint: 'contains',
           messages: [context.translator.translate('errorContains')]
@@ -54,6 +56,7 @@ export function contains (context) {
 
       if (maxContainsInvalid) {
         errors.push({
+          type: 'error',
           path: context.path,
           constraint: 'maxContains',
           messages: [

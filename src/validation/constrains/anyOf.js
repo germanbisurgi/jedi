@@ -21,6 +21,7 @@ export function anyOf (context) {
 
     if (!valid) {
       errors.push({
+        type: 'error',
         path: context.path,
         constraint: 'anyOf',
         messages: [

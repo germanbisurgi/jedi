@@ -11,6 +11,7 @@ export function minProperties (context) {
 
     if (invalid) {
       errors.push({
+        type: 'error',
         path: context.path,
         constraint: 'minProperties',
         messages: [
