@@ -1,20 +1,20 @@
 import { compileTemplate, isSet, isString } from '../../helpers/utils.js'
 import { getSchemaPattern } from '../../helpers/schema.js'
 
-export function pattern (validator, value, schema, key, path) {
+export function pattern (context) {
   const errors = []
-  const pattern = getSchemaPattern(schema)
+  const pattern = getSchemaPattern(context.schema)
 
-  if (isString(value) && isSet(pattern)) {
+  if (isString(context.value) && isSet(pattern)) {
     const regexp = new RegExp(pattern)
-    const invalid = !regexp.test(value)
+    const invalid = !regexp.test(context.value)
 
     if (invalid) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'pattern',
         messages: [
-          compileTemplate(validator.translator.translate('errorPattern'), {
+          compileTemplate(context.translator.translate('errorPattern'), {
             pattern: pattern
           })
         ]

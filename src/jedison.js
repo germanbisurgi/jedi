@@ -58,6 +58,7 @@ class Jedison extends EventEmitter {
       data: undefined,
       assertFormat: false,
       customEditors: [],
+      warnings: [],
       hiddenInputAttributes: {},
       id: '',
       radiosInline: false,
@@ -204,7 +205,8 @@ class Jedison extends EventEmitter {
     this.validator = new Validator({
       refParser: this.refParser,
       assertFormat: this.options.assertFormat,
-      translator: this.translator
+      translator: this.translator,
+      warnings: this.warnings
     })
 
     this.root = this.createInstance({

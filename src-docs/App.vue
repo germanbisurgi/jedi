@@ -287,6 +287,7 @@ import imask from './json/plugins/string-imask.json'
 import imaskSettings from './json/plugins/string-imask-settings.json'
 import raty from './json/plugins/number-raty.json'
 import custom from './json/custom/custom.json'
+import customWarning from './json/custom/custom-warning.json'
 import metaSchema from './json/meta-schema.json'
 import europass from './json/europass.json'
 import geojson from './json/examples/geojson.json'
@@ -319,6 +320,7 @@ export default {
           'examples/login': loginExample,
           'examples/contact': contactExample,
           'custom/custom': custom,
+          'custom/custom-warning': customWarning,
           'meta-schema': metaSchema,
           'europass-xml-3.3.0': europass,
           'test': testJson,

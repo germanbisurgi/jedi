@@ -2,20 +2,20 @@ import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils.js
 import Jedison from '../../jedison.js'
 import { getSchemaProperties } from '../../helpers/schema.js'
 
-export function properties (validator, value, schema, key, path) {
-  const schemaProperties = getSchemaProperties(schema)
+export function properties (context) {
+  const schemaProperties = getSchemaProperties(context.schema)
   const invalidProperties = []
 
-  if (isObject(value) && isSet(schemaProperties)) {
+  if (isObject(context.value) && isSet(schemaProperties)) {
     Object.keys(schemaProperties).forEach((propertyName) => {
-      if (hasOwn(value, propertyName)) {
+      if (hasOwn(context.value, propertyName)) {
         const propertySchema = schemaProperties[propertyName]
 
         const editor = new Jedison({
-          refParser: validator.refParser,
+          refParser: context.validator.refParser,
           schema: propertySchema,
-          data: value[propertyName],
-          rootName: path
+          data: context.value[propertyName],
+          rootName: context.path
         })
 
         if (editor.getErrors().length > 0) {
@@ -29,10 +29,10 @@ export function properties (validator, value, schema, key, path) {
 
   if (invalidProperties.length > 0) {
     return [{
-      path: path,
+      path: context.path,
       constraint: 'properties',
       messages: [
-        compileTemplate(validator.translator.translate('errorProperties'), { properties: invalidProperties.join(', ') })
+        compileTemplate(context.translator.translate('errorProperties'), { properties: invalidProperties.join(', ') })
       ]
     }]
   }

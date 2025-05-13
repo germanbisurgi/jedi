@@ -2,15 +2,15 @@ import Jedison from '../../jedison.js'
 import { isSet } from '../../helpers/utils.js'
 import { getSchemaAnyOf } from '../../helpers/schema.js'
 
-export function anyOf (validator, value, schema, key, path) {
+export function anyOf (context) {
   const errors = []
-  const anyOf = getSchemaAnyOf(schema)
+  const anyOf = getSchemaAnyOf(context.schema)
 
   if (isSet(anyOf)) {
     let valid = false
 
     anyOf.forEach((schema) => {
-      const anyOfEditor = new Jedison({ refParser: validator.refParser, schema: schema, data: value })
+      const anyOfEditor = new Jedison({ refParser: context.validator.refParser, schema: schema, data: context.value })
       const anyOfErrors = anyOfEditor.getErrors()
       anyOfEditor.destroy()
 
@@ -21,10 +21,10 @@ export function anyOf (validator, value, schema, key, path) {
 
     if (!valid) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'anyOf',
         messages: [
-          validator.translator.translate('errorAnyOf')
+          context.translator.translate('errorAnyOf')
         ]
       })
     }

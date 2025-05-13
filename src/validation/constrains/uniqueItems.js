@@ -1,16 +1,16 @@
 import { isArray, isObject, isSet, sortObject } from '../../helpers/utils.js'
 import { getSchemaUniqueItems } from '../../helpers/schema.js'
 
-export function uniqueItems (validator, value, schema, key, path) {
+export function uniqueItems (context) {
   const errors = []
-  const uniqueItems = getSchemaUniqueItems(schema)
+  const uniqueItems = getSchemaUniqueItems(context.schema)
 
-  if (isArray(value) && isSet(uniqueItems) && uniqueItems === true) {
+  if (isArray(context.value) && isSet(uniqueItems) && uniqueItems === true) {
     const seen = []
     let hasDuplicatedItems = false
 
-    for (let i = 0; i < value.length; i++) {
-      let item = value[i]
+    for (let i = 0; i < context.value.length; i++) {
+      let item = context.value[i]
 
       if (isObject(item)) {
         item = sortObject(item)
@@ -31,9 +31,9 @@ export function uniqueItems (validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         messages: [
-          validator.translator.translate('errorUniqueItems')
+          context.translator.translate('errorUniqueItems')
         ],
-        path: path,
+        path: context.path,
         constraint: 'uniqueItems'
       })
     }

@@ -8,14 +8,14 @@ import {
   getSchemaPropertyNames
 } from '../../helpers/schema.js'
 
-export function propertyNames (validator, value, schema, key, path) {
+export function propertyNames (context) {
   const errors = []
-  const schemaPropertyNames = getSchemaPropertyNames(schema)
+  const schemaPropertyNames = getSchemaPropertyNames(context.schema)
 
-  if (isObject(value) && isSet(schemaPropertyNames)) {
-    Object.keys(value).forEach((propertyName) => {
+  if (isObject(context.value) && isSet(schemaPropertyNames)) {
+    Object.keys(context.value).forEach((propertyName) => {
       const editor = new Jedison({
-        refParser: validator.refParser,
+        refParser: context.validator.refParser,
         schema: schemaPropertyNames,
         data: propertyName
       })
@@ -24,10 +24,10 @@ export function propertyNames (validator, value, schema, key, path) {
 
       if (invalid) {
         errors.push({
-          path: path,
+          path: context.path,
           constraint: 'propertyNames',
           messages: [
-            compileTemplate(validator.translator.translate('errorPropertyNames'), { propertyName: propertyName })
+            compileTemplate(context.translator.translate('errorPropertyNames'), { propertyName: propertyName })
           ]
         })
       }

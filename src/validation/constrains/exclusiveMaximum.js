@@ -1,19 +1,19 @@
 import { compileTemplate, isNumber, isSet } from '../../helpers/utils.js'
 import { getSchemaExclusiveMaximum } from '../../helpers/schema.js'
 
-export function exclusiveMaximum (validator, value, schema, key, path) {
+export function exclusiveMaximum (context) {
   const errors = []
-  const exclusiveMaximum = getSchemaExclusiveMaximum(schema)
+  const exclusiveMaximum = getSchemaExclusiveMaximum(context.schema)
 
-  if (isNumber(value) && isSet(exclusiveMaximum)) {
-    const invalid = (value >= exclusiveMaximum)
+  if (isNumber(context.value) && isSet(exclusiveMaximum)) {
+    const invalid = (context.value >= exclusiveMaximum)
 
     if (invalid) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'exclusiveMaximum',
         messages: [
-          compileTemplate(validator.translator.translate('errorExclusiveMaximum'), {
+          compileTemplate(context.translator.translate('errorExclusiveMaximum'), {
             exclusiveMaximum: exclusiveMaximum
           })
         ]

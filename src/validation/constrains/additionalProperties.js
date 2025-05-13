@@ -6,18 +6,18 @@ import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils.js
 import Jedison from '../../jedison.js'
 import { getSchemaAdditionalProperties, getSchemaPatternProperties, getSchemaProperties } from '../../helpers/schema.js'
 
-export function additionalProperties (validator, value, schema, key, path) {
+export function additionalProperties (context) {
   const errors = []
-  const schemaAdditionalProperties = getSchemaAdditionalProperties(schema)
-  const schemaPatternProperties = getSchemaPatternProperties(schema)
-  const schemaProperties = getSchemaProperties(schema)
+  const schemaAdditionalProperties = getSchemaAdditionalProperties(context.schema)
+  const schemaPatternProperties = getSchemaPatternProperties(context.schema)
+  const schemaProperties = getSchemaProperties(context.schema)
 
-  if (isObject(value) && isSet(schemaAdditionalProperties)) {
+  if (isObject(context.value) && isSet(schemaAdditionalProperties)) {
     const properties = schemaProperties || {}
     const additionalProperties = schemaAdditionalProperties
     const patternProperties = schemaPatternProperties || {}
 
-    Object.keys(value).forEach((property) => {
+    Object.keys(context.value).forEach((property) => {
       const definedInPatternProperty = Object.keys(patternProperties).some((pattern) => {
         const regexp = new RegExp(pattern)
         return regexp.test(property)
@@ -28,21 +28,21 @@ export function additionalProperties (validator, value, schema, key, path) {
       if (!definedInPatternProperty && !isDefinedInProperties) {
         if (additionalProperties === false) {
           errors.push({
-            path,
+            path: context.path,
             constraint: 'additionalProperties',
             messages: [
-              compileTemplate(validator.translator.translate('errorAdditionalProperties'), { property })
+              compileTemplate(context.translator.translate('errorAdditionalProperties'), { property })
             ]
           })
         } else if (isObject(additionalProperties)) {
           const editor = new Jedison({
-            refParser: validator.refParser,
+            refParser: context.validator.refParser,
             schema: additionalProperties,
-            data: value[property]
+            data: context.value[property]
           })
 
           const additionalPropertyErrors = editor.getErrors().map((error) => ({
-            path: `${path}.${property}`,
+            path: `${context.path}.${property}`,
             constraint: 'additionalProperties',
             messages: error.messages
           }))

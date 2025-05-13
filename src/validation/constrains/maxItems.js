@@ -1,19 +1,19 @@
 import { compileTemplate, isArray, isSet } from '../../helpers/utils.js'
 import { getSchemaMaxItems } from '../../helpers/schema.js'
 
-export function maxItems (validator, value, schema, key, path) {
+export function maxItems (context) {
   const errors = []
-  const maxItems = getSchemaMaxItems(schema)
+  const maxItems = getSchemaMaxItems(context.schema)
 
-  if (isArray(value) && isSet(maxItems)) {
-    const invalid = (value.length > maxItems)
+  if (isArray(context.value) && isSet(maxItems)) {
+    const invalid = (context.value.length > maxItems)
 
     if (invalid) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'maxItems',
         messages: [
-          compileTemplate(validator.translator.translate('errorMaxItems'), {
+          compileTemplate(context.translator.translate('errorMaxItems'), {
             maxItems: maxItems
           })
         ]

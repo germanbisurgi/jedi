@@ -1,19 +1,19 @@
 import { compileTemplate, isArray, isSet } from '../../helpers/utils.js'
 import { getSchemaMinItems } from '../../helpers/schema.js'
 
-export function minItems (validator, value, schema, key, path) {
+export function minItems (context) {
   const errors = []
-  const minItems = getSchemaMinItems(schema)
+  const minItems = getSchemaMinItems(context.schema)
 
-  if (isArray(value) && isSet(minItems)) {
-    const invalid = (value.length < minItems)
+  if (isArray(context.value) && isSet(minItems)) {
+    const invalid = (context.value.length < minItems)
 
     if (invalid) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'minItems',
         messages: [
-          compileTemplate(validator.translator.translate('errorMinItems'), {
+          compileTemplate(context.translator.translate('errorMinItems'), {
             minItems: minItems
           })
         ]

@@ -1,13 +1,13 @@
 import { compileTemplate, isObject, isSet } from '../../helpers/utils.js'
 import { getSchemaRequired } from '../../helpers/schema.js'
 
-export function required (validator, value, schema, key, path) {
+export function required (context) {
   const errors = []
-  const required = getSchemaRequired(schema)
+  const required = getSchemaRequired(context.schema)
 
-  if (isObject(value) && isSet(required)) {
+  if (isObject(context.value) && isSet(required)) {
     const missingProperties = []
-    const keys = Object.keys(value)
+    const keys = Object.keys(context.value)
 
     required.forEach((key) => {
       if (!keys.includes(key)) {
@@ -19,10 +19,10 @@ export function required (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'required',
         messages: [
-          compileTemplate(validator.translator.translate('errorRequired'), {
+          compileTemplate(context.translator.translate('errorRequired'), {
             required: missingProperties.join(', ')
           })
         ]

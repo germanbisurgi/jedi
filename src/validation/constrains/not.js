@@ -3,12 +3,12 @@ import { getSchemaNot } from '../../helpers/schema.js'
 
 import Jedison from '../../jedison.js'
 
-export function not (validator, value, schema, key, path) {
+export function not (context) {
   const errors = []
-  const not = getSchemaNot(schema)
+  const not = getSchemaNot(context.schema)
 
   if (isSet(not)) {
-    const notEditor = new Jedison({ refParser: validator.refParser, schema: not, data: value })
+    const notEditor = new Jedison({ refParser: context.validator.refParser, schema: not, data: context.value })
     const notErrors = notEditor.getErrors()
     notEditor.destroy()
 
@@ -16,10 +16,10 @@ export function not (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'not',
         messages: [
-          compileTemplate(validator.translator.translate('errorNot'))
+          compileTemplate(context.translator.translate('errorNot'))
         ]
       })
     }

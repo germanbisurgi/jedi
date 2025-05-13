@@ -11,16 +11,16 @@ import {
   getSchemaAnyOf, getSchemaAllOf, getSchemaOneOf
 } from '../../helpers/schema.js'
 
-export function unevaluatedProperties (validator, value, schema, key, path) {
+export function unevaluatedProperties (context) {
   let errors = []
-  const schemaUnevaluatedProperties = getSchemaUnevaluatedProperties(schema)
-  const schemaPatternProperties = getSchemaPatternProperties(schema)
-  const schemaProperties = getSchemaProperties(schema)
-  const schemaAllOf = getSchemaAllOf(schema)
-  const schemaAnyOf = getSchemaAnyOf(schema)
-  const schemaOneOf = getSchemaOneOf(schema)
+  const schemaUnevaluatedProperties = getSchemaUnevaluatedProperties(context.schema)
+  const schemaPatternProperties = getSchemaPatternProperties(context.schema)
+  const schemaProperties = getSchemaProperties(context.schema)
+  const schemaAllOf = getSchemaAllOf(context.schema)
+  const schemaAnyOf = getSchemaAnyOf(context.schema)
+  const schemaOneOf = getSchemaOneOf(context.schema)
 
-  if (isObject(value) && isSet(schemaUnevaluatedProperties)) {
+  if (isObject(context.value) && isSet(schemaUnevaluatedProperties)) {
     let properties = isSet(schemaProperties) ? schemaProperties : {}
     const unevaluatedProperties = schemaUnevaluatedProperties
     const patternProperties = schemaPatternProperties
@@ -43,7 +43,7 @@ export function unevaluatedProperties (validator, value, schema, key, path) {
     })
 
     if (properties) {
-      Object.keys(value).forEach((property) => {
+      Object.keys(context.value).forEach((property) => {
         let definedInPatternProperty = false
 
         if (isSet(patternProperties)) {
@@ -55,10 +55,10 @@ export function unevaluatedProperties (validator, value, schema, key, path) {
 
         if (!definedInPatternProperty && unevaluatedProperties === false && !hasOwn(properties, property)) {
           errors.push({
-            path: path,
+            path: context.path,
             constraint: 'unevaluatedProperties',
             messages: [
-              compileTemplate(validator.translator.translate('errorUnevaluatedProperties'), {
+              compileTemplate(context.translator.translate('errorUnevaluatedProperties'), {
                 property: property
               })
             ]
@@ -67,9 +67,9 @@ export function unevaluatedProperties (validator, value, schema, key, path) {
 
         if (!definedInPatternProperty && isObject(unevaluatedProperties) && !hasOwn(properties, property)) {
           const editor = new Jedison({
-            refParser: validator.refParser,
+            refParser: context.validator.refParser,
             schema: unevaluatedProperties,
-            data: value[property]
+            data: context.value[property]
           })
 
           const unevaluatedPropertiesErrors = editor.getErrors().map((error) => {

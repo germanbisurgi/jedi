@@ -1,19 +1,19 @@
 import { compileTemplate, isNumber, isSet } from '../../helpers/utils.js'
 import { getSchemaMaximum } from '../../helpers/schema.js'
 
-export function maximum (validator, value, schema, key, path) {
+export function maximum (context) {
   const errors = []
-  const maximum = getSchemaMaximum(schema)
+  const maximum = getSchemaMaximum(context.schema)
 
-  if (isNumber(value) && isSet(maximum)) {
-    const invalid = (value > maximum)
+  if (isNumber(context.value) && isSet(maximum)) {
+    const invalid = (context.value > maximum)
 
     if (invalid) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'maximum',
         messages: [
-          compileTemplate(validator.translator.translate('errorMaximum'), {
+          compileTemplate(context.translator.translate('errorMaximum'), {
             maximum: maximum
           })
         ]

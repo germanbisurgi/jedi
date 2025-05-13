@@ -1,19 +1,19 @@
 import { compileTemplate, isSet } from '../../helpers/utils.js'
 import { getSchemaEnum } from '../../helpers/schema.js'
 
-export function _enum (validator, value, schema, key, path) {
+export function _enum (context) {
   const errors = []
-  const schemaEnum = getSchemaEnum(schema)
+  const schemaEnum = getSchemaEnum(context.schema)
 
   if (isSet(schemaEnum)) {
-    const invalid = !schemaEnum.some(e => JSON.stringify(value) === JSON.stringify(e))
+    const invalid = !schemaEnum.some(e => JSON.stringify(context.value) === JSON.stringify(e))
 
     if (invalid) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'enum',
         messages: [
-          compileTemplate(validator.translator.translate('errorEnum'), {
+          compileTemplate(context.translator.translate('errorEnum'), {
             enum: JSON.stringify(schemaEnum)
           })
         ]

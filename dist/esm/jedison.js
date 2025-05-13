@@ -439,16 +439,16 @@ const Schema = {
   getSchemaUnevaluatedProperties,
   getSchemaUniqueItems
 };
-function allOf(validator, value, schema, key, path) {
+function allOf(context) {
   let errors = [];
-  const allOf2 = getSchemaAllOf(schema);
+  const allOf2 = getSchemaAllOf(context.schema);
   if (isSet(allOf2)) {
-    allOf2.forEach((schema2) => {
-      const subSchemaEditor = new Jedison({ refParser: validator.refParser, schema: schema2, data: value, rootName: key });
+    allOf2.forEach((schema) => {
+      const subSchemaEditor = new Jedison({ refParser: context.validator.refParser, schema, data: context.value, rootName: context.key });
       const subSchemaErrors = subSchemaEditor.getErrors();
       subSchemaEditor.destroy();
       subSchemaErrors.forEach((error) => {
-        error.path = path;
+        error.path = context.path;
       });
       errors.push(...subSchemaErrors);
     });
@@ -456,18 +456,18 @@ function allOf(validator, value, schema, key, path) {
   }
   return errors;
 }
-function minLength(validator, value, schema, key, path) {
+function minLength(context) {
   const errors = [];
-  const minLength2 = getSchemaMinLength(schema);
-  if (isString(value) && isSet(minLength2)) {
-    value = value.replace(/[\uDCA9]/g, "");
-    const invalid = value.length < minLength2;
+  const minLength2 = getSchemaMinLength(context.schema);
+  if (isString(context.value) && isSet(minLength2)) {
+    context.value = context.value.replace(/[\uDCA9]/g, "");
+    const invalid = context.value.length < minLength2;
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "minLength",
         messages: [
-          compileTemplate(validator.translator.translate("errorMinLength"), {
+          compileTemplate(context.translator.translate("errorMinLength"), {
             minLength: minLength2
           })
         ]
@@ -476,13 +476,13 @@ function minLength(validator, value, schema, key, path) {
   }
   return errors;
 }
-function anyOf(validator, value, schema, key, path) {
+function anyOf(context) {
   const errors = [];
-  const anyOf2 = getSchemaAnyOf(schema);
+  const anyOf2 = getSchemaAnyOf(context.schema);
   if (isSet(anyOf2)) {
     let valid = false;
-    anyOf2.forEach((schema2) => {
-      const anyOfEditor = new Jedison({ refParser: validator.refParser, schema: schema2, data: value });
+    anyOf2.forEach((schema) => {
+      const anyOfEditor = new Jedison({ refParser: context.validator.refParser, schema, data: context.value });
       const anyOfErrors = anyOfEditor.getErrors();
       anyOfEditor.destroy();
       if (anyOfErrors.length === 0) {
@@ -491,27 +491,27 @@ function anyOf(validator, value, schema, key, path) {
     });
     if (!valid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "anyOf",
         messages: [
-          validator.translator.translate("errorAnyOf")
+          context.translator.translate("errorAnyOf")
         ]
       });
     }
   }
   return errors;
 }
-function _enum(validator, value, schema, key, path) {
+function _enum(context) {
   const errors = [];
-  const schemaEnum = getSchemaEnum(schema);
+  const schemaEnum = getSchemaEnum(context.schema);
   if (isSet(schemaEnum)) {
-    const invalid = !schemaEnum.some((e) => JSON.stringify(value) === JSON.stringify(e));
+    const invalid = !schemaEnum.some((e) => JSON.stringify(context.value) === JSON.stringify(e));
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "enum",
         messages: [
-          compileTemplate(validator.translator.translate("errorEnum"), {
+          compileTemplate(context.translator.translate("errorEnum"), {
             enum: JSON.stringify(schemaEnum)
           })
         ]
@@ -520,17 +520,17 @@ function _enum(validator, value, schema, key, path) {
   }
   return errors;
 }
-function exclusiveMaximum(validator, value, schema, key, path) {
+function exclusiveMaximum(context) {
   const errors = [];
-  const exclusiveMaximum2 = getSchemaExclusiveMaximum(schema);
-  if (isNumber(value) && isSet(exclusiveMaximum2)) {
-    const invalid = value >= exclusiveMaximum2;
+  const exclusiveMaximum2 = getSchemaExclusiveMaximum(context.schema);
+  if (isNumber(context.value) && isSet(exclusiveMaximum2)) {
+    const invalid = context.value >= exclusiveMaximum2;
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "exclusiveMaximum",
         messages: [
-          compileTemplate(validator.translator.translate("errorExclusiveMaximum"), {
+          compileTemplate(context.translator.translate("errorExclusiveMaximum"), {
             exclusiveMaximum: exclusiveMaximum2
           })
         ]
@@ -539,17 +539,17 @@ function exclusiveMaximum(validator, value, schema, key, path) {
   }
   return errors;
 }
-function exclusiveMinimum(validator, value, schema, key, path) {
+function exclusiveMinimum(context) {
   const errors = [];
-  const exclusiveMinimum2 = getSchemaExclusiveMinimum(schema);
-  if (isNumber(value) && isSet(exclusiveMinimum2)) {
-    const invalid = value <= exclusiveMinimum2;
+  const exclusiveMinimum2 = getSchemaExclusiveMinimum(context.schema);
+  if (isNumber(context.value) && isSet(exclusiveMinimum2)) {
+    const invalid = context.value <= exclusiveMinimum2;
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "exclusiveMinimum",
         messages: [
-          compileTemplate(validator.translator.translate("errorExclusiveMinimum"), {
+          compileTemplate(context.translator.translate("errorExclusiveMinimum"), {
             exclusiveMinimum: exclusiveMinimum2
           })
         ]
@@ -558,14 +558,14 @@ function exclusiveMinimum(validator, value, schema, key, path) {
   }
   return errors;
 }
-function format(validator, value, schema, key, path) {
+function format(context) {
   const errors = [];
-  const format2 = getSchemaFormat(schema);
-  let assertFormat = validator.assertFormat;
-  if (getSchemaXOption(schema, "assertFormat")) {
-    assertFormat = schema.options.assertFormat;
+  const format2 = getSchemaFormat(context.schema);
+  let assertFormat = context.validator.assertFormat;
+  if (getSchemaXOption(context.schema, "assertFormat")) {
+    assertFormat = context.schema.options.assertFormat;
   }
-  if (isSet(format2) && isString(value) && assertFormat) {
+  if (isSet(format2) && isString(context.value) && assertFormat) {
     let regexp;
     if (format2 === "email") {
       regexp = new RegExp(/^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$/i);
@@ -576,46 +576,46 @@ function format(validator, value, schema, key, path) {
     if (format2 === "uuid") {
       regexp = new RegExp(/^(?:urn:uuid:)?[0-9a-fA-F]{8}-(?:[0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$/i);
     }
-    const invalid = isSet(regexp) && !regexp.test(value);
+    const invalid = isSet(regexp) && !regexp.test(context.value);
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "format",
         messages: [
-          compileTemplate(validator.translator.translate("errorFormat"), { format: format2 })
+          compileTemplate(context.translator.translate("errorFormat"), { format: format2 })
         ]
       });
     }
   }
   return errors;
 }
-function items(validator, value, schema, key, path) {
+function items(context) {
   const errors = [];
-  const items2 = getSchemaItems(schema);
-  const prefixItems2 = getSchemaPrefixItems(schema);
-  if (isArray(value) && isSet(items2)) {
+  const items2 = getSchemaItems(context.schema);
+  const prefixItems2 = getSchemaPrefixItems(context.schema);
+  if (isArray(context.value) && isSet(items2)) {
     const prefixItemsSchemasCount = isSet(prefixItems2) ? prefixItems2.length : 0;
-    if (items2 === false && value.length > 0 && value.length > prefixItemsSchemasCount) {
+    if (items2 === false && context.value.length > 0 && context.value.length > prefixItemsSchemasCount) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "items",
-        messages: [validator.translator.translate("errorItems")]
+        messages: [context.translator.translate("errorItems")]
       });
     }
   }
   return errors;
 }
-function maxItems(validator, value, schema, key, path) {
+function maxItems(context) {
   const errors = [];
-  const maxItems2 = getSchemaMaxItems(schema);
-  if (isArray(value) && isSet(maxItems2)) {
-    const invalid = value.length > maxItems2;
+  const maxItems2 = getSchemaMaxItems(context.schema);
+  if (isArray(context.value) && isSet(maxItems2)) {
+    const invalid = context.value.length > maxItems2;
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "maxItems",
         messages: [
-          compileTemplate(validator.translator.translate("errorMaxItems"), {
+          compileTemplate(context.translator.translate("errorMaxItems"), {
             maxItems: maxItems2
           })
         ]
@@ -624,18 +624,18 @@ function maxItems(validator, value, schema, key, path) {
   }
   return errors;
 }
-function maxLength(validator, value, schema, key, path) {
+function maxLength(context) {
   const errors = [];
-  const maxLength2 = getSchemaMaxLength(schema);
-  if (isString(value) && isSet(maxLength2)) {
-    value = value.replace(/[\uDCA9]/g, "");
-    const invalid = value.length > maxLength2;
+  const maxLength2 = getSchemaMaxLength(context.schema);
+  if (isString(context.value) && isSet(maxLength2)) {
+    context.value = context.value.replace(/[\uDCA9]/g, "");
+    const invalid = context.value.length > maxLength2;
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "maxLength",
         messages: [
-          compileTemplate(validator.translator.translate("errorMaxLength"), {
+          compileTemplate(context.translator.translate("errorMaxLength"), {
             maxLength: maxLength2
           })
         ]
@@ -644,18 +644,18 @@ function maxLength(validator, value, schema, key, path) {
   }
   return errors;
 }
-function maxProperties(validator, value, schema, key, path) {
+function maxProperties(context) {
   const errors = [];
-  const maxProperties2 = getSchemaMaxProperties(schema);
-  if (isObject(value) && isSet(maxProperties2)) {
-    const propertiesCount = Object.keys(value).length;
+  const maxProperties2 = getSchemaMaxProperties(context.schema);
+  if (isObject(context.value) && isSet(maxProperties2)) {
+    const propertiesCount = Object.keys(context.value).length;
     const invalid = propertiesCount > maxProperties2;
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "maxProperties",
         messages: [
-          compileTemplate(validator.translator.translate("errorMaxProperties"), {
+          compileTemplate(context.translator.translate("errorMaxProperties"), {
             maxProperties: maxProperties2
           })
         ]
@@ -664,17 +664,17 @@ function maxProperties(validator, value, schema, key, path) {
   }
   return errors;
 }
-function minimum(validator, value, schema, key, path) {
+function minimum(context) {
   const errors = [];
-  const minimum2 = getSchemaMinimum(schema);
-  if (isNumber(value) && isSet(minimum2)) {
-    const invalid = value < minimum2;
+  const minimum2 = getSchemaMinimum(context.schema);
+  if (isNumber(context.value) && isSet(minimum2)) {
+    const invalid = context.value < minimum2;
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "minimum",
         messages: [
-          compileTemplate(validator.translator.translate("errorMinimum"), {
+          compileTemplate(context.translator.translate("errorMinimum"), {
             minimum: minimum2
           })
         ]
@@ -683,17 +683,17 @@ function minimum(validator, value, schema, key, path) {
   }
   return errors;
 }
-function minItems(validator, value, schema, key, path) {
+function minItems(context) {
   const errors = [];
-  const minItems2 = getSchemaMinItems(schema);
-  if (isArray(value) && isSet(minItems2)) {
-    const invalid = value.length < minItems2;
+  const minItems2 = getSchemaMinItems(context.schema);
+  if (isArray(context.value) && isSet(minItems2)) {
+    const invalid = context.value.length < minItems2;
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "minItems",
         messages: [
-          compileTemplate(validator.translator.translate("errorMinItems"), {
+          compileTemplate(context.translator.translate("errorMinItems"), {
             minItems: minItems2
           })
         ]
@@ -702,18 +702,18 @@ function minItems(validator, value, schema, key, path) {
   }
   return errors;
 }
-function minProperties(validator, value, schema, key, path) {
+function minProperties(context) {
   const errors = [];
-  const minProperties2 = getSchemaMinProperties(schema);
-  if (isObject(value) && isSet(minProperties2)) {
-    const propertiesCount = Object.keys(value).length;
+  const minProperties2 = getSchemaMinProperties(context.schema);
+  if (isObject(context.value) && isSet(minProperties2)) {
+    const propertiesCount = Object.keys(context.value).length;
     const invalid = propertiesCount < minProperties2;
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "minProperties",
         messages: [
-          compileTemplate(validator.translator.translate("errorMinProperties"), {
+          compileTemplate(context.translator.translate("errorMinProperties"), {
             minProperties: minProperties2
           })
         ]
@@ -722,21 +722,21 @@ function minProperties(validator, value, schema, key, path) {
   }
   return errors;
 }
-function multipleOf(validator, value, schema, key, path) {
+function multipleOf(context) {
   const errors = [];
-  const multipleOf2 = getSchemaMultipleOf(schema);
-  if (isNumber(value) && isSet(multipleOf2)) {
-    if (value === 0) {
+  const multipleOf2 = getSchemaMultipleOf(context.schema);
+  if (isNumber(context.value) && isSet(multipleOf2)) {
+    if (context.value === 0) {
       return errors;
     }
-    const isMultipleOf = value / multipleOf2 === Math.floor(value / multipleOf2);
-    const invalid = !isMultipleOf || value.toString().includes("e");
+    const isMultipleOf = context.value / multipleOf2 === Math.floor(context.value / multipleOf2);
+    const invalid = !isMultipleOf || context.value.toString().includes("e");
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "multipleOf",
         messages: [
-          compileTemplate(validator.translator.translate("errorMultipleOf"), {
+          compileTemplate(context.translator.translate("errorMultipleOf"), {
             multipleOf: multipleOf2
           })
         ]
@@ -745,33 +745,33 @@ function multipleOf(validator, value, schema, key, path) {
   }
   return errors;
 }
-function not(validator, value, schema, key, path) {
+function not(context) {
   const errors = [];
-  const not2 = getSchemaNot(schema);
+  const not2 = getSchemaNot(context.schema);
   if (isSet(not2)) {
-    const notEditor = new Jedison({ refParser: validator.refParser, schema: not2, data: value });
+    const notEditor = new Jedison({ refParser: context.validator.refParser, schema: not2, data: context.value });
     const notErrors = notEditor.getErrors();
     notEditor.destroy();
     const invalid = notErrors.length === 0;
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "not",
         messages: [
-          compileTemplate(validator.translator.translate("errorNot"))
+          compileTemplate(context.translator.translate("errorNot"))
         ]
       });
     }
   }
   return errors;
 }
-function oneOf(validator, value, schema, key, path) {
+function oneOf(context) {
   const errors = [];
-  const oneOf2 = getSchemaOneOf(schema);
+  const oneOf2 = getSchemaOneOf(context.schema);
   if (isSet(oneOf2)) {
     let counter = 0;
-    oneOf2.forEach((schema2) => {
-      const oneOfEditor = new Jedison({ refParser: validator.refParser, schema: schema2, data: value });
+    oneOf2.forEach((schema) => {
+      const oneOfEditor = new Jedison({ refParser: context.validator.refParser, schema, data: context.value });
       const oneOfErrors = oneOfEditor.getErrors();
       oneOfEditor.destroy();
       if (oneOfErrors.length === 0) {
@@ -780,10 +780,10 @@ function oneOf(validator, value, schema, key, path) {
     });
     if (counter !== 1) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "oneOf",
         messages: [
-          compileTemplate(validator.translator.translate("errorOneOf"), {
+          compileTemplate(context.translator.translate("errorOneOf"), {
             counter
           })
         ]
@@ -792,18 +792,18 @@ function oneOf(validator, value, schema, key, path) {
   }
   return errors;
 }
-function pattern(validator, value, schema, key, path) {
+function pattern(context) {
   const errors = [];
-  const pattern2 = getSchemaPattern(schema);
-  if (isString(value) && isSet(pattern2)) {
+  const pattern2 = getSchemaPattern(context.schema);
+  if (isString(context.value) && isSet(pattern2)) {
     const regexp = new RegExp(pattern2);
-    const invalid = !regexp.test(value);
+    const invalid = !regexp.test(context.value);
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "pattern",
         messages: [
-          compileTemplate(validator.translator.translate("errorPattern"), {
+          compileTemplate(context.translator.translate("errorPattern"), {
             pattern: pattern2
           })
         ]
@@ -812,23 +812,23 @@ function pattern(validator, value, schema, key, path) {
   }
   return errors;
 }
-function patternProperties(validator, value, schema, key, path) {
+function patternProperties(context) {
   let errors = [];
-  const patternProperties2 = getSchemaPatternProperties(schema);
-  if (isObject(value) && isSet(patternProperties2)) {
-    Object.keys(value).forEach((propertyName) => {
+  const patternProperties2 = getSchemaPatternProperties(context.schema);
+  if (isObject(context.value) && isSet(patternProperties2)) {
+    Object.keys(context.value).forEach((propertyName) => {
       Object.keys(patternProperties2).forEach((pattern2) => {
         const regexp = new RegExp(pattern2);
         if (regexp.test(propertyName)) {
-          const schema2 = patternProperties2[pattern2];
+          const schema = patternProperties2[pattern2];
           const editor = new Jedison({
-            refParser: validator.refParser,
-            schema: schema2,
-            data: value[propertyName]
+            refParser: context.validator.refParser,
+            schema,
+            data: context.value[propertyName]
           });
           const editorErrors = editor.getErrors().map((error) => {
             return {
-              path: path + "/" + propertyName,
+              path: context.path + "/" + propertyName,
               constraint: "patternProperties",
               messages: error.messages
             };
@@ -841,18 +841,18 @@ function patternProperties(validator, value, schema, key, path) {
   }
   return errors;
 }
-function properties(validator, value, schema, key, path) {
-  const schemaProperties = getSchemaProperties(schema);
+function properties(context) {
+  const schemaProperties = getSchemaProperties(context.schema);
   const invalidProperties = [];
-  if (isObject(value) && isSet(schemaProperties)) {
+  if (isObject(context.value) && isSet(schemaProperties)) {
     Object.keys(schemaProperties).forEach((propertyName) => {
-      if (hasOwn(value, propertyName)) {
+      if (hasOwn(context.value, propertyName)) {
         const propertySchema = schemaProperties[propertyName];
         const editor = new Jedison({
-          refParser: validator.refParser,
+          refParser: context.validator.refParser,
           schema: propertySchema,
-          data: value[propertyName],
-          rootName: path
+          data: context.value[propertyName],
+          rootName: context.path
         });
         if (editor.getErrors().length > 0) {
           invalidProperties.push(propertyName);
@@ -863,33 +863,33 @@ function properties(validator, value, schema, key, path) {
   }
   if (invalidProperties.length > 0) {
     return [{
-      path,
+      path: context.path,
       constraint: "properties",
       messages: [
-        compileTemplate(validator.translator.translate("errorProperties"), { properties: invalidProperties.join(", ") })
+        compileTemplate(context.translator.translate("errorProperties"), { properties: invalidProperties.join(", ") })
       ]
     }];
   }
   return [];
 }
-function required(validator, value, schema, key, path) {
+function required(context) {
   const errors = [];
-  const required2 = getSchemaRequired(schema);
-  if (isObject(value) && isSet(required2)) {
+  const required2 = getSchemaRequired(context.schema);
+  if (isObject(context.value) && isSet(required2)) {
     const missingProperties = [];
-    const keys = Object.keys(value);
-    required2.forEach((key2) => {
-      if (!keys.includes(key2)) {
-        missingProperties.push(key2);
+    const keys = Object.keys(context.value);
+    required2.forEach((key) => {
+      if (!keys.includes(key)) {
+        missingProperties.push(key);
       }
     });
     const invalid = missingProperties.length > 0;
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "required",
         messages: [
-          compileTemplate(validator.translator.translate("errorRequired"), {
+          compileTemplate(context.translator.translate("errorRequired"), {
             required: missingProperties.join(", ")
           })
         ]
@@ -898,38 +898,38 @@ function required(validator, value, schema, key, path) {
   }
   return errors;
 }
-function type(validator, value, schema, key, path) {
+function type(context) {
   const errors = [];
-  const type2 = getSchemaType(schema);
+  const type2 = getSchemaType(context.schema);
   if (type2 === "any") {
     return errors;
   }
   if (isSet(type2)) {
     const types = {
-      string: (value2) => isString(value2),
-      number: (value2) => isNumber(value2),
-      integer: (value2) => isInteger(value2),
-      boolean: (value2) => isBoolean(value2),
-      array: (value2) => isArray(value2),
-      object: (value2) => isObject(value2),
-      null: (value2) => isNull(value2)
+      string: (value) => isString(value),
+      number: (value) => isNumber(value),
+      integer: (value) => isInteger(value),
+      boolean: (value) => isBoolean(value),
+      array: (value) => isArray(value),
+      object: (value) => isObject(value),
+      null: (value) => isNull(value)
     };
     let valid = true;
     if (isArray(type2)) {
       valid = type2.some((type3) => {
-        return types[type3](value);
+        return types[type3](context.value);
       });
     } else {
-      valid = types[type2](value);
+      valid = types[type2](context.value);
     }
     if (!valid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "type",
         messages: [
-          compileTemplate(validator.translator.translate("errorType"), {
+          compileTemplate(context.translator.translate("errorType"), {
             type: type2,
-            valueType: getType(value)
+            valueType: getType(context.value)
           })
         ]
       });
@@ -937,17 +937,17 @@ function type(validator, value, schema, key, path) {
   }
   return errors;
 }
-function maximum(validator, value, schema, key, path) {
+function maximum(context) {
   const errors = [];
-  const maximum2 = getSchemaMaximum(schema);
-  if (isNumber(value) && isSet(maximum2)) {
-    const invalid = value > maximum2;
+  const maximum2 = getSchemaMaximum(context.schema);
+  if (isNumber(context.value) && isSet(maximum2)) {
+    const invalid = context.value > maximum2;
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "maximum",
         messages: [
-          compileTemplate(validator.translator.translate("errorMaximum"), {
+          compileTemplate(context.translator.translate("errorMaximum"), {
             maximum: maximum2
           })
         ]
@@ -956,14 +956,14 @@ function maximum(validator, value, schema, key, path) {
   }
   return errors;
 }
-function uniqueItems(validator, value, schema, key, path) {
+function uniqueItems(context) {
   const errors = [];
-  const uniqueItems2 = getSchemaUniqueItems(schema);
-  if (isArray(value) && isSet(uniqueItems2) && uniqueItems2 === true) {
+  const uniqueItems2 = getSchemaUniqueItems(context.schema);
+  if (isArray(context.value) && isSet(uniqueItems2) && uniqueItems2 === true) {
     const seen = [];
     let hasDuplicatedItems = false;
-    for (let i = 0; i < value.length; i++) {
-      let item = value[i];
+    for (let i = 0; i < context.value.length; i++) {
+      let item = context.value[i];
       if (isObject(item)) {
         item = sortObject(item);
       }
@@ -979,25 +979,25 @@ function uniqueItems(validator, value, schema, key, path) {
     if (invalid) {
       errors.push({
         messages: [
-          validator.translator.translate("errorUniqueItems")
+          context.translator.translate("errorUniqueItems")
         ],
-        path,
+        path: context.path,
         constraint: "uniqueItems"
       });
     }
   }
   return errors;
 }
-function additionalProperties(validator, value, schema, key, path) {
+function additionalProperties(context) {
   const errors = [];
-  const schemaAdditionalProperties = getSchemaAdditionalProperties(schema);
-  const schemaPatternProperties = getSchemaPatternProperties(schema);
-  const schemaProperties = getSchemaProperties(schema);
-  if (isObject(value) && isSet(schemaAdditionalProperties)) {
+  const schemaAdditionalProperties = getSchemaAdditionalProperties(context.schema);
+  const schemaPatternProperties = getSchemaPatternProperties(context.schema);
+  const schemaProperties = getSchemaProperties(context.schema);
+  if (isObject(context.value) && isSet(schemaAdditionalProperties)) {
     const properties2 = schemaProperties || {};
     const additionalProperties2 = schemaAdditionalProperties;
     const patternProperties2 = schemaPatternProperties || {};
-    Object.keys(value).forEach((property) => {
+    Object.keys(context.value).forEach((property) => {
       const definedInPatternProperty = Object.keys(patternProperties2).some((pattern2) => {
         const regexp = new RegExp(pattern2);
         return regexp.test(property);
@@ -1006,20 +1006,20 @@ function additionalProperties(validator, value, schema, key, path) {
       if (!definedInPatternProperty && !isDefinedInProperties) {
         if (additionalProperties2 === false) {
           errors.push({
-            path,
+            path: context.path,
             constraint: "additionalProperties",
             messages: [
-              compileTemplate(validator.translator.translate("errorAdditionalProperties"), { property })
+              compileTemplate(context.translator.translate("errorAdditionalProperties"), { property })
             ]
           });
         } else if (isObject(additionalProperties2)) {
           const editor = new Jedison({
-            refParser: validator.refParser,
+            refParser: context.validator.refParser,
             schema: additionalProperties2,
-            data: value[property]
+            data: context.value[property]
           });
           const additionalPropertyErrors = editor.getErrors().map((error) => ({
-            path: `${path}.${property}`,
+            path: `${context.path}.${property}`,
             constraint: "additionalProperties",
             messages: error.messages
           }));
@@ -1058,18 +1058,18 @@ const draft04 = {
   type,
   uniqueItems
 };
-function _const(validator, value, schema, key, path) {
+function _const(context) {
   const errors = [];
-  const schemaConst = getSchemaConst(schema);
+  const schemaConst = getSchemaConst(context.schema);
   if (isSet(schemaConst)) {
-    const valueIsNotEqualConst = different(value, schemaConst);
+    const valueIsNotEqualConst = different(context.value, schemaConst);
     const invalid = valueIsNotEqualConst;
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "const",
         messages: [
-          compileTemplate(validator.translator.translate("errorConst"), {
+          compileTemplate(context.translator.translate("errorConst"), {
             const: JSON.stringify(schemaConst)
           })
         ]
@@ -1078,15 +1078,15 @@ function _const(validator, value, schema, key, path) {
   }
   return errors;
 }
-function contains(validator, value, schema, key, path) {
+function contains(context) {
   const errors = [];
-  const contains2 = getSchemaContains(schema);
-  const minContains = getSchemaMinContains(schema);
-  const maxContains = getSchemaMaxContains(schema);
-  if (isArray(value) && isSet(contains2)) {
+  const contains2 = getSchemaContains(context.schema);
+  const minContains = getSchemaMinContains(context.schema);
+  const maxContains = getSchemaMaxContains(context.schema);
+  if (isArray(context.value) && isSet(contains2)) {
     let counter = 0;
-    value.forEach((item) => {
-      const containsEditor = new Jedison({ refParser: validator.refParser, schema: contains2, data: item });
+    context.value.forEach((item) => {
+      const containsEditor = new Jedison({ refParser: context.validator.refParser, schema: contains2, data: item });
       const containsErrors = containsEditor.getErrors();
       if (containsErrors.length === 0) {
         counter++;
@@ -1098,10 +1098,10 @@ function contains(validator, value, schema, key, path) {
       const minContainsInvalid = counter < minContains;
       if (minContainsInvalid) {
         errors.push({
-          path,
+          path: context.path,
           constraint: "minContains",
           messages: [
-            compileTemplate(validator.translator.translate("errorMinContains"), {
+            compileTemplate(context.translator.translate("errorMinContains"), {
               counter,
               minContains
             })
@@ -1111,9 +1111,9 @@ function contains(validator, value, schema, key, path) {
     } else {
       if (containsInvalid) {
         errors.push({
-          path,
+          path: context.path,
           constraint: "contains",
-          messages: [validator.translator.translate("errorContains")]
+          messages: [context.translator.translate("errorContains")]
         });
       }
     }
@@ -1121,10 +1121,10 @@ function contains(validator, value, schema, key, path) {
       const maxContainsInvalid = counter > maxContains;
       if (maxContainsInvalid) {
         errors.push({
-          path,
+          path: context.path,
           constraint: "maxContains",
           messages: [
-            compileTemplate(validator.translator.translate("errorMaxContains"), {
+            compileTemplate(context.translator.translate("errorMaxContains"), {
               counter,
               maxContains
             })
@@ -1135,26 +1135,26 @@ function contains(validator, value, schema, key, path) {
   }
   return errors;
 }
-function dependentRequired(validator, value, schema, key, path) {
+function dependentRequired(context) {
   const errors = [];
-  const dependentRequired2 = getSchemaDependentRequired(schema);
-  if (isObject(value) && isSet(dependentRequired2)) {
+  const dependentRequired2 = getSchemaDependentRequired(context.schema);
+  if (isObject(context.value) && isSet(dependentRequired2)) {
     let missingProperties = [];
-    Object.keys(dependentRequired2).forEach((key2) => {
-      if (isSet(value[key2])) {
-        const requiredProperties = dependentRequired2[key2];
+    Object.keys(dependentRequired2).forEach((key) => {
+      if (isSet(context.value[key])) {
+        const requiredProperties = dependentRequired2[key];
         missingProperties = requiredProperties.filter((property) => {
-          return !hasOwn(value, property);
+          return !hasOwn(context.value, property);
         });
       }
     });
     const invalid = missingProperties.length > 0;
     if (invalid) {
       errors.push({
-        path,
+        path: context.path,
         constraint: "dependentRequired",
         messages: [
-          compileTemplate(validator.translator.translate("errorDependentRequired"), {
+          compileTemplate(context.translator.translate("errorDependentRequired"), {
             dependentRequired: missingProperties.join(", ")
           })
         ]
@@ -1163,14 +1163,14 @@ function dependentRequired(validator, value, schema, key, path) {
   }
   return errors;
 }
-function dependentSchemas(validator, value, schema) {
+function dependentSchemas(context) {
   let errors = [];
-  const dependentSchemas2 = getSchemaDependentSchemas(schema);
-  if (isObject(value) && isSet(dependentSchemas2)) {
+  const dependentSchemas2 = getSchemaDependentSchemas(context.schema);
+  if (isObject(context.value) && isSet(dependentSchemas2)) {
     Object.keys(dependentSchemas2).forEach((key) => {
-      if (isSet(value[key])) {
+      if (isSet(context.value[key])) {
         const dependentSchema = dependentSchemas2[key];
-        const tmpEditor = new Jedison({ refParser: validator.refParser, schema: dependentSchema, data: value });
+        const tmpEditor = new Jedison({ refParser: context.validator.refParser, schema: dependentSchema, data: context.value });
         const tmpErrors = tmpEditor.getErrors();
         tmpEditor.destroy();
         errors = [...errors, ...tmpErrors];
@@ -1179,27 +1179,27 @@ function dependentSchemas(validator, value, schema) {
   }
   return errors;
 }
-function ifThenElse(validator, value, schema) {
+function ifThenElse(context) {
   const errors = [];
-  const schemaIf = getSchemaIf(schema);
-  const schemaThen = getSchemaThen(schema);
-  const schemaElse = getSchemaElse(schema);
+  const schemaIf = getSchemaIf(context.schema);
+  const schemaThen = getSchemaThen(context.schema);
+  const schemaElse = getSchemaElse(context.schema);
   if (isSet(schemaIf)) {
     if (notSet(schemaThen) && notSet(schemaElse)) {
       return errors;
     }
-    const ifEditor = new Jedison({ refParser: validator.refParser, schema: schemaIf, data: value });
+    const ifEditor = new Jedison({ refParser: context.validator.refParser, schema: schemaIf, data: context.value });
     const ifErrors = ifEditor.getErrors();
     ifEditor.destroy();
     let thenErrors = [];
     let elseErrors = [];
     if (isSet(schemaThen)) {
-      const thenEditor = new Jedison({ refParser: validator.refParser, schema: schemaThen, data: value });
+      const thenEditor = new Jedison({ refParser: context.validator.refParser, schema: schemaThen, data: context.value });
       thenErrors = thenEditor.getErrors();
       thenEditor.destroy();
     }
     if (isSet(schemaElse)) {
-      const elseEditor = new Jedison({ refParser: validator.refParser, schema: schemaElse, data: value });
+      const elseEditor = new Jedison({ refParser: context.validator.refParser, schema: schemaElse, data: context.value });
       elseErrors = elseEditor.getErrors();
       elseEditor.destroy();
     }
@@ -1218,22 +1218,22 @@ function ifThenElse(validator, value, schema) {
   }
   return errors;
 }
-function prefixItems(validator, value, schema, key, path) {
+function prefixItems(context) {
   const errors = [];
-  const prefixItems2 = getSchemaPrefixItems(schema);
-  if (isArray(value) && isSet(prefixItems2)) {
+  const prefixItems2 = getSchemaPrefixItems(context.schema);
+  if (isArray(context.value) && isSet(prefixItems2)) {
     prefixItems2.forEach((itemSchema, index2) => {
-      const itemValue = value[index2];
+      const itemValue = context.value[index2];
       if (isSet(itemValue)) {
-        const tmpEditor = new Jedison({ refParser: validator.refParser, schema: itemSchema, data: itemValue });
+        const tmpEditor = new Jedison({ refParser: context.validator.refParser, schema: itemSchema, data: itemValue });
         const tmpErrors = tmpEditor.getErrors();
         tmpEditor.destroy();
         if (tmpErrors.length > 0) {
           errors.push({
-            path,
+            path: context.path,
             constraint: "prefixItems",
             messages: [
-              compileTemplate(validator.translator.translate("errorPrefixItems"), {
+              compileTemplate(context.translator.translate("errorPrefixItems"), {
                 index: index2
               })
             ]
@@ -1310,15 +1310,15 @@ const draft07 = {
   type,
   uniqueItems
 };
-function unevaluatedProperties(validator, value, schema, key, path) {
+function unevaluatedProperties(context) {
   let errors = [];
-  const schemaUnevaluatedProperties = getSchemaUnevaluatedProperties(schema);
-  const schemaPatternProperties = getSchemaPatternProperties(schema);
-  const schemaProperties = getSchemaProperties(schema);
-  const schemaAllOf = getSchemaAllOf(schema);
-  const schemaAnyOf = getSchemaAnyOf(schema);
-  const schemaOneOf = getSchemaOneOf(schema);
-  if (isObject(value) && isSet(schemaUnevaluatedProperties)) {
+  const schemaUnevaluatedProperties = getSchemaUnevaluatedProperties(context.schema);
+  const schemaPatternProperties = getSchemaPatternProperties(context.schema);
+  const schemaProperties = getSchemaProperties(context.schema);
+  const schemaAllOf = getSchemaAllOf(context.schema);
+  const schemaAnyOf = getSchemaAnyOf(context.schema);
+  const schemaOneOf = getSchemaOneOf(context.schema);
+  if (isObject(context.value) && isSet(schemaUnevaluatedProperties)) {
     let properties2 = isSet(schemaProperties) ? schemaProperties : {};
     const unevaluatedProperties2 = schemaUnevaluatedProperties;
     const patternProperties2 = schemaPatternProperties;
@@ -1337,7 +1337,7 @@ function unevaluatedProperties(validator, value, schema, key, path) {
       }
     });
     if (properties2) {
-      Object.keys(value).forEach((property) => {
+      Object.keys(context.value).forEach((property) => {
         let definedInPatternProperty = false;
         if (isSet(patternProperties2)) {
           Object.keys(patternProperties2).forEach((pattern2) => {
@@ -1347,10 +1347,10 @@ function unevaluatedProperties(validator, value, schema, key, path) {
         }
         if (!definedInPatternProperty && unevaluatedProperties2 === false && !hasOwn(properties2, property)) {
           errors.push({
-            path,
+            path: context.path,
             constraint: "unevaluatedProperties",
             messages: [
-              compileTemplate(validator.translator.translate("errorUnevaluatedProperties"), {
+              compileTemplate(context.translator.translate("errorUnevaluatedProperties"), {
                 property
               })
             ]
@@ -1358,9 +1358,9 @@ function unevaluatedProperties(validator, value, schema, key, path) {
         }
         if (!definedInPatternProperty && isObject(unevaluatedProperties2) && !hasOwn(properties2, property)) {
           const editor = new Jedison({
-            refParser: validator.refParser,
+            refParser: context.validator.refParser,
             schema: unevaluatedProperties2,
-            data: value[property]
+            data: context.value[property]
           });
           const unevaluatedPropertiesErrors = editor.getErrors().map((error) => {
             return {
@@ -1411,23 +1411,23 @@ const draft201909 = {
   unevaluatedProperties,
   uniqueItems
 };
-function propertyNames(validator, value, schema, key, path) {
+function propertyNames(context) {
   const errors = [];
-  const schemaPropertyNames = getSchemaPropertyNames(schema);
-  if (isObject(value) && isSet(schemaPropertyNames)) {
-    Object.keys(value).forEach((propertyName) => {
+  const schemaPropertyNames = getSchemaPropertyNames(context.schema);
+  if (isObject(context.value) && isSet(schemaPropertyNames)) {
+    Object.keys(context.value).forEach((propertyName) => {
       const editor = new Jedison({
-        refParser: validator.refParser,
+        refParser: context.validator.refParser,
         schema: schemaPropertyNames,
         data: propertyName
       });
       const invalid = editor.getErrors().length > 0;
       if (invalid) {
         errors.push({
-          path,
+          path: context.path,
           constraint: "propertyNames",
           messages: [
-            compileTemplate(validator.translator.translate("errorPropertyNames"), { propertyName })
+            compileTemplate(context.translator.translate("errorPropertyNames"), { propertyName })
           ]
         });
       }
@@ -1473,6 +1473,7 @@ const draft202012 = {
 class Validator {
   constructor(config = {}) {
     this.refParser = config.refParser;
+    this.warnings = config.warnings ?? [];
     this.assertFormat = config.assertFormat ? config.assertFormat : false;
     this.translator = config.translator ? config.translator : false;
     this.draft = draft202012;
@@ -1502,7 +1503,15 @@ class Validator {
     Object.keys(this.draft).forEach((constraint) => {
       if (hasOwn(schemaClone, constraint)) {
         const validator = this.draft[constraint];
-        const validatorErrors = validator(this, value, schema, key, path);
+        const context = {
+          validator: this,
+          value,
+          schema: schemaClone,
+          key,
+          path,
+          translator: this.translator
+        };
+        const validatorErrors = validator(context);
         if (validatorErrors) {
           schemaErrors = [...schemaErrors, ...validatorErrors];
         }
@@ -1533,6 +1542,50 @@ class Validator {
     }
     return schemaErrors;
   }
+  // getWarnings (value, schema, key, path) {
+  //   let schemaWarnings = []
+  //
+  //   const schemaClone = clone(schema)
+  //
+  //   this.warnings.forEach((constraint) => {
+  //     if (hasOwn(schemaClone, constraint)) {
+  //       const validator = this.draft[constraint]
+  //       const validatorErrors = validator(this, value, schema, key, path)
+  //
+  //       if (validatorErrors) {
+  //         schemaWarnings = [...schemaWarnings, ...validatorErrors]
+  //       }
+  //     }
+  //   })
+  //
+  //   const schemaOptionsMessages = getSchemaXOption(schema, 'messages')
+  //
+  //   if (isSet(schemaOptionsMessages)) {
+  //     if (isObject(schemaOptionsMessages)) {
+  //       schemaWarnings.forEach((schemaError) => {
+  //         const schemaMessageListedByLanguage = schemaOptionsMessages?.[this.translator?.language]?.[schemaError?.constraint]
+  //         const schemaMessageListedByConstraint = schemaOptionsMessages?.[schemaError?.constraint]
+  //         const schemaMessage = schemaMessageListedByLanguage ?? schemaMessageListedByConstraint
+  //
+  //         if (isSet(schemaMessage)) {
+  //           schemaError.messages = [
+  //             schemaMessage
+  //           ]
+  //         }
+  //         return schemaError
+  //       })
+  //     }
+  //
+  //     if (isArray(schemaOptionsMessages) && schemaWarnings.length > 0) {
+  //       schemaWarnings.forEach((schemaError) => {
+  //         schemaError.messages = schemaOptionsMessages
+  //         return schemaError
+  //       })
+  //     }
+  //   }
+  //
+  //   return schemaWarnings
+  // }
 }
 class EventEmitter {
   constructor() {
@@ -4584,6 +4637,7 @@ class Jedison extends EventEmitter {
       data: void 0,
       assertFormat: false,
       customEditors: [],
+      warnings: [],
       hiddenInputAttributes: {},
       id: "",
       radiosInline: false,
@@ -4667,7 +4721,8 @@ class Jedison extends EventEmitter {
     this.validator = new Validator({
       refParser: this.refParser,
       assertFormat: this.options.assertFormat,
-      translator: this.translator
+      translator: this.translator,
+      warnings: this.warnings
     });
     this.root = this.createInstance({
       jedison: this,

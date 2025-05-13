@@ -2,18 +2,19 @@ import { isSet, removeDuplicatesFromArray } from '../../helpers/utils.js'
 import Jedison from '../../jedison.js'
 import { getSchemaAllOf } from '../../helpers/schema.js'
 
-export function allOf (validator, value, schema, key, path) {
+export function allOf (context) {
+// export function allOf (context) {
   let errors = []
-  const allOf = getSchemaAllOf(schema)
+  const allOf = getSchemaAllOf(context.schema)
 
   if (isSet(allOf)) {
     allOf.forEach((schema) => {
-      const subSchemaEditor = new Jedison({ refParser: validator.refParser, schema, data: value, rootName: key })
+      const subSchemaEditor = new Jedison({ refParser: context.validator.refParser, schema, data: context.value, rootName: context.key })
       const subSchemaErrors = subSchemaEditor.getErrors()
       subSchemaEditor.destroy()
 
       subSchemaErrors.forEach((error) => {
-        error.path = path
+        error.path = context.path
       })
 
       errors.push(...subSchemaErrors)

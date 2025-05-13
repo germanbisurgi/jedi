@@ -1,19 +1,19 @@
 import { isArray, isSet } from '../../helpers/utils.js'
 import { getSchemaItems, getSchemaPrefixItems } from '../../helpers/schema.js'
 
-export function items (validator, value, schema, key, path) {
+export function items (context) {
   const errors = []
-  const items = getSchemaItems(schema)
-  const prefixItems = getSchemaPrefixItems(schema)
+  const items = getSchemaItems(context.schema)
+  const prefixItems = getSchemaPrefixItems(context.schema)
 
-  if (isArray(value) && isSet(items)) {
+  if (isArray(context.value) && isSet(items)) {
     const prefixItemsSchemasCount = isSet(prefixItems) ? prefixItems.length : 0
 
-    if (items === false && value.length > 0 && value.length > prefixItemsSchemasCount) {
+    if (items === false && context.value.length > 0 && context.value.length > prefixItemsSchemasCount) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'items',
-        messages: [validator.translator.translate('errorItems')]
+        messages: [context.translator.translate('errorItems')]
       })
     }
   }

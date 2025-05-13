@@ -2,17 +2,17 @@ import { compileTemplate, isArray, isSet } from '../../helpers/utils.js'
 import Jedison from '../../jedison.js'
 import { getSchemaContains, getSchemaMaxContains, getSchemaMinContains } from '../../helpers/schema.js'
 
-export function contains (validator, value, schema, key, path) {
+export function contains (context) {
   const errors = []
-  const contains = getSchemaContains(schema)
-  const minContains = getSchemaMinContains(schema)
-  const maxContains = getSchemaMaxContains(schema)
+  const contains = getSchemaContains(context.schema)
+  const minContains = getSchemaMinContains(context.schema)
+  const maxContains = getSchemaMaxContains(context.schema)
 
-  if (isArray(value) && isSet(contains)) {
+  if (isArray(context.value) && isSet(contains)) {
     let counter = 0
 
-    value.forEach((item) => {
-      const containsEditor = new Jedison({ refParser: validator.refParser, schema: contains, data: item })
+    context.value.forEach((item) => {
+      const containsEditor = new Jedison({ refParser: context.validator.refParser, schema: contains, data: item })
       const containsErrors = containsEditor.getErrors()
 
       if (containsErrors.length === 0) {
@@ -29,10 +29,10 @@ export function contains (validator, value, schema, key, path) {
 
       if (minContainsInvalid) {
         errors.push({
-          path: path,
+          path: context.path,
           constraint: 'minContains',
           messages: [
-            compileTemplate(validator.translator.translate('errorMinContains'), {
+            compileTemplate(context.translator.translate('errorMinContains'), {
               counter: counter,
               minContains: minContains
             })
@@ -42,9 +42,9 @@ export function contains (validator, value, schema, key, path) {
     } else {
       if (containsInvalid) {
         errors.push({
-          path: path,
+          path: context.path,
           constraint: 'contains',
-          messages: [validator.translator.translate('errorContains')]
+          messages: [context.translator.translate('errorContains')]
         })
       }
     }
@@ -54,10 +54,10 @@ export function contains (validator, value, schema, key, path) {
 
       if (maxContainsInvalid) {
         errors.push({
-          path: path,
+          path: context.path,
           constraint: 'maxContains',
           messages: [
-            compileTemplate(validator.translator.translate('errorMaxContains'), {
+            compileTemplate(context.translator.translate('errorMaxContains'), {
               counter: counter,
               maxContains: maxContains
             })

@@ -1,19 +1,19 @@
 import { compileTemplate, hasOwn, isObject, isSet } from '../../helpers/utils.js'
 import { getSchemaDependentRequired } from '../../helpers/schema.js'
 
-export function dependentRequired (validator, value, schema, key, path) {
+export function dependentRequired (context) {
   const errors = []
-  const dependentRequired = getSchemaDependentRequired(schema)
+  const dependentRequired = getSchemaDependentRequired(context.schema)
 
-  if (isObject(value) && isSet(dependentRequired)) {
+  if (isObject(context.value) && isSet(dependentRequired)) {
     let missingProperties = []
 
     Object.keys(dependentRequired).forEach((key) => {
-      if (isSet(value[key])) {
+      if (isSet(context.value[key])) {
         const requiredProperties = dependentRequired[key]
 
         missingProperties = requiredProperties.filter((property) => {
-          return !hasOwn(value, property)
+          return !hasOwn(context.value, property)
         })
       }
     })
@@ -22,10 +22,10 @@ export function dependentRequired (validator, value, schema, key, path) {
 
     if (invalid) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'dependentRequired',
         messages: [
-          compileTemplate(validator.translator.translate('errorDependentRequired'), {
+          compileTemplate(context.translator.translate('errorDependentRequired'), {
             dependentRequired: missingProperties.join(', ')
           })
         ]

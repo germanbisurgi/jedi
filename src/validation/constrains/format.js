@@ -1,16 +1,16 @@
 import { compileTemplate, isSet, isString } from '../../helpers/utils.js'
 import { getSchemaFormat, getSchemaXOption } from '../../helpers/schema.js'
 
-export function format (validator, value, schema, key, path) {
+export function format (context) {
   const errors = []
-  const format = getSchemaFormat(schema)
-  let assertFormat = validator.assertFormat
+  const format = getSchemaFormat(context.schema)
+  let assertFormat = context.validator.assertFormat
 
-  if (getSchemaXOption(schema, 'assertFormat')) {
-    assertFormat = schema.options.assertFormat
+  if (getSchemaXOption(context.schema, 'assertFormat')) {
+    assertFormat = context.schema.options.assertFormat
   }
 
-  if (isSet(format) && isString(value) && assertFormat) {
+  if (isSet(format) && isString(context.value) && assertFormat) {
     let regexp
 
     if (format === 'email') {
@@ -25,14 +25,14 @@ export function format (validator, value, schema, key, path) {
       regexp = new RegExp(/^(?:urn:uuid:)?[0-9a-fA-F]{8}-(?:[0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$/i)
     }
 
-    const invalid = isSet(regexp) && !regexp.test(value)
+    const invalid = isSet(regexp) && !regexp.test(context.value)
 
     if (invalid) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'format',
         messages: [
-          compileTemplate(validator.translator.translate('errorFormat'), { format: format })
+          compileTemplate(context.translator.translate('errorFormat'), { format: format })
         ]
       })
     }

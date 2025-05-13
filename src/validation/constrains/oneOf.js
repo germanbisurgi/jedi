@@ -2,15 +2,15 @@ import { compileTemplate, isSet } from '../../helpers/utils.js'
 import Jedison from '../../jedison.js'
 import { getSchemaOneOf } from '../../helpers/schema.js'
 
-export function oneOf (validator, value, schema, key, path) {
+export function oneOf (context) {
   const errors = []
-  const oneOf = getSchemaOneOf(schema)
+  const oneOf = getSchemaOneOf(context.schema)
 
   if (isSet(oneOf)) {
     let counter = 0
 
     oneOf.forEach((schema) => {
-      const oneOfEditor = new Jedison({ refParser: validator.refParser, schema: schema, data: value })
+      const oneOfEditor = new Jedison({ refParser: context.validator.refParser, schema: schema, data: context.value })
       const oneOfErrors = oneOfEditor.getErrors()
       oneOfEditor.destroy()
 
@@ -21,10 +21,10 @@ export function oneOf (validator, value, schema, key, path) {
 
     if (counter !== 1) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'oneOf',
         messages: [
-          compileTemplate(validator.translator.translate('errorOneOf'), {
+          compileTemplate(context.translator.translate('errorOneOf'), {
             counter: counter
           })
         ]

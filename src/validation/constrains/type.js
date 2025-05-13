@@ -11,9 +11,9 @@ import {
 } from '../../helpers/utils.js'
 import { getSchemaType } from '../../helpers/schema.js'
 
-export function type (validator, value, schema, key, path) {
+export function type (context) {
   const errors = []
-  const type = getSchemaType(schema)
+  const type = getSchemaType(context.schema)
 
   if (type === 'any') {
     return errors
@@ -34,20 +34,20 @@ export function type (validator, value, schema, key, path) {
 
     if (isArray(type)) {
       valid = type.some((type) => {
-        return types[type](value)
+        return types[type](context.value)
       })
     } else {
-      valid = types[type](value)
+      valid = types[type](context.value)
     }
 
     if (!valid) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'type',
         messages: [
-          compileTemplate(validator.translator.translate('errorType'), {
+          compileTemplate(context.translator.translate('errorType'), {
             type: type,
-            valueType: getType(value)
+            valueType: getType(context.value)
           })
         ]
       })

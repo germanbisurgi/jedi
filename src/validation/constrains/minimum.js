@@ -1,19 +1,19 @@
 import { compileTemplate, isNumber, isSet } from '../../helpers/utils.js'
 import { getSchemaMinimum } from '../../helpers/schema.js'
 
-export function minimum (validator, value, schema, key, path) {
+export function minimum (context) {
   const errors = []
-  const minimum = getSchemaMinimum(schema)
+  const minimum = getSchemaMinimum(context.schema)
 
-  if (isNumber(value) && isSet(minimum)) {
-    const invalid = (value < minimum)
+  if (isNumber(context.value) && isSet(minimum)) {
+    const invalid = (context.value < minimum)
 
     if (invalid) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'minimum',
         messages: [
-          compileTemplate(validator.translator.translate('errorMinimum'), {
+          compileTemplate(context.translator.translate('errorMinimum'), {
             minimum: minimum
           })
         ]

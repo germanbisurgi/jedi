@@ -1,19 +1,19 @@
 import { compileTemplate, isNumber, isSet } from '../../helpers/utils.js'
 import { getSchemaExclusiveMinimum } from '../../helpers/schema.js'
 
-export function exclusiveMinimum (validator, value, schema, key, path) {
+export function exclusiveMinimum (context) {
   const errors = []
-  const exclusiveMinimum = getSchemaExclusiveMinimum(schema)
+  const exclusiveMinimum = getSchemaExclusiveMinimum(context.schema)
 
-  if (isNumber(value) && isSet(exclusiveMinimum)) {
-    const invalid = (value <= exclusiveMinimum)
+  if (isNumber(context.value) && isSet(exclusiveMinimum)) {
+    const invalid = (context.value <= exclusiveMinimum)
 
     if (invalid) {
       errors.push({
-        path: path,
+        path: context.path,
         constraint: 'exclusiveMinimum',
         messages: [
-          compileTemplate(validator.translator.translate('errorExclusiveMinimum'), {
+          compileTemplate(context.translator.translate('errorExclusiveMinimum'), {
             exclusiveMinimum: exclusiveMinimum
           })
         ]

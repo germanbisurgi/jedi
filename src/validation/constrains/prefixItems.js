@@ -2,25 +2,25 @@ import { compileTemplate, isArray, isSet } from '../../helpers/utils.js'
 import Jedison from '../../jedison.js'
 import { getSchemaPrefixItems } from '../../helpers/schema.js'
 
-export function prefixItems (validator, value, schema, key, path) {
+export function prefixItems (context) {
   const errors = []
-  const prefixItems = getSchemaPrefixItems(schema)
+  const prefixItems = getSchemaPrefixItems(context.schema)
 
-  if (isArray(value) && isSet(prefixItems)) {
+  if (isArray(context.value) && isSet(prefixItems)) {
     prefixItems.forEach((itemSchema, index) => {
-      const itemValue = value[index]
+      const itemValue = context.value[index]
 
       if (isSet(itemValue)) {
-        const tmpEditor = new Jedison({ refParser: validator.refParser, schema: itemSchema, data: itemValue })
+        const tmpEditor = new Jedison({ refParser: context.validator.refParser, schema: itemSchema, data: itemValue })
         const tmpErrors = tmpEditor.getErrors()
         tmpEditor.destroy()
 
         if (tmpErrors.length > 0) {
           errors.push({
-            path: path,
+            path: context.path,
             constraint: 'prefixItems',
             messages: [
-              compileTemplate(validator.translator.translate('errorPrefixItems'), {
+              compileTemplate(context.translator.translate('errorPrefixItems'), {
                 index: index
               })
             ]
