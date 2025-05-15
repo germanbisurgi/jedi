@@ -30,6 +30,7 @@ import EditorArrayCheckboxes from './editors/array-checkboxes.js'
 class UiResolver {
   constructor (options) {
     this.customEditors = options.customEditors ?? []
+    this.refParser = options.refParser ?? null
 
     this.editors = [
       EditorMultiple,
@@ -65,13 +66,13 @@ class UiResolver {
 
   getClass (schema) {
     for (const editor of this.customEditors) {
-      if (editor.resolves(schema)) {
+      if (editor.resolves(schema, this.refParser)) {
         return editor
       }
     }
 
     for (const editor of this.editors) {
-      if (editor.resolves(schema)) {
+      if (editor.resolves(schema, this.refParser)) {
         return editor
       }
     }

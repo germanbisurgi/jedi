@@ -167,7 +167,8 @@ class Jedison extends EventEmitter {
     }
 
     this.uiResolver = new UiResolver({
-      customEditors: this.options.customEditors
+      customEditors: this.options.customEditors,
+      refParser: this.refParser
     })
 
     this.theme = this.options.theme
@@ -572,15 +573,10 @@ class Jedison extends EventEmitter {
 
   /**
    * Get an array of validation errors
-   * @param filters
+   * @param {string[]} filters - Types to include, e.g., ['errors', 'warnings']
    * @returns {*[]}
    */
-  getErrors (filters = {}) {
-    const finalOptions = Object.assign({
-      errors: true,
-      warnings: true
-    }, filters)
-
+  getErrors (filters = ['error']) {
     let results = []
 
     Object.keys(this.instances).forEach((key) => {
@@ -588,15 +584,9 @@ class Jedison extends EventEmitter {
       results = [...results, ...instance.getErrors()]
     })
 
-    if (finalOptions.results === false) {
-      results = results.filter((error) => error.type !== 'error')
-    }
-
-    if (finalOptions.warnings === false) {
-      results = results.filter((error) => error.type !== 'warning')
-    }
-
-    return results
+    return results.filter((error) => {
+      return filters.includes(error.type.toLowerCase())
+    })
   }
 
   /**
@@ -613,7 +603,7 @@ class Jedison extends EventEmitter {
       return false
     }
 
-    const errors = errorsList || this.getErrors()
+    const errors = errorsList ?? this.getErrors()
 
     Object.keys(this.instances).forEach((key) => {
       const instance = this.instances[key]

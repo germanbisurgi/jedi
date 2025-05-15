@@ -1,14 +1,27 @@
 import EditorArray from './array.js'
 import { isSet } from '../helpers/utils.js'
-import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaItems, getSchemaProperties, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorArrayTable instance.
  * @extends EditorArray
  */
 class EditorArrayTable extends EditorArray {
-  static resolves (schema) {
-    return getSchemaType(schema) === 'array' && getSchemaXOption(schema, 'format') === 'table'
+  static resolves (schema, refParser) {
+    const schemaItems = getSchemaItems(schema)
+
+    if (!schemaItems) {
+      return false
+    }
+
+    const expandedSchemaItems = refParser.expand(schemaItems)
+    const itemType = getSchemaType(expandedSchemaItems)
+
+    if (!itemType) {
+      return false
+    }
+
+    return getSchemaType(schema) === 'array' && itemType === 'object' && getSchemaXOption(schema, 'format') === 'table'
   }
 
   addEventListeners () {
@@ -40,30 +53,36 @@ class EditorArrayTable extends EditorArray {
 
     table.thead.appendChild(th)
 
-    const tempEditor = this.instance.createItemInstance()
+    const schemaItems = getSchemaItems(this.instance.schema)
+    const expandedSchemaItems = this.instance.jedison.refParser.expand(schemaItems)
+    const itemProperties = getSchemaProperties(expandedSchemaItems)
 
-    const tableColMinWidth = getSchemaXOption(this.instance.schema, 'tableColMinWidth')
+    Object.values(itemProperties).forEach((propertySchema) => {
+      const th = this.theme.getTableHeader()
 
-    tempEditor.children.forEach((child) => {
-      const itemTableColWidth = getSchemaXOption(child.schema, 'tableColMinWidth')
-      const th = this.theme.getTableHeader({
-        minWidth: itemTableColWidth || tableColMinWidth || 'auto'
-      })
+      if (propertySchema.title) {
+        const fakeLabel = this.theme.getFakeLabel({
+          content: propertySchema.title
+        })
 
-      if (child.ui.control.label && child.ui.control.description) {
-        th.appendChild(child.ui.control.label)
-        child.ui.control.label.setAttribute('title', child.ui.control.description.textContent)
+        th.appendChild(fakeLabel.label)
       }
 
-      if (child.ui.control.legend && child.ui.control.description) {
-        th.appendChild(child.ui.control.legend)
-        child.ui.control.legend.setAttribute('title', child.ui.control.description.textContent)
+      const schemaXInfo = getSchemaXOption(propertySchema, 'info')
+
+      if (isSet(schemaXInfo)) {
+        const infoContent = this.getInfo(propertySchema)
+        const info = this.theme.getInfo(infoContent)
+
+        if (schemaXInfo.variant === 'modal') {
+          this.theme.infoAsModal(info, this.getIdFromPath(this.instance.path), infoContent)
+        }
+
+        th.appendChild(info.container)
       }
 
       table.thead.appendChild(th)
     })
-
-    tempEditor.destroy()
 
     const arrayDelete = getSchemaXOption(this.instance.schema, 'arrayDelete') ?? this.instance.jedison.options.arrayDelete
     const arrayMove = getSchemaXOption(this.instance.schema, 'arrayMove') ?? this.instance.jedison.options.arrayMove

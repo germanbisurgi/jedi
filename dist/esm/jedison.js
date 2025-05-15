@@ -1530,6 +1530,7 @@ class Validator {
     }
     if (isBoolean(schemaClone) && schemaClone === false) {
       return [{
+        type: "error",
         messages: ["invalid"],
         path
       }];
@@ -2071,8 +2072,9 @@ class Editor {
     }
     return this.description;
   }
-  getInfo() {
-    const schemaInfo = getSchemaXOption(this.instance.schema, "info");
+  getInfo(schema = null) {
+    const _schema = schema ?? this.instance.schema;
+    const schemaInfo = getSchemaXOption(_schema, "info");
     if (!isSet(schemaInfo)) {
       return schemaInfo;
     }
@@ -3699,8 +3701,17 @@ class EditorArray extends Editor {
   }
 }
 class EditorArrayTable extends EditorArray {
-  static resolves(schema) {
-    return getSchemaType(schema) === "array" && getSchemaXOption(schema, "format") === "table";
+  static resolves(schema, refParser) {
+    const schemaItems = getSchemaItems(schema);
+    if (!schemaItems) {
+      return false;
+    }
+    const expandedSchemaItems = refParser.expand(schemaItems);
+    const itemType = getSchemaType(expandedSchemaItems);
+    if (!itemType) {
+      return false;
+    }
+    return getSchemaType(schema) === "array" && itemType === "object" && getSchemaXOption(schema, "format") === "table";
   }
   addEventListeners() {
     this.control.addBtn.addEventListener("click", () => {
@@ -3722,24 +3733,28 @@ class EditorArrayTable extends EditorArray {
     });
     th.appendChild(label);
     table.thead.appendChild(th);
-    const tempEditor = this.instance.createItemInstance();
-    const tableColMinWidth = getSchemaXOption(this.instance.schema, "tableColMinWidth");
-    tempEditor.children.forEach((child) => {
-      const itemTableColWidth = getSchemaXOption(child.schema, "tableColMinWidth");
-      const th2 = this.theme.getTableHeader({
-        minWidth: itemTableColWidth || tableColMinWidth || "auto"
-      });
-      if (child.ui.control.label && child.ui.control.description) {
-        th2.appendChild(child.ui.control.label);
-        child.ui.control.label.setAttribute("title", child.ui.control.description.textContent);
+    const schemaItems = getSchemaItems(this.instance.schema);
+    const expandedSchemaItems = this.instance.jedison.refParser.expand(schemaItems);
+    const itemProperties = getSchemaProperties(expandedSchemaItems);
+    Object.values(itemProperties).forEach((propertySchema) => {
+      const th2 = this.theme.getTableHeader();
+      if (propertySchema.title) {
+        const fakeLabel = this.theme.getFakeLabel({
+          content: propertySchema.title
+        });
+        th2.appendChild(fakeLabel.label);
       }
-      if (child.ui.control.legend && child.ui.control.description) {
-        th2.appendChild(child.ui.control.legend);
-        child.ui.control.legend.setAttribute("title", child.ui.control.description.textContent);
+      const schemaXInfo = getSchemaXOption(propertySchema, "info");
+      if (isSet(schemaXInfo)) {
+        const infoContent = this.getInfo(propertySchema);
+        const info = this.theme.getInfo(infoContent);
+        if (schemaXInfo.variant === "modal") {
+          this.theme.infoAsModal(info, this.getIdFromPath(this.instance.path), infoContent);
+        }
+        th2.appendChild(info.container);
       }
       table.thead.appendChild(th2);
     });
-    tempEditor.destroy();
     const arrayDelete = getSchemaXOption(this.instance.schema, "arrayDelete") ?? this.instance.jedison.options.arrayDelete;
     const arrayMove = getSchemaXOption(this.instance.schema, "arrayMove") ?? this.instance.jedison.options.arrayMove;
     this.instance.children.forEach((child, index2) => {
@@ -4298,6 +4313,7 @@ class EditorArrayCheckboxes extends Editor {
 class UiResolver {
   constructor(options) {
     this.customEditors = options.customEditors ?? [];
+    this.refParser = options.refParser ?? null;
     this.editors = [
       EditorMultiple,
       EditorIfThenElse,
@@ -4331,12 +4347,12 @@ class UiResolver {
   }
   getClass(schema) {
     for (const editor of this.customEditors) {
-      if (editor.resolves(schema)) {
+      if (editor.resolves(schema, this.refParser)) {
         return editor;
       }
     }
     for (const editor of this.editors) {
-      if (editor.resolves(schema)) {
+      if (editor.resolves(schema, this.refParser)) {
         return editor;
       }
     }
@@ -4692,7 +4708,8 @@ class Jedison extends EventEmitter {
       this.isEditor = true;
     }
     this.uiResolver = new UiResolver({
-      customEditors: this.options.customEditors
+      customEditors: this.options.customEditors,
+      refParser: this.refParser
     });
     this.theme = this.options.theme;
     if (this.theme) {
@@ -5021,26 +5038,18 @@ class Jedison extends EventEmitter {
   }
   /**
    * Get an array of validation errors
-   * @param filters
+   * @param {string[]} filters - Types to include, e.g., ['errors', 'warnings']
    * @returns {*[]}
    */
-  getErrors(filters = {}) {
-    const finalOptions = Object.assign({
-      errors: true,
-      warnings: true
-    }, filters);
+  getErrors(filters = ["error"]) {
     let results = [];
     Object.keys(this.instances).forEach((key) => {
       const instance = this.instances[key];
       results = [...results, ...instance.getErrors()];
     });
-    if (finalOptions.results === false) {
-      results = results.filter((error) => error.type !== "error");
-    }
-    if (finalOptions.warnings === false) {
-      results = results.filter((error) => error.type !== "warning");
-    }
-    return results;
+    return results.filter((error) => {
+      return filters.includes(error.type.toLowerCase());
+    });
   }
   /**
    * Displays validation errors in the respective editors.
@@ -5055,7 +5064,7 @@ class Jedison extends EventEmitter {
     if (!this.options.container) {
       return false;
     }
-    const errors = errorsList || this.getErrors();
+    const errors = errorsList ?? this.getErrors();
     Object.keys(this.instances).forEach((key) => {
       const instance = this.instances[key];
       instance.ui.showValidationErrors(errors, true);

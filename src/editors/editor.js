@@ -291,8 +291,9 @@ class Editor {
     return this.description
   }
 
-  getInfo () {
-    const schemaInfo = getSchemaXOption(this.instance.schema, 'info')
+  getInfo (schema = null) {
+    const _schema = schema ?? this.instance.schema
+    const schemaInfo = getSchemaXOption(_schema, 'info')
 
     if (!isSet(schemaInfo)) {
       return schemaInfo

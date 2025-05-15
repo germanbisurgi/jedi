@@ -62,15 +62,15 @@ for (let i = 0; i < suites.length; i++) {
           const refParser = new Jedison.RefParser()
           await refParser.dereference(scenario.schema)
 
-          const jedi = new Jedison.Create({
+          const jedison = new Jedison.Create({
             schema: scenario.schema,
             refParser
           })
 
-          jedi.setValue(test.data)
-          const errors = jedi.getErrors()
+          jedison.setValue(test.data)
+          const errors = jedison.getErrors()
           const valid = errors.length === 0
-          jedi.destroy()
+          jedison.destroy()
           expect(valid).toStrictEqual(test.valid)
         })
       }

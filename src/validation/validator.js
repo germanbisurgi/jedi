@@ -40,6 +40,7 @@ class Validator {
 
     if (isBoolean(schemaClone) && schemaClone === false) {
       return [{
+        type: 'error',
         messages: ['invalid'],
         path: path
       }]
