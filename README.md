@@ -4,7 +4,13 @@
 
 Generates forms from JSON schemas. Can be used in backend to validate JSON data too.
 
-Check Out the [PLAYGROUND](https://germanbisurgi.github.io/jedison/index.html?theme=bootstrap5)
+## 🚀 Quick Links
+
+🎮 **[Playground](https://germanbisurgi.github.io/jedison/index.html?theme=bootstrap5)**  
+Test and experiment with configuration options in a live environment.
+
+📖 **[Documentation](https://germanbisurgi.github.io/jedison-docs/)**  
+Learn how to use Jedison with detailed guides and interactive examples.
 
 # Table of Contents
 
