@@ -29,6 +29,7 @@ export const fontAwesome3 = {
   delete: 'icon-trash',
   add: 'icon-plus',
   moveUp: 'icon-arrow-up',
+  moveDown: 'icon-arrow-down',
   collapse: 'icon-chevron-down',
   expand: 'icon-plus',
   drag: 'icon-th',
