@@ -16,12 +16,6 @@ Learn how to use Jedison with detailed guides and interactive examples.
 
 Jedison helps you validate JSON data on the backend and generate interactive forms from JSON Schemas on the frontend.
 
-## Introduction
-
-### What is Jedison?
-
-Jedison helps you validate JSON data on the backend and generate interactive forms from JSON Schemas on the frontend.
-
 One common workflow looks like this:
 
 1. Your backend sends the JSON Schema to the client
