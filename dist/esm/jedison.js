@@ -439,6 +439,33 @@ const Schema = {
   getSchemaUnevaluatedProperties,
   getSchemaUniqueItems
 };
+class SchemaGenerator {
+  static inferType(value) {
+    if (Array.isArray(value)) return "array";
+    if (value === null) return "null";
+    return typeof value;
+  }
+  static generate(obj) {
+    if (typeof obj !== "object" || obj === null) {
+      return { type: this.inferType(obj) };
+    }
+    if (Array.isArray(obj)) {
+      const itemSchemas = obj.map((item) => this.generate(item));
+      return {
+        type: "array",
+        items: itemSchemas.length ? itemSchemas[0] : {}
+      };
+    }
+    const properties2 = {};
+    for (const key in obj) {
+      properties2[key] = this.generate(obj[key]);
+    }
+    return {
+      type: "object",
+      properties: properties2
+    };
+  }
+}
 function allOf(context) {
   let errors = [];
   const allOf2 = getSchemaAllOf(context.schema);
@@ -5051,6 +5078,19 @@ class Jedison extends EventEmitter {
       return filters.includes(error.type.toLowerCase());
     });
   }
+  export() {
+    const results = [];
+    Object.keys(this.instances).forEach((key) => {
+      const instance = this.instances[key];
+      results.push({
+        path: instance.path ?? "-",
+        type: instance.schema.type ?? "-",
+        title: instance.ui.getTitle() ?? "-",
+        value: instance.getValue() ?? "-"
+      });
+    });
+    return results;
+  }
   /**
    * Displays validation errors in the respective editors.
    * If an errors list is passed, it will display these errors;
@@ -7674,7 +7714,8 @@ const index = {
   ThemeBootstrap4,
   ThemeBootstrap5,
   RefParser,
-  Create: Jedison
+  Create: Jedison,
+  SchemaGenerator
 };
 export {
   index as default

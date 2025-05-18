@@ -589,6 +589,22 @@ class Jedison extends EventEmitter {
     })
   }
 
+  export () {
+    const results = []
+
+    Object.keys(this.instances).forEach((key) => {
+      const instance = this.instances[key]
+      results.push({
+        path: instance.path ?? '-',
+        type: instance.schema.type ?? '-',
+        title: instance.ui.getTitle() ?? '-',
+        value: instance.getValue() ?? '-'
+      })
+    })
+
+    return results
+  }
+
   /**
    * Displays validation errors in the respective editors.
    * If an errors list is passed, it will display these errors;

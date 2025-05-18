@@ -1,5 +1,6 @@
 import Schema from './helpers/schema.js'
 import Utils from './helpers/utils.js'
+import SchemaGenerator from './schema-generator/schema-generator.js'
 import Create from './jedison.js'
 import RefParser from './ref-parser/ref-parser.js'
 import Theme from './themes/theme.js'
@@ -61,5 +62,6 @@ export default {
   ThemeBootstrap4,
   ThemeBootstrap5,
   RefParser,
-  Create
+  Create,
+  SchemaGenerator
 }
