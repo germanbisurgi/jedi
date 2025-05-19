@@ -2,8 +2,6 @@
 
 # Jedison
 
-Generates forms from JSON schemas. Can be used in backend to validate JSON data too.
-
 ## 🚀 Quick Links
 
 🎮 **[Playground](https://germanbisurgi.github.io/jedison/index.html?theme=bootstrap5)**  
@@ -12,7 +10,7 @@ Test and experiment with configuration options in a live environment.
 📖 **[Documentation](https://germanbisurgi.github.io/jedison-docs/)**  
 Learn how to use Jedison with detailed guides and interactive examples.
 
-# Jedison
+## What is Jedison
 
 Jedison helps you validate JSON data on the backend and generate interactive forms from JSON Schemas on the frontend.
 
