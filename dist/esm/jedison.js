@@ -3729,12 +3729,14 @@ class EditorArray extends Editor {
 }
 class EditorArrayTable extends EditorArray {
   static resolves(schema, refParser) {
-    const schemaItems = getSchemaItems(schema);
+    let schemaItems = getSchemaItems(schema);
     if (!schemaItems) {
       return false;
     }
-    const expandedSchemaItems = refParser.expand(schemaItems);
-    const itemType = getSchemaType(expandedSchemaItems);
+    if (refParser) {
+      schemaItems = refParser.expand(schemaItems);
+    }
+    const itemType = getSchemaType(schemaItems);
     if (!itemType) {
       return false;
     }
@@ -3760,9 +3762,11 @@ class EditorArrayTable extends EditorArray {
     });
     th.appendChild(label);
     table.thead.appendChild(th);
-    const schemaItems = getSchemaItems(this.instance.schema);
-    const expandedSchemaItems = this.instance.jedison.refParser.expand(schemaItems);
-    const itemProperties = getSchemaProperties(expandedSchemaItems);
+    let schemaItems = getSchemaItems(this.instance.schema);
+    if (this.instance.jedison.refParser) {
+      schemaItems = this.instance.jedison.refParser.expand(schemaItems);
+    }
+    const itemProperties = getSchemaProperties(schemaItems);
     Object.values(itemProperties).forEach((propertySchema) => {
       const th2 = this.theme.getTableHeader();
       if (propertySchema.title) {

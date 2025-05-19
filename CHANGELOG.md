@@ -1,3 +1,7 @@
+### 0.2.3
+
+- Fixed array table issue with ref parser
+
 ### 0.2.2
 
 - Array nav actions inside tab
