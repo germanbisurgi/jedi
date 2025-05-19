@@ -1596,11 +1596,16 @@ class Theme {
   getTab (config) {
     const list = document.createElement('li')
     const link = document.createElement('a')
+    const arrayActions = document.createElement('span')
+    const text = document.createElement('span')
     link.classList.add('jedi-nav-link')
     link.setAttribute('href', '#' + config.id)
-    link.textContent = config.hasErrors ? '⚠ ' + config.title : config.title
+    text.classList.add('jedi-nav-text')
+    text.textContent = config.hasErrors ? '⚠ ' + config.title : config.title
+    link.appendChild(arrayActions)
+    link.appendChild(text)
     list.appendChild(link)
-    return { list, link }
+    return { list, link, arrayActions, text }
   }
 
   /**

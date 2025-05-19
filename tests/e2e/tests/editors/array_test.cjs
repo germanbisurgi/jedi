@@ -41,21 +41,21 @@ Scenario('@editor @array @array-nav-vertical', ({ I }) => {
   if (theme === 'barebones') {
     I._waitForElement('.jedi-nav-list')
     I.seeNumberOfVisibleElements('.jedi-nav-link', 2)
-    I._click('.jedi-nav-list [href="#root-1"]')
-    I._waitForValue('[id="root-1-name"]', 'Betti')
+    I._click('.jedi-nav-list [href="#root-1"] .jedi-nav-text')
+    I._waitForVisible('[id="root-1-name"]')
   }
 
   if (theme === 'bootstrap3') {
     I._waitForElement('.nav-pills')
     I.seeNumberOfVisibleElements('.nav-pills li', 2)
-    I._click('.nav-pills [href="#root-1"]')
+    I._click('.nav-pills [href="#root-1"] .jedi-nav-text')
     I._waitForValue('[id="root-1-name"]', 'Betti')
   }
 
   if (theme === 'bootstrap4' || theme === 'bootstrap5') {
     I._waitForElement('.nav-pills')
     I.seeNumberOfVisibleElements('.nav-link', 2)
-    I._click('.nav-pills [href="#root-1"]')
+    I._click('.nav-pills [href="#root-1"] .jedi-nav-text')
     I._waitForValue('[id="root-1-name"]', 'Betti')
   }
 })
@@ -68,21 +68,21 @@ Scenario('@editor @array @array-nav-horizontal', ({ I }) => {
   if (theme === 'barebones') {
     I._waitForElement('.jedi-nav-list')
     I.seeNumberOfVisibleElements('.jedi-nav-link', 2)
-    I._click('.jedi-nav-list [href="#root-1"]')
+    I._click('.jedi-nav-list [href="#root-1"] .jedi-nav-text')
     I._waitForValue('[id="root-1-name"]', 'Betti')
   }
 
   if (theme === 'bootstrap3') {
     I._waitForElement('.nav-tabs')
     I.seeNumberOfVisibleElements('.nav-tabs li', 2)
-    I._click('.nav-tabs [href="#root-1"]')
+    I._click('.nav-tabs [href="#root-1"] .jedi-nav-text')
     I._waitForValue('[id="root-1-name"]', 'Betti')
   }
 
   if (theme === 'bootstrap4' || theme === 'bootstrap5') {
     I._waitForElement('.nav-tabs')
     I.seeNumberOfVisibleElements('.nav-link', 2)
-    I._click('.nav-tabs [href="#root-1"]')
+    I._click('.nav-tabs [href="#root-1"] .jedi-nav-text')
     I._waitForValue('[id="root-1-name"]', 'Betti')
   }
 })

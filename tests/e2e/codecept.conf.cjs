@@ -1,4 +1,6 @@
 const show = process.env.SHOW || false
+const width = 1400
+const height = 5000
 
 exports.config = {
   tests: './**/*_test.cjs',
@@ -12,11 +14,11 @@ exports.config = {
       show: show,
       waitForAction: 100,
       waitForTimeout: 5000,
-      windowSize: '1200x3000',
+      windowSize: `${width}x${height}`,
       restart: false,
       waitForNavigation: [ 'load', 'networkidle0' ],
       chrome: {
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
+        args: ['--no-sandbox', '--disable-setuid-sandbox', `--window-size=${width},${height}`]
       }
     },
     ChaiWrapper: {

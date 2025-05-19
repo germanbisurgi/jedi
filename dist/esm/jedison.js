@@ -3985,13 +3985,13 @@ class EditorArrayNav extends EditorArray {
       }
       const active = index2 === this.activeItemIndex;
       const id = pathToAttribute(child.path);
-      const { list } = this.theme.getTab({
+      const { list, arrayActions } = this.theme.getTab({
         hasErrors: child.children.some((grandChild) => grandChild.ui.showingValidationErrors),
         title: (titleTemplate == null ? void 0 : titleTemplate.length) ? titleTemplate : childTitle,
         id,
         active
       });
-      list.appendChild(btnGroup);
+      arrayActions.appendChild(btnGroup);
       list.addEventListener("click", () => {
         this.activeItemIndex = index2;
       });
@@ -6613,11 +6613,16 @@ class Theme {
   getTab(config) {
     const list = document.createElement("li");
     const link = document.createElement("a");
+    const arrayActions = document.createElement("span");
+    const text = document.createElement("span");
     link.classList.add("jedi-nav-link");
     link.setAttribute("href", "#" + config.id);
-    link.textContent = config.hasErrors ? "⚠ " + config.title : config.title;
+    text.classList.add("jedi-nav-text");
+    text.textContent = config.hasErrors ? "⚠ " + config.title : config.title;
+    link.appendChild(arrayActions);
+    link.appendChild(text);
     list.appendChild(link);
-    return { list, link };
+    return { list, link, arrayActions, text };
   }
   /**
    * Wrapper for tabs
@@ -6939,6 +6944,7 @@ class ThemeBootstrap3 extends Theme {
   }
   getTab(config) {
     const tab = super.getTab(config);
+    tab.text.style.marginLeft = "15px";
     if (config.active) {
       tab.list.classList.add("active");
     }
@@ -7272,6 +7278,8 @@ class ThemeBootstrap4 extends Theme {
   getTab(config) {
     const tab = super.getTab(config);
     tab.list.classList.add("nav-item");
+    tab.list.classList.add("mb-3");
+    tab.text.classList.add("ml-3");
     tab.link.classList.add("nav-link");
     tab.link.setAttribute("data-toggle", "tab");
     if (config.active) {
@@ -7602,6 +7610,8 @@ class ThemeBootstrap5 extends Theme {
   getTab(config) {
     const tab = super.getTab(config);
     tab.list.classList.add("nav-item");
+    tab.list.classList.add("mb-3");
+    tab.text.classList.add("ms-3");
     tab.link.classList.add("nav-link");
     tab.link.setAttribute("data-bs-toggle", "tab");
     if (config.active) {

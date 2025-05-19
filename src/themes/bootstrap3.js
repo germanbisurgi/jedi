@@ -306,6 +306,7 @@ class ThemeBootstrap3 extends Theme {
 
   getTab (config) {
     const tab = super.getTab(config)
+    tab.text.style.marginLeft = '15px'
 
     if (config.active) {
       tab.list.classList.add('active')

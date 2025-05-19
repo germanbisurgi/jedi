@@ -310,6 +310,9 @@ class ThemeBootstrap5 extends Theme {
   getTab (config) {
     const tab = super.getTab(config)
     tab.list.classList.add('nav-item')
+    tab.list.classList.add('mb-3')
+
+    tab.text.classList.add('ms-3')
 
     tab.link.classList.add('nav-link')
     tab.link.setAttribute('data-bs-toggle', 'tab')

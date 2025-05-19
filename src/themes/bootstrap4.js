@@ -318,7 +318,8 @@ class ThemeBootstrap4 extends Theme {
   getTab (config) {
     const tab = super.getTab(config)
     tab.list.classList.add('nav-item')
-
+    tab.list.classList.add('mb-3')
+    tab.text.classList.add('ml-3')
     tab.link.classList.add('nav-link')
     tab.link.setAttribute('data-toggle', 'tab')
 
