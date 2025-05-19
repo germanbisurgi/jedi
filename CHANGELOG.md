@@ -1,3 +1,7 @@
+### 0.2.2
+
+- Array nav actions inside tab
+
 ### 0.2.1
 
 - Fixed issue with table array
