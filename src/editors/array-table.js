@@ -1,6 +1,6 @@
 import EditorArray from './array.js'
 import { isSet } from '../helpers/utils.js'
-import { getSchemaItems, getSchemaProperties, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { getSchemaItems, getSchemaType, getSchemaXOption } from '../helpers/schema.js'
 
 /**
  * Represents an EditorArrayTable instance.
@@ -8,23 +8,7 @@ import { getSchemaItems, getSchemaProperties, getSchemaType, getSchemaXOption } 
  */
 class EditorArrayTable extends EditorArray {
   static resolves (schema, refParser) {
-    let schemaItems = getSchemaItems(schema)
-
-    if (!schemaItems) {
-      return false
-    }
-
-    if (refParser) {
-      schemaItems = refParser.expand(schemaItems)
-    }
-
-    const itemType = getSchemaType(schemaItems)
-
-    if (!itemType) {
-      return false
-    }
-
-    return getSchemaType(schema) === 'array' && itemType === 'object' && getSchemaXOption(schema, 'format') === 'table'
+    return getSchemaType(schema) === 'array' && getSchemaXOption(schema, 'format') === 'table-generic'
   }
 
   addEventListeners () {
@@ -56,39 +40,36 @@ class EditorArrayTable extends EditorArray {
 
     table.thead.appendChild(th)
 
-    let schemaItems = getSchemaItems(this.instance.schema)
+    // table header
 
-    if (this.instance.jedison.refParser) {
-      schemaItems = this.instance.jedison.refParser.expand(schemaItems)
-    }
-    const itemProperties = getSchemaProperties(schemaItems)
+    if (this.instance.children.length) {
+      const schemaItems = getSchemaItems(this.instance.schema)
 
-    Object.values(itemProperties).forEach((propertySchema) => {
-      const th = this.theme.getTableHeader()
+      const thTitle = this.theme.getTableHeader()
 
-      if (propertySchema.title) {
+      if (schemaItems.title) {
         const fakeLabel = this.theme.getFakeLabel({
-          content: propertySchema.title
+          content: schemaItems.title
         })
 
-        th.appendChild(fakeLabel.label)
+        thTitle.appendChild(fakeLabel.label)
       }
 
-      const schemaXInfo = getSchemaXOption(propertySchema, 'info')
+      const schemaXInfo = getSchemaXOption(schemaItems, 'info')
 
       if (isSet(schemaXInfo)) {
-        const infoContent = this.getInfo(propertySchema)
+        const infoContent = this.getInfo(schemaItems)
         const info = this.theme.getInfo(infoContent)
 
         if (schemaXInfo.variant === 'modal') {
           this.theme.infoAsModal(info, this.getIdFromPath(this.instance.path), infoContent)
         }
 
-        th.appendChild(info.container)
+        thTitle.appendChild(info.container)
       }
 
-      table.thead.appendChild(th)
-    })
+      table.thead.appendChild(thTitle)
+    }
 
     const arrayDelete = getSchemaXOption(this.instance.schema, 'arrayDelete') ?? this.instance.jedison.options.arrayDelete
     const arrayMove = getSchemaXOption(this.instance.schema, 'arrayMove') ?? this.instance.jedison.options.arrayMove
@@ -117,20 +98,11 @@ class EditorArrayTable extends EditorArray {
       buttonsTd.appendChild(btnGroup)
       tbodyRow.appendChild(buttonsTd)
 
-      // editors
-      if (child.children.length) {
-        child.children.forEach((grandchild) => {
-          const td = this.theme.getTableDefinition()
-          grandchild.ui.adaptForTable(td)
-          td.appendChild(grandchild.ui.control.container)
-          tbodyRow.appendChild(td)
-        })
-      } else {
-        const td = this.theme.getTableDefinition()
-        child.ui.adaptForTable(td)
-        td.appendChild(child.ui.control.container)
-        tbodyRow.appendChild(td)
-      }
+      // child
+      const td = this.theme.getTableDefinition()
+      child.ui.adaptForTable(child, td)
+      td.appendChild(child.ui.control.container)
+      tbodyRow.appendChild(td)
 
       table.tbody.appendChild(tbodyRow)
     })

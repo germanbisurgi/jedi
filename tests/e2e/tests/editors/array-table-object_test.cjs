@@ -1,6 +1,6 @@
 /* global Feature Scenario */
 const theme = process.env.THEME || 'barebones'
-const pathToSchema = 'editors/array-table'
+const pathToSchema = 'editors/array-table-object'
 const valueWithErrors = [
   {
     "boolean-select": false,
@@ -51,7 +51,7 @@ const valueDefault = [
   }
 ]
 
-Feature('array-table')
+Feature('array-table-object')
 
 BeforeSuite(({I}) => {
   I.amOnPage(`playground.html?theme=${theme}`)
@@ -59,12 +59,12 @@ BeforeSuite(({I}) => {
   I._waitForElement('.jedi-ready')
 });
 
-Scenario('@editor @array-table should have @title and @description', ({I}) => {
+Scenario('@editor @array-table-object should have @title and @description', ({I}) => {
   I._waitForText('Array', 'legend .jedi-title')
   I._waitForText('Arrays are used for ordered elements. In JSON, each element in an array may be of a different type.', '.jedi-description')
 })
 
-Scenario('@editor @array-table should have a @default value', ({I}) => {
+Scenario('@editor @array-table-object should have a @default value', ({I}) => {
   // instance
   I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(valueDefault))
 
@@ -73,7 +73,7 @@ Scenario('@editor @array-table should have a @default value', ({I}) => {
   I.seeInField('[id="root-1-boolean-select"]', 'false')
 })
 
-Scenario('@editor @array-table should @delete-item', ({I}) => {
+Scenario('@editor @array-table-object should @delete-item', ({I}) => {
   I.seeNumberOfElements('.jedi-array-delete', 2);
   I._click('.jedi-array-delete')
   I.seeInPopup('Are you sure you want to delete this item?')
@@ -81,7 +81,7 @@ Scenario('@editor @array-table should @delete-item', ({I}) => {
   I.seeNumberOfElements('.jedi-array-delete', 1);
 })
 
-Scenario('@editor @array-table should @setValue and @showValidationErrors', ({I}) => {
+Scenario('@editor @array-table-object should @setValue and @showValidationErrors', ({I}) => {
   // instance
   I.fillField('#editor-value', JSON.stringify(valueWithErrors))
   I._scrollTo('#set-value')
@@ -94,7 +94,7 @@ Scenario('@editor @array-table should @setValue and @showValidationErrors', ({I}
   I._waitForText('Must have at least 2 items.', '.jedi-error-message')
 })
 
-Scenario('@editor @array-table should @disable', ({I}) => {
+Scenario('@editor @array-table-object should @disable', ({I}) => {
   I._click('#disable-editor')
   I.dontSeeElement('[always-disabled]:not(:disabled)')
 
@@ -104,7 +104,7 @@ Scenario('@editor @array-table should @disable', ({I}) => {
   I.dontSeeElement('.jedi-ready button:not(:disabled):not([always-enabled])')
 })
 
-Scenario('@editor @array-table should @enable', ({I}) => {
+Scenario('@editor @array-table-object should @enable', ({I}) => {
   I._click('#enable-editor')
   I.dontSeeElement('[always-disabled]:not(:disabled)')
 
@@ -114,7 +114,7 @@ Scenario('@editor @array-table should @enable', ({I}) => {
   I.dontSeeElement('.jedi-ready button[disabled]:not([always-disabled])')
 })
 
-Scenario('@editor @array-table should @destroy', ({I}) => {
+Scenario('@editor @array-table-object should @destroy', ({I}) => {
   I._click('#destroy-editor')
   I.dontSeeElement('[data-schemapath="root"]')
 })
