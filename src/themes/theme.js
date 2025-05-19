@@ -986,7 +986,8 @@ class Theme {
     }
   }
 
-  adaptForTableMultipleControl (control, td) {}
+  adaptForTableMultipleControl (control, td) {
+  }
 
   getIfThenElseControl (config) {
     const container = document.createElement('div')

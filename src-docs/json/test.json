@@ -1,82 +1,163 @@
 {
+  "title": "Arrays",
   "type": "object",
   "properties": {
-    "pageNum": {
-      "type": "integer",
-      "title": "Page number",
-      "description": "Page number to be queried, `1-based`. See [Pagination](https://en.wikipedia.org/wiki/Pagination) for more details",
-      "default": 1
+    "typeless": {
+      "type": "array",
+      "title": "Typeless Items",
+      "x-format": "table-generic",
+      "items": {
+        "title": "No Type"
+      },
+      "x-sortable": true,
+      "default": []
     },
-    "pageSize": {
-      "type": "integer",
-      "title": "Page size",
-      "description": "Number of records per page",
-      "default": 50,
-      "enum": [
-        10,
-        25,
-        50,
-        100
+    "arrays": {
+      "type": "array",
+      "title": "Arrays",
+      "x-format": "table-generic",
+      "items": {
+        "title": "Array",
+        "type": "array",
+        "x-format": "table-generic",
+        "items": {
+          "title": "String",
+          "type": "string"
+        },
+        "x-sortable": true
+      },
+      "x-sortable": true,
+      "default": [
+        [
+          "a",
+          "b",
+          "c"
+        ],
+        [
+          "a",
+          "b",
+          "c"
+        ],
+        [
+          "a",
+          "b",
+          "c"
+        ]
       ]
     },
-    "selectedFacetValues": {
+    "objects": {
       "type": "array",
-      "title": "Query terms",
-      "minItems": 2,
-      "uniqueItems": true,
+      "title": "Objects",
+      "x-format": "table-generic",
       "items": {
-        "description": "Query item",
+        "title": "Object",
         "type": "object",
         "properties": {
-          "facetName": {
-            "type": "string",
-            "title": "Field name",
-            "description": "Indexed field name"
+          "name": {
+            "title": "Name",
+            "type": "string"
           },
-          "matchAllNull": {
-            "type": "boolean",
-            "title": "Match nulls"
-          },
-          "matchAllNotNull": {
-            "type": "boolean",
-            "title": "Match not nulls"
-          },
-          "facetValues": {
-            "type": "array",
-            "title": "Field values",
-            "items": {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "type": "string",
-                  "title": "Value"
-                }
-              }
-            }
-          },
-          "included": {
-            "type": "boolean",
-            "title": "Included"
+          "age": {
+            "title": "Age",
+            "type": "integer"
           }
         }
-      }
+      },
+      "x-sortable": true,
+      "default": [
+        {
+          "name": "Alice",
+          "age": 29
+        },
+        {
+          "name": "Betti",
+          "age": 23
+        },
+        {
+          "name": "Carl",
+          "age": 69
+        }
+      ]
     },
-    "sorts": {
+    "booleans": {
       "type": "array",
-      "title": "Sorting",
+      "title": "Booleans",
+      "x-format": "table-generic",
       "items": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "Key"
-          },
-          "val": {
-            "type": "string",
-            "title": "Value"
-          }
+        "title": "Boolean",
+        "type": "boolean",
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
         }
-      }
+      },
+      "x-sortable": true,
+      "default": [
+        true,
+        false,
+        false
+      ]
+    },
+    "strings": {
+      "type": "array",
+      "title": "Strings",
+      "x-format": "table-generic",
+      "items": {
+        "title": "String",
+        "type": "string",
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
+        }
+      },
+      "x-sortable": true,
+      "default": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    "numbers": {
+      "type": "array",
+      "title": "Numbers",
+      "x-format": "table-generic",
+      "items": {
+        "title": "Number",
+        "type": "number",
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
+        }
+      },
+      "x-sortable": true,
+      "default": [
+        1.5,
+        2.5,
+        3.5
+      ]
+    },
+    "integers": {
+      "type": "array",
+      "title": "Integers",
+      "x-format": "table-generic",
+      "items": {
+        "title": "Integer",
+        "type": "integer",
+        "x-info": {
+          "variant": "modal",
+          "title": "### Info Button title",
+          "content": "Info button content"
+        }
+      },
+      "x-sortable": true,
+      "default": [
+        1,
+        2,
+        3
+      ]
     }
   }
 }
