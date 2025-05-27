@@ -1,3 +1,8 @@
+### 0.3.0
+
+- Fixed trailing 0 in number inputs
+- Array "x-format": "table" (generic) and "x-format": "table-object" (objects items specific)
+
 ### 0.2.3
 
 - Fixed array table issue with ref parser

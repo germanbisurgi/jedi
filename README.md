@@ -75,7 +75,7 @@ yarn add jedison
 ### Using fromCDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/jedison@0.1.1/dist/umd/jedison.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jedison@latest/dist/umd/jedison.umd.js"></script>
 
 <div id="jedison-container"></div>
 
