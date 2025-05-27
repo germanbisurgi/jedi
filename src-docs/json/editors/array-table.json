@@ -5,7 +5,7 @@
     "typeless": {
       "type": "array",
       "title": "Typeless Items",
-      "x-format": "table-generic",
+      "x-format": "table",
       "items": {
         "title": "No Type"
       },
@@ -15,11 +15,11 @@
     "arrays": {
       "type": "array",
       "title": "Arrays",
-      "x-format": "table-generic",
+      "x-format": "table",
       "items": {
         "title": "Array",
         "type": "array",
-        "x-format": "table-generic",
+        "x-format": "table",
         "items": {
           "title": "String",
           "type": "string"
@@ -48,7 +48,7 @@
     "objects": {
       "type": "array",
       "title": "Objects",
-      "x-format": "table-generic",
+      "x-format": "table",
       "items": {
         "title": "Object",
         "type": "object",
@@ -82,7 +82,7 @@
     "booleans": {
       "type": "array",
       "title": "Booleans",
-      "x-format": "table-generic",
+      "x-format": "table",
       "items": {
         "title": "Boolean",
         "type": "boolean",
@@ -102,7 +102,7 @@
     "strings": {
       "type": "array",
       "title": "Strings",
-      "x-format": "table-generic",
+      "x-format": "table",
       "items": {
         "title": "String",
         "type": "string",
@@ -122,7 +122,7 @@
     "numbers": {
       "type": "array",
       "title": "Numbers",
-      "x-format": "table-generic",
+      "x-format": "table",
       "items": {
         "title": "Number",
         "type": "number",
@@ -142,7 +142,7 @@
     "integers": {
       "type": "array",
       "title": "Integers",
-      "x-format": "table-generic",
+      "x-format": "table",
       "items": {
         "title": "Integer",
         "type": "integer",

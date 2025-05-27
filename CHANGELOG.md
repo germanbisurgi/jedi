@@ -1,3 +1,7 @@
+### 0.3.1
+
+- Fixed "x-format": "table" naming
+
 ### 0.3.0
 
 - Fixed trailing 0 in number inputs

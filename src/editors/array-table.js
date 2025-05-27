@@ -8,7 +8,7 @@ import { getSchemaItems, getSchemaType, getSchemaXOption } from '../helpers/sche
  */
 class EditorArrayTable extends EditorArray {
   static resolves (schema, refParser) {
-    return getSchemaType(schema) === 'array' && getSchemaXOption(schema, 'format') === 'table-generic'
+    return getSchemaType(schema) === 'array' && getSchemaXOption(schema, 'format') === 'table'
   }
 
   addEventListeners () {

@@ -3735,7 +3735,7 @@ class EditorArray extends Editor {
 }
 class EditorArrayTable extends EditorArray {
   static resolves(schema, refParser) {
-    return getSchemaType(schema) === "array" && getSchemaXOption(schema, "format") === "table-generic";
+    return getSchemaType(schema) === "array" && getSchemaXOption(schema, "format") === "table";
   }
   addEventListeners() {
     this.control.addBtn.addEventListener("click", () => {
