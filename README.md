@@ -75,11 +75,11 @@ yarn add jedison
 ### Using fromCDN
 
 ```html
+<script src="https://cdn.jsdelivr.net/npm/jedison@0.1.1/dist/umd/jedison.umd.js"></script>
+
 <div id="jedison-container"></div>
 
-<script type="module">
-    import Jedison from 'jedison'
-
+<script>
     const jedison = new Jedison.Create({
         container: document.querySelector('#jedison-container'),
         theme: new Jedison.Theme(),

@@ -53,6 +53,14 @@ class EditorNumberInput extends EditorNumber {
       const value = this.sanitize(this.control.input.value)
       this.instance.setValue(value, true, 'user')
     })
+
+    this.control.input.addEventListener('focus', () => {
+      this.control.input.value = this.instance.getValue().toString
+    })
+
+    this.control.input.addEventListener('blur', () => {
+      this.refreshUI()
+    })
   }
 
   refreshUI () {
