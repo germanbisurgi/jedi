@@ -1,3 +1,7 @@
+### 0.3.2
+
+- Better number input interaction
+
 ### 0.3.1
 
 - Fixed "x-format": "table" naming
