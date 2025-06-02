@@ -273,14 +273,11 @@ class Instance extends EventEmitter {
 
     this.emit('set-value', newValue, initiator)
 
-    if (notifyParent) {
-      this.emit('notifyParent', initiator)
-    }
-
     if (valueChanged) {
       this.isDirty = true
       this.emit('change', initiator)
       this.jedison.emit('instance-change', this, initiator)
+      this.emit('notifyParent', initiator)
     }
   }
 

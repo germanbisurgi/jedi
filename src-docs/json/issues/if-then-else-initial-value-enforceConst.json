@@ -1,0 +1,151 @@
+{
+  "title": "Wasserwild/Störche",
+  "type": "object",
+  "x-options": {
+    "format": "grid",
+    "grid": {
+      "columns": 12
+    }
+  },
+  "required": [
+    "schwarzstorch"
+  ],
+  "properties": {
+    "schwarzstorch": {
+      "title": "Schwarzstorch",
+      "$ref": "#\/$defs\/global/vorkommen_brut",
+      "properties": {
+        "vk": {
+          "title": "Kam die Art im **Jagdjahr 2024/25** in Ihrem Revier vor?"
+        },
+        "brut": {
+          "title": "Brütete die Art im **Frühjahr 2025** in Ihrem Revier?"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "global": {
+      "vorkommen": {
+        "type": "object",
+        "required": [
+          "vk"
+        ],
+        "properties": {
+          "vk": {
+            "title": "Kam die Art im Frühjahr des aktuellen Jagdjahres in Ihrem Revier vor?",
+            "type": "string",
+            "enum": [
+              "ja",
+              "nein",
+              "unbekannt",
+              "keine_angabe"
+            ],
+            "x-options": {
+              "enumTitles": [
+                "ja",
+                "nein",
+                "unbekannt",
+                "keine Angabe"
+              ],
+              "enforceEnumDefault": false,
+              "format": "radios-inline"
+            }
+          }
+        }
+      },
+      "vorkommen_brut": {
+        "$ref": "#/$defs/global/vorkommen",
+        "properties": {
+          "brut": {
+            "title": "Brütete die Art in Ihrem Revier?"
+          }
+        },
+        "if": {
+          "properties": {
+            "vk": {
+              "const": "ja"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "brut": {
+              "type": "string",
+              "enum": [
+                "ja",
+                "nein",
+                "unbekannt",
+                "keine_angabe"
+              ],
+              "x-options": {
+                "enumTitles": [
+                  "ja",
+                  "nein",
+                  "unbekannt",
+                  "keine Angabe"
+                ],
+                "enforceEnumDefault": false,
+                "format": "radios-inline"
+              }
+            }
+          }
+        },
+        "else": {
+          "if": {
+            "properties": {
+              "vk": {
+                "const": "nein"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "brut": {
+                "type": "string",
+                "default": "",
+                "const": "",
+                "readOnly": true,
+                "description": "nein",
+                "x-enforceConst": true
+              }
+            }
+          },
+          "else": {
+            "if": {
+              "properties": {
+                "vk": {
+                  "const": "unbekannt"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "brut": {
+                  "type": "string",
+                  "default": "",
+                  "const": "",
+                  "readOnly": true,
+                  "description": "unbekannt",
+                  "x-enforceConst": true
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "brut": {
+                  "type": "string",
+                  "default": "",
+                  "const": "",
+                  "readOnly": true,
+                  "description": "keine Angabe",
+                  "x-enforceConst": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

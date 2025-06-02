@@ -1,3 +1,7 @@
+### 0.3.3
+
+- Fixed issue with if-then-else initial values
+
 ### 0.3.2
 
 - Better number input interaction

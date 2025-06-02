@@ -307,6 +307,7 @@ import anyOfRefs from './json/parsing/anyOf-refs.json'
 import recursiveRefs from './json/parsing/recursive-refs.json'
 import ifThenElseValueOverrides from './json/issues/if-then-else-value-overrides.json'
 import ifThenElseInitialValue from './json/issues/if-then-else-initial-value.json'
+import ifThenElseInitialValueEnforceConst from './json/issues/if-then-else-initial-value-enforceConst.json'
 import {getSchemaConst} from "../src/helpers/schema.js"
 import {compileTemplate, different, isSet} from "../src/helpers/utils.js"
 
@@ -435,7 +436,8 @@ export default {
         },
         'Fixed issues': {
           'issue/if-then-else-value-overrides': ifThenElseValueOverrides,
-          'issue/if-then-else-initial-value': ifThenElseInitialValue
+          'issue/if-then-else-initial-value': ifThenElseInitialValue,
+          'issue/if-then-else-initial-value-enforceConst': ifThenElseInitialValueEnforceConst
         }
       },
       example: 'editors/all',
@@ -610,7 +612,7 @@ export default {
       // schema
       const querySchema = this.getQueryParam('schema')
 
-      this.schema = querySchema ? JSON.parse(this.decompress(querySchema)) :this.getSchema()
+      this.schema = querySchema ? JSON.parse(this.decompress(querySchema)) : this.getSchema()
 
       if (schema) {
         this.schema = schema
@@ -619,7 +621,7 @@ export default {
       // data
       const queryData = this.getQueryParam('data')
 
-      this.data = queryData ? JSON.parse(this.decompress(queryData)) :  undefined
+      this.data = queryData ? JSON.parse(this.decompress(queryData)) : undefined
 
       if (data) {
         this.data = data
