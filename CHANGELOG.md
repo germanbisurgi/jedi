@@ -1,3 +1,7 @@
+### 0.3.4
+
+- Security updates
+
 ### 0.3.3
 
 - Fixed issue with if-then-else initial values
