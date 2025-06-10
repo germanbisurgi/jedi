@@ -1,3 +1,7 @@
+### 0.3.5
+
+- Added number input nullable editor and example
+
 ### 0.3.4
 
 - Security updates
