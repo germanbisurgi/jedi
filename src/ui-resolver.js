@@ -9,6 +9,7 @@ import EditorStringEmojiButton from './editors/string-emoji-button.js'
 import EditorStringInput from './editors/string-input.js'
 import EditorNumberRadio from './editors/number-radios.js'
 import EditorNumberSelect from './editors/number-select.js'
+import EditorNumberInputNullable from './editors/number-input-nullable.js'
 import EditorNumberInput from './editors/number-input.js'
 import EditorObjectGrid from './editors/object-grid.js'
 import EditorObjectNav from './editors/object-nav.js'
@@ -34,6 +35,7 @@ class UiResolver {
     this.refParser = options.refParser ?? null
 
     this.editors = [
+      EditorNumberInputNullable,
       EditorMultiple,
       EditorIfThenElse,
       EditorBooleanRadios,

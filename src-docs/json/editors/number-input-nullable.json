@@ -1,0 +1,16 @@
+{
+  "x-nullable": true,
+  "title": "Nullable input number",
+  "description": "Value is `null`, When the input is considered empty.",
+  "type": [
+    "null",
+    "number"
+  ],
+  "default": null,
+  "minimum": 0,
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
+  }
+}

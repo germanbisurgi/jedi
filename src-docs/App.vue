@@ -216,6 +216,7 @@ import booleanRadiosInline from './json/editors/boolean-radios-inline.json'
 import integerInput from './json/editors/integer-input.json'
 import nullJson from './json/editors/null.json'
 import numberInput from './json/editors/number-input.json'
+import numberInputNullable from './json/editors/number-input-nullable.json'
 import numberRadios from './json/editors/number-radios.json'
 import numberRadiosInline from './json/editors/number-radios-inline.json'
 import numberSelect from './json/editors/number-select.json'
@@ -348,6 +349,7 @@ export default {
           'editors/integer-input': integerInput,
           'editors/null': nullJson,
           'editors/number-input': numberInput,
+          'editors/number-input-nullable': numberInputNullable,
           'editors/number-radios': numberRadios,
           'editors/number-radios-inline': numberRadiosInline,
           'editors/number-select': numberSelect,
