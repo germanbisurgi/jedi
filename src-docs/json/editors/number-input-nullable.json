@@ -1,5 +1,5 @@
 {
-  "x-nullable": true,
+  "x-format": "number-nullable",
   "title": "Nullable input number",
   "description": "Value is `null`, When the input is considered empty.",
   "type": [

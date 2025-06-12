@@ -4,6 +4,7 @@
   "type": "string",
   "minLength": 8,
   "default": "28.11.1999",
+  "x-format": "imask",
   "x-imask": {
     "x-settings": "imaskDate",
     "x-masked": false

@@ -4,6 +4,7 @@
   "description": "Raty - A Star Rating Plugin",
   "default": 3,
   "minimum": 0.5,
+  "x-format": "raty",
   "x-raty": {
     "half": true,
     "starType": "i"

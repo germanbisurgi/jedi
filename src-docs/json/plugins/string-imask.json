@@ -4,6 +4,7 @@
   "type": "string",
   "minLength": 22,
   "default": "DE11111111111111111111",
+  "x-format": "imask",
   "x-imask": {
     "mask": "aa00 0000 0000 0000 0000 00",
     "lazy": false

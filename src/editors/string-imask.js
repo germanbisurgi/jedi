@@ -1,5 +1,6 @@
 import EditorString from './string.js'
 import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
+import { isSet } from '../helpers/utils.js'
 
 /**
  * Represents a EditorStringIMask instance.
@@ -9,9 +10,12 @@ class EditorStringIMask extends EditorString {
   static resolves (schema) {
     const hasSchemaTypeString = getSchemaType(schema) === 'string'
     const imaskAvailable = window.IMask
-    const hasXImask = getSchemaXOption(schema, 'imask')
+    const format = getSchemaXOption(schema, 'format')
 
-    return hasSchemaTypeString && hasXImask && imaskAvailable
+    return isSet(format) &&
+      format === 'imask' &&
+      hasSchemaTypeString &&
+      imaskAvailable
   }
 
   build () {

@@ -3079,7 +3079,8 @@ class EditorStringTextarea extends EditorString {
 }
 class EditorStringAwesomplete extends EditorString {
   static resolves(schema) {
-    return window.Awesomplete && getSchemaType(schema) === "string" && isSet(getSchemaXOption(schema, "awesomplete"));
+    const format2 = getSchemaXOption(schema, "format");
+    return isSet(format2) && format2 === "awesomplete" && window.Awesomplete && getSchemaType(schema) === "string";
   }
   build() {
     this.control = this.theme.getInputControl({
@@ -3092,7 +3093,8 @@ class EditorStringAwesomplete extends EditorString {
       info: this.getInfo()
     });
     try {
-      this.awesomplete = new window.Awesomplete(this.control.input, getSchemaXOption(this.instance.schema, "awesomplete"));
+      const awesompleteOptions = getSchemaXOption(this.instance.schema, "awesomplete") ?? {};
+      this.awesomplete = new window.Awesomplete(this.control.input, awesompleteOptions);
       this.control.container.querySelector(".awesomplete").style.display = "block";
     } catch (e) {
       console.error("Awesomplete is not available or not loaded correctly.", e);
@@ -3114,7 +3116,8 @@ class EditorStringAwesomplete extends EditorString {
 }
 class EditorStringEmojiButton extends EditorString {
   static resolves(schema) {
-    return window.EmojiButton && getSchemaType(schema) === "string" && isSet(getSchemaXOption(schema, "emojiButton"));
+    const format2 = getSchemaXOption(schema, "format");
+    return isSet(format2) && format2 === "emojiButton" && window.EmojiButton && getSchemaType(schema) === "string";
   }
   build() {
     this.control = this.theme.getInputControl({
@@ -3128,13 +3131,15 @@ class EditorStringEmojiButton extends EditorString {
     });
     this.control.input.classList.add("jedi-emoji-button");
     this.control.input.value = "😀";
+    const emojiButtonOptions = getSchemaXOption(this.instance.schema, "emojiButton") ?? {};
     const options = Object.assign({
       theme: "auto",
       autoHide: true,
       showPreview: false,
       showSearch: true,
-      zIndex: 1e4
-    }, getSchemaXOption(this.instance.schema, "emojiButton"));
+      zIndex: 1e4,
+      position: "auto"
+    }, emojiButtonOptions);
     this.emojiButton = new window.EmojiButton(options);
   }
   addEventListeners() {
@@ -3337,8 +3342,8 @@ class EditorNumberInput extends EditorNumber {
 class EditorNumberInputNullable extends EditorNumberInput {
   static resolves(schema) {
     const schemaType = getSchemaType(schema);
-    const schemaIsNullable = getSchemaXOption(schema, "nullable");
-    return isSet(schemaIsNullable) && schemaIsNullable === true && isSet(schemaType) && isArray(schemaType) && schemaType.length === 2 && schemaType.includes("null") && (schemaType.includes("number") || schemaType.includes("integer"));
+    const format2 = getSchemaXOption(schema, "format");
+    return isSet(format2) && format2 === "number-nullable" && isSet(schemaType) && isArray(schemaType) && schemaType.length === 2 && schemaType.includes("null") && (schemaType.includes("number") || schemaType.includes("integer"));
   }
   addEventListeners() {
     this.control.input.addEventListener("change", () => {
@@ -4239,7 +4244,8 @@ class EditorNull extends Editor {
 }
 class EditorStringQuill extends EditorString {
   static resolves(schema) {
-    return window.Quill && getSchemaType(schema) === "string" && isSet(getSchemaXOption(schema, "quill"));
+    const format2 = getSchemaXOption(schema, "format");
+    return isSet(format2) && format2 === "quill" && window.Quill && getSchemaType(schema) === "string";
   }
   build() {
     this.control = this.theme.getPlaceholderControl({
@@ -4251,7 +4257,8 @@ class EditorStringQuill extends EditorString {
       info: this.getInfo()
     });
     try {
-      this.quill = new window.Quill(this.control.placeholder, getSchemaXOption(this.instance.schema, "quill"));
+      const quillOptions = getSchemaXOption(this.instance.schema, "quill") ?? {};
+      this.quill = new window.Quill(this.control.placeholder, quillOptions);
     } catch (e) {
       console.error("Quill is not available or not loaded correctly.", e);
     }
@@ -4278,7 +4285,8 @@ class EditorStringQuill extends EditorString {
 }
 class EditorStringJodit extends EditorString {
   static resolves(schema) {
-    return window.Jodit && getSchemaType(schema) === "string" && isSet(getSchemaXOption(schema, "jodit"));
+    const format2 = getSchemaXOption(schema, "format");
+    return isSet(format2) && format2 === "jodit" && window.Jodit && getSchemaType(schema) === "string";
   }
   build() {
     this.control = this.theme.getTextareaControl({
@@ -4290,7 +4298,8 @@ class EditorStringJodit extends EditorString {
       info: this.getInfo()
     });
     try {
-      this.jodit = window.Jodit.make(this.control.input, getSchemaXOption(this.instance.schema, "jodit"));
+      const joditOptions = getSchemaXOption(this.instance.schema, "jodit") ?? {};
+      this.jodit = window.Jodit.make(this.control.input, joditOptions);
     } catch (e) {
       console.error("Jodit is not available or not loaded correctly.", e);
     }
@@ -4321,7 +4330,8 @@ class EditorStringJodit extends EditorString {
 }
 class EditorStringFlatpickr extends EditorString {
   static resolves(schema) {
-    return window.flatpickr && getSchemaType(schema) === "string" && isSet(getSchemaXOption(schema, "flatpickr"));
+    const format2 = getSchemaXOption(schema, "format");
+    return isSet(format2) && format2 === "flatpickr" && window.flatpickr && getSchemaType(schema) === "string";
   }
   build() {
     this.control = this.theme.getInputControl({
@@ -4334,7 +4344,8 @@ class EditorStringFlatpickr extends EditorString {
       info: this.getInfo()
     });
     try {
-      this.flatpickr = window.flatpickr(this.control.input, getSchemaXOption(this.instance.schema, "flatpickr"));
+      const flatpickrOptions = getSchemaXOption(this.instance.schema, "flatpickr") ?? {};
+      this.flatpickr = window.flatpickr(this.control.input, flatpickrOptions);
     } catch (e) {
       console.error("Flatpickr is not available or not loaded correctly.", e);
     }
@@ -4357,8 +4368,8 @@ class EditorStringIMask extends EditorString {
   static resolves(schema) {
     const hasSchemaTypeString = getSchemaType(schema) === "string";
     const imaskAvailable = window.IMask;
-    const hasXImask = getSchemaXOption(schema, "imask");
-    return hasSchemaTypeString && hasXImask && imaskAvailable;
+    const format2 = getSchemaXOption(schema, "format");
+    return isSet(format2) && format2 === "imask" && hasSchemaTypeString && imaskAvailable;
   }
   build() {
     this.control = this.theme.getInputControl({
@@ -4398,7 +4409,8 @@ class EditorStringIMask extends EditorString {
 }
 class EditorNumberRaty extends EditorNumber {
   static resolves(schema) {
-    return typeof Raty !== "undefined" && getSchemaType(schema) === "number" && isSet(getSchemaXOption(schema, "raty"));
+    const format2 = getSchemaXOption(schema, "format");
+    return isSet(format2) && format2 === "raty" && typeof Raty !== "undefined" && getSchemaType(schema) === "number";
   }
   build() {
     this.control = this.theme.getPlaceholderControl({
@@ -4410,11 +4422,12 @@ class EditorNumberRaty extends EditorNumber {
       info: this.getInfo()
     });
     try {
-      this.raty = new Raty(this.control.placeholder, Object.assign({}, getSchemaXOption(this.instance.schema, "raty"), {
+      const ratyOptions = getSchemaXOption(this.instance.schema, "raty") ?? {};
+      this.raty = new Raty(this.control.placeholder, Object.assign({}, ratyOptions), {
         click: (score) => {
           this.instance.setValue(score, true, "user");
         }
-      }));
+      });
       this.raty.init();
     } catch (e) {
       console.error("Raty is not available or not loaded correctly.", e);

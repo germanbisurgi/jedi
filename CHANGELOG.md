@@ -1,3 +1,7 @@
+### 0.3.6
+
+- Enforce the use of "x-format" for consistency
+
 ### 0.3.5
 
 - Added number input nullable editor and example

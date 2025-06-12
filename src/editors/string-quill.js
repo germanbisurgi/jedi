@@ -8,7 +8,12 @@ import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
  */
 class EditorStringQuill extends EditorString {
   static resolves (schema) {
-    return window.Quill && getSchemaType(schema) === 'string' && isSet(getSchemaXOption(schema, 'quill'))
+    const format = getSchemaXOption(schema, 'format')
+
+    return isSet(format) &&
+      format === 'quill' &&
+      window.Quill &&
+      getSchemaType(schema) === 'string'
   }
 
   build () {
@@ -22,7 +27,8 @@ class EditorStringQuill extends EditorString {
     })
 
     try {
-      this.quill = new window.Quill(this.control.placeholder, getSchemaXOption(this.instance.schema, 'quill'))
+      const quillOptions = getSchemaXOption(this.instance.schema, 'quill') ?? {}
+      this.quill = new window.Quill(this.control.placeholder, quillOptions)
     } catch (e) {
       console.error('Quill is not available or not loaded correctly.', e)
     }

@@ -16,9 +16,9 @@ import {
 class EditorNumberInputNullable extends EditorNumberInput {
   static resolves (schema) {
     const schemaType = getSchemaType(schema)
-    const schemaIsNullable = getSchemaXOption(schema, 'nullable')
-    return isSet(schemaIsNullable) &&
-      schemaIsNullable === true &&
+    const format = getSchemaXOption(schema, 'format')
+    return isSet(format) &&
+      format === 'number-nullable' &&
       isSet(schemaType) &&
       isArray(schemaType) &&
       schemaType.length === 2 &&

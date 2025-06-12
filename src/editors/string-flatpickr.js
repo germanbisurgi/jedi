@@ -8,7 +8,11 @@ import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
  */
 class EditorStringFlatpickr extends EditorString {
   static resolves (schema) {
-    return window.flatpickr && getSchemaType(schema) === 'string' && isSet(getSchemaXOption(schema, 'flatpickr'))
+    const format = getSchemaXOption(schema, 'format')
+    return isSet(format) &&
+      format === 'flatpickr' &&
+      window.flatpickr &&
+      getSchemaType(schema) === 'string'
   }
 
   build () {
@@ -23,7 +27,8 @@ class EditorStringFlatpickr extends EditorString {
     })
 
     try {
-      this.flatpickr = window.flatpickr(this.control.input, getSchemaXOption(this.instance.schema, 'flatpickr'))
+      const flatpickrOptions = getSchemaXOption(this.instance.schema, 'flatpickr') ?? {}
+      this.flatpickr = window.flatpickr(this.control.input, flatpickrOptions)
     } catch (e) {
       console.error('Flatpickr is not available or not loaded correctly.', e)
     }

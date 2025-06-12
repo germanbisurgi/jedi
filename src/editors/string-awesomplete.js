@@ -8,7 +8,12 @@ import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
  */
 class EditorStringAwesomplete extends EditorString {
   static resolves (schema) {
-    return window.Awesomplete && getSchemaType(schema) === 'string' && isSet(getSchemaXOption(schema, 'awesomplete'))
+    const format = getSchemaXOption(schema, 'format')
+
+    return isSet(format) &&
+      format === 'awesomplete' &&
+      window.Awesomplete &&
+      getSchemaType(schema) === 'string'
   }
 
   build () {
@@ -23,7 +28,8 @@ class EditorStringAwesomplete extends EditorString {
     })
 
     try {
-      this.awesomplete = new window.Awesomplete(this.control.input, getSchemaXOption(this.instance.schema, 'awesomplete'))
+      const awesompleteOptions = getSchemaXOption(this.instance.schema, 'awesomplete') ?? {}
+      this.awesomplete = new window.Awesomplete(this.control.input, awesompleteOptions)
       this.control.container.querySelector('.awesomplete').style.display = 'block'
     } catch (e) {
       console.error('Awesomplete is not available or not loaded correctly.', e)

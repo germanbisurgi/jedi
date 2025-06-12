@@ -8,7 +8,12 @@ import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
  */
 class EditorStringEmojiButton extends EditorString {
   static resolves (schema) {
-    return window.EmojiButton && getSchemaType(schema) === 'string' && isSet(getSchemaXOption(schema, 'emojiButton'))
+    const format = getSchemaXOption(schema, 'format')
+
+    return isSet(format) &&
+      format === 'emojiButton' &&
+      window.EmojiButton &&
+      getSchemaType(schema) === 'string'
   }
 
   build () {
@@ -25,13 +30,16 @@ class EditorStringEmojiButton extends EditorString {
     this.control.input.classList.add('jedi-emoji-button')
     this.control.input.value = '😀'
 
+    const emojiButtonOptions = getSchemaXOption(this.instance.schema, 'emojiButton') ?? {}
+
     const options = Object.assign({
       theme: 'auto',
       autoHide: true,
       showPreview: false,
       showSearch: true,
-      zIndex: 10000
-    }, getSchemaXOption(this.instance.schema, 'emojiButton'))
+      zIndex: 10000,
+      position: 'auto'
+    }, emojiButtonOptions)
 
     this.emojiButton = new window.EmojiButton(options)
   }

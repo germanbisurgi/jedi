@@ -4,6 +4,7 @@
   "description": "Jodit - Best WYSIWYG Editor for You.",
   "default": "Jodit default",
   "minLength": 20,
+  "x-format": "jodit",
   "x-jodit": {},
   "x-info": {
     "variant": "modal",

@@ -8,7 +8,12 @@ import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
  */
 class EditorStringJodit extends EditorString {
   static resolves (schema) {
-    return window.Jodit && getSchemaType(schema) === 'string' && isSet(getSchemaXOption(schema, 'jodit'))
+    const format = getSchemaXOption(schema, 'format')
+
+    return isSet(format) &&
+      format === 'jodit' &&
+      window.Jodit &&
+      getSchemaType(schema) === 'string'
   }
 
   build () {
@@ -22,7 +27,8 @@ class EditorStringJodit extends EditorString {
     })
 
     try {
-      this.jodit = window.Jodit.make(this.control.input, getSchemaXOption(this.instance.schema, 'jodit'))
+      const joditOptions = getSchemaXOption(this.instance.schema, 'jodit') ?? {}
+      this.jodit = window.Jodit.make(this.control.input, joditOptions)
     } catch (e) {
       console.error('Jodit is not available or not loaded correctly.', e)
     }

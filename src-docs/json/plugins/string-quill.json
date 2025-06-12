@@ -4,6 +4,7 @@
   "description": "Quill is a modern WYSIWYG editor built for compatibility and extensibility.",
   "default": "Quill default",
   "minLength": 3,
+  "x-format": "quill",
   "x-quill": {
     "theme": "snow"
   },

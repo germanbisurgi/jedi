@@ -10,7 +10,12 @@ import { getSchemaType, getSchemaXOption } from '../helpers/schema.js'
  */
 class EditorNumberRaty extends EditorNumber {
   static resolves (schema) {
-    return typeof Raty !== 'undefined' && getSchemaType(schema) === 'number' && isSet(getSchemaXOption(schema, 'raty'))
+    const format = getSchemaXOption(schema, 'format')
+
+    return isSet(format) &&
+      format === 'raty' &&
+      typeof Raty !== 'undefined' &&
+      getSchemaType(schema) === 'number'
   }
 
   build () {
@@ -24,11 +29,13 @@ class EditorNumberRaty extends EditorNumber {
     })
 
     try {
-      this.raty = new Raty(this.control.placeholder, Object.assign({}, getSchemaXOption(this.instance.schema, 'raty'), {
+      const ratyOptions = getSchemaXOption(this.instance.schema, 'raty') ?? {}
+
+      this.raty = new Raty(this.control.placeholder, Object.assign({}, ratyOptions), {
         click: (score) => {
           this.instance.setValue(score, true, 'user')
         }
-      }))
+      })
       this.raty.init()
     } catch (e) {
       console.error('Raty is not available or not loaded correctly.', e)
