@@ -1,3 +1,7 @@
+### 0.3.7
+
+- Fixed array items disabled state
+
 ### 0.3.6
 
 - Enforce the use of "x-format" for consistency

@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "array": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "prop": {
+            "type": "string",
+            "readOnly": true
+          }
+        }
+      }
+    }
+  }
+}

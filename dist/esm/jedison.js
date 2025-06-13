@@ -3772,6 +3772,9 @@ class EditorArray extends Editor {
     });
     this.refreshDisabledState();
     this.refreshSortable(this.control.childrenSlot);
+    this.instance.children.forEach((child) => {
+      child.ui.refreshUI();
+    });
     if (isSet(maxItems2) && maxItems2 === this.instance.value.length) {
       this.control.addBtn.setAttribute("disabled", "");
     }

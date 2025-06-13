@@ -309,6 +309,7 @@ import recursiveRefs from './json/parsing/recursive-refs.json'
 import ifThenElseValueOverrides from './json/issues/if-then-else-value-overrides.json'
 import ifThenElseInitialValue from './json/issues/if-then-else-initial-value.json'
 import ifThenElseInitialValueEnforceConst from './json/issues/if-then-else-initial-value-enforceConst.json'
+import arrayItemsDisabledStates from './json/issues/array-items-disabled-state.json'
 import {getSchemaConst} from "../src/helpers/schema.js"
 import {compileTemplate, different, isSet} from "../src/helpers/utils.js"
 
@@ -439,7 +440,8 @@ export default {
         'Fixed issues': {
           'issue/if-then-else-value-overrides': ifThenElseValueOverrides,
           'issue/if-then-else-initial-value': ifThenElseInitialValue,
-          'issue/if-then-else-initial-value-enforceConst': ifThenElseInitialValueEnforceConst
+          'issue/if-then-else-initial-value-enforceConst': ifThenElseInitialValueEnforceConst,
+          'issue/array-items-disabled-state': arrayItemsDisabledStates
         }
       },
       example: 'editors/all',
