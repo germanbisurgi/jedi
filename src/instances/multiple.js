@@ -27,6 +27,7 @@ class InstanceMultiple extends Instance {
     this.schemas = []
     this.switcherOptionValues = []
     this.switcherOptionsLabels = []
+    this.isMultiple = true
 
     this.on('set-value', () => {
       this.onSetValue()

@@ -261,7 +261,7 @@ export function combineDeep (target, ...sources) {
 
 /**
  * Merges objects but only the properties that exist in both objects
- * if they are the same type of value (excluding null values).
+ * if they are the same type of value.
  * Handles nested objects recursively.
  * @param {object} obj1 - The target object
  * @param {object} obj2 - Object whose properties are the overrides
@@ -272,13 +272,13 @@ export const overwriteExistingProperties = (obj1, obj2) => {
     if (key in obj1) {
       if (
         isSet(obj1[key]) &&
-        isSet(obj2[key]) &&
-        (
+        isSet(obj2[key]) && (
           (isObject(obj1[key]) && isObject(obj2[key])) ||
           (isArray(obj1[key]) && isArray(obj2[key])) ||
           (isString(obj1[key]) && isString(obj2[key])) ||
           (isNumber(obj1[key]) && isNumber(obj2[key])) ||
-          (isBoolean(obj1[key]) && isBoolean(obj2[key]))
+          (isBoolean(obj1[key]) && isBoolean(obj2[key])) ||
+          (isNull(obj1[key]) && isNull(obj2[key]))
         )
       ) {
         if (isObject(obj1[key]) && isObject(obj2[key])) {

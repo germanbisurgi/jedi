@@ -7,7 +7,8 @@ import {
   mergeDeep,
   clone,
   isObject,
-  overwriteExistingProperties
+  overwriteExistingProperties,
+  hasOwn
 } from '../helpers/utils.js'
 
 import {
@@ -95,6 +96,16 @@ class InstanceIfThenElse extends Instance {
 
     this.instances.forEach((instance, index) => {
       instance.off('notifyParent')
+
+      if (instance.children && isObject(value)) {
+        instance.children.forEach((child) => {
+          const shouldUpdateValue = child.isMultiple && hasOwn(value, child.getKey())
+
+          if (shouldUpdateValue) {
+            child.setValue(value[child.getKey()], false, 'api')
+          }
+        })
+      }
 
       const startingValue = this.instanceStartingValues[index]
       const currentValue = instance.getValue()

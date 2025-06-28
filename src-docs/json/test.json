@@ -1,12 +1,113 @@
 {
-  "title": "Warning messages",
-  "minLength": 4,
-  "x-my-constraint": "test",
-  "$ref": "#/$defs/flaeche_ha",
+  "$ref": "#/$defs/vorkommen",
+  "properties": {
+    "anzahl_individuen": {
+      "type": [
+        "null",
+        "integer"
+      ],
+      "minimum": 0,
+      "maximum": 9999,
+      "x-format": "number-nullable",
+      "title": "Geschätzte Anzahl Individuen im Frühjahr des aktuellen Jagdjahres?",
+      "x-options": {
+        "enforceConst": true
+      }
+    }
+  },
+  "if": {
+    "properties": {
+      "vk": {
+        "const": "ja"
+      }
+    }
+  },
+  "then": {
+    "properties": {
+      "anzahl_individuen": {
+        "type": [
+          "null",
+          "integer"
+        ],
+        "minimum": 0,
+        "maximum": 9999,
+        "x-format": "number-nullable"
+      }
+    }
+  },
+  "else": {
+    "if": {
+      "properties": {
+        "vk": {
+          "const": "nein"
+        }
+      }
+    },
+    "then": {
+      "properties": {
+        "anzahl_individuen": {
+          "type": "integer",
+          "const": 0,
+          "readOnly": true
+        }
+      }
+    },
+    "else": {
+      "if": {
+        "properties": {
+          "vk": {
+            "const": "unbekannt"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "anzahl_individuen": {
+            "const": null,
+            "readOnly": true,
+            "description": "unbekannt"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "anzahl_individuen": {
+            "const": null,
+            "readOnly": true,
+            "description": "keine Angabe"
+          }
+        }
+      }
+    }
+  },
   "$defs": {
-    "flaeche_ha": {
-      "type": "string",
-      "description": "Flächengröße in Hektar"
+    "vorkommen": {
+      "type": "object",
+      "required": [
+        "vk"
+      ],
+      "properties": {
+        "vk": {
+          "title": "Kam die Art im Frühjahr des aktuellen Jagdjahres in Ihrem Revier vor?",
+          "type": "string",
+          "enum": [
+            "ja",
+            "nein",
+            "unbekannt",
+            "keine_angabe"
+          ],
+          "x-options": {
+            "enumTitles": [
+              "ja",
+              "nein",
+              "unbekannt",
+              "keine Angabe"
+            ],
+            "enforceEnumDefault": false,
+            "format": "radios-inline"
+          }
+        }
+      }
     }
   }
 }

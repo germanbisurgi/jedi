@@ -713,7 +713,6 @@ export default {
       this.$refs.editorErrors.value = JSON.stringify(errors, null, 2)
       this.$refs.editorValue.value = JSON.stringify(this.editor.getValue(), null, 2)
       this.$refs.schema.value = JSON.stringify(this.editor.schema, null, 2)
-      // console.log(JSON.stringify(this.editor.export(), null, 2))
     },
     showValidationErrors() {
       const errors = this.editor.getErrors()

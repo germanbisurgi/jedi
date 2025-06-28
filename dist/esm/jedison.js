@@ -128,7 +128,7 @@ function combineDeep(target, ...sources) {
 const overwriteExistingProperties = (obj1, obj2) => {
   Object.keys(obj2).forEach((key) => {
     if (key in obj1) {
-      if (isSet(obj1[key]) && isSet(obj2[key]) && (isObject(obj1[key]) && isObject(obj2[key]) || isArray(obj1[key]) && isArray(obj2[key]) || isString(obj1[key]) && isString(obj2[key]) || isNumber(obj1[key]) && isNumber(obj2[key]) || isBoolean(obj1[key]) && isBoolean(obj2[key]))) {
+      if (isSet(obj1[key]) && isSet(obj2[key]) && (isObject(obj1[key]) && isObject(obj2[key]) || isArray(obj1[key]) && isArray(obj2[key]) || isString(obj1[key]) && isString(obj2[key]) || isNumber(obj1[key]) && isNumber(obj2[key]) || isBoolean(obj1[key]) && isBoolean(obj2[key]) || isNull(obj1[key]) && isNull(obj2[key]))) {
         if (isObject(obj1[key]) && isObject(obj2[key])) {
           overwriteExistingProperties(obj1[key], obj2[key]);
         } else {
@@ -2249,6 +2249,14 @@ class InstanceIfThenElse extends Instance {
     this.activeInstance.register();
     this.instances.forEach((instance, index2) => {
       instance.off("notifyParent");
+      if (instance.children && isObject(value)) {
+        instance.children.forEach((child) => {
+          const shouldUpdateValue = child.isMultiple && hasOwn(value, child.getKey());
+          if (shouldUpdateValue) {
+            child.setValue(value[child.getKey()], false, "api");
+          }
+        });
+      }
       const startingValue = this.instanceStartingValues[index2];
       const currentValue = instance.getValue();
       let instanceValue = value;
@@ -2348,6 +2356,7 @@ class InstanceMultiple extends Instance {
     this.schemas = [];
     this.switcherOptionValues = [];
     this.switcherOptionsLabels = [];
+    this.isMultiple = true;
     this.on("set-value", () => {
       this.onSetValue();
     });
