@@ -1,3 +1,7 @@
+### 0.3.8
+
+- Fixed issue with if-then-else + nullable (multiple) initial values
+
 ### 0.3.7
 
 - Fixed array items disabled state

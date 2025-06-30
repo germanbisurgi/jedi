@@ -310,6 +310,7 @@ import ifThenElseValueOverrides from './json/issues/if-then-else-value-overrides
 import ifThenElseInitialValue from './json/issues/if-then-else-initial-value.json'
 import ifThenElseInitialValueEnforceConst from './json/issues/if-then-else-initial-value-enforceConst.json'
 import arrayItemsDisabledStates from './json/issues/array-items-disabled-state.json'
+import ifThenElseNullableInitialValue from './json/issues/if-then-else-nullable-initial-value.json'
 import {getSchemaConst} from "../src/helpers/schema.js"
 import {compileTemplate, different, isSet} from "../src/helpers/utils.js"
 
@@ -441,7 +442,8 @@ export default {
           'issue/if-then-else-value-overrides': ifThenElseValueOverrides,
           'issue/if-then-else-initial-value': ifThenElseInitialValue,
           'issue/if-then-else-initial-value-enforceConst': ifThenElseInitialValueEnforceConst,
-          'issue/array-items-disabled-state': arrayItemsDisabledStates
+          'issue/array-items-disabled-state': arrayItemsDisabledStates,
+          'issue/if-then-else-nullable-initial-value': ifThenElseNullableInitialValue
         }
       },
       example: 'editors/all',
