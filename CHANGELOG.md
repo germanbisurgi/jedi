@@ -1,3 +1,7 @@
+### 0.3.9
+
+- "title" and "description" templates
+
 ### 0.3.8
 
 - Fixed issue with if-then-else + nullable (multiple) initial values

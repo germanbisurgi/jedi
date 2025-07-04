@@ -81,6 +81,12 @@ class Instance extends EventEmitter {
 
     this.key = this.path.split(this.jedison.pathSeparator).pop()
 
+    /**
+     * This property is set by it parent if it happens to be an array instance.
+     * @type {object}
+     */
+    this.arrayTemplateData = config.arrayTemplateData || {}
+
     this.init()
   }
 
@@ -251,6 +257,17 @@ class Instance extends EventEmitter {
    */
   getValue () {
     return clone(this.value)
+  }
+
+  /**
+   * Returns the data that will replace placeholders in titles, descriptions (e.g. "{{ i1 }} {{ value.title }}")
+   */
+  getTemplateData () {
+    return {
+      ...this.arrayTemplateData,
+      value: this.getValue(),
+      settings: this.jedison.options.settings
+    }
   }
 
   /**

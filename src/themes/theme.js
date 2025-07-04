@@ -739,7 +739,7 @@ class Theme {
       icon: 'add'
     })
     const fieldset = this.getFieldset()
-    const { legend, infoContainer } = this.getLegend({
+    const { legend, infoContainer, legendText } = this.getLegend({
       content: config.title,
       id: config.id,
       titleHidden: config.titleHidden
@@ -806,6 +806,7 @@ class Theme {
       ariaLive,
       propertiesActivators,
       legend,
+      legendText,
       infoContainer
     }
   }

@@ -1660,6 +1660,7 @@ class Instance extends EventEmitter {
     this.isDirty = false;
     this.watched = {};
     this.key = this.path.split(this.jedison.pathSeparator).pop();
+    this.arrayTemplateData = config.arrayTemplateData || {};
     this.init();
   }
   /**
@@ -1797,6 +1798,16 @@ class Instance extends EventEmitter {
    */
   getValue() {
     return clone(this.value);
+  }
+  /**
+   * Returns the data that will replace placeholders in titles, descriptions (e.g. "{{ i1 }} {{ value.title }}")
+   */
+  getTemplateData() {
+    return {
+      ...this.arrayTemplateData,
+      value: this.getValue(),
+      settings: this.jedison.options.settings
+    };
   }
   /**
    * Sets the instance value
@@ -2063,16 +2074,15 @@ class Editor {
     return content;
   }
   getTitle() {
-    if (this.title) {
-      return this.title;
-    }
+    let titleFromSchema = false;
     this.title = this.instance.getKey();
     const schemaTitle = getSchemaTitle(this.instance.schema);
     if (isSet(schemaTitle)) {
-      this.title = compileTemplate(schemaTitle, {
-        value: this.instance.getValue(),
-        settings: this.instance.jedison.options.settings
-      });
+      this.title = schemaTitle;
+      titleFromSchema = true;
+    }
+    if (titleFromSchema) {
+      this.title = compileTemplate(this.title, this.instance.getTemplateData());
       this.title = this.getHtmlFromMarkdown(this.title);
       const domPurifyOptions = combineDeep({}, this.instance.jedison.options.domPurifyOptions, {
         FORBID_TAGS: ["p"]
@@ -2087,10 +2097,7 @@ class Editor {
     }
     const schemaDescription = getSchemaDescription(this.instance.schema);
     if (isSet(schemaDescription)) {
-      this.description = compileTemplate(schemaDescription, {
-        value: this.instance.getValue(),
-        settings: this.instance.jedison.options.settings
-      });
+      this.description = compileTemplate(schemaDescription, this.instance.getTemplateData());
       this.description = this.getHtmlFromMarkdown(this.description);
       const domPurifyOptions = this.instance.jedison.options.domPurifyOptions;
       this.purifyContent(this.description, domPurifyOptions);
@@ -2742,7 +2749,7 @@ class InstanceArray extends Instance {
       this.refreshChildren();
     });
   }
-  createItemInstance() {
+  createItemInstance(index2) {
     let schema;
     const itemsCount = this.children.length;
     const schemaItems = getSchemaItems(this.schema);
@@ -2756,7 +2763,11 @@ class InstanceArray extends Instance {
       jedison: this.jedison,
       schema,
       path: this.path + this.jedison.pathSeparator + itemsCount,
-      parent: this
+      parent: this,
+      arrayTemplateData: {
+        i0: index2,
+        i1: index2 + 1
+      }
     });
   }
   setDefaultValue() {
@@ -2807,8 +2818,8 @@ class InstanceArray extends Instance {
     if (!isArray(value)) {
       return;
     }
-    value.forEach((itemValue) => {
-      const child = this.createItemInstance(itemValue);
+    value.forEach((itemValue, index2) => {
+      const child = this.createItemInstance(index2);
       this.children.push(child);
       child.setValue(itemValue, false);
     });
@@ -6067,7 +6078,7 @@ class Theme {
       icon: "add"
     });
     const fieldset = this.getFieldset();
-    const { legend, infoContainer } = this.getLegend({
+    const { legend, infoContainer, legendText } = this.getLegend({
       content: config.title,
       id: config.id,
       titleHidden: config.titleHidden
@@ -6121,6 +6132,7 @@ class Theme {
       ariaLive,
       propertiesActivators,
       legend,
+      legendText,
       infoContainer
     };
   }

@@ -34,7 +34,7 @@ class InstanceArray extends Instance {
     })
   }
 
-  createItemInstance () {
+  createItemInstance (index) {
     let schema
     const itemsCount = this.children.length
     const schemaItems = getSchemaItems(this.schema)
@@ -51,7 +51,11 @@ class InstanceArray extends Instance {
       jedison: this.jedison,
       schema: schema,
       path: this.path + this.jedison.pathSeparator + itemsCount,
-      parent: this
+      parent: this,
+      arrayTemplateData: {
+        i0: index,
+        i1: (index + 1)
+      }
     })
   }
 
@@ -114,8 +118,8 @@ class InstanceArray extends Instance {
       return
     }
 
-    value.forEach((itemValue) => {
-      const child = this.createItemInstance(itemValue)
+    value.forEach((itemValue, index) => {
+      const child = this.createItemInstance(index)
       this.children.push(child)
       child.setValue(itemValue, false)
     })

@@ -243,19 +243,23 @@ class Editor {
   }
 
   getTitle () {
-    if (this.title) {
-      return this.title
-    }
+    // todo: add some kind of check here to improve performance
+    // if (this.title) {
+    //   return this.title
+    // }
 
+    let titleFromSchema = false
     this.title = this.instance.getKey()
+
     const schemaTitle = getSchemaTitle(this.instance.schema)
 
     if (isSet(schemaTitle)) {
-      this.title = compileTemplate(schemaTitle, {
-        value: this.instance.getValue(),
-        settings: this.instance.jedison.options.settings
-      })
+      this.title = schemaTitle
+      titleFromSchema = true
+    }
 
+    if (titleFromSchema) {
+      this.title = compileTemplate(this.title, this.instance.getTemplateData())
       this.title = this.getHtmlFromMarkdown(this.title)
 
       const domPurifyOptions = combineDeep({}, this.instance.jedison.options.domPurifyOptions, {
@@ -276,10 +280,7 @@ class Editor {
     const schemaDescription = getSchemaDescription(this.instance.schema)
 
     if (isSet(schemaDescription)) {
-      this.description = compileTemplate(schemaDescription, {
-        value: this.instance.getValue(),
-        settings: this.instance.jedison.options.settings
-      })
+      this.description = compileTemplate(schemaDescription, this.instance.getTemplateData())
 
       this.description = this.getHtmlFromMarkdown(this.description)
 

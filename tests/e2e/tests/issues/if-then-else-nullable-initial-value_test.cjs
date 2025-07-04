@@ -6,7 +6,7 @@ const data = {
   "anzahl_individuen": 34
 }
 
-Feature('issue if-then-else-nullableinitial-value')
+Feature('issue if-then-else-initial-value-nullable')
 
 BeforeSuite(({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
@@ -14,7 +14,7 @@ BeforeSuite(({ I }) => {
   I._waitForElement('.jedi-ready')
 })
 
-Scenario('@issue @if-then-else-nullable-initial-value should set initial value correctly', ({ I }) => {
+Scenario('@issue @if-then-else-initial-value-nullable should set initial value correctly', ({ I }) => {
   I.fillField('#data', JSON.stringify(data))
   I._scrollTo('#set-data')
   I._click('#set-data')

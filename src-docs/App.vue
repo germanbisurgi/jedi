@@ -298,7 +298,6 @@ import resumeSchema from './json/examples/resume-schema.json'
 import loginExample from './json/examples/login.json'
 import contactExample from './json/examples/contact.json'
 import testJson from './json/test.json'
-// import template from './json/experimental/template.json'
 import markdownAnnotations from './json/experimental/markdon-annotations.json'
 import jsonPatch from './json/parsing/json-patch.json'
 import allOfRefs from './json/parsing/allOf-refs.json'
@@ -311,8 +310,8 @@ import ifThenElseInitialValue from './json/issues/if-then-else-initial-value.jso
 import ifThenElseInitialValueEnforceConst from './json/issues/if-then-else-initial-value-enforceConst.json'
 import arrayItemsDisabledStates from './json/issues/array-items-disabled-state.json'
 import ifThenElseNullableInitialValue from './json/issues/if-then-else-nullable-initial-value.json'
-import {getSchemaConst} from "../src/helpers/schema.js"
-import {compileTemplate, different, isSet} from "../src/helpers/utils.js"
+import templates from './json/features/templates.json'
+import {isSet} from "../src/helpers/utils.js"
 
 
 export default {
@@ -383,7 +382,7 @@ export default {
           'plugins/raty': raty,
         },
         'Features': {
-          // 'experimental/template': template,
+          'features/templates': templates,
           'features/markdown-annotations': markdownAnnotations,
           'parsing/json-patch': jsonPatch,
           'parsing/allOf-refs': allOfRefs,

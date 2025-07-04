@@ -34,7 +34,7 @@
   ],
   "items": {
     "type": "object",
-    "title": "Person",
+    "title": "Person  {{ i1 }}",
     "properties": {
       "name": {
         "title": "Name",

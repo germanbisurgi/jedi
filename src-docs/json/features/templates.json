@@ -1,0 +1,18 @@
+{
+  "title": "Templates",
+  "type": "array",
+  "description": "Titles and descriptions can include placeholders such as `i0`, `i1` that are dynamically replaced when rendering the data.\n\nAvailable placeholders:\n\n- `value` — the current value (from `getValue`); **always available**\n- `settings` — configuration options (from `jedison.options.settings`); **always available**\n- `i0` — the zero-based index of the array item; available **only if the editor is an array item editor**\n- `i1` — the one-based index of the array item; available **only if the editor is an array item editor**\n",
+  "minItems": 1,
+  "items": {
+    "title": "My object {{ i1 }} has title: {{ value.title }}",
+    "description": "My object {{ i1 }} has title: {{ value.title }}",
+    "type": "object",
+    "properties": {
+      "title": {
+        "title": "title",
+        "type": "string",
+        "default": "default"
+      }
+    }
+  }
+}
