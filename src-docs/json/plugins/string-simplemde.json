@@ -1,0 +1,14 @@
+{
+  "title": "SimpleMDE",
+  "type": "string",
+  "description": "A simple, beautiful, and embeddable JavaScript Markdown editor. Delightful editing for beginners and experts alike. Features built-in autosaving and spell checking.",
+  "default": "SimpleMDE default",
+  "minLength": 3,
+  "x-format": "simplemde",
+  "x-simplemde": {},
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
+  }
+}

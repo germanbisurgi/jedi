@@ -1,6 +1,8 @@
 ## Todo
+- fix bug with arrays with initial value
+- parse template option opt in per schema basis (performance)
 - x-selectEnum and x-selectEnumTitles
-- context params
+- context params in events
 - enum titles content parsing (to allow html icons and stuff)
 - focus issues with safari?
 - rename:

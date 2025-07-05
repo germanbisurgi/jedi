@@ -21,6 +21,7 @@ import EditorArrayNav from './editors/array-nav.js'
 import EditorArray from './editors/array.js'
 import EditorMultiple from './editors/multiple.js'
 import EditorNull from './editors/null.js'
+import EditorStringSimpleMDE from './editors/string-simplemde.js'
 import EditorStringQuill from './editors/string-quill.js'
 import EditorStringJodit from './editors/string-jodit.js'
 import EditorStringFlatpickr from './editors/string-flatpickr.js'
@@ -46,6 +47,7 @@ class UiResolver {
       EditorStringTextarea,
       EditorStringAwesomplete,
       EditorStringEmojiButton,
+      EditorStringSimpleMDE,
       EditorStringQuill,
       EditorStringJodit,
       EditorStringFlatpickr,
