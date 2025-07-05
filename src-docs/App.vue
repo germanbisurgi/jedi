@@ -282,6 +282,7 @@ import messagesByConstraint from './json/validator/messages-by-constraint.json'
 import choices from './json/plugins/array-choices.json'
 import awesomplete from './json/plugins/string-awesomplete.json'
 import emojiButton from './json/plugins/string-emoji-button.json'
+import simplemde from './json/plugins/string-simplemde.json'
 import quill from './json/plugins/string-quill.json'
 import jodit from './json/plugins/string-jodit.json'
 import flatpickr from './json/plugins/string-flatpickr.json'
@@ -379,6 +380,7 @@ export default {
           'plugins/imask-settings': imaskSettings,
           'plugins/jodit': jodit,
           'plugins/quill': quill,
+          'plugins/simplemde': simplemde,
           'plugins/raty': raty,
         },
         'Features': {

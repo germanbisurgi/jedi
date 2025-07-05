@@ -273,9 +273,10 @@ class Editor {
   }
 
   getDescription () {
-    if (this.description) {
-      return this.description
-    }
+    // todo: add some kind of check here to improve performance
+    // if (this.description) {
+    //   return this.description
+    // }
 
     const schemaDescription = getSchemaDescription(this.instance.schema)
 
