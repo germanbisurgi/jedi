@@ -32,7 +32,6 @@
 - inline switch activators
 
 - Editor: SignaturePad
-- Editor: simplemde
 - Editor: Void instance (for buttons, and other stuff). Does not register
 - Editor: input range
 - Editor: input file
