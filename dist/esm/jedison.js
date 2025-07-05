@@ -2092,9 +2092,6 @@ class Editor {
     return this.title;
   }
   getDescription() {
-    if (this.description) {
-      return this.description;
-    }
     const schemaDescription = getSchemaDescription(this.instance.schema);
     if (isSet(schemaDescription)) {
       this.description = compileTemplate(schemaDescription, this.instance.getTemplateData());
@@ -4265,6 +4262,54 @@ class EditorNull extends Editor {
     return null;
   }
 }
+class EditorStringSimpleMDE extends EditorString {
+  static resolves(schema) {
+    const format2 = getSchemaXOption(schema, "format");
+    return isSet(format2) && format2 === "simplemde" && window.SimpleMDE && getSchemaType(schema) === "string";
+  }
+  build() {
+    this.control = this.theme.getTextareaControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
+      id: this.getIdFromPath(this.instance.path),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
+      titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
+      info: this.getInfo()
+    });
+    try {
+      const simplemdeOptions = clone(getSchemaXOption(this.instance.schema, "simplemde") ?? {});
+      simplemdeOptions.element = this.control.input;
+      this.simplemde = new window.SimpleMDE(simplemdeOptions);
+    } catch (e) {
+      console.error("simpleMDE is not available or not loaded correctly.", e);
+    }
+  }
+  addEventListeners() {
+    this.simplemde.codemirror.on("blur", () => {
+      const mdeText = this.simplemde.value();
+      if (mdeText !== this.instance.getValue()) {
+        this.instance.setValue(mdeText, true, "user");
+      }
+    });
+  }
+  refreshDisabledState() {
+    if (this.disabled || this.readOnly) {
+      if (!this.simplemde.isPreviewActive()) {
+        this.simplemde.togglePreview();
+        this.control.container.querySelector(".editor-toolbar").style.display = "none";
+      }
+    } else {
+      if (this.simplemde.isPreviewActive()) {
+        this.simplemde.togglePreview();
+        this.control.container.querySelector(".editor-toolbar").style.display = "block";
+      }
+    }
+  }
+  refreshUI() {
+    super.refreshUI();
+    this.simplemde.value(this.instance.getValue());
+  }
+}
 class EditorStringQuill extends EditorString {
   static resolves(schema) {
     const format2 = getSchemaXOption(schema, "format");
@@ -4536,6 +4581,7 @@ class UiResolver {
       EditorStringTextarea,
       EditorStringAwesomplete,
       EditorStringEmojiButton,
+      EditorStringSimpleMDE,
       EditorStringQuill,
       EditorStringJodit,
       EditorStringFlatpickr,
