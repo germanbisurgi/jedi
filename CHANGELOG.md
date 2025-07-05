@@ -1,3 +1,7 @@
+### 0.3.1ß
+
+- Added SimpleMDE editor
+
 ### 0.3.9
 
 - "title" and "description" templates
