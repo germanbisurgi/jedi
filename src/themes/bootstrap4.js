@@ -111,6 +111,14 @@ class ThemeBootstrap4 extends Theme {
     return description
   }
 
+  getPropertiesGroup (config = {}) {
+    const propertiesGroup = super.getPropertiesGroup(config)
+    propertiesGroup.group.classList.add('pl-3')
+    propertiesGroup.name.classList.add('mb-3')
+    propertiesGroup.container.classList.add('mb-4')
+    return propertiesGroup
+  }
+
   getTextareaControl (config) {
     const control = super.getTextareaControl(config)
     const { container, input, label } = control

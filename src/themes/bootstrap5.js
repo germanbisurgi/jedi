@@ -115,6 +115,13 @@ class ThemeBootstrap5 extends Theme {
     return description
   }
 
+  getPropertiesGroup (config = {}) {
+    const propertiesGroup = super.getPropertiesGroup(config)
+    propertiesGroup.group.classList.add('ps-3')
+    propertiesGroup.container.classList.add('mb-4')
+    return propertiesGroup
+  }
+
   getTextareaControl (config) {
     const control = super.getTextareaControl(config)
     const { container, input, label } = control

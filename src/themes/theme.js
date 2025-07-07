@@ -430,6 +430,25 @@ class Theme {
   }
 
   /**
+   * Group for property activators
+   */
+  getPropertiesGroup (config = {}) {
+    const container = document.createElement('div')
+    container.classList.add('jedi-properties-group-container')
+
+    const group = document.createElement('div')
+    group.classList.add('jedi-properties-group')
+
+    const name = document.createElement('p')
+    name.classList.add('jedi-properties-group-name')
+    name.textContent = config.name ?? ''
+
+    container.appendChild(name)
+    container.appendChild(group)
+    return { container, group, name }
+  }
+
+  /**
    * Wrapper buttons
    */
   getBtnGroup () {

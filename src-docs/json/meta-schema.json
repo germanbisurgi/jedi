@@ -5,7 +5,8 @@
     "schema": {
       "x-deactivateNonRequired": true,
       "additionalProperties": {
-        "$ref": "#/$defs/schema"
+        "$ref": "#/$defs/schema",
+        "x-propGroup": "Object validation"
       },
       "type": "object",
       "properties": {
@@ -20,40 +21,7 @@
             "array",
             "null"
           ],
-          "x-propertyOrder": 10
-        },
-        "title": {
-          "type": "string",
-          "x-propertyOrder": 20
-        },
-        "description": {
-          "type": "string",
-          "x-propertyOrder": 30,
-          "x-format": "textarea"
-        },
-        "format": {
-          "type": "string"
-        },
-        "x-format": {
-          "type": "string"
-        },
-        "$ref": {
-          "type": "string"
-        },
-        "additionalProperties": {
-          "$ref": "#/$defs/schema"
-        },
-        "allOf": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/schema"
-          }
-        },
-        "anyOf": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/schema"
-          }
+          "x-propGroup": "Type validation"
         },
         "const": {
           "type": [
@@ -64,10 +32,28 @@
             "integer",
             "boolean",
             "null"
-          ]
+          ],
+          "x-propGroup": "Type validation"
         },
-        "contains": {
-          "$ref": "#/$defs/schema"
+        "enum": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "x-propGroup": "Type validation"
+        },
+
+        "title": {
+          "type": "string",
+          "x-propGroup": "Annotations"
+        },
+        "description": {
+          "type": "string",
+          "x-format": "textarea",
+          "x-propGroup": "Annotations"
+        },
+        "format": {
+          "type": "string",
+          "x-propGroup": "Annotations"
         },
         "default": {
           "title": "default",
@@ -79,7 +65,95 @@
             "number",
             "string",
             "integer"
-          ]
+          ],
+          "x-propGroup": "Annotations"
+        },
+        "readOnly": {
+          "type": "boolean",
+          "x-propGroup": "Annotations"
+        },
+
+        "maxLength": {
+          "type": "integer",
+          "minimum": 0,
+          "x-propGroup": "String validation"
+        },
+        "minLength": {
+          "type": "integer",
+          "minimum": 0,
+          "x-propGroup": "String validation"
+        },
+        "pattern": {
+          "type": "string",
+          "format": "regex",
+          "x-propGroup": "String validation"
+        },
+
+        "exclusiveMaximum": {
+          "type": "number",
+          "x-propGroup": "Numeric validation"
+        },
+        "exclusiveMinimum": {
+          "type": "number",
+          "x-propGroup": "Numeric validation"
+        },
+        "maximum": {
+          "type": "number",
+          "x-propGroup": "Numeric validation"
+        },
+        "minimum": {
+          "type": "number",
+          "x-propGroup": "Numeric validation"
+        },
+        "multipleOf": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "x-propGroup": "Numeric validation"
+        },
+
+        "contains": {
+          "$ref": "#/$defs/schema",
+          "x-propGroup": "Array validation"
+        },
+        "items": {
+          "$ref": "#/$defs/schema",
+          "x-propGroup": "Array validation"
+        },
+        "maxContains": {
+          "type": "integer",
+          "minimum": 0,
+          "x-propGroup": "Array validation"
+        },
+        "maxItems": {
+          "type": "integer",
+          "minimum": 0,
+          "x-propGroup": "Array validation"
+        },
+        "minContains": {
+          "type": "integer",
+          "minimum": 0,
+          "x-propGroup": "Array validation"
+        },
+        "minItems": {
+          "type": "integer",
+          "minimum": 0,
+          "x-propGroup": "Array validation"
+        },
+        "prefixItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          },
+          "x-propGroup": "Array validation"
+        },
+        "uniqueItems": {
+          "type": "boolean",
+          "x-propGroup": "Array validation"
+        },
+
+        "additionalProperties": {
+          "$ref": "#/$defs/schema",
+          "x-propGroup": "Object validation"
         },
         "dependentRequired": {
           "type": "object",
@@ -94,165 +168,153 @@
             "x-choicesOptions": {
               "addChoices": true
             }
-          }
+          },
+          "x-propGroup": "Object validation"
         },
         "dependentSchemas": {
           "type": "object",
           "additionalProperties": {
             "$ref": "#/$defs/schema"
-          }
-        },
-        "enum": {
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true
-        },
-        "exclusiveMaximum": {
-          "type": "number"
-        },
-        "exclusiveMinimum": {
-          "type": "number"
-        },
-        "if": {
-          "$ref": "#/$defs/schema"
-        },
-        "then": {
-          "$ref": "#/$defs/schema"
-        },
-        "else": {
-          "$ref": "#/$defs/schema"
-        },
-        "items": {
-          "$ref": "#/$defs/schema"
-        },
-        "maxContains": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "maximum": {
-          "type": "number"
-        },
-        "maxItems": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "maxLength": {
-          "type": "integer",
-          "minimum": 0
+          },
+          "x-propGroup": "Object validation"
         },
         "maxProperties": {
           "type": "integer",
-          "minimum": 0
-        },
-        "minContains": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "minimum": {
-          "type": "number"
-        },
-        "minItems": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "minLength": {
-          "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "x-propGroup": "Object validation"
         },
         "minProperties": {
           "type": "integer",
-          "minimum": 0
-        },
-        "multipleOf": {
-          "type": "number",
-          "exclusiveMinimum": 0
-        },
-        "not": {
-          "$ref": "#/$defs/schema"
-        },
-        "oneOf": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/schema"
-          }
-        },
-        "pattern": {
-          "type": "string",
-          "format": "regex"
+          "minimum": 0,
+          "x-propGroup": "Object validation"
         },
         "patternProperties": {
           "type": "object",
           "additionalProperties": {
             "$ref": "#/$defs/schema"
-          }
-        },
-        "prefixItems": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/schema"
-          }
+          },
+          "x-propGroup": "Object validation"
         },
         "properties": {
           "type": "object",
           "additionalProperties": {
             "$ref": "#/$defs/schema"
-          }
-        },
-        "readOnly": {
-          "type": "boolean"
+          },
+          "x-propGroup": "Object validation"
         },
         "required": {
           "x-format": "table",
+          "x-propGroup": "Object validation",
           "type": "array",
           "uniqueItems": true,
           "items": {
             "type": "string"
           }
         },
-        "uniqueItems": {
-          "type": "boolean"
+
+        "$ref": {
+          "type": "string",
+          "x-propGroup": "Composition"
+        },
+        "allOf": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          },
+          "x-propGroup": "Composition"
+        },
+        "anyOf": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          },
+          "x-propGroup": "Composition"
+        },
+        "if": {
+          "$ref": "#/$defs/schema",
+          "x-propGroup": "Composition"
+        },
+        "then": {
+          "$ref": "#/$defs/schema",
+          "x-propGroup": "Composition"
+        },
+        "else": {
+          "$ref": "#/$defs/schema",
+          "x-propGroup": "Composition"
+        },
+        "not": {
+          "$ref": "#/$defs/schema",
+          "x-propGroup": "Composition"
+        },
+        "oneOf": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/schema"
+          },
+          "x-propGroup": "Composition"
+        },
+
+        "x-format": {
+          "type": "string",
+          "x-propGroup": "Options"
         },
         "x-titleIconClass": {
-          "type": "string"
+          "type": "string",
+          "x-propGroup": "Options"
         },
         "x-titleTemplate": {
-          "type": "string"
+          "type": "string",
+          "x-propGroup": "Options"
         },
         "x-switcherTitle": {
-          "type": "string"
+          "type": "string",
+          "x-propGroup": "Options"
+        },
+        "x-propGroup": {
+          "type": "string",
+          "x-propGroup": "Options"
         },
         "x-grid": {
-          "type": "object"
+          "type": "object",
+          "x-propGroup": "Options"
         },
         "x-enumTitles": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "x-propGroup": "Options"
         },
         "x-messages": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "x-propGroup": "Options"
         },
         "x-titleHidden": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-propGroup": "Options"
         },
         "x-enableCollapseToggle": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-propGroup": "Options"
         },
         "x-startCollapsed": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-propGroup": "Options"
         },
         "x-showErrors": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-propGroup": "Options"
         },
         "x-deactivateNonRequired": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-propGroup": "Options"
         },
         "x-assertFormat": {
-          "type": "boolean"
+          "type": "boolean",
+          "x-propGroup": "Options"
         }
       }
     }

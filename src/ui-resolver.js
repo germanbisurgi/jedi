@@ -26,6 +26,7 @@ import EditorStringQuill from './editors/string-quill.js'
 import EditorStringJodit from './editors/string-jodit.js'
 import EditorStringFlatpickr from './editors/string-flatpickr.js'
 import EditorStringIMask from './editors/string-imask.js'
+import EditorNumberImask from './editors/number-imask.js'
 import EditorNumberRaty from './editors/number-raty.js'
 import EditorIfThenElse from './editors/if-then-else.js'
 import EditorArrayCheckboxes from './editors/array-checkboxes.js'
@@ -53,6 +54,7 @@ class UiResolver {
       EditorStringFlatpickr,
       EditorStringIMask,
       EditorStringInput,
+      EditorNumberImask,
       EditorNumberRaty,
       EditorNumberRadio,
       EditorNumberSelect,

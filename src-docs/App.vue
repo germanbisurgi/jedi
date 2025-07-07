@@ -228,6 +228,7 @@ import objectNavHorizontal from './json/editors/object-nav-horizontal.json'
 import objectPropertyOrder from './json/editors/object-propertyOrder.json'
 import objectEnforceRequired from './json/editors/object-enforceRequired.json'
 import objectEnforceAdditionalProperties from './json/editors/object-enforceAdditionalProperties.json'
+import objectPropGroup from './json/editors/object-propGroup.json'
 import stringRadios from './json/editors/string-radios.json'
 import stringRadiosInline from './json/editors/string-radios-inline.json'
 import stringSelect from './json/editors/string-select.json'
@@ -286,6 +287,7 @@ import simplemde from './json/plugins/string-simplemde.json'
 import quill from './json/plugins/string-quill.json'
 import jodit from './json/plugins/string-jodit.json'
 import flatpickr from './json/plugins/string-flatpickr.json'
+import numberImask from './json/plugins/number-imask.json'
 import imask from './json/plugins/string-imask.json'
 import imaskSettings from './json/plugins/string-imask-settings.json'
 import raty from './json/plugins/number-raty.json'
@@ -363,6 +365,7 @@ export default {
           'editors/object-propertyOrder': objectPropertyOrder,
           'editors/object-enforceRequired': objectEnforceRequired,
           'editors/object-enforceAdditionalProperties': objectEnforceAdditionalProperties,
+          'editors/object-propGroup': objectPropGroup,
           'editors/string-radios': stringRadios,
           'editors/string-radios-inline': stringRadiosInline,
           'editors/string-select': stringSelect,
@@ -376,6 +379,7 @@ export default {
           'plugins/awesomplete': awesomplete,
           'plugins/emoji-button': emojiButton,
           'plugins/flatpickr': flatpickr,
+          'plugins/number-imask': numberImask,
           'plugins/imask': imask,
           'plugins/imask-settings': imaskSettings,
           'plugins/jodit': jodit,

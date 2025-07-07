@@ -118,6 +118,14 @@ class ThemeBootstrap3 extends Theme {
     return description
   }
 
+  getPropertiesGroup (config = {}) {
+    const propertiesGroup = super.getPropertiesGroup(config)
+    const br = document.createElement('br')
+    propertiesGroup.container.appendChild(br)
+    propertiesGroup.group.classList.add('pl-3')
+    return propertiesGroup
+  }
+
   getTextareaControl (config) {
     const control = super.getTextareaControl(config)
     const { container, input, label } = control

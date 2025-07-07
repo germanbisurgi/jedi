@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "title": "propGroup",
+  "description": "propGroups",
+  "properties": {
+    "prop": {
+      "title": "Property",
+      "type": "string"
+    },
+    "propA": {
+      "title": "Property A",
+      "type": "string",
+      "x-propGroup": "Strings"
+    },
+    "propB": {
+      "title": "Property B",
+      "type": "string",
+      "x-propGroup": "Strings"
+    },
+    "propAC": {
+      "title": "Property C",
+      "type": "number",
+      "x-propGroup": "Numbers"
+    },
+    "propD": {
+      "title": "Property D",
+      "type": "number",
+      "x-propGroup": "Numbers"
+    }
+  }
+}

@@ -26,7 +26,7 @@
 
 - object propertiesOrder as array
 - object activators sort by property order
-- object activators categories and conditional visibility?
+- object activators conditional visibility?
 - object copy value button
 - object set value button
 - inline switch activators
@@ -37,7 +37,7 @@
 - Editor: input file
 - Editor: color picker
 
-- Themes: theme option should be a  string. to better handle config and config options and avoid duplication
+- Themes: theme option should be a string. to better handle config and config options and avoid duplication
 - Themes: refactor theme.getCollapseToggle
 - Themes: ionic
 - Themes: material

@@ -3,7 +3,7 @@ import {
   equal,
   hasOwn,
   isObject,
-  isSet,
+  isSet, isString,
   pathToAttribute
 } from '../helpers/utils.js'
 import {
@@ -118,6 +118,15 @@ class EditorObject extends Editor {
         this.control.propertiesActivators.removeChild(this.control.propertiesActivators.firstChild)
       }
 
+      const {
+        container: defaultGroupContainer,
+        group: defaultGroup
+      } = this.theme.getPropertiesGroup()
+
+      this.control.propertiesActivators.appendChild(defaultGroupContainer)
+
+      const propertiesGroups = {}
+
       properties.forEach((property) => {
         const isRequired = this.instance.isRequired(property)
         const ariaLive = this.control.ariaLive
@@ -161,7 +170,21 @@ class EditorObject extends Editor {
           this.control.propertiesContainer.showModal()
         })
 
-        this.control.propertiesActivators.appendChild(checkboxControl.container)
+        const propGroup = getSchemaXOption(schema, 'propGroup')
+
+        if (isSet(propGroup) && isString(propGroup)) {
+          let propertiesGroup = propertiesGroups[propGroup]
+
+          if (!isSet(propertiesGroup)) {
+            propertiesGroup = this.theme.getPropertiesGroup({ name: propGroup })
+            propertiesGroups[propGroup] = propertiesGroup
+          }
+
+          propertiesGroup.group.appendChild(checkboxControl.container)
+          this.control.propertiesActivators.appendChild(propertiesGroup.container)
+        } else {
+          defaultGroup.appendChild(checkboxControl.container)
+        }
 
         checkbox.disabled = this.disabled || isRequired
         checkbox.checked = hasOwn(this.instance.getValue(), property)

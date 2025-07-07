@@ -46,6 +46,12 @@ module.exports = function () {
     _fillField: function (locator, value) {
       this.fillField(locator, value)
       this.pressKey('Tab')
+    },
+    _setEditorValue: function (value) {
+      this.fillField('#editor-value', value)
+      this._scrollTo('#set-value')
+      this._click('#set-value')
+      this._scrollTo('[data-path="#"]')
     }
   })
 }

@@ -1,0 +1,21 @@
+{
+  "title": "IMask Number",
+  "description": "IMask is vanilla javascript input mask.",
+  "type": "number",
+  "default": 0.5,
+  "x-format": "imask",
+  "x-imask": {
+    "thousandsSeparator": ".",
+    "radix": ",",
+    "scale": 2,
+    "padFractionalZeros": true,
+    "normalizeZeros": false,
+    "mapToRadix": ["."],
+    "autofix": "pad"
+  },
+  "x-info": {
+    "variant": "modal",
+    "title": "### Info Button title",
+    "content": "Info button content"
+  }
+}

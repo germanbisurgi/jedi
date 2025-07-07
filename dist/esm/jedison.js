@@ -3474,6 +3474,12 @@ class EditorObject extends Editor {
       while (this.control.propertiesActivators.firstChild) {
         this.control.propertiesActivators.removeChild(this.control.propertiesActivators.firstChild);
       }
+      const {
+        container: defaultGroupContainer,
+        group: defaultGroup
+      } = this.theme.getPropertiesGroup();
+      this.control.propertiesActivators.appendChild(defaultGroupContainer);
+      const propertiesGroups = {};
       properties2.forEach((property) => {
         const isRequired = this.instance.isRequired(property);
         const ariaLive = this.control.ariaLive;
@@ -3508,7 +3514,18 @@ class EditorObject extends Editor {
           this.control.propertiesContainer.close();
           this.control.propertiesContainer.showModal();
         });
-        this.control.propertiesActivators.appendChild(checkboxControl.container);
+        const propGroup = getSchemaXOption(schema, "propGroup");
+        if (isSet(propGroup) && isString(propGroup)) {
+          let propertiesGroup = propertiesGroups[propGroup];
+          if (!isSet(propertiesGroup)) {
+            propertiesGroup = this.theme.getPropertiesGroup({ name: propGroup });
+            propertiesGroups[propGroup] = propertiesGroup;
+          }
+          propertiesGroup.group.appendChild(checkboxControl.container);
+          this.control.propertiesActivators.appendChild(propertiesGroup.container);
+        } else {
+          defaultGroup.appendChild(checkboxControl.container);
+        }
         checkbox.disabled = this.disabled || isRequired;
         checkbox.checked = hasOwn(this.instance.getValue(), property);
       });
@@ -4475,6 +4492,54 @@ class EditorStringIMask extends EditorString {
     super.destroy();
   }
 }
+class EditorNumberIMask extends EditorNumber {
+  static resolves(schema) {
+    const schemaType = getSchemaType(schema);
+    const imaskAvailable = window.IMask;
+    const format2 = getSchemaXOption(schema, "format");
+    return isSet(format2) && format2 === "imask" && schemaType === "number" && imaskAvailable;
+  }
+  build() {
+    this.control = this.theme.getInputControl({
+      title: this.getTitle(),
+      description: this.getDescription(),
+      type: "text",
+      id: this.getIdFromPath(this.instance.path),
+      titleIconClass: getSchemaXOption(this.instance.schema, "titleIconClass"),
+      titleHidden: getSchemaXOption(this.instance.schema, "titleHidden"),
+      info: this.getInfo()
+    });
+    try {
+      const schemaImask = getSchemaXOption(this.instance.schema, "imask") ?? {};
+      const schemaImaskSettings = schemaImask["x-settings"];
+      const settings = schemaImaskSettings && this.instance.jedison.options.settings[schemaImaskSettings] ? this.instance.jedison.options.settings[schemaImaskSettings] : {};
+      const imaskOptions = {
+        mask: Number,
+        ...schemaImask,
+        ...settings
+      };
+      this.imask = window.IMask(this.control.input, imaskOptions);
+      this.useMaskedValue = schemaImask["x-masked"] ?? false;
+    } catch (e) {
+      console.error("IMask is not available or not loaded or configured correctly.", e);
+    }
+  }
+  addEventListeners() {
+    this.imask.on("accept", () => {
+      const value = this.imask.typedValue;
+      this.instance.setValue(value, true, "user");
+    });
+  }
+  refreshUI() {
+    this.refreshDisabledState();
+    const val = this.instance.getValue();
+    this.imask.value = val != null ? String(val) : "";
+  }
+  destroy() {
+    this.imask.destroy();
+    super.destroy();
+  }
+}
 class EditorNumberRaty extends EditorNumber {
   static resolves(schema) {
     const format2 = getSchemaXOption(schema, "format");
@@ -4587,6 +4652,7 @@ class UiResolver {
       EditorStringFlatpickr,
       EditorStringIMask,
       EditorStringInput,
+      EditorNumberIMask,
       EditorNumberRaty,
       EditorNumberRadios,
       EditorNumberSelect,
@@ -5863,6 +5929,21 @@ class Theme {
     return html;
   }
   /**
+   * Group for property activators
+   */
+  getPropertiesGroup(config = {}) {
+    const container = document.createElement("div");
+    container.classList.add("jedi-properties-group-container");
+    const group = document.createElement("div");
+    group.classList.add("jedi-properties-group");
+    const name = document.createElement("p");
+    name.classList.add("jedi-properties-group-name");
+    name.textContent = config.name ?? "";
+    container.appendChild(name);
+    container.appendChild(group);
+    return { container, group, name };
+  }
+  /**
    * Wrapper buttons
    */
   getBtnGroup() {
@@ -7027,6 +7108,13 @@ class ThemeBootstrap3 extends Theme {
     description.style.marginBottom = "5px";
     return description;
   }
+  getPropertiesGroup(config = {}) {
+    const propertiesGroup = super.getPropertiesGroup(config);
+    const br = document.createElement("br");
+    propertiesGroup.container.appendChild(br);
+    propertiesGroup.group.classList.add("pl-3");
+    return propertiesGroup;
+  }
   getTextareaControl(config) {
     const control = super.getTextareaControl(config);
     const { container, input, label } = control;
@@ -7343,6 +7431,13 @@ class ThemeBootstrap4 extends Theme {
     description.classList.add("fs-sm");
     description.classList.add("mb-1");
     return description;
+  }
+  getPropertiesGroup(config = {}) {
+    const propertiesGroup = super.getPropertiesGroup(config);
+    propertiesGroup.group.classList.add("pl-3");
+    propertiesGroup.name.classList.add("mb-3");
+    propertiesGroup.container.classList.add("mb-4");
+    return propertiesGroup;
   }
   getTextareaControl(config) {
     const control = super.getTextareaControl(config);
@@ -7685,6 +7780,12 @@ class ThemeBootstrap5 extends Theme {
     description.classList.add("text-muted");
     description.classList.add("mb-1");
     return description;
+  }
+  getPropertiesGroup(config = {}) {
+    const propertiesGroup = super.getPropertiesGroup(config);
+    propertiesGroup.group.classList.add("ps-3");
+    propertiesGroup.container.classList.add("mb-4");
+    return propertiesGroup;
   }
   getTextareaControl(config) {
     const control = super.getTextareaControl(config);

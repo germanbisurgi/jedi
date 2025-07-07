@@ -1,5 +1,7 @@
-### 0.3.1ß
+### 0.3.10
 
+- Added `x-propGroup` option
+- Added number imask editor
 - Added SimpleMDE editor
 
 ### 0.3.9
