@@ -272,6 +272,7 @@ class Instance extends EventEmitter {
 
   /**
    * Sets the instance value
+   * @returns {*} The final value after constraint enforcement
    */
   setValue (newValue, notifyParent = true, initiator = 'api') {
     const enforceConst = getSchemaXOption(this.schema, 'enforceConst') ?? this.jedison.options.enforceConst
@@ -294,8 +295,13 @@ class Instance extends EventEmitter {
       this.isDirty = true
       this.emit('change', initiator)
       this.jedison.emit('instance-change', this, initiator)
-      this.emit('notifyParent', initiator)
+
+      if (notifyParent) {
+        this.emit('notifyParent', initiator)
+      }
     }
+
+    return this.value
   }
 
   /**

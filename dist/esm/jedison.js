@@ -1811,6 +1811,7 @@ class Instance extends EventEmitter {
   }
   /**
    * Sets the instance value
+   * @returns {*} The final value after constraint enforcement
    */
   setValue(newValue, notifyParent = true, initiator = "api") {
     const enforceConst = getSchemaXOption(this.schema, "enforceConst") ?? this.jedison.options.enforceConst;
@@ -1827,8 +1828,11 @@ class Instance extends EventEmitter {
       this.isDirty = true;
       this.emit("change", initiator);
       this.jedison.emit("instance-change", this, initiator);
-      this.emit("notifyParent", initiator);
+      if (notifyParent) {
+        this.emit("notifyParent", initiator);
+      }
     }
+    return this.value;
   }
   /**
    * Fires when a child's instance state changes
@@ -2257,7 +2261,7 @@ class InstanceIfThenElse extends Instance {
         instance.children.forEach((child) => {
           const shouldUpdateValue = child.isMultiple && hasOwn(value, child.getKey());
           if (shouldUpdateValue) {
-            child.setValue(value[child.getKey()], false, "api");
+            child.setValue(value[child.getKey()], true, "api");
           }
         });
       }
@@ -2707,7 +2711,8 @@ class InstanceObject extends Instance {
         const oldValue = child.getValue();
         const newValue = value[child.getKey()];
         if (different(oldValue, newValue)) {
-          child.setValue(newValue, false, initiator);
+          const finalValue = child.setValue(newValue, false, initiator);
+          value[child.getKey()] = finalValue;
         }
       } else {
         const schema = this.getPropertySchema(propertyName);
@@ -2726,6 +2731,7 @@ class InstanceObject extends Instance {
       }
     }
     this.sortChildrenByPropertyOrder();
+    this.value = value;
   }
 }
 class InstanceArray extends Instance {
@@ -2815,11 +2821,14 @@ class InstanceArray extends Instance {
     if (!isArray(value)) {
       return;
     }
+    const correctedValues = [];
     value.forEach((itemValue, index2) => {
       const child = this.createItemInstance(index2);
       this.children.push(child);
-      child.setValue(itemValue, false);
+      const finalValue = child.setValue(itemValue, false);
+      correctedValues.push(finalValue);
     });
+    this.value = correctedValues;
   }
 }
 class InstanceString extends Instance {

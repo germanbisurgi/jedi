@@ -1,3 +1,7 @@
+### 0.3.11
+
+- improved performance
+
 ### 0.3.10
 
 - Added `x-propGroup` option

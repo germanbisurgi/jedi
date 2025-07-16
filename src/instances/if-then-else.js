@@ -102,7 +102,7 @@ class InstanceIfThenElse extends Instance {
           const shouldUpdateValue = child.isMultiple && hasOwn(value, child.getKey())
 
           if (shouldUpdateValue) {
-            child.setValue(value[child.getKey()], false, 'api')
+            child.setValue(value[child.getKey()], true, 'api')
           }
         })
       }

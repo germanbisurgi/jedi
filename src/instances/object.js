@@ -285,7 +285,9 @@ class InstanceObject extends Instance {
 
         // update child value if the old value and the new value are different
         if (different(oldValue, newValue)) {
-          child.setValue(newValue, false, initiator)
+          const finalValue = child.setValue(newValue, false, initiator)
+          // Update the value with the final value after constraint enforcement
+          value[child.getKey()] = finalValue
         }
       } else {
         // create new child instance for the new value entry having the value as default
@@ -309,6 +311,9 @@ class InstanceObject extends Instance {
     }
 
     this.sortChildrenByPropertyOrder()
+
+    // Update the object's value with the corrected values after constraint enforcement
+    this.value = value
   }
 }
 

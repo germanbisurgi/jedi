@@ -118,11 +118,16 @@ class InstanceArray extends Instance {
       return
     }
 
+    const correctedValues = []
     value.forEach((itemValue, index) => {
       const child = this.createItemInstance(index)
       this.children.push(child)
-      child.setValue(itemValue, false)
+      const finalValue = child.setValue(itemValue, false)
+      correctedValues.push(finalValue)
     })
+
+    // Update the array's value with constraint-enforced values
+    this.value = correctedValues
   }
 }
 
