@@ -39,6 +39,9 @@ class Editor {
 
     this.showingValidationErrors = false
 
+    this.markdownEnabled = false
+    this.purifyEnabled = false
+
     this.title = null
     this.description = null
 
@@ -71,6 +74,8 @@ class Editor {
    */
   init () {
     this.theme = this.instance.jedison.theme
+    this.markdownEnabled = getSchemaXOption(this.instance.schema, 'parseMarkdown') ?? this.instance.jedison.options.parseMarkdown
+    this.purifyEnabled = getSchemaXOption(this.instance.schema, 'purifyHtml') ?? this.instance.jedison.options.purifyHtml
   }
 
   /**
@@ -235,19 +240,10 @@ class Editor {
   }
 
   getHtmlFromMarkdown (content) {
-    if (this.instance.jedison.options.parseMarkdown && window.marked) {
-      return window.marked.parse(content)
-    }
-
-    return content
+    return window.marked.parse(content)
   }
 
   getTitle () {
-    // todo: add some kind of check here to improve performance
-    // if (this.title) {
-    //   return this.title
-    // }
-
     let titleFromSchema = false
     this.title = this.instance.getKey()
 
@@ -260,34 +256,28 @@ class Editor {
 
     if (titleFromSchema) {
       this.title = compileTemplate(this.title, this.instance.getTemplateData())
-      this.title = this.getHtmlFromMarkdown(this.title)
+      this.title = this.markdownEnabled ? this.getHtmlFromMarkdown(this.title) : this.title
 
       const domPurifyOptions = combineDeep({}, this.instance.jedison.options.domPurifyOptions, {
         FORBID_TAGS: ['p']
       })
 
-      this.title = this.purifyContent(this.title, domPurifyOptions)
+      this.title = this.purifyEnabled ? this.purifyContent(this.title, domPurifyOptions) : this.title
     }
 
     return this.title
   }
 
   getDescription () {
-    // todo: add some kind of check here to improve performance
-    // if (this.description) {
-    //   return this.description
-    // }
-
     const schemaDescription = getSchemaDescription(this.instance.schema)
 
     if (isSet(schemaDescription)) {
       this.description = compileTemplate(schemaDescription, this.instance.getTemplateData())
-
-      this.description = this.getHtmlFromMarkdown(this.description)
+      this.description = this.markdownEnabled ? this.getHtmlFromMarkdown(this.description) : this.description
 
       const domPurifyOptions = this.instance.jedison.options.domPurifyOptions
 
-      this.purifyContent(this.description, domPurifyOptions)
+      this.description = this.purifyEnabled ? this.purifyContent(this.description, domPurifyOptions) : this.description
     }
 
     return this.description
@@ -304,13 +294,13 @@ class Editor {
     const domPurifyOptions = this.instance.jedison.options.domPurifyOptions
 
     if (isSet(schemaInfo.title)) {
-      schemaInfo.title = this.getHtmlFromMarkdown(schemaInfo.title)
-      schemaInfo.title = this.purifyContent(schemaInfo.title, domPurifyOptions)
+      schemaInfo.title = this.markdownEnabled ? this.getHtmlFromMarkdown(schemaInfo.title) : schemaInfo.title
+      schemaInfo.title = this.purifyEnabled ? this.purifyContent(schemaInfo.title, domPurifyOptions) : schemaInfo.title
     }
 
     if (isSet(schemaInfo.content)) {
-      schemaInfo.content = this.getHtmlFromMarkdown(schemaInfo.content)
-      schemaInfo.content = this.purifyContent(schemaInfo.content, domPurifyOptions)
+      schemaInfo.content = this.markdownEnabled ? this.getHtmlFromMarkdown(schemaInfo.content) : schemaInfo.content
+      schemaInfo.content = this.purifyEnabled ? this.purifyContent(schemaInfo.content, domPurifyOptions) : schemaInfo.content
     }
 
     return schemaInfo

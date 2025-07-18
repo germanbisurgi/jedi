@@ -3,8 +3,13 @@
   "title": "markdown annotations",
   "properties": {
     "name": {
+      "x-parseMarkdown": true,
       "title": "**markdown to html title**",
       "type": "string"
+    },
+    "age": {
+      "title": "**markdown to html title**",
+      "type": "number"
     }
   }
 }

@@ -95,7 +95,7 @@ class Jedison extends EventEmitter {
      * List of registered instances
      * @type {object}
      */
-    this.instances = {}
+    this.instances = new Map()
 
     /**
      * The root editor
@@ -342,15 +342,14 @@ class Jedison extends EventEmitter {
    * Adds a child instance pointer to the instances list
    */
   register (instance) {
-    this.instances[instance.path] = instance
+    this.instances.set(instance.path, instance)
   }
 
   /**
    * Deletes a child instance pointer from the instances list
    */
   unregister (instance) {
-    this.instances[instance.path] = null
-    delete this.instances[instance.path]
+    this.instances.delete(instance.path)
   }
 
   logIfEditor (...params) {
@@ -554,7 +553,7 @@ class Jedison extends EventEmitter {
    * @return {*}
    */
   getInstance (path) {
-    return this.instances[path]
+    return this.instances.get(path)
   }
 
   /**
@@ -579,10 +578,9 @@ class Jedison extends EventEmitter {
   getErrors (filters = ['error']) {
     let results = []
 
-    Object.keys(this.instances).forEach((key) => {
-      const instance = this.instances[key]
+    for (const instance of this.instances.values()) {
       results = [...results, ...instance.getErrors()]
-    })
+    }
 
     return results.filter((error) => {
       return filters.includes(error.type.toLowerCase())
@@ -592,15 +590,14 @@ class Jedison extends EventEmitter {
   export () {
     const results = []
 
-    Object.keys(this.instances).forEach((key) => {
-      const instance = this.instances[key]
+    for (const instance of this.instances.values()) {
       results.push({
         path: instance.path ?? '-',
         type: instance.schema.type ?? '-',
         title: instance.ui.getTitle() ?? '-',
         value: instance.getValue() ?? '-'
       })
-    })
+    }
 
     return results
   }
@@ -621,10 +618,9 @@ class Jedison extends EventEmitter {
 
     const errors = errorsList ?? this.getErrors()
 
-    Object.keys(this.instances).forEach((key) => {
-      const instance = this.instances[key]
+    for (const instance of this.instances.values()) {
       instance.ui.showValidationErrors(errors, true)
-    })
+    }
   }
 
   watch (path, callback) {

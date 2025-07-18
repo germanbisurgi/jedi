@@ -709,7 +709,10 @@ export default {
         }
       }
 
+      const t1 = window.performance.now()
       this.editor = new Jedison.Create(options)
+      const t2 = window.performance.now()
+      console.log('init time', t2 - t1)
       window.editor = this.editor
       this.editorChangeHandler()
       this.editor.on('change', this.editorChangeHandler)
@@ -787,6 +790,8 @@ export default {
       newUrl += "&switcherInput=" + this.switcherInput
       newUrl += "&language=" + this.language
       newUrl += "&assertFormat=" + this.assertFormat
+      newUrl += "&parseMarkdown=" + this.parseMarkdown
+      newUrl += "&purifyHtml=" + this.purifyHtml
       newUrl += "&mergeAllOf=" + this.mergeAllOf
       newUrl += "&enforceEnum=" + this.enforceEnum
       newUrl += "&enforceRequired=" + this.enforceRequired

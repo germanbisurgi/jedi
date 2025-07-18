@@ -1,3 +1,7 @@
+### 0.3.12
+
+- improved performance
+
 ### 0.3.11
 
 - improved performance
@@ -59,8 +63,8 @@
 
 ### 0.2.1
 
-- Fixed issue with table array
-- Fixed fontawesome 3 missing button
+- Fixed issue with a table array
+- Fixed fontawesome three missing buttons
 
 ### 0.2.0
 

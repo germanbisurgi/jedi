@@ -1814,6 +1814,12 @@ class Instance extends EventEmitter {
    * @returns {*} The final value after constraint enforcement
    */
   setValue(newValue, notifyParent = true, initiator = "api") {
+    if (this.value === newValue) {
+      return this.value;
+    }
+    if (typeof this.value !== "object" && typeof newValue !== "object" && this.value === newValue) {
+      return this.value;
+    }
     const enforceConst = getSchemaXOption(this.schema, "enforceConst") ?? this.jedison.options.enforceConst;
     if (isSet(enforceConst) && equal(enforceConst, true)) {
       const schemaConst = getSchemaConst(this.schema);
@@ -1822,15 +1828,16 @@ class Instance extends EventEmitter {
       }
     }
     const valueChanged = different(this.value, newValue);
+    if (!valueChanged) {
+      return this.value;
+    }
     this.value = newValue;
+    this.isDirty = true;
     this.emit("set-value", newValue, initiator);
-    if (valueChanged) {
-      this.isDirty = true;
-      this.emit("change", initiator);
-      this.jedison.emit("instance-change", this, initiator);
-      if (notifyParent) {
-        this.emit("notifyParent", initiator);
-      }
+    this.emit("change", initiator);
+    this.jedison.emit("instance-change", this, initiator);
+    if (notifyParent) {
+      this.emit("notifyParent", initiator);
     }
     return this.value;
   }
@@ -1909,6 +1916,8 @@ class Editor {
     this.disabled = false;
     this.readOnly = this.instance.isReadOnly();
     this.showingValidationErrors = false;
+    this.markdownEnabled = false;
+    this.purifyEnabled = false;
     this.title = null;
     this.description = null;
     this.init();
@@ -1935,6 +1944,8 @@ class Editor {
    */
   init() {
     this.theme = this.instance.jedison.theme;
+    this.markdownEnabled = getSchemaXOption(this.instance.schema, "parseMarkdown") ?? this.instance.jedison.options.parseMarkdown;
+    this.purifyEnabled = getSchemaXOption(this.instance.schema, "purifyHtml") ?? this.instance.jedison.options.purifyHtml;
   }
   /**
    * Gets the json path level by counting how many "/" it has
@@ -2072,10 +2083,7 @@ class Editor {
     }
   }
   getHtmlFromMarkdown(content) {
-    if (this.instance.jedison.options.parseMarkdown && window.marked) {
-      return window.marked.parse(content);
-    }
-    return content;
+    return window.marked.parse(content);
   }
   getTitle() {
     let titleFromSchema = false;
@@ -2087,11 +2095,11 @@ class Editor {
     }
     if (titleFromSchema) {
       this.title = compileTemplate(this.title, this.instance.getTemplateData());
-      this.title = this.getHtmlFromMarkdown(this.title);
+      this.title = this.markdownEnabled ? this.getHtmlFromMarkdown(this.title) : this.title;
       const domPurifyOptions = combineDeep({}, this.instance.jedison.options.domPurifyOptions, {
         FORBID_TAGS: ["p"]
       });
-      this.title = this.purifyContent(this.title, domPurifyOptions);
+      this.title = this.purifyEnabled ? this.purifyContent(this.title, domPurifyOptions) : this.title;
     }
     return this.title;
   }
@@ -2099,9 +2107,9 @@ class Editor {
     const schemaDescription = getSchemaDescription(this.instance.schema);
     if (isSet(schemaDescription)) {
       this.description = compileTemplate(schemaDescription, this.instance.getTemplateData());
-      this.description = this.getHtmlFromMarkdown(this.description);
+      this.description = this.markdownEnabled ? this.getHtmlFromMarkdown(this.description) : this.description;
       const domPurifyOptions = this.instance.jedison.options.domPurifyOptions;
-      this.purifyContent(this.description, domPurifyOptions);
+      this.description = this.purifyEnabled ? this.purifyContent(this.description, domPurifyOptions) : this.description;
     }
     return this.description;
   }
@@ -2113,12 +2121,12 @@ class Editor {
     }
     const domPurifyOptions = this.instance.jedison.options.domPurifyOptions;
     if (isSet(schemaInfo.title)) {
-      schemaInfo.title = this.getHtmlFromMarkdown(schemaInfo.title);
-      schemaInfo.title = this.purifyContent(schemaInfo.title, domPurifyOptions);
+      schemaInfo.title = this.markdownEnabled ? this.getHtmlFromMarkdown(schemaInfo.title) : schemaInfo.title;
+      schemaInfo.title = this.purifyEnabled ? this.purifyContent(schemaInfo.title, domPurifyOptions) : schemaInfo.title;
     }
     if (isSet(schemaInfo.content)) {
-      schemaInfo.content = this.getHtmlFromMarkdown(schemaInfo.content);
-      schemaInfo.content = this.purifyContent(schemaInfo.content, domPurifyOptions);
+      schemaInfo.content = this.markdownEnabled ? this.getHtmlFromMarkdown(schemaInfo.content) : schemaInfo.content;
+      schemaInfo.content = this.purifyEnabled ? this.purifyContent(schemaInfo.content, domPurifyOptions) : schemaInfo.content;
     }
     return schemaInfo;
   }
@@ -5013,7 +5021,7 @@ class Jedison extends EventEmitter {
     }, options);
     this.rootName = "#";
     this.pathSeparator = "/";
-    this.instances = {};
+    this.instances = /* @__PURE__ */ new Map();
     this.root = null;
     this.translator = new Translator({
       language: this.options.language,
@@ -5190,14 +5198,13 @@ class Jedison extends EventEmitter {
    * Adds a child instance pointer to the instances list
    */
   register(instance) {
-    this.instances[instance.path] = instance;
+    this.instances.set(instance.path, instance);
   }
   /**
    * Deletes a child instance pointer from the instances list
    */
   unregister(instance) {
-    this.instances[instance.path] = null;
-    delete this.instances[instance.path];
+    this.instances.delete(instance.path);
   }
   logIfEditor(...params) {
     if (this.isEditor) {
@@ -5355,7 +5362,7 @@ class Jedison extends EventEmitter {
    * @return {*}
    */
   getInstance(path) {
-    return this.instances[path];
+    return this.instances.get(path);
   }
   /**
    * Disables the root instance and it's children user interfaces
@@ -5376,25 +5383,23 @@ class Jedison extends EventEmitter {
    */
   getErrors(filters = ["error"]) {
     let results = [];
-    Object.keys(this.instances).forEach((key) => {
-      const instance = this.instances[key];
+    for (const instance of this.instances.values()) {
       results = [...results, ...instance.getErrors()];
-    });
+    }
     return results.filter((error) => {
       return filters.includes(error.type.toLowerCase());
     });
   }
   export() {
     const results = [];
-    Object.keys(this.instances).forEach((key) => {
-      const instance = this.instances[key];
+    for (const instance of this.instances.values()) {
       results.push({
         path: instance.path ?? "-",
         type: instance.schema.type ?? "-",
         title: instance.ui.getTitle() ?? "-",
         value: instance.getValue() ?? "-"
       });
-    });
+    }
     return results;
   }
   /**
@@ -5411,10 +5416,9 @@ class Jedison extends EventEmitter {
       return false;
     }
     const errors = errorsList ?? this.getErrors();
-    Object.keys(this.instances).forEach((key) => {
-      const instance = this.instances[key];
+    for (const instance of this.instances.values()) {
       instance.ui.showValidationErrors(errors, true);
-    });
+    }
   }
   watch(path, callback) {
     if (!this.watched[path]) {
