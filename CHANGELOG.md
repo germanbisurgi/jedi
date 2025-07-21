@@ -1,6 +1,7 @@
 ### 0.3.12
 
-- improved performance
+- Fixed double id issue with navs
+- Improved performance
 
 ### 0.3.11
 

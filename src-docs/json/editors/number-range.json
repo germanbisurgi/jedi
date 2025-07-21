@@ -1,0 +1,82 @@
+{
+  "title": "Number Range Editor",
+  "type": "object",
+  "properties": {
+    "rangeMinMax": {
+      "type": "number",
+      "title": "Number Range with Min/Max",
+      "description": "Automatically uses range input when min and max are defined",
+      "minimum": 0,
+      "maximum": 100,
+      "default": 50
+    },
+    "rangeInteger": {
+      "type": "integer",
+      "title": "Integer Range",
+      "description": "Integer range with step=1",
+      "minimum": 1,
+      "maximum": 10,
+      "default": 5
+    },
+    "rangeExclusive": {
+      "type": "number",
+      "title": "Exclusive Range",
+      "description": "Range with exclusive minimum and maximum",
+      "exclusiveMinimum": 0,
+      "exclusiveMaximum": 1,
+      "default": 0.5
+    },
+    "rangeMultipleOf": {
+      "type": "number",
+      "title": "Range with MultipleOf",
+      "description": "Range that uses multipleOf as step",
+      "minimum": 0,
+      "maximum": 10,
+      "multipleOf": 0.25,
+      "default": 2.5
+    },
+    "rangeCustomStep": {
+      "type": "number",
+      "title": "Custom Step Range",
+      "description": "Range with custom step override using x-inputAttributes",
+      "minimum": 0,
+      "maximum": 50,
+      "x-inputAttributes": {
+        "step": "2.5"
+      },
+      "default": 25
+    },
+    "rangeExplicitFormat": {
+      "type": "number",
+      "title": "Explicit Range Format",
+      "description": "Explicitly specified as range format with custom attributes",
+      "x-format": "range",
+      "x-inputAttributes": {
+        "min": "10",
+        "max": "90",
+        "step": "5"
+      },
+      "default": 50
+    },
+    "rangeTemperature": {
+      "type": "integer",
+      "title": "Temperature (°C)",
+      "description": "Temperature range with icon",
+      "x-titleIconClass": "fa fa-thermometer-half",
+      "minimum": -10,
+      "maximum": 40,
+      "default": 20
+    },
+    "rangeVolume": {
+      "type": "integer",
+      "title": "Volume Level",
+      "description": "Volume control with hidden title",
+      "x-titleHidden": true,
+      "minimum": 0,
+      "maximum": 100,
+      "multipleOf": 5,
+      "default": 75
+    }
+  },
+  "required": ["rangeMinMax"]
+}

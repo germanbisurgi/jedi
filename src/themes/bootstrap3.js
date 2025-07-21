@@ -157,6 +157,10 @@ class ThemeBootstrap3 extends Theme {
     return control
   }
 
+  getInputRangeControl (config) {
+    return super.getInputRangeControl(config)
+  }
+
   adaptForTableInputControl (control, td) {
     super.adaptForTableInputControl(control, td)
     control.container.classList.remove('form-group')

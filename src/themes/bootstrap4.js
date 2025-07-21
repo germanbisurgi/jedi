@@ -150,6 +150,21 @@ class ThemeBootstrap4 extends Theme {
     return control
   }
 
+  getInputRangeControl (config) {
+    const control = super.getInputRangeControl(config)
+    const { container, input, label } = control
+
+    container.classList.add('form-group')
+    input.classList.add('custom-range')
+    input.classList.remove('form-control')
+
+    if (config.titleHidden) {
+      this.visuallyHidden(label)
+    }
+
+    return control
+  }
+
   adaptForTableInputControl (control, td) {
     super.adaptForTableInputControl(control, td)
     control.container.classList.remove('form-group')

@@ -220,6 +220,7 @@ import numberInputNullable from './json/editors/number-input-nullable.json'
 import numberRadios from './json/editors/number-radios.json'
 import numberRadiosInline from './json/editors/number-radios-inline.json'
 import numberSelect from './json/editors/number-select.json'
+import numberRange from './json/editors/number-range.json'
 import objectJson from './json/editors/object.json'
 import objectButtonsContent from './json/editors/object-buttons-content.json'
 import objectGrid from './json/editors/object-grid.json'
@@ -357,6 +358,7 @@ export default {
           'editors/number-radios': numberRadios,
           'editors/number-radios-inline': numberRadiosInline,
           'editors/number-select': numberSelect,
+          'editors/number-range': numberRange,
           'editors/object': objectJson,
           'editors/object-buttons-content': objectButtonsContent,
           'editors/object-grid': objectGrid,

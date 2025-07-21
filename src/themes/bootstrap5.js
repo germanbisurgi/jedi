@@ -153,6 +153,21 @@ class ThemeBootstrap5 extends Theme {
     return control
   }
 
+  getInputRangeControl (config) {
+    const control = super.getInputRangeControl(config)
+    const { container, input, label } = control
+
+    container.classList.add('mb-3')
+    input.classList.add('form-range')
+    input.classList.remove('form-control')
+
+    if (config.titleHidden) {
+      this.visuallyHidden(label)
+    }
+
+    return control
+  }
+
   adaptForTableInputControl (control, td) {
     super.adaptForTableInputControl(control, td)
     control.container.classList.remove('mb-3')

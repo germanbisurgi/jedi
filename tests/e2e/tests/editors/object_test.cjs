@@ -147,22 +147,22 @@ Scenario('@editor @object @object-nav-vertical', ({ I }) => {
   if (theme === 'barebones') {
     I._waitForElement('.jedi-nav-list')
     I.seeNumberOfVisibleElements('.jedi-nav-link', 6)
-    I._click('.jedi-nav-list [href="#root-arrays"]')
-    I._waitForText('Arrays', '#root-arrays legend')
+    I._click('.jedi-nav-list [href="#tab-pane-root-arrays"]')
+    I._waitForText('Arrays', '#tab-pane-root-arrays legend')
   }
 
   if (theme === 'bootstrap3') {
     I._waitForElement('.nav-pills')
     I.seeNumberOfVisibleElements('.nav-pills li', 6)
-    I._click('.nav-pills [href="#root-arrays"]')
-    I._waitForText('Arrays', '#root-arrays fieldset')
+    I._click('.nav-pills [href="#tab-pane-root-arrays"]')
+    I._waitForText('Arrays', '#tab-pane-root-arrays fieldset')
   }
 
   if (theme === 'bootstrap4' || theme === 'bootstrap5') {
     I._waitForElement('.nav-pills')
     I.seeNumberOfVisibleElements('.nav-link', 6)
-    I._click('.nav-pills [href="#root-arrays"]')
-    I._waitForText('Arrays', '#root-arrays fieldset')
+    I._click('.nav-pills [href="#tab-pane-root-arrays"]')
+    I._waitForText('Arrays', '#tab-pane-root-arrays fieldset')
   }
 })
 
@@ -174,21 +174,21 @@ Scenario('@editor @object @object-nav-horizontal', ({ I }) => {
   if (theme === 'barebones') {
     I._waitForElement('.jedi-nav-list')
     I.seeNumberOfVisibleElements('.jedi-nav-link', 6)
-    I._click('.jedi-nav-list [href="#root-arrays"]')
-    I._waitForText('Arrays', '#root-arrays legend')
+    I._click('.jedi-nav-list [href="#tab-pane-root-arrays"]')
+    I._waitForText('Arrays', '#tab-pane-root-arrays legend')
   }
 
   if (theme === 'bootstrap3') {
     I._waitForElement('.nav-tabs')
     I.seeNumberOfVisibleElements('.nav-tabs li', 6)
-    I._click('.nav-tabs [href="#root-arrays"]')
-    I._waitForText('Arrays', '#root-arrays fieldset')
+    I._click('.nav-tabs [href="#tab-pane-root-arrays"]')
+    I._waitForText('Arrays', '#tab-pane-root-arrays fieldset')
   }
 
   if (theme === 'bootstrap4' || theme === 'bootstrap5') {
     I._waitForElement('.nav-tabs')
     I.seeNumberOfVisibleElements('.nav-link', 6)
-    I._click('.nav-tabs [href="#root-arrays"]')
-    I._waitForText('Arrays', '#root-arrays fieldset')
+    I._click('.nav-tabs [href="#tab-pane-root-arrays"]')
+    I._waitForText('Arrays', '#tab-pane-root-arrays fieldset')
   }
 })

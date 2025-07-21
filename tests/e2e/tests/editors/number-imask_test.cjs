@@ -2,23 +2,23 @@
 
 const theme = process.env.THEME || 'barebones'
 const pathToSchema = 'plugins/number-imask'
-const valueWithErrors = ""
+const valueWithErrors = ''
 const valueDefault = 0.5
 
 Feature('IMask')
 
-BeforeSuite(({I}) => {
+BeforeSuite(({ I }) => {
   I.amOnPage(`playground.html?theme=${theme}`)
   I.selectOption('#examples', pathToSchema)
   I._waitForElement('.jedi-ready')
-});
+})
 
-Scenario('@plugin @number-imask should have @title and @description', ({I}) => {
+Scenario('@plugin @number-imask should have @title and @description', ({ I }) => {
   I._waitForText('IMask', 'label.jedi-title')
   I._waitForText('IMask is vanilla javascript input mask.', '.jedi-description')
 })
 
-Scenario('@plugin @number-imask should have @infoButton', ({I}) => {
+Scenario('@plugin @number-imask should have @infoButton', ({ I }) => {
   I._waitForElement('.jedi-info-button')
   I._click('.jedi-info-button')
   I._waitForText('Info Button title')
@@ -28,7 +28,7 @@ Scenario('@plugin @number-imask should have @infoButton', ({I}) => {
   I.waitForInvisible('Info button content')
 })
 
-Scenario('@plugin @number-imask should have a @default value', ({I}) => {
+Scenario('@plugin @number-imask should have a @default value', ({ I }) => {
   // instance
   I._waitForValue('[id="jedi-hidden-input"]', valueDefault)
 
@@ -36,7 +36,7 @@ Scenario('@plugin @number-imask should have a @default value', ({I}) => {
   I.seeInField('#root', '0,50')
 })
 
-Scenario('@plugin @number-imask should @setValue and @showValidationErrors', ({I}) => {
+Scenario('@plugin @number-imask should @setValue and @showValidationErrors', ({ I }) => {
   // No decimals
   I._setEditorValue(JSON.stringify(1234)) // instance
   I._waitForValue('[id="jedi-hidden-input"]', JSON.stringify(1234))
@@ -58,17 +58,17 @@ Scenario('@plugin @number-imask should @setValue and @showValidationErrors', ({I
   I.seeInField('#root', '0,00') // editor
 })
 
-Scenario('@plugin @number-imask should @disable', ({I}) => {
+Scenario('@plugin @number-imask should @disable', ({ I }) => {
   I._click('#disable-editor')
   I._waitForElement('#root:disabled')
 })
 
-Scenario('@plugin @number-imask should @enable', ({I}) => {
+Scenario('@plugin @number-imask should @enable', ({ I }) => {
   I._click('#enable-editor')
   I.dontSeeElement('#root:disabled')
 })
 
-Scenario('@plugin @number-imask should @destroy', ({I}) => {
+Scenario('@plugin @number-imask should @destroy', ({ I }) => {
   I._click('#destroy-editor')
   I.dontSeeElement('[data-schemapath="root"]')
 })

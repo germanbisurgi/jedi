@@ -1183,6 +1183,21 @@ class Theme {
     return { container, input, label, info, labelText, description, messages, actions }
   }
 
+  getInputRangeControl (config) {
+    const control = this.getInputControl(config)
+
+    // Create output element to display current value
+    const output = document.createElement('output')
+    output.className = 'range-output'
+    output.style.marginLeft = '10px'
+    output.style.fontWeight = 'bold'
+
+    // Insert output after the input
+    control.input.parentNode.insertBefore(output, control.input.nextSibling)
+
+    return { ...control, output }
+  }
+
   adaptForTableInputControl (control) {
     this.visuallyHidden(control.label)
     this.visuallyHidden(control.description)
@@ -1620,7 +1635,7 @@ class Theme {
     const arrayActions = document.createElement('span')
     const text = document.createElement('span')
     link.classList.add('jedi-nav-link')
-    link.setAttribute('href', '#' + config.id)
+    link.setAttribute('href', '#' + 'tab-pane-' + config.id)
     text.classList.add('jedi-nav-text')
     text.textContent = config.hasErrors ? '⚠ ' + config.title : config.title
     link.appendChild(arrayActions)
@@ -1684,7 +1699,7 @@ class Theme {
    * Set tab attributes to make it toggleable
    */
   setTabPaneAttributes (element, active, id) {
-    element.setAttribute('id', id)
+    element.setAttribute('id', 'tab-pane-' + id)
     element.classList.add('jedi-tab-pane')
   }
 

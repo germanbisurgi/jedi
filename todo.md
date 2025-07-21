@@ -1,6 +1,5 @@
 ## Todo
-- fix bug with arrays with initial value
-- parse template option opt in per schema basis (performance)
+- parse template documentation
 - x-selectEnum and x-selectEnumTitles
 - context params in events
 - enum titles content parsing (to allow html icons and stuff)
@@ -24,7 +23,6 @@
 - array copy value button
 - array set value button
 
-- object propertiesOrder as array
 - object activators sort by property order
 - object activators conditional visibility?
 - object copy value button

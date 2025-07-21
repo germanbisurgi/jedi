@@ -30,6 +30,7 @@ import EditorNumberImask from './editors/number-imask.js'
 import EditorNumberRaty from './editors/number-raty.js'
 import EditorIfThenElse from './editors/if-then-else.js'
 import EditorArrayCheckboxes from './editors/array-checkboxes.js'
+import EditorNumberRange from './editors/number-range.js'
 
 class UiResolver {
   constructor (options) {
@@ -56,6 +57,7 @@ class UiResolver {
       EditorStringInput,
       EditorNumberImask,
       EditorNumberRaty,
+      EditorNumberRange,
       EditorNumberRadio,
       EditorNumberSelect,
       EditorNumberInput,
